@@ -1,3 +1,8 @@
+# whm_Odoo_project
+用于开发Odoo项目的github仓库
+
+---
+
 # Odoo 项目常用命令指南
 
 ## 1. 环境准备
@@ -66,3 +71,4 @@ python odoo/odoo-bin -c odoo.conf --dev=all
 - `custom_addons/`: 你自己开发的模块放在这里
 - `odoo.conf`: 配置文件（数据库连接、端口等）
 - `venv/`: Python 虚拟环境
+
