@@ -1,0 +1,185 @@
+﻿venv\Scripts\python.exe : 2025-12-21 13:03:18,639 30212 WARNING ? odoo.too
+ls.config: missing --http-interface/http_interface, using 0.0.0.0 by defau
+lt, will change to 127.0.0.1 in 20.0 
+所在位置 行:1 字符: 1
++ venv\Scripts\python.exe odoo\odoo-bin -c odoo.conf -u diecut_custom - ..
+.
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (2025-12-21 13:0....0.0.1 in  
+   20.0 :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+2025-12-21 13:03:18,639 30212 INFO ? odoo: Odoo version 19.0 
+2025-12-21 13:03:18,639 30212 INFO ? odoo: Using configuration file at c:\
+users\lenovo\onedrive\desktop\workspace\my_odoo_project\odoo.conf 
+2025-12-21 13:03:18,639 30212 INFO ? odoo: addons paths: _NamespacePath(['
+C:\\Users\\Lenovo\\OneDrive\\Desktop\\workspace\\my_odoo_project\\odoo\\od
+oo\\addons', 'C:\\Users\\Lenovo\\AppData\\Local\\OpenERP S.A.\\Odoo\\addon
+s\\19.0', 'c:\\users\\lenovo\\onedrive\\desktop\\workspace\\my_odoo_projec
+t\\odoo\\addons', 'c:\\users\\lenovo\\onedrive\\desktop\\workspace\\my_odo
+o_project\\custom_addons']) 
+2025-12-21 13:03:18,639 30212 INFO ? odoo: database: odoo@localhost:5432 
+2025-12-21 13:03:19,146 30212 WARNING ? odoo.service.server: 'watchdog' mo
+dule not installed. Code autoreload feature is disabled 
+2025-12-21 13:03:19,260 30212 INFO odoo_dev_new odoo.modules.loading: load
+ing 1 modules... 
+2025-12-21 13:03:19,266 30212 INFO odoo_dev_new odoo.modules.loading: 1 mo
+dules loaded in 0.00s, 0 queries (+0 extra) 
+2025-12-21 13:03:19,300 30212 INFO odoo_dev_new odoo.modules.loading: upda
+ting modules list 
+2025-12-21 13:03:19,306 30212 INFO odoo_dev_new odoo.addons.base.models.ir
+_module: ALLOW access to module.update_list on [] to user __system__ #1 vi
+a n/a 
+2025-12-21 13:03:19,639 30212 WARNING odoo_dev_new odoo.modules.module: Mi
+ssing `author` key in manifest for 'diecut_custom', defaulting to '' 
+2025-12-21 13:03:19,639 30212 WARNING odoo_dev_new odoo.modules.module: Mi
+ssing `license` key in manifest for 'diecut_custom', defaulting to LGPL-3 
+2025-12-21 13:03:19,641 30212 WARNING odoo_dev_new odoo.modules.module: Mi
+ssing `author` key in manifest for 'diecut_custom', defaulting to '' 
+2025-12-21 13:03:19,641 30212 WARNING odoo_dev_new odoo.modules.module: Mi
+ssing `license` key in manifest for 'diecut_custom', defaulting to LGPL-3 
+2025-12-21 13:03:20,485 30212 INFO odoo_dev_new odoo.addons.base.models.ir
+_module: ALLOW access to module.button_upgrade on ['diecut_custom'] to use
+r __system__ #1 via n/a 
+2025-12-21 13:03:20,485 30212 INFO odoo_dev_new odoo.addons.base.models.ir
+_module: ALLOW access to module.update_list on ['diecut_custom'] to user _
+_system__ #1 via n/a 
+2025-12-21 13:03:20,713 30212 WARNING odoo_dev_new odoo.modules.module: Mi
+ssing `author` key in manifest for 'diecut_custom', defaulting to '' 
+2025-12-21 13:03:20,713 30212 WARNING odoo_dev_new odoo.modules.module: Mi
+ssing `license` key in manifest for 'diecut_custom', defaulting to LGPL-3 
+2025-12-21 13:03:21,296 30212 INFO odoo_dev_new odoo.addons.base.models.ir
+_module: ALLOW access to module.button_install on [] to user __system__ #1
+ via n/a 
+2025-12-21 13:03:21,667 30212 INFO odoo_dev_new odoo.modules.loading: load
+ing 135 modules... 
+2025-12-21 13:03:22,958 30212 WARNING odoo_dev_new odoo.registry: The mode
+l account.account.type has no _description 
+2025-12-21 13:03:22,969 30212 INFO odoo_dev_new odoo.modules.loading: Load
+ing module diecut_custom (110/135) 
+2025-12-21 13:03:23,164 30212 WARNING odoo_dev_new odoo.fields: Field acco
+unt.asset.category.currency_id: unknown parameter 'hide', if this is an ac
+tual parameter you may want to override the method _valid_field_parameter 
+on the relevant model in order to allow it 
+2025-12-21 13:03:23,217 30212 WARNING odoo_dev_new odoo.registry: Model at
+tribute '_sql_constraints' is no longer supported, please define model.Con
+straint on the model. 
+2025-12-21 13:03:23,242 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_1920: unknown parameter 'max_width', if this is an act
+ual parameter you may want to override the method _valid_field_parameter o
+n the relevant model in order to allow it 
+2025-12-21 13:03:23,242 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_1920: unknown parameter 'max_height', if this is an ac
+tual parameter you may want to override the method _valid_field_parameter 
+on the relevant model in order to allow it 
+2025-12-21 13:03:23,242 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_1024: unknown parameter 'max_width', if this is an act
+ual parameter you may want to override the method _valid_field_parameter o
+n the relevant model in order to allow it 
+2025-12-21 13:03:23,242 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_1024: unknown parameter 'max_height', if this is an ac
+tual parameter you may want to override the method _valid_field_parameter 
+on the relevant model in order to allow it 
+2025-12-21 13:03:23,242 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_512: unknown parameter 'max_width', if this is an actu
+al parameter you may want to override the method _valid_field_parameter on
+ the relevant model in order to allow it 
+2025-12-21 13:03:23,242 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_512: unknown parameter 'max_height', if this is an act
+ual parameter you may want to override the method _valid_field_parameter o
+n the relevant model in order to allow it 
+2025-12-21 13:03:23,243 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_256: unknown parameter 'max_width', if this is an actu
+al parameter you may want to override the method _valid_field_parameter on
+ the relevant model in order to allow it 
+2025-12-21 13:03:23,243 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_256: unknown parameter 'max_height', if this is an act
+ual parameter you may want to override the method _valid_field_parameter o
+n the relevant model in order to allow it 
+2025-12-21 13:03:23,258 30212 INFO odoo_dev_new odoo.registry: module diec
+ut_custom: creating or updating database tables 
+2025-12-21 13:03:23,401 30212 INFO odoo_dev_new odoo.schema: Keep unexpect
+ed index res_users__create_date_index on table res_users 
+2025-12-21 13:03:23,434 30212 INFO odoo_dev_new odoo.modules.loading: load
+ing diecut_custom/security/ir.model.access.csv 
+2025-12-21 13:03:23,454 30212 INFO odoo_dev_new odoo.modules.loading: load
+ing diecut_custom/data/sequence.xml 
+2025-12-21 13:03:23,460 30212 INFO odoo_dev_new odoo.modules.loading: load
+ing diecut_custom/views/material_category_view.xml 
+2025-12-21 13:03:23,500 30212 INFO odoo_dev_new odoo.modules.loading: load
+ing diecut_custom/views/material_view.xml 
+2025-12-21 13:03:23,518 30212 INFO odoo_dev_new odoo.modules.loading: load
+ing diecut_custom/views/sample_order_view.xml 
+2025-12-21 13:03:23,532 30212 INFO odoo_dev_new odoo.modules.loading: load
+ing diecut_custom/views/diecut_quote_view.xml 
+2025-12-21 13:03:23,548 30212 INFO odoo_dev_new odoo.modules.loading: load
+ing diecut_custom/views/res_partner_view.xml 
+2025-12-21 13:03:23,618 30212 INFO odoo_dev_new odoo.modules.loading: load
+ing diecut_custom/views/purchase_order_inherit_view.xml 
+2025-12-21 13:03:23,657 30212 INFO odoo_dev_new odoo.modules.loading: load
+ing diecut_custom/views/sale_order_inherit_view.xml 
+2025-12-21 13:03:23,710 30212 INFO odoo_dev_new odoo.modules.loading: load
+ing diecut_custom/views/website_templates.xml 
+2025-12-21 13:03:23,763 30212 INFO odoo_dev_new odoo.modules.loading: load
+ing diecut_custom/views/diecut_menu_view.xml 
+2025-12-21 13:03:23,793 30212 INFO odoo_dev_new odoo.addons.base.models.ir
+_module: module diecut_custom: no translation for language zh_CN 
+2025-12-21 13:03:23,840 30212 INFO odoo_dev_new odoo.modules.loading: Modu
+le diecut_custom loaded in 0.87s, 481 queries (+481 other) 
+2025-12-21 13:03:23,985 30212 INFO odoo_dev_new odoo.modules.loading: 135 
+modules loaded in 2.32s, 481 queries (+481 extra) 
+2025-12-21 13:03:24,328 30212 WARNING odoo_dev_new odoo.fields: Field acco
+unt.asset.category.currency_id: unknown parameter 'hide', if this is an ac
+tual parameter you may want to override the method _valid_field_parameter 
+on the relevant model in order to allow it 
+2025-12-21 13:03:24,331 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_1920: unknown parameter 'max_width', if this is an act
+ual parameter you may want to override the method _valid_field_parameter o
+n the relevant model in order to allow it 
+2025-12-21 13:03:24,331 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_1920: unknown parameter 'max_height', if this is an ac
+tual parameter you may want to override the method _valid_field_parameter 
+on the relevant model in order to allow it 
+2025-12-21 13:03:24,331 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_1024: unknown parameter 'max_width', if this is an act
+ual parameter you may want to override the method _valid_field_parameter o
+n the relevant model in order to allow it 
+2025-12-21 13:03:24,331 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_1024: unknown parameter 'max_height', if this is an ac
+tual parameter you may want to override the method _valid_field_parameter 
+on the relevant model in order to allow it 
+2025-12-21 13:03:24,331 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_512: unknown parameter 'max_width', if this is an actu
+al parameter you may want to override the method _valid_field_parameter on
+ the relevant model in order to allow it 
+2025-12-21 13:03:24,331 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_512: unknown parameter 'max_height', if this is an act
+ual parameter you may want to override the method _valid_field_parameter o
+n the relevant model in order to allow it 
+2025-12-21 13:03:24,332 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_256: unknown parameter 'max_width', if this is an actu
+al parameter you may want to override the method _valid_field_parameter on
+ the relevant model in order to allow it 
+2025-12-21 13:03:24,332 30212 WARNING odoo_dev_new odoo.fields: Field mate
+rial.material.image_256: unknown parameter 'max_height', if this is an act
+ual parameter you may want to override the method _valid_field_parameter o
+n the relevant model in order to allow it 
+2025-12-21 13:03:24,644 30212 INFO odoo_dev_new odoo.registry: verifying f
+ields for every extended model 
+2025-12-21 13:03:24,684 30212 ERROR odoo_dev_new odoo.schema: column "x_is
+_teacher" of relation "res_partner" contains null values
+ 
+2025-12-21 13:03:25,428 30212 INFO odoo_dev_new odoo.modules.loading: Modu
+les loaded. 
+2025-12-21 13:03:25,438 30212 WARNING odoo_dev_new odoo.schema: Missing no
+t-null constraint on res.partner.x_is_teacher 
+2025-12-21 13:03:25,449 30212 INFO odoo_dev_new odoo.registry: Registry ch
+anged, signaling through the database 
+2025-12-21 13:03:25,450 30212 INFO odoo_dev_new odoo.registry: Registry lo
+aded in 6.303s 
+2025-12-21 13:03:25,451 30212 INFO odoo_dev_new odoo.service.server: Initi
+ating shutdown 
+2025-12-21 13:03:25,451 30212 INFO odoo_dev_new odoo.service.server: Hit C
+TRL-C again or send a second signal to force the shutdown. 
+2025-12-21 13:03:25,451 30212 INFO odoo_dev_new odoo.sql_db: ConnectionPoo
+l(read/write;used=0/count=0/max=64): Closed 1 connections  

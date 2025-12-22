@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 材料列表视图 -->
+    <record id="view_material_list_custom" model="ir.ui.view">
+        <field name="name">material.material.list.custom</field>
+        <field name="model">material.material</field>
+        <field name="arch" type="xml">
+            <list string="材料">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="state" widget="badge" decoration-success="state == 'active'" decoration-info="state == 'development'"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- 材料表单视图 -->
+    <record id="view_material_form_custom" model="ir.ui.view">
+        <field name="name">material.material.form.custom</field>
+        <field name="model">material.material</field>
+        <field name="arch" type="xml">
+            <form string="材料">
+                <header>
+                    <button name="action_publish" string="发布到网站" type="object" invisible="is_published" class="oe_highlight"/>
+                    <button name="action_unpublish" string="从网站取消" type="object" invisible="not is_published"/>
+                </header>
+                <sheet>
+                    <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128'}"/>
+                    <div class="oe_title">
+                        <label for="name" string="材料名称"/>
+                        <h1><field name="name" placeholder="例如：3M 双面胶"/></h1>
+                        <label for="code" string="编号"/>
+                        <h3><field name="code"/></h3>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="category_id"/>
+                            <field name="manufacturer_id"/>
+                            <field name="brand"/>
+                        </group>
+                        <group>
+                            <field name="state"/>
+                            <field name="is_published" string="官网发布"/>
+                            <field name="website_url"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- 材料动作 -->
+    <record id="action_material_custom" model="ir.actions.act_window">
+        <field name="name">材料库明细</field>
+        <field name="res_model">material.material</field>
+        <field name="view_mode">list,form</field>
+        <field name="path">materials-diecut</field>
+    </record>
+</odoo>
+

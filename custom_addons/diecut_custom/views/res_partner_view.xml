@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 在联系人表单中添加合作伙伴类型字段 -->
+    <record id="view_partner_form_partner_type" model="ir.ui.view">
+        <field name="name">res.partner.form.partner.type</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- 在"销售与采购"标签页的开始位置添加 -->
+            <xpath expr="//page[@name='sales_purchases']//group[@name='sale']" position="before">
+                <group string="合作伙伴分类">
+                    <field name="partner_type" widget="radio" options="{'horizontal': true}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    
+    <!-- 在联系人列表视图中添加合作伙伴类型列 -->
+    <record id="view_partner_list_partner_type" model="ir.ui.view">
+        <field name="name">res.partner.list.partner.type</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list//field[@name='phone']" position="after">
+                <field name="partner_type"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

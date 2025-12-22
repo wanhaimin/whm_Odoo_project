@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_diecut_quote_form" model="ir.ui.view">
+        <field name="name">diecut.quote.form</field>
+        <field name="model">diecut.quote</field>
+        <field name="arch" type="xml">
+            <form string="模切报价">
+                <header></header>
+                <sheet>
+                    <group string="模切排版参数">
+                        <field name="total_pcs"/>
+                        <field name="diecut_pitch"/>
+                        <field name="columns"/>
+                        <field name="extra_loss_meter"/>
+                    </group>
+                    <notebook>
+                        <page string="材料明细" name="material_layers">
+                            <field name="layer_ids">
+                                <list editable="bottom" string="材料层次">
+                                    <field name="product_id"/>
+                                    <field name="slitting_width"/>
+                                    <field name="price_unit"/>
+                                    <field name="layer_sqm"/>
+                                    <field name="subtotal" sum="Total Cost"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_diecut_quote" model="ir.actions.act_window">
+        <field name="name">模切报价</field>
+        <field name="res_model">diecut.quote</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                开始第一个模切报价换算
+            </p>
+        </field>
+    </record>
+
+</odoo>
+

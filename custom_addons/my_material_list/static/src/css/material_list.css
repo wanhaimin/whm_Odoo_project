@@ -1,0 +1,159 @@
+/* 材料清单列表视图样式 - 增强版 */
+
+/* ==================== 表头样式 ==================== */
+/* 所有表头单元格强制居中对齐 - 使用多重选择器增加优先级 */
+.o_list_table thead th,
+.o_list_table thead th.o_column_sortable,
+.o_list_table thead th:not(.o_list_record_selector),
+.o_list_view thead th,
+table.o_list_table thead th {
+    text-align: center !important;
+}
+
+/* 针对 my_material 模型的表头 - 最高优先级 */
+.o_list_view[data-model="my.material"] thead th,
+.o_list_view[data-model="my.material"] thead th *,
+.o_list_view[data-model="my.material"] table thead th,
+.o_content .o_list_view[data-model="my.material"] thead th {
+    text-align: center !important;
+}
+
+/* 表头内的文字和图标也居中 */
+.o_list_table thead th .o_column_title,
+.o_list_table thead th span,
+.o_list_table thead th div {
+    text-align: center !important;
+    justify-content: center !important;
+}
+
+/* ==================== 数据行样式 ==================== */
+/* 数据单元格右对齐 */
+.o_list_table tbody td {
+    text-align: right !important;
+}
+
+/* 针对 my_material 模型的数据单元格 */
+.o_list_view[data-model="my.material"] tbody td,
+.o_list_view[data-model="my.material"] tbody td:not(.o_list_record_selector):not(.o_list_actions) {
+    text-align: right !important;
+    padding-right: 8px;
+}
+
+/* ==================== 特殊列保持居中 ==================== */
+/* 第一列（选择框列）保持居中 */
+.o_list_table tbody td.o_list_record_selector,
+.o_list_table thead th.o_list_record_selector {
+    text-align: center !important;
+}
+
+/* 操作列保持居中 */
+.o_list_table tbody td.o_list_actions,
+.o_list_table thead th.o_list_actions {
+    text-align: center !important;
+}
+
+/* 布尔字段（复选框）保持居中 */
+.o_list_table tbody td.o_boolean_toggle_cell,
+.o_list_table tbody td.o_list_button {
+    text-align: center !important;
+}
+
+/* ==================== 数字字段右对齐加强 ==================== */
+/* 确保数字、价格等字段右对齐 */
+.o_list_table tbody td.o_list_number,
+.o_list_table tbody td.o_data_cell[data-type="float"],
+.o_list_table tbody td.o_data_cell[data-type="integer"],
+.o_list_table tbody td.o_data_cell[data-type="monetary"] {
+    text-align: right !important;
+}
+
+/* ==================== 材料类别样式 ==================== */
+/* 针对 my.material.category 模型的表头 - 居中对齐 */
+.o_list_view[data-model="my.material.category"] thead th,
+.o_list_view[data-model="my.material.category"] thead th *,
+.o_list_view[data-model="my.material.category"] table thead th,
+.o_content .o_list_view[data-model="my.material.category"] thead th {
+    text-align: center !important;
+}
+
+/* 针对 my.material.category 模型的数据单元格 - 靠右对齐 */
+.o_list_view[data-model="my.material.category"] tbody td,
+.o_list_view[data-model="my.material.category"] tbody td:not(.o_list_record_selector):not(.o_list_actions) {
+    text-align: right !important;
+    padding-right: 8px;
+}
+
+/* ==================== 表格宽度控制 - 增强版 ==================== */
+/* 多层容器宽度控制，防止自动填满视窗 */
+
+/* 第1层：最外层视图容器 */
+.o_content .o_list_view[data-model="my.material"],
+.o_content .o_list_view[data-model="my.material.category"] {
+    width: fit-content !important;
+    max-width: 100% !important;
+    min-width: auto !important;
+}
+
+/* 第2层：列表渲染器 */
+.o_list_view[data-model="my.material"] .o_list_renderer,
+.o_list_view[data-model="my.material.category"] .o_list_renderer {
+    width: fit-content !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+}
+
+/* 第3层：表格容器 */
+.o_list_view[data-model="my.material"] .o_list_table_wrapper,
+.o_list_view[data-model="my.material.category"] .o_list_table_wrapper {
+    width: fit-content !important;
+    max-width: 100% !important;
+}
+
+/* 第4层：表格本身 - 最关键 */
+.o_list_view[data-model="my.material"] .o_list_table,
+.o_list_view[data-model="my.material.category"] .o_list_table,
+.o_list_view[data-model="my.material"] table.o_list_table,
+.o_list_view[data-model="my.material.category"] table.o_list_table {
+    width: fit-content !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+}
+
+/* 确保表头和表体行也不强制宽度 */
+.o_list_view[data-model="my.material"] .o_list_table thead,
+.o_list_view[data-model="my.material"] .o_list_table tbody,
+.o_list_view[data-model="my.material.category"] .o_list_table thead,
+.o_list_view[data-model="my.material.category"] .o_list_table tbody {
+    width: fit-content !important;
+}
+
+/* 行不强制宽度 */
+.o_list_view[data-model="my.material"] .o_list_table tr,
+.o_list_view[data-model="my.material.category"] .o_list_table tr {
+    width: fit-content !important;
+}
+
+/* 单元格保持设定的宽度 */
+.o_list_view[data-model="my.material"] .o_list_table th,
+.o_list_view[data-model="my.material"] .o_list_table td,
+.o_list_view[data-model="my.material.category"] .o_list_table th,
+.o_list_view[data-model="my.material.category"] .o_list_table td {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* 设置最小宽度以保持可读性 */
+.o_list_view[data-model="my.material"] .o_list_table {
+    min-width: 1200px !important;
+}
+
+.o_list_view[data-model="my.material.category"] .o_list_table {
+    min-width: 600px !important;
+}
+
+/* 移除任何可能的 flex 拉伸 */
+.o_list_view[data-model="my.material"],
+.o_list_view[data-model="my.material.category"] {
+    flex: 0 0 auto !important;
+}

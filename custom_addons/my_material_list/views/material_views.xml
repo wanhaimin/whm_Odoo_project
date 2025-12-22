@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree View -->
+    <record id="view_my_material_tree" model="ir.ui.view">
+        <field name="name">my.material.tree</field>
+        <field name="model">my.material</field>
+        <field name="arch" type="xml">
+            <list string="材料清单" multi_edit="1">
+                <field name="code" width="120px"/>
+                <field name="name" width="150px"/>
+                <field name="category_id" width="120px"/>
+                <field name="spec" width="100px"/>
+                <field name="thickness" width="80px" digits="[16, 2]"/>
+                <field name="width" width="80px" digits="[16, 0]"/>
+                <field name="length" width="80px" digits="[16, 0]"/>
+                <field name="uom" width="60px"/>
+                <field name="vendor_id" width="120px"/>
+                <field name="unit_price" width="100px"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="view_my_material_kanban" model="ir.ui.view">
+        <field name="name">my.material.kanban</field>
+        <field name="model">my.material</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="image_1920"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="d-flex">
+                            <aside class="o_kanban_image_fill_left d-none d-md-block">
+                                <field name="image_1920" widget="image" options="{'zoom': true, 'background': true, 'preventClicks': false}"/>
+                            </aside>        
+                            <main class="ps-2 pe-2">
+                                <field name="name" class="fw-bold fs-5"/>
+                                <field name="code" class="text-muted"/>
+                                <div>
+                                    <span class="text-muted">类别: </span><field name="category_id"/>
+                                </div>
+                                <div>
+                                    <span class="text-muted">价格: </span><field name="unit_price"/>
+                                </div>
+                                <div class="mt-2">
+                                    <field name="vendor_id" widget="many2one_avatar"/>
+                                </div>
+                            </main>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_my_material_search" model="ir.ui.view">
+        <field name="name">my.material.search</field>
+        <field name="model">my.material</field>
+        <field name="arch" type="xml">
+            <search string="搜索材料">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="category_id"/>
+                <field name="vendor_id"/>
+                <separator/>
+                <group name="group_by">
+                    <filter string="按类别" name="group_by_category" context="{'group_by': 'category_id'}"/>
+                    <filter string="按供应商" name="group_by_vendor" context="{'group_by': 'vendor_id'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_my_material_form" model="ir.ui.view">
+        <field name="name">my.material.form</field>
+        <field name="model">my.material</field>
+        <field name="arch" type="xml">
+            <form string="材料详情">
+                <sheet>
+                    <field name="image_1920" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="code"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="category_id"/>
+                            <field name="material_type"/>
+                        </group>
+                        <group>
+                            <field name="uom"/>
+                            <field name="unit_price"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="物理属性">
+                            <group>
+                                <group string="尺寸">
+                                    <field name="spec"/>
+                                    <field name="thickness" digits="[16, 2]"/>
+                                    <field name="width" digits="[16, 0]"/>
+                                    <field name="length" digits="[16, 0]"/>
+                                </group>
+                                <group string="特征">
+                                    <field name="color"/>
+                                    <field name="weight_gram"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="采购信息">
+                            <group>
+                                <group>
+                                    <field name="vendor_id"/>
+                                    <field name="purchase_uom"/>
+                                </group>
+                                <group>
+                                    <field name="min_order_qty"/>
+                                    <field name="lead_time"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="库存信息">
+                            <group>
+                                <field name="location"/>
+                                <field name="safety_stock"/>
+                                <field name="track_batch"/>
+                            </group>
+                        </page>
+                        <page string="备注">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_my_material" model="ir.actions.act_window">
+        <field name="name">材料清单</field>
+        <field name="res_model">my.material</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                创建第一个材料
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_my_material_root" name="材料管理" sequence="10"/>
+    <menuitem id="menu_my_material_list" name="材料清单" parent="menu_my_material_root" action="action_my_material" sequence="10"/>
+    
+    <!-- Category Menu -->
+    <menuitem id="menu_my_material_category" name="材料类别" parent="menu_my_material_root" action="action_my_material_category" sequence="20"/>
+
+</odoo>

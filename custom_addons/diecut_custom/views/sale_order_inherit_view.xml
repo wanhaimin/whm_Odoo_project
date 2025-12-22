@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_order_form_diecut_filter" model="ir.ui.view">
+        <field name="name">sale.order.form.diecut.filter</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <!-- 只显示标记为"客户"或"客户和供应商"的公司 -->
+                <attribute name="domain">[('is_company', '=', True), ('partner_type', 'in', ['customer', 'both'])]</attribute>
+                <attribute name="options">{'no_create': False, 'no_open': False}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
