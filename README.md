@@ -1,0 +1,2 @@
+# whm_Odoo_project
+用于开发Odoo项目的github仓库
