@@ -34,12 +34,12 @@
     </record>
 
     <!-- 继承材料清单列表视图 -->
-    <record id="view_my_material_tree_inherit" model="ir.ui.view">
-        <field name="name">my.material.tree.inherit</field>
+    <record id="view_my_material_list_inherit" model="ir.ui.view">
+        <field name="name">my.material.list.inherit</field>
         <field name="model">my.material</field>
         <field name="inherit_id" ref="my_material_list.view_my_material_tree"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='unit_price']" position="after">
+            <xpath expr="//field[@name='category_id']" position="after">
                 <field name="is_published" string="官网发布" widget="boolean_toggle"/>
             </xpath>
         </field>

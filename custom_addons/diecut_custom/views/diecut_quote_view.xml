@@ -17,7 +17,7 @@
                         <page string="材料明细" name="material_layers">
                             <field name="layer_ids">
                                 <list editable="bottom" string="材料层次">
-                                    <field name="product_id"/>
+                                    <field name="product_id" width="auto"/>
                                     <field name="slitting_width"/>
                                     <field name="price_unit"/>
                                     <field name="layer_sqm"/>

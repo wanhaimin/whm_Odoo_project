@@ -23,17 +23,37 @@ class MyMaterial(models.Model):
     # Relational Fields
     category_id = fields.Many2one('my.material.category', string='材料类别')
     vendor_id = fields.Many2one('res.partner', string='供应商', domain="[('supplier_rank', '>', 0)]", tracking=True)
-    
+    contact_info = fields.Char(string='联络方式')
+    incoterms = fields.Char(string='納入形態')
+    quote_date = fields.Date(string='見積時期')
+
     # Specifications
     spec = fields.Char(string='规格型号')
-    thickness = fields.Float(string='厚度 (mm)', digits=(16, 2))
-    width = fields.Float(string='宽度', digits=(16, 0))
-    length = fields.Float(string='长度 (M)', digits=(16, 0))
+    thickness = fields.Float(string='厚度 (mm)', digits=(16, 3))
+    width = fields.Float(string='宽度 (mm)', digits=(16, 2))
+    length = fields.Float(string='长度 (M)', digits=(16, 2))
     
     # Pricing & Unit
     uom = fields.Char(string='计量单位')
     unit_price = fields.Float(string='参考单价', digits='Product Price', tracking=True)
     
+    raw_material_unit_price = fields.Float(string='原材料单价', digits=(16, 4))
+    raw_material_total_price = fields.Float(string='原材料价格（整支）', digits=(16, 2))
+    price_tax_excluded = fields.Float(string='单价（不含税）', digits=(16, 4))
+    
+    price_unit = fields.Char(string='価額単位')
+    price_usd = fields.Float(string='常用価格 (USD)', digits=(16, 4))
+    price_hkd = fields.Float(string='常用価格 (HKD)', digits=(16, 4))
+    price_rmb = fields.Float(string='常用価格 (RMB)', digits=(16, 4))
+    price_jpy = fields.Float(string='常用価格 (JPY)', digits=(16, 4))
+    
+    sales_price_usd = fields.Float(string='营业用价格 (USD)', digits=(16, 4))
+    
+    rs_type = fields.Selection([
+        ('R', 'Roll'),
+        ('S', 'Sheet'),
+    ], string='R/S')
+
     description = fields.Text(string='备注')
 
     # Image

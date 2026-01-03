@@ -7,16 +7,28 @@
         <field name="model">my.material</field>
         <field name="arch" type="xml">
             <list string="材料清单" multi_edit="1">
+                <field name="quote_date" optional="show"/>
+                <field name="vendor_id" width="120px"/>
+                <field name="incoterms" optional="show"/>
                 <field name="code" width="120px"/>
                 <field name="name" width="150px"/>
                 <field name="category_id" width="120px"/>
-                <field name="spec" width="100px"/>
-                <field name="thickness" width="80px" digits="[16, 2]"/>
-                <field name="width" width="80px" digits="[16, 0]"/>
-                <field name="length" width="80px" digits="[16, 0]"/>
-                <field name="uom" width="60px"/>
-                <field name="vendor_id" width="120px"/>
-                <field name="unit_price" width="100px"/>
+                <field name="raw_material_unit_price" optional="show"/>
+                <field name="raw_material_total_price" optional="hide"/>
+                <field name="price_tax_excluded" optional="show"/>
+                <field name="color" optional="show"/>
+                <field name="thickness" width="80px" digits="[16, 3]"/>
+                <field name="width" width="80px" digits="[16, 2]"/>
+                <field name="length" width="80px" digits="[16, 2]"/>
+                <field name="rs_type" optional="show"/>
+                <field name="price_unit" optional="show"/>
+                <field name="price_usd" optional="show"/>
+                <field name="price_hkd" optional="show"/>
+                <field name="price_rmb" optional="show"/>
+                <field name="price_jpy" optional="hide"/>
+                <field name="sales_price_usd" optional="show"/>
+                <field name="min_order_qty" optional="show"/>
+                <field name="lead_time" optional="show"/>
             </list>
         </field>
     </record>
@@ -93,20 +105,39 @@
                             <field name="name"/>
                             <field name="category_id"/>
                             <field name="material_type"/>
+                            <field name="quote_date"/>
                         </group>
                         <group>
                             <field name="uom"/>
                             <field name="unit_price"/>
+                            <field name="price_unit"/>
                         </group>
                     </group>
                     <notebook>
+                        <page string="价格信息">
+                            <group>
+                                <group string="常用价格">
+                                    <field name="raw_material_unit_price"/>
+                                    <field name="raw_material_total_price"/>
+                                    <field name="price_tax_excluded"/>
+                                    <field name="price_usd"/>
+                                    <field name="price_hkd"/>
+                                    <field name="price_rmb"/>
+                                    <field name="price_jpy"/>
+                                </group>
+                                <group string="销售价格">
+                                    <field name="sales_price_usd"/>
+                                </group>
+                            </group>
+                        </page>
                         <page string="物理属性">
                             <group>
                                 <group string="尺寸">
                                     <field name="spec"/>
-                                    <field name="thickness" digits="[16, 2]"/>
-                                    <field name="width" digits="[16, 0]"/>
-                                    <field name="length" digits="[16, 0]"/>
+                                    <field name="thickness" digits="[16, 3]"/>
+                                    <field name="width" digits="[16, 2]"/>
+                                    <field name="length" digits="[16, 2]"/>
+                                    <field name="rs_type"/>
                                 </group>
                                 <group string="特征">
                                     <field name="color"/>
@@ -118,6 +149,8 @@
                             <group>
                                 <group>
                                     <field name="vendor_id"/>
+                                    <field name="contact_info"/>
+                                    <field name="incoterms"/>
                                     <field name="purchase_uom"/>
                                 </group>
                                 <group>

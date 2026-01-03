@@ -1,0 +1,15 @@
+/* Global Font Application */
+body,
+.o_web_client,
+#wrapwrap,
+.article,
+.page {
+    font-family: 'Noto Sans TC', 'Source Han Sans TC', 'Microsoft JhengHei', sans-serif !important;
+}
+
+/* Titles and Bold Text */
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+strong, b {
+    font-family: 'Noto Sans TC', 'Source Han Sans TC', 'Microsoft JhengHei', sans-serif !important;
+}

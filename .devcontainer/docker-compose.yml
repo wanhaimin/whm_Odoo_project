@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # 数据库服务
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+
+  # Odoo 服务
+  web:
+    # 这里修改你需要开发的 Odoo 版本，例如 odoo:16.0, odoo:17.0
+    image: odoo:19.0
+    depends_on:
+      - db
+    ports:
+      - "8070:8069"
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+    volumes:
+      # 【关键】把你的整个项目根目录挂载到容器的 addons 路径
+      # .. 代表上一级目录（即项目根目录）
+      - ../custom_addons:/mnt/extra-addons
+      # 持久化 Odoo 的 web 数据（如附件等）
+      - odoo-web-data:/var/lib/odoo
+    command: --dev=xml,reload
+
+volumes:
+  odoo-db-data:
+  odoo-web-data:

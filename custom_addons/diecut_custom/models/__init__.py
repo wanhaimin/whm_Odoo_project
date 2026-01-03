@@ -1,3 +1,4 @@
+from . import mold
 from . import diecut_quote
 from . import res_partner
 from . import material_category

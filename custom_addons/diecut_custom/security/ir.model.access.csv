@@ -13,3 +13,4 @@ access_diecut_quote_user,diecut.quote.user,diecut_custom.model_diecut_quote,base
 access_diecut_quote_manager,diecut.quote.manager,diecut_custom.model_diecut_quote,base.group_system,1,1,1,1
 access_diecut_quote_layer_user,diecut.quote.layer.user,diecut_custom.model_diecut_quote_layer,base.group_user,1,1,1,1
 access_diecut_quote_layer_manager,diecut.quote.layer.manager,diecut_custom.model_diecut_quote_layer,base.group_system,1,1,1,1
+access_diecut_mold,Diecut Mold Access,diecut_custom.model_diecut_mold,base.group_user,1,1,1,1

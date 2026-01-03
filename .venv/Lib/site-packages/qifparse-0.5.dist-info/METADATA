@@ -1,0 +1,124 @@
+Metadata-Version: 2.4
+Name: qifparse
+Version: 0.5
+Summary: a parser for Quicken interchange format files (.qif).
+Home-page: https://github.com/giacomos/qifparse
+Author: Giacomo Spettoli
+Author-email: giacomo.spettoli@gmail.com
+License: GPL
+Keywords: qif,Quicken interchange format,file format
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 2.5
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.2
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Utilities
+Requires-Dist: setuptools
+Requires-Dist: six
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: summary
+
+QIF Parser
+============
+
+.. image:: https://travis-ci.org/giacomos/qifparse.png?branch=master   
+    :target: https://travis-ci.org/giacomos/qifparse
+
+qifparse is a parser for Quicken interchange format files (.qif).
+
+Even if the qif format is:
+
+* quite old now
+* not supported for import by Quicken any more,
+* ambiguous in some data management (notably on dates)
+
+it's still quite commonly used by many personal finance managers.
+
+
+Usage
+======
+
+Here's a sample parsing::
+
+   >>> from qifparse.parser import QifParser
+   >>> qif = QifParser.parse(file('file.qif'))
+   >>> qif.get_accounts()
+   (<qifparse.qif.Account object at 0x16148d0>, <qifparse.qif.Account object at 0x1614850>)
+   >>> qif.accounts[0].name
+   'My Cash'
+   >>> qif.get_categories()
+   (<qifparse.qif.Category object at 0x15b3d10>, <qifparse.qif.Category object at 0x15b3450>)
+   >>> qif.accounts[0].get_transactions()
+   (<Transaction units=-6.5>, <Transaction units=-6.0>)
+   >>> str(qif)
+   '!Type:Cat\nNfood\nE\n^\nNfood:lunch\nE\n^\n!Account\nNMy Cash\nTCash\n^\n!Type:Cash...
+   ...
+
+Here's a sample of a structure creation::
+
+
+   >>> qif_obj = qif.Qif()
+   >>> acc = qif.Account(name='My Cc', account_type='Bank')
+   >>> qif_obj.add_account(acc)
+   >>> cat = qif.Category(name='food')
+   >>> qif_obj.add_category(cat)
+   >>> tr1 = qif.Transaction(amount=0.55)
+   >>> acc.add_transaction(tr1, header='!Type:Bank')
+
+   >>> tr2 = qif.Transaction()
+   >>> tr2.amount = -6.55
+   >>> tr2.to_account = 'Cash'
+   >>> acc.add_transaction(tr2)
+   >>> acc.add(tr2)
+   >>> str(qif_obj)
+   '!Type:Cat\nNfood\nE\n^\n!Account\nNMy Cc\nTBank\n^\n!Type:Bank\nD02/11/2013\nT...
+   ...
+
+More infos
+============
+For more informations about qif format:
+
+* http://en.wikipedia.org/wiki/Quicken_Interchange_Format
+* http://svn.gnucash.org/trac/browser/gnucash/trunk/src/import-export/qif-import/file-format.txt
+
+Changelog
+===========
+
+0.5 (2013-11-03)
+----------------
+* now transactions can also be outside accounts
+* moved properties to method in order to accept filters
+
+0.4 (2013-11-02)
+----------------
+* address can be multilines
+* split can have the address attribute
+* add support for Classes
+* add support for MemorizedTransaction
+
+0.3 (2013-11-02)
+----------------
+* more refactoring, now the lib is much more simple and engineered
+* improved fields validation
+
+0.2 (2013-11-02)
+----------------
+* huge refactor, now the structure can be create and modified programmatically
+
+0.1 (2013-11-01)
+----------------
+* first release on Pypi

@@ -1,0 +1,17 @@
+{
+    "name": "Odoo Dev Environment",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "web",
+    "workspaceFolder": "/mnt/extra-addons",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python"
+            ]
+        }
+    },
+    // 容器创建后自动安装依赖（如果你有 requirements.txt）
+    // 如果没有，可以把这一行删掉
+    // "postCreateCommand": "pip install -r /mnt/extra-addons/requirements.txt",
+    "remoteUser": "root"
+}

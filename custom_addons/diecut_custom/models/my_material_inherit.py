@@ -8,11 +8,14 @@ class MyMaterial(models.Model):
     # 扩展网站统计字段
     view_count = fields.Integer('浏览次数', default=0, readonly=True)
     inquiry_count = fields.Integer('询价次数', default=0, readonly=True)
-    
+
     # 扩展业务字段以支持网站展示
     application = fields.Text('应用场景', help="用于网站前端展示该材料的典型应用领域")
     process_note = fields.Text('加工工艺说明', help="用于网站前端展示加工建议")
-    
+
+    # 定义 website_url 字段
+    website_url = fields.Char('网站URL', compute='_compute_website_url', readonly=True)
+
     # 覆盖 website_url 的计算逻辑
     def _compute_website_url(self):
         for material in self:

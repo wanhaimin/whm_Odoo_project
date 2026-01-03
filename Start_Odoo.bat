@@ -1,12 +1,23 @@
 @echo off
-echo 正在启动 Odoo 服务...
-echo 项目路径: c:\Users\Lenovo\OneDrive\Desktop\workspace\my_odoo_project
+echo ==========================================
+echo       正在启动 Odoo (Docker模式)...
+echo ==========================================
 
-:: 切换到项目目录
-cd /d "c:\Users\Lenovo\OneDrive\Desktop\workspace\my_odoo_project"
+:: 进入配置文件目录
+cd .devcontainer
 
-:: 使用虚拟环境的 Python 启动 Odoo
-".\venv\Scripts\python.exe" odoo/odoo-bin -c odoo.conf
+:: 启动容器 (后台运行)
+docker-compose up -d
 
-:: 如果程序意外退出，暂停显示错误信息
-pause
+echo.
+echo [成功] Odoo 服务已在后台启动!
+echo.
+echo ------------------------------------------
+echo  访问地址: http://localhost:8070
+echo ------------------------------------------
+echo.
+echo 正在显示实时日志 (按 Ctrl+C 可退出日志查看，服务会继续运行)...
+echo.
+
+:: 显示 web 容器的日志
+docker-compose logs -f web
