@@ -1,4 +1,7 @@
 from odoo import models, fields, api
+import base64
+import io
+import qrcode
 
 class DiecutMold(models.Model):
     _name = 'diecut.mold'
@@ -51,6 +54,14 @@ class DiecutMold(models.Model):
     gear_teeth = fields.Integer(string='齿数 (Z)', help="圆刀模专用")
     is_rotary = fields.Boolean(string='是圆刀', compute='_compute_is_rotary', store=True)
 
+    # --- 二维码专用字段 (用于报表) ---
+    qr_code_image = fields.Binary(string="二维码", compute="_compute_qr_code_image")
+
+    @api.depends('code')
+    def _compute_qr_code_image(self):
+        for record in self:
+            record.qr_code_image = record.get_qr_code_base64()
+
     @api.depends('mold_type')
     def _compute_is_rotary(self):
         for record in self:
@@ -72,9 +83,29 @@ class DiecutMold(models.Model):
     active = fields.Boolean(string='有效', default=True, tracking=True)
     note = fields.Text(string='备注')
 
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
             if vals.get('code', 'New') == 'New':
                 vals['code'] = self.env['ir.sequence'].next_by_code('diecut.mold') or 'New'
         return super(DiecutMold, self).create(vals_list)
+
+    def get_qr_code_base64(self):
+        self.ensure_one()
+        if not self.code:
+            return ''
+        
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=10,
+            border=4,
+        )
+        qr.add_data(self.code)
+        qr.make(fit=True)
+
+        img = qr.make_image(fill_color="black", back_color="white")
+        buffer = io.BytesIO()
+        img.save(buffer, format="PNG")
+        return base64.b64encode(buffer.getvalue()).decode()

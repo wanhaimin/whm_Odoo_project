@@ -1,0 +1,100 @@
+﻿web-1  |     result = func()
+web-1  |              ^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/bus/websocket.py", line 921, in _serve_ir_websocket
+web-1  |     self.env["ir.websocket"]._subscribe(data)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/tools/discuss.py", line 36, in wrapper
+web-1  |     return func(self, *args, **kwargs)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/models/ir_websocket.py", line 35, in _subscribe
+web-1  |     super()._subscribe(og_data)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/bus/models/ir_websocket.py", line 67, in _subscribe
+web-1  |     data = self._prepare_subscribe_data(og_data["channels"], og_data["last"])
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/models/ir_websocket.py", line 70, in _prepare_subscribe_data
+web-1  |     partners.filtered(
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6207, in filtered
+web-1  |     return self.browse(rec_id for rec_id, rec in zip(self._ids, self) if func(rec))
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 5889, in browse
+web-1  |     ids = tuple(ids)
+web-1  |           ^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6207, in <genexpr>
+web-1  |     return self.browse(rec_id for rec_id, rec in zip(self._ids, self) if func(rec))
+web-1  |                                                                          ^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/models/ir_websocket.py", line 74, in <lambda>
+web-1  |     or p.has_access("read")
+web-1  |        ^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 4119, in has_access
+web-1  |     return self.env.su or not self._check_access(operation)
+web-1  |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 4152, in _check_access
+web-1  |     if domain and (forbidden := self - self.sudo().with_context(active_test=False).filtered_domain(domain)):
+web-1  |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6252, in filtered_domain
+web-1  |     return self.browse(rec_id for rec_id, rec in zip(self._ids, self) if predicate(rec))
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 5889, in browse
+web-1  |     ids = tuple(ids)
+web-1  |           ^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6252, in <genexpr>
+web-1  |     return self.browse(rec_id for rec_id, rec in zip(self._ids, self) if predicate(rec))
+web-1  |                                                                          ^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 732, in or_predicate
+web-1  |     return any(pred(record) for pred in predicates)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 732, in <genexpr>
+web-1  |     return any(pred(record) for pred in predicates)
+web-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 727, in <genexpr>
+web-1  |     all_predicates = (child._as_predicate(records) for child in self.children)
+web-1  |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 1037, in _as_predicate
+web-1  |     return self._optimize(records, OptimizationLevel.DYNAMIC_VALUES)._as_predicate(records)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 1079, in _as_predicate
+web-1  |     func = field.filter_function(records, field_expr, positive_operator, value)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields_relational.py", line 185, in filter_function
+web-1  |     corecords = getter(records)
+web-1  |                 ^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields_relational.py", line 45, in __get__
+web-1  |     return super().__get__(records, owner)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 1702, in __get__
+web-1  |     recs._fetch_field(self)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3769, in _fetch_field
+web-1  |     self.fetch(fnames)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3809, in fetch
+web-1  |     fetched = self._fetch_query(query, fields_to_fetch)
+web-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3914, in _fetch_query
+web-1  |     rows = self.env.execute_query(query.select(*sql_terms))
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/environments.py", line 534, in execute_query
+web-1  |     self.cr.execute(query)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 426, in execute
+web-1  |     self._obj.execute(query, params)
+web-1  | psycopg2.errors.UndefinedColumn: column res_partner.partner_type does not exist
+web-1  | LINE 1: ...le_warn_msg", "res_partner"."is_pickup_location", "res_partn...
+web-1  |                                                              ^
+web-1  | 
+web-1  | 2026-01-23 06:44:41,557 1 INFO ? odoo.service.server: Initiating shutdown 
+web-1  | 2026-01-23 06:44:41,557 1 INFO ? odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+web-1  | 2026-01-23 06:44:42,117 1 INFO ? odoo.sql_db: ConnectionPool(read/write;used=0/count=0/max=64): Closed 3 connections  
+web-1  | 2026-01-23 06:44:42,119 1 INFO ? odoo.service.server: cron0 max age (0s) reached, releasing connection. 
+web-1  | 2026-01-23 06:44:42,129 1 INFO ? odoo.service.server: cron1 max age (0s) reached, releasing connection. 
+web-1  | 2026-01-23 06:44:43,584 1 WARNING ? odoo.tools.config: missing --http-interface/http_interface, using 0.0.0.0 by default, will change to 127.0.0.1 in 20.0 
+web-1  | 2026-01-23 06:44:43,584 1 INFO ? odoo: Odoo version 19.0-20251222 
+web-1  | 2026-01-23 06:44:43,584 1 INFO ? odoo: Using configuration file at /etc/odoo/odoo.conf 
+web-1  | 2026-01-23 06:44:43,584 1 INFO ? odoo: addons paths: _NamespacePath(['/usr/lib/python3/dist-packages/odoo/addons', '/var/lib/odoo/addons/19.0', '/mnt/extra-addons', '/usr/lib/python3/dist-packages/addons']) 
+web-1  | 2026-01-23 06:44:43,584 1 INFO ? odoo: database: odoo@db:5432 
+web-1  | 2026-01-23 06:44:43,856 1 INFO ? odoo.service.server: Watching addons folder /usr/lib/python3/dist-packages/odoo/addons 
+web-1  | 2026-01-23 06:44:43,857 1 INFO ? odoo.service.server: Watching addons folder /var/lib/odoo/addons/19.0 
+web-1  | 2026-01-23 06:44:43,857 1 INFO ? odoo.service.server: Watching addons folder /mnt/extra-addons 
+web-1  | 2026-01-23 06:44:43,857 1 INFO ? odoo.service.server: Watching addons folder /usr/lib/python3/dist-packages/addons 
+web-1  | 2026-01-23 06:44:47,491 1 INFO ? odoo.service.server: AutoReload watcher running with watchdog 
+web-1  | 2026-01-23 06:44:47,516 1 INFO ? odoo.service.server: HTTP service (werkzeug) running on ac390ffa1359:8069 
+web-1  | 2026-01-23 06:44:50,958 1 INFO ? odoo.modules.loading: loading 1 modules... 
+web-1  | 2026-01-23 06:44:50,964 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+web-1  | 2026-01-23 06:44:50,979 1 WARNING ? odoo.modules.module: Missing `author` key in manifest for 'diecut_custom', defaulting to '' 
+web-1  | 2026-01-23 06:44:50,980 1 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'diecut_custom', defaulting to LGPL-3 

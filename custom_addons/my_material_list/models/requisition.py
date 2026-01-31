@@ -1,3 +1,4 @@
+
 from odoo import models, fields, api
 
 import logging
@@ -5,7 +6,7 @@ _logger = logging.getLogger(__name__)
 
 class MyMaterialRequisition(models.Model):
     _name = 'my.material.requisition'
-    _description = 'Material Requisition Demo'
+    _description = '领料演示'
     _rec_name = 'material_id'
 
     material_id = fields.Many2one('my.material', string='选择材料', required=True)
@@ -36,3 +37,4 @@ class MyMaterialRequisition(models.Model):
     def _compute_total_price(self):
         for record in self:
             record.total_price = record.quantity * record.unit_price
+

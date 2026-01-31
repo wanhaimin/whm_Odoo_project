@@ -1,0 +1,118 @@
+﻿docker-compose : time="2026
+-01-23T14:51:33+08:00" leve
+l=warning msg="E:\\workspac
+e\\my_odoo_project\\.devcon
+tainer\\docker-compose.yml:
+ the attribute `version` is
+ obsolete, it will be ignor
+ed, please remove it to avo
+id potential confusion"
+所在位置 行:1 字符: 1
++ docker-compose run --rm w
+eb odoo -u diecut_custom -d
+ postgres --stop- ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
+    + CategoryInfo         
+     : NotSpecified: (tim  
+  e="2026-01-2...tial co   
+ nfusion":String) [], R    
+emoteException
+    + FullyQualifiedErrorI 
+   d : NativeCommandError
+ 
+ Container devcontainer-db-
+1  Running
+2026-01-23 06:51:34,293 1 W
+ARNING ? odoo.tools.config:
+ missing --http-interface/h
+ttp_interface, using 0.0.0.
+0 by default, will change t
+o 127.0.0.1 in 20.0 
+2026-01-23 06:51:34,293 1 I
+NFO ? odoo: Odoo version 19
+.0-20251222 
+2026-01-23 06:51:34,294 1 I
+NFO ? odoo: Using configura
+tion file at /etc/odoo/odoo
+.conf 
+2026-01-23 06:51:34,294 1 I
+NFO ? odoo: addons paths: _
+NamespacePath(['/usr/lib/py
+thon3/dist-packages/odoo/ad
+dons', '/var/lib/odoo/addon
+s/19.0', '/mnt/extra-addons
+', '/usr/lib/python3/dist-p
+ackages/addons']) 
+2026-01-23 06:51:34,294 1 I
+NFO ? odoo: database: odoo@
+db:5432 
+2026-01-23 06:51:34,700 1 I
+NFO postgres odoo.modules.l
+oading: loading 1 modules..
+. 
+2026-01-23 06:51:34,706 1 I
+NFO postgres odoo.modules.l
+oading: 1 modules loaded in
+ 0.01s, 0 queries (+0 extra
+) 
+2026-01-23 06:51:34,758 1 I
+NFO postgres odoo.modules.l
+oading: updating modules li
+st 
+2026-01-23 06:51:34,762 1 I
+NFO postgres odoo.addons.ba
+se.models.ir_module: ALLOW 
+access to module.update_lis
+t on [] to user __system__ 
+#1 via n/a 
+2026-01-23 06:51:35,131 1 W
+ARNING postgres odoo.module
+s.module: Missing `author` 
+key in manifest for 'diecut
+_custom', defaulting to '' 
+2026-01-23 06:51:35,132 1 W
+ARNING postgres odoo.module
+s.module: Missing `license`
+ key in manifest for 'diecu
+t_custom', defaulting to LG
+PL-3 
+2026-01-23 06:51:35,139 1 W
+ARNING postgres odoo.module
+s.module: Missing `author` 
+key in manifest for 'diecut
+_custom', defaulting to '' 
+2026-01-23 06:51:35,139 1 W
+ARNING postgres odoo.module
+s.module: Missing `license`
+ key in manifest for 'diecu
+t_custom', defaulting to LG
+PL-3 
+2026-01-23 06:51:36,274 1 I
+NFO postgres odoo.modules.l
+oading: loading 61 modules.
+.. 
+2026-01-23 06:51:37,017 1 I
+NFO postgres odoo.modules.l
+oading: 61 modules loaded i
+n 0.74s, 0 queries (+0 extr
+a) 
+2026-01-23 06:51:37,773 1 I
+NFO postgres odoo.modules.l
+oading: Modules loaded. 
+2026-01-23 06:51:37,796 1 I
+NFO postgres odoo.registry:
+ Registry changed, signalin
+g through the database 
+2026-01-23 06:51:37,815 1 I
+NFO postgres odoo.registry:
+ Registry loaded in 3.204s 
+2026-01-23 06:51:37,815 1 I
+NFO postgres odoo.service.s
+erver: Initiating shutdown 
+2026-01-23 06:51:37,815 1 I
+NFO postgres odoo.service.s
+erver: Hit CTRL-C again or 
+send a second signal to for
+ce the shutdown. 

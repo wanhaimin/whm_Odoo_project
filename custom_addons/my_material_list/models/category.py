@@ -7,7 +7,8 @@ class MyMaterialCategory(models.Model):
     _rec_name = 'name'
 
     name = fields.Char(string='Category Name', required=True)
-    description = fields.Text(string='Description')
+    jigexian = fields.Char(string='Jix Exian')
+    description = fields.Text(string='Descrip')
 
     @api.constrains('name')
     def _check_name_insensitive(self):

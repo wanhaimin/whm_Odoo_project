@@ -4,26 +4,153 @@
         <field name="name">diecut.quote.form</field>
         <field name="model">diecut.quote</field>
         <field name="arch" type="xml">
-            <form string="模切报价">
-                <header></header>
+            <form>
                 <sheet>
-                    <group string="模切排版参数">
-                        <field name="total_pcs"/>
-                        <field name="diecut_pitch"/>
-                        <field name="columns"/>
-                        <field name="extra_loss_meter"/>
+                    <div class="oe_title">
+                        <label string="产品品名" for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" placeholder="例如: LM-TBH067109640-COP-101" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="产品基本信息">
+                            <field name="customer_id" options="{'no_create': True}" />
+                            <field name="internal_sn" />
+                            <field name="project_sn" />
+                            <field name="terminal" />
+                            <field name="user_id" widget="many2one_avatar_user" />
+                        </group>
+                        <group string="报价参数">
+                            <field name="quote_date" />
+                            <field name="quote_category" />
+                            <field name="currency_id" options="{'no_create': True, 'no_open': True}" />
+                            <field name="uom_id" />
+                            <field name="specification" placeholder="如: 33.35 * 17.05" />
+                            <field name="moq" />
+                            <field name="lead_time" />
+                        </group>
                     </group>
                     <notebook>
-                        <page string="材料明细" name="material_layers">
-                            <field name="layer_ids">
-                                <list editable="bottom" string="材料层次">
-                                    <field name="product_id" width="auto"/>
-                                    <field name="slitting_width"/>
-                                    <field name="price_unit"/>
-                                    <field name="layer_sqm"/>
-                                    <field name="subtotal" sum="Total Cost"/>
+                        <page name="cost_calculations" string="成本运算详情">
+                            <div class="o_horizontal_separator" style="font-size: 1.2em; font-weight: bold; margin-top: 20px;">1. 材料成本 (公式引用: 宽/分切宽, 长/跳距*穴数)</div>
+                            <field name="material_line_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="material_id" />
+                                    <field name="raw_width" string="原材宽(mm)" />
+                                    <field name="raw_length" string="原材长(mm)" />
+                                    <field name="price_unit_total" string="含税总价" widget="monetary" options="{'field_digits': True}" />
+                                    <field name="slitting_rolls" string="分切卷数" readonly="1" />
+                                    <field name="qty_per_roll" string="每卷数量" readonly="1" />
+                                    <field name="total_prod_qty" string="生产总数" readonly="1" />
+                                    <field name="slitting_width" string="分切宽(mm)" />
+                                    <field name="pitch" string="跳距(mm)" />
+                                    <field name="cavity" string="穴数" />
+                                    <field name="unit_usage" string="单位用量(㎡)" readonly="1" digits="[16,6]" />
+                                    <field name="yield_rate" string="良率(%)" />
+                                    <field name="unit_consumable_cost" string="单位成本" readonly="1" widget="monetary" options="{'field_digits': True}" />
+                                    <field name="currency_id" column_invisible="True" />
                                 </list>
                             </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_material_cost" string="材料成本总计 (RMB/pcs)" widget="monetary" options="{'field_digits': True}" />
+                                <field name="material_cost_ratio" string="材料占比" widget="percentage" readonly="1" />
+                            </group>
+                            <div class="o_horizontal_separator" style="font-size: 1.2em; font-weight: bold; margin-top: 20px;">2. 制造成本 (含税 1.13)</div>
+                            <field name="manufacturing_line_ids" nolabel="1">
+                                <list editable="bottom">
+                                    <field name="step_1" string="工位" />
+                                    <field name="step_2" string="说明" />
+                                    <field name="mfg_fee" string="人均制造费/小时" />
+                                    <field name="workstation_qty" string="工位人数" />
+                                    <field name="capacity" string="产能(PCS/H)" />
+                                    <field name="yield_rate" string="良率(%)" />
+                                    <field name="cost_per_pcs" string="费用(RMB/PCS)" readonly="1" widget="monetary" options="{'field_digits': True}" />
+                                    <field name="currency_id" column_invisible="True" />
+                                </list>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_manufacturing_cost_nosetax" string="制造成本 (不含税)" widget="monetary" options="{'field_digits': True}" />
+                                <field name="total_manufacturing_cost" string="制造成本 (含税 1.13)" class="oe_subtotal_footer_separator" widget="monetary" options="{'field_digits': True}" />
+                                <field name="manufacturing_cost_ratio" string="制造成本占比" widget="percentage" readonly="1" />
+                            </group>
+                            <div class="row" style="margin-top: 20px;">
+                                <div class="col-6">
+                                    <div class="o_horizontal_separator" style="font-size: 1.1em; font-weight: bold;">3. 营销成本 (管销)</div>
+                                    <group>
+                                        <label string="运输成本" for="transport_rate" />
+                                        <div class="o_row">
+                                            <field name="transport_rate" style="width: 40px;" />
+                                            %
+                                            <i class="fa fa-long-arrow-right mx-2" title="计算结果" />
+                                            <field name="transport_cost" readonly="1" widget="monetary" options="{'field_digits': True}" />
+                                        </div>
+                                        <label string="管理费用" for="management_rate" />
+                                        <div class="o_row">
+                                            <field name="management_rate" style="width: 40px;" />
+                                            %
+                                            <i class="fa fa-long-arrow-right mx-2" title="计算结果" />
+                                            <field name="management_cost" readonly="1" widget="monetary" options="{'field_digits': True}" />
+                                        </div>
+                                        <label string="厂租水电" for="utility_rate" />
+                                        <div class="o_row">
+                                            <field name="utility_rate" style="width: 40px;" />
+                                            %
+                                            <i class="fa fa-long-arrow-right mx-2" title="计算结果" />
+                                            <field name="utility_cost" readonly="1" widget="monetary" options="{'field_digits': True}" />
+                                        </div>
+                                        <label string="包材成本" for="packaging_rate" />
+                                        <div class="o_row">
+                                            <field name="packaging_rate" style="width: 40px;" />
+                                            %
+                                            <i class="fa fa-long-arrow-right mx-2" title="计算结果" />
+                                            <field name="packaging_cost" readonly="1" widget="monetary" options="{'field_digits': True}" />
+                                        </div>
+                                        <label string="机器折旧" for="depreciation_rate" />
+                                        <div class="o_row">
+                                            <field name="depreciation_rate" style="width: 40px;" />
+                                            %
+                                            <i class="fa fa-long-arrow-right mx-2" title="计算结果" />
+                                            <field name="depreciation_cost" readonly="1" widget="monetary" options="{'field_digits': True}" />
+                                        </div>
+                                    </group>
+                                </div>
+                                <div class="col-6">
+                                    <div class="o_horizontal_separator" style="font-size: 1.1em; font-weight: bold;">4. 其它成本 (样品/模具)</div>
+                                    <group>
+                                        <field name="sample_cost_input" string="样品成本" digits="[16,0]" />
+                                        <field name="mold_fee" string="模具总费用" digits="[16,0]" />
+                                        <field name="punch_qty" string="预计冲压总数" widget="integer" />
+                                        <field name="mold_cost" string="单位模具成本" readonly="1" widget="monetary" options="{'field_digits': True}" />
+                                    </group>
+                                </div>
+                            </div>
+                            <div class="row justify-content-end" style="margin-top: 30px;">
+                                <div class="col-5">
+                                    <group class="oe_subtotal_footer">
+                                        <field name="total_marketing_cost" string="管销成本总计" widget="monetary" options="{'field_digits': True}" />
+                                        <field name="total_other_cost" string="其它成本总计" widget="monetary" options="{'field_digits': True}" />
+                                        <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                            <label string="制造、管销、模具成本总和" for="subtotal_cost" />
+                                        </div>
+                                        <field name="subtotal_cost" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'field_digits': True}" />
+                                        <label string="预估利润" for="profit_rate" />
+                                        <div class="o_row">
+                                            <field name="profit_rate" style="width: 40px;" />
+                                            %
+                                            <i class="fa fa-long-arrow-right mx-2" title="计算结果" />
+                                            <field name="profit_amount" readonly="1" widget="monetary" options="{'field_digits': True}" />
+                                        </div>
+                                        <div class="oe_subtotal_footer_separator oe_inline o_td_label" style="font-size: 1.4em; font-weight: bold; color: #00A09A;">
+                                            <label string="合计建议报价 (RMB/PCS)" for="final_unit_price" />
+                                        </div>
+                                        <field name="final_unit_price" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'field_digits': True}" style="font-size: 1.4em; font-weight: bold; color: #00A09A;" />
+                                    </group>
+                                </div>
+                            </div>
+                        </page>
+                        <page name="memo" string="备注/附件">
+                            <field name="activity_ids" widget="mail_activity" />
+                            <field name="message_ids" widget="mail_thread" />
                         </page>
                     </notebook>
                 </sheet>
@@ -31,16 +158,34 @@
         </field>
     </record>
 
-    <record id="action_diecut_quote" model="ir.actions.act_window">
-        <field name="name">模切报价</field>
-        <field name="res_model">diecut.quote</field>
-        <field name="view_mode">list,form</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                开始第一个模切报价换算
-            </p>
+    <record id="view_diecut_quote_list" model="ir.ui.view">
+        <field name="name">diecut.quote.list</field>
+        <field name="model">diecut.quote</field>
+        <field name="arch" type="xml">
+            <list string="报价表">
+                <field name="customer_id" string="客户" optional="show" />
+                <field name="name" decoration-bf="1" />
+                <field name="internal_sn" string="料号" optional="show" />
+                <field name="quote_date_show" string="报价日期" optional="show" />
+                <field name="final_unit_price" string="建议报价" widget="monetary" optional="show" decoration-bf="1" />
+                <!-- 默认隐藏，可在筛选菜单中开启的列 -->
+                <field name="project_sn" optional="hide" />
+                <field name="terminal" optional="hide" />
+                <field name="specification" optional="hide" />
+                <field name="moq" optional="hide" />
+                <field name="profit_rate" optional="hide" widget="percentage" />
+                <field name="user_id" widget="many2one_avatar_user" optional="hide" />
+                <field name="currency_id" column_invisible="True" />
+            </list>
         </field>
     </record>
 
+    <record id="action_diecut_quote" model="ir.actions.act_window">
+        <field name="name">报价模型</field>
+        <field name="res_model">diecut.quote</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">创建一个新的模切成本估算报价。</p>
+        </field>
+    </record>
 </odoo>
-

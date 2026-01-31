@@ -80,10 +80,10 @@ class Material(models.Model):
     test_report_filename = fields.Char('测试报告文件名')
     
     # 图片
-    image_1920 = fields.Binary('图片', max_width=1920, max_height=1920)
-    image_1024 = fields.Binary('中等图片', related='image_1920', max_width=1024, max_height=1024, store=True)
-    image_512 = fields.Binary('小图片', related='image_1920', max_width=512, max_height=512, store=True)
-    image_256 = fields.Binary('缩略图', related='image_1920', max_width=256, max_height=256, store=True)
+    image_1920 = fields.Binary('图片')
+    image_1024 = fields.Binary('中等图片', related='image_1920', store=True)
+    image_512 = fields.Binary('小图片', related='image_1920', store=True)
+    image_256 = fields.Binary('缩略图', related='image_1920', store=True)
     
     # 应用信息
     application = fields.Text('应用场景')
@@ -96,16 +96,19 @@ class Material(models.Model):
     
     # 其他
     description = fields.Html('详细描述')
+    # active = fields.Boolean('有效', default=True) # Field already defined in standard models, but okay
     active = fields.Boolean('有效', default=True)
     
     # 网站发布
     website_published = fields.Boolean('网站发布', copy=False)
     website_url = fields.Char('网站URL', compute='_compute_website_url')
     
-    _sql_constraints = [
-        ('code_unique', 'UNIQUE(code)', '材料编号必须唯一!'),
-    ]
-    
+    @api.constrains('code')
+    def _check_code_unique(self):
+        for record in self:
+            if self.search_count([('code', '=', record.code), ('id', '!=', record.id)]) > 0:
+                raise ValidationError('材料编号必须唯一!')
+
     @api.depends('name')
     def _compute_website_url(self):
         for material in self:

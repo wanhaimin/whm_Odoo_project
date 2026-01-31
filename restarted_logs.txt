@@ -1,0 +1,500 @@
+﻿web-1  | DETAIL:  Failing row contains (879, null, 1, 1, 1, diecut.quote.manufacturing_line.user, t, t, t, t, t, 2026-01-23 06:31:34.147021, 2026-01-23 06:31:34.147021).
+web-1  |  
+web-1  | 2026-01-23 06:31:36,007 1 WARNING odoo odoo.fields: Field material.material.image_1920: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,007 1 WARNING odoo odoo.fields: Field material.material.image_1920: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,007 1 WARNING odoo odoo.fields: Field material.material.image_1024: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,007 1 WARNING odoo odoo.fields: Field material.material.image_1024: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,007 1 WARNING odoo odoo.fields: Field material.material.image_512: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,007 1 WARNING odoo odoo.fields: Field material.material.image_512: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,007 1 WARNING odoo odoo.fields: Field material.material.image_256: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,007 1 WARNING odoo odoo.fields: Field material.material.image_256: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,054 1 WARNING odoo odoo.modules.loading: Transient module states were reset 
+web-1  | 2026-01-23 06:31:36,058 1 ERROR odoo odoo.registry: Failed to load registry 
+web-1  | 2026-01-23 06:31:36,062 1 INFO odoo odoo.modules.loading: loading 1 modules... 
+web-1  | 2026-01-23 06:31:36,066 1 INFO odoo odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra) 
+web-1  | 2026-01-23 06:31:36,068 1 INFO odoo odoo.modules.loading: loading 93 modules... 
+web-1  | 2026-01-23 06:31:36,101 1 WARNING odoo odoo.registry: Model attribute '_sql_constraints' is no longer supported, please define model.Constraint on the model. 
+web-1  | 2026-01-23 06:31:36,105 1 WARNING odoo odoo.registry: Model attribute '_sql_constraints' is no longer supported, please define model.Constraint on the model. 
+web-1  | 2026-01-23 06:31:36,109 1 INFO odoo odoo.modules.loading: 93 modules loaded in 0.04s, 0 queries (+0 extra) 
+web-1  | 2026-01-23 06:31:36,268 1 WARNING odoo odoo.fields: Field material.material.image_1920: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,268 1 WARNING odoo odoo.fields: Field material.material.image_1920: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,268 1 WARNING odoo odoo.fields: Field material.material.image_1024: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,268 1 WARNING odoo odoo.fields: Field material.material.image_1024: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,269 1 WARNING odoo odoo.fields: Field material.material.image_512: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,269 1 WARNING odoo odoo.fields: Field material.material.image_512: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,269 1 WARNING odoo odoo.fields: Field material.material.image_256: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,269 1 WARNING odoo odoo.fields: Field material.material.image_256: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:31:36,307 1 INFO odoo odoo.modules.loading: Modules loaded. 
+web-1  | 2026-01-23 06:31:36,323 1 WARNING odoo odoo.schema: Missing not-null constraint on diecut.quote.material_id 
+web-1  | 2026-01-23 06:31:36,334 1 INFO odoo odoo.registry: Registry loaded in 0.276s 
+web-1  | 2026-01-23 06:31:36,336 1 ERROR odoo odoo.http: Exception during request handling. 
+web-1  | Traceback (most recent call last):
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2802, in __call__
+web-1  |     response = request._serve_db()
+web-1  |                ^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2277, in _serve_db
+web-1  |     raise self._update_served_exception(exc)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2275, in _serve_db
+web-1  |     return service_model.retrying(serve_func, env=self.env)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/service/model.py", line 184, in retrying
+web-1  |     result = func()
+web-1  |              ^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2330, in _serve_ir_http
+web-1  |     response = self.dispatcher.dispatch(rule.endpoint, args)
+web-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2545, in dispatch
+web-1  |     result = self.request.registry['ir.http']._dispatch(endpoint)
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/ir_http.py", line 355, in _dispatch
+web-1  |     result = endpoint(**request.params)
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 788, in route_wrapper
+web-1  |     result = endpoint(self, *args, **params_ok)
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/web/controllers/dataset.py", line 38, in call_button
+web-1  |     action = call_kw(request.env[model], method, args, kwargs)
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/service/model.py", line 93, in call_kw
+web-1  |     result = method(recs, *args, **kwargs)
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/ir_module.py", line 71, in check_and_log
+web-1  |     return method(self, *args, **kwargs)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/ir_module.py", line 688, in button_immediate_upgrade
+web-1  |     return self._button_immediate_function(self.env.registry[self._name].button_upgrade)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/ir_module.py", line 625, in _button_immediate_function
+web-1  |     registry = modules.registry.Registry.new(self.env.cr.dbname, update_module=True)
+web-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/func.py", line 88, in locked
+web-1  |     return func(inst, *args, **kwargs)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/registry.py", line 199, in new
+web-1  |     load_modules(
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 456, in load_modules
+web-1  |     load_module_graph(
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 216, in load_module_graph
+web-1  |     load_data(env, idref, mode, kind='data', package=package)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/modules/loading.py", line 59, in load_data
+web-1  |     convert_file(env, package.name, filename, idref, mode, noupdate=kind == 'demo')
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 689, in convert_file
+web-1  |     convert_csv_import(env, module, pathname, fp.read(), idref, mode, noupdate)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/convert.py", line 754, in convert_csv_import
+web-1  |     raise Exception(env._(
+web-1  | Exception: Module loading diecut_custom failed: file diecut_custom/security/ir.model.access.csv could not be processed:
+web-1  | No matching record found for external id 'diecut_custom.model_diecut_quote_material_line' in field 'Model'
+web-1  | No matching record found for external id 'diecut_custom.model_diecut_quote_manufacturing_line' in field 'Model'
+web-1  | Missing required value for the field 'Model' (model_id).
+web-1  | Model: 'Model Access' (ir.model.access)
+web-1  | - create/update: a mandatory field is not set
+web-1  | - delete: another model requires the record being deleted, you can archive it instead
+web-1  | 
+web-1  | Missing required value for the field 'Model' (model_id).
+web-1  | Model: 'Model Access' (ir.model.access)
+web-1  | - create/update: a mandatory field is not set
+web-1  | - delete: another model requires the record being deleted, you can archive it instead
+web-1  | 
+web-1  | 2026-01-23 06:31:36,337 1 INFO odoo werkzeug: 172.18.0.1 - - [23/Jan/2026 06:31:36] "POST /web/dataset/call_button/ir.module.module/button_immediate_upgrade#ir.module.module.button_immediate_upgrade HTTP/1.1" 200 - 3948 1.296 2.491
+web-1  | 2026-01-23 06:38:40,835 1 INFO ? odoo.service.server: Initiating shutdown 
+web-1  | 2026-01-23 06:38:40,835 1 INFO ? odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+web-1  | 2026-01-23 06:38:41,152 1 INFO ? odoo.sql_db: ConnectionPool(read/write;used=0/count=0/max=64): Closed 5 connections  
+web-1  | 2026-01-23 06:38:41,155 1 INFO ? odoo.service.server: cron0 max age (0s) reached, releasing connection. 
+web-1  | 2026-01-23 06:38:41,165 1 INFO ? odoo.service.server: cron1 max age (0s) reached, releasing connection. 
+web-1  | 2026-01-23 06:38:43,270 1 WARNING ? odoo.tools.config: missing --http-interface/http_interface, using 0.0.0.0 by default, will change to 127.0.0.1 in 20.0 
+web-1  | 2026-01-23 06:38:43,271 1 INFO ? odoo: Odoo version 19.0-20251222 
+web-1  | 2026-01-23 06:38:43,271 1 INFO ? odoo: Using configuration file at /etc/odoo/odoo.conf 
+web-1  | 2026-01-23 06:38:43,271 1 INFO ? odoo: addons paths: _NamespacePath(['/usr/lib/python3/dist-packages/odoo/addons', '/var/lib/odoo/addons/19.0', '/mnt/extra-addons', '/usr/lib/python3/dist-packages/addons']) 
+web-1  | 2026-01-23 06:38:43,271 1 INFO ? odoo: database: odoo@db:5432 
+web-1  | 2026-01-23 06:38:43,693 1 INFO ? odoo.service.server: Watching addons folder /usr/lib/python3/dist-packages/odoo/addons 
+web-1  | 2026-01-23 06:38:43,693 1 INFO ? odoo.service.server: Watching addons folder /var/lib/odoo/addons/19.0 
+web-1  | 2026-01-23 06:38:43,693 1 INFO ? odoo.service.server: Watching addons folder /mnt/extra-addons 
+web-1  | 2026-01-23 06:38:43,693 1 INFO ? odoo.service.server: Watching addons folder /usr/lib/python3/dist-packages/addons 
+web-1  | 2026-01-23 06:38:47,404 1 INFO ? odoo.service.server: AutoReload watcher running with watchdog 
+web-1  | 2026-01-23 06:38:47,432 1 INFO ? odoo.service.server: HTTP service (werkzeug) running on ac390ffa1359:8069 
+web-1  | 2026-01-23 06:38:49,316 1 INFO ? odoo.modules.loading: loading 1 modules... 
+web-1  | 2026-01-23 06:38:49,321 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra) 
+web-1  | 2026-01-23 06:38:49,334 1 WARNING ? odoo.modules.module: Missing `author` key in manifest for 'diecut_custom', defaulting to '' 
+web-1  | 2026-01-23 06:38:49,334 1 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'diecut_custom', defaulting to LGPL-3 
+web-1  | 2026-01-23 06:38:49,395 1 INFO ? odoo.modules.loading: loading 93 modules... 
+web-1  | 2026-01-23 06:38:50,698 1 WARNING ? odoo.registry: Model attribute '_sql_constraints' is no longer supported, please define model.Constraint on the model. 
+web-1  | 2026-01-23 06:38:50,787 1 INFO ? odoo.modules.loading: 93 modules loaded in 1.39s, 0 queries (+0 extra) 
+web-1  | 2026-01-23 06:38:50,945 1 WARNING ? odoo.fields: Field material.material.image_1920: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:38:50,945 1 WARNING ? odoo.fields: Field material.material.image_1920: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:38:50,945 1 WARNING ? odoo.fields: Field material.material.image_1024: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:38:50,945 1 WARNING ? odoo.fields: Field material.material.image_1024: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:38:50,945 1 WARNING ? odoo.fields: Field material.material.image_512: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:38:50,945 1 WARNING ? odoo.fields: Field material.material.image_512: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:38:50,945 1 WARNING ? odoo.fields: Field material.material.image_256: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:38:50,945 1 WARNING ? odoo.fields: Field material.material.image_256: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:38:50,983 1 INFO ? odoo.modules.loading: Modules loaded. 
+web-1  | 2026-01-23 06:38:51,056 1 INFO ? odoo.registry: Registry loaded in 1.766s 
+web-1  | 2026-01-23 06:38:51,059 1 INFO odoo odoo.addons.base.models.ir_http: Generating routing map for key 1 
+web-1  | 2026-01-23 06:38:51,113 1 INFO odoo werkzeug: 172.18.0.1 - - [23/Jan/2026 06:38:51] "GET /websocket?version=19.0-2 HTTP/1.1" 101 - 26 0.027 1.798
+web-1  | 2026-01-23 06:38:51,133 1 INFO odoo werkzeug: 172.18.0.1 - - [23/Jan/2026 06:38:51] "POST /bus/has_missed_notifications HTTP/1.1" 200 - 2 0.001 0.003
+web-1  | 2026-01-23 06:38:51,451 1 ERROR odoo odoo.sql_db: bad query: b'SELECT "res_partner"."id", "res_partner"."website_id", "res_partner"."is_published", "res_partner"."email_normalized", "res_partner"."message_bounce", "res_partner"."name", "res_partner"."complete_name", "res_partner"."parent_id", "res_partner"."ref", "res_partner"."lang", "res_partner"."tz", "res_partner"."user_id", "res_partner"."vat", "res_partner"."company_registry", "res_partner"."website", "res_partner"."comment", "res_partner"."active", "res_partner"."employee", "res_partner"."function", "res_partner"."type", "res_partner"."street", "res_partner"."street2", "res_partner"."zip", "res_partner"."city", "res_partner"."state_id", "res_partner"."country_id", "res_partner"."partner_latitude", "res_partner"."partner_longitude", "res_partner"."email", "res_partner"."phone", "res_partner"."is_company", "res_partner"."industry_id", "res_partner"."company_id", "res_partner"."color", "res_partner"."partner_share", "res_partner"."commercial_partner_id", "res_partner"."commercial_company_name", "res_partner"."company_name", "res_partner"."create_uid", "res_partner"."create_date", "res_partner"."write_uid", "res_partner"."write_date", "res_partner"."signup_type", "res_partner"."phone_sanitized", "res_partner"."invoice_template_pdf_report_id", "res_partner"."supplier_rank", "res_partner"."customer_rank", "res_partner"."autopost_bills", "res_partner"."picking_warn_msg", "res_partner"."global_location_number", "res_partner"."peppol_endpoint", "res_partner"."peppol_eas", "res_partner"."purchase_warn_msg", "res_partner"."buyer_id", "res_partner"."suggest_based_on", "res_partner"."suggest_days", "res_partner"."suggest_percent", "res_partner"."group_rfq", "res_partner"."group_on", "res_partner"."sale_warn_msg", "res_partner"."is_pickup_location", "res_partner"."partner_type" FROM "res_partner" WHERE "res_partner"."id" IN (34, 28, 2, 6, 3)'
+web-1  | ERROR: column res_partner.partner_type does not exist
+web-1  | LINE 1: ...le_warn_msg", "res_partner"."is_pickup_location", "res_partn...
+web-1  |                                                              ^
+web-1  |  
+web-1  | 2026-01-23 06:38:51,452 1 ERROR odoo odoo.addons.bus.websocket: Exception occurred during websocket request handling 
+web-1  | Traceback (most recent call last):
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/bus/websocket.py", line 1115, in _serve_forever
+web-1  |     req.serve_websocket_message(message)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/bus/websocket.py", line 911, in serve_websocket_message
+web-1  |     service_model.retrying(
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/service/model.py", line 184, in retrying
+web-1  |     result = func()
+web-1  |              ^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/bus/websocket.py", line 921, in _serve_ir_websocket
+web-1  |     self.env["ir.websocket"]._subscribe(data)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/tools/discuss.py", line 36, in wrapper
+web-1  |     return func(self, *args, **kwargs)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/models/ir_websocket.py", line 35, in _subscribe
+web-1  |     super()._subscribe(og_data)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/bus/models/ir_websocket.py", line 67, in _subscribe
+web-1  |     data = self._prepare_subscribe_data(og_data["channels"], og_data["last"])
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/models/ir_websocket.py", line 70, in _prepare_subscribe_data
+web-1  |     partners.filtered(
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6207, in filtered
+web-1  |     return self.browse(rec_id for rec_id, rec in zip(self._ids, self) if func(rec))
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 5889, in browse
+web-1  |     ids = tuple(ids)
+web-1  |           ^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6207, in <genexpr>
+web-1  |     return self.browse(rec_id for rec_id, rec in zip(self._ids, self) if func(rec))
+web-1  |                                                                          ^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/models/ir_websocket.py", line 74, in <lambda>
+web-1  |     or p.has_access("read")
+web-1  |        ^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 4119, in has_access
+web-1  |     return self.env.su or not self._check_access(operation)
+web-1  |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 4152, in _check_access
+web-1  |     if domain and (forbidden := self - self.sudo().with_context(active_test=False).filtered_domain(domain)):
+web-1  |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6252, in filtered_domain
+web-1  |     return self.browse(rec_id for rec_id, rec in zip(self._ids, self) if predicate(rec))
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 5889, in browse
+web-1  |     ids = tuple(ids)
+web-1  |           ^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6252, in <genexpr>
+web-1  |     return self.browse(rec_id for rec_id, rec in zip(self._ids, self) if predicate(rec))
+web-1  |                                                                          ^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 732, in or_predicate
+web-1  |     return any(pred(record) for pred in predicates)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 732, in <genexpr>
+web-1  |     return any(pred(record) for pred in predicates)
+web-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 727, in <genexpr>
+web-1  |     all_predicates = (child._as_predicate(records) for child in self.children)
+web-1  |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 1037, in _as_predicate
+web-1  |     return self._optimize(records, OptimizationLevel.DYNAMIC_VALUES)._as_predicate(records)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 1079, in _as_predicate
+web-1  |     func = field.filter_function(records, field_expr, positive_operator, value)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields_relational.py", line 185, in filter_function
+web-1  |     corecords = getter(records)
+web-1  |                 ^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields_relational.py", line 45, in __get__
+web-1  |     return super().__get__(records, owner)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 1702, in __get__
+web-1  |     recs._fetch_field(self)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3769, in _fetch_field
+web-1  |     self.fetch(fnames)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3809, in fetch
+web-1  |     fetched = self._fetch_query(query, fields_to_fetch)
+web-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3914, in _fetch_query
+web-1  |     rows = self.env.execute_query(query.select(*sql_terms))
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/environments.py", line 534, in execute_query
+web-1  |     self.cr.execute(query)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 426, in execute
+web-1  |     self._obj.execute(query, params)
+web-1  | psycopg2.errors.UndefinedColumn: column res_partner.partner_type does not exist
+web-1  | LINE 1: ...le_warn_msg", "res_partner"."is_pickup_location", "res_partn...
+web-1  |                                                              ^
+web-1  | 
+web-1  | 2026-01-23 06:44:41,557 1 INFO ? odoo.service.server: Initiating shutdown 
+web-1  | 2026-01-23 06:44:41,557 1 INFO ? odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+web-1  | 2026-01-23 06:44:42,117 1 INFO ? odoo.sql_db: ConnectionPool(read/write;used=0/count=0/max=64): Closed 3 connections  
+web-1  | 2026-01-23 06:44:42,119 1 INFO ? odoo.service.server: cron0 max age (0s) reached, releasing connection. 
+web-1  | 2026-01-23 06:44:42,129 1 INFO ? odoo.service.server: cron1 max age (0s) reached, releasing connection. 
+web-1  | 2026-01-23 06:44:43,584 1 WARNING ? odoo.tools.config: missing --http-interface/http_interface, using 0.0.0.0 by default, will change to 127.0.0.1 in 20.0 
+web-1  | 2026-01-23 06:44:43,584 1 INFO ? odoo: Odoo version 19.0-20251222 
+web-1  | 2026-01-23 06:44:43,584 1 INFO ? odoo: Using configuration file at /etc/odoo/odoo.conf 
+web-1  | 2026-01-23 06:44:43,584 1 INFO ? odoo: addons paths: _NamespacePath(['/usr/lib/python3/dist-packages/odoo/addons', '/var/lib/odoo/addons/19.0', '/mnt/extra-addons', '/usr/lib/python3/dist-packages/addons']) 
+web-1  | 2026-01-23 06:44:43,584 1 INFO ? odoo: database: odoo@db:5432 
+web-1  | 2026-01-23 06:44:43,856 1 INFO ? odoo.service.server: Watching addons folder /usr/lib/python3/dist-packages/odoo/addons 
+web-1  | 2026-01-23 06:44:43,857 1 INFO ? odoo.service.server: Watching addons folder /var/lib/odoo/addons/19.0 
+web-1  | 2026-01-23 06:44:43,857 1 INFO ? odoo.service.server: Watching addons folder /mnt/extra-addons 
+web-1  | 2026-01-23 06:44:43,857 1 INFO ? odoo.service.server: Watching addons folder /usr/lib/python3/dist-packages/addons 
+web-1  | 2026-01-23 06:44:47,491 1 INFO ? odoo.service.server: AutoReload watcher running with watchdog 
+web-1  | 2026-01-23 06:44:47,516 1 INFO ? odoo.service.server: HTTP service (werkzeug) running on ac390ffa1359:8069 
+web-1  | 2026-01-23 06:44:50,958 1 INFO ? odoo.modules.loading: loading 1 modules... 
+web-1  | 2026-01-23 06:44:50,964 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.01s, 0 queries (+0 extra) 
+web-1  | 2026-01-23 06:44:50,979 1 WARNING ? odoo.modules.module: Missing `author` key in manifest for 'diecut_custom', defaulting to '' 
+web-1  | 2026-01-23 06:44:50,980 1 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'diecut_custom', defaulting to LGPL-3 
+web-1  | 2026-01-23 06:44:51,036 1 INFO ? odoo.modules.loading: loading 93 modules... 
+web-1  | 2026-01-23 06:44:52,204 1 WARNING ? odoo.registry: Model attribute '_sql_constraints' is no longer supported, please define model.Constraint on the model. 
+web-1  | 2026-01-23 06:44:52,323 1 INFO ? odoo.modules.loading: 93 modules loaded in 1.29s, 0 queries (+0 extra) 
+web-1  | 2026-01-23 06:44:52,554 1 WARNING ? odoo.fields: Field material.material.image_1920: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:44:52,554 1 WARNING ? odoo.fields: Field material.material.image_1920: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:44:52,554 1 WARNING ? odoo.fields: Field material.material.image_1024: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:44:52,554 1 WARNING ? odoo.fields: Field material.material.image_1024: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:44:52,554 1 WARNING ? odoo.fields: Field material.material.image_512: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:44:52,554 1 WARNING ? odoo.fields: Field material.material.image_512: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:44:52,554 1 WARNING ? odoo.fields: Field material.material.image_256: unknown parameter 'max_width', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:44:52,554 1 WARNING ? odoo.fields: Field material.material.image_256: unknown parameter 'max_height', if this is an actual parameter you may want to override the method _valid_field_parameter on the relevant model in order to allow it 
+web-1  | 2026-01-23 06:44:52,618 1 INFO ? odoo.modules.loading: Modules loaded. 
+web-1  | 2026-01-23 06:44:52,712 1 INFO ? odoo.registry: Registry loaded in 1.778s 
+web-1  | 2026-01-23 06:44:52,716 1 INFO odoo odoo.addons.base.models.ir_http: Generating routing map for key 1 
+web-1  | 2026-01-23 06:44:52,772 1 INFO odoo werkzeug: 172.18.0.1 - - [23/Jan/2026 06:44:52] "GET /websocket?version=19.0-2 HTTP/1.1" 101 - 26 0.031 1.807
+web-1  | 2026-01-23 06:44:52,801 1 INFO odoo werkzeug: 172.18.0.1 - - [23/Jan/2026 06:44:52] "POST /bus/has_missed_notifications HTTP/1.1" 200 - 2 0.002 0.004
+web-1  | 2026-01-23 06:44:53,120 1 ERROR odoo odoo.sql_db: bad query: b'SELECT "res_partner"."id", "res_partner"."website_id", "res_partner"."is_published", "res_partner"."email_normalized", "res_partner"."message_bounce", "res_partner"."name", "res_partner"."complete_name", "res_partner"."parent_id", "res_partner"."ref", "res_partner"."lang", "res_partner"."tz", "res_partner"."user_id", "res_partner"."vat", "res_partner"."company_registry", "res_partner"."website", "res_partner"."comment", "res_partner"."active", "res_partner"."employee", "res_partner"."function", "res_partner"."type", "res_partner"."street", "res_partner"."street2", "res_partner"."zip", "res_partner"."city", "res_partner"."state_id", "res_partner"."country_id", "res_partner"."partner_latitude", "res_partner"."partner_longitude", "res_partner"."email", "res_partner"."phone", "res_partner"."is_company", "res_partner"."industry_id", "res_partner"."company_id", "res_partner"."color", "res_partner"."partner_share", "res_partner"."commercial_partner_id", "res_partner"."commercial_company_name", "res_partner"."company_name", "res_partner"."create_uid", "res_partner"."create_date", "res_partner"."write_uid", "res_partner"."write_date", "res_partner"."signup_type", "res_partner"."phone_sanitized", "res_partner"."invoice_template_pdf_report_id", "res_partner"."supplier_rank", "res_partner"."customer_rank", "res_partner"."autopost_bills", "res_partner"."picking_warn_msg", "res_partner"."global_location_number", "res_partner"."peppol_endpoint", "res_partner"."peppol_eas", "res_partner"."purchase_warn_msg", "res_partner"."buyer_id", "res_partner"."suggest_based_on", "res_partner"."suggest_days", "res_partner"."suggest_percent", "res_partner"."group_rfq", "res_partner"."group_on", "res_partner"."sale_warn_msg", "res_partner"."is_pickup_location", "res_partner"."partner_type" FROM "res_partner" WHERE "res_partner"."id" IN (34, 28, 2, 6, 3)'
+web-1  | ERROR: column res_partner.partner_type does not exist
+web-1  | LINE 1: ...le_warn_msg", "res_partner"."is_pickup_location", "res_partn...
+web-1  |                                                              ^
+web-1  |  
+web-1  | 2026-01-23 06:44:53,121 1 ERROR odoo odoo.addons.bus.websocket: Exception occurred during websocket request handling 
+web-1  | Traceback (most recent call last):
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/bus/websocket.py", line 1115, in _serve_forever
+web-1  |     req.serve_websocket_message(message)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/bus/websocket.py", line 911, in serve_websocket_message
+web-1  |     service_model.retrying(
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/service/model.py", line 184, in retrying
+web-1  |     result = func()
+web-1  |              ^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/bus/websocket.py", line 921, in _serve_ir_websocket
+web-1  |     self.env["ir.websocket"]._subscribe(data)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/tools/discuss.py", line 36, in wrapper
+web-1  |     return func(self, *args, **kwargs)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/models/ir_websocket.py", line 35, in _subscribe
+web-1  |     super()._subscribe(og_data)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/bus/models/ir_websocket.py", line 67, in _subscribe
+web-1  |     data = self._prepare_subscribe_data(og_data["channels"], og_data["last"])
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/models/ir_websocket.py", line 70, in _prepare_subscribe_data
+web-1  |     partners.filtered(
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6207, in filtered
+web-1  |     return self.browse(rec_id for rec_id, rec in zip(self._ids, self) if func(rec))
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 5889, in browse
+web-1  |     ids = tuple(ids)
+web-1  |           ^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6207, in <genexpr>
+web-1  |     return self.browse(rec_id for rec_id, rec in zip(self._ids, self) if func(rec))
+web-1  |                                                                          ^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/models/ir_websocket.py", line 74, in <lambda>
+web-1  |     or p.has_access("read")
+web-1  |        ^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 4119, in has_access
+web-1  |     return self.env.su or not self._check_access(operation)
+web-1  |                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 4152, in _check_access
+web-1  |     if domain and (forbidden := self - self.sudo().with_context(active_test=False).filtered_domain(domain)):
+web-1  |                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6252, in filtered_domain
+web-1  |     return self.browse(rec_id for rec_id, rec in zip(self._ids, self) if predicate(rec))
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 5889, in browse
+web-1  |     ids = tuple(ids)
+web-1  |           ^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6252, in <genexpr>
+web-1  |     return self.browse(rec_id for rec_id, rec in zip(self._ids, self) if predicate(rec))
+web-1  |                                                                          ^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 732, in or_predicate
+web-1  |     return any(pred(record) for pred in predicates)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 732, in <genexpr>
+web-1  |     return any(pred(record) for pred in predicates)
+web-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 727, in <genexpr>
+web-1  |     all_predicates = (child._as_predicate(records) for child in self.children)
+web-1  |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 1037, in _as_predicate
+web-1  |     return self._optimize(records, OptimizationLevel.DYNAMIC_VALUES)._as_predicate(records)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/domains.py", line 1079, in _as_predicate
+web-1  |     func = field.filter_function(records, field_expr, positive_operator, value)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields_relational.py", line 185, in filter_function
+web-1  |     corecords = getter(records)
+web-1  |                 ^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields_relational.py", line 45, in __get__
+web-1  |     return super().__get__(records, owner)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 1702, in __get__
+web-1  |     recs._fetch_field(self)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3769, in _fetch_field
+web-1  |     self.fetch(fnames)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3809, in fetch
+web-1  |     fetched = self._fetch_query(query, fields_to_fetch)
+web-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3914, in _fetch_query
+web-1  |     rows = self.env.execute_query(query.select(*sql_terms))
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/environments.py", line 534, in execute_query
+web-1  |     self.cr.execute(query)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 426, in execute
+web-1  |     self._obj.execute(query, params)
+web-1  | psycopg2.errors.UndefinedColumn: column res_partner.partner_type does not exist
+web-1  | LINE 1: ...le_warn_msg", "res_partner"."is_pickup_location", "res_partn...
+web-1  |                                                              ^
+web-1  | 
+web-1  | 2026-01-23 06:45:52,171 1 ERROR odoo odoo.sql_db: bad query: b'SELECT "res_partner"."id", "res_partner"."website_id", "res_partner"."is_published", "res_partner"."email_normalized", "res_partner"."message_bounce", "res_partner"."name", "res_partner"."complete_name", "res_partner"."parent_id", "res_partner"."ref", "res_partner"."lang", "res_partner"."tz", "res_partner"."user_id", "res_partner"."vat", "res_partner"."company_registry", "res_partner"."website", "res_partner"."comment", "res_partner"."active", "res_partner"."employee", "res_partner"."function", "res_partner"."type", "res_partner"."street", "res_partner"."street2", "res_partner"."zip", "res_partner"."city", "res_partner"."state_id", "res_partner"."country_id", "res_partner"."partner_latitude", "res_partner"."partner_longitude", "res_partner"."email", "res_partner"."phone", "res_partner"."is_company", "res_partner"."industry_id", "res_partner"."company_id", "res_partner"."color", "res_partner"."partner_share", "res_partner"."commercial_partner_id", "res_partner"."commercial_company_name", "res_partner"."company_name", "res_partner"."create_uid", "res_partner"."create_date", "res_partner"."write_uid", "res_partner"."write_date", "res_partner"."signup_type", "res_partner"."phone_sanitized", "res_partner"."invoice_template_pdf_report_id", "res_partner"."supplier_rank", "res_partner"."customer_rank", "res_partner"."autopost_bills", "res_partner"."picking_warn_msg", "res_partner"."global_location_number", "res_partner"."peppol_endpoint", "res_partner"."peppol_eas", "res_partner"."purchase_warn_msg", "res_partner"."buyer_id", "res_partner"."suggest_based_on", "res_partner"."suggest_days", "res_partner"."suggest_percent", "res_partner"."group_rfq", "res_partner"."group_on", "res_partner"."sale_warn_msg", "res_partner"."is_pickup_location", "res_partner"."partner_type" FROM "res_partner" WHERE "res_partner"."id" IN (3)'
+web-1  | ERROR: column res_partner.partner_type does not exist
+web-1  | LINE 1: ...le_warn_msg", "res_partner"."is_pickup_location", "res_partn...
+web-1  |                                                              ^
+web-1  |  
+web-1  | 2026-01-23 06:45:52,172 1 ERROR odoo odoo.http: Exception during request handling. 
+web-1  | Traceback (most recent call last):
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2802, in __call__
+web-1  |     response = request._serve_db()
+web-1  |                ^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2277, in _serve_db
+web-1  |     raise self._update_served_exception(exc)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2275, in _serve_db
+web-1  |     return service_model.retrying(serve_func, env=self.env)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/service/model.py", line 184, in retrying
+web-1  |     result = func()
+web-1  |              ^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2330, in _serve_ir_http
+web-1  |     response = self.dispatcher.dispatch(rule.endpoint, args)
+web-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2452, in dispatch
+web-1  |     return self.request.registry['ir.http']._dispatch(endpoint)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/ir_http.py", line 355, in _dispatch
+web-1  |     result = endpoint(**request.params)
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 788, in route_wrapper
+web-1  |     result = endpoint(self, *args, **params_ok)
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/portal/controllers/web.py", line 27, in web_client
+web-1  |     return super().web_client(s_action, **kw)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 788, in route_wrapper
+web-1  |     result = endpoint(self, *args, **params_ok)
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/web/controllers/home.py", line 68, in web_client
+web-1  |     context = request.env['ir.http'].webclient_rendering_context()
+web-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/web/models/ir_http.py", line 69, in webclient_rendering_context
+web-1  |     'session_info': self.session_info(),
+web-1  |                     ^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/spreadsheet/models/ir_http.py", line 14, in session_info
+web-1  |     res = super().session_info()
+web-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/partner_autocomplete/models/ir_http.py", line 12, in session_info
+web-1  |     session_info = super().session_info()
+web-1  |                    ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/models/ir_http.py", line 13, in session_info
+web-1  |     result = super().session_info()
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/google_recaptcha/models/ir_http.py", line 18, in session_info
+web-1  |     session_info = super().session_info()
+web-1  |                    ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/barcodes_gs1_nomenclature/models/ir_http.py", line 11, in session_info
+web-1  |     res = super().session_info()
+web-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/web_tour/models/ir_http.py", line 8, in session_info
+web-1  |     result = super().session_info()
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/bus/models/ir_http.py", line 17, in session_info
+web-1  |     session_info = super().session_info()
+web-1  |                    ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base_setup/models/ir_http.py", line 10, in session_info
+web-1  |     result = super(IrHttp, self).session_info()
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/barcodes/models/ir_http.py", line 11, in session_info
+web-1  |     res = super(IrHttp, self).session_info()
+web-1  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/web/models/ir_http.py", line 85, in session_info
+web-1  |     user_context = dict(self.env['res.users'].context_get())
+web-1  |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/cache.py", line 98, in lookup
+web-1  |     return self.lookup(*args, **kwargs)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/cache.py", line 155, in lookup
+web-1  |     value = self.method(*args, **kwargs)
+web-1  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 700, in context_get
+web-1  |     context = self.env.user.read(['lang', 'tz'], load=False)[0]
+web-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 569, in read
+web-1  |     return super().read(fields=fields, load=load)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3487, in read
+web-1  |     return self._read_format(fnames=fields, load=load)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3744, in _read_format
+web-1  |     vals[name] = convert(record[name], record, use_display_name)
+web-1  |                          ~~~~~~^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6680, in __getitem__
+web-1  |     return self._fields[key].__get__(self)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 1746, in __get__
+web-1  |     self.compute_value(recs)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 1917, in compute_value
+web-1  |     records._compute_field_value(self)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 4949, in _compute_field_value
+web-1  |     determine(field.compute, self)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 84, in determine
+web-1  |     return needle(records, *args)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 720, in _compute_related
+web-1  |     record[self.name] = self._process_related(value[self.related_field.name], record.env)
+web-1  |                                               ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6680, in __getitem__
+web-1  |     return self._fields[key].__get__(self)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 1702, in __get__
+web-1  |     recs._fetch_field(self)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3769, in _fetch_field
+web-1  |     self.fetch(fnames)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3809, in fetch
+web-1  |     fetched = self._fetch_query(query, fields_to_fetch)
+web-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3914, in _fetch_query
+web-1  |     rows = self.env.execute_query(query.select(*sql_terms))
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/environments.py", line 534, in execute_query
+web-1  |     self.cr.execute(query)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 426, in execute
+web-1  |     self._obj.execute(query, params)
+web-1  | psycopg2.errors.UndefinedColumn: column res_partner.partner_type does not exist
+web-1  | LINE 1: ...le_warn_msg", "res_partner"."is_pickup_location", "res_partn...
+web-1  |                                                              ^
+web-1  | 
+web-1  | 2026-01-23 06:45:52,180 1 INFO odoo werkzeug: 172.18.0.1 - - [23/Jan/2026 06:45:52] "GET /odoo/apps HTTP/1.1" 500 - 2 0.002 0.014
+web-1  | 2026-01-23 06:45:53,238 1 INFO odoo werkzeug: 172.18.0.1 - - [23/Jan/2026 06:45:53] "GET /favicon.ico HTTP/1.1" 301 - 8 0.009 0.009
+web-1  | 2026-01-23 06:45:53,323 1 INFO odoo werkzeug: 172.18.0.1 - - [23/Jan/2026 06:45:53] "GET /web/image/website/1/favicon?unique=5093e28 HTTP/1.1" 200 - 7 0.006 0.008
+web-1  | 2026-01-23 06:45:54,877 1 INFO odoo werkzeug: 172.18.0.1 - - [23/Jan/2026 06:45:54] "GET /web/service-worker.js HTTP/1.1" 200 - 1 0.001 0.004
+web-1  | 2026-01-23 06:47:53,835 1 INFO ? odoo.service.server: Initiating shutdown 
+web-1  | 2026-01-23 06:47:53,835 1 INFO ? odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+web-1  | 2026-01-23 06:47:54,009 1 INFO ? odoo.sql_db: ConnectionPool(read/write;used=0/count=0/max=64): Closed 3 connections  
+web-1  | 2026-01-23 06:47:54,012 1 INFO ? odoo.service.server: cron0 max age (0s) reached, releasing connection. 
+web-1  | 2026-01-23 06:47:54,022 1 INFO ? odoo.service.server: cron1 max age (0s) reached, releasing connection. 
+web-1  | 2026-01-23 06:47:55,597 1 WARNING ? odoo.tools.config: missing --http-interface/http_interface, using 0.0.0.0 by default, will change to 127.0.0.1 in 20.0 
+web-1  | 2026-01-23 06:47:55,598 1 INFO ? odoo: Odoo version 19.0-20251222 
+web-1  | 2026-01-23 06:47:55,598 1 INFO ? odoo: Using configuration file at /etc/odoo/odoo.conf 
+web-1  | 2026-01-23 06:47:55,598 1 INFO ? odoo: addons paths: _NamespacePath(['/usr/lib/python3/dist-packages/odoo/addons', '/var/lib/odoo/addons/19.0', '/mnt/extra-addons', '/usr/lib/python3/dist-packages/addons']) 
+web-1  | 2026-01-23 06:47:55,598 1 INFO ? odoo: database: odoo@db:5432 
+web-1  | 2026-01-23 06:47:55,893 1 INFO ? odoo.service.server: Watching addons folder /usr/lib/python3/dist-packages/odoo/addons 
+web-1  | 2026-01-23 06:47:55,893 1 INFO ? odoo.service.server: Watching addons folder /var/lib/odoo/addons/19.0 
+web-1  | 2026-01-23 06:47:55,893 1 INFO ? odoo.service.server: Watching addons folder /mnt/extra-addons 
+web-1  | 2026-01-23 06:47:55,893 1 INFO ? odoo.service.server: Watching addons folder /usr/lib/python3/dist-packages/addons 
+web-1  | 2026-01-23 06:47:56,944 1 INFO ? odoo.service.server: AutoReload watcher running with watchdog 
+web-1  | 2026-01-23 06:47:56,945 1 INFO ? odoo.service.server: HTTP service (werkzeug) running on ac390ffa1359:8069 

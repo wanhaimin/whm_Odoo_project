@@ -4,39 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "85c0262a3e99bc81",
+        "id": "d5d3741f9ce9a38c",
         "type": "tabs",
         "children": [
           {
-            "id": "95e3beb1554e77b5",
+            "id": "6ee3311e986adc87",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "07_Odoo模块统计.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "07_Odoo模块统计"
-            }
-          },
-          {
-            "id": "89ad87b4edf7766d",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "ODOO_XML_DEEP_DIVE.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "ODOO_XML_DEEP_DIVE"
+              "title": "新标签页"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -68,7 +49,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#核心数据库只有三个，其他的数据库都是继承这三个核心数据库？",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -89,7 +70,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -109,8 +91,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "ODOO_XML_DEEP_DIVE.md",
-                "collapseAll": false,
+                "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
                 "showSearch": false,
@@ -119,7 +100,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "ODOO_XML_DEEP_DIVE 的反向链接列表"
+              "title": "反向链接"
             }
           },
           {
@@ -197,34 +178,34 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "89ad87b4edf7766d",
+  "active": "6ee3311e986adc87",
   "lastOpenFiles": [
-    "Odoo核心技术栈详解.md",
+    "07_Odoo模块统计.md",
+    "odoo_architecture_summary.md",
+    "Odoo_Architecture_and_Deployment_QA.md",
+    "ACCESS_RIGHTS_EXPLAINED.md",
+    "QR_CODE_LIFECYCLE.md",
+    "README-学习教程总索引.md",
+    "RELATION_FIELDS_PRACTICE.md",
+    "快速打样平台-功能设计.md",
+    "材料管理平台-使用说明.md",
+    "测试指南.md",
     "ODOO_XML_DEEP_DIVE.md",
+    "菜单冲突已解决.md",
+    "Odoo核心技术栈详解.md",
     "ODOO_ORM_CHEAT_SHEET.md",
     "Odoo_List_View_Customization_Guide.md",
     "ODOO_FIELD_TYPES.md",
     "ODOO_DEVELOPMENT_BIBLE.md",
     "ODOO_CHEAT_SHEET.md",
-    "RELATION_FIELDS_PRACTICE.md",
     "XML从入门到精通 (The UI Masterclass).md",
     "升级成功-请测试.md",
     "模切管理模块说明.md",
     "模切管理模块-问题解决.md",
     "模切材料数据库平台-项目规划.md",
-    "快速打样平台-功能设计.md",
-    "测试指南.md",
-    "菜单冲突已解决.md",
-    "材料管理平台-使用说明.md",
-    "README-学习教程总索引.md",
     "Odoo学习教程-第一阶段-初级入门.md",
     "Start_Odoo_Shell.bat",
     "LOT_BASED_CODE_PREVIEW.md",
-    "INDUSTRY_4_0_ROADMAP.md",
-    "DIECUT_VARIANTS_SOLUTION.md",
-    "DIECUT_QR_FLOW_LOGIC.md",
-    "DIECUT_INDUSTRY_BLUEPRINT.md",
-    "CREATE_MODEL_TUTORIAL.md",
-    "QR_CODE_LIFECYCLE.md"
+    "INDUSTRY_4_0_ROADMAP.md"
   ]
 }

@@ -1,0 +1,24 @@
+[[config]]
+name = "default"
+extends = ""
+odoo_path = "e:/workspace/my_odoo_project/odoo"
+abstract = false
+addons_paths = [
+    "e:/workspace/my_odoo_project/odoo/addons",
+    "e:/workspace/my_odoo_project/custom_addons"
+]
+addons_merge = "merge"
+python_path = "e:/workspace/my_odoo_project/.venv/Scripts/python.exe"
+stdlib = ""
+additional_stubs = [
+]
+additional_stubs_merge = "merge"
+file_cache = true
+diag_missing_imports = "all"
+ac_filter_model_names = true
+auto_refresh_delay = 1000
+diagnostic_settings = {
+}
+diagnostic_filters = [
+]
+no_typeshed_stubs = false

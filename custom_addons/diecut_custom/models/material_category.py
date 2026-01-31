@@ -53,3 +53,6 @@ class MaterialCategory(models.Model):
         if not self._check_recursion():
             raise models.ValidationError('不能创建循环的分类层级!')
         return True
+
+
+        

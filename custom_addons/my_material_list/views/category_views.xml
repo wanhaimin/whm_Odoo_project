@@ -5,7 +5,7 @@
         <field name="name">my.material.category.form</field>
         <field name="model">my.material.category</field>
         <field name="arch" type="xml">
-            <form string="Material Category">
+            <form string="材料分类">
                 <sheet>
                     <group>
                         <field name="name" string="分类名称"/>
@@ -20,9 +20,9 @@
         <field name="name">my.material.category.tree</field>
         <field name="model">my.material.category</field>
         <field name="arch" type="xml">
-            <list string="Material Categories" multi_edit="1">
-                <field name="name" string="分类名称" width="200px"/>
-                <field name="description" string="描述" width="400px"/>
+            <list string="材料分类" multi_edit="1">
+                <field name="name" string="分类名称" width="100px"/>
+                <field name="description" string="描述" width="200px"/>
             </list>
         </field>
     </record>

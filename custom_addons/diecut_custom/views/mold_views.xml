@@ -6,28 +6,31 @@
         <field name="res_model">diecut.mold</field>
         <field name="view_mode">list,form</field>
     </record>
-
     <!-- 2. 定义列表视图 (List) -->
     <record id="view_diecut_mold_list" model="ir.ui.view">
         <field name="name">diecut.mold.list</field>
         <field name="model">diecut.mold</field>
         <field name="arch" type="xml">
-            <list decoration-danger="remaining_life &lt; 5000" decoration-warning="state == 'repair'" decoration-info="state == 'available'">
-                <field name="code"/>
-                <field name="name"/>
-                <field name="mold_type"/>
-                <field name="customer_id"/>
-                <field name="product_id"/>
-                <field name="cavity" optional="show"/>
-                <field name="location"/>
-                <field name="total_life" optional="hide"/>
-                <field name="used_life"/>
-                <field name="remaining_life" widget="badge" decoration-danger="remaining_life &lt; 5000" decoration-success="remaining_life &gt; 20000"/>
-                <field name="state" widget="badge" decoration-success="state == 'using'" decoration-info="state == 'available'" decoration-warning="state == 'repair'"/>
+            <!-- 
+                SAFE XML: using '5000 > remaining_life' instead of 'remaining_life < 5000' 
+                to avoid unescaped less-than characters which break the parser.
+            -->
+            <list decoration-danger="5000 > remaining_life" decoration-warning="state == 'repair'" decoration-info="state == 'available'">
+                <field name="code" />
+                <field name="name" />
+                <field name="mold_type" />
+                <field name="customer_id" />
+                <field name="product_id" />
+                <field name="cavity" optional="show" />
+                <field name="location" />
+                <field name="total_life" optional="hide" />
+                <field name="used_life" />
+                <!-- Using 5000 > remaining_life to avoid less-than sign -->
+                <field name="remaining_life" widget="badge" decoration-danger="5000 > remaining_life" decoration-success="remaining_life > 20000" />
+                <field name="state" widget="badge" decoration-success="state == 'using'" decoration-info="state == 'available'" decoration-warning="state == 'repair'" />
             </list>
         </field>
     </record>
-
     <!-- 3. 定义表单视图 (Form) -->
     <record id="view_diecut_mold_form" model="ir.ui.view">
         <field name="name">diecut.mold.form</field>
@@ -35,99 +38,90 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="%(diecut_custom.action_report_mold_label)d" string="打印标签" type="action" class="btn-primary"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,available,using,repair"/>
+                    <button name="%(diecut_custom.action_report_mold_label)d" string="打印标签" type="action" class="btn-primary" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,available,using,repair" />
                 </header>
                 <sheet>
-                    <widget name="web_ribbon" title="已报废" bg_color="text-bg-danger" invisible="state != 'scrapped'"/>
-                    <widget name="web_ribbon" title="已存档" bg_color="text-bg-secondary" invisible="active"/>
-                    
-                    <field name="image" widget="image" class="oe_avatar" options="{'preview_image': 'image'}"/>
+                    <widget name="web_ribbon" title="已报废" bg_color="text-bg-danger" invisible="state != 'scrapped'" />
+                    <widget name="web_ribbon" title="已存档" bg_color="text-bg-secondary" invisible="active" />
+                    <field name="image" widget="image" class="oe_avatar" options="{'preview_image': 'image'}" />
                     <div class="oe_title">
-                        <label for="code" string="模具编号"/>
+                        <label string="模具编号" for="code" />
                         <h1>
-                            <field name="code" readonly="1"/>
+                            <field name="code" readonly="1" />
                         </h1>
-                        <label for="name" string="模具名称"/>
+                        <label string="模具名称" for="name" />
                         <h2>
-                            <field name="name" placeholder="例如: 某某型号圆刀模..."/>
+                            <field name="name" placeholder="例如: 某某型号圆刀模..." />
                         </h2>
                     </div>
-
                     <group>
                         <group name="basic_main" string="核心信息">
-                            <field name="mold_type"/>
-                            <field name="product_id" options="{'no_create': True}"/>
-                            <field name="cavity"/>
-                            <field name="customer_id"/>
-                            <field name="machine_models"/>
+                            <field name="mold_type" />
+                            <field name="product_id" options="{'no_create': True}" />
+                            <field name="cavity" />
+                            <field name="customer_id" />
+                            <field name="machine_models" />
                         </group>
                         <group name="inventory_info" string="存放信息">
-                            <field name="location"/>
-                            <field name="design_by"/>
-                            <field name="active" invisible="1"/>
+                            <field name="location" />
+                            <field name="design_by" />
+                            <field name="active" invisible="1" />
                         </group>
                     </group>
-
                     <notebook>
                         <page name="technical_specs" string="技术规格">
                             <group>
                                 <group string="外形尺寸 (mm)">
-                                    <field name="size_length"/>
-                                    <field name="size_width"/>
-                                    <field name="size_height"/>
+                                    <field name="size_length" />
+                                    <field name="size_width" />
+                                    <field name="size_height" />
                                 </group>
                                 <group string="刀具参数 (mm)">
-                                    <field name="blade_height"/>
-                                    <field name="blade_thickness"/>
-                                    <field name="blade_brand"/>
+                                    <field name="blade_height" />
+                                    <field name="blade_thickness" />
+                                    <field name="blade_brand" />
                                 </group>
                                 <group string="工艺参数">
-                                    <field name="gap_distance"/>
-                                    <field name="is_rotary" invisible="1"/>
-                                    <field name="gear_teeth" invisible="not is_rotary"/>
+                                    <field name="gap_distance" />
+                                    <field name="is_rotary" invisible="1" />
+                                    <field name="gear_teeth" invisible="not is_rotary" />
                                 </group>
                             </group>
                         </page>
                         <page name="life_cycle" string="寿命管理">
                             <group>
                                 <group string="统计数据">
-                                    <field name="total_life"/>
-                                    <field name="used_life"/>
-                                    <field name="remaining_life" decoration-danger="remaining_life &lt; 5000" decoration-success="remaining_life &gt; 20000" widget="integer"/>
+                                    <field name="total_life" />
+                                    <field name="used_life" />
+                                    <!-- Using 5000 > remaining_life to avoid less-than sign -->
+                                    <field name="remaining_life" decoration-danger="5000 > remaining_life" decoration-success="remaining_life > 20000" widget="integer" />
                                 </group>
                                 <group string="采购记录">
-                                    <field name="supplier_id"/>
-                                    <field name="purchase_date"/>
+                                    <field name="supplier_id" />
+                                    <field name="purchase_date" />
                                 </group>
                             </group>
                         </page>
                         <page name="notes" string="备注说明">
-                            <field name="note" placeholder="在此输入刀模相关的特殊要求或注意事项..."/>
+                            <field name="note" placeholder="在此输入刀模相关的特殊要求或注意事项..." />
                         </page>
                     </notebook>
                 </sheet>
                 <!-- 底部消息和活动记录 -->
                 <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
                 </div>
             </form>
         </field>
     </record>
-
     <!-- 4. 定义菜单 (Menu) -->
     <!-- 一级菜单 -->
-    <menuitem id="menu_diecut_root" name="模切管理" web_icon="diecut_custom,static/description/icon.png"/>
-    
+    <menuitem id="menu_diecut_root" name="模切管理" web_icon="diecut_custom,static/description/icon.png" />
     <!-- 二级菜单 (配置) -->
-    <menuitem id="menu_diecut_config" name="配置" parent="menu_diecut_root" sequence="100"/>
-
+    <menuitem id="menu_diecut_config" name="配置" parent="menu_diecut_root" sequence="100" />
     <!-- 三级菜单 (刀模) -->
-    <menuitem id="menu_diecut_mold_act" 
-              name="刀模库" 
-              parent="menu_diecut_config" 
-              action="action_diecut_mold"
-              sequence="10"/>
+    <menuitem id="menu_diecut_mold_act" name="刀模库" parent="menu_diecut_config" action="action_diecut_mold" sequence="10" />
 </odoo>

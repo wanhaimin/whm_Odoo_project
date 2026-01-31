@@ -1,29 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- 在联系人表单中添加合作伙伴类型字段 -->
-    <record id="view_partner_form_partner_type" model="ir.ui.view">
-        <field name="name">res.partner.form.partner.type</field>
+    <!-- ========================================== -->
+    <!-- 新增：模切专用-客户精简视图                -->
+    <!-- ========================================== -->
+    <!-- 1. 定义全新的精简版表单视图 (不继承base) -->
+    <record id="view_partner_simple_form" model="ir.ui.view">
+        <field name="name">res.partner.simple.form</field>
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <!-- 在"销售与采购"标签页的开始位置添加 -->
-            <xpath expr="//page[@name='sales_purchases']//group[@name='sale']" position="before">
-                <group string="合作伙伴分类">
-                    <field name="partner_type" widget="radio" options="{'horizontal': true}"/>
-                </group>
-            </xpath>
+            <form string="客户资料">
+                <sheet>
+                    <div name="button_box" class="oe_button_box" />
+                    <field name="avatar_128" invisible="1" />
+                    <image name="image_1920" class="oe_avatar" widget="image" options="{'preview_image': 'avatar_128'}" />
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="客户名称..." />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="phone" widget="phone" />
+                            <field name="email" widget="email" />
+                        </group>
+                        <group>
+                            <field name="user_id" widget="many2one_avatar_user" />
+                            <field name="category_id" widget="many2many_tags" options="{'color_field': 'color'}" placeholder="标签..." />
+                        </group>
+                    </group>
+                    <group string="地址信息">
+                        <label string="详细地址" for="street" />
+                        <div class="o_address_format">
+                            <field name="street" placeholder="街道/门牌号..." class="o_address_street" />
+                            <field name="city" placeholder="城市" class="o_address_city" style="width: 40%" />
+                            <field name="state_id" class="o_address_state" style="width: 30%" placeholder="省份" options="{'no_open': True}" />
+                            <field name="country_id" placeholder="国家" class="o_address_country" style="width: 30%" options="{'no_open': True, 'no_create': True}" />
+                        </div>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
-    
-    <!-- 在联系人列表视图中添加合作伙伴类型列 -->
-    <record id="view_partner_list_partner_type" model="ir.ui.view">
-        <field name="name">res.partner.list.partner.type</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_tree"/>
-        <field name="arch" type="xml">
-            <xpath expr="//list//field[@name='phone']" position="after">
-                <field name="partner_type"/>
-            </xpath>
+    <!-- 2. 定义动作：强制使用上面的精简视图 -->
+    <record id="action_diecut_customer" model="ir.actions.act_window">
+        <field name="name">客户管理</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('base.view_partner_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_partner_simple_form')})
+        ]" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">创建第一个客户</p>
         </field>
     </record>
 </odoo>

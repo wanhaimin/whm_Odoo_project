@@ -13,6 +13,15 @@ services:
     ports:
       - "5434:5432"
 
+  # 邮件测试服务 (Mailpit)
+  mailpit:
+    image: axllent/mailpit
+    container_name: mailpit
+    restart: always
+    ports:
+      - "8025:8025" # Web UI
+      - "1025:1025" # SMTP Port
+
   # Odoo 服务
   web:
     # 这里修改你需要开发的 Odoo 版本，例如 odoo:16.0, odoo:17.0
@@ -31,7 +40,7 @@ services:
       - ../custom_addons:/mnt/extra-addons
       # 持久化 Odoo 的 web 数据（如附件等）
       - odoo-web-data:/var/lib/odoo
-    command: --dev=xml,reload
+    command: odoo -u diecut_custom --dev=xml,reload
 
 volumes:
   odoo-db-data:

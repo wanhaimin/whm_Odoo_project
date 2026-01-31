@@ -1,0 +1,200 @@
+﻿web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 569, in read
+web-1  |     return super().read(fields=fields, load=load)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3487, in read
+web-1  |     return self._read_format(fnames=fields, load=load)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3744, in _read_format
+web-1  |     vals[name] = convert(record[name], record, use_display_name)
+web-1  |                          ~~~~~~^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6680, in __getitem__
+web-1  |     return self._fields[key].__get__(self)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 1746, in __get__
+web-1  |     self.compute_value(recs)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 1917, in compute_value
+web-1  |     records._compute_field_value(self)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 4949, in _compute_field_value
+web-1  |     determine(field.compute, self)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 84, in determine
+web-1  |     return needle(records, *args)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 720, in _compute_related
+web-1  |     record[self.name] = self._process_related(value[self.related_field.name], record.env)
+web-1  |                                               ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6680, in __getitem__
+web-1  |     return self._fields[key].__get__(self)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 1702, in __get__
+web-1  |     recs._fetch_field(self)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3769, in _fetch_field
+web-1  |     self.fetch(fnames)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3809, in fetch
+web-1  |     fetched = self._fetch_query(query, fields_to_fetch)
+web-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3914, in _fetch_query
+web-1  |     rows = self.env.execute_query(query.select(*sql_terms))
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/environments.py", line 534, in execute_query
+web-1  |     self.cr.execute(query)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 426, in execute
+web-1  |     self._obj.execute(query, params)
+web-1  | psycopg2.errors.UndefinedColumn: column res_partner.partner_type does not exist
+web-1  | LINE 1: ...le_warn_msg", "res_partner"."is_pickup_location", "res_partn...
+web-1  |                                                              ^
+web-1  | 
+web-1  | 2026-01-23 06:59:55,314 1 INFO odoo werkzeug: 172.18.0.1 - - [23/Jan/2026 06:59:55] "GET /odoo/apps HTTP/1.1" 500 - 33 0.028 1.641
+web-1  | 2026-01-23 06:59:57,953 1 INFO odoo werkzeug: 172.18.0.1 - - [23/Jan/2026 06:59:57] "GET /web/service-worker.js HTTP/1.1" 200 - 1 0.001 0.004
+web-1  | 2026-01-23 07:00:02,429 1 INFO ? odoo.service.server: Initiating shutdown 
+web-1  | 2026-01-23 07:00:02,429 1 INFO ? odoo.service.server: Hit CTRL-C again or send a second signal to force the shutdown. 
+web-1  | 2026-01-23 07:00:02,652 1 INFO ? odoo.sql_db: ConnectionPool(read/write;used=0/count=0/max=64): Closed 3 connections  
+web-1  | 2026-01-23 07:00:02,655 1 INFO ? odoo.service.server: cron0 max age (0s) reached, releasing connection. 
+web-1  | 2026-01-23 07:00:02,665 1 INFO ? odoo.service.server: cron1 max age (0s) reached, releasing connection. 
+web-1  | 2026-01-23 07:00:05,953 1 WARNING ? odoo.tools.config: missing --http-interface/http_interface, using 0.0.0.0 by default, will change to 127.0.0.1 in 20.0 
+web-1  | 2026-01-23 07:00:05,953 1 INFO ? odoo: Odoo version 19.0-20251222 
+web-1  | 2026-01-23 07:00:05,954 1 INFO ? odoo: Using configuration file at /etc/odoo/odoo.conf 
+web-1  | 2026-01-23 07:00:05,954 1 INFO ? odoo: addons paths: _NamespacePath(['/usr/lib/python3/dist-packages/odoo/addons', '/var/lib/odoo/addons/19.0', '/mnt/extra-addons', '/usr/lib/python3/dist-packages/addons']) 
+web-1  | 2026-01-23 07:00:05,954 1 INFO ? odoo: database: odoo@db:5432 
+web-1  | 2026-01-23 07:00:06,233 1 INFO ? odoo.service.server: Watching addons folder /usr/lib/python3/dist-packages/odoo/addons 
+web-1  | 2026-01-23 07:00:06,233 1 INFO ? odoo.service.server: Watching addons folder /var/lib/odoo/addons/19.0 
+web-1  | 2026-01-23 07:00:06,234 1 INFO ? odoo.service.server: Watching addons folder /mnt/extra-addons 
+web-1  | 2026-01-23 07:00:06,234 1 INFO ? odoo.service.server: Watching addons folder /usr/lib/python3/dist-packages/addons 
+web-1  | 2026-01-23 07:00:07,370 1 INFO ? odoo.service.server: AutoReload watcher running with watchdog 
+web-1  | 2026-01-23 07:00:07,382 1 INFO ? odoo.service.server: HTTP service (werkzeug) running on ac390ffa1359:8069 
+web-1  | 2026-01-23 07:00:09,357 1 INFO ? odoo.modules.loading: loading 1 modules... 
+web-1  | 2026-01-23 07:00:09,362 1 INFO ? odoo.modules.loading: 1 modules loaded in 0.00s, 0 queries (+0 extra) 
+web-1  | 2026-01-23 07:00:09,374 1 WARNING ? odoo.modules.module: Missing `author` key in manifest for 'diecut_custom', defaulting to '' 
+web-1  | 2026-01-23 07:00:09,374 1 WARNING ? odoo.modules.module: Missing `license` key in manifest for 'diecut_custom', defaulting to LGPL-3 
+web-1  | 2026-01-23 07:00:09,419 1 INFO ? odoo.modules.loading: loading 93 modules... 
+web-1  | 2026-01-23 07:00:10,637 1 INFO ? odoo.modules.loading: 93 modules loaded in 1.22s, 0 queries (+0 extra) 
+web-1  | 2026-01-23 07:00:10,873 1 INFO ? odoo.modules.loading: Modules loaded. 
+web-1  | 2026-01-23 07:00:10,963 1 INFO ? odoo.registry: Registry loaded in 1.676s 
+web-1  | 2026-01-23 07:00:10,974 1 INFO odoo odoo.addons.base.models.ir_http: Generating routing map for key 1 
+web-1  | 2026-01-23 07:00:11,068 1 ERROR odoo odoo.sql_db: bad query: b'SELECT "res_partner"."id", "res_partner"."website_id", "res_partner"."is_published", "res_partner"."email_normalized", "res_partner"."message_bounce", "res_partner"."name", "res_partner"."complete_name", "res_partner"."parent_id", "res_partner"."ref", "res_partner"."lang", "res_partner"."tz", "res_partner"."user_id", "res_partner"."vat", "res_partner"."company_registry", "res_partner"."website", "res_partner"."comment", "res_partner"."active", "res_partner"."employee", "res_partner"."function", "res_partner"."type", "res_partner"."street", "res_partner"."street2", "res_partner"."zip", "res_partner"."city", "res_partner"."state_id", "res_partner"."country_id", "res_partner"."partner_latitude", "res_partner"."partner_longitude", "res_partner"."email", "res_partner"."phone", "res_partner"."is_company", "res_partner"."industry_id", "res_partner"."company_id", "res_partner"."color", "res_partner"."partner_share", "res_partner"."commercial_partner_id", "res_partner"."commercial_company_name", "res_partner"."company_name", "res_partner"."create_uid", "res_partner"."create_date", "res_partner"."write_uid", "res_partner"."write_date", "res_partner"."signup_type", "res_partner"."phone_sanitized", "res_partner"."invoice_template_pdf_report_id", "res_partner"."supplier_rank", "res_partner"."customer_rank", "res_partner"."autopost_bills", "res_partner"."picking_warn_msg", "res_partner"."global_location_number", "res_partner"."peppol_endpoint", "res_partner"."peppol_eas", "res_partner"."purchase_warn_msg", "res_partner"."buyer_id", "res_partner"."suggest_based_on", "res_partner"."suggest_days", "res_partner"."suggest_percent", "res_partner"."group_rfq", "res_partner"."group_on", "res_partner"."sale_warn_msg", "res_partner"."is_pickup_location", "res_partner"."partner_type" FROM "res_partner" WHERE "res_partner"."id" IN (3)'
+web-1  | ERROR: column res_partner.partner_type does not exist
+web-1  | LINE 1: ...le_warn_msg", "res_partner"."is_pickup_location", "res_partn...
+web-1  |                                                              ^
+web-1  |  
+web-1  | 2026-01-23 07:00:11,069 1 ERROR odoo odoo.http: Exception during request handling. 
+web-1  | Traceback (most recent call last):
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2802, in __call__
+web-1  |     response = request._serve_db()
+web-1  |                ^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2277, in _serve_db
+web-1  |     raise self._update_served_exception(exc)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2275, in _serve_db
+web-1  |     return service_model.retrying(serve_func, env=self.env)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/service/model.py", line 184, in retrying
+web-1  |     result = func()
+web-1  |              ^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2330, in _serve_ir_http
+web-1  |     response = self.dispatcher.dispatch(rule.endpoint, args)
+web-1  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 2452, in dispatch
+web-1  |     return self.request.registry['ir.http']._dispatch(endpoint)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/ir_http.py", line 355, in _dispatch
+web-1  |     result = endpoint(**request.params)
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 788, in route_wrapper
+web-1  |     result = endpoint(self, *args, **params_ok)
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/portal/controllers/web.py", line 27, in web_client
+web-1  |     return super().web_client(s_action, **kw)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/http.py", line 788, in route_wrapper
+web-1  |     result = endpoint(self, *args, **params_ok)
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/web/controllers/home.py", line 68, in web_client
+web-1  |     context = request.env['ir.http'].webclient_rendering_context()
+web-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/web/models/ir_http.py", line 69, in webclient_rendering_context
+web-1  |     'session_info': self.session_info(),
+web-1  |                     ^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/spreadsheet/models/ir_http.py", line 14, in session_info
+web-1  |     res = super().session_info()
+web-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/partner_autocomplete/models/ir_http.py", line 12, in session_info
+web-1  |     session_info = super().session_info()
+web-1  |                    ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/mail/models/ir_http.py", line 13, in session_info
+web-1  |     result = super().session_info()
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/google_recaptcha/models/ir_http.py", line 18, in session_info
+web-1  |     session_info = super().session_info()
+web-1  |                    ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/barcodes_gs1_nomenclature/models/ir_http.py", line 11, in session_info
+web-1  |     res = super().session_info()
+web-1  |           ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/web_tour/models/ir_http.py", line 8, in session_info
+web-1  |     result = super().session_info()
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/bus/models/ir_http.py", line 17, in session_info
+web-1  |     session_info = super().session_info()
+web-1  |                    ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base_setup/models/ir_http.py", line 10, in session_info
+web-1  |     result = super(IrHttp, self).session_info()
+web-1  |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/barcodes/models/ir_http.py", line 11, in session_info
+web-1  |     res = super(IrHttp, self).session_info()
+web-1  |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/web/models/ir_http.py", line 85, in session_info
+web-1  |     user_context = dict(self.env['res.users'].context_get())
+web-1  |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/cache.py", line 98, in lookup
+web-1  |     return self.lookup(*args, **kwargs)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/tools/cache.py", line 155, in lookup
+web-1  |     value = self.method(*args, **kwargs)
+web-1  |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 700, in context_get
+web-1  |     context = self.env.user.read(['lang', 'tz'], load=False)[0]
+web-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/addons/base/models/res_users.py", line 569, in read
+web-1  |     return super().read(fields=fields, load=load)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3487, in read
+web-1  |     return self._read_format(fnames=fields, load=load)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3744, in _read_format
+web-1  |     vals[name] = convert(record[name], record, use_display_name)
+web-1  |                          ~~~~~~^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6680, in __getitem__
+web-1  |     return self._fields[key].__get__(self)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 1746, in __get__
+web-1  |     self.compute_value(recs)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 1917, in compute_value
+web-1  |     records._compute_field_value(self)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 4949, in _compute_field_value
+web-1  |     determine(field.compute, self)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 84, in determine
+web-1  |     return needle(records, *args)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 720, in _compute_related
+web-1  |     record[self.name] = self._process_related(value[self.related_field.name], record.env)
+web-1  |                                               ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 6680, in __getitem__
+web-1  |     return self._fields[key].__get__(self)
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/fields.py", line 1702, in __get__
+web-1  |     recs._fetch_field(self)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3769, in _fetch_field
+web-1  |     self.fetch(fnames)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3809, in fetch
+web-1  |     fetched = self._fetch_query(query, fields_to_fetch)
+web-1  |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/models.py", line 3914, in _fetch_query
+web-1  |     rows = self.env.execute_query(query.select(*sql_terms))
+web-1  |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/orm/environments.py", line 534, in execute_query
+web-1  |     self.cr.execute(query)
+web-1  |   File "/usr/lib/python3/dist-packages/odoo/sql_db.py", line 426, in execute
+web-1  |     self._obj.execute(query, params)
+web-1  | psycopg2.errors.UndefinedColumn: column res_partner.partner_type does not exist
+web-1  | LINE 1: ...le_warn_msg", "res_partner"."is_pickup_location", "res_partn...
+web-1  |                                                              ^
+web-1  | 
+web-1  | 2026-01-23 07:00:11,080 1 INFO odoo werkzeug: 172.18.0.1 - - [23/Jan/2026 07:00:11] "GET /odoo/apps?debug=1 HTTP/1.1" 500 - 33 0.128 1.665
+web-1  | 2026-01-23 07:00:13,801 1 INFO odoo werkzeug: 172.18.0.1 - - [23/Jan/2026 07:00:13] "GET /web/service-worker.js HTTP/1.1" 200 - 1 0.001 0.004
