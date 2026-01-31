@@ -1,4 +1,20 @@
 {
-    "python.defaultInterpreterPath": "c:\\Users\\Lenovo\\OneDrive\\Desktop\\workspace\\my_odoo_project\\venv\\Scripts\\python.exe",
-    "python.terminal.activateEnvironment": true
+    "python.defaultInterpreterPath": "e:\\whm_Odoo_project\\.venv\\Scripts\\python.exe",
+    "python.terminal.activateEnvironment": true,
+    "python.languageServer": "None",
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.extraPaths": [
+        "e:\\whm_Odoo_project\\odoo",
+        "e:\\whm_Odoo_project\\odoo\\odoo\\addons",
+        "e:\\whm_Odoo_project\\odoo\\addons",
+        "e:\\whm_Odoo_project\\custom_addons"
+    ],
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "files.watcherInclude": [
+        "**/*.py",
+        "**/*.xml",
+        "**/*.csv"
+    ]
 }

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 
 class MaterialCategory(models.Model):
@@ -51,5 +52,6 @@ class MaterialCategory(models.Model):
     @api.constrains('parent_id')
     def _check_category_recursion(self):
         if not self._check_recursion():
-            raise models.ValidationError('不能创建循环的分类层级!')
+            raise ValidationError('不能创建循环的分类层级!')
         return True
+ 

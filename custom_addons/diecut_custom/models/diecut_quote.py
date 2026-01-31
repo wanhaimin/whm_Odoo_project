@@ -25,14 +25,10 @@ class DiecutQuote(models.Model):
     # 自动生成单号逻辑（可选）
     @api.model_create_multi
     def create(self, vals_list):
-        # 兼容性处理: 如果传入的是字典而不是列表,转换为列表
-        if isinstance(vals_list, dict):
-            vals_list = [vals_list]
-        
         for vals in vals_list:
             if vals.get('name', 'New') == 'New':
                 vals['name'] = self.env['ir.sequence'].next_by_code('diecut.quote') or 'DQ-New'
-        return super(DiecutQuote, self).create(vals_list)
+        return super().create(vals_list)
 
 
 class DiecutQuoteLayer(models.Model):
