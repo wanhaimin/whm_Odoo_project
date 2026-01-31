@@ -48,7 +48,7 @@ class MaterialSlittingOrder(models.Model):
 
     # 仓库信息
     def _default_warehouse_id(self):
-        warehouse = self.env.user.property_warehouse_id
+        warehouse = getattr(self.env.user, 'property_warehouse_id', False)
         if not warehouse:
             warehouse = self.env['stock.warehouse'].search([], limit=1)
         return warehouse

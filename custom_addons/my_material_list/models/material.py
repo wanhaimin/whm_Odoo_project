@@ -1,3 +1,4 @@
+from xml.etree.ElementPath import xpath_tokenizer
 from odoo import models, fields, api, _
 
 class MyMaterial(models.Model):
@@ -48,7 +49,7 @@ class MyMaterial(models.Model):
             if vals.get('code', 'New') == 'New':
                 vals['code'] = self.env['ir.sequence'].next_by_code('my.material.code') or 'New'
         
-        records = super(MyMaterial, self).create(vals_list)
+        records = super(MyMaterial, self).create(vals_list) # type: ignore
         for record in records:
             record._create_or_update_product()
         return records
@@ -102,7 +103,6 @@ class MyMaterial(models.Model):
     incoterms = fields.Char(string='贸易条款')
     quote_date = fields.Date(string='报价日期')
     
-    
    
     
     
@@ -153,3 +153,5 @@ class MyMaterial(models.Model):
     material_type = fields.Char(string='材质/牌号')
     color = fields.Char(string='颜色')
     weight_gram = fields.Float(string='克重 (g)', digits=(16, 2))
+
+    

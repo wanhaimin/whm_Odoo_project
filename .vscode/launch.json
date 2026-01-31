@@ -2,15 +2,48 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Odoo: Run (Local)",
-            "type": "python",
+            "name": "Odoo: Run Service",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/odoo/odoo-bin",
+            "args": [
+                "-c",
+                "${workspaceFolder}/odoo.conf"
+            ],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "GEVENT_SUPPORT": "True"
+            },
+            "justMyCode": false,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Odoo: Update 'diecut_custom'",
+            "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/odoo/odoo-bin",
             "args": [
                 "-c",
                 "${workspaceFolder}/odoo.conf",
                 "-u",
-                "my_material_list"
+                "diecut_custom"
+            ],
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "GEVENT_SUPPORT": "True"
+            },
+            "justMyCode": false,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Odoo: Shell",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/odoo/odoo-bin",
+            "args": [
+                "shell",
+                "-c",
+                "${workspaceFolder}/odoo.conf"
             ],
             "cwd": "${workspaceFolder}",
             "env": {

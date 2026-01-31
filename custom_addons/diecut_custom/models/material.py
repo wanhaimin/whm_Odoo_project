@@ -132,3 +132,4 @@ class Material(models.Model):
     def action_unpublish(self):
         """从网站取消发布"""
         self.website_published = False
+    

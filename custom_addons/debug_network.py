@@ -15,10 +15,12 @@ def test_ssl_465():
             with context.wrap_socket(sock, server_hostname=hostname) as ssock:
                 print("SSL Handshake Successful!")
                 cert = ssock.getpeercert()
-                subject = dict(x[0] for x in cert['subject'])
-                issuer = dict(x[0] for x in cert['issuer'])
-                print(f"Cert Subject: {subject.get('commonName')}")
-                print(f"Cert Issuer: {issuer.get('commonName')}")
+                if cert:
+                    # cert['subject'] is tuple of tuples of tuples ((('commonName', 'example.com'),),)
+                    subject_items = {rdn[0][0]: rdn[0][1] for rdn in cert.get('subject', ())}
+                    issuer_items = {rdn[0][0]: rdn[0][1] for rdn in cert.get('issuer', ())}
+                    print(f"Cert Subject: {subject_items.get('commonName')}")
+                    print(f"Cert Issuer: {issuer_items.get('commonName')}")
     except Exception as e:
         print(f"FAILED: {e}")
 
@@ -52,3 +54,4 @@ def test_starttls_25():
 if __name__ == "__main__":
     test_ssl_465()
     test_starttls_25()
+

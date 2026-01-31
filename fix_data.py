@@ -1,6 +1,6 @@
-env = self.env
+# env = self.env # Assumed running in Odoo Shell where 'env' is global
 print("Starting Sync...")
-materials = env['my.material'].search([])
+materials = env['my.material'].search([]) # type: ignore
 print(f"Found {len(materials)} materials.")
 for mat in materials:
     try:
@@ -12,5 +12,5 @@ for mat in materials:
     except Exception as e:
         print(f"Error syncing {mat.name}: {e}")
 
-env.cr.commit()
+env.cr.commit() # type: ignore
 print("Sync Finished.")
