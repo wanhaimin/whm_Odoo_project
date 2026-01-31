@@ -27,14 +27,14 @@
     <!-- 2. 模切管理：作为独立 APP -->
     <menuitem id="menu_diecut_root_backend" 
               name="模切管理" 
-              sequence="100" 
-              web_icon="fa fa-calculator,#5271FF,#FFFFFF"/>
+              sequence="100"/>
 
     <menuitem id="menu_diecut_quote_backend" 
               name="报价换算" 
               parent="menu_diecut_root_backend" 
               action="action_diecut_quote" 
               sequence="10"/>
+    
 
 
 </odoo>
