@@ -9,9 +9,22 @@
 
     <menuitem id="menu_sample_category_backend" name="材料分类(模切)" parent="menu_sample_management_root_backend" action="action_material_category" sequence="30" />
     <!-- 2. 模切管理：作为独立 APP -->
+<<<<<<< HEAD
     <menuitem id="menu_diecut_root_backend" name="模切管理" sequence="100" web_icon="fa fa-calculator,#5271FF,#FFFFFF" />
 
     <menuitem id="menu_diecut_quote_backend" name="报价模型" parent="menu_diecut_root_backend" action="action_diecut_quote" sequence="10" />
+=======
+    <menuitem id="menu_diecut_root_backend" 
+              name="模切管理" 
+              sequence="100"/>
+
+    <menuitem id="menu_diecut_quote_backend" 
+              name="报价换算" 
+              parent="menu_diecut_root_backend" 
+              action="action_diecut_quote" 
+              sequence="10"/>
+    
+>>>>>>> 7ff510148c7e1f6fdfef5be5c9b1c2373ab27d8a
 
     <menuitem id="menu_diecut_customer" name="客户管理" parent="menu_diecut_root_backend" action="action_diecut_customer" sequence="20" />
 </odoo>
