@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 
 class Material(models.Model):
@@ -129,7 +129,26 @@ class Material(models.Model):
         """发布到网站"""
         self.website_published = True
     
+
     def action_unpublish(self):
         """从网站取消发布"""
         self.website_published = False
+
+    def unlink(self):
+        for record in self:
+            # Check if referenced in Diecut Quote Material Lines
+            # We use search count first for speed, but here we want names
+            lines = self.env['diecut.quote.material.line'].search([('material_id', '=', record.id)])
+            if lines:
+                quotes = lines.mapped('quote_id.name')
+                # Filter out False/None just in case and get unique names
+                quotes = list(set([q for q in quotes if q]))
+                
+                quote_msg = ", ".join(quotes[:5])
+                if len(quotes) > 5:
+                     quote_msg += f" ... (共 {len(quotes)} 个引用)"
+                
+                raise UserError(f"无法删除材料 '{record.name}'！\n该材料已被以下报价单引用：\n[{quote_msg}]\n\n为了保持历史数据完整性，系统不允许直接删除。\n\n建议操作：\n请使用顶部菜单的【动作 -> 归档】功能来隐藏该材料。")
+        
+        return super().unlink()
     
