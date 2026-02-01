@@ -28,6 +28,9 @@
             'diecut_custom/static/src/scss/custom_font.scss',
         ],
     },
+    'external_dependencies': {
+        'python': ['qrcode'],
+    },
     'installable': True,
     'application': True,
 }

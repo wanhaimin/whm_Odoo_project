@@ -119,7 +119,7 @@
     </record>
     <!-- 4. 定义菜单 (Menu) -->
     <!-- 一级菜单 -->
-    <menuitem id="menu_diecut_root" name="模切管理" web_icon="diecut_custom,static/description/icon.png" />
+    <menuitem id="menu_diecut_root" name="模切管理" />
     <!-- 二级菜单 (配置) -->
     <menuitem id="menu_diecut_config" name="配置" parent="menu_diecut_root" sequence="100" />
     <!-- 三级菜单 (刀模) -->

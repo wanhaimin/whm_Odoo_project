@@ -40,7 +40,7 @@ services:
       - ../custom_addons:/mnt/extra-addons
       # 持久化 Odoo 的 web 数据（如附件等）
       - odoo-web-data:/var/lib/odoo
-    command: odoo -u diecut_custom --dev=xml,reload
+    command: odoo -d odoo -i stock,diecut_custom,my_material_list --dev=xml,reload
 
 volumes:
   odoo-db-data:

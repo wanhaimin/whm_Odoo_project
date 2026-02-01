@@ -1,24 +1,20 @@
 {
   "main": {
-    "id": "f2a00f88f5483a97",
+    "id": "6eb879161c06aa93",
     "type": "split",
     "children": [
       {
-        "id": "d5d3741f9ce9a38c",
+        "id": "ad39333f2d11c7bb",
         "type": "tabs",
         "children": [
           {
-            "id": "6ee3311e986adc87",
+            "id": "13724223541ad031",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "odoo库存管理的逻辑是什么.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "odoo库存管理的逻辑是什么"
+              "title": "新标签页"
             }
           }
         ]
@@ -27,15 +23,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "7720fad047350ef8",
+    "id": "e34b06d19ad22fca",
     "type": "split",
     "children": [
       {
-        "id": "0764f8340a25a319",
+        "id": "122f4486ab7212c2",
         "type": "tabs",
         "children": [
           {
-            "id": "0832f3435970bd7b",
+            "id": "e7ca9b820f2855bc",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -48,7 +44,7 @@
             }
           },
           {
-            "id": "17984e4c70181f75",
+            "id": "8916acdd7ccb5320",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -65,7 +61,7 @@
             }
           },
           {
-            "id": "6b41481ce7e3e0cc",
+            "id": "32d49c457a9f629f",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -81,21 +77,20 @@
     "width": 300
   },
   "right": {
-    "id": "05e63ed81fe73ae7",
+    "id": "d122140b6523624d",
     "type": "split",
     "children": [
       {
-        "id": "5dbeed704c59bbd0",
+        "id": "8c7cffc09a610a3b",
         "type": "tabs",
         "children": [
           {
-            "id": "3be4a1f42e024c08",
+            "id": "f9c1875776c9fda1",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "odoo库存管理的逻辑是什么.md",
-                "collapseAll": true,
+                "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
                 "showSearch": false,
@@ -104,25 +99,24 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "odoo库存管理的逻辑是什么 的反向链接列表"
+              "title": "反向链接"
             }
           },
           {
-            "id": "05a27ac15864e576",
+            "id": "28c19ee56a33bbda",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Odoo学习教程-第一阶段-初级入门.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Odoo学习教程-第一阶段-初级入门 的出链列表"
+              "title": "出链"
             }
           },
           {
-            "id": "adc003a319166dad",
+            "id": "106a75d56a4a0f88",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -137,7 +131,7 @@
             }
           },
           {
-            "id": "ecae38828b5d9a0c",
+            "id": "d974559958c1999c",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -151,25 +145,25 @@
             }
           },
           {
-            "id": "a79dccaebe6af61d",
+            "id": "994e089da732fd4a",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Odoo学习教程-第一阶段-初级入门.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Odoo学习教程-第一阶段-初级入门 的大纲"
+              "title": "大纲"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -182,34 +176,6 @@
       "bases:创建新数据库": false
     }
   },
-  "active": "6ee3311e986adc87",
-  "lastOpenFiles": [
-    "02_XPath高级用法.md",
-    "07_Odoo模块统计.md",
-    "odoo_architecture_summary.md",
-    "Odoo_Architecture_and_Deployment_QA.md",
-    "ACCESS_RIGHTS_EXPLAINED.md",
-    "QR_CODE_LIFECYCLE.md",
-    "README-学习教程总索引.md",
-    "RELATION_FIELDS_PRACTICE.md",
-    "快速打样平台-功能设计.md",
-    "材料管理平台-使用说明.md",
-    "测试指南.md",
-    "ODOO_XML_DEEP_DIVE.md",
-    "菜单冲突已解决.md",
-    "Odoo核心技术栈详解.md",
-    "ODOO_ORM_CHEAT_SHEET.md",
-    "Odoo_List_View_Customization_Guide.md",
-    "ODOO_FIELD_TYPES.md",
-    "ODOO_DEVELOPMENT_BIBLE.md",
-    "ODOO_CHEAT_SHEET.md",
-    "XML从入门到精通 (The UI Masterclass).md",
-    "升级成功-请测试.md",
-    "模切管理模块说明.md",
-    "模切管理模块-问题解决.md",
-    "模切材料数据库平台-项目规划.md",
-    "Odoo学习教程-第一阶段-初级入门.md",
-    "Start_Odoo_Shell.bat",
-    "LOT_BASED_CODE_PREVIEW.md"
-  ]
+  "active": "13724223541ad031",
+  "lastOpenFiles": []
 }

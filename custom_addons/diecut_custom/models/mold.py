@@ -98,7 +98,7 @@ class DiecutMold(models.Model):
         
         qr = qrcode.QRCode(
             version=1,
-            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            error_correction=qrcode.ERROR_CORRECT_L,
             box_size=10,
             border=4,
         )
@@ -107,5 +107,6 @@ class DiecutMold(models.Model):
 
         img = qr.make_image(fill_color="black", back_color="white")
         buffer = io.BytesIO()
-        img.save(buffer, format="PNG")
+        # 使用 positional argument 避免 vague "format not found" 错误，且兼容性更好
+        img.save(buffer, "PNG")
         return base64.b64encode(buffer.getvalue()).decode()
