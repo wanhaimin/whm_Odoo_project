@@ -8,6 +8,7 @@ class MyMaterial(models.Model):
 
     name = fields.Char(string='材料名', required=True)
     code = fields.Char(string='物料编码', required=True, copy=False, readonly=True, index=True, default=lambda self: 'New')
+    currency_id = fields.Many2one('res.currency', string='币种', default=lambda self: self.env.company.currency_id)
     
     def write(self, vals):
         res = super(MyMaterial, self).write(vals)
@@ -41,9 +42,6 @@ class MyMaterial(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        if not isinstance(vals_list, list):
-            vals_list = [vals_list]
-            
         for vals in vals_list:
             if vals.get('code', 'New') == 'New':
                 vals['code'] = self.env['ir.sequence'].next_by_code('my.material.code') or 'New'

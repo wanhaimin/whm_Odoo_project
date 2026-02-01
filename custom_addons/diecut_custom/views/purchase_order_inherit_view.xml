@@ -9,6 +9,12 @@
             <xpath expr="//field[@name='partner_id']" position="attributes">
                 <attribute name="domain">[('category_id.name', '=', '供应商')]</attribute>
             </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="project_name" placeholder="输入关联的项目名称..."/>
+            </xpath>
+            <xpath expr="//field[@name='date_order']" position="after">
+                <field name="is_urgent" widget="boolean_toggle"/>
+            </xpath>
         </field>
     </record>
 </odoo>

@@ -24,7 +24,7 @@
                 <field name="code" width="120px" />
                 <field name="name" width="150px" />
                 <field name="category_id" width="120px" />
-                <field name="raw_material_unit_price" optional="show" />
+                <field name="raw_material_unit_price" optional="show" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="raw_material_total_price" optional="hide" />
                 <field name="price_tax_excluded" optional="show" />
                 <field name="color" optional="show" />
@@ -32,6 +32,7 @@
                 <field name="width" width="80px" digits="[16, 2]" />
                 <field name="length" width="80px" digits="[16, 2]" />
                 <field name="rs_type" optional="show" />
+                <field name="unit_price" optional="show" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="price_unit" optional="show" />
                 <field name="price_usd" optional="show" />
                 <field name="price_hkd" optional="show" />
@@ -118,7 +119,7 @@
                         </group>
                         <group>
                             <field name="uom" />
-                            <field name="unit_price" />
+                            <field name="unit_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                             <field name="price_unit" />
                         </group>
                     </group>
@@ -126,9 +127,9 @@
                         <page string="价格信息">
                             <group>
                                 <group string="常用价格">
-                                    <field name="raw_material_unit_price" />
-                                    <field name="raw_material_total_price" />
-                                    <field name="price_tax_excluded" />
+                                    <field name="raw_material_unit_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="raw_material_total_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="price_tax_excluded" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                     <field name="price_usd" />
                                     <field name="price_hkd" />
                                     <field name="price_rmb" />
