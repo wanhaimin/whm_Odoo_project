@@ -12,6 +12,7 @@ class DiecutMold(models.Model):
 
     # --- 基础信息 ---
     name = fields.Char(string='刀模名称', required=True, tracking=True)
+    supplier_code = fields.Char(string='供应商模具编号', tracking=True, help="模具供应商的编号")
     code = fields.Char(string='模具编号', required=True, default='New', readonly=True, tracking=True)
     image = fields.Image(string='模具照片')
 
