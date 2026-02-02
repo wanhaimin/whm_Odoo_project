@@ -9,6 +9,26 @@
         <field name="state">code</field>
         <field name="code">action = model.action_sync_all_products()</field>
     </record>
+
+
+    <!-- Server Action: Fix Currency Data -->
+    <record id="action_fix_currency" model="ir.actions.server">
+        <field name="name">修复: 设置默认币种</field>
+        <field name="model_id" ref="model_my_material"/>
+        <field name="binding_model_id" ref="model_my_material"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+cny = env['res.currency'].search([('name', '=', 'CNY')], limit=1)
+if not cny and env.ref('base.CNY', False):
+    cny = env.ref('base.CNY')
+
+target_currency = cny if cny else env.company.currency_id
+for record in records:
+    record.write({'currency_id': target_currency.id})
+        </field>
+    </record>
+
     <!-- Tree View -->
     <record id="view_my_material_tree" model="ir.ui.view">
         <field name="name">my.material.tree</field>
@@ -24,7 +44,7 @@
                 <field name="code" width="120px" />
                 <field name="name" width="150px" />
                 <field name="category_id" width="120px" />
-                <field name="raw_material_unit_price" optional="show" />
+                <field name="raw_material_unit_price" optional="show" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="raw_material_total_price" optional="hide" />
                 <field name="price_tax_excluded" optional="show" />
                 <field name="color" optional="show" />
@@ -32,6 +52,7 @@
                 <field name="width" width="80px" digits="[16, 2]" />
                 <field name="length" width="80px" digits="[16, 2]" />
                 <field name="rs_type" optional="show" />
+                <field name="unit_price" optional="show" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                 <field name="price_unit" optional="show" />
                 <field name="price_usd" optional="show" />
                 <field name="price_hkd" optional="show" />
@@ -109,8 +130,10 @@
                             <field name="code" />
                         </h1>
                     </div>
+
                     <group>
                         <group>
+                            <field name="currency_id" invisible="1"/>
                             <field name="name" />
                             <field name="category_id" />
                             <field name="material_type" />
@@ -118,7 +141,7 @@
                         </group>
                         <group>
                             <field name="uom" />
-                            <field name="unit_price" />
+                            <field name="unit_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                             <field name="price_unit" />
                         </group>
                     </group>
@@ -126,9 +149,9 @@
                         <page string="价格信息">
                             <group>
                                 <group string="常用价格">
-                                    <field name="raw_material_unit_price" />
-                                    <field name="raw_material_total_price" />
-                                    <field name="price_tax_excluded" />
+                                    <field name="raw_material_unit_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="raw_material_total_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="price_tax_excluded" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                                     <field name="price_usd" />
                                     <field name="price_hkd" />
                                     <field name="price_rmb" />
