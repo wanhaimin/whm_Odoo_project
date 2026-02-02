@@ -14,3 +14,6 @@ access_diecut_quote_manager,diecut.quote.manager,model_diecut_quote,base.group_s
 access_diecut_quote_material_line_user,diecut.quote.material.line.user,model_diecut_quote_material_line,base.group_user,1,1,1,1
 access_diecut_quote_manufacturing_line_user,diecut.quote.manufacturing.line.user,model_diecut_quote_manufacturing_line,base.group_user,1,1,1,1
 access_diecut_mold,Diecut Mold Access,model_diecut_mold,base.group_user,1,1,1,1
+access_diecut_mold_location,Diecut Mold Location Access,model_diecut_mold_location,base.group_user,1,1,1,1
+access_diecut_mold_scrap_wizard,Diecut Mold Scrap Wizard Access,model_diecut_mold_scrap_wizard,base.group_user,1,1,1,1
+access_diecut_mold_qc_wizard,Diecut Mold QC Wizard Access,model_diecut_mold_qc_wizard,base.group_user,1,1,1,1

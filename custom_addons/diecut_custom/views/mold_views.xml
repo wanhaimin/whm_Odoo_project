@@ -22,7 +22,7 @@
                 <field name="customer_id" />
                 <field name="product_id" />
                 <field name="cavity" optional="show" />
-                <field name="location" />
+                <field name="location_id" />
                 <field name="total_life" optional="hide" />
                 <field name="used_life" />
                 <!-- Using 5000 > remaining_life to avoid less-than sign -->
@@ -31,6 +31,7 @@
             </list>
         </field>
     </record>
+    
     <!-- 3. 定义表单视图 (Form) -->
     <record id="view_diecut_mold_form" model="ir.ui.view">
         <field name="name">diecut.mold.form</field>
@@ -38,8 +39,24 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="%(diecut_custom.action_report_mold_label)d" string="打印标签" type="action" class="btn-primary" />
-                    <field name="state" widget="statusbar" statusbar_visible="draft,available,using,repair" />
+                    <!-- QC检验流程按钮 -->
+                    <button name="action_submit_to_qc" string="提交QC检验" type="object" 
+                            invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_qc_pass" string="QC合格" type="object" 
+                            invisible="state != 'qc_inspection'" class="btn-success"/>
+                    <button name="action_qc_fail" string="QC不合格" type="object" 
+                            invisible="state != 'qc_inspection'" class="btn-danger"/>
+                    <button name="action_set_using" string="投入使用" type="object" 
+                            invisible="state != 'available'" class="btn-success"/>
+                    <button name="action_set_repair" string="送修" type="object" 
+                            invisible="state not in ['available', 'using']" class="btn-warning"/>
+                    <button name="action_repair_complete" string="维修完成" type="object" 
+                            invisible="state != 'repair'" class="btn-info"/>
+                    <button name="action_set_scrapped" string="报废" type="object" 
+                            invisible="state == 'scrapped'" class="btn-danger"/>
+                    <button name="action_back_to_draft" string="退回草稿" type="object" 
+                            invisible="state == 'qc_inspection'" class="btn-secondary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,qc_inspection,available,using,repair" />
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="已报废" bg_color="text-bg-danger" invisible="state != 'scrapped'" />
@@ -64,7 +81,7 @@
                             <field name="machine_models" />
                         </group>
                         <group name="inventory_info" string="存放信息">
-                            <field name="location" />
+                            <field name="location_id" />
                             <field name="design_by" />
                             <field name="active" invisible="1" />
                         </group>
@@ -106,14 +123,25 @@
                         <page name="notes" string="备注说明">
                             <field name="note" placeholder="在此输入刀模相关的特殊要求或注意事项..." />
                         </page>
+                        <page name="qc_info" string="QC检验">
+                            <group>
+                                <field name="qc_assigned_to" readonly="1"/>
+                                <field name="qc_result"/>
+                                <field name="qc_date" readonly="1"/>
+                                <field name="qc_inspector" readonly="1"/>
+                                <field name="qc_notes"/>
+                            </group>
+                        </page>
+                        <page name="scrap_info" string="报废信息" invisible="state != 'scrapped'">
+                            <group>
+                                <field name="scrap_reason" readonly="1"/>
+                                <field name="scrap_date" readonly="1"/>
+                                <field name="scrapped_by" readonly="1"/>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
-                <!-- 底部消息和活动记录 -->
-                <div class="oe_chatter">
-                    <field name="message_follower_ids" />
-                    <field name="activity_ids" />
-                    <field name="message_ids" />
-                </div>
+                <!-- Chatter removed by request -->
             </form>
         </field>
     </record>
