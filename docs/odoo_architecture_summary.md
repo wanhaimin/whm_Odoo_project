@@ -51,7 +51,7 @@ Odoo 是一个典型的 **Python + JavaScript** 全栈项目。
 
 ---
 
-## 4. 模型继承机制 (Inheritance)
+## 4. [模型继承机制] (Inheritance)
 
 Odoo 的继承非常强大且具有侵入性。
 
@@ -59,14 +59,81 @@ Odoo 的继承非常强大且具有侵入性。
 *   **行为**：不创建新表，直接在**原数据库表**上修改。
 *   **风险**：因为修改了底层表，全系统所有模块都会受到影响（增加了字段）。
 *   **场景**：给客户表加一个“类型”字段。
-
+	```
+	class ResPartner(models.Model):
+	    _inherit = 'res.partner'
+	    
+	    # 添加新字段
+	    custom_field = fields.Char("自定义字段")
+	    
+	    # 覆盖方法
+	    def write(self, vals):
+	        # 自定义逻辑
+	        return super().write(vals)
+	```
+	效果：
+	
+	✅ 不破坏源码 - 原始模块代码保持不变
+	✅ 在原有数据表上添加新字段 - 不会创建新表
+	✅ 可以覆盖/扩展现有方法
+	✅ 卸载您的模块后，字段会被移除（但数据保留在数据库中直到手动清理）
 ### B. 原型继承 (`_inherit` + `_name`)
 *   **行为**：**创建新表**，并将父类的字段拷贝过来。
 *   **场景**：你要做一个“废料单”，想复用“销售单”的字段结构，但两者数据完全隔离。
-
+		python
+		==`class CustomPartner(models.Model):`==
+		    ==`_name = 'custom.partner'`==
+		    ==`_inherit = 'res.partner'`==
+		效果：
+		
+		创建一个全新的表 custom_partner
+		复制 res.partner 的所有字段和方法
+		两个模型完全独立
+		🔒 为什么安全？
+		方面	说明
+		源码不变	原始模块的 Python 文件不会被修改
+		数据表安全	只添加新列，不删除现有列
+		可回滚	卸载模块后，扩展的功能消失
+		多模块兼容	多个模块可以同时继承同一个模型
+		💡 您当前使用的情况
+		如果您在 slitting.py 中这样写：
+		
+		python
+		class Slitting(models.Model):
+		    _inherit = 'some.existing.model'
+		    
+		    new_field = fields.Char("新字段")
+		这将 安全地 在 some_existing_model 表中添加一个新列 new_field，不会影响原有数功能。
 ### C. 委托继承 (`_inherits`)
 *   **行为**：创建新表，但通过外键透明连接父表。
 *   **场景**：`res.users` (用户) -> `res.partner` (联系人)。用户表里存密码，联系人表里存地址，用起来像是一个对象。
+```
+	class ProductProduct(models.Model):
+	    _name = 'product.product'
+	    _inherits = {'product.template': 'product_tmpl_id'}
+	    
+	    product_tmpl_id = fields.Many2one('product.template')
+	效果：
+	```
+	
+	创建新表，通过外键关联父表
+	自动访问父表的所有字段
+
+3. 原型继承 (_inherit + _name)
+
+Odoo 的 _inherit 不会破坏源码！这是一个非常安全的扩展机制。
+
+📚 Odoo 继承机制详解
+1. 经典继承 (_inherit 不指定 _name)
+python
+
+
+2. 委托继承 (_inherits)
+python
+
+
+
+
 
 ---
 
@@ -261,7 +328,7 @@ res.company
 - **
     
     ```
-    ir.ui.view
+# ir.ui.view
     ```
     
      (视图定义)**：由于我们写的 XML，都会存到这张表里。Odoo 的界面不是写死在代码里的，而是存在数据库里的。

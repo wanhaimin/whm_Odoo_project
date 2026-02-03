@@ -4,39 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "d5d3741f9ce9a38c",
+        "id": "81b06e62958ceb1a",
         "type": "tabs",
         "children": [
           {
-            "id": "6ee3311e986adc87",
+            "id": "61bd64ada9c9fd8a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "odoo库存管理的逻辑是什么.md",
+                "file": "电子辅料行业 - Odoo 产品管理设计指南.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "odoo库存管理的逻辑是什么"
-            }
-          },
-          {
-            "id": "797ca276d5ee9f69",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "odoo的编码规则.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "odoo的编码规则"
+              "title": "电子辅料行业 - Odoo 产品管理设计指南"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -68,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "产品分类",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -89,7 +74,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -109,9 +95,9 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "odoo的编码规则.md",
+                "file": "电子辅料行业 - Odoo 产品管理设计指南.md",
                 "collapseAll": true,
-                "extraContext": false,
+                "extraContext": true,
                 "sortOrder": "alphabetical",
                 "showSearch": false,
                 "searchQuery": "",
@@ -119,7 +105,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "odoo的编码规则 的反向链接列表"
+              "title": "电子辅料行业 - Odoo 产品管理设计指南 的反向链接列表"
             }
           },
           {
@@ -197,34 +183,39 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "797ca276d5ee9f69",
+  "active": "61bd64ada9c9fd8a",
   "lastOpenFiles": [
-    "Pasted image 20260202135409.png",
+    "product.template和product.product字段类型和关系.md",
+    "电子辅料行业 - Odoo 产品管理设计指南.md",
+    "模切管理系统开发指南.md",
+    "模切材料数据库平台-项目规划.md",
+    "odoo库存管理的逻辑是什么.md",
+    "未命名 2.base",
+    "未命名 1.base",
+    "材料管理平台-创建完成.md",
+    "DIECUT_VARIANTS_SOLUTION.md",
+    "01_Odoo视图继承与Domain过滤.md",
+    "未命名.base",
+    "未命名 3.base",
+    "product_models_reference.md",
+    "odoo_architecture_summary.md",
     "odoo的编码规则.md",
+    "().md",
+    "XML从入门到精通 (The UI Masterclass).md",
+    "RELATION_FIELDS_PRACTICE.md",
+    "模切管理模块说明.md",
+    "模切管理模块-问题解决.md",
+    "Pasted image 20260202135409.png",
     "02_XPath高级用法.md",
     "07_Odoo模块统计.md",
-    "odoo_architecture_summary.md",
     "Odoo_Architecture_and_Deployment_QA.md",
     "ACCESS_RIGHTS_EXPLAINED.md",
     "QR_CODE_LIFECYCLE.md",
     "README-学习教程总索引.md",
-    "RELATION_FIELDS_PRACTICE.md",
     "快速打样平台-功能设计.md",
     "材料管理平台-使用说明.md",
     "测试指南.md",
     "ODOO_XML_DEEP_DIVE.md",
-    "菜单冲突已解决.md",
-    "Odoo核心技术栈详解.md",
-    "ODOO_ORM_CHEAT_SHEET.md",
-    "Odoo_List_View_Customization_Guide.md",
-    "ODOO_FIELD_TYPES.md",
-    "ODOO_DEVELOPMENT_BIBLE.md",
-    "ODOO_CHEAT_SHEET.md",
-    "XML从入门到精通 (The UI Masterclass).md",
-    "升级成功-请测试.md",
-    "模切管理模块说明.md",
-    "模切管理模块-问题解决.md",
-    "模切材料数据库平台-项目规划.md",
     "Start_Odoo_Shell.bat"
   ]
 }
