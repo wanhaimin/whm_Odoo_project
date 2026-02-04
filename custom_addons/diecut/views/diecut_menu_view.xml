@@ -10,9 +10,19 @@
    <!-- 2. 模切管理：作为独立 APP -->
     <menuitem id="menu_diecut_root_backend" name="模切管理" sequence="5" />
 
-    <menuitem id="menu_diecut_quote_backend" name="报价成本分析" parent="menu_diecut_root_backend" action="action_diecut_quote" sequence="10" />
+    <menuitem id="menu_diecut_quote_backend" name="成本计算器" parent="menu_diecut_root_backend" action="action_diecut_quote" sequence="10" />
 
     <menuitem id="menu_diecut_customer" name="客户管理" parent="menu_diecut_root_backend" action="action_diecut_customer" sequence="40" />
     
     <menuitem id="menu_sample_material_backend" name="原材料库" parent="menu_diecut_root_backend" action="action_material_custom" sequence="30" />
+    
+    <menuitem id="menu_diecut_mold_act" name="刀模库" parent="menu_diecut_root_backend" action="action_diecut_mold" sequence="5" />
+
+    <!-- 注销掉多余的菜单-->
+    <!-- 一级菜单 -->
+    <!-- <menuitem id="menu_diecut_root" name="模切管理" /> -->
+    <!-- 二级菜单 (配置) -->
+    <!-- <menuitem id="menu_diecut_config" name="配置" parent="menu_diecut_root" sequence="100" /> -->
+    <!-- 三级菜单 (刀模) -->
+    <!-- <menuitem id="menu_diecut_mold_act1" name="刀模库" parent="menu_diecut_config" action="action_diecut_mold" sequence="10" /> --> 
 </odoo>

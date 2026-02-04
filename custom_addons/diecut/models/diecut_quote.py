@@ -3,7 +3,7 @@ from odoo import models, fields, api
 # 这是一个模切成本核算模型
 class DiecutQuote(models.Model):
     _name = 'diecut.quote'
-    _description = '模切报价单'
+    _description = '模切成本计算器'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     # --- Header ---
