@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- 1. 打样管理：挂载在“材料管理”App下 -->
+   <!-- 1. 打样管理：挂载在“材料管理”App下 -->
+    
+    
     <menuitem id="menu_sample_management_root_backend" name="打样管理" parent="menu_my_material_root" sequence="40" />
 
     <menuitem id="menu_sample_order_backend" name="打样订单" parent="menu_sample_management_root_backend" action="action_sample_order_custom" sequence="10" />
 
     <menuitem id="menu_sample_category_backend" name="材料分类(模切)" parent="menu_sample_management_root_backend" action="action_product_category_diecut" sequence="30" />
     
-   <!-- 2. 模切管理：作为独立 APP -->
+   
+    <!-- 2. 模切管理：作为独立 APP -->
+   
+
     <menuitem id="menu_diecut_root_backend" name="模切管理" sequence="5" />
 
     <menuitem id="menu_diecut_quote_backend" name="成本计算器" parent="menu_diecut_root_backend" action="action_diecut_quote" sequence="10" />
@@ -18,6 +23,8 @@
     
     <menuitem id="menu_diecut_mold_act" name="刀模库" parent="menu_diecut_root_backend" action="action_diecut_mold" sequence="5" />
 
+    
+    
     <!-- 注销掉多余的菜单-->
     <!-- 一级菜单 -->
     <!-- <menuitem id="menu_diecut_root" name="模切管理" /> -->
