@@ -1,6 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_my_material_user,my.material.user,model_my_material,base.group_user,1,1,1,1
-access_my_material_category_user,my.material.category.user,model_my_material_category,base.group_user,1,1,1,1
-access_my_material_requisition_user,my.material.requisition.user,model_my_material_requisition,base.group_user,1,1,1,1
-access_my_material_slitting_user,my.material.slitting.user,model_my_material_slitting,base.group_user,1,1,1,1
-access_my_material_slitting_line_user,my.material.slitting.line.user,model_my_material_slitting_line,base.group_user,1,1,1,1

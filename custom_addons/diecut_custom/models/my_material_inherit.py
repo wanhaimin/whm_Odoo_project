@@ -5,6 +5,14 @@ class MyMaterial(models.Model):
     _name = 'my.material'
     _inherit = ['my.material', 'website.published.mixin']
 
+    # 限制材料类别只能选择“原材料”类型
+    # 限制材料类别只能选择“原材料”类型
+    category_id = fields.Many2one(
+        'product.category', 
+        string='材料类别',
+        domain="[('category_type', '=', 'raw')]"
+    )
+
     # 扩展网站统计字段
     view_count = fields.Integer('浏览次数', default=0, readonly=True)
     inquiry_count = fields.Integer('询价次数', default=0, readonly=True)
@@ -33,20 +41,4 @@ class MyMaterial(models.Model):
     def action_unpublish(self):
         self.write({'is_published': False})
 
-class MyMaterialCategory(models.Model):
-    _inherit = 'my.material.category'
 
-    material_count = fields.Integer(
-        '官网展示材料数量', 
-        compute='_compute_material_count'
-    )
-    
-    image = fields.Binary('分类图片')
-
-    def _compute_material_count(self):
-        for category in self:
-            # 计算该分类下已发布的材料数量
-            category.material_count = self.env['my.material'].search_count([
-                ('category_id', '=', category.id),
-                ('is_published', '=', True)
-            ])
