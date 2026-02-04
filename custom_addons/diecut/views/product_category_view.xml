@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================== -->
+    <!-- 产品分类视图 (product.category) -->
+    <!-- 三级目录结构扩展字段            -->
+    <!-- ============================== -->
+    <!-- 产品分类列表视图 - 带层级缩进 -->
+    <record id="view_product_category_list_diecut" model="ir.ui.view">
+        <field name="name">product.category.list.diecut</field>
+        <field name="model">product.category</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <list string="产品分类" default_order="parent_path">
+                <field name="sequence" widget="handle" />
+                <!-- 添加自定义类 diecut_indent_col 强制左对齐 -->
+                <field name="indent_name" string="分类名称" class="diecut_indent_col" />
+                <field name="level" string="级别" optional="hide" />
+                <field name="category_type" string="分类类型" optional="show" />
+                <field name="material_code_prefix" string="编码前缀" optional="hide" />
+                <field name="product_count" string="产品数量" optional="show" />
+                <field name="parent_id" column_invisible="True" />
+            </list>
+        </field>
+    </record>
+    <!-- 产品分类层级视图 (Hierarchy) -->
+    <record id="view_product_category_hierarchy_diecut" model="ir.ui.view">
+        <field name="name">product.category.hierarchy.diecut</field>
+        <field name="model">product.category</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <hierarchy string="产品分类层级" js_class="hierarchy" child_field="child_id">
+                <templates>
+                    <t t-name="hierarchy-box">
+                        <div class="o_hierarchy_node_header">
+                            <field name="name" class="fw-bold" />
+                        </div>
+                        <div class="o_hierarchy_node_body">
+                            <field name="category_type" />
+                        </div>
+                        <div class="o_hierarchy_node_footer text-muted small">
+                            <span>级别:</span>
+                            <field name="level" />
+                            <span>| 产品:</span>
+                            <field name="product_count" />
+                        </div>
+                    </t>
+                </templates>
+            </hierarchy>
+        </field>
+    </record>
+    <!-- 产品分类表单视图 -->
+    <record id="view_product_category_form_diecut" model="ir.ui.view">
+        <field name="name">product.category.form.diecut</field>
+        <field name="model">product.category</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <form string="产品分类">
+                <sheet>
+                    <div class="oe_title">
+                        <label string="分类名称" for="name" />
+                        <h1>
+                            <field name="name" placeholder="输入分类名称..." />
+                        </h1>
+                        <field name="complete_name" readonly="1" class="text-muted" />
+                    </div>
+                    <group>
+                        <group name="basic" string="基本信息">
+                            <field name="parent_id" string="父级分类" domain="[('level', '&lt;', 3)]" />
+                            <field name="level" string="分类级别" readonly="1" />
+                            <field name="sequence" string="排序" />
+                            <field name="product_count" string="产品数量" readonly="1" />
+                        </group>
+                        <group name="type" string="分类类型">
+                            <!-- 一级分类字段 -->
+                            <field name="category_type" string="分类类型" invisible="level != 1" />
+                        </group>
+                    </group>
+                    <group>
+                        <group name="level2" string="二级分类属性" invisible="level != 2">
+                            <field name="material_code_prefix" string="材料编码前缀" />
+                        </group>
+                        <group name="level3" string="三级分类属性" invisible="level != 3">
+                            <field name="specification" string="规格描述" />
+                            <field name="default_thickness" string="默认厚度(mm)" />
+                        </group>
+                    </group>
+                    <group name="desc" string="描述">
+                        <field name="description" nolabel="1" colspan="2" placeholder="输入分类描述..." />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- 产品分类搜索视图 -->
+    <record id="view_product_category_search_diecut" model="ir.ui.view">
+        <field name="name">product.category.search.diecut</field>
+        <field name="model">product.category</field>
+        <field name="arch" type="xml">
+            <search string="搜索产品分类">
+                <field name="name" string="分类名称" />
+                <field name="complete_name" string="完整路径" />
+                <field name="parent_id" string="父级分类" />
+                <separator />
+                <filter name="filter_level_1" string="一级分类" domain="[('level', '=', 1)]" />
+                <filter name="filter_level_2" string="二级分类" domain="[('level', '=', 2)]" />
+                <filter name="filter_level_3" string="三级分类" domain="[('level', '=', 3)]" />
+                <separator />
+                <filter name="filter_raw" string="原材料" domain="[('category_type', '=', 'raw')]" />
+                <filter name="filter_semi" string="半成品" domain="[('category_type', '=', 'semi')]" />
+                <filter name="filter_finished" string="成品" domain="[('category_type', '=', 'finished')]" />
+            </search>
+        </field>
+    </record>
+    <!-- 产品分类动作 - 显示层级结构 -->
+    <record id="action_product_category_diecut" model="ir.actions.act_window">
+        <field name="name">产品分类</field>
+        <field name="res_model">product.category</field>
+        <field name="view_mode">list,hierarchy,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_product_category_list_diecut')}),
+            (0, 0, {'view_mode': 'hierarchy', 'view_id': ref('view_product_category_hierarchy_diecut')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_product_category_form_diecut')})]" />
+        <field name="search_view_id" ref="view_product_category_search_diecut" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">创建新的产品分类</p>
+            <p>
+                产品分类支持三级目录结构：
+                <br />
+                • 一级分类：原材料、半成品、成品
+                <br />
+                • 二级分类：胶带类、泡棉类等
+                <br />
+                • 三级分类：双面胶带、PE泡棉等
+            </p>
+        </field>
+    </record>
+    <!-- ============================== -->
+    <!-- 菜单项 - 放在配置 → 产品下      -->
+    <!-- ============================== -->
+    <!-- 覆盖标准的类别菜单，使用我们的自定义动作和视图 -->
+    <record id="stock.menu_product_category_config_stock" model="ir.ui.menu">
+        <field name="action" ref="action_product_category_diecut" />
+    </record>
+    <!-- =============================================== -->
+    <!-- 全局统一：覆盖原生的产品分类动作                   -->
+    <!-- 让所有使用默认动作的菜单（发票、销售等）都使用此视图 -->
+    <!-- =============================================== -->
+    <record id="product.product_category_action_form" model="ir.actions.act_window">
+        <field name="view_mode">list,hierarchy,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_product_category_list_diecut')}),
+            (0, 0, {'view_mode': 'hierarchy', 'view_id': ref('view_product_category_hierarchy_diecut')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_product_category_form_diecut')})]" />
+        <field name="search_view_id" ref="view_product_category_search_diecut" />
+    </record>
+</odoo>

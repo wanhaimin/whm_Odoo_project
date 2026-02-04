@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- 一级分类：原材料 (排序: 1) -->
+        <record id="category_raw_material" model="product.category">
+            <field name="name">原材料</field>
+            <field name="category_type">raw</field>
+            <field name="sequence">1</field>
+        </record>
+        <!-- 二级分类：胶带类 -->
+        <record id="category_tape" model="product.category">
+            <field name="name">胶带类</field>
+            <field name="parent_id" ref="category_raw_material" />
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="category_double_sided_tape" model="product.category">
+            <field name="name">双面胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="category_single_sided_tape" model="product.category">
+            <field name="name">单面胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="category_conductive_tape" model="product.category">
+            <field name="name">导电胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="category_thermal_tape" model="product.category">
+            <field name="name">导热胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">4</field>
+        </record>
+        <!-- 二级分类：泡棉类 -->
+        <record id="category_foam" model="product.category">
+            <field name="name">泡棉类</field>
+            <field name="parent_id" ref="category_raw_material" />
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="category_pe_foam" model="product.category">
+            <field name="name">PE泡棉</field>
+            <field name="parent_id" ref="category_foam" />
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="category_ixpe_foam" model="product.category">
+            <field name="name">IXPE泡棉</field>
+            <field name="parent_id" ref="category_foam" />
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="category_pu_foam" model="product.category">
+            <field name="name">PU泡棉</field>
+            <field name="parent_id" ref="category_foam" />
+            <field name="sequence">3</field>
+        </record>
+        <!-- 二级分类：离型膜 -->
+        <record id="category_release_film" model="product.category">
+            <field name="name">离型膜</field>
+            <field name="parent_id" ref="category_raw_material" />
+            <field name="sequence">3</field>
+        </record>
+        <!-- 二级分类：保护膜 -->
+        <record id="category_protection_film" model="product.category">
+            <field name="name">保护膜</field>
+            <field name="parent_id" ref="category_raw_material" />
+            <field name="sequence">4</field>
+        </record>
+        <!-- 二级分类：屏蔽材料 -->
+        <record id="category_shielding" model="product.category">
+            <field name="name">屏蔽材料</field>
+            <field name="parent_id" ref="category_raw_material" />
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="category_copper_foil" model="product.category">
+            <field name="name">铜箔</field>
+            <field name="parent_id" ref="category_shielding" />
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="category_aluminum_foil" model="product.category">
+            <field name="name">铝箔</field>
+            <field name="parent_id" ref="category_shielding" />
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="category_conductive_cloth" model="product.category">
+            <field name="name">导电布</field>
+            <field name="parent_id" ref="category_shielding" />
+            <field name="sequence">3</field>
+        </record>
+        <!-- 二级分类：其他辅料 -->
+        <record id="category_other_auxiliary" model="product.category">
+            <field name="name">其他辅料</field>
+            <field name="parent_id" ref="category_raw_material" />
+            <field name="sequence">6</field>
+        </record>
+        <!-- 一级分类：半成品 (排序: 2) -->
+        <record id="category_semi_finished" model="product.category">
+            <field name="name">半成品</field>
+            <field name="category_type">semi</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="category_slitted" model="product.category">
+            <field name="name">分切料</field>
+            <field name="parent_id" ref="category_semi_finished" />
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="category_composite" model="product.category">
+            <field name="name">复合材料</field>
+            <field name="parent_id" ref="category_semi_finished" />
+            <field name="sequence">2</field>
+        </record>
+        <!-- 一级分类：成品 (排序: 3) -->
+        <record id="category_finished" model="product.category">
+            <field name="name">成品</field>
+            <field name="category_type">finished</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="category_die_cut" model="product.category">
+            <field name="name">模切件</field>
+            <field name="parent_id" ref="category_finished" />
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="category_custom_product" model="product.category">
+            <field name="name">定制产品</field>
+            <field name="parent_id" ref="category_finished" />
+            <field name="sequence">2</field>
+        </record>
+    </data>
+</odoo>

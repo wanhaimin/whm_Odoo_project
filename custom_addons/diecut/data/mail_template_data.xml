@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Email Template for Sample Order Submitted -->
+        <record id="email_template_sample_order_submitted" model="mail.template">
+            <field name="name">Sample Order: Submitted</field>
+            <field name="model_id" ref="model_sample_order" />
+            <field name="subject">Sample Order Submitted (Ref {{ object.name or 'n/a' }})</field>
+            <field name="email_from">{{ (user.email_formatted or user.email) }}</field>
+            <field name="partner_to">{{ object.partner_id.id }}</field>
+            <field name="description">Sent to customer when sample order is submitted</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <t t-out="object.partner_id.name or ''">Customer</t>
+                        ,
+                        <br />
+                        <br />
+                        Your sample order
+                        <strong>
+                            <t t-out="object.name or ''">New</t>
+                        </strong>
+                        has been successfully submitted and is being processed.
+                        <br />
+                        <br />
+                        <strong>Details:</strong>
+                        <br />
+                        Product:
+                        <t t-out="object.product_name or ''">Product</t>
+                        <br />
+                        Quantity:
+                        <t t-out="object.quantity or ''">10</t>
+                        <br />
+                        Requested Date:
+                        <t t-out="object.requested_date or ''">N/A</t>
+                        <br />
+                        <br />
+                        We will notify you once the production starts.
+                        <br />
+                        <br />
+                        Best regards,
+                        <br />
+                        <t t-out="user.name or ''">My Company</t>
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

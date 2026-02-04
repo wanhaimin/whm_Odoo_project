@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 1. 定义动作 (Action): 点击菜单后发生什么 -->
+    <record id="action_diecut_mold" model="ir.actions.act_window">
+        <field name="name">刀模管理</field>
+        <field name="res_model">diecut.mold</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <!-- 2. 定义列表视图 (List) -->
+    <record id="view_diecut_mold_list" model="ir.ui.view">
+        <field name="name">diecut.mold.list</field>
+        <field name="model">diecut.mold</field>
+        <field name="arch" type="xml">
+            <!-- 
+                SAFE XML: using '5000 > remaining_life' instead of 'remaining_life < 5000' 
+                to avoid unescaped less-than characters which break the parser.
+            -->
+            <list decoration-danger="5000 > remaining_life" decoration-warning="state == 'repair'" decoration-info="state == 'available'">
+                <field name="code" />
+                <field name="name" />
+                <field name="mold_type" />
+                <field name="customer_id" />
+                <field name="product_id" />
+                <field name="cavity" optional="show" />
+                <field name="location_id" />
+                <field name="total_life" optional="hide" />
+                <field name="used_life" />
+                <!-- Using 5000 > remaining_life to avoid less-than sign -->
+                <field name="remaining_life" widget="badge" decoration-danger="5000 > remaining_life" decoration-success="remaining_life > 20000" />
+                <field name="state" widget="badge" decoration-success="state == 'using'" decoration-info="state == 'available'" decoration-warning="state == 'repair'" />
+            </list>
+        </field>
+    </record>
+    <!-- 3. 定义表单视图 (Form) -->
+    <record id="view_diecut_mold_form" model="ir.ui.view">
+        <field name="name">diecut.mold.form</field>
+        <field name="model">diecut.mold</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <!-- QC检验流程按钮 -->
+                    <button name="action_submit_to_qc" string="提交QC检验" type="object" invisible="state != 'draft'" class="btn-primary" />
+                    <button name="action_qc_pass" string="QC合格" type="object" invisible="state != 'qc_inspection'" class="btn-success" />
+                    <button name="action_qc_fail" string="QC不合格" type="object" invisible="state != 'qc_inspection'" class="btn-danger" />
+                    <button name="action_set_using" string="投入使用" type="object" invisible="state != 'available'" class="btn-success" />
+                    <button name="action_set_repair" string="送修" type="object" invisible="state not in ['available', 'using']" class="btn-warning" />
+                    <button name="action_repair_complete" string="维修完成" type="object" invisible="state != 'repair'" class="btn-info" />
+                    <button name="action_set_scrapped" string="报废" type="object" invisible="state == 'scrapped'" class="btn-danger" />
+                    <button name="action_back_to_draft" string="退回草稿" type="object" invisible="state == 'qc_inspection'" class="btn-secondary" />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,qc_inspection,available,using,repair" />
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" title="已报废" bg_color="text-bg-danger" invisible="state != 'scrapped'" />
+                    <widget name="web_ribbon" title="已存档" bg_color="text-bg-secondary" invisible="active" />
+                    <field name="image" widget="image" class="oe_avatar" options="{'preview_image': 'image'}" />
+                    <div class="oe_title">
+                        <label string="模具编号" for="code" />
+                        <h1>
+                            <field name="code" readonly="1" />
+                        </h1>
+                        <label string="模具名称" for="name" />
+                        <h2>
+                            <field name="name" placeholder="例如: 某某型号圆刀模..." />
+                        </h2>
+                        <label string="供应商模具编号" for="supplier_code" />
+                        <field name="supplier_code" placeholder="输入供应商提供的模具编号..." />
+                    </div>
+                    <group>
+                        <group name="basic_main" string="核心信息">
+                            <field name="mold_type" />
+                            <field name="product_id" options="{'no_create': True}" />
+                            <field name="cavity" />
+                            <field name="customer_id" />
+                            <field name="machine_models" />
+                        </group>
+                        <group name="inventory_info" string="存放信息">
+                            <field name="location_id" />
+                            <field name="design_by" />
+                            <field name="active" invisible="1" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="technical_specs" string="技术规格">
+                            <group>
+                                <group string="外形尺寸 (mm)">
+                                    <field name="size_length" />
+                                    <field name="size_width" />
+                                    <field name="size_height" />
+                                </group>
+                                <group string="刀具参数 (mm)">
+                                    <field name="blade_height" />
+                                    <field name="blade_thickness" />
+                                    <field name="blade_brand" />
+                                </group>
+                                <group string="工艺参数">
+                                    <field name="gap_distance" />
+                                    <field name="is_rotary" invisible="1" />
+                                    <field name="gear_teeth" invisible="not is_rotary" />
+                                </group>
+                            </group>
+                        </page>
+                        <page name="life_cycle" string="寿命管理">
+                            <group>
+                                <group string="统计数据">
+                                    <field name="total_life" />
+                                    <field name="used_life" />
+                                    <!-- Using 5000 > remaining_life to avoid less-than sign -->
+                                    <field name="remaining_life" decoration-danger="5000 > remaining_life" decoration-success="remaining_life > 20000" widget="integer" />
+                                </group>
+                                <group string="采购记录">
+                                    <field name="supplier_id" />
+                                    <field name="purchase_date" />
+                                </group>
+                            </group>
+                        </page>
+                        <page name="notes" string="备注说明">
+                            <field name="note" placeholder="在此输入刀模相关的特殊要求或注意事项..." />
+                        </page>
+                        <page name="qc_info" string="QC检验">
+                            <group>
+                                <field name="qc_assigned_to" readonly="1" />
+                                <field name="qc_result" />
+                                <field name="qc_date" readonly="1" />
+                                <field name="qc_inspector" readonly="1" />
+                                <field name="qc_notes" />
+                            </group>
+                        </page>
+                        <page name="scrap_info" string="报废信息" invisible="state != 'scrapped'">
+                            <group>
+                                <field name="scrap_reason" readonly="1" />
+                                <field name="scrap_date" readonly="1" />
+                                <field name="scrapped_by" readonly="1" />
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <!-- Chatter removed by request -->
+            </form>
+        </field>
+    </record>
+    <!-- 4. 定义菜单 (Menu) -->
+    <!-- 一级菜单 -->
+    <menuitem id="menu_diecut_root" name="模切管理" />
+    <!-- 二级菜单 (配置) -->
+    <menuitem id="menu_diecut_config" name="配置" parent="menu_diecut_root" sequence="100" />
+    <!-- 三级菜单 (刀模) -->
+    <menuitem id="menu_diecut_mold_act" name="刀模库" parent="menu_diecut_config" action="action_diecut_mold" sequence="10" />
+</odoo>

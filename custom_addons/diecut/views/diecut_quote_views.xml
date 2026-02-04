@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- List View -->
+    <record id="view_diecut_quote_tree" model="ir.ui.view">
+        <field name="name">diecut.quote.list</field>
+        <field name="model">diecut.quote</field>
+        <field name="arch" type="xml">
+            <list string="报价单" decoration-bf="final_unit_price &gt; 0" decoration-info="profit_rate &gt; 0.2">
+                <field name="name"/>
+                <field name="customer_id"/>
+                <field name="project_sn"/>
+                <field name="internal_sn"/>
+                <field name="quote_date"/>
+                <field name="final_unit_price" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="1"/>
+                <field name="profit_rate" widget="percentage" decoration-success="profit_rate &gt; 0.15" decoration-danger="profit_rate &lt; 0.05"/>
+                <field name="user_id" widget="many2one_avatar_user"/>
+                <field name="create_date" string="创建时间" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View: Beautiful Dashboard Design -->
+    <record id="view_diecut_quote_form" model="ir.ui.view">
+        <field name="name">diecut.quote.form</field>
+        <field name="model">diecut.quote</field>
+        <field name="arch" type="xml">
+            <form string="报价单">
+                <header>
+                </header>
+                <sheet>
+                    <!-- 顶部 Header：单号与核心价格 -->
+                    <div class="oe_title d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+                        <div>
+                            <label for="name" class="oe_edit_only text-muted" string="报价单号"/>
+                            <h1 class="font-weight-bold text-primary">
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <div class="text-right p-3 bg-white shadow-sm rounded border">
+                            <label for="final_unit_price" class="text-muted small text-uppercase font-weight-bold" style="letter-spacing: 1px;"/>
+                            <h2 class="text-success font-weight-bold m-0" style="font-size: 2.5rem;">
+                                <field name="final_unit_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </h2>
+                        </div>
+                    </div>
+
+                    <!-- KPI 卡片区域 -->
+                    <div class="row mb-4">
+                        <div class="col-sm-3">
+                            <div class="card shadow-sm border-0" style="background-color: #e3f2fd;">
+                                <div class="card-body p-3 text-center">
+                                    <span class="text-primary font-weight-bold text-uppercase small">预估利润率</span>
+                                    <h3 class="card-title text-primary mb-0 mt-2">
+                                        <field name="profit_rate" widget="percentage"/>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="card shadow-sm border-0" style="background-color: #ffebee;">
+                                <div class="card-body p-3 text-center">
+                                    <span class="text-danger font-weight-bold text-uppercase small">成本总计</span>
+                                    <h3 class="card-title text-danger mb-0 mt-2">
+                                        <field name="subtotal_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-sm-3">
+                            <div class="card shadow-sm border-0 bg-light">
+                                <div class="card-body p-3 text-center">
+                                    <span class="text-muted font-weight-bold text-uppercase small">MOQ</span>
+                                    <h3 class="card-title text-dark mb-0 mt-2">
+                                        <field name="moq"/>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-sm-3">
+                            <div class="card shadow-sm border-0 bg-light">
+                                <div class="card-body p-3 text-center">
+                                    <span class="text-muted font-weight-bold text-uppercase small">交付周期</span>
+                                    <h3 class="card-title text-dark mb-0 mt-2">
+                                        <field name="lead_time"/> <span class="small font-weight-normal">天</span>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 左右分栏：基本信息 -->
+                    <div class="row mb-5">
+                        <div class="col-md-6">
+                            <div class="p-4 bg-white shadow-sm rounded h-100 border">
+                                <h5 class="border-bottom pb-2 mb-3 text-dark d-flex align-items-center">
+                                    <span class="mr-2">👤</span> 客户与业务
+                                </h5>
+                                <group>
+                                    <field name="customer_id" widget="res_partner_many2one" context="{'show_address': 1}" options="{'always_reload': True}"/>
+                                    <field name="terminal"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="user_id" widget="many2one_avatar_user"/>
+                                </group>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-4 bg-white shadow-sm rounded h-100 border">
+                                <h5 class="border-bottom pb-2 mb-3 text-dark d-flex align-items-center">
+                                    <span class="mr-2">📄</span> 项目详情
+                                </h5>
+                                <group>
+                                    <field name="project_sn"/>
+                                    <field name="internal_sn"/>
+                                    <field name="quote_date"/>
+                                    <label for="specification" string="产品规格"/>
+                                    <div class="d-flex">
+                                        <field name="specification" placeholder="如: 100x50mm" class="mr-2"/>
+                                        <field name="uom_id" nolabel="1" style="width: 30%;"/>
+                                    </div>
+                                </group>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 1. 材料成本板块 -->
+                    <div class="card mb-4 shadow-sm border-info" style="border-left: 5px solid #17a2b8;">
+                        <div class="card-header bg-white border-0 pt-3 pl-3">
+                            <h5 class="text-info font-weight-bold m-0">📦 1. 材料成本</h5>
+                        </div>
+                        <div class="card-body pt-0">
+                            <field name="material_line_ids" mode="list">
+                                <list editable="bottom">
+                                    <field name="material_id" width="25%"/>
+                                    <field name="raw_width" string="原材宽"/>
+                                    <field name="raw_length" string="原材长"/>
+                                    <field name="price_unit_total" string="单价" optional="hide"/>
+                                    <field name="slitting_width" string="分切宽"/>
+                                    <field name="slitting_rolls" optional="show"/>
+                                    <field name="pitch"/>
+                                    <field name="cavity" sum="sum"/>
+                                    <field name="yield_rate" widget="percentage" optional="show"/>
+                                    <field name="unit_consumable_cost" sum="Total" decoration-bf="1" class="text-info"/>
+                                </list>
+                            </field>
+                            <div class="row mt-2 justify-content-end">
+                                <div class="col-md-4 text-right">
+                                    <span class="text-muted mr-3">占比 <field name="material_cost_ratio" widget="percentage"/></span>
+                                    <span class="font-weight-bold text-info" style="font-size: 1.2rem;">
+                                        总计: <field name="total_material_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. 制造成本板块 -->
+                    <div class="card mb-4 shadow-sm border-warning" style="border-left: 5px solid #ffc107;">
+                        <div class="card-header bg-white border-0 pt-3 pl-3">
+                            <h5 class="text-warning font-weight-bold m-0">🔨 2. 制造成本</h5>
+                        </div>
+                        <div class="card-body pt-0">
+                            <field name="manufacturing_line_ids" mode="list">
+                                <list editable="bottom">
+                                    <field name="step_1" width="15%"/>
+                                    <field name="step_2" width="15%"/>
+                                    <field name="mfg_fee" string="工费"/>
+                                    <field name="workstation_qty"/>
+                                    <field name="capacity"/>
+                                    <field name="yield_rate" widget="percentage"/>
+                                    <field name="cost_per_pcs" sum="Total" decoration-bf="1" class="text-warning"/>
+                                </list>
+                            </field>
+                            <div class="row mt-2 justify-content-end">
+                                <div class="col-md-5 text-right">
+                                    <span class="text-muted mr-3">不含税 <field name="total_manufacturing_cost_nosetax" widget="monetary" options="{'currency_field': 'currency_id'}"/></span>
+                                    <span class="font-weight-bold text-warning" style="font-size: 1.2rem;">
+                                        总计: <field name="total_manufacturing_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. 管销与其他板块 -->
+                    <div class="card mb-5 shadow-sm border-secondary" style="border-left: 5px solid #6c757d;">
+                        <div class="card-header bg-white border-0 pt-3 pl-3">
+                            <h5 class="text-secondary font-weight-bold m-0">💼 3. 管销与其他费用</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 border-right">
+                                    <h6 class="text-muted mb-3 font-weight-bold text-uppercase small">管销费率摊销</h6>
+                                    <group>
+                                        <field name="transport_rate" widget="percentage"/>
+                                        <field name="management_rate" widget="percentage"/>
+                                        <field name="utility_rate" widget="percentage"/>
+                                        <field name="packaging_rate" widget="percentage"/>
+                                        <field name="depreciation_rate" widget="percentage"/>
+                                        <div class="o_horizontal_separator mt-2 mb-2"/>
+                                        <field name="total_marketing_cost" class="oe_bold text-secondary" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </group>
+                                </div>
+                                <div class="col-md-6 pl-4">
+                                    <h6 class="text-muted mb-3 font-weight-bold text-uppercase small">其它一次性费用</h6>
+                                    <group>
+                                        <field name="mold_fee" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <label for="punch_qty" string="分摊数量"/>
+                                        <div class="o_row">
+                                            <field name="punch_qty"/> 
+                                            <span class="text-muted small ml-1">-> <field name="mold_cost" widget="monetary" options="{'currency_field': 'currency_id'}" nolabel="1"/></span>
+                                        </div>
+                                        <field name="sample_cost_input" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        <div class="o_horizontal_separator mt-2 mb-2"/>
+                                        <field name="total_other_cost" class="oe_bold text-secondary" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    </group>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. 底部最终汇总 -->
+                    <div class="alert alert-success mt-4 p-4 shadow-sm">
+                        <div class="row align-items-center">
+                             <div class="col-md-6">
+                                <h4 class="alert-heading font-weight-bold">💰 报价总览</h4>
+                                <p class="mb-0">请确认各项成本无误后提交报价。</p>
+                             </div>
+                             <div class="col-md-6">
+                                <group class="oe_subtotal_footer oe_right m-0">
+                                    <field name="subtotal_cost" string="总成本" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    
+                                    <label for="profit_rate"/>
+                                    <div class="o_row">
+                                        <field name="profit_rate" class="oe_inline font-weight-bold"/>
+                                        <span class="text-muted small ml-2">-> <field name="profit_amount" widget="monetary" options="{'currency_field': 'currency_id'}" class="text-success oe_inline"/></span>
+                                    </div>
+                                    
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="final_unit_price" style="font-size: 1.2rem;"/>
+                                    </div>
+                                    <field name="final_unit_price" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" style="color: #28a745; font-weight: bold; font-size: 1.8rem;" options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                             </div>
+                        </div>
+                    </div>
+
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search / Action / Menu unchanged -->
+    <record id="view_diecut_quote_search" model="ir.ui.view">
+        <field name="name">diecut.quote.search</field>
+        <field name="model">diecut.quote</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="customer_id" />
+                <field name="project_sn"/>
+                <field name="internal_sn"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_quote" model="ir.actions.act_window">
+        <field name="name">模切报价单</field>
+        <field name="res_model">diecut.quote</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                创建第一张模切报价单
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_diecut_quote_root"
+              name="报价管理"
+              parent="diecut.menu_diecut_root"
+              sequence="20"/>
+
+    <menuitem id="menu_diecut_quote_list"
+              name="报价单"
+              parent="menu_diecut_quote_root"
+              action="action_diecut_quote"
+              sequence="10"/>
+</odoo>

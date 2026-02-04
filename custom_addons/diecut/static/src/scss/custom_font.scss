@@ -1,0 +1,34 @@
+/* Global Font Application - Simplified Chinese for Odoo */
+body,
+.o_web_client,
+#wrapwrap,
+.article,
+.page {
+    font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', 'PingFang SC', 'Heiti SC', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+/* Titles and Bold Text */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+strong,
+b {
+    font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', 'PingFang SC', 'Heiti SC', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    font-weight: 600 !important;
+    /* Make headers slightly bolder similar to the image headers */
+}
+
+/* Table specific tweaks to match the clean grid look if needed, though global font covers it */
+.table,
+.o_list_renderer {
+    font-family: 'Microsoft YaHei UI', 'Microsoft YaHei', 'PingFang SC', sans-serif !important;
+}

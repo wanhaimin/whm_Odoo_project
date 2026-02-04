@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- 1. 定义报表动作 (Report Action) -->
+        <record id="action_report_mold_label" model="ir.actions.report">
+            <field name="name">刀模二维码标签</field>
+            <field name="model">diecut.mold</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">diecut_custom.report_mold_label</field>
+            <field name="report_file">diecut_custom.report_mold_label</field>
+            <field name="print_report_name">'刀模标签 - %s' % object.code</field>
+            <field name="binding_model_id" ref="model_diecut_mold" />
+            <field name="binding_type">report</field>
+        </record>
+        <!-- 2. 定义报表模板 (QWeb Template) -->
+        <template id="report_mold_label">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="o">
+                        <div style="page-break-inside: avoid; border: 2px solid black; padding: 20px; width: 400px; margin: 10px auto; border-radius: 10px; text-align: center;">
+                            <!-- 标题 -->
+                            <h3 style="margin-bottom: 15px;">
+                                <strong t-esc="o.name" />
+                            </h3>
+                            <!-- 二维码 (Odoo 19.0 兼容语法) -->
+                            <div style="margin: 15px auto; text-align: center;">
+                                <span t-field="o.qr_code_image" t-options="{'widget': 'image', 'style': 'width: 150px; height: 150px;'}" />
+                            </div>
+                            <!-- 编号文字 -->
+                            <div style="margin-top: 10px; font-size: 20px; font-weight: bold;">
+                                <span t-esc="o.code" />
+                            </div>
+                            <!-- 其他信息 -->
+                            <div style="font-size: 14px; color: gray; margin-top: 10px;">
+                                <t t-if="o.mold_type">
+                                    类型:
+                                    <span t-esc="dict(o._fields['mold_type'].selection).get(o.mold_type)" />
+                                </t>
+                                <t t-if="o.location">
+                                    <t t-if="o.mold_type">|</t>
+                                    位置:
+                                    <span t-esc="o.location" />
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

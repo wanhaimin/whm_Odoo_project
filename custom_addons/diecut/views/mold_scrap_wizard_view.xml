@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 报废向导表单视图 -->
+    <record id="view_mold_scrap_wizard_form" model="ir.ui.view">
+        <field name="name">diecut.mold.scrap.wizard.form</field>
+        <field name="model">diecut.mold.scrap.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="alert alert-warning" role="alert">
+                        <strong>⚠️ 警告：报废操作不可撤销！</strong>
+                        <p>刀模报废后将无法恢复为其他状态。请确认该刀模确实需要报废。</p>
+                    </div>
+                    <group>
+                        <field name="mold_id" readonly="1"/>
+                        <field name="scrap_reason_type" widget="radio"/>
+                        <field name="scrap_reason_custom" 
+                               placeholder="【可选】补充说明具体情况..."
+                               required="scrap_reason_type == 'other'"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="确认报废" name="action_confirm_scrap" type="object" class="btn-danger"/>
+                    <button string="取消" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

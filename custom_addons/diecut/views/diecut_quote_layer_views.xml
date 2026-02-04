@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- View diecut.quote.layer View List -->
+    <record id="view_diecut_quote_layer_list" model="ir.ui.view">
+        <field name="name">view.diecut.quote.layer.list</field>
+        <field name="model">diecut.quote.layer</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+            </list>
+        </field>
+    </record>
+    <!-- View diecut.quote.layer form -->
+    <record id="view_diecut_quote_layer_form" model="ir.ui.view">
+        <field name="name">view.diecut.quote.layer.form</field>
+        <field name="model">diecut.quote.layer</field>
+        <field name="arch" type="xml">
+            <form string="Diecut Quote Layer">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1>
+                            <field name="name" placeholder="Name..." />
+                        </h1>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- View diecut.quote.layer search -->
+    <record id="view_diecut_quote_layer_search" model="ir.ui.view">
+        <field name="name">view.diecut.quote.layer.search</field>
+        <field name="model">diecut.quote.layer</field>
+        <field name="arch" type="xml">
+            <search>
+                <group string="Group By" expand="1">
+                    <filter name="name" string="Name" domain="[]" context="{'group_by':'name'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+    <!-- Action diecut.quote.layer -->
+    <record id="action_diecut_quote_layer" model="ir.actions.act_window">
+        <field name="name">Diecut Quote Layer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">diecut.quote.layer</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">There is no examples click here to add new Diecut Quote Layer.</p>
+        </field>
+    </record>
+</odoo>

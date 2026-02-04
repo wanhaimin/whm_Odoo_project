@@ -1,0 +1,22 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_material_material_user,material.material.user,model_material_material,base.group_user,1,1,1,0
+access_material_material_manager,material.material.manager,model_material_material,base.group_system,1,1,1,1
+access_material_material_public,material.material.public,model_material_material,base.group_public,1,0,0,0
+access_material_material_portal,material.material.portal,model_material_material,base.group_portal,1,0,0,0
+access_sample_order_user,sample.order.user,model_sample_order,base.group_user,1,1,1,1
+access_sample_order_portal,sample.order.portal,model_sample_order,base.group_portal,1,1,1,0
+access_sample_order_line_user,sample.order.line.user,model_sample_order_line,base.group_user,1,1,1,1
+access_sample_order_line_portal,sample.order.line.portal,model_sample_order_line,base.group_portal,1,1,1,0
+access_diecut_quote_user,diecut.quote.user,model_diecut_quote,base.group_user,1,1,1,1
+access_diecut_quote_manager,diecut.quote.manager,model_diecut_quote,base.group_system,1,1,1,1
+access_diecut_quote_material_line_user,diecut.quote.material.line.user,model_diecut_quote_material_line,base.group_user,1,1,1,1
+access_diecut_quote_manufacturing_line_user,diecut.quote.manufacturing.line.user,model_diecut_quote_manufacturing_line,base.group_user,1,1,1,1
+access_diecut_mold,Diecut Mold Access,model_diecut_mold,base.group_user,1,1,1,1
+access_diecut_mold_location,Diecut Mold Location Access,model_diecut_mold_location,base.group_user,1,1,1,1
+access_diecut_mold_scrap_wizard,Diecut Mold Scrap Wizard Access,model_diecut_mold_scrap_wizard,base.group_user,1,1,1,1
+access_diecut_mold_qc_wizard,Diecut Mold QC Wizard Access,model_diecut_mold_qc_wizard,base.group_user,1,1,1,1
+
+access_my_material_user,my.material.user,model_my_material,base.group_user,1,1,1,1
+access_my_material_requisition_user,my.material.requisition.user,model_my_material_requisition,base.group_user,1,1,1,1
+access_my_material_slitting_user,my.material.slitting.user,model_my_material_slitting,base.group_user,1,1,1,1
+access_my_material_slitting_line_user,my.material.slitting.line.user,model_my_material_slitting_line,base.group_user,1,1,1,1

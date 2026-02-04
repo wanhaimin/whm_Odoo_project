@@ -1,0 +1,60 @@
+/* ================================================= */
+/* 产品分类层级视图自定义样式                         */
+/* ================================================= */
+
+/* ... (保留之前的 hierarchy 视图样式) ... */
+.o_hierarchy_view .o_hierarchy_node {
+    min-width: 140px !important;
+    max-width: 180px !important;
+    width: auto !important;
+}
+
+.o_hierarchy_view .o_hierarchy_node_header {
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+}
+
+.o_hierarchy_view .o_hierarchy_node_body {
+    padding: 4px 12px !important;
+    font-size: 12px !important;
+}
+
+.o_hierarchy_view .o_hierarchy_node_footer {
+    padding: 4px 12px 8px !important;
+    font-size: 11px !important;
+}
+
+.o_hierarchy_view .o_hierarchy_children {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    gap: 10px !important;
+}
+
+.o_hierarchy_view .o_hierarchy_line {
+    min-width: 30px !important;
+}
+
+.o_hierarchy_view .o_hierarchy_container {
+    overflow-x: auto !important;
+    min-width: 100% !important;
+}
+
+/* ================================================= */
+/* 列表视图强制左对齐 + 等宽字体 (完美对齐的关键)      */
+/* ================================================= */
+.o_list_view .diecut_indent_col {
+    /* 强制左对齐 */
+    text-align: left !important;
+    justify-content: flex-start !important;
+
+    /* 关键：使用等宽字体，确保每个字符宽度一致 */
+    font-family: Consolas, "Courier New", monospace !important;
+
+    /* 关键：保留所有空格和缩进，不被浏览器压缩 */
+    white-space: pre !important;
+
+    /* 稍微加大字体增加辨识度 */
+    font-size: 14px !important;
+    color: #212529 !important;
+}
