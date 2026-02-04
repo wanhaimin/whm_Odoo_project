@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'diecut',
+    'name': '模切管理系统',
     'version': '1.0',
     'category': 'Manufacturing',
-    'summary': '模切行业报价管理',
+    'summary': '模切管理系统',
     'depends': ['base', 'product', 'sale', 'purchase', 'stock', 'website', 'mail'],
     "data": [
         "data/ir_sequence_data.xml",
@@ -12,6 +12,7 @@
         "data/product_category_data.xml",
         "data/sync_cron.xml",
         "security/ir.model.access.csv",
+        
         "views/diecut_menu_view.xml",
         "report/diecut_mold_reports.xml",
         "views/diecut_quote_views.xml",

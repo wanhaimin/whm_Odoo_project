@@ -12,7 +12,11 @@ class Material(models.Model):
     # 基本信息
     name = fields.Char('材料名称', required=True, tracking=True)
     code = fields.Char('材料编号', required=True, copy=False, tracking=True)
-    category_id = fields.Many2one('product.category', '材料分类', required=True, tracking=True)
+    category_id = fields.Many2one('product.category', 
+                                  '材料分类', 
+                                  required=True, 
+                                  tracking=True,
+                                  domain="[('category_type', '=', 'raw')]")
     
     # 生产商信息
     manufacturer_id = fields.Many2one(

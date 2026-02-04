@@ -181,7 +181,7 @@
     </record>
 
     <record id="action_diecut_quote" model="ir.actions.act_window">
-        <field name="name">报价模型</field>
+        <field name="name">报价成本分析</field>
         <field name="res_model">diecut.quote</field>
         <field name="view_mode">list,form</field>
         <field name="help" type="html">

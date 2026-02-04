@@ -120,7 +120,7 @@
     </record>
     <!-- 材料动作 -->
     <record id="action_material_custom" model="ir.actions.act_window">
-        <field name="name">材料库明细</field>
+        <field name="name">原材料库</field>
         <field name="res_model">material.material</field>
         <field name="view_mode">list,form</field>
     </record>

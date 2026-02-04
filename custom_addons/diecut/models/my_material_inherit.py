@@ -6,7 +6,6 @@ class MyMaterial(models.Model):
     _inherit = ['my.material', 'website.published.mixin']
 
     # 限制材料类别只能选择“原材料”类型
-    # 限制材料类别只能选择“原材料”类型
     category_id = fields.Many2one(
         'product.category', 
         string='材料类别',

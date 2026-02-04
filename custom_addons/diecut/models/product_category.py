@@ -95,7 +95,7 @@ class ProductCategoryExtend(models.Model):
                 prefix = '├── '
             elif category.level == 3:
                 # │ + 3个空格 = 4字符宽，对齐上一级的 ├── 
-                prefix = '│   ├── '
+                prefix = '│      ├── '
             
             category.indent_name = prefix + (category.name or '')
     
