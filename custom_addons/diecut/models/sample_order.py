@@ -88,7 +88,7 @@ class SampleOrder(models.Model):
         """提交订单"""
         self.state = 'submitted'
         # 发送邮件通知
-        template = self.env.ref('diecut_custom.email_template_sample_order_submitted', raise_if_not_found=False)
+        template = self.env.ref('diecut.email_template_sample_order_submitted', raise_if_not_found=False)
         if template:
             template.send_mail(self.id, force_send=True)
     
@@ -110,8 +110,8 @@ class SampleOrderLine(models.Model):
     sequence = fields.Integer('序号', default=10)
     
     # 材料
-    material_id = fields.Many2one('material.material', '材料', required=True)
-    material_code = fields.Char(related='material_id.code', string='材料编号', store=True)
+    material_id = fields.Many2one('product.product', '材料', required=True, domain=[('is_raw_material', '=', True)])
+    material_code = fields.Char(related='material_id.default_code', string='材料编号', store=True)
     
     # 尺寸
     length = fields.Float('长度(mm)', digits=(10, 2), required=True)
@@ -147,7 +147,7 @@ class SampleOrderLine(models.Model):
     def _compute_costs(self):
         for record in self:
             # 材料成本
-            material_price = record.material_id.reference_price or 0
+            material_price = record.material_id.list_price or 0  # Use list_price (sales price) or standard_price (cost)
             record.material_cost = material_price * record.area * record.quantity / 10000
             
             # 加工费用

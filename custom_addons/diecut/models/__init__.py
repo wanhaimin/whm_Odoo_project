@@ -1,11 +1,11 @@
-from . import my_material
-from . import requisition
-from . import slitting
-from . import res_partner
+# -*- coding: utf-8 -*-
+
+from . import product_category
+from . import product_diecut
 from . import mold
-from . import material
-from . import my_material_inherit 
 from . import diecut_quote
 from . import sample_order
+from . import slitting
+from . import requisition
 from . import purchase_order
-from . import product_category
+from . import res_partner

@@ -17,7 +17,7 @@
                             <field name="thickness"/>
                             <field name="width"/>
                             <field name="length"/>
-                            <field name="uom"/>
+                            <field name="uom_name"/>
                             <field name="unit_price"/>
                         </group>
                     </group>

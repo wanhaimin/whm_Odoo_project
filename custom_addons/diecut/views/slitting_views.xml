@@ -42,7 +42,8 @@
                             <field name="warehouse_id" />
                             <field name="product_id" />
                             <field name="location_id" />
-                            <field name="source_lot_id" />
+                            <field name="location_id" />
+                            <field name="source_lot_id" domain="[]" context="{'active_test': False}"/>
                             <label string="当前库存" for="source_qty" />
                             <div class="o_row">
                                 <field name="source_qty" />
@@ -93,5 +94,5 @@
         </field>
     </record>
     <!-- Menu Item (Place it under Material or Inventory) -->
-    <menuitem id="menu_material_slitting" name="分切管理" parent="menu_raw_material_inventory" action="action_material_slitting" sequence="30" />
+    <menuitem id="menu_material_slitting" name="分切管理" parent="menu_my_material_root" action="action_material_slitting" sequence="30" />
 </odoo>

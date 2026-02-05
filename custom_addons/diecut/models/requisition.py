@@ -9,14 +9,15 @@ class MyMaterialRequisition(models.Model):
     _description = '领料演示'
     _rec_name = 'material_id'
 
-    material_id = fields.Many2one('my.material', string='选择材料', required=True)
+    material_id = fields.Many2one('product.product', string='选择材料', required=True, domain="[('is_raw_material', '=', True)]")
     
     # Auto-filled fields
     spec = fields.Char(string='规格型号', readonly=True)
     thickness = fields.Float(string='厚度 (mm)', digits=(16, 4), readonly=True)
     width = fields.Float(string='宽度', digits=(16, 4), readonly=True)
     length = fields.Float(string='长度 (M)', digits=(16, 4), readonly=True)
-    uom = fields.Char(string='计量单位', readonly=True)
+    # uom = fields.Char(string='计量单位', readonly=True) # Product uses uom_id
+    uom_name = fields.Char(string='计量单位', readonly=True)
     unit_price = fields.Float(string='参考单价', digits='Product Price', readonly=True)
     
     # Transaction fields
@@ -30,8 +31,8 @@ class MyMaterialRequisition(models.Model):
             self.thickness = self.material_id.thickness
             self.width = self.material_id.width
             self.length = self.material_id.length
-            self.uom = self.material_id.uom
-            self.unit_price = self.material_id.unit_price
+            self.uom_name = self.material_id.uom_id.name
+            self.unit_price = self.material_id.standard_price # Or raw_material_unit_price
 
     @api.depends('quantity', 'unit_price')
     def _compute_total_price(self):
