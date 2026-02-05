@@ -38,7 +38,7 @@
                             <field name="temp_resistance_max" />
                             <field name="adhesion" />
                         </group>
-                    </group>
+                        </group>
                     <group>
                         <group string="特有价格">
                             <field name="raw_material_unit_price" widget="monetary" />
@@ -120,7 +120,7 @@
          我们在这个文件里定义它，供其他文件引用 -->
     <menuitem id="menu_my_material_root" name="材料管理" sequence="10" />
 
-    <!-- 挂载动作 -->
+ <!-- 挂载动作 -->
     <menuitem id="menu_diecut_raw_material_list" 
               name="原材料列表" 
               parent="menu_my_material_root" 
