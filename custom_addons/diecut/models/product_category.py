@@ -134,9 +134,10 @@ class ProductCategoryExtend(models.Model):
             # 假设我们现在主要关注 my.material 的数量（如果是用于网站展示）
             # 或者如果是通用的，应该查询 product.product
             
-            # 使用 my.material 查询
-            count = self.env['my.material'].search_count([
-                ('category_id', '=', category.id),
-                ('is_published', '=', True)
+            # 改为查询 product.template
+            count = self.env['product.template'].search_count([
+                ('categ_id', 'child_of', category.id),
+                ('is_published', '=', True),
+                ('is_raw_material', '=', True)
             ])
             category.material_count = count

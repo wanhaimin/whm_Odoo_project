@@ -21,19 +21,34 @@ class MaterialSlittingOrder(models.Model):
     
     # Allow searching lot without product first (remove static domain relying on product_id)
     # We will control domain via onchange or keep it flexible in XML
-    source_lot_id = fields.Many2one('stock.lot', string='源批次', required=True, 
-                                  domain="[('quant_ids.quantity', '>', 0)]")
+    source_lot_id = fields.Many2one('stock.lot', string='源批次', required=True)
     
     source_qty = fields.Float(string='源卷数量', compute='_compute_source_info', store=True) # store=True for easier debugging/search? No, keep it computed.
-    source_width = fields.Float(string='源卷宽度', related='source_lot_id.material_width')
-    source_length = fields.Float(string='源卷长度', related='source_lot_id.material_length')
+    source_width = fields.Float(string='源卷宽度', compute='_compute_source_dims', store=True)
+    source_length = fields.Float(string='源卷长度', compute='_compute_source_dims', store=True)
+
+    @api.depends('source_lot_id', 'source_lot_id.material_width', 'source_lot_id.material_length', 'product_id')
+    def _compute_source_dims(self):
+        for record in self:
+            # 优先取批次上的特定规格
+            width = record.source_lot_id.material_width
+            length = record.source_lot_id.material_length
+            
+            # 如果批次上没有，且产品有定义默认规格，则取产品的
+            if not width and record.product_id:
+                width = record.product_id.width
+            if not length and record.product_id:
+                length = record.product_id.length
+                
+            record.source_width = width
+            record.source_length = length
 
     @api.onchange('product_id')
     def _onchange_product_id(self):
         if self.product_id:
-            return {'domain': {'source_lot_id': [('product_id', '=', self.product_id.id), ('quant_ids.quantity', '>', 0)]}}
+            return {'domain': {'source_lot_id': [('product_id', '=', self.product_id.id)]}}
         else:
-            return {'domain': {'source_lot_id': [('quant_ids.quantity', '>', 0)]}}
+            return {'domain': {'source_lot_id': []}}
 
     @api.onchange('source_lot_id')
     def _onchange_source_lot_id(self):

@@ -14,7 +14,7 @@
 
     <menuitem id="menu_diecut_customer" name="客户管理" parent="menu_diecut_root_backend" action="action_diecut_customer" sequence="40" />
     
-    <menuitem id="menu_sample_material_backend" name="原材料库" parent="menu_diecut_root_backend" action="action_material_custom" sequence="30" />
+    <menuitem id="menu_sample_material_backend" name="原材料库" parent="menu_diecut_root_backend" action="action_diecut_raw_material" sequence="30" />
     
     <menuitem id="menu_diecut_mold_act" name="刀模库" parent="menu_diecut_root_backend" action="action_diecut_mold" sequence="5" />
 

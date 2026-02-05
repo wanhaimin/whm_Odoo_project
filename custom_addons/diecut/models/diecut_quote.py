@@ -146,7 +146,7 @@ class DiecutQuoteMaterialLine(models.Model):
     quote_id = fields.Many2one('diecut.quote', string="报价单", ondelete='cascade')
     currency_id = fields.Many2one(related='quote_id.currency_id')
 
-    material_id = fields.Many2one('material.material', string="材料", required=True)
+    material_id = fields.Many2one('product.product', string="材料", required=True, domain=[('is_raw_material', '=', True)])
     raw_width = fields.Float(string="原材宽(mm)")
     raw_length = fields.Float(string="原材长(mm)")
     
