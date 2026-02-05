@@ -131,6 +131,27 @@ class DiecutQuote(models.Model):
                 record.material_cost_ratio = 0.0
                 record.manufacturing_cost_ratio = 0.0
 
+    @api.onchange('material_line_ids')
+    def _onchange_material_line_ids(self):
+        """新增行时，默认带入第一行的参数"""
+        if not self.material_line_ids or len(self.material_line_ids) < 2:
+            return
+        
+        # 获取第一行作为模板 (按顺序，第一个通常是索引0)
+        # 注意：material_line_ids在UI编辑时可能包含NewId记录，Odoo会自动维护顺序
+        first_line = self.material_line_ids[0]
+        
+        # 遍历后续行
+        for i in range(1, len(self.material_line_ids)):
+            line = self.material_line_ids[i]
+            # 如果是新加的行（特征是这些必填参数为0/空），则复制第一行
+            # 这里判断 slitting_width, pitch 是否为0
+            if line.slitting_width == 0.0 and line.pitch == 0.0:
+                line.slitting_width = first_line.slitting_width
+                line.pitch = first_line.pitch
+                line.cavity = first_line.cavity
+                # 注意：不要覆盖 yield_rate，因为已有默认值 98.0，且用户未要求复制它 (虽然通常可能一致)
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
@@ -147,10 +168,11 @@ class DiecutQuoteMaterialLine(models.Model):
     currency_id = fields.Many2one(related='quote_id.currency_id')
 
     material_id = fields.Many2one('product.product', string="材料", required=True, domain=[('is_raw_material', '=', True)])
-    raw_width = fields.Float(string="原材宽(mm)")
-    raw_length = fields.Float(string="原材长(mm)")
+    raw_width = fields.Float(string="原材宽(mm)", compute='_compute_material_defaults', store=True, readonly=False)
+    raw_length = fields.Float(string="原材长(mm)", compute='_compute_material_defaults', store=True, readonly=False)
     
-    price_unit_total = fields.Monetary(string="含税总价", help="材料采购含税总价") # Maybe logic needed to fetch from material?
+    price_unit_total = fields.Monetary(string="含税总价", help="材料采购含税总价")
+    price_unit_tax_inc = fields.Monetary(string="含税单价 (RMB/㎡/张/支)", compute='_compute_material_defaults', store=True, readonly=False, help="自动更新：依赖原材料库整支价格")
     
     # Slitting info
     slitting_width = fields.Float(string="分切宽(mm)")
@@ -160,15 +182,25 @@ class DiecutQuoteMaterialLine(models.Model):
     pitch = fields.Float(string="跳距(mm)")
     cavity = fields.Integer(string="穴数", default=1)
     
-    qty_per_roll = fields.Integer(string="每卷数量", compute='_compute_yield', store=True)
-    total_prod_qty = fields.Integer(string="生产总数", compute='_compute_yield', store=True)
+    qty_per_roll = fields.Integer(string="每卷模切数量", compute='_compute_yield', store=True)
+    total_prod_qty = fields.Integer(string="原材料生产总数", compute='_compute_yield', store=True)
     
-    unit_usage = fields.Float(string="单位用量(㎡)", digits=(16,6), compute='_compute_unit_cost', store=True)
-    yield_rate = fields.Float(string="良率(%)", default=98.0)
+    unit_usage = fields.Float(string="单位用量 (m²/pcs)", digits=(16,6), compute='_compute_unit_cost', store=True)
+    yield_rate = fields.Float(string="良率(%)", default=0.98)
     
-    unit_consumable_cost = fields.Monetary(string="单位成本", compute='_compute_unit_cost', store=True)
+    unit_consumable_cost = fields.Monetary(string="单位耗材成本 (RMB/pcs)", compute='_compute_unit_cost', store=True)
 
     # --- Computes ---
+
+    # --- Onchange ---
+    # --- Computes ---
+    @api.depends('material_id.width', 'material_id.length', 'material_id.raw_material_total_price')
+    def _compute_material_defaults(self):
+        for line in self:
+            if line.material_id:
+                line.raw_width = line.material_id.width
+                line.raw_length = (line.material_id.length or 0.0) * 1000.0
+                line.price_unit_tax_inc = line.material_id.raw_material_total_price or 0.0
     @api.depends('raw_width', 'slitting_width')
     def _compute_slitting(self):
         for line in self:
@@ -181,32 +213,32 @@ class DiecutQuoteMaterialLine(models.Model):
     def _compute_yield(self):
         for line in self:
             if line.pitch > 0:
-                line.qty_per_roll = int((line.raw_length * 1000 / line.pitch) * line.cavity) # raw_length is usually meters? XML says mm, material default is m. 
-                # Material model says: 'width': Float('宽度(mm)', ...), 'length': Float('长度(m)', ...)
-                # XML label for raw_length is '原材长(mm)'. PLEASE CHECK. 
-                # Assuming input is mm for now based on XML label.
+                # raw_length is in mm, pitch is in mm
+                line.qty_per_roll = int((line.raw_length / line.pitch) * line.cavity)
             else:
                 line.qty_per_roll = 0
             
             line.total_prod_qty = line.qty_per_roll * line.slitting_rolls
 
-    @api.depends('price_unit_total', 'total_prod_qty', 'yield_rate')
+    @api.depends('price_unit_tax_inc', 'total_prod_qty', 'yield_rate', 'slitting_width', 'pitch', 'cavity')
     def _compute_unit_cost(self):
         for line in self:
-            if line.total_prod_qty > 0 and line.yield_rate > 0:
-                # Cost per piece = Total Material Cost / (Total Produced * Yield)
-                # But 'price_unit_total' sounds like Price per Unit? Or Total Price for the whole Roll? 
-                # "含税总价" -> Total Price with Tax. Usually for the whole raw material roll/sheet?
-                real_qty = line.total_prod_qty * (line.yield_rate / 100.0)
-                if real_qty > 0:
-                    line.unit_consumable_cost = line.price_unit_total / real_qty
-                    # Unit Usage (area per piece) - logic depends on area.
-                    # Simplified for now.
-                    line.unit_usage = 0.0 # Placeholder
-                else:
-                     line.unit_consumable_cost = 0.0
+            # 1. Calculate Unit Usage (Area per piece in m2)
+            if line.cavity > 0:
+                area_mm2 = line.slitting_width * line.pitch
+                line.unit_usage = (area_mm2 / line.cavity) / 1000000.0
             else:
-                 line.unit_consumable_cost = 0.0
+                line.unit_usage = 0.0
+
+            # 2. Calculate Consumable Cost per Piece
+            if line.total_prod_qty > 0:
+                # User Request: Unit Cost = (Price / Qty) * (1 + (1 - Yield))
+                # Interpretation: Base Cost * (1 + LossRate)
+                # Yield is now 0-1 scale (e.g. 0.98), so no need to divide by 100
+                loss_factor = 1.0 + (1.0 - line.yield_rate)
+                line.unit_consumable_cost = (line.price_unit_tax_inc / line.total_prod_qty) * loss_factor
+            else:
+                line.unit_consumable_cost = 0.0
 
 class DiecutQuoteManufacturingLine(models.Model):
     _name = 'diecut.quote.manufacturing.line'
@@ -221,7 +253,7 @@ class DiecutQuoteManufacturingLine(models.Model):
     mfg_fee = fields.Float(string="人均制造费/小时", default=30.0)
     workstation_qty = fields.Integer(string="工位人数", default=1)
     capacity = fields.Integer(string="产能(PCS/H)", default=1000)
-    yield_rate = fields.Float(string="良率(%)", default=98.0)
+    yield_rate = fields.Float(string="良率(%)", default=0.98)
     
     cost_per_pcs = fields.Monetary(string="费用(RMB/PCS)", compute='_compute_cost', store=True)
 
@@ -231,7 +263,8 @@ class DiecutQuoteManufacturingLine(models.Model):
             # Cost = (Fee * People) / Capacity / Yield
             if line.capacity > 0 and line.yield_rate > 0:
                 hourly_cost = line.mfg_fee * line.workstation_qty
-                effective_capacity = line.capacity * (line.yield_rate / 100.0)
+                # Yield is 0.98 (Ratio), so use directly
+                effective_capacity = line.capacity * line.yield_rate
                 line.cost_per_pcs = hourly_cost / effective_capacity
             else:
                 line.cost_per_pcs = 0.0

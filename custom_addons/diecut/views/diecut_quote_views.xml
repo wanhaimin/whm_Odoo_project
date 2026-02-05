@@ -130,14 +130,17 @@
                         <div class="card-body pt-0">
                             <field name="material_line_ids" mode="list">
                                 <list editable="bottom">
-                                    <field name="material_id" width="25%"/>
+                                    <field name="material_id" width="150px"/>
                                     <field name="raw_width" string="原材宽"/>
                                     <field name="raw_length" string="原材长"/>
-                                    <field name="price_unit_total" string="单价" optional="hide"/>
-                                    <field name="slitting_width" string="分切宽"/>
+                                    <field name="price_unit_tax_inc" />
                                     <field name="slitting_rolls" optional="show"/>
+                                    <field name="qty_per_roll" optional="show"/>
+                                    <field name="total_prod_qty" optional="show"/>
+                                    <field name="slitting_width" string="分切宽"/>
                                     <field name="pitch"/>
-                                    <field name="cavity" sum="sum"/>
+                                    <field name="cavity"/>
+                                    <field name="unit_usage" optional="show"/>
                                     <field name="yield_rate" widget="percentage" optional="show"/>
                                     <field name="unit_consumable_cost" sum="Total" decoration-bf="1" class="text-info"/>
                                 </list>

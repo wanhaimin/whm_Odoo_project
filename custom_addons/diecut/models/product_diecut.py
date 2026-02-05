@@ -11,11 +11,64 @@ class ProductTemplate(models.Model):
     spec = fields.Char(string='规格型号')
     thickness = fields.Float(string='厚度 (mm)', digits=(16, 3))
     width = fields.Float(string='宽度 (mm)', digits=(16, 0))
-    length = fields.Float(string='长度 (M)', digits=(16, 0))
+    length = fields.Float(string='长度 (M)', digits=(16, 3), help="后台统一存储为米")
+    
+    # 辅助字段：用于片料输入的长度 (mm)
+    length_mm = fields.Float(string='长度 (mm)', compute='_compute_length_mm', inverse='_inverse_length_mm', digits=(16, 0))
+
     rs_type = fields.Selection([
         ('R', '卷料'),
         ('S', '片料'),
-    ], string='形态(R/S)')
+    ], string='形态(R/S)', default='R')
+
+    @api.depends('length')
+    def _compute_length_mm(self):
+        for record in self:
+            record.length_mm = (record.length or 0.0) * 1000.0
+
+    def _inverse_length_mm(self):
+        for record in self:
+            record.length = (record.length_mm or 0.0) / 1000.0
+
+    length_smart = fields.Char(string='长度', compute='_compute_length_smart', inverse='_inverse_length_smart', help="智能显示：卷料显示m，片料显示mm，支持直接修改")
+
+    @api.depends('length', 'rs_type')
+    def _compute_length_smart(self):
+        for record in self:
+            l = record.length or 0.0
+            if record.rs_type == 'S':
+                # Sheet: Display as mm (e.g. 0.5m -> "500 mm")
+                # Use :g to remove .0 if integer
+                record.length_smart = f"{l*1000:g} mm"
+            else:
+                # Roll: Display as m (e.g. 50m -> "50 m")
+                record.length_smart = f"{l:g} m"
+
+    def _inverse_length_smart(self):
+        for record in self:
+            if not record.length_smart:
+                continue
+            
+            # 1. Clean up input (remove units, stripping)
+            val_str = record.length_smart.lower().replace('mm', '').replace('m', '').replace(' ', '')
+            
+            try:
+                val_float = float(val_str)
+                
+                # 2. Convert based on Type
+                if record.rs_type == 'S':
+                    # User input is mm -> Store as M
+                    record.length = val_float / 1000.0
+                else:
+                    # User input is m -> Store as M
+                    record.length = val_float
+            except ValueError:
+                # If user typed garbage, ignore or leave old value.
+                # Odoo might revert on refresh.
+                pass
+
+
+
 
     # --- 物理特征 (合并自 material.py) ---
     color = fields.Char(string='颜色')
@@ -38,8 +91,9 @@ class ProductTemplate(models.Model):
     adhesion = fields.Float('粘性(N/25mm)', digits=(10, 2))
 
     # --- 价格信息 (扩展) ---
-    raw_material_unit_price = fields.Float(string='原材料单价', digits=(16, 2))
-    raw_material_total_price = fields.Float(string='原材料价格（整支）', digits=(16, 2))
+    raw_material_currency_id = fields.Many2one('res.currency', string="成本币种", default=lambda self: self.env.company.currency_id, compute='_compute_main_vendor_costs', store=True, readonly=False)
+    raw_material_unit_price = fields.Monetary(string='原材料单价', currency_field='raw_material_currency_id', digits=(16, 2), compute='_compute_main_vendor_costs', store=True, readonly=False)
+    raw_material_total_price = fields.Float(string='原材料价格（整支）', digits=(16, 2), compute='_compute_main_vendor_costs', store=True, readonly=False)
     price_tax_excluded = fields.Float(string='单价（不含税）', digits=(16, 4))
     
     price_unit = fields.Char(string='价格单位')
@@ -57,8 +111,8 @@ class ProductTemplate(models.Model):
     incoterms = fields.Char(string='贸易条款')
     quote_date = fields.Date(string='报价日期')
     
-    min_order_qty = fields.Float(string='最小起订量 (MOQ)', default=0.0)
-    lead_time = fields.Integer(string='采购周期 (天)', default=0)
+    min_order_qty = fields.Float(string='最小起订量 (MOQ)', default=0.0, compute='_compute_main_vendor_costs', store=True, readonly=False)
+    lead_time = fields.Integer(string='采购周期 (天)', default=0, compute='_compute_main_vendor_costs', store=True, readonly=False)
     purchase_uom = fields.Char(string='采购单位')
     
     safety_stock = fields.Float(string='安全库存')
@@ -79,6 +133,24 @@ class ProductTemplate(models.Model):
     # 统计字段
     view_count = fields.Integer('浏览次数', default=0, readonly=True)
     inquiry_count = fields.Integer('询价次数', default=0, readonly=True)
+
+    @api.depends('seller_ids.price', 'seller_ids.partner_id', 'main_vendor_id', 'seller_ids.currency_id', 'seller_ids.delay', 'seller_ids.min_qty')
+    def _compute_main_vendor_costs(self):
+        """自动计算：当主要供应商或其价格变动时，同步更新下方成本信息"""
+        for product in self:
+            if not product.main_vendor_id:
+                continue
+                
+            # 在seller_ids中查找主供应商行
+            for seller in product.seller_ids:
+                if seller.partner_id == product.main_vendor_id:
+                    product.raw_material_unit_price = seller.price
+                    product.raw_material_total_price = seller.price
+                    product.raw_material_currency_id = seller.currency_id
+                    product.lead_time = seller.delay
+                    product.min_order_qty = seller.min_qty
+                    break 
+                    # 只取第一条匹配项
 
     @api.onchange('track_batch')
     def _onchange_track_batch(self):
@@ -204,3 +276,41 @@ class ProductSupplierinfo(models.Model):
                         record.price_per_m2 = 0.0
             except Exception:
                 pass
+
+    def action_set_as_main(self):
+        """设为主要供应商，并同步价格等信息到产品主档"""
+        self.ensure_one()
+        product = self.product_tmpl_id
+        if not product:
+            return
+            
+        # 1. 设置主要供应商
+        product.main_vendor_id = self.partner_id.id
+        
+        # 2. 同步价格 (将供应商定义的“卷/张”价格作为原材料整支/单价成本)
+        # 注意：这里假设供应商价格就是整支价格
+        product.raw_material_total_price = self.price
+        product.raw_material_unit_price = self.price # 同步更新单价字段，保持一致
+        product.raw_material_currency_id = self.currency_id # 同步币种
+        
+        # 3. 同步交期与起订量
+        product.lead_time = self.delay
+        product.min_order_qty = self.min_qty
+        
+        # 刷新页面以显示更新后的值
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
+
+    is_main_vendor = fields.Boolean(compute='_compute_is_main_vendor', string="是否主选")
+
+
+    @api.depends('product_tmpl_id.main_vendor_id', 'partner_id')
+    def _compute_is_main_vendor(self):
+        for record in self:
+            # Check if this supplier line's partner matches the product template's main vendor
+            if record.product_tmpl_id and record.partner_id and record.partner_id == record.product_tmpl_id.main_vendor_id:
+                record.is_main_vendor = True
+            else:
+                record.is_main_vendor = False

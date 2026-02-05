@@ -6,14 +6,19 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form" />
         <field name="arch" type="xml">
+
             <xpath expr="//field[@name='partner_id']" position="attributes">
-                <attribute name="domain">[('category_id.name', '=', '供应商')]</attribute>
+                <attribute name="domain">[('supplier_rank', '>', 0)]</attribute>
             </xpath>
             <xpath expr="//field[@name='partner_id']" position="after">
                 <field name="project_name" placeholder="输入关联的项目名称..."/>
             </xpath>
             <xpath expr="//field[@name='date_order']" position="after">
                 <field name="is_urgent" widget="boolean_toggle"/>
+            </xpath>
+            
+            <xpath expr="//field[@name='order_line']//field[@name='product_id']" position="after">
+                 <field name="product_spec" optional="show"/>
             </xpath>
         </field>
     </record>
