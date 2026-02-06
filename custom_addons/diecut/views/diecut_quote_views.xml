@@ -124,8 +124,9 @@
 
                     <!-- 1. 材料成本板块 -->
                     <div class="card mb-4 shadow-sm border-info" style="border-left: 5px solid #17a2b8;">
-                        <div class="card-header bg-white border-0 pt-3 pl-3">
+                        <div class="card-header bg-white border-0 pt-3 pl-3 d-flex justify-content-between align-items-center">
                             <h5 class="text-info font-weight-bold m-0">📦 1. 材料成本</h5>
+                            <button name="action_sync_first_line_params" type="object" string="应用首行参数到全部" class="btn-sm btn-outline-info" icon="fa-copy" help="将第一行的分切宽、跳距、模穴数复制到所有行" confirm="确定要将第一行的工艺参数覆盖到所有行吗？"/>
                         </div>
                         <div class="card-body pt-0">
                             <field name="material_line_ids" mode="list">
