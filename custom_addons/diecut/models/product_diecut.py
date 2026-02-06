@@ -71,6 +71,7 @@ class ProductTemplate(models.Model):
     # --- 价格信息 ---
     raw_material_currency_id = fields.Many2one('res.currency', string="成本币种", default=lambda self: self.env.company.currency_id, compute='_compute_main_vendor_costs', store=True, readonly=False)
     raw_material_unit_price = fields.Monetary(string='原材料单价', currency_field='raw_material_currency_id', compute='_compute_main_vendor_costs', inverse='_inverse_raw_material_unit_price', store=True, readonly=False)
+    raw_material_price_m2 = fields.Float(string='单价/m²', digits=(16, 4), compute='_compute_main_vendor_costs', inverse='_inverse_raw_material_price_m2', store=True, readonly=False)
     raw_material_total_price = fields.Float(string='原材料价格（整支）', compute='_compute_main_vendor_costs', store=True, readonly=False)
     price_tax_excluded = fields.Float(string='单价（不含税）', digits=(16, 4))
     price_unit = fields.Char(string='价格单位')
@@ -134,10 +135,13 @@ class ProductTemplate(models.Model):
                 weight = (area * self.density * self.thickness * 1000.0) / 1000.0
         return area, weight
 
-    @api.depends('seller_ids.price', 'seller_ids.partner_id', 'main_vendor_id', 'seller_ids.currency_id', 'seller_ids.delay', 'seller_ids.min_qty')
+    @api.depends('seller_ids.price', 'seller_ids.price_per_m2', 'seller_ids.partner_id', 'main_vendor_id', 'seller_ids.currency_id', 'seller_ids.delay', 'seller_ids.min_qty')
     def _compute_main_vendor_costs(self):
         for product in self:
             product.raw_material_unit_price = 0.0
+            product.raw_material_total_price = 0.0
+            product.raw_material_unit_price = 0.0
+            product.raw_material_price_m2 = 0.0
             product.raw_material_total_price = 0.0
             product.min_order_qty = 0.0
             product.lead_time = 0
@@ -145,6 +149,7 @@ class ProductTemplate(models.Model):
             for seller in product.seller_ids:
                 if seller.partner_id == product.main_vendor_id:
                     product.raw_material_unit_price = seller.price
+                    product.raw_material_price_m2 = seller.price_per_m2
                     product.raw_material_total_price = seller.price
                     product.raw_material_currency_id = seller.currency_id
                     product.lead_time = seller.delay
@@ -171,6 +176,39 @@ class ProductTemplate(models.Model):
                 
                 if weight > 0:
                     seller.price_per_kg = seller.price / weight
+
+    def _inverse_raw_material_price_m2(self):
+        for product in self:
+            if not product.main_vendor_id or not product.seller_ids: continue
+            
+            main_seller = product.seller_ids.filtered(lambda s: s.partner_id == product.main_vendor_id)
+            if main_seller:
+                seller = main_seller[0]
+                
+                # Update seller m2 price
+                seller.price_per_m2 = product.raw_material_price_m2
+                
+                # Recalculate total price based on area
+                area, weight = product._get_diecut_factors()
+                if area > 0:
+                     seller.price = seller.price_per_m2 * area
+                     seller.price_per_kg = (seller.price / weight) if weight > 0 else 0.0
+
+    @api.onchange('raw_material_unit_price')
+    def _onchange_raw_material_unit_price_ui(self):
+        """UI联动：修改总价 -> 反算单价/m² (仅做前端显示更新，保存时由inverse处理数据库)"""
+        for product in self:
+            area, _ = product._get_diecut_factors()
+            if area > 0:
+                product.raw_material_price_m2 = product.raw_material_unit_price / area
+
+    @api.onchange('raw_material_price_m2')
+    def _onchange_raw_material_price_m2_ui(self):
+        """UI联动：修改单价/m² -> 反算总价 (仅做前端显示更新，保存时由inverse处理数据库)"""
+        for product in self:
+            area, _ = product._get_diecut_factors()
+            if area > 0:
+                product.raw_material_unit_price = product.raw_material_price_m2 * area
 
     @api.onchange('width', 'length', 'rs_type', 'weight_gram', 'density', 'thickness', 'length_smart', 'length_mm')
     def _onchange_specs_force_update_sellers(self):
