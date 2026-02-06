@@ -28,7 +28,7 @@ class ProductTemplate(models.Model):
         for record in self:
             record.length = (record.length_mm or 0.0) / 1000.0
 
-    length_smart = fields.Char(string='长度', compute='_compute_length_smart', inverse='_inverse_length_smart')
+    length_smart = fields.Char(string='长度', compute='_compute_length_smart', inverse='_inverse_length_smart', store=True, readonly=False)
 
     @api.depends('length', 'rs_type')
     def _compute_length_smart(self):
@@ -71,9 +71,9 @@ class ProductTemplate(models.Model):
     # --- 价格信息 ---
     raw_material_currency_id = fields.Many2one('res.currency', string="成本币种", default=lambda self: self.env.company.currency_id, compute='_compute_main_vendor_costs', store=True, readonly=False)
     raw_material_unit_price = fields.Monetary(string='原材料单价', currency_field='raw_material_currency_id', compute='_compute_main_vendor_costs', inverse='_inverse_raw_material_unit_price', store=True, readonly=False)
-    raw_material_price_m2 = fields.Float(string='单价/m²', digits=(16, 4), compute='_compute_main_vendor_costs', inverse='_inverse_raw_material_price_m2', store=True, readonly=False)
+    raw_material_price_m2 = fields.Float(string='单价/m²', digits=(16, 2), compute='_compute_main_vendor_costs', inverse='_inverse_raw_material_price_m2', store=True, readonly=False)
     raw_material_total_price = fields.Float(string='原材料价格（整支）', compute='_compute_main_vendor_costs', store=True, readonly=False)
-    price_tax_excluded = fields.Float(string='单价（不含税）', digits=(16, 4))
+    price_tax_excluded = fields.Float(string='单价（不含税）', digits=(16, 2))
     price_unit = fields.Char(string='价格单位')
     price_usd = fields.Float(string='常用价格 (USD)', digits=(16, 4))
     price_hkd = fields.Float(string='常用价格 (HKD)', digits=(16, 4))
@@ -210,7 +210,15 @@ class ProductTemplate(models.Model):
             if area > 0:
                 product.raw_material_unit_price = product.raw_material_price_m2 * area
 
-    @api.onchange('width', 'length', 'rs_type', 'weight_gram', 'density', 'thickness', 'length_smart', 'length_mm')
+    @api.onchange('length_smart')
+    def _onchange_length_smart_ui(self):
+        """UI联动：修改智能长度 -> 1.解析为数字 -> 2.强制触发价格重算"""
+        # 1. 解析字符串到 self.length
+        self._inverse_length_smart()
+        # 2. 手动链路：因为在 onchange 中间接修改字段有时不会自动通过监听触发后续逻辑，这里显式调用价格计算
+        self._onchange_specs_force_update_sellers()
+
+    @api.onchange('width', 'length', 'rs_type', 'weight_gram', 'density', 'thickness', 'length_mm')
     def _onchange_specs_force_update_sellers(self):
         """核心反馈：改规格 -> 保持平米单价 -> 刷卷/片价"""
         for product in self:
@@ -261,8 +269,8 @@ class ProductTemplate(models.Model):
 class ProductSupplierinfo(models.Model):
     _inherit = 'product.supplierinfo'
 
-    price_per_m2 = fields.Float(string='单价/m²', digits=(16, 4))
-    price_per_kg = fields.Float(string='单价/kg', digits=(16, 4))
+    price_per_m2 = fields.Float(string='单价/m²', digits=(16, 2))
+    price_per_kg = fields.Float(string='单价/kg', digits=(16, 2))
     is_main_vendor = fields.Boolean(compute='_compute_is_main_vendor', string="是否主选")
     
     # 影子字段：接收父表实时传递过来的最新面积（解决未保存时的上下文隔离问题）

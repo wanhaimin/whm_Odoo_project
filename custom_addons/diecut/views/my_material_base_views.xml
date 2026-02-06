@@ -108,7 +108,7 @@
                 <field name="length_smart" class="text-end" />
                 <field name="rs_type" optional="show" />
                 <field name="color" optional="show" />
-                <field name="is_raw_material" invisible="1" />
+                <field name="is_raw_material" invisible="1" optional="hide" />
                 <field name="standard_price" optional="hide" />
                 <field name="raw_material_unit_price" optional="show" />
                 <field name="raw_material_price_m2" optional="show" />

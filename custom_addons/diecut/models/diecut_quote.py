@@ -151,6 +151,25 @@ class DiecutQuote(models.Model):
                 line.pitch = first_line.pitch
                 line.cavity = first_line.cavity
                 # 注意：不要覆盖 yield_rate，因为已有默认值 98.0，且用户未要求复制它 (虽然通常可能一致)
+                
+    def action_sync_first_line_params(self):
+        """Button Action: 将第一行的工艺参数同步给所有行"""
+        for record in self:
+            if not record.material_line_ids or len(record.material_line_ids) < 2:
+                continue
+            
+            first = record.material_line_ids[0]
+            # 获取源数据
+            s_width = first.slitting_width
+            s_pitch = first.pitch
+            s_cavity = first.cavity
+            
+            # 覆盖后续所有行
+            for i in range(1, len(record.material_line_ids)):
+                line = record.material_line_ids[i]
+                line.slitting_width = s_width
+                line.pitch = s_pitch
+                line.cavity = s_cavity
 
     @api.model_create_multi
     def create(self, vals_list):
