@@ -23,6 +23,7 @@
         "views/mold_scrap_wizard_view.xml",
         "views/mold_qc_wizard_view.xml",
         "views/purchase_order_inherit_view.xml",
+        "views/stock_quant_views.xml",
 
         "views/res_partner_view.xml",
         "views/sale_order_inherit_view.xml",
