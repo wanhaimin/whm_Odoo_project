@@ -8,68 +8,72 @@ class DiecutQuote(models.Model):
 
     # --- Header ---
     name = fields.Char(string="报价单号", required=True, copy=False, readonly=True, index=True, default='New')
-    customer_id = fields.Many2one('res.partner', string="客户", required=True, domain="[('is_company', '=', True)]")
+    customer_id = fields.Many2one('res.partner', string="客户", required=True, domain="[('is_company', '=', True), ('customer_rank', '>', 0)]")
+    contact_id = fields.Many2one('res.partner', string="联系人", domain="[('parent_id', '=', customer_id)]")
+
+    product_name = fields.Char(string="品名 :")   
+    internal_sn = fields.Char(string="内部料号 :")
+    project_sn = fields.Char(string="项目编号 :")
+    terminal = fields.Char(string="终端客户 :")
+    user_id = fields.Many2one('res.users', string="制单人", default=lambda self: self.env.user)
+    specification = fields.Char(string="产品规格(mm) :", placeholder="如: 33.35 * 17.05")
+    moq = fields.Integer(string="MOQ")
+    lead_time = fields.Integer(string="交期(天) :")
+
+    quote_date = fields.Date(string="报价日期 :", default=fields.Date.context_today)
+    quote_date_show = fields.Date(string="报价日期 :", related='quote_date', store=True) # For list view if needed
     
-    internal_sn = fields.Char(string="内部料号")
-    project_sn = fields.Char(string="项目编号")
-    terminal = fields.Char(string="终端客户")
-    user_id = fields.Many2one('res.users', string="负责人", default=lambda self: self.env.user)
-    
-    quote_date = fields.Date(string="报价日期", default=fields.Date.context_today)
-    quote_date_show = fields.Date(string="报价日期", related='quote_date', store=True) # For list view if needed
-    quote_category = fields.Char(string="报价类别") # Or Selection if known
     
     currency_id = fields.Many2one('res.currency', string="币种", default=lambda self: self.env.company.currency_id)
     uom_id = fields.Many2one('uom.uom', string="单位", default=lambda self: self.env.ref('uom.product_uom_unit'))
     
-    specification = fields.Char(string="规格(mm)", placeholder="如: 33.35 * 17.05")
-    moq = fields.Integer(string="MOQ")
-    lead_time = fields.Integer(string="交期(天)")
+   
 
     # --- Cost Calculations ---
     # 1. Material
     material_line_ids = fields.One2many('diecut.quote.material.line', 'quote_id', string="材料成本明细")
-    total_material_cost = fields.Monetary(string="材料成本总计 (RMB/pcs)", compute='_compute_total_material_cost', store=True)
+    total_material_cost = fields.Float(string="材料成本总计 (RMB/pcs)", compute='_compute_total_material_cost', store=True, digits=(16, 4))
     material_cost_ratio = fields.Float(string="材料占比", compute='_compute_ratios')
 
     # 2. Manufacturing
     manufacturing_line_ids = fields.One2many('diecut.quote.manufacturing.line', 'quote_id', string="制造成本明细")
     # Note: total_manufacturing_cost_nosetax and total_manufacturing_cost in XML
-    total_manufacturing_cost_nosetax = fields.Monetary(string="制造成本 (不含税)", compute='_compute_total_manufacturing_cost', store=True)
-    total_manufacturing_cost = fields.Monetary(string="制造成本 (含税 1.13)", compute='_compute_total_manufacturing_cost', store=True)
+    # Note: total_manufacturing_cost_nosetax and total_manufacturing_cost in XML
+    total_manufacturing_cost_nosetax = fields.Float(string="制造成本 (不含税)", compute='_compute_total_manufacturing_cost', store=True, digits=(16, 4))
+    total_manufacturing_cost = fields.Float(string="制造成本 (含税 1.13)", compute='_compute_total_manufacturing_cost', store=True, digits=(16, 4))
     manufacturing_cost_ratio = fields.Float(string="制造成本占比", compute='_compute_ratios')
 
     # 3. Marketing / Overhead
     transport_rate = fields.Float(string="运输成本率", default=1.0)
-    transport_cost = fields.Monetary(string="运输成本", compute='_compute_overhead_costs', store=True)
+    transport_cost = fields.Float(string="运输成本", compute='_compute_overhead_costs', store=True, digits=(16, 4))
     
     management_rate = fields.Float(string="管理费用率", default=5.0)
-    management_cost = fields.Monetary(string="管理费用", compute='_compute_overhead_costs', store=True)
+    management_cost = fields.Float(string="管理费用", compute='_compute_overhead_costs', store=True, digits=(16, 4))
     
     utility_rate = fields.Float(string="厂租水电率", default=2.0)
-    utility_cost = fields.Monetary(string="厂租水电", compute='_compute_overhead_costs', store=True)
+    utility_cost = fields.Float(string="厂租水电", compute='_compute_overhead_costs', store=True, digits=(16, 4))
     
     packaging_rate = fields.Float(string="包材成本率", default=1.0)
-    packaging_cost = fields.Monetary(string="包材成本", compute='_compute_overhead_costs', store=True)
+    packaging_cost = fields.Float(string="包材成本", compute='_compute_overhead_costs', store=True, digits=(16, 4))
     
     depreciation_rate = fields.Float(string="机器折旧率", default=2.0)
-    depreciation_cost = fields.Monetary(string="机器折旧", compute='_compute_overhead_costs', store=True)
+    depreciation_cost = fields.Float(string="机器折旧", compute='_compute_overhead_costs', store=True, digits=(16, 4))
     
-    total_marketing_cost = fields.Monetary(string="管销成本总计", compute='_compute_overhead_costs', store=True)
+    total_marketing_cost = fields.Float(string="管销成本总计", compute='_compute_overhead_costs', store=True, digits=(16, 4))
 
     # 4. Other Costs
     sample_cost_input = fields.Float(string="样品成本")
-    mold_fee = fields.Float(string="模具总费用")
+    mold_fee = fields.Float(string="模具总费用", digits=(16, 4))
     punch_qty = fields.Integer(string="预计冲压总数", default=100000)
-    mold_cost = fields.Monetary(string="单位模具成本", compute='_compute_other_costs', store=True)
+    mold_cost = fields.Float(string="单位模具成本", compute='_compute_other_costs', store=True, digits=(16, 4))
     
-    total_other_cost = fields.Monetary(string="其它成本总计", compute='_compute_other_costs', store=True)
+    total_other_cost = fields.Float(string="其它成本总计", compute='_compute_other_costs', store=True, digits=(16, 4))
 
     # Summary
-    subtotal_cost = fields.Monetary(string="成本总和", compute='_compute_final_price', store=True)
-    profit_rate = fields.Float(string="预估利润率", default=15.0)
-    profit_amount = fields.Monetary(string="利润金额", compute='_compute_final_price', store=True)
-    final_unit_price = fields.Monetary(string="合计建议报价 (RMB/PCS)", compute='_compute_final_price', store=True)
+    subtotal_cost = fields.Float(string="成本总和", compute='_compute_final_price', store=True, digits=(16, 4))
+    profit_rate = fields.Float(string="利润率", default=15.0)
+    profit_amount = fields.Float(string="利润金额", compute='_compute_final_price', store=True, digits=(16, 4))
+    final_unit_price = fields.Float(string="合计建议报价 (RMB/PCS)", compute='_compute_final_price', store=True, digits=(16, 4))
 
     # --- Computes ---
     @api.depends('material_line_ids.unit_consumable_cost')
@@ -171,12 +175,54 @@ class DiecutQuote(models.Model):
                 line.pitch = s_pitch
                 line.cavity = s_cavity
 
+    def action_sync_slitting_width(self):
+        """Button Action: 仅同步分切宽"""
+        for record in self:
+            if not record.material_line_ids or len(record.material_line_ids) < 2: continue
+            val = record.material_line_ids[0].slitting_width
+            for line in record.material_line_ids[1:]:
+                line.slitting_width = val
+
+    def action_sync_pitch(self):
+        """Button Action: 仅同步跳距"""
+        for record in self:
+            if not record.material_line_ids or len(record.material_line_ids) < 2: continue
+            val = record.material_line_ids[0].pitch
+            for line in record.material_line_ids[1:]:
+                line.pitch = val
+
+    def action_sync_cavity(self):
+        """Button Action: 仅同步穴数"""
+        for record in self:
+            if not record.material_line_ids or len(record.material_line_ids) < 2: continue
+            val = record.material_line_ids[0].cavity
+            for line in record.material_line_ids[1:]:
+                line.cavity = val
+
+    def action_sync_yield_rate(self):
+        """Button Action: 仅同步良率"""
+        for record in self:
+            if not record.material_line_ids or len(record.material_line_ids) < 2: continue
+            val = record.material_line_ids[0].yield_rate
+            for line in record.material_line_ids[1:]:
+                line.yield_rate = val
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
             if vals.get('name', 'New') == 'New':
                 vals['name'] = self.env['ir.sequence'].next_by_code('diecut.quote') or 'New'
         return super().create(vals_list)
+
+    def action_open_form(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'diecut.quote',
+            'res_id': self.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }
 
 
 class DiecutQuoteMaterialLine(models.Model):
@@ -190,8 +236,8 @@ class DiecutQuoteMaterialLine(models.Model):
     raw_width = fields.Float(string="原材宽(mm)", compute='_compute_material_defaults', store=True, readonly=False)
     raw_length = fields.Float(string="原材长(mm)", compute='_compute_material_defaults', store=True, readonly=False)
     
-    price_unit_total = fields.Monetary(string="含税总价", help="材料采购含税总价")
-    price_unit_tax_inc = fields.Monetary(string="含税单价 (RMB/㎡/张/支)", compute='_compute_material_defaults', store=True, readonly=False, help="自动更新：依赖原材料库整支价格")
+    price_unit_total = fields.Float(string="含税总价", help="材料采购含税总价", digits=(16, 4))
+    price_unit_tax_inc = fields.Float(string="含税单价 (RMB/㎡/张/支)", compute='_compute_material_defaults', store=True, readonly=False, help="自动更新：依赖原材料库整支价格", digits=(16, 4))
     
     # Slitting info
     slitting_width = fields.Float(string="分切宽(mm)")
@@ -207,7 +253,7 @@ class DiecutQuoteMaterialLine(models.Model):
     unit_usage = fields.Float(string="单位用量 (m²/pcs)", digits=(16,6), compute='_compute_unit_cost', store=True)
     yield_rate = fields.Float(string="良率(%)", default=0.98)
     
-    unit_consumable_cost = fields.Monetary(string="单位耗材成本 (RMB/pcs)", compute='_compute_unit_cost', store=True)
+    unit_consumable_cost = fields.Float(string="单位耗材成本 (RMB/pcs)", compute='_compute_unit_cost', store=True, digits=(16, 4))
 
     # --- Computes ---
 
@@ -274,7 +320,7 @@ class DiecutQuoteManufacturingLine(models.Model):
     capacity = fields.Integer(string="产能(PCS/H)", default=1000)
     yield_rate = fields.Float(string="良率(%)", default=0.98)
     
-    cost_per_pcs = fields.Monetary(string="费用(RMB/PCS)", compute='_compute_cost', store=True)
+    cost_per_pcs = fields.Float(string="费用(RMB/PCS)", compute='_compute_cost', store=True, digits=(16, 4))
 
     @api.depends('mfg_fee', 'workstation_qty', 'capacity', 'yield_rate')
     def _compute_cost(self):

@@ -1,35 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-   <!-- 1. 打样管理：挂载在“材料管理”App下 -->
-    
-    
-    <menuitem id="menu_sample_management_root_backend" name="打样管理" parent="menu_my_material_root" sequence="40" />
+    <!-- Top menu item -->
+    <menuitem id="menu_diecut_root" name="模切管理系统" sequence="10" />
 
-    <menuitem id="menu_sample_order_backend" name="打样订单" parent="menu_sample_management_root_backend" action="action_sample_order_custom" sequence="10" />
-
-    <menuitem id="menu_sample_category_backend" name="材料分类(模切)" parent="menu_sample_management_root_backend" action="action_product_category_diecut" sequence="30" />
+    <!-- Cloud Menu Structure: Flat / One Level -->
+    <menuitem id="menu_diecut_quote_backend" name="成本计算器" parent="menu_diecut_root" action="action_diecut_quote" sequence="10" />
+    <menuitem id="menu_diecut_raw_material_list" name="原材料" parent="menu_diecut_root" action="action_diecut_raw_material" sequence="20" />
+    <menuitem id="menu_diecut_customer" name="客户管理" parent="menu_diecut_root" action="action_diecut_customer" sequence="30" />
+    <menuitem id="menu_diecut_mold" name="刀模管理" parent="menu_diecut_root" action="action_diecut_mold" sequence="40" />
+    <menuitem id="menu_material_slitting_flat" name="分切管理" parent="menu_diecut_root" action="action_material_slitting" sequence="50" />
+    <menuitem id="menu_requisition_demo_flat" name="领料申请" parent="menu_diecut_root" action="action_requisition_demo" sequence="60" />
+    <menuitem id="menu_sample_order_flat" name="样品订单" parent="menu_diecut_root" action="action_sample_order_custom" sequence="70" />
     
-   
-    <!-- 2. 模切管理：作为独立 APP -->
-   
+    <!-- 修改 Odoo 原生"应用"菜单的默认筛选：默认显示已安装 -->
+    <record id="base.open_module_tree" model="ir.actions.act_window">
+        <field name="context">{'search_default_app': 1, 'search_default_installed': 1}</field>
+    </record>
 
-    <menuitem id="menu_diecut_root_backend" name="模切管理" sequence="5" />
-
-    <menuitem id="menu_diecut_quote_backend" name="成本计算器" parent="menu_diecut_root_backend" action="action_diecut_quote" sequence="10" />
-
-    <menuitem id="menu_diecut_customer" name="客户管理" parent="menu_diecut_root_backend" action="action_diecut_customer" sequence="40" />
-    
-    <menuitem id="menu_sample_material_backend" name="原材料库" parent="menu_diecut_root_backend" action="action_diecut_raw_material" sequence="30" />
-    
-    <menuitem id="menu_diecut_mold_act" name="刀模库" parent="menu_diecut_root_backend" action="action_diecut_mold" sequence="5" />
-
-    
-    
-    <!-- 注销掉多余的菜单-->
-    <!-- 一级菜单 -->
-    <!-- <menuitem id="menu_diecut_root" name="模切管理" /> -->
-    <!-- 二级菜单 (配置) -->
-    <!-- <menuitem id="menu_diecut_config" name="配置" parent="menu_diecut_root" sequence="100" /> -->
-    <!-- 三级菜单 (刀模) -->
-    <!-- <menuitem id="menu_diecut_mold_act1" name="刀模库" parent="menu_diecut_config" action="action_diecut_mold" sequence="10" /> --> 
 </odoo>
