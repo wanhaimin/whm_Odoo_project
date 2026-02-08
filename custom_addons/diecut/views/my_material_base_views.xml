@@ -25,7 +25,7 @@
                             <field name="width" />
                             <field name="length" invisible="rs_type == 'S'"/>
                             <field name="length_mm" invisible="rs_type != 'S'"/>
-                            <field name="color" />
+                            <field name="color" string="颜色" />
                             <field name="material_type" />
                         </group>
                         <group string="物理特性">
@@ -99,20 +99,20 @@
         <field name="arch" type="xml">
             <list string="原材料库" multi_edit="1" editable="bottom">
                 <field name="name" />
-                <field name="default_code" optional="show" />
-                <field name="categ_id" />
-                <field name="main_vendor_id" optional="show" />
+                <field name="default_code" optional="show" />               
+                <field name="brand" optional="show" />                
                 <field name="thickness" optional="show" />
-
                 <field name="width" optional="show" />
-                <field name="length_smart" class="text-end" />
-                <field name="rs_type" optional="show" />
-                <field name="color" optional="show" />
+                <field name="length_smart" class="text-end" />  
+                <field name="rs_type" optional="show" class="text-center" />
+                <field name="color" optional="show" string="颜色" />
                 <field name="is_raw_material" invisible="1" optional="hide" />
                 <field name="standard_price" optional="hide" />
-                <field name="raw_material_unit_price" optional="show" />
+                <field name="raw_material_unit_price" optional="show" string="价格 (卷/张)" />
                 <field name="raw_material_price_m2" optional="show" />
-                <field name="uom_id" optional="show" />
+                <field name="uom_id" optional="hide" />
+                <field name="categ_id" optional="show"/>
+                <field name="main_vendor_id" optional="show" domain="[('supplier_rank', '>', 0)]" class="text-start" />
                 <button name="action_open_detail" type="object" string=" " icon="fa-external-link" title="打开详情页" class="btn-secondary"/>
             </list>
         </field>
@@ -130,16 +130,6 @@
             (0, 0, {'view_mode': 'form', 'view_id': ref('product.product_template_only_form_view')})]" />
     </record>
 
-    <!-- 4. 菜单 -->
-    <!-- 注意：menu_my_material_root 这个父菜单ID需要确保存在， 
-         我们在这个文件里定义它，供其他文件引用 -->
-    <menuitem id="menu_my_material_root" name="材料管理" sequence="10" />
-
- <!-- 挂载动作 -->
-    <menuitem id="menu_diecut_raw_material_list" 
-              name="原材料列表" 
-              parent="menu_my_material_root" 
-              action="action_diecut_raw_material" 
-              sequence="10" />
+    <!-- 4. 菜单定义已移动至 views/diecut_menu_view.xml -->
 
 </odoo>

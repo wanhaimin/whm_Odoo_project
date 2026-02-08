@@ -13,12 +13,20 @@
             "state": {
               "type": "markdown",
               "state": {
+<<<<<<< HEAD
                 "file": "Odoo_Core_Concept_Summary.md",
+=======
+                "file": "模切管理系统开发指南.md",
+>>>>>>> 67b5079781c1580f0f8da64c7175465b832deb31
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
+<<<<<<< HEAD
               "title": "Odoo_Core_Concept_Summary"
+=======
+              "title": "模切管理系统开发指南"
+>>>>>>> 67b5079781c1580f0f8da64c7175465b832deb31
             }
           }
         ]
@@ -94,7 +102,11 @@
             "state": {
               "type": "backlink",
               "state": {
+<<<<<<< HEAD
                 "file": "Odoo_Core_Concept_Summary.md",
+=======
+                "file": "模切管理系统开发指南.md",
+>>>>>>> 67b5079781c1580f0f8da64c7175465b832deb31
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -104,7 +116,11 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
+<<<<<<< HEAD
               "title": "Odoo_Core_Concept_Summary 的反向链接列表"
+=======
+              "title": "模切管理系统开发指南 的反向链接列表"
+>>>>>>> 67b5079781c1580f0f8da64c7175465b832deb31
             }
           },
           {
@@ -184,6 +200,7 @@
   },
   "active": "61bd64ada9c9fd8a",
   "lastOpenFiles": [
+<<<<<<< HEAD
     "ODOO_FIELD_TYPES.md",
     "DIECUT_INDUSTRY_BLUEPRINT.md",
     "数据同步.md",
@@ -191,7 +208,11 @@
     "01_Odoo视图继承与Domain过滤.md",
     "模切材料数据库平台-项目规划.md",
     "快速打样平台-功能设计.md",
+=======
+>>>>>>> 67b5079781c1580f0f8da64c7175465b832deb31
     "库存分类与仓库设计方案.md",
+    "快速打样平台-功能设计.md",
+    "模切材料数据库平台-项目规划.md",
     "电子辅料行业 - Odoo 产品管理设计指南.md",
     "材料管理平台-使用说明.md",
     "材料管理平台-创建完成.md",
