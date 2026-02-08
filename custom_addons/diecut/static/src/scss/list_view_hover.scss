@@ -1,0 +1,78 @@
+/* 1. 列表样式锁定 */
+.o_diecut_quote_list {
+    thead {
+        background-color: #f1f5f9 !important;
+        color: #1e293b !important;
+        border-bottom: 1px solid #6793db !important;
+
+        tr th {
+            border-right: 1px solid #ffffff !important;
+            font-weight: 600 !important;
+            text-transform: none !important;
+            /* 还原高度：使用较小的 padding 保持与原生一致 */
+            padding: 10px 10px !important;
+
+            &:last-child {
+                border-right: none !important;
+            }
+
+            &:hover {
+                background-color: #e2e8f0 !important;
+            }
+        }
+    }
+
+    .o_data_row {
+        button.o_hover_arrow {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            margin-left: -5px;
+
+            i {
+                font-size: 10px;
+            }
+        }
+
+        &:hover {
+            button.o_hover_arrow {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+/* 2. 强制覆盖滚动条 (针对装载列表的容器) */
+/* 我们直接针对整个表单页签内的滚动条进行美化 */
+.o_notebook_content,
+.o_field_one2many,
+.o_list_renderer {
+    /* 为 Firefox 浏览器设置 */
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+
+    /* 为 Webkit (Chrome/Edge/Safari) 设置 */
+    &::-webkit-scrollbar {
+        height: 6px !important;
+        /* 稍微加粗一点点，方便抓取但依然很细 */
+        width: 6px !important;
+        background-color: transparent !important;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent !important;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1 !important;
+        /* 浅灰色滑块 */
+        border-radius: 10px !important;
+        border: 5px solid transparent;
+        /* 通过透明边框实现滑块内缩效果 */
+        background-clip: content-box;
+
+        &:hover {
+            background-color: #9994b8 !important;
+            /* 悬浮时变深 */
+        }
+    }
+}

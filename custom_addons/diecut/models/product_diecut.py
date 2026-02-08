@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import date
 from odoo import models, fields, api
 
 class ProductTemplate(models.Model):
@@ -72,7 +73,6 @@ class ProductTemplate(models.Model):
     raw_material_currency_id = fields.Many2one('res.currency', string="成本币种", default=lambda self: self.env.company.currency_id, compute='_compute_main_vendor_costs', store=True, readonly=False)
     raw_material_unit_price = fields.Monetary(string='原材料单价', currency_field='raw_material_currency_id', compute='_compute_main_vendor_costs', inverse='_inverse_raw_material_unit_price', store=True, readonly=False)
     raw_material_price_m2 = fields.Float(string='单价/m²', digits=(16, 2), compute='_compute_main_vendor_costs', inverse='_inverse_raw_material_price_m2', store=True, readonly=False)
-    raw_material_total_price = fields.Float(string='原材料价格（整支）', compute='_compute_main_vendor_costs', store=True, readonly=False)
     price_tax_excluded = fields.Float(string='单价（不含税）', digits=(16, 2))
     price_unit = fields.Char(string='价格单位')
     price_usd = fields.Float(string='常用价格 (USD)', digits=(16, 4))
@@ -139,10 +139,7 @@ class ProductTemplate(models.Model):
     def _compute_main_vendor_costs(self):
         for product in self:
             product.raw_material_unit_price = 0.0
-            product.raw_material_total_price = 0.0
-            product.raw_material_unit_price = 0.0
             product.raw_material_price_m2 = 0.0
-            product.raw_material_total_price = 0.0
             product.min_order_qty = 0.0
             product.lead_time = 0
             if not product.main_vendor_id: continue
@@ -150,7 +147,6 @@ class ProductTemplate(models.Model):
                 if seller.partner_id == product.main_vendor_id:
                     product.raw_material_unit_price = seller.price
                     product.raw_material_price_m2 = seller.price_per_m2
-                    product.raw_material_total_price = seller.price
                     product.raw_material_currency_id = seller.currency_id
                     product.lead_time = seller.delay
                     product.min_order_qty = seller.min_qty

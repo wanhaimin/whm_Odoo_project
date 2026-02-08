@@ -259,13 +259,13 @@ class DiecutQuoteMaterialLine(models.Model):
 
     # --- Onchange ---
     # --- Computes ---
-    @api.depends('material_id.width', 'material_id.length', 'material_id.raw_material_total_price')
+    @api.depends('material_id.width', 'material_id.length', 'material_id.raw_material_unit_price')
     def _compute_material_defaults(self):
         for line in self:
             if line.material_id:
                 line.raw_width = line.material_id.width
                 line.raw_length = (line.material_id.length or 0.0) * 1000.0
-                line.price_unit_tax_inc = line.material_id.raw_material_total_price or 0.0
+                line.price_unit_tax_inc = line.material_id.raw_material_unit_price or 0.0
     @api.depends('raw_width', 'slitting_width')
     def _compute_slitting(self):
         for line in self:
@@ -304,6 +304,26 @@ class DiecutQuoteMaterialLine(models.Model):
                 line.unit_consumable_cost = (line.price_unit_tax_inc / line.total_prod_qty) * loss_factor
             else:
                 line.unit_consumable_cost = 0.0
+
+    def action_open_material(self):
+        """打开该行对应的原材料详情悬浮窗 (方案 B：指向模板并指定视图)"""
+        self.ensure_one()
+        if not self.material_id:
+            return True
+        
+        # 获取模切定制的产品模板视图 ID
+        view_id = self.env.ref('diecut.product_template_form_view_diecut').id
+        
+        return {
+            'type': 'ir.actions.act_window',
+            'name': '原材料详细数据',
+            'res_model': 'product.template',
+            'res_id': self.material_id.product_tmpl_id.id, # 指向变体背后的模板 ID
+            'view_mode': 'form',
+            'view_id': view_id,   # 方案 B：指定特定视图
+            'target': 'new',
+            'context': {'create': False},
+        }
 
 class DiecutQuoteManufacturingLine(models.Model):
     _name = 'diecut.quote.manufacturing.line'
