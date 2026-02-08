@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "ODOO_FIELD_TYPES.md",
+                "file": "Odoo_Core_Concept_Summary.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "ODOO_FIELD_TYPES"
+              "title": "Odoo_Core_Concept_Summary"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "ODOO_FIELD_TYPES.md",
+                "file": "Odoo_Core_Concept_Summary.md",
                 "collapseAll": true,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "ODOO_FIELD_TYPES 的反向链接列表"
+              "title": "Odoo_Core_Concept_Summary 的反向链接列表"
             }
           },
           {
@@ -184,6 +184,7 @@
   },
   "active": "61bd64ada9c9fd8a",
   "lastOpenFiles": [
+    "ODOO_FIELD_TYPES.md",
     "DIECUT_INDUSTRY_BLUEPRINT.md",
     "数据同步.md",
     "05_API装饰器详解.md",
@@ -197,7 +198,6 @@
     "03_Domain高级过滤.md",
     "Odoo学习教程-第二阶段-中级进阶.md",
     "Odoo核心技术栈详解.md",
-    "ODOO_FIELD_TYPES.md",
     "Odoo学习教程-第一阶段-初级入门.md",
     "Odoo学习教程-第三阶段-高级精通.md",
     "odoo库存管理的逻辑是什么.md",
