@@ -262,6 +262,28 @@ class ProductTemplate(models.Model):
     def _onchange_track_batch(self):
         self.tracking = 'lot' if self.track_batch else 'none'
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super(ProductTemplate, self).create(vals_list)
+        for record in records:
+            if record.is_raw_material and record.main_vendor_id:
+                # 检查供应商列表是否已有该供应商
+                existing = record.seller_ids.filtered(lambda s: s.partner_id == record.main_vendor_id)
+                if not existing:
+                    area, weight = record._get_diecut_factors()
+                    self.env['product.supplierinfo'].create({
+                        'product_tmpl_id': record.id,
+                        'partner_id': record.main_vendor_id.id,
+                        'price': record.raw_material_unit_price or 0.0,
+                        'price_per_m2': record.raw_material_price_m2 or 0.0,
+                        'currency_id': record.raw_material_currency_id.id or self.env.company.currency_id.id,
+                        'delay': record.lead_time or 0,
+                        'min_qty': record.min_order_qty or 0.0,
+                        'calc_area_cache': area,
+                        'calc_weight_cache': weight,
+                    })
+        return records
+
 class ProductSupplierinfo(models.Model):
     _inherit = 'product.supplierinfo'
 
