@@ -99,3 +99,37 @@ def action_open_material(self):
 
 ---
 **提示**：修改完成后，请务必执行模块升级（`-u module_name`）以使 XML 配置和 Python 函数生效。
+
+## 5. 进阶：实现非阻塞（可同时编辑背景）的悬浮窗
+
+默认情况下，`target='new'` 会锁定背景。如果希望在打开悬浮窗的同时，依然能操作背景的成本核算表，可以应用以下**样式穿透方案**。
+
+### 核心思路
+利用 CSS 的 `:has` 选择器和 `pointer-events` 属性，取消遮罩层的阻挡作用。
+
+### 实现代码 (SCSS)
+将以下代码加入到您的样式文件中：
+
+```scss
+/* 当弹出层中装载的是“产品模板”时，允许点击背景（需 Odoo 17+ 浏览器支持） */
+.o_dialog_container:has(.o_form_view[data-model="product.template"]) {
+    .modal-backdrop {
+        display: none !important; /* 隐藏灰色遮罩 */
+    }
+    .modal {
+        pointer-events: none;      /* 让点击动作穿透弹窗底层，即允许点击背景 */
+        
+        .modal-dialog {
+            pointer-events: auto;  /* 让弹窗本体恢复点击响应 */
+            /* 建议：将弹窗靠右显示，避免遮挡中心编辑区 */
+            margin-right: 20px !important;
+            margin-top: 50px !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+        }
+    }
+}
+```
+
+### 交互建议
+1. **只读保护**：在 Python 的 Action 中设置 `{'create': False, 'edit': False}`，确保悬浮窗仅用于参考，防止同时在两个表单中保存数据导致冲突。
+2. **多显卡支撑**：如果觉得在同一个网页内还是拥挤，建议在 Python 中返回 `ir.actions.act_url` 并设置 `target='new'`，从而在新的浏览器标签页中打开。
