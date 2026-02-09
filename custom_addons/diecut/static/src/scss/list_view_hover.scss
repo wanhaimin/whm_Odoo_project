@@ -5,7 +5,7 @@
         color: #1e293b !important;
         border-bottom: 1px solid #6793db !important;
 
-        tr th {
+        tr th:not(.o_list_record_selector) {
             border-right: 1px solid #ffffff !important;
             font-weight: 600 !important;
             text-transform: none !important;

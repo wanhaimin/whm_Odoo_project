@@ -11,9 +11,9 @@ class DiecutQuote(models.Model):
     customer_id = fields.Many2one('res.partner', string="客户", required=True, domain="[('is_company', '=', True), ('customer_rank', '>', 0)]")
     contact_id = fields.Many2one('res.partner', string="联系人", domain="[('parent_id', '=', customer_id)]")
 
-    product_name = fields.Char(string="品名 :")   
+    product_name = fields.Char(string="品名 :") 
+    project_sn = fields.Char(string="客户料号 :")  
     internal_sn = fields.Char(string="内部料号 :")
-    project_sn = fields.Char(string="项目编号 :")
     terminal = fields.Char(string="终端客户 :")
     user_id = fields.Many2one('res.users', string="制单人", default=lambda self: self.env.user)
     specification = fields.Char(string="产品规格(mm) :", placeholder="如: 33.35 * 17.05")
@@ -160,7 +160,8 @@ class DiecutQuote(models.Model):
         """Button Action: 将第一行的工艺参数同步给所有行"""
         for record in self:
             if not record.material_line_ids or len(record.material_line_ids) < 2:
-                continue
+                # Even if no logical change, we must return reload action to keep window open
+                return record._get_action_reload()
             
             first = record.material_line_ids[0]
             # 获取源数据
@@ -174,38 +175,54 @@ class DiecutQuote(models.Model):
                 line.slitting_width = s_width
                 line.pitch = s_pitch
                 line.cavity = s_cavity
+            
+            return record._get_action_reload()
 
     def action_sync_slitting_width(self):
         """Button Action: 仅同步分切宽"""
         for record in self:
-            if not record.material_line_ids or len(record.material_line_ids) < 2: continue
+            if not record.material_line_ids or len(record.material_line_ids) < 2:
+                return record._get_action_reload()
+            
             val = record.material_line_ids[0].slitting_width
             for line in record.material_line_ids[1:]:
                 line.slitting_width = val
+            return record._get_action_reload()
 
     def action_sync_pitch(self):
         """Button Action: 仅同步跳距"""
         for record in self:
-            if not record.material_line_ids or len(record.material_line_ids) < 2: continue
+            if not record.material_line_ids or len(record.material_line_ids) < 2:
+                return record._get_action_reload()
+            
             val = record.material_line_ids[0].pitch
             for line in record.material_line_ids[1:]:
                 line.pitch = val
+            return record._get_action_reload()
 
     def action_sync_cavity(self):
         """Button Action: 仅同步穴数"""
         for record in self:
-            if not record.material_line_ids or len(record.material_line_ids) < 2: continue
+            if not record.material_line_ids or len(record.material_line_ids) < 2:
+                return record._get_action_reload()
+            
             val = record.material_line_ids[0].cavity
             for line in record.material_line_ids[1:]:
                 line.cavity = val
+            return record._get_action_reload()
 
     def action_sync_yield_rate(self):
         """Button Action: 仅同步良率"""
         for record in self:
-            if not record.material_line_ids or len(record.material_line_ids) < 2: continue
+            if not record.material_line_ids or len(record.material_line_ids) < 2:
+                return record._get_action_reload()
+            
             val = record.material_line_ids[0].yield_rate
             for line in record.material_line_ids[1:]:
                 line.yield_rate = val
+
+
+
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -221,8 +238,25 @@ class DiecutQuote(models.Model):
             'res_model': 'diecut.quote',
             'res_id': self.id,
             'view_mode': 'form',
-            'target': 'current',
+            'target': 'new',
+            'context': {'form_view_initial_mode': 'edit', 'dialog_size': 'extra-large'},
         }
+
+    # 定义报价form视图为弹窗
+    def _get_action_reload(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'diecut.quote',
+            'res_id': self.id,
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'form_view_initial_mode': 'edit', 'dialog_size': 'extra-large'},  # Ensure it stays editable
+        }
+
+    def action_save_and_stay(self):
+        """保存并保持窗口打开"""
+        return self._get_action_reload()
 
 
 class DiecutQuoteMaterialLine(models.Model):
@@ -233,6 +267,8 @@ class DiecutQuoteMaterialLine(models.Model):
     currency_id = fields.Many2one(related='quote_id.currency_id')
 
     material_id = fields.Many2one('product.product', string="材料", required=True, domain=[('is_raw_material', '=', True)])
+    
+
     raw_width = fields.Float(string="原材宽(mm)", compute='_compute_material_defaults', store=True, readonly=False)
     raw_length = fields.Float(string="原材长(mm)", compute='_compute_material_defaults', store=True, readonly=False)
     
@@ -305,25 +341,6 @@ class DiecutQuoteMaterialLine(models.Model):
             else:
                 line.unit_consumable_cost = 0.0
 
-    def action_open_material(self):
-        """打开该行对应的原材料详情悬浮窗 (方案 B：指向模板并指定视图)"""
-        self.ensure_one()
-        if not self.material_id:
-            return True
-        
-        # 获取模切定制的产品模板视图 ID
-        view_id = self.env.ref('diecut.product_template_form_view_diecut').id
-        
-        return {
-            'type': 'ir.actions.act_window',
-            'name': '原材料详细数据',
-            'res_model': 'product.template',
-            'res_id': self.material_id.product_tmpl_id.id, # 指向变体背后的模板 ID
-            'view_mode': 'form',
-            'view_id': view_id,   # 方案 B：指定特定视图
-            'target': 'new',
-            'context': {'create': False},
-        }
 
 class DiecutQuoteManufacturingLine(models.Model):
     _name = 'diecut.quote.manufacturing.line'
