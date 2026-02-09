@@ -9,7 +9,6 @@
             border-right: 1px solid #ffffff !important;
             font-weight: 600 !important;
             text-transform: none !important;
-            /* 还原高度：使用较小的 padding 保持与原生一致 */
             padding: 10px 10px !important;
 
             &:last-child {
@@ -41,19 +40,15 @@
     }
 }
 
-/* 2. 强制覆盖滚动条 (针对装载列表的容器) */
-/* 我们直接针对整个表单页签内的滚动条进行美化 */
+/* 2. 滚动条美化 */
 .o_notebook_content,
 .o_field_one2many,
 .o_list_renderer {
-    /* 为 Firefox 浏览器设置 */
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
 
-    /* 为 Webkit (Chrome/Edge/Safari) 设置 */
     &::-webkit-scrollbar {
         height: 6px !important;
-        /* 稍微加粗一点点，方便抓取但依然很细 */
         width: 6px !important;
         background-color: transparent !important;
     }
@@ -64,15 +59,46 @@
 
     &::-webkit-scrollbar-thumb {
         background-color: #cbd5e1 !important;
-        /* 浅灰色滑块 */
         border-radius: 10px !important;
         border: 5px solid transparent;
-        /* 通过透明边框实现滑块内缩效果 */
         background-clip: content-box;
 
         &:hover {
             background-color: #9994b8 !important;
-            /* 悬浮时变深 */
+        }
+    }
+}
+
+/* 3. 成本计算器全屏弹窗定制 (增强版选择器) */
+/* 只要弹窗中包含我们的 o_diecut_quote_list，就将其设为全屏 */
+.modal:has(.o_diecut_quote_list) {
+    padding: 0 !important;
+
+    .modal-dialog {
+        max-width: 100% !important;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        /* 移除外边距 */
+
+        .modal-content {
+            height: 100vh !important;
+            /* 撑满屏幕高度 */
+            border: none !important;
+            border-radius: 0 !important;
+            display: flex;
+            flex-direction: column;
+
+            .modal-header {
+                background: #f8fafc;
+                border-bottom: 1px solid #e2e8f0;
+            }
+
+            .modal-body {
+                flex: 1;
+                overflow-y: auto !important;
+                background: #ffffff;
+            }
         }
     }
 }
