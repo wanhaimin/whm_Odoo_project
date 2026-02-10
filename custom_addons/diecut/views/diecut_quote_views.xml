@@ -8,6 +8,7 @@
             <list string="报价单" decoration-bf="final_unit_price &gt; 0" decoration-info="profit_rate &gt; 0.2" multi_edit="1" editable="bottom">
                 <field name="name"/>
                 <field name="customer_id"/>
+                <field name="product_name"/>
                 <field name="project_sn"/>
                 <field name="internal_sn"/>
                 <field name="quote_date"/>
@@ -68,19 +69,19 @@
                                 </div>
                             </div>
                             <field name="material_line_ids" mode="list">
-                                <list editable="bottom" multi_edit="1">
-                                    <field name="material_id" width="200px"/>
+                                <list editable="bottom" multi_edit="1" class="o_diecut_quote_list">
+                                    <field name="material_id" width="160px" options="{'no_open': False}"/>
                                     <field name="raw_width" string="原材宽" optional="show"/>
                                     <field name="raw_length" string="原材长" optional="show"/>
-                                    <field name="price_unit_tax_inc" string="含税单价"/>
+                                    <field name="price_unit_tax_inc" string="含税单价" optional="show"/>
                                     <field name="slitting_rolls" optional="show"/>
                                     <field name="qty_per_roll" optional="show"/>
-                                    <field name="slitting_width" string="分切宽"/>
-                                    <field name="pitch"/>
-                                    <field name="cavity"/>
+                                    <field name="slitting_width" string="分切宽" optional="show"/>
+                                    <field name="pitch" string="跳距" optional="show"/>
+                                    <field name="cavity" string="模穴数" optional="show"/>
                                     <field name="unit_usage" optional="show" digits="[12,6]"/>
                                     <field name="yield_rate" widget="percentage" optional="show"/>
-                                    <field name="unit_consumable_cost" sum="Total" decoration-bf="1"/>
+                                    <field name="unit_consumable_cost" sum="Total" decoration-bf="1" optional="show"/>
                                 </list>
                             </field>
                             <group class="oe_subtotal_footer oe_right">
@@ -91,7 +92,7 @@
                         
                         <page string="制造成本" name="manufacturing_cost">
                             <field name="manufacturing_line_ids" mode="list">
-                                <list editable="bottom">
+                                <list editable="bottom" class="o_diecut_quote_list">
                                     <field name="step_1" width="150px"/>
                                     <field name="step_2" width="200px"/>
                                     <field name="mfg_fee" string="工费/H"/>
@@ -151,6 +152,10 @@
                     </group>
                 </sheet>
                 <chatter/>
+                <footer>
+                    <button string="保存" type="object" name="action_save_and_stay" class="btn-primary" data-hotkey="s"/>
+                    <button string="关闭" special="cancel" class="btn-secondary" data-hotkey="z"/>
+                </footer>
             </form>
         </field>
     </record>
