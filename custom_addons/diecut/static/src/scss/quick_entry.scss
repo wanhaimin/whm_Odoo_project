@@ -1,0 +1,39 @@
+/* diecut/static/src/scss/quick_entry.scss */
+
+/* 
+ * 强制将包含 .o_diecut_quick_entry_wrap 的 Dialog 变为侧边浮窗 
+ * 位置：右侧中心 
+ * 宽度：固定 450px
+ */
+
+/* 使用 CSS :has 选择器，仅在 modal-body 内含有我们的 wizard form 时生效 */
+.modal-dialog:has(.o_diecut_quick_entry_wrap) {
+    position: fixed !important;
+    top: 40% !important;
+    left: 20px !important;
+    /* 距离右侧 20px */
+    bottom: auto !important;
+    right: auto !important;
+
+    transform: translateY(-50%) !important;
+    /* 垂直居中 */
+
+    width: 450px !important;
+    max-width: 90vw !important;
+    margin: 0 !important;
+
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2) !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+
+    .modal-content {
+        max-height: 80vh !important;
+        overflow-y: auto !important;
+        border: none !important;
+
+        .o_form_view {
+            /* 调整一点所有的内边距 */
+            padding: 10px !important;
+        }
+    }
+}

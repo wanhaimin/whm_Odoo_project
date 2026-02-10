@@ -224,6 +224,21 @@ class DiecutQuote(models.Model):
             'target': 'current',
         }
 
+    def action_open_wizard(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': '快速录入',
+            'res_model': 'diecut.quote.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_quote_id': self.id,
+                'active_id': self.id,
+                'active_model': 'diecut.quote',
+            }
+        }
+
 
 class DiecutQuoteMaterialLine(models.Model):
     _name = 'diecut.quote.material.line'
@@ -333,3 +348,69 @@ class DiecutQuoteManufacturingLine(models.Model):
                 line.cost_per_pcs = hourly_cost / effective_capacity
             else:
                 line.cost_per_pcs = 0.0
+
+class DiecutQuoteWizard(models.TransientModel):
+    _name = 'diecut.quote.wizard'
+    _description = '报价单快速录入向导'
+
+    quote_id = fields.Many2one('diecut.quote', string="关联报价单")
+    
+    # 镜像字段
+    customer_id = fields.Many2one('res.partner', string="客户", required=True, domain="[('is_company', '=', True), ('customer_rank', '>', 0)]")
+    contact_id = fields.Many2one('res.partner', string="联系人", domain="[('parent_id', '=', customer_id)]")
+    
+    product_name = fields.Char(string="品名 :")   
+    internal_sn = fields.Char(string="内部料号 :")
+    project_sn = fields.Char(string="项目编号 :")
+    terminal = fields.Char(string="终端客户 :")
+    user_id = fields.Many2one('res.users', string="制单人")
+    specification = fields.Char(string="产品规格(mm)", placeholder="如: 33.35 * 17.05")
+    moq = fields.Integer(string="MOQ")
+    lead_time = fields.Integer(string="交期(天)")
+    quote_date = fields.Date(string="报价日期")
+    currency_id = fields.Many2one('res.currency', string="币种")
+
+    @api.model
+    def default_get(self, fields_list):
+        res = super().default_get(fields_list)
+        active_id = self.env.context.get('active_id')
+        active_model = self.env.context.get('active_model')
+        
+        if active_model == 'diecut.quote' and active_id:
+            quote = self.env['diecut.quote'].browse(active_id)
+            if quote.exists():
+                res.update({
+                    'quote_id': quote.id,
+                    'customer_id': quote.customer_id.id,
+                    'contact_id': quote.contact_id.id,
+                    'product_name': quote.product_name,
+                    'internal_sn': quote.internal_sn,
+                    'project_sn': quote.project_sn,
+                    'terminal': quote.terminal,
+                    'user_id': quote.user_id.id,
+                    'specification': quote.specification,
+                    'moq': quote.moq,
+                    'lead_time': quote.lead_time,
+                    'quote_date': quote.quote_date,
+                    'currency_id': quote.currency_id.id,
+                })
+        return res
+
+    def action_apply(self):
+        self.ensure_one()
+        if self.quote_id:
+            self.quote_id.write({
+                'customer_id': self.customer_id.id,
+                'contact_id': self.contact_id.id,
+                'product_name': self.product_name,
+                'internal_sn': self.internal_sn,
+                'project_sn': self.project_sn,
+                'terminal': self.terminal,
+                'user_id': self.user_id.id,
+                'specification': self.specification,
+                'moq': self.moq,
+                'lead_time': self.lead_time,
+                'quote_date': self.quote_date,
+                'currency_id': self.currency_id.id,
+            })
+        return {'type': 'ir.actions.act_window_close'}

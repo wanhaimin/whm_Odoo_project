@@ -37,6 +37,7 @@
             'diecut/static/src/scss/custom_font.scss',
             'diecut/static/src/scss/hierarchy_view.scss',
             'diecut/static/src/js/enter_to_next.js',
+            'diecut/static/src/scss/quick_entry.scss',
         ],
     },
     'external_dependencies': {

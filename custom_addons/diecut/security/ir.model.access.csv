@@ -15,3 +15,4 @@ access_diecut_mold_qc_wizard,Diecut Mold QC Wizard Access,model_diecut_mold_qc_w
 access_my_material_requisition_user,my.material.requisition.user,model_my_material_requisition,base.group_user,1,1,1,1
 access_my_material_slitting_user,my.material.slitting.user,model_my_material_slitting,base.group_user,1,1,1,1
 access_my_material_slitting_line_user,my.material.slitting.line.user,model_my_material_slitting_line,base.group_user,1,1,1,1
+access_diecut_quote_wizard,diecut.quote.wizard.user,model_diecut_quote_wizard,base.group_user,1,1,1,1
