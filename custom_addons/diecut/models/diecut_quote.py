@@ -273,21 +273,6 @@ class DiecutQuote(models.Model):
     def action_save_and_stay(self):
         """保存并保持窗口打开"""
         return self._get_action_reload()
-
-    def action_open_wizard(self):
-        """打开快速录入向导"""
-        self.ensure_one()
-        return {
-            'name': '快速录入报价信息',
-            'type': 'ir.actions.act_window',
-            'res_model': 'diecut.quote.wizard',
-            'view_mode': 'form',
-            'target': 'new',
-            'context': {'default_quote_id': self.id, 'active_id': self.id, 'active_model': 'diecut.quote'},
-        }
-
-
-
 class DiecutQuoteMaterialLine(models.Model):
     _name = 'diecut.quote.material.line'
     _description = '模切报价-材料明细'

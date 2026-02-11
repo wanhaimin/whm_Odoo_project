@@ -15,6 +15,10 @@ class ProductTemplate(models.Model):
     length = fields.Float(string='长度 (M)', digits=(16, 3), help="后台统一存储为米")
     length_mm = fields.Float(string='长度 (mm)', compute='_compute_length_mm', inverse='_inverse_length_mm', digits=(16, 0))
 
+    # Temporary fix for migration error: invalid input syntax for type integer: "黑色"
+    # This prevents Odoo from trying to convert the existing Char column (containing "黑色") to Integer.
+    color = fields.Char(string='Color Fix')
+
     rs_type = fields.Selection([
         ('R', '卷料'),
         ('S', '片料'),
