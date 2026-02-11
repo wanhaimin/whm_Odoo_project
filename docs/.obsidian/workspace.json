@@ -1,24 +1,24 @@
 {
   "main": {
-    "id": "f2a00f88f5483a97",
+    "id": "06925bd5af241435",
     "type": "split",
     "children": [
       {
-        "id": "81b06e62958ceb1a",
+        "id": "ca7fb9a6d227cc22",
         "type": "tabs",
         "children": [
           {
-            "id": "61bd64ada9c9fd8a",
+            "id": "94103729aa108b49",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "模切管理系统开发指南.md",
+                "file": "odoo_dot_notation_guide.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "模切管理系统开发指南"
+              "title": "odoo_dot_notation_guide"
             }
           }
         ]
@@ -27,15 +27,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "7720fad047350ef8",
+    "id": "baac308b682eab90",
     "type": "split",
     "children": [
       {
-        "id": "0764f8340a25a319",
+        "id": "9962903d8e36969a",
         "type": "tabs",
         "children": [
           {
-            "id": "0832f3435970bd7b",
+            "id": "7bf313a3e1aa39eb",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -48,7 +48,7 @@
             }
           },
           {
-            "id": "17984e4c70181f75",
+            "id": "8e3128e246ead800",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -65,7 +65,7 @@
             }
           },
           {
-            "id": "6b41481ce7e3e0cc",
+            "id": "ea841dd839723139",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -81,22 +81,22 @@
     "width": 300
   },
   "right": {
-    "id": "05e63ed81fe73ae7",
+    "id": "90936328e92f4683",
     "type": "split",
     "children": [
       {
-        "id": "5dbeed704c59bbd0",
+        "id": "2daa7c1d3b1c347f",
         "type": "tabs",
         "children": [
           {
-            "id": "3be4a1f42e024c08",
+            "id": "c55979c46899b217",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Odoo_Core_Concept_Summary.md",
-                "collapseAll": true,
-                "extraContext": true,
+                "file": "odoo_dot_notation_guide.md",
+                "collapseAll": false,
+                "extraContext": false,
                 "sortOrder": "alphabetical",
                 "showSearch": false,
                 "searchQuery": "",
@@ -104,25 +104,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Odoo_Core_Concept_Summary 的反向链接列表"
+              "title": "odoo_dot_notation_guide 的反向链接列表"
             }
           },
           {
-            "id": "05a27ac15864e576",
+            "id": "7650c2f8e0bb5fa3",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Odoo学习教程-第一阶段-初级入门.md",
+                "file": "odoo_dot_notation_guide.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Odoo学习教程-第一阶段-初级入门 的出链列表"
+              "title": "odoo_dot_notation_guide 的出链列表"
             }
           },
           {
-            "id": "adc003a319166dad",
+            "id": "76de6bd6c4056973",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -137,7 +137,7 @@
             }
           },
           {
-            "id": "ecae38828b5d9a0c",
+            "id": "b7dd1512bf644ac0",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -151,81 +151,45 @@
             }
           },
           {
-            "id": "a79dccaebe6af61d",
+            "id": "fb025c76cbaa26a9",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Odoo学习教程-第一阶段-初级入门.md",
+                "file": "odoo_dot_notation_guide.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Odoo学习教程-第一阶段-初级入门 的大纲"
+              "title": "odoo_dot_notation_guide 的大纲"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
-      "bases:新建数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
-      "command-palette:打开命令面板": false
+      "command-palette:打开命令面板": false,
+      "bases:新建数据库": false
     }
   },
-  "active": "61bd64ada9c9fd8a",
+  "active": "94103729aa108b49",
   "lastOpenFiles": [
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "ODOO_FIELD_TYPES.md",
-    "DIECUT_INDUSTRY_BLUEPRINT.md",
-    "数据同步.md",
-    "05_API装饰器详解.md",
-    "01_Odoo视图继承与Domain过滤.md",
-    "模切材料数据库平台-项目规划.md",
-    "快速打样平台-功能设计.md",
-=======
->>>>>>> 67b5079781c1580f0f8da64c7175465b832deb31
-=======
-    "odoo_modal_solution.md",
-    "Pasted image 20260208140041.png",
-    "Pasted image 20260208135615.png",
->>>>>>> 2b2e4fa01a86719d4a3b272e730abaae07f6346a
-    "库存分类与仓库设计方案.md",
-    "快速打样平台-功能设计.md",
-    "模切材料数据库平台-项目规划.md",
     "电子辅料行业 - Odoo 产品管理设计指南.md",
-    "材料管理平台-使用说明.md",
-    "材料管理平台-创建完成.md",
-    "03_Domain高级过滤.md",
-    "Odoo学习教程-第二阶段-中级进阶.md",
-    "Odoo核心技术栈详解.md",
-    "Odoo学习教程-第一阶段-初级入门.md",
-    "Odoo学习教程-第三阶段-高级精通.md",
-    "odoo库存管理的逻辑是什么.md",
+    "odoo_dot_notation_guide.md",
+    "模切材料数据库平台-项目规划.md",
     "模切管理模块-问题解决.md",
-    "product.template和product.product字段类型和关系.md",
-    "模切管理系统开发指南.md",
-    "未命名 2.base",
-    "未命名 1.base",
-    "DIECUT_VARIANTS_SOLUTION.md",
-    "未命名.base",
-    "未命名 3.base",
-    "product_models_reference.md",
-    "odoo_architecture_summary.md",
-    "odoo的编码规则.md",
-    "().md",
-    "XML从入门到精通 (The UI Masterclass).md",
-    "Pasted image 20260202135409.png",
-    "Start_Odoo_Shell.bat"
+    "模切管理模块说明.md",
+    "02_XPath高级用法.md"
   ]
 }

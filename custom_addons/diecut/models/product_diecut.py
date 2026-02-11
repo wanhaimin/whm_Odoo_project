@@ -52,13 +52,13 @@ class ProductTemplate(models.Model):
                 pass
 
     # --- 物理特征 ---
-    color = fields.Char('颜色')
+    material_color = fields.Char('颜色')
     weight_gram = fields.Float(string='克重 (g)', digits=(16, 2))
     material_type = fields.Char(string='材质/牌号')
     brand = fields.Char('品牌')
     origin = fields.Char('产地')
     density = fields.Float('密度(g/cm³)', digits=(10, 3))
-    transparency = fields.Selection([
+    material_transparency = fields.Selection([
         ('transparent', '透明'), ('translucent', '半透明'), ('opaque', '不透明'),
     ], string='透明度')
 
