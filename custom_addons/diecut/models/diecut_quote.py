@@ -242,6 +242,21 @@ class DiecutQuote(models.Model):
             'context': {'form_view_initial_mode': 'edit', 'dialog_size': 'extra-large'},
         }
 
+    def action_open_wizard(self):
+        self.ensure_one()
+        return {
+            'name': '快速录入',
+            'type': 'ir.actions.act_window',
+            'res_model': 'diecut.quote.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_quote_id': self.id,
+                'active_id': self.id,
+                'active_model': 'diecut.quote',
+            }
+        }
+
     # 定义报价form视图为弹窗
     def _get_action_reload(self):
         self.ensure_one()
