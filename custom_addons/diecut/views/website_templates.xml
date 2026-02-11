@@ -274,7 +274,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <table class="table borderless">
-                                                <tr><th class="border-0">颜色:</th> <td class="border-0"><t t-esc="material.color or '-'"/></td></tr>
+                                                <tr><th class="border-0">颜色:</th> <td class="border-0"><t t-esc="material.material_color or '-'"/></td></tr>
                                                 <tr><th class="border-0">克重:</th> <td class="border-0"><t t-esc="material.weight_gram or '-'"/> g</td></tr>
                                                 <tr><th class="border-0">批次管理:</th> <td class="border-0"><t t-esc="'是' if material.track_batch else '否'"/></td></tr>
                                             </table>
