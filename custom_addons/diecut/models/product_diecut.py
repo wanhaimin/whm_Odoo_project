@@ -14,6 +14,7 @@ class ProductTemplate(models.Model):
     width = fields.Float(string='宽度 (mm)', digits=(16, 0))
     length = fields.Float(string='长度 (M)', digits=(16, 3), help="后台统一存储为米")
     length_mm = fields.Float(string='长度 (mm)', compute='_compute_length_mm', inverse='_inverse_length_mm', digits=(16, 0))
+    length_smart = fields.Char(string='长度', compute='_compute_length_smart', inverse='_inverse_length_smart', store=True, readonly=False)
 
     # Temporary fix for migration error: invalid input syntax for type integer: "黑色"
     # This prevents Odoo from trying to convert the existing Char column (containing "黑色") to Integer.
@@ -32,9 +33,6 @@ class ProductTemplate(models.Model):
     def _inverse_length_mm(self):
         for record in self:
             record.length = (record.length_mm or 0.0) / 1000.0
-
-    length_smart = fields.Char(string='长度', compute='_compute_length_smart', inverse='_inverse_length_smart', store=True, readonly=False)
-
     @api.depends('length', 'rs_type')
     def _compute_length_smart(self):
         for record in self:
@@ -287,6 +285,52 @@ class ProductTemplate(models.Model):
                         'calc_weight_cache': weight,
                     })
         return records
+
+    def write(self, vals):
+        res = super(ProductTemplate, self).write(vals)
+        for record in self:
+            if not record.is_raw_material:
+                continue
+
+            main_vendor_id = vals.get('main_vendor_id', record.main_vendor_id.id)
+            if not main_vendor_id:
+                continue
+            main_vendor = self.env['res.partner'].browse(main_vendor_id)
+
+            price = vals.get('raw_material_unit_price', record.raw_material_unit_price) or 0.0
+            price_per_m2 = vals.get('raw_material_price_m2', record.raw_material_price_m2) or 0.0
+            currency_id = vals.get('raw_material_currency_id', record.raw_material_currency_id.id or self.env.company.currency_id.id)
+            delay = vals.get('lead_time', record.lead_time) or 0
+            min_qty = vals.get('min_order_qty', record.min_order_qty) or 0.0
+
+            seller = record.seller_ids.filtered(lambda s: s.partner_id == main_vendor)
+            area, weight = record._get_diecut_factors()
+            if not seller:
+                self.env['product.supplierinfo'].create({
+                    'product_tmpl_id': record.id,
+                    'partner_id': main_vendor.id,
+                    'price': price,
+                    'price_per_m2': price_per_m2,
+                    'currency_id': currency_id,
+                    'delay': delay,
+                    'min_qty': min_qty,
+                    'calc_area_cache': area,
+                    'calc_weight_cache': weight,
+                })
+                continue
+
+            seller = seller[0]
+            seller.write({
+                'price': price,
+                'price_per_m2': price_per_m2,
+                'currency_id': currency_id,
+                'delay': delay,
+                'min_qty': min_qty,
+                'calc_area_cache': area,
+                'calc_weight_cache': weight,
+            })
+        return res
+
 
 class ProductSupplierinfo(models.Model):
     _inherit = 'product.supplierinfo'

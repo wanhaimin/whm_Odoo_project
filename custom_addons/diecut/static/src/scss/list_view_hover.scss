@@ -44,6 +44,23 @@
 .o_notebook_content,
 .o_field_one2many,
 .o_list_renderer {
+
+    /* Fallback for WebKit browsers */
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    /* Standard properties */
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
 
