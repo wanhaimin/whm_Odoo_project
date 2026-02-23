@@ -4,7 +4,7 @@
     'version': '1.0',
     'category': 'Manufacturing',
     'summary': '模切管理系统',
-    'depends': ['base', 'product', 'sale', 'purchase', 'stock', 'website', 'website_sale', 'mail'],
+    'depends': ['base', 'product', 'sale', 'purchase', 'stock', 'website', 'website_sale', 'mail', 'web_hierarchy'],
     "data": [
         "data/ir_sequence_data.xml",
         "data/mail_template_data.xml",

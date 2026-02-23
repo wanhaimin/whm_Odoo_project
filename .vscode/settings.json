@@ -17,5 +17,12 @@
         "**/*.xml",
         "**/*.csv"
     ],
-    "xml.symbols.enabled": false
+    "xml.symbols.enabled": false,
+    "cursorpyright.analysis.extraPaths": [
+        "${workspaceFolder}/odoo",
+        "${workspaceFolder}/odoo/odoo/addons",
+        "${workspaceFolder}/odoo/addons",
+        "${workspaceFolder}/custom_addons"
+    ],
+    "cursorpyright.analysis.typeCheckingMode": "basic"
 }

@@ -16,16 +16,17 @@ services:
   # 邮件测试服务 (Mailpit)
   mailpit:
     image: axllent/mailpit
-    container_name: mailpit
     restart: always
     ports:
       - "8025:8025" # Web UI
-      - "1025:1025" # SMTP Port
+      - "1026:1025" # SMTP Port
 
   # Odoo 服务
   web:
     # 这里修改你需要开发的 Odoo 版本，例如 odoo:16.0, odoo:17.0
-    image: odoo:19.0
+    build:
+      context: .
+      dockerfile: Dockerfile
     depends_on:
       - db
     ports:
