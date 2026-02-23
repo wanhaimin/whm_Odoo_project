@@ -8,6 +8,17 @@ class ProductTemplate(models.Model):
     # --- 标志位 ---
     is_raw_material = fields.Boolean(string="是原材料", default=False)
 
+    @api.onchange('is_raw_material')
+    def _onchange_is_raw_material(self):
+        """智能默认设置：是原材料 -> 默认可采购、不可销售（但允许用户手动改回）"""
+        if self.is_raw_material:
+            self.purchase_ok = True
+            self.sale_ok = False
+        else:
+            # 如果取消勾选，通常意味着是成品，默认可销售
+            # 但不强制 purchase_ok=False，因为成品也可能外购
+            self.sale_ok = True
+
     # --- 规格型号 ---
     spec = fields.Char(string='规格型号')
     thickness = fields.Float(string='厚度 (mm)', digits=(16, 3))
