@@ -1,109 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="0">
-        <!-- 一级分类：原材料 (排序: 1) -->
+        <!-- ======================================== -->
+        <!-- 一级分类：原材料 (排序: 1)                 -->
+        <!-- ======================================== -->
         <record id="category_raw_material" model="product.category">
             <field name="name">原材料</field>
             <field name="category_type">raw</field>
             <field name="sequence">1</field>
         </record>
-        <!-- 二级分类：胶带类 -->
+        <!-- 二级分类：按材质一级扁平结构 -->
         <record id="category_tape" model="product.category">
             <field name="name">胶带类</field>
             <field name="parent_id" ref="category_raw_material" />
             <field name="sequence">1</field>
         </record>
 
-        <record id="category_double_sided_tape" model="product.category">
-            <field name="name">双面胶带</field>
-            <field name="parent_id" ref="category_tape" />
-            <field name="sequence">1</field>
-        </record>
-
-        <record id="category_single_sided_tape" model="product.category">
-            <field name="name">单面胶带</field>
-            <field name="parent_id" ref="category_tape" />
-            <field name="sequence">2</field>
-        </record>
-
-        <record id="category_conductive_tape" model="product.category">
-            <field name="name">导电胶带</field>
-            <field name="parent_id" ref="category_tape" />
-            <field name="sequence">3</field>
-        </record>
-
-        <record id="category_thermal_tape" model="product.category">
-            <field name="name">导热胶带</field>
-            <field name="parent_id" ref="category_tape" />
-            <field name="sequence">4</field>
-        </record>
-        <!-- 二级分类：泡棉类 -->
         <record id="category_foam" model="product.category">
             <field name="name">泡棉类</field>
             <field name="parent_id" ref="category_raw_material" />
             <field name="sequence">2</field>
         </record>
 
-        <record id="category_pe_foam" model="product.category">
-            <field name="name">PE泡棉</field>
-            <field name="parent_id" ref="category_foam" />
-            <field name="sequence">1</field>
-        </record>
-
-        <record id="category_ixpe_foam" model="product.category">
-            <field name="name">IXPE泡棉</field>
-            <field name="parent_id" ref="category_foam" />
-            <field name="sequence">2</field>
-        </record>
-
-        <record id="category_pu_foam" model="product.category">
-            <field name="name">PU泡棉</field>
-            <field name="parent_id" ref="category_foam" />
-            <field name="sequence">3</field>
-        </record>
-        <!-- 二级分类：离型膜 -->
         <record id="category_release_film" model="product.category">
             <field name="name">离型膜</field>
             <field name="parent_id" ref="category_raw_material" />
             <field name="sequence">3</field>
         </record>
-        <!-- 二级分类：保护膜 -->
+
         <record id="category_protection_film" model="product.category">
             <field name="name">保护膜</field>
             <field name="parent_id" ref="category_raw_material" />
             <field name="sequence">4</field>
         </record>
-        <!-- 二级分类：屏蔽材料 -->
+
         <record id="category_shielding" model="product.category">
             <field name="name">屏蔽材料</field>
             <field name="parent_id" ref="category_raw_material" />
             <field name="sequence">5</field>
         </record>
 
-        <record id="category_copper_foil" model="product.category">
-            <field name="name">铜箔</field>
-            <field name="parent_id" ref="category_shielding" />
-            <field name="sequence">1</field>
+        <record id="category_metal_foil" model="product.category">
+            <field name="name">金属箔</field>
+            <field name="parent_id" ref="category_raw_material" />
+            <field name="sequence">6</field>
         </record>
 
-        <record id="category_aluminum_foil" model="product.category">
-            <field name="name">铝箔</field>
-            <field name="parent_id" ref="category_shielding" />
-            <field name="sequence">2</field>
+        <record id="category_graphite" model="product.category">
+            <field name="name">石墨散热膜</field>
+            <field name="parent_id" ref="category_raw_material" />
+            <field name="sequence">7</field>
+        </record>
+
+        <record id="category_paper" model="product.category">
+            <field name="name">绝缘纸类</field>
+            <field name="parent_id" ref="category_raw_material" />
+            <field name="sequence">8</field>
         </record>
 
         <record id="category_conductive_cloth" model="product.category">
             <field name="name">导电布</field>
-            <field name="parent_id" ref="category_shielding" />
-            <field name="sequence">3</field>
+            <field name="parent_id" ref="category_raw_material" />
+            <field name="sequence">9</field>
         </record>
-        <!-- 二级分类：其他辅料 -->
+
         <record id="category_other_auxiliary" model="product.category">
             <field name="name">其他辅料</field>
             <field name="parent_id" ref="category_raw_material" />
-            <field name="sequence">6</field>
+            <field name="sequence">99</field>
         </record>
-        <!-- 一级分类：半成品 (排序: 2) -->
+        <!-- ======================================== -->
+        <!-- 一级分类：半成品 (排序: 2)                 -->
+        <!-- ======================================== -->
         <record id="category_semi_finished" model="product.category">
             <field name="name">半成品</field>
             <field name="category_type">semi</field>
@@ -121,7 +89,9 @@
             <field name="parent_id" ref="category_semi_finished" />
             <field name="sequence">2</field>
         </record>
-        <!-- 一级分类：成品 (排序: 3) -->
+        <!-- ======================================== -->
+        <!-- 一级分类：成品 (排序: 3)                   -->
+        <!-- ======================================== -->
         <record id="category_finished" model="product.category">
             <field name="name">成品</field>
             <field name="category_type">finished</field>
@@ -138,6 +108,59 @@
             <field name="name">定制产品</field>
             <field name="parent_id" ref="category_finished" />
             <field name="sequence">2</field>
+        </record>
+    </data>
+    <!-- ======================================== -->
+    <!-- 功能标签 (product.tag)                    -->
+    <!-- 用于多维度筛选原材料的功能用途             -->
+    <!-- ======================================== -->
+    <data noupdate="0">
+        <record id="tag_insulation" model="product.tag">
+            <field name="name">绝缘隔离</field>
+            <field name="color">#2E86C1</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <record id="tag_emc_shielding" model="product.tag">
+            <field name="name">导电/屏蔽</field>
+            <field name="color">#8E44AD</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="tag_thermal" model="product.tag">
+            <field name="name">散热导热</field>
+            <field name="color">#E74C3C</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="tag_cushioning" model="product.tag">
+            <field name="name">缓冲减震</field>
+            <field name="color">#27AE60</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="tag_adhesive" model="product.tag">
+            <field name="name">粘接固定</field>
+            <field name="color">#F39C12</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="tag_dust_proof" model="product.tag">
+            <field name="name">防尘透气</field>
+            <field name="color">#1ABC9C</field>
+            <field name="sequence">6</field>
+        </record>
+
+        <record id="tag_decorative" model="product.tag">
+            <field name="name">标识装饰</field>
+            <field name="color">#E67E22</field>
+            <field name="sequence">7</field>
+        </record>
+
+        <record id="tag_protective" model="product.tag">
+            <field name="name">防护保洁</field>
+            <field name="color">#3498DB</field>
+            <field name="sequence">8</field>
         </record>
     </data>
 </odoo>

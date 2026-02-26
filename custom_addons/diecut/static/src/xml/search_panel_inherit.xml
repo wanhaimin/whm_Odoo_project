@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="diecut.SearchPanelContent" t-inherit="web.SearchPanel.Regular" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_search_panel')]" position="inside">
+            <div t-if="hasSelection()" class="sticky-bottom bg-view p-3 w-100" style="bottom: 0px; box-shadow: 0 -2px 10px rgba(0,0,0,0.05);">
+                <button t-on-click="() => this.clearSelection()" class="btn btn-danger btn-sm w-100 shadow-sm" style="border-radius: 8px;">
+                    <i class="fa fa-eraser me-1" />
+                    一键清除全部
+                </button>
+            </div>
+        </xpath>
+        <xpath expr="//header[hasclass('o_search_panel_section_header')]" position="inside">
+            <button t-if="hasSelection(section.id)" t-on-click="() => this.clearSelection(section.id)" class="btn btn-sm btn-link text-danger p-0 float-end text-decoration-none" title="清除该类选择" style="margin-top: -2px;">
+                <i class="fa fa-trash" />
+            </button>
+        </xpath>
+    </t>
+</templates>

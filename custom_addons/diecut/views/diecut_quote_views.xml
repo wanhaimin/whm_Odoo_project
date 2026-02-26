@@ -5,22 +5,24 @@
         <field name="name">diecut.quote.list</field>
         <field name="model">diecut.quote</field>
         <field name="arch" type="xml">
-            <list string="报价单" decoration-bf="final_unit_price &gt; 0" decoration-info="profit_rate &gt; 0.2" multi_edit="1" editable="bottom">
-                <field name="name"/>
-                <field name="customer_id"/>
-                <field name="product_name"/>
-                <field name="project_sn"/>
-                <field name="internal_sn"/>
-                <field name="quote_date"/>
-                <field name="final_unit_price" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="1"/>
-                <field name="profit_rate" widget="percentage" decoration-success="profit_rate &gt; 0.15" decoration-danger="profit_rate &lt; 0.05"/>
-                <field name="user_id" widget="many2one_avatar_user"/>
-                <field name="create_date" string="创建时间" optional="hide"/>
-                <button name="action_open_form" type="object" icon="fa-external-link" string=" " title="打开详情"/>
+            <list string="报价单" decoration-bf="final_unit_price != 0" decoration-info="is_profitable" multi_edit="1" editable="bottom">
+                <field name="name" />
+                <field name="customer_id" />
+                <field name="product_name" />
+                <field name="project_sn" />
+                <field name="internal_sn" />
+                <field name="quote_date" />
+                <field name="final_unit_price" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="1" />
+                <field name="profit_rate" widget="percentage" decoration-success="is_high_profit" decoration-danger="is_low_profit" />
+                <field name="is_high_profit" column_invisible="True" />
+                <field name="is_low_profit" column_invisible="True" />
+                <field name="is_profitable" column_invisible="True" />
+                <field name="user_id" widget="many2one_avatar_user" />
+                <field name="create_date" string="创建时间" optional="hide" />
+                <button name="action_open_form" string=" " type="object" icon="fa-external-link" title="打开详情" />
             </list>
         </field>
     </record>
-
     <!-- Form View: Standard Factory Design -->
     <record id="view_diecut_quote_form" model="ir.ui.view">
         <field name="name">diecut.quote.form</field>
@@ -28,152 +30,157 @@
         <field name="arch" type="xml">
             <form string="报价单">
                 <header>
-                    <button name="action_open_wizard" string="快速录入" type="object" class="btn-primary" icon="fa-pencil-square-o"/>
+                    <button name="action_open_wizard" string="快速录入" type="object" class="btn-primary" icon="fa-pencil-square-o" />
                 </header>
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="name" readonly="1"/>
+                            <field name="name" readonly="1" />
                         </h1>
                     </div>
-                    
                     <group name="group_top" col="3">
                         <group name="group_left">
-                            <field name="customer_id" options="{'no_create': True}" string='客户'/>
-                            <field name="contact_id" domain="[('parent_id', '=', customer_id),('customer_rank', '>', 0)]"/>
-                            <field name="currency_id" options="{'no_create': True, 'no_open': True}"/>
-                            <field name="quote_date"/>                          
+                            <field name="customer_id" string="客户" context="{'res_partner_search_mode': 'customer', 'default_is_company': True, 'default_customer_rank': 1}" />
+                            <field name="contact_id" domain="[('parent_id', '=', customer_id),('customer_rank', '>', 0)]" context="{'default_customer_rank': 1, 'default_is_company': False}" />
+                            <field name="currency_id" options="{'no_create': True, 'no_open': True}" />
+                            <field name="quote_date" />
                         </group>
                         <group name="group_middle">
-                            <field name="product_name"/>
-                            <field name="internal_sn" string="料号"/>
-                            <field name="specification"/>
-                            <field name="project_sn" string="终端项目号 ： "/>
-                           
+                            <field name="product_name" />
+                            <field name="internal_sn" string="料号" />
+                            <field name="specification" />
+                            <field name="project_sn" string="终端项目号 ： " />
                         </group>
                         <group name="group_right">
-                            <field name="moq" string="最小起订量:"/>
-                            <field name="lead_time" string="交期:"/>
-                            <field name="user_id" widget="many2one_avatar_user" string="制单人"/>   
+                            <field name="moq" string="最小起订量:" />
+                            <field name="lead_time" string="交期:" />
+                            <field name="user_id" string="制单人" widget="many2one_avatar_user" />
                         </group>
                     </group>
-
                     <notebook>
-                        <page string="材料成本" name="material_cost">
-                            <div class="d-flex justify-content-end mb-2">
+                        <page name="material_cost" string="材料成本">
+                            <div class="d-flex justify-content-between mb-2">
+                                <div class="d-flex gap-1">
+                                    <button name="action_open_material_filter" string="🔍 筛选材料" type="object" class="btn-sm btn-primary" icon="fa-search" help="按分类、功能、认证等条件筛选材料" />
+                                    <span class="border-start mx-1" />
+                                    <button name="action_check_all_lines" string="全选" type="object" class="btn-sm btn-outline-secondary" icon="fa-check-square-o" />
+                                    <button name="action_uncheck_all_lines" string="取消" type="object" class="btn-sm btn-outline-secondary" icon="fa-square-o" />
+                                    <button name="action_copy_checked_lines" string="复制选中" type="object" class="btn-sm btn-outline-primary" icon="fa-copy" help="复制已勾选的材料行" />
+                                    <button name="action_delete_checked_lines" string="删除选中" type="object" class="btn-sm btn-outline-danger" icon="fa-trash" help="删除已勾选的材料行" confirm="确定删除已勾选的材料行？" />
+                                </div>
                                 <div class="btn-group" role="group" aria-label="Bulk Sync Actions">
-                                    <button name="action_sync_slitting_width" type="object" string="同步分切宽" class="btn-sm btn-secondary" help="应用首行分切宽到所有行"/>
-                                    <button name="action_sync_pitch" type="object" string="同步跳距" class="btn-sm btn-secondary" help="应用首行跳距到所有行"/>
-                                    <button name="action_sync_cavity" type="object" string="同步穴数" class="btn-sm btn-secondary" help="应用首行模穴数到所有行"/>
-                                    <button name="action_sync_yield_rate" type="object" string="同步良率" class="btn-sm btn-secondary" help="应用首行良率到所有行"/>
+                                    <button name="action_sync_slitting_width" string="同步分切宽" type="object" class="btn-sm btn-secondary" help="应用首行分切宽到所有行" />
+                                    <button name="action_sync_pitch" string="同步跳距" type="object" class="btn-sm btn-secondary" help="应用首行跳距到所有行" />
+                                    <button name="action_sync_cavity" string="同步穴数" type="object" class="btn-sm btn-secondary" help="应用首行模穴数到所有行" />
+                                    <button name="action_sync_yield_rate" string="同步良率" type="object" class="btn-sm btn-secondary" help="应用首行良率到所有行" />
                                 </div>
                             </div>
                             <field name="material_line_ids" mode="list">
                                 <list editable="bottom" multi_edit="1" class="o_diecut_quote_list">
-                                    <field name="material_id" width="160px" options="{'no_open': False}"/>
-                                    <field name="raw_width" string="原材宽" optional="show"/>
-                                    <field name="raw_length" string="原材长" optional="show"/>
-                                    <field name="price_unit_tax_inc" string="含税单价" optional="show"/>
-                                    <field name="slitting_rolls" optional="show"/>
-                                    <field name="qty_per_roll" optional="show"/>
-                                    <field name="slitting_width" string="分切宽" optional="show"/>
-                                    <field name="pitch" string="跳距" optional="show"/>
-                                    <field name="cavity" string="模穴数" optional="show"/>
-                                    <field name="unit_usage" optional="show" digits="[12,6]"/>
-                                    <field name="yield_rate" widget="percentage" optional="show"/>
-                                    <field name="unit_consumable_cost" sum="Total" decoration-bf="1" optional="show"/>
+                                    <field name="is_checked" string=" " widget="boolean" nolabel="1" />
+                                    <field name="material_id" width="160px" options="{'no_open': False}" />
+                                    <field name="raw_width" string="原材宽" optional="show" />
+                                    <field name="raw_length" string="原材长" optional="show" />
+                                    <field name="price_unit_tax_inc" string="含税单价" optional="show" />
+                                    <field name="slitting_rolls" optional="show" />
+                                    <field name="qty_per_roll" optional="show" />
+                                    <field name="slitting_width" string="分切宽" optional="show" />
+                                    <field name="pitch" string="跳距" optional="show" />
+                                    <field name="cavity" string="模穴数" optional="show" />
+                                    <field name="unit_usage" optional="show" digits="[12,6]" />
+                                    <field name="yield_rate" widget="percentage" optional="show" />
+                                    <field name="unit_consumable_cost" sum="Total" decoration-bf="1" optional="show" />
                                 </list>
                             </field>
                             <group class="oe_subtotal_footer oe_right">
-                                <field name="material_cost_ratio" widget="percentage"/>
-                                <field name="total_material_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="material_cost_ratio" widget="percentage" />
+                                <field name="total_material_cost" widget="monetary" options="{'currency_field': 'currency_id'}" />
                             </group>
                         </page>
-                        
-                        <page string="制造成本" name="manufacturing_cost">
+                        <page name="manufacturing_cost" string="制造成本">
                             <field name="manufacturing_line_ids" mode="list">
                                 <list editable="bottom" class="o_diecut_quote_list">
-                                    <field name="step_1" width="150px"/>
-                                    <field name="step_2" width="200px"/>
-                                    <field name="mfg_fee" string="工费/H"/>
-                                    <field name="workstation_qty" string="人数"/>
-                                    <field name="capacity"/>
-                                    <field name="yield_rate" widget="percentage"/>
-                                    <field name="cost_per_pcs" sum="Total" decoration-bf="1"/>
+                                    <field name="step_1" width="150px" />
+                                    <field name="step_2" width="200px" />
+                                    <field name="mfg_fee" string="工费/H" />
+                                    <field name="workstation_qty" string="人数" />
+                                    <field name="capacity" />
+                                    <field name="yield_rate" widget="percentage" />
+                                    <field name="cost_per_pcs" sum="Total" decoration-bf="1" />
                                 </list>
                             </field>
                             <group class="oe_subtotal_footer oe_right">
-                                <field name="total_manufacturing_cost_nosetax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                                <field name="total_manufacturing_cost" widget="monetary" options="{'currency_field': 'currency_id'}" string="制造成本(含税)"/>
+                                <field name="total_manufacturing_cost_nosetax" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                <field name="total_manufacturing_cost" string="制造成本(含税)" widget="monetary" options="{'currency_field': 'currency_id'}" />
                             </group>
                         </page>
-
-                        <page string="管销与其他" name="overhead_cost">
+                        <page name="overhead_cost" string="管销与其他">
                             <div class="row">
                                 <div class="col-md-6">
                                     <group string="管销费率摊销">
-                                        <field name="transport_rate" widget="percentage"/>
-                                        <field name="management_rate" widget="percentage"/>
-                                        <field name="utility_rate" widget="percentage"/>
-                                        <field name="packaging_rate" widget="percentage"/>
-                                        <field name="depreciation_rate" widget="percentage"/>
-                                        <field name="total_marketing_cost" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_subtotal_footer_separator"/>
+                                        <field name="transport_rate" widget="percentage" />
+                                        <field name="management_rate" widget="percentage" />
+                                        <field name="utility_rate" widget="percentage" />
+                                        <field name="packaging_rate" widget="percentage" />
+                                        <field name="depreciation_rate" widget="percentage" />
+                                        <field name="total_marketing_cost" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_subtotal_footer_separator" />
                                     </group>
                                 </div>
                                 <div class="col-md-6">
                                     <group string="其它费用摊销">
-                                        <field name="mold_fee" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                                        <label for="punch_qty" string="分摊数量"/>
+                                        <field name="mold_fee" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                        <label string="分摊数量" for="punch_qty" />
                                         <div class="o_row">
-                                            <field name="punch_qty"/> 
-                                            <span>-> <field name="mold_cost" widget="monetary" nolabel="1"/></span>
+                                            <field name="punch_qty" />
+                                            <span>
+                                                ->
+                                                <field name="mold_cost" widget="monetary" nolabel="1" />
+                                            </span>
                                         </div>
-                                        <field name="sample_cost_input" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                                        <field name="total_other_cost" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_subtotal_footer_separator"/>
+                                        <field name="sample_cost_input" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                        <field name="total_other_cost" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_subtotal_footer_separator" />
                                     </group>
                                 </div>
                             </div>
                         </page>
                     </notebook>
-
                     <group class="oe_subtotal_footer oe_right">
-                        <field name="subtotal_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                        
-                        <label for="profit_rate"/>
+                        <field name="subtotal_cost" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                        <label for="profit_rate" />
                         <div class="o_row">
-                            <field name="profit_rate" class="oe_inline"/>
-                            <span>-> <field name="profit_amount" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_inline"/></span>
+                            <field name="profit_rate" class="oe_inline" />
+                            <span>
+                                ->
+                                <field name="profit_amount" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_inline" />
+                            </span>
                         </div>
-                        
                         <div class="oe_subtotal_footer_separator oe_inline">
-                            <label for="final_unit_price"/>
+                            <label for="final_unit_price" />
                         </div>
-                        <field name="final_unit_price" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}" style="font-size: 1.5em;"/>
+                        <field name="final_unit_price" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}" style="font-size: 1.5em;" />
                     </group>
                 </sheet>
-                <chatter/>
+                <chatter />
                 <footer>
-                    <button string="保存" type="object" name="action_save_and_stay" class="btn-primary" data-hotkey="s"/>
-                    <button string="关闭" special="cancel" class="btn-secondary" data-hotkey="z"/>
+                    <button name="action_save_and_stay" string="保存" type="object" class="btn-primary" data-hotkey="s" />
+                    <button string="关闭" special="cancel" class="btn-secondary" data-hotkey="z" />
                 </footer>
             </form>
         </field>
     </record>
-
     <!-- Search / Action / Menu unchanged -->
     <record id="view_diecut_quote_search" model="ir.ui.view">
         <field name="name">diecut.quote.search</field>
         <field name="model">diecut.quote</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name"/>
+                <field name="name" />
                 <field name="customer_id" />
-                <field name="project_sn"/>
-                <field name="internal_sn"/>
+                <field name="project_sn" />
+                <field name="internal_sn" />
             </search>
         </field>
     </record>
-
     <!-- Wizard View -->
     <record id="view_diecut_quote_wizard_form" model="ir.ui.view">
         <field name="name">diecut.quote.wizard.form</field>
@@ -182,22 +189,22 @@
             <form string="快速录入" class="o_diecut_quick_entry_wrap">
                 <sheet>
                     <group>
-                        <field name="customer_id"/>
-                        <field name="contact_id"/>
-                        <field name="currency_id"/>
-                        <field name="quote_date"/>
-                        <field name="product_name"/>
-                        <field name="internal_sn"/>
-                        <field name="project_sn"/>
-                        <field name="specification"/>
-                        <field name="terminal"/>
-                        <field name="user_id" widget="many2one_avatar_user"/>
-                        <field name="moq"/>
-                        <field name="lead_time"/>
+                        <field name="customer_id" context="{'res_partner_search_mode': 'customer', 'default_is_company': True, 'default_customer_rank': 1}" />
+                        <field name="contact_id" context="{'default_customer_rank': 1, 'default_is_company': False}" />
+                        <field name="currency_id" />
+                        <field name="quote_date" />
+                        <field name="product_name" />
+                        <field name="internal_sn" />
+                        <field name="project_sn" />
+                        <field name="specification" />
+                        <field name="terminal" />
+                        <field name="user_id" widget="many2one_avatar_user" />
+                        <field name="moq" />
+                        <field name="lead_time" />
                     </group>
                     <footer>
-                        <button name="action_apply" string="确认更新" type="object" class="btn-primary"/>
-                        <button string="取消" class="btn-secondary" special="cancel"/>
+                        <button name="action_apply" string="确认更新" type="object" class="btn-primary" />
+                        <button string="取消" class="btn-secondary" special="cancel" />
                     </footer>
                 </sheet>
             </form>
@@ -219,8 +226,77 @@
             <p class="o_view_nocontent_smiling_face">创建一个新的模切成本估算报价。</p>
         </field>
     </record>
-
-
-
-  
+    <!-- ============================== -->
+    <!-- 原材料筛选向导 视图             -->
+    <!-- ============================== -->
+    <record id="view_material_filter_wizard_form" model="ir.ui.view">
+        <field name="name">diecut.material.filter.wizard.form</field>
+        <field name="model">diecut.material.filter.wizard</field>
+        <field name="arch" type="xml">
+            <form string="筛选原材料">
+                <sheet>
+                    <!-- 筛选条件区 -->
+                    <group string="筛选条件" col="4">
+                        <field name="quote_id" invisible="1" />
+                        <field name="filter_keyword" string="关键字" placeholder="名称/编码/材质..." />
+                        <field name="filter_categ_id" string="材质分类" />
+                        <field name="filter_tag_ids" string="功能类别" widget="many2many_tags" options="{'color_field': 'color'}" />
+                        <field name="filter_brand_id" string="品牌" />
+                        <field name="filter_vendor_id" string="供应商" />
+                        <field name="filter_fire_rating" string="防火等级" />
+                        <label string="厚度范围 (mm)" for="filter_thickness_min" />
+                        <div class="o_row">
+                            <field name="filter_thickness_min" class="oe_inline" placeholder="最小" />
+                            <span class="mx-1">~</span>
+                            <field name="filter_thickness_max" class="oe_inline" placeholder="最大" />
+                        </div>
+                    </group>
+                    <group col="6">
+                        <div>
+                            <span class="o_form_label fw-bold">认证要求：</span>
+                        </div>
+                        <field name="filter_rohs" />
+                        <field name="filter_reach" />
+                        <field name="filter_halogen_free" />
+                    </group>
+                    <!-- 操作按钮 -->
+                    <div class="d-flex gap-2 mb-3">
+                        <button name="action_search" string="🔍 搜索" type="object" class="btn-primary" />
+                        <button name="action_select_all" string="全选" type="object" class="btn-sm btn-outline-primary" />
+                        <button name="action_deselect_all" string="取消全选" type="object" class="btn-sm btn-outline-secondary" />
+                        <button name="action_clear_filters" string="清空条件" type="object" class="btn-sm btn-secondary" />
+                        <div class="ms-auto text-muted" style="line-height: 2.2;">
+                            匹配
+                            <field name="result_count" class="oe_inline fw-bold" />
+                            种，已选
+                            <field name="selected_count" class="oe_inline fw-bold text-primary" />
+                            种
+                        </div>
+                    </div>
+                    <!-- 搜索结果区 -->
+                    <field name="result_line_ids" mode="list" nolabel="1">
+                        <list string="匹配材料" editable="bottom">
+                            <field name="selected" string="✓" widget="boolean_toggle" />
+                            <field name="product_name" string="材料名称" readonly="1" />
+                            <field name="default_code" string="编码" readonly="1" optional="show" />
+                            <field name="categ_id" string="分类" readonly="1" />
+                            <field name="product_tag_ids" string="功能标签" widget="many2many_tags" readonly="1" options="{'color_field': 'color'}" optional="show" />
+                            <field name="thickness" string="厚度" readonly="1" optional="show" />
+                            <field name="brand_id" string="品牌" readonly="1" optional="show" />
+                            <field name="main_vendor_id" string="供应商" readonly="1" optional="show" />
+                            <field name="raw_material_price_m2" string="单价/m²" readonly="1" optional="show" />
+                            <field name="is_rohs" string="ROHS" readonly="1" widget="boolean_toggle" optional="show" />
+                            <field name="is_reach" string="REACH" readonly="1" widget="boolean_toggle" optional="show" />
+                            <field name="fire_rating" string="防火" readonly="1" optional="show" />
+                            <field name="product_id" column_invisible="1" />
+                        </list>
+                    </field>
+                </sheet>
+                <footer>
+                    <button name="action_add_selected" string="✅ 添加已勾选材料到报价单" type="object" class="btn-primary" />
+                    <button string="取消" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
 </odoo>

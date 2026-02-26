@@ -7,29 +7,31 @@
         <field name="inherit_id" ref="product.product_template_only_form_view" />
         <field name="arch" type="xml">
             <!-- 在基本信息部分加入 'is_raw_material' 开关 -->
-            <div name="options" position="inside">
+            <div position="inside" name="options">
                 <span class="d-inline-block">
                     <field name="is_raw_material" />
                     <label for="is_raw_material" />
                 </span>
             </div>
-
             <!-- 增加一个新的 Notebook Page -->
             <notebook position="inside">
-                <page string="模切属性" name="diecut_props" invisible="not is_raw_material">
+                <page name="diecut_props" string="模切属性" invisible="not is_raw_material">
+                    <group>
+                        <field name="product_tag_ids" string="功能标签" widget="many2many_tags" options="{'color_field': 'color'}" colspan="2" />
+                    </group>
                     <group>
                         <group string="规格参数">
                             <field name="spec" />
                             <field name="rs_type" />
                             <field name="thickness" />
                             <field name="width" />
-                            <field name="length" invisible="rs_type == 'S'"/>
-                            <field name="length_mm" invisible="rs_type != 'S'"/>
-                            <field name="material_color" string="颜色" />
+                            <field name="length" invisible="rs_type == 'S'" />
+                            <field name="length_mm" invisible="rs_type != 'S'" />
+                            <field name="color_id" string="颜色" />
                             <field name="material_type" />
                         </group>
                         <group string="物理特性">
-                            <field name="brand" />
+                            <field name="brand_id" />
                             <field name="origin" />
                             <field name="density" />
                             <field name="material_transparency" />
@@ -40,96 +42,118 @@
                             <field name="adhesion" />
                         </group>
                     </group>
-
+                    <group>
+                        <group string="认证与合规">
+                            <field name="is_rohs" />
+                            <field name="is_reach" />
+                            <field name="is_halogen_free" />
+                            <field name="fire_rating" />
+                        </group>
+                    </group>
                     <group string="应用与备注">
-
                         <field name="application" />
                         <field name="process_note" />
                         <field name="caution" />
-                        
                         <!-- Hidden fields that were in removed groups but might be needed by code? -->
-                        <field name="price_usd" invisible="1"/>
-                        <field name="price_hkd" invisible="1"/>
-                        <field name="price_rmb" invisible="1"/>
-                        <field name="price_unit" invisible="1"/>
-                        <field name="quote_date" invisible="1"/>
-                        <field name="datasheet_filename" invisible="1"/>
-                        <field name="datasheet" filename="datasheet_filename" invisible="1"/>
+                        <field name="price_usd" invisible="1" />
+                        <field name="price_hkd" invisible="1" />
+                        <field name="price_rmb" invisible="1" />
+                        <field name="price_unit" invisible="1" />
+                        <field name="quote_date" invisible="1" />
+                        <field name="datasheet_filename" invisible="1" />
+                        <field name="datasheet" filename="datasheet_filename" invisible="1" />
                     </group>
-
                 </page>
             </notebook>
             <!-- 定制 seller_ids 的列表视图 (Inline List View) -->
             <xpath expr="//page[@name='purchase']/field[@name='seller_ids']" position="inside">
                 <list string="Vendor Information" editable="bottom">
-                    <field name="sequence" widget="handle"/>
-                    <field name="is_main_vendor" column_invisible="True"/>
-                    <button name="action_set_as_main" type="object" string="已主选" icon="fa-check-circle" class="text-success" invisible="not is_main_vendor" help="当前主要供应商"/>
-                    <button name="action_set_as_main" type="object" string="设为" icon="fa-circle-o" class="text-muted" invisible="is_main_vendor" help="点击设为主要供应商"/>
-                    <field name="partner_id" domain="[('supplier_rank', '>', 0)]" context="{'default_supplier_rank': 1, 'res_partner_search_mode': 'supplier'}"/>
-                    <field name="price" string="单价(卷/张)" help="主单位单价"/>
-                    <field name="price_per_m2" optional="show"/>
-                    <field name="price_per_kg" optional="hide"/>
-                    <field name="currency_id" groups="base.group_multi_currency"/>
-                    <field name="min_qty"/>
-                    <field name="delay" optional="show"/>
+                    <field name="sequence" widget="handle" />
+                    <field name="is_main_vendor" column_invisible="True" />
+                    <button name="action_set_as_main" string="已主选" type="object" icon="fa-check-circle" class="text-success" invisible="not is_main_vendor" help="当前主要供应商" />
+                    <button name="action_set_as_main" string="设为" type="object" icon="fa-circle-o" class="text-muted" invisible="is_main_vendor" help="点击设为主要供应商" />
+                    <field name="partner_id" domain="[('supplier_rank', '>', 0)]" context="{'default_supplier_rank': 1, 'res_partner_search_mode': 'supplier', 'default_is_company': True}" />
+                    <field name="price_per_m2" optional="show" />
+                    <field name="price_per_kg" optional="hide" />
+                    <field name="currency_id" groups="base.group_multi_currency" />
+                    <field name="min_qty" />
+                    <field name="delay" optional="show" />
                 </list>
             </xpath>
-
             <!-- 将模切原材料的价格汇总移动到“采购”页签下 -->
             <xpath expr="//page[@name='purchase']/field[@name='seller_ids']" position="after">
-                <group col="4" string="供应商价格汇总" style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 10px;" invisible="not is_raw_material">
-                    <field name="main_vendor_id" readonly="1" string="当前主要供应商"/>
-                    <field name="raw_material_unit_price" widget="monetary" readonly="1" string="标准成本 (卷/张)"/>
-                    <field name="raw_material_currency_id" invisible="0" string="成本币种" readonly="1"/>
+                <group string="供应商价格汇总" col="4" style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 10px;" invisible="not is_raw_material">
+                    <field name="main_vendor_id" string="当前主要供应商" readonly="1" />
+                    <field name="raw_material_unit_price" string="标准成本 (卷/张)" widget="monetary" readonly="1" />
+                    <field name="raw_material_currency_id" string="成本币种" invisible="0" readonly="1" />
                     <field name="lead_time" readonly="1" />
                     <field name="min_order_qty" readonly="1" />
                 </group>
             </xpath>
         </field>
     </record>
-
-
-
     <!-- 2. 原材料库 专用 Tree View -->
-
     <record id="view_diecut_raw_material_tree" model="ir.ui.view">
         <field name="name">diecut.raw.material.tree</field>
         <field name="model">product.template</field>
         <field name="arch" type="xml">
-            <list string="原材料库" multi_edit="1" editable="bottom" class="o_diecut_raw_material_list">
+            <list string="原材料" multi_edit="1" editable="bottom" class="o_diecut_raw_material_list">
                 <field name="name" />
-                <field name="default_code" optional="show" />               
-                <field name="brand" optional="show" />                
+                <field name="default_code" optional="show" />
+                <field name="brand_id" optional="show" />
                 <field name="thickness" optional="show" />
                 <field name="width" optional="show" />
-                <field name="length_smart" class="text-end"/>
+                <field name="length_smart" class="text-end" />
                 <field name="rs_type" optional="show" />
-                <field name="material_color" optional="show" string="颜色" />
+                <field name="color_id" string="颜色" optional="show" />
                 <field name="is_raw_material" invisible="1" optional="hide" />
                 <field name="standard_price" optional="hide" />
-                <field name="raw_material_unit_price" optional="show" string="价格 (卷/张)" />
+                <field name="raw_material_unit_price" string="价格 (卷/张)" optional="show" />
                 <field name="raw_material_price_m2" optional="show" />
                 <field name="uom_id" optional="hide" />
-                <field name="categ_id" optional="show"/>
-                <field name="main_vendor_id" optional="show" domain="[('supplier_rank', '>', 0)]" class="text-start" />
-                <button name="action_open_detail" type="object" string=" " icon="fa-external-link" title="打开详情页" class="btn-secondary"/>
+                <field name="categ_id" optional="show" />
+                <field name="product_tag_ids" string="功能标签" widget="many2many_tags" optional="show" options="{'color_field': 'color'}" />
+                <field name="main_vendor_id" string="供应商(简称)" optional="show" domain="[('supplier_rank', '>', 0)]" class="text-start" context="{'show_short_name': True, 'default_supplier_rank': 1, 'default_is_company': True}" />
+                <button name="action_open_detail" string=" " type="object" icon="fa-external-link" title="打开详情页" class="btn-secondary" />
             </list>
         </field>
     </record>
-
-    <!-- 3. 定义动作 Action: 只显示“是原材料”的产品 -->
+    <!-- 3. 定义原材料专用 Search View (核心：SearchPanel) -->
+    <record id="view_diecut_raw_material_search" model="ir.ui.view">
+        <field name="name">diecut.raw.material.search</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <search>
+                <!-- 常规的顶部搜索框字段 -->
+                <field name="name" string="产品名称/编码" filter_domain="['|', '|', ('default_code', 'ilike', self), ('name', 'ilike', self), ('barcode', 'ilike', self)]" />
+                <field name="material_type" string="材质/牌号" />
+                <field name="main_vendor_id" string="厂商" />
+                <!-- 🌟 左侧 Excel 风格过滤面板 🌟 -->
+                <searchpanel>
+                    <!-- 材质分类 (Many2one → product.category, 单选) -->
+                    <field name="raw_material_categ_id" string="材质分类" enable_counters="1" icon="fa-list" hierarchize="1" expand="1" />
+                    <!-- 功能类别 (Many2many → product.tag, 多选) -->
+                    <field name="product_tag_ids" string="功能类别" select="multi" enable_counters="1" icon="fa-tags" />
+                    <!-- 供应商 (Many2one, 多选) -->
+                    <field name="main_vendor_id" string="供应商" select="multi" enable_counters="1" icon="fa-building" />
+                    <!-- 品牌和颜色 -->
+                    <field name="brand_id" string="品牌" select="multi" enable_counters="1" icon="fa-cube" />
+                    <field name="color_id" string="颜色" select="multi" enable_counters="1" icon="fa-paint-brush" />
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+    <!-- 4. 定义动作 Action: 只显示“是原材料”的产品 -->
     <record id="action_diecut_raw_material" model="ir.actions.act_window">
-        <field name="name">原材料库</field>
+        <field name="name">原材料</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">list,kanban,form</field>
         <field name="domain">[('is_raw_material', '=', True)]</field>
         <field name="context">{'default_is_raw_material': True, 'default_purchase_ok': True, 'default_sale_ok': True}</field>
+        <field name="search_view_id" ref="view_diecut_raw_material_search" />
         <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'list', 'view_id': ref('view_diecut_raw_material_tree')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('product.product_template_only_form_view')})]" />
     </record>
-
     <!-- 4. 菜单定义已移动至 views/diecut_menu_view.xml -->
-
 </odoo>

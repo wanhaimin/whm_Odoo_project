@@ -123,4 +123,12 @@
 /* 4. 原材料库底部空白优化 (方便最后一行操作) */
 .o_diecut_raw_material_list {
     padding-bottom: 50px !important;
+
+    /* 特定字段头部右对齐 (长度) */
+    th[data-name="length_smart"] {
+        text-align: right !important;
+        & > div, & > span {
+            justify-content: flex-end !important;
+        }
+    }
 }

@@ -6,19 +6,22 @@
         <field name="model">purchase.order</field>
         <field name="inherit_id" ref="purchase.purchase_order_form" />
         <field name="arch" type="xml">
-
             <xpath expr="//field[@name='partner_id']" position="attributes">
                 <attribute name="domain">[('supplier_rank', '>', 0)]</attribute>
+                <attribute name="context">{'res_partner_search_mode': 'supplier', 'show_vat': True, 'default_is_company': True, 'default_supplier_rank': 1}</attribute>
             </xpath>
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="project_name" placeholder="输入关联的项目名称..."/>
+                <field name="project_name" placeholder="输入关联的项目名称..." />
             </xpath>
             <xpath expr="//field[@name='date_order']" position="after">
-                <field name="is_urgent" widget="boolean_toggle"/>
+                <field name="is_urgent" widget="boolean_toggle" />
             </xpath>
-            
             <xpath expr="//field[@name='order_line']//field[@name='product_id']" position="after">
-                 <field name="product_spec" optional="show"/>
+                <field name="is_diecut_material" column_invisible="True" />
+                <field name="purchase_rolls" optional="show" invisible="not is_diecut_material" />
+                <field name="purchase_width" optional="show" invisible="not is_diecut_material" />
+                <field name="purchase_length" optional="show" invisible="not is_diecut_material" />
+                <field name="product_spec" optional="show" />
             </xpath>
         </field>
     </record>

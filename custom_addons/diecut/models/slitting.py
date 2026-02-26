@@ -7,7 +7,14 @@ class StockLot(models.Model):
     # 扩展批次信息，记录该卷材料的具体规格
     material_width = fields.Float(string='宽度 (mm)', digits=(16, 2))
     material_length = fields.Float(string='长度 (m)', digits=(16, 2))
+    area = fields.Float(string='面积 (m²)', compute='_compute_area', store=True)
     parent_lot_id = fields.Many2one('stock.lot', string='原卷批次', help="如果是由大卷分切而来，记录原卷")
+
+    @api.depends('material_width', 'material_length')
+    def _compute_area(self):
+        for lot in self:
+            lot.area = (lot.material_width / 1000.0) * lot.material_length
+
 
 class MaterialSlittingOrder(models.Model):
     _name = 'my.material.slitting'

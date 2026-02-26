@@ -38,7 +38,9 @@
             'diecut/static/src/scss/hierarchy_view.scss',
             'diecut/static/src/scss/list_view_hover.scss',
             'diecut/static/src/js/enter_to_next.js',
+            'diecut/static/src/js/shift_select.js',
             'diecut/static/src/scss/quick_entry.scss',
+            'diecut/static/src/xml/search_panel_inherit.xml',
         ],
     },
     'external_dependencies': {

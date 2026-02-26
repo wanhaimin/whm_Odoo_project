@@ -2,11 +2,31 @@
 from datetime import date
 from odoo import models, fields, api
 
+class DiecutBrand(models.Model):
+    _name = 'diecut.brand'
+    _description = '品牌'
+
+    name = fields.Char(string='品牌名称', required=True)
+
+class DiecutColor(models.Model):
+    _name = 'diecut.color'
+    _description = '颜色'
+
+    name = fields.Char(string='颜色名称', required=True)
+
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     # --- 标志位 ---
     is_raw_material = fields.Boolean(string="是原材料", default=False)
+
+    raw_material_categ_id = fields.Many2one(
+        'product.category',
+        related='categ_id',
+        string="原材料分类",
+        store=True,
+        domain="[('category_type', '=', 'raw')]"
+    )
 
     @api.onchange('is_raw_material')
     def _onchange_is_raw_material(self):
@@ -18,6 +38,72 @@ class ProductTemplate(models.Model):
             # 如果取消勾选，通常意味着是成品，默认可销售
             # 但不强制 purchase_ok=False，因为成品也可能外购
             self.sale_ok = True
+
+    @api.model
+    def search_panel_select_multi_range(self, field_name, **kwargs):
+        res = super(ProductTemplate, self).search_panel_select_multi_range(field_name, **kwargs)
+        if field_name == 'raw_material_categ_id':
+            allowed_cats = self.env['product.category'].search([('category_type', '=', 'raw')])
+            allowed_ids = set(allowed_cats.ids)
+            
+            if isinstance(res, list):
+                res = [r for r in res if isinstance(r, dict) and (r.get('id') in allowed_ids or r.get('parent_id') in allowed_ids)]
+            elif isinstance(res, dict) and 'values' in res and isinstance(res['values'], list):
+                res['values'] = [r for r in res['values'] if isinstance(r, dict) and (r.get('id') in allowed_ids or r.get('parent_id') in allowed_ids)]
+        elif field_name == 'main_vendor_id':
+            partner_ids = []
+            if isinstance(res, list):
+                partner_ids = [r['id'] for r in res if isinstance(r, dict) and r.get('id') is not None]
+            elif isinstance(res, dict) and 'values' in res and isinstance(res['values'], list):
+                partner_ids = [r['id'] for r in res['values'] if isinstance(r, dict) and r.get('id') is not None]
+                
+            if partner_ids:
+                partners = self.env['res.partner'].sudo().browse(partner_ids)
+                short_map = {p.id: p.short_name or p.name for p in partners}
+                if isinstance(res, list):
+                    for i in range(len(res)):
+                        r = res[i]
+                        if isinstance(r, dict) and r.get('id') in short_map:
+                            r['display_name'] = short_map[r['id']]
+                elif isinstance(res, dict) and 'values' in res and isinstance(res['values'], list):
+                    for i in range(len(res['values'])):
+                        r = res['values'][i]
+                        if isinstance(r, dict) and r.get('id') in short_map:
+                            r['display_name'] = short_map[r['id']]
+        return res
+
+    @api.model
+    def search_panel_select_range(self, field_name, **kwargs):
+        res = super(ProductTemplate, self).search_panel_select_range(field_name, **kwargs)
+        if field_name == 'raw_material_categ_id':
+            allowed_cats = self.env['product.category'].search([('category_type', '=', 'raw')])
+            allowed_ids = set(allowed_cats.ids)
+            
+            if isinstance(res, list):
+                res = [r for r in res if isinstance(r, dict) and (r.get('id') in allowed_ids or r.get('parent_id') in allowed_ids)]
+            elif isinstance(res, dict) and 'values' in res and isinstance(res['values'], list):
+                res['values'] = [r for r in res['values'] if isinstance(r, dict) and (r.get('id') in allowed_ids or r.get('parent_id') in allowed_ids)]
+        elif field_name == 'main_vendor_id':
+            partner_ids = []
+            if isinstance(res, list):
+                partner_ids = [r['id'] for r in res if isinstance(r, dict) and r.get('id') is not None]
+            elif isinstance(res, dict) and 'values' in res and isinstance(res['values'], list):
+                partner_ids = [r['id'] for r in res['values'] if isinstance(r, dict) and r.get('id') is not None]
+                
+            if partner_ids:
+                partners = self.env['res.partner'].sudo().browse(partner_ids)
+                short_map = {p.id: p.short_name or p.name for p in partners}
+                if isinstance(res, list):
+                    for i in range(len(res)):
+                        r = res[i]
+                        if isinstance(r, dict) and r.get('id') in short_map:
+                            r['display_name'] = short_map[r['id']]
+                elif isinstance(res, dict) and 'values' in res and isinstance(res['values'], list):
+                    for i in range(len(res['values'])):
+                        r = res['values'][i]
+                        if isinstance(r, dict) and r.get('id') in short_map:
+                            r['display_name'] = short_map[r['id']]
+        return res
 
     # --- 规格型号 ---
     spec = fields.Char(string='规格型号')
@@ -65,10 +151,12 @@ class ProductTemplate(models.Model):
                 pass
 
     # --- 物理特征 ---
-    material_color = fields.Char('颜色')
+    color_id = fields.Many2one('diecut.color', string='颜色')
+    material_color = fields.Char('颜色备份(原字符字段)', help='历史数据备份')
     weight_gram = fields.Float(string='克重 (g)', digits=(16, 2))
     material_type = fields.Char(string='材质/牌号')
-    brand = fields.Char('品牌')
+    brand_id = fields.Many2one('diecut.brand', string='品牌')
+    brand = fields.Char('品牌备份(原字符字段)', help='历史数据备份')
     origin = fields.Char('产地')
     density = fields.Float('密度(g/cm³)', digits=(10, 3))
     material_transparency = fields.Selection([
@@ -81,6 +169,18 @@ class ProductTemplate(models.Model):
     temp_resistance_min = fields.Float('耐温下限(℃)')
     temp_resistance_max = fields.Float('耐温上限(℃)')
     adhesion = fields.Float('粘性(N/25mm)', digits=(10, 2))
+
+    # --- 认证与合规 ---
+    is_rohs = fields.Boolean(string='ROHS', default=False, help='是否通过ROHS认证')
+    is_reach = fields.Boolean(string='REACH', default=False, help='是否通过REACH认证')
+    is_halogen_free = fields.Boolean(string='无卤', default=False, help='是否为无卤材料')
+    fire_rating = fields.Selection([
+        ('ul94_v0', 'UL94 V-0'),
+        ('ul94_v1', 'UL94 V-1'),
+        ('ul94_v2', 'UL94 V-2'),
+        ('ul94_hb', 'UL94 HB'),
+        ('none', '无'),
+    ], string='防火等级', default='none')
 
     # --- 价格信息 ---
     raw_material_currency_id = fields.Many2one('res.currency', string="成本币种", default=lambda self: self.env.company.currency_id, compute='_compute_main_vendor_costs', store=True, readonly=False)
@@ -158,8 +258,10 @@ class ProductTemplate(models.Model):
             if not product.main_vendor_id: continue
             for seller in product.seller_ids:
                 if seller.partner_id == product.main_vendor_id:
-                    product.raw_material_unit_price = seller.price
-                    product.raw_material_price_m2 = seller.price_per_m2
+                    area, _ = product._get_diecut_factors()
+                    # 供应商原生 price 如今代表平米单价
+                    product.raw_material_price_m2 = seller.price
+                    product.raw_material_unit_price = (seller.price * area) if area > 0 else seller.price
                     product.raw_material_currency_id = seller.currency_id
                     product.lead_time = seller.delay
                     product.min_order_qty = seller.min_qty
@@ -174,14 +276,14 @@ class ProductTemplate(models.Model):
             if main_seller:
                 seller = main_seller[0]
                 
-                # Update seller price from the product field
-                seller.price = product.raw_material_unit_price
-
-                # Re-calculate derivatives (m2, kg) to keep consistency
+                # 如果在前台填的是整卷参考价，我们反算平米价并赋值给供应商原生 price
                 area, weight = product._get_diecut_factors()
                 
                 if area > 0:
-                    seller.price_per_m2 = seller.price / area
+                    seller.price_per_m2 = product.raw_material_unit_price / area
+                    seller.price = seller.price_per_m2
+                else:
+                    seller.price = product.raw_material_unit_price
                 
                 if weight > 0:
                     seller.price_per_kg = seller.price / weight
@@ -194,14 +296,13 @@ class ProductTemplate(models.Model):
             if main_seller:
                 seller = main_seller[0]
                 
-                # Update seller m2 price
+                # 新范式：由于采购按平米计价，供应商的价格表直接使用平米单价
                 seller.price_per_m2 = product.raw_material_price_m2
+                seller.price = product.raw_material_price_m2
                 
-                # Recalculate total price based on area
                 area, weight = product._get_diecut_factors()
-                if area > 0:
-                     seller.price = seller.price_per_m2 * area
-                     seller.price_per_kg = (seller.price / weight) if weight > 0 else 0.0
+                if weight > 0:
+                     seller.price_per_kg = (seller.price * area / weight) if area > 0 else 0.0
 
     @api.onchange('raw_material_unit_price')
     def _onchange_raw_material_unit_price_ui(self):
@@ -231,27 +332,14 @@ class ProductTemplate(models.Model):
     def _onchange_specs_force_update_sellers(self):
         """核心反馈：改规格 -> 保持平米单价 -> 刷卷/片价"""
         for product in self:
-            w_m = (product.width or 0.0) / 1000.0
-
-            # 2. 获取最实时的长度 (m)
-            raw_len_mm = product.length_mm or 0.0
-            l_m = raw_len_mm / 1000.0
-
-            # 回写 length 供调试和保存
-            product.length = l_m
-
-            # 3. 就地计算面积
-            area = w_m * l_m
-
-            # 4. 就地计算重量
-            weight = 0.0
-            if area > 0:
-                if product.weight_gram > 0:
-                    weight = (area * product.weight_gram) / 1000.0
-                elif product.density > 0 and product.thickness > 0:
-                    weight = (area * product.density * product.thickness * 1000.0) / 1000.0
+            # 统一使用 _get_diecut_factors 以保证和其它计算用的是同一个长度
+            area, weight = product._get_diecut_factors()
 
             if area <= 0: continue
+
+            # ### 关键需求：修改材料长宽时，每平米价格不变，只改变每卷(每件)的价格 ###
+            if product.raw_material_price_m2 > 0:
+                product.raw_material_unit_price = product.raw_material_price_m2 * area
 
             # 5. 更新子表
             for seller in product.seller_ids:
@@ -262,14 +350,16 @@ class ProductTemplate(models.Model):
                 if hasattr(seller, 'calc_weight_cache'):
                     seller.calc_weight_cache = weight
                 else:
-                    # 若字段不存在，可考虑动态添加或跳过
                     continue
 
-                # 确保 price_per_m2 存在再计算
+                # 确保 price_per_m2 存在再同步
                 if seller.price_per_m2 > 0:
-                    new_roll_price = seller.price_per_m2 * area
-                    seller.price = new_roll_price
-                    seller.price_per_kg = (new_roll_price / weight) if weight > 0 else 0.0
+                    # 改版后，price 就是平米单价，不再乘以 area!
+                    seller.price = seller.price_per_m2
+                    
+                    # 重新计算 kg 价格 (假设整件的费用 / 重量)
+                    roll_total_price = seller.price_per_m2 * area
+                    seller.price_per_kg = (roll_total_price / weight) if weight > 0 else 0.0
 
     @api.onchange('track_batch')
     def _onchange_track_batch(self):
@@ -308,8 +398,10 @@ class ProductTemplate(models.Model):
                 continue
             main_vendor = self.env['res.partner'].browse(main_vendor_id)
 
-            price = vals.get('raw_material_unit_price', record.raw_material_unit_price) or 0.0
-            price_per_m2 = vals.get('raw_material_price_m2', record.raw_material_price_m2) or 0.0
+            # 由于采购系统现在按平米数计价，所以供应商的原生 price 现在完全等于平米单价
+            # 放弃整卷价！
+            price_m2 = vals.get('raw_material_price_m2', record.raw_material_price_m2) or 0.0
+            
             currency_id = vals.get('raw_material_currency_id', record.raw_material_currency_id.id or self.env.company.currency_id.id)
             delay = vals.get('lead_time', record.lead_time) or 0
             min_qty = vals.get('min_order_qty', record.min_order_qty) or 0.0
@@ -320,8 +412,8 @@ class ProductTemplate(models.Model):
                 self.env['product.supplierinfo'].create({
                     'product_tmpl_id': record.id,
                     'partner_id': main_vendor.id,
-                    'price': price,
-                    'price_per_m2': price_per_m2,
+                    'price': price_m2,     # 改版：price 就是 平米价
+                    'price_per_m2': price_m2,
                     'currency_id': currency_id,
                     'delay': delay,
                     'min_qty': min_qty,
@@ -332,8 +424,8 @@ class ProductTemplate(models.Model):
 
             seller = seller[0]
             seller.write({
-                'price': price,
-                'price_per_m2': price_per_m2,
+                'price': price_m2,         # 改版：price 就是 平米价
+                'price_per_m2': price_m2,
                 'currency_id': currency_id,
                 'delay': delay,
                 'min_qty': min_qty,
@@ -365,27 +457,22 @@ class ProductSupplierinfo(models.Model):
     @api.onchange('price')
     def _onchange_price_roll(self):
         for record in self:
-            # 优先读缓存，没有缓存才去读父表(可能读到旧值)
-            db_area, db_weight = record.product_tmpl_id._get_diecut_factors() if record.product_tmpl_id else (0,0)
-            area = record.calc_area_cache if record.calc_area_cache > 0 else db_area
+            # 现在 price 就是平米单价，和 price_per_m2 同步即可
+            record.price_per_m2 = record.price
             
-            # Weight 暂时没有缓存，如果是卷料/片料通常只看面积
+            db_area, db_weight = record.product_tmpl_id._get_diecut_factors() if record.product_tmpl_id else (0,0)
             weight = db_weight 
-
-            record.price_per_m2 = (record.price / area) if area > 0 else 0.0
             record.price_per_kg = (record.price / weight) if weight > 0 else 0.0
 
     @api.onchange('price_per_m2')
     def _onchange_price_m2(self):
         for record in self:
-            db_area, db_weight = record.product_tmpl_id._get_diecut_factors() if record.product_tmpl_id else (0,0)
-            area = record.calc_area_cache if record.calc_area_cache > 0 else db_area
+            # 同步
+            record.price = record.price_per_m2
             
+            db_area, db_weight = record.product_tmpl_id._get_diecut_factors() if record.product_tmpl_id else (0,0)
             weight = db_weight
-
-            if area > 0:
-                record.price = record.price_per_m2 * area
-                record.price_per_kg = (record.price / weight) if weight > 0 else 0.0
+            record.price_per_kg = (record.price / weight) if weight > 0 else 0.0
 
     @api.onchange('price_per_kg')
     def _onchange_price_kg(self):
