@@ -20,3 +20,4 @@ access_diecut_brand,Diecut Brand Access,model_diecut_brand,base.group_user,1,1,1
 access_diecut_color,Diecut Color Access,model_diecut_color,base.group_user,1,1,1,1
 access_diecut_material_filter_wizard,Diecut Material Filter Wizard,model_diecut_material_filter_wizard,base.group_user,1,1,1,1
 access_diecut_material_filter_line,Diecut Material Filter Line,model_diecut_material_filter_line,base.group_user,1,1,1,1
+access_diecut_catalog_activate_wizard,Diecut Catalog Activate Wizard,model_diecut_catalog_activate_wizard,base.group_user,1,1,1,1

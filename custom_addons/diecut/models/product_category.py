@@ -63,6 +63,9 @@ class ProductCategoryExtend(models.Model):
         help='三级分类的默认厚度'
     )
     
+    # ==================== 动态属性字段 ====================
+    diecut_properties_definition = fields.PropertiesDefinition(string='物理特性库')
+    
     @api.depends('parent_id', 'parent_id.level')
     def _compute_level(self):
         """计算分类级别"""

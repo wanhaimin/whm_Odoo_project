@@ -13,6 +13,13 @@
                     <label for="is_raw_material" />
                 </span>
             </div>
+            <!-- 在 button_box 里添加"查看选型资料"智能按钮 -->
+            <div position="inside" name="button_box">
+                <field name="source_catalog_variant_id" invisible="1" />
+                <button name="action_view_catalog_source" type="object" class="oe_stat_button" icon="fa-book" invisible="not source_catalog_variant_id">
+                    <span class="o_stat_text">📚 选型资料</span>
+                </button>
+            </div>
             <!-- 增加一个新的 Notebook Page -->
             <notebook position="inside">
                 <page name="diecut_props" string="模切属性" invisible="not is_raw_material">
@@ -50,6 +57,9 @@
                             <field name="fire_rating" />
                         </group>
                     </group>
+                    <group string="动态物理特性">
+                        <field name="diecut_properties" widget="properties" nolabel="1" colspan="2" />
+                    </group>
                     <group string="应用与备注">
                         <field name="application" />
                         <field name="process_note" />
@@ -84,7 +94,7 @@
             <xpath expr="//page[@name='purchase']/field[@name='seller_ids']" position="after">
                 <group string="供应商价格汇总" col="4" style="background-color: #f8f9fa; padding: 10px; border-radius: 5px; margin-top: 10px;" invisible="not is_raw_material">
                     <field name="main_vendor_id" string="当前主要供应商" readonly="1" />
-                    <field name="raw_material_unit_price" string="标准成本 (卷/张)" widget="monetary" readonly="1" />
+                    <field name="raw_material_unit_price" string="标准成本 (按当前规格折算)" widget="monetary" readonly="1" />
                     <field name="raw_material_currency_id" string="成本币种" invisible="0" readonly="1" />
                     <field name="lead_time" readonly="1" />
                     <field name="min_order_qty" readonly="1" />
@@ -108,11 +118,12 @@
                 <field name="color_id" string="颜色" optional="show" />
                 <field name="is_raw_material" invisible="1" optional="hide" />
                 <field name="standard_price" optional="hide" />
-                <field name="raw_material_unit_price" string="价格 (卷/张)" optional="show" />
-                <field name="raw_material_price_m2" optional="show" />
+                <field name="raw_material_price_m2" string="价格 (RMB/m²)" optional="show" />
+                <field name="raw_material_unit_price" string="规格总价(自动折算)" optional="show" />
                 <field name="uom_id" optional="hide" />
                 <field name="categ_id" optional="show" />
                 <field name="product_tag_ids" string="功能标签" widget="many2many_tags" optional="show" options="{'color_field': 'color'}" />
+                <field name="diecut_properties" optional="hide" />
                 <field name="main_vendor_id" string="供应商(简称)" optional="show" domain="[('supplier_rank', '>', 0)]" class="text-start" context="{'show_short_name': True, 'default_supplier_rank': 1, 'default_is_company': True}" />
                 <button name="action_open_detail" string=" " type="object" icon="fa-external-link" title="打开详情页" class="btn-secondary" />
             </list>
@@ -128,6 +139,8 @@
                 <field name="name" string="产品名称/编码" filter_domain="['|', '|', ('default_code', 'ilike', self), ('name', 'ilike', self), ('barcode', 'ilike', self)]" />
                 <field name="material_type" string="材质/牌号" />
                 <field name="main_vendor_id" string="厂商" />
+                <field name="diecut_properties" string="物理特性" />
+                <filter name="group_by_diecut_properties" string="物理特性分组" context="{'group_by':'diecut_properties'}" />
                 <!-- 🌟 左侧 Excel 风格过滤面板 🌟 -->
                 <searchpanel>
                     <!-- 材质分类 (Many2one → product.category, 单选) -->

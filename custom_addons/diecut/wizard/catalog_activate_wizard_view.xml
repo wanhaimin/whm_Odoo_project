@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_catalog_activate_wizard_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.activate.wizard.form</field>
+        <field name="model">diecut.catalog.activate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="启用到ERP原材料管理">
+                <group string="来源信息（自动获取）">
+                    <field name="catalog_tmpl_id" readonly="1" />
+                    <field name="variant_id" readonly="1" />
+                </group>
+                <group string="产品信息（可修改）" col="4">
+                    <field name="product_name" colspan="2" />
+                    <field name="default_code" />
+                    <field name="categ_id" />
+                    <field name="brand_id" />
+                    <field name="material_type" />
+                    <field name="thickness" />
+                </group>
+                <group string="规格参数（请补填）" col="4">
+                    <field name="width" />
+                    <field name="length" />
+                    <field name="rs_type" />
+                    <field name="main_vendor_id" context="{'default_supplier_rank': 1, 'default_is_company': True}" />
+                </group>
+                <footer>
+                    <button name="action_confirm" string="✅ 确认启用" type="object" class="btn-primary" />
+                    <button string="取消" special="cancel" class="btn-secondary" />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

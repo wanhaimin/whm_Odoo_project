@@ -32,7 +32,8 @@ class MyMaterialRequisition(models.Model):
             self.width = self.material_id.width
             self.length = self.material_id.length
             self.uom_name = self.material_id.uom_id.name
-            self.unit_price = self.material_id.standard_price # Or raw_material_unit_price
+            # 底层统一按平米计价，领料参考价也以 m² 单价为准
+            self.unit_price = self.material_id.raw_material_price_m2 or self.material_id.standard_price
 
     @api.depends('quantity', 'unit_price')
     def _compute_total_price(self):

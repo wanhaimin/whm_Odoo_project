@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- 1. For Stock Report / Location Content (Priority 5) -->
     <record id="view_stock_quant_tree_editable_inherit_diecut" model="ir.ui.view">
@@ -22,5 +22,18 @@
                 <field name="dimension_spec" optional="show"/>
             </field>
         </field>
+    </record>
+
+    <!-- 3. Exclude catalog-only materials from stock product lists -->
+    <record id="stock.product_template_action_product" model="ir.actions.act_window">
+        <field name="domain">[('is_catalog', '=', False)]</field>
+    </record>
+
+    <record id="stock.stock_product_normal_action" model="ir.actions.act_window">
+        <field name="domain">[('product_tmpl_id.is_catalog', '=', False)]</field>
+    </record>
+
+    <record id="stock.action_product_stock_view" model="ir.actions.act_window">
+        <field name="domain">[('detailed_type', '=', 'product'), ('product_tmpl_id.is_catalog', '=', False)]</field>
     </record>
 </odoo>

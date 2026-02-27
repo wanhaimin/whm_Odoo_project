@@ -358,7 +358,7 @@ class DiecutQuoteMaterialLine(models.Model):
     raw_length = fields.Float(string="原材长(mm)", compute='_compute_material_defaults', store=True, readonly=False)
     
     price_unit_total = fields.Float(string="含税总价", help="材料采购含税总价", digits=(16, 4))
-    price_unit_tax_inc = fields.Float(string="含税单价 (RMB/㎡/张/支)", compute='_compute_material_defaults', store=True, readonly=False, help="自动更新：依赖原材料库整支价格", digits=(16, 4))
+    price_unit_tax_inc = fields.Float(string="含税总价 (按当前规格折算)", compute='_compute_material_defaults', store=True, readonly=False, help="自动更新：基于原材料平米价与规格面积自动折算", digits=(16, 4))
     
     # Slitting info
     slitting_width = fields.Float(string="分切宽(mm)")

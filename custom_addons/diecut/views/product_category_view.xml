@@ -65,7 +65,7 @@
                     </div>
                     <group>
                         <group name="basic" string="基本信息">
-                            <field name="parent_id" string="父级分类" domain="[('level', '&lt;', 3)]" />
+                            <field name="parent_id" string="父级分类" domain="[('level', 'in', [1, 2])]" />
                             <field name="level" string="分类级别" readonly="1" />
                             <field name="sequence" string="排序" />
                             <field name="product_count" string="产品数量" readonly="1" />

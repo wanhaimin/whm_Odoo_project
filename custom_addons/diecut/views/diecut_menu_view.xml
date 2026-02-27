@@ -2,19 +2,26 @@
 <odoo>
     <!-- Top menu item -->
     <menuitem id="menu_diecut_root" name="模切管理系统" sequence="10" />
-
     <!-- Cloud Menu Structure: Flat / One Level -->
     <menuitem id="menu_diecut_quote_backend" name="成本计算器" parent="menu_diecut_root" action="action_diecut_quote" sequence="10" />
+
+    <menuitem id="menu_material_catalog" name="📚 材料选型大全" parent="menu_diecut_root" action="action_material_catalog" sequence="15" />
+    <menuitem id="menu_material_catalog_create_template" name="➕ 新建材料系列" parent="menu_material_catalog" action="action_material_catalog_create_template" sequence="19" />
+    <menuitem id="menu_material_catalog_variant" name="📋 材料型号清单" parent="menu_material_catalog" action="action_material_catalog_variant" sequence="20" />
+
     <menuitem id="menu_diecut_raw_material_list" name="原材料" parent="menu_diecut_root" action="action_diecut_raw_material" sequence="20" />
+
     <menuitem id="menu_diecut_customer" name="客户管理" parent="menu_diecut_root" action="action_diecut_customer" sequence="30" />
+
     <menuitem id="menu_diecut_mold" name="刀模管理" parent="menu_diecut_root" action="action_diecut_mold" sequence="40" />
+
     <menuitem id="menu_material_slitting_flat" name="分切管理" parent="menu_diecut_root" action="action_material_slitting" sequence="50" />
+
     <menuitem id="menu_requisition_demo_flat" name="领料申请" parent="menu_diecut_root" action="action_requisition_demo" sequence="60" />
+
     <menuitem id="menu_sample_order_flat" name="样品订单" parent="menu_diecut_root" action="action_sample_order_custom" sequence="70" />
-    
     <!-- 修改 Odoo 原生"应用"菜单的默认筛选：默认显示已安装 -->
     <record id="base.open_module_tree" model="ir.actions.act_window">
         <field name="context">{'search_default_app': 1, 'search_default_installed': 1}</field>
     </record>
-
 </odoo>

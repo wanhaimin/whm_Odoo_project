@@ -10,6 +10,8 @@
         "data/mail_template_data.xml",
         "data/sequence.xml",
         "data/product_category_data.xml",
+        "data/catalog_sidike_dst_data.xml",
+        "data/catalog_sidike_uv_data.xml",
         "security/ir.model.access.csv",
         
         "views/my_material_base_views.xml",
@@ -30,6 +32,8 @@
         "views/sample_order_view.xml",
         "views/website_templates.xml",
         "views/product_category_view.xml",
+        "views/material_catalog_views.xml",
+        "wizard/catalog_activate_wizard_view.xml",
         "views/diecut_menu_view.xml"
     ],
     'assets': {
@@ -39,6 +43,7 @@
             'diecut/static/src/scss/list_view_hover.scss',
             'diecut/static/src/js/enter_to_next.js',
             'diecut/static/src/js/shift_select.js',
+            'diecut/static/src/js/catalog_dynamic_columns.js',
             'diecut/static/src/scss/quick_entry.scss',
             'diecut/static/src/xml/search_panel_inherit.xml',
         ],

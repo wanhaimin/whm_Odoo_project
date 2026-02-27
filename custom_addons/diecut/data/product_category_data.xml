@@ -15,6 +15,108 @@
             <field name="parent_id" ref="category_raw_material" />
             <field name="sequence">1</field>
         </record>
+        <!-- 胶带类 - 三级子分类 -->
+        <record id="category_tape_pet_single" model="product.category">
+            <field name="name">PET单面胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="category_tape_pet_double" model="product.category">
+            <field name="name">PET双面胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">3</field>
+        </record>
+
+        <record id="category_tape_no_substrate" model="product.category">
+            <field name="name">无基材双面胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">4</field>
+        </record>
+
+        <record id="category_tape_tissue" model="product.category">
+            <field name="name">棉纸/无纺布双面胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">5</field>
+        </record>
+
+        <record id="category_tape_high_temp" model="product.category">
+            <field name="name">耐高温胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">6</field>
+        </record>
+
+        <record id="category_tape_battery" model="product.category">
+            <field name="name">电池包裹/电芯固定胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">7</field>
+        </record>
+
+        <record id="category_tape_stretch_release" model="product.category">
+            <field name="name">可拉伸移除胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">8</field>
+        </record>
+
+        <record id="category_tape_uv_debonding" model="product.category">
+            <field name="name">UV失粘胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">9</field>
+        </record>
+
+        <record id="category_tape_heat_debonding" model="product.category">
+            <field name="name">热失粘胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">10</field>
+        </record>
+
+        <record id="category_tape_foam" model="product.category">
+            <field name="name">泡棉胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">11</field>
+        </record>
+
+        <record id="category_tape_hot_melt" model="product.category">
+            <field name="name">热熔胶带(HAF)</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">12</field>
+        </record>
+
+        <record id="category_tape_ab" model="product.category">
+            <field name="name">高低粘双面胶带(AB胶带)</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">13</field>
+        </record>
+
+        <record id="category_tape_light_shielding" model="product.category">
+            <field name="name">遮光胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">14</field>
+        </record>
+
+        <record id="category_tape_oca" model="product.category">
+            <field name="name">OCA透明光学胶</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">15</field>
+        </record>
+
+        <record id="category_tape_anti_splinter" model="product.category">
+            <field name="name">防爆膜</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">16</field>
+        </record>
+
+        <record id="category_tape_insulation" model="product.category">
+            <field name="name">电气绝缘胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">17</field>
+        </record>
+
+        <record id="category_tape_conductive_shielding" model="product.category">
+            <field name="name">导电/电磁屏蔽胶带</field>
+            <field name="parent_id" ref="category_tape" />
+            <field name="sequence">18</field>
+        </record>
 
         <record id="category_foam" model="product.category">
             <field name="name">泡棉类</field>
