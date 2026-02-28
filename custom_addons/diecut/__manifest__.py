@@ -12,6 +12,7 @@
         "data/product_category_data.xml",
         "data/catalog_sidike_dst_data.xml",
         "data/catalog_sidike_uv_data.xml",
+        "data/catalog_tesa_acrylic_foam_data.xml",
         "security/ir.model.access.csv",
         
         "views/my_material_base_views.xml",

@@ -41,6 +41,7 @@
                     <!-- 产品特点与应用 -->
                     <group>
                         <group string="产品特点">
+                            <field name="catalog_characteristics" string="特性" placeholder="如：耐化学腐蚀, 重工性；高粘, 抗冲击" />
                             <field name="catalog_features" nolabel="1" placeholder="如：以PET为基材，双面涂布压敏胶水
 具有良好的抗拉强度、耐温耐候性" />
                         </group>
@@ -70,6 +71,8 @@
                                     <field name="variant_sus_peel" optional="hide" />
                                     <field name="variant_pe_peel" optional="hide" />
                                     <field name="variant_dupont" optional="hide" />
+                                    <field name="variant_push_force" string="推出力" optional="hide" />
+                                    <field name="variant_removability" string="可移除性" optional="hide" />
                                     <field name="variant_tumbler" optional="hide" />
                                     <field name="variant_holding_power" optional="hide" />
                                     <field name="variant_note" optional="hide" />
@@ -96,10 +99,10 @@
                                 <field name="diecut_properties" widget="properties" nolabel="1" colspan="2" />
                             </group>
                         </page>
-                        <!-- 认证与合规 -->
+                        <!-- 认证与合规（系列默认；各型号可在型号详情页单独维护） -->
                         <page name="certification" string="认证与合规">
                             <group>
-                                <group>
+                                <group string="系列默认（各型号可在型号详情页填独立值）">
                                     <field name="is_rohs" />
                                     <field name="is_reach" />
                                     <field name="is_halogen_free" />
@@ -109,7 +112,7 @@
                         </page>
                         <page name="replacement" string="替代建议">
                             <group>
-                                <group string="可替代系列">
+                                <group string="系列默认可替代系列（各型号可在型号详情页填独立值）">
                                     <field name="replacement_catalog_ids" widget="many2many_tags" domain="[('is_catalog', '=', True), ('id', '!=', id)]" options="{'no_create': True}" />
                                 </group>
                                 <group string="被以下系列替代">
@@ -117,7 +120,7 @@
                                 </group>
                             </group>
                         </page>
-                        <!-- 附件与资料 -->
+                        <!-- 附件与资料（系列默认；各型号可在型号详情页上传独立附件） -->
                         <page name="attachments" string="附件与资料">
                             <group>
                                 <group string="技术文档">
@@ -154,6 +157,7 @@
                 <field name="brand_id" />
                 <field name="categ_id" string="分类" />
                 <field name="recommendation_level" optional="show" />
+                <field name="catalog_characteristics" string="特性" optional="show" />
                 <field name="catalog_base_material" optional="show" />
                 <field name="catalog_adhesive_type" optional="show" />
                 <field name="variant_base_material_std_index" string="型号基材" optional="hide" />
@@ -267,6 +271,7 @@
                 <field name="product_tmpl_id" string="系列" />
                 <field name="catalog_brand_id" string="品牌" optional="show" />
                 <field name="catalog_categ_id" string="分类" optional="show" />
+                <field name="catalog_characteristics" string="特性" optional="show" />
                 <field name="variant_base_material" string="基材" optional="show" />
                 <field name="variant_adhesive_type" string="胶系" optional="show" />
                 <field name="variant_thickness" string="厚度" />
@@ -312,6 +317,114 @@
         </field>
     </record>
 
+    <!-- 变体详细与规格页：从材料型号清单打开单条型号时使用 -->
+    <record id="view_material_catalog_variant_form" model="ir.ui.view">
+        <field name="name">material.catalog.variant.form</field>
+        <field name="model">product.product</field>
+        <field name="arch" type="xml">
+            <form string="型号详情与规格">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_activate_to_erp" type="object" class="oe_stat_button" icon="fa-cube" invisible="is_activated" string="启用到ERP" />
+                        <button name="action_view_erp_product" type="object" class="oe_stat_button" icon="fa-external-link" invisible="not is_activated" string="已启用产品" />
+                    </div>
+                    <widget name="web_ribbon" title="已停产" bg_color="text-bg-danger" invisible="catalog_status != 'deprecated'" />
+                    <div class="row">
+                        <div class="col-12 col-lg-4">
+                            <field name="variant_catalog_structure_image" widget="image" class="oe_avatar" options="{'size': [300, 300]}" invisible="not variant_catalog_structure_image" />
+                            <field name="catalog_structure_image" widget="image" class="oe_avatar" options="{'size': [300, 300]}" invisible="variant_catalog_structure_image" />
+                            <field name="image_1920" widget="image" class="oe_avatar" options="{'size': [300, 300]}" invisible="variant_catalog_structure_image or catalog_structure_image" />
+                        </div>
+                        <div class="col-12 col-lg-8">
+                            <h1 class="mb-2"><field name="default_code" readonly="1" class="fw-bold" /></h1>
+                            <p class="text-muted mb-1"><field name="product_tmpl_id" readonly="1" nolabel="1" /></p>
+                            <group string="产品描述" colspan="2">
+                                <field name="catalog_features" nolabel="1" readonly="1" />
+                            </group>
+                        </div>
+                    </div>
+                    <group string="主要应用" colspan="2">
+                        <field name="catalog_applications" nolabel="1" readonly="1" />
+                    </group>
+                    <group string="技术特性">
+                        <group>
+                            <field name="variant_base_material" string="基材" />
+                            <field name="variant_thickness" string="总厚度" />
+                            <field name="variant_adhesive_type" string="胶粘剂类型" />
+                            <field name="variant_color" string="颜色" />
+                        </group>
+                        <group>
+                            <field name="catalog_brand_id" string="品牌" />
+                            <field name="catalog_categ_id" string="材料分类" />
+                            <field name="recommendation_level" string="推荐等级" />
+                        </group>
+                    </group>
+                    <group string="型号技术参数">
+                        <group>
+                            <field name="variant_peel_strength" string="剥离力" />
+                            <field name="variant_adhesive_thickness" string="胶厚" />
+                            <field name="variant_structure" string="结构描述" />
+                            <field name="catalog_density" string="密度(g/cm³)" />
+                        </group>
+                        <group>
+                            <field name="variant_sus_peel" string="SUS面剥离力" />
+                            <field name="variant_pe_peel" string="PE面剥离力" />
+                            <field name="variant_holding_power" string="保持力" />
+                            <field name="variant_push_force" string="推出力" />
+                            <field name="variant_removability" string="可移除性" />
+                            <field name="variant_dupont" string="DuPont冲击" />
+                            <field name="variant_ref_price" string="参考单价" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="performance" string="特性评级">
+                            <group string="变体动态物理特性（定义来自材料分类，此处仅可编辑值；分类在系列表单中配置）">
+                                <field name="catalog_categ_id" invisible="1" />
+                                <field name="variant_diecut_properties" widget="properties" nolabel="1" colspan="2" />
+                            </group>
+                        </page>
+                        <page name="adhesion" string="粘合特性">
+                            <group string="粘合数据（可在此维护或后续扩展为结构化数据）">
+                                <field name="variant_note" nolabel="1" placeholder="如：ABS/铝/PC等基材的初始与14天后粘接强度(N/cm)…" />
+                            </group>
+                        </page>
+                        <page name="certification" string="认证与合规">
+                            <group string="该型号独立认证与合规">
+                                <field name="variant_is_rohs" />
+                                <field name="variant_is_reach" />
+                                <field name="variant_is_halogen_free" />
+                                <field name="variant_fire_rating" />
+                            </group>
+                        </page>
+                        <page name="replacement" string="替代建议">
+                            <group string="该型号可替代系列">
+                                <field name="variant_replacement_catalog_ids" widget="many2many_tags" nolabel="1" options="{'no_create': True}" />
+                            </group>
+                        </page>
+                        <page name="docs" string="附件与资料">
+                            <group>
+                                <group string="技术文档（该型号独立）">
+                                    <field name="variant_tds_filename" invisible="1" />
+                                    <field name="variant_tds_file" string="TDS 技术数据表" filename="variant_tds_filename" />
+                                    <field name="variant_msds_filename" invisible="1" />
+                                    <field name="variant_msds_file" string="MSDS 安全数据表" filename="variant_msds_filename" />
+                                    <field name="variant_datasheet_filename" invisible="1" />
+                                    <field name="variant_datasheet" string="规格书" filename="variant_datasheet_filename" />
+                                </group>
+                                <group string="结构图（该型号独立）">
+                                    <field name="variant_catalog_structure_image" widget="image" />
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <field name="is_activated" invisible="1" />
+                    <field name="catalog_status" invisible="1" />
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
     <record id="action_material_catalog_variant" model="ir.actions.act_window">
         <field name="name">材料型号清单</field>
         <field name="res_model">product.product</field>
@@ -320,7 +433,8 @@
         <field name="search_view_id" ref="view_material_catalog_variant_search" />
         <field name="context">{'search_default_filter_variant_published': 1}</field>
         <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'list', 'view_id': ref('view_material_catalog_variant_tree')})]" />
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_material_catalog_variant_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_material_catalog_variant_form')})]" />
     </record>
 
 </odoo>

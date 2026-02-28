@@ -105,7 +105,8 @@ class ProductTemplate(models.Model):
         help='系列下所有型号的标准化基材索引（用于筛选）',
     )
     catalog_features = fields.Text(string='产品特点', help='如：抗拉强度好、耐温耐候性好')
-    catalog_applications = fields.Text(string='典型应用', help='如：LCD铭板、手机部件粘接')
+    catalog_applications = fields.Html(string='典型应用', help='如：LCD铭板、手机部件粘接；支持富文本（标题、列表、加粗等）')
+    catalog_characteristics = fields.Char(string='特性', help='简短特性标签，如：耐化学腐蚀, 重工性；高粘, 抗冲击')
     catalog_structure_image = fields.Binary(string='产品结构图')
     catalog_ref_price = fields.Float(string='参考单价', digits=(16, 4), help='仅供选型参考，不参与ERP计价')
     catalog_ref_currency_id = fields.Many2one(
@@ -776,6 +777,22 @@ class ProductProduct(models.Model):
     catalog_density = fields.Float(
         related='product_tmpl_id.density', store=True, string='密度(g/cm³)'
     )
+    # 变体详情/规格页展示用：继承自系列
+    catalog_structure_image = fields.Binary(related='product_tmpl_id.catalog_structure_image', string='产品结构图')
+    catalog_features = fields.Text(related='product_tmpl_id.catalog_features', string='产品特点')
+    catalog_applications = fields.Html(related='product_tmpl_id.catalog_applications', string='典型应用')
+    catalog_characteristics = fields.Char(related='product_tmpl_id.catalog_characteristics', string='特性', store=True)
+    # 不在变体上做 related diecut_properties，避免创建变体时 Properties 的 definition_record 解析为 None 导致 TypeError（变体表单使用 variant_diecut_properties）
+    # 变体自有动态属性：与系列共用分类下的定义，但每个变体可存不同值
+    variant_diecut_properties = fields.Properties(
+        string='变体物理特性',
+        definition='catalog_categ_id.diecut_properties_definition',
+        copy=True,
+    )
+    tds_file = fields.Binary(related='product_tmpl_id.tds_file', string='TDS')
+    tds_filename = fields.Char(related='product_tmpl_id.tds_filename')
+    msds_file = fields.Binary(related='product_tmpl_id.msds_file', string='MSDS')
+    msds_filename = fields.Char(related='product_tmpl_id.msds_filename')
 
     # ==================== 变体级技术参数（选型目录专用）====================
     # 使用 Char 类型保留原厂数据完整性（公差、条件、双面差异等）
@@ -788,7 +805,9 @@ class ProductProduct(models.Model):
     variant_base_material = fields.Char(string='基材(变体)', help='可覆盖模板级基材')
     variant_sus_peel = fields.Char(string='SUS面剥离力', help='如：13.0/13.0 N/cm')
     variant_pe_peel = fields.Char(string='PE面剥离力', help='如：7.0/7.0 N/cm')
-    variant_dupont = fields.Char(string='DuPont冲击', help='如：0.7/0.1')
+    variant_dupont = fields.Char(string='DuPont冲击', help='如：0.7/0.1、1.3/1.0 [A×cM]')
+    variant_push_force = fields.Char(string='推出力', help='如：229 N')
+    variant_removability = fields.Char(string='可移除性', help='如：*、**、***（与同品类比较）')
     variant_tumbler = fields.Char(string='Tumbler滚球', help='如：Upon request、40.0')
     variant_holding_power = fields.Char(string='保持力', help='如：4.0 N/cm')
     variant_note = fields.Text(string='型号备注')
@@ -806,6 +825,34 @@ class ProductProduct(models.Model):
     variant_base_material_std = fields.Char(
         string='基材', help='标准化基材', oldname='variant_base_material_grade'
     )
+
+    # ==================== 变体独立：认证与合规、替代建议、附件与资料 ====================
+    variant_is_rohs = fields.Boolean(string='ROHS', default=False, help='该型号是否通过ROHS认证')
+    variant_is_reach = fields.Boolean(string='REACH', default=False, help='该型号是否通过REACH认证')
+    variant_is_halogen_free = fields.Boolean(string='无卤', default=False, help='该型号是否为无卤材料')
+    variant_fire_rating = fields.Selection([
+        ('ul94_v0', 'UL94 V-0'),
+        ('ul94_v1', 'UL94 V-1'),
+        ('ul94_v2', 'UL94 V-2'),
+        ('ul94_hb', 'UL94 HB'),
+        ('none', '无'),
+    ], string='防火等级', default='none')
+    variant_replacement_catalog_ids = fields.Many2many(
+        'product.template',
+        'product_product_catalog_replacement_rel',
+        'src_variant_id',
+        'dst_tmpl_id',
+        string='可替代系列',
+        help='该型号不适配或停产时可推荐的替代系列（目录层）',
+        domain="[('is_catalog', '=', True)]",
+    )
+    variant_tds_file = fields.Binary(string='TDS技术数据表')
+    variant_tds_filename = fields.Char(string='TDS文件名')
+    variant_msds_file = fields.Binary(string='MSDS安全数据表')
+    variant_msds_filename = fields.Char(string='MSDS文件名')
+    variant_datasheet = fields.Binary(string='规格书')
+    variant_datasheet_filename = fields.Char(string='规格书文件名')
+    variant_catalog_structure_image = fields.Binary(string='产品结构图')
 
     # ==================== 选型目录溯源字段 ====================
     is_activated = fields.Boolean(
@@ -898,6 +945,12 @@ class ProductProduct(models.Model):
                 auto_vals = record._build_variant_std_vals()
                 record.with_context(**{self._variant_std_sync_ctx_key: True}).write(auto_vals)
         return res
+
+    @api.constrains('variant_replacement_catalog_ids', 'product_tmpl_id')
+    def _check_variant_replacement_catalog(self):
+        for record in self:
+            if record.product_tmpl_id and record.product_tmpl_id in record.variant_replacement_catalog_ids:
+                raise ValidationError('可替代系列不能包含本型号所属系列。')
 
     def action_activate_to_erp(self):
         """一键启用到ERP：将选型目录变体转化为独立的ERP原材料产品"""

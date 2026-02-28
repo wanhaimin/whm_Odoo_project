@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 图册符号约定：—（横线）表示无/没有；〇 表示白色；● 表示黑色。noupdate="1"：仅首次安装加载，升级不覆盖后续在系统中录入的数据 -->
+    <data noupdate="1">
+        <!-- ======================================================= -->
+        <!-- 1. 品牌 Tesa                                             -->
+        <!-- ======================================================= -->
+        <record id="brand_tesa" model="diecut.brand">
+            <field name="name">Tesa</field>
+        </record>
+        <!-- ======================================================= -->
+        <!-- 2. 型号属性值（复用"型号"属性，胶带类/泡棉胶带）          -->
+        <!-- ======================================================= -->
+        <!-- 754xx/756xx 系列 -->
+        <record id="attr_val_75405" model="product.attribute.value">
+            <field name="name">75405</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">201</field>
+        </record>
+        <record id="attr_val_75410" model="product.attribute.value">
+            <field name="name">75410</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">202</field>
+        </record>
+        <record id="attr_val_75415" model="product.attribute.value">
+            <field name="name">75415</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">203</field>
+        </record>
+        <record id="attr_val_75620" model="product.attribute.value">
+            <field name="name">75620</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">204</field>
+        </record>
+        <record id="attr_val_75625" model="product.attribute.value">
+            <field name="name">75625</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">205</field>
+        </record>
+        <record id="attr_val_75630" model="product.attribute.value">
+            <field name="name">75630</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">206</field>
+        </record>
+        <record id="attr_val_75635" model="product.attribute.value">
+            <field name="name">75635</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">207</field>
+        </record>
+        <record id="attr_val_75640" model="product.attribute.value">
+            <field name="name">75640</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">208</field>
+        </record>
+        <record id="attr_val_75645" model="product.attribute.value">
+            <field name="name">75645</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">209</field>
+        </record>
+        <record id="attr_val_75650" model="product.attribute.value">
+            <field name="name">75650</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">210</field>
+        </record>
+        <!-- 759xx 系列 -->
+        <record id="attr_val_75920" model="product.attribute.value">
+            <field name="name">75920</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">211</field>
+        </record>
+        <record id="attr_val_75925" model="product.attribute.value">
+            <field name="name">75925</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">212</field>
+        </record>
+        <record id="attr_val_75930" model="product.attribute.value">
+            <field name="name">75930</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">213</field>
+        </record>
+        <!-- 758xx 系列 -->
+        <record id="attr_val_75805" model="product.attribute.value">
+            <field name="name">75805</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">214</field>
+        </record>
+        <record id="attr_val_75820" model="product.attribute.value">
+            <field name="name">75820</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">215</field>
+        </record>
+        <!-- 757xx 系列 -->
+        <record id="attr_val_75710" model="product.attribute.value">
+            <field name="name">75710</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">216</field>
+        </record>
+        <record id="attr_val_75715" model="product.attribute.value">
+            <field name="name">75715</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">217</field>
+        </record>
+        <record id="attr_val_75720" model="product.attribute.value">
+            <field name="name">75720</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">218</field>
+        </record>
+        <record id="attr_val_075743" model="product.attribute.value">
+            <field name="name">75743</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">219</field>
+        </record>
+        <record id="attr_val_75725" model="product.attribute.value">
+            <field name="name">75725</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">220</field>
+        </record>
+        <record id="attr_val_075746" model="product.attribute.value">
+            <field name="name">75745</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">221</field>
+        </record>
+        <record id="attr_val_75730" model="product.attribute.value">
+            <field name="name">75730</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">222</field>
+        </record>
+        <!-- 751xx 系列 -->
+        <record id="attr_val_75120" model="product.attribute.value">
+            <field name="name">75120</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">223</field>
+        </record>
+        <record id="attr_val_75125" model="product.attribute.value">
+            <field name="name">75125</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">224</field>
+        </record>
+        <record id="attr_val_75130" model="product.attribute.value">
+            <field name="name">75130</field>
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="sequence">225</field>
+        </record>
+        <!-- ======================================================= -->
+        <!-- 3. 选型目录产品模板：tesa® 丙烯酸泡棉胶带 5 个系列        -->
+        <!-- ======================================================= -->
+        <record id="catalog_tesa_754_756" model="product.template">
+            <field name="name">tesa® 754xx/756xx 丙烯酸泡棉胶带</field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material">PET</field>
+            <field name="catalog_adhesive_type">改性丙烯酸</field>
+            <field name="catalog_characteristics">耐化学腐蚀, 重工性</field>
+            <field name="catalog_features">耐化学腐蚀，重工性。高粘性源于粘弹性，提供内聚强度并缓冲机械应力。</field>
+            <field name="catalog_applications">针对电子行业极端应用需求设计，优异的粘接性能、抗冲击、防水。</field>
+            <field name="series_name">754xx/756xx</field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_759" model="product.template">
+            <field name="name">tesa® 759xx 丙烯酸泡棉胶带</field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material">PET</field>
+            <field name="catalog_adhesive_type">丙烯酸</field>
+            <field name="catalog_characteristics">耐化学腐蚀, 韧性</field>
+            <field name="catalog_features">耐化学腐蚀，韧性。黑色。</field>
+            <field name="catalog_applications">针对电子行业极端应用需求，抗冲击、高粘、防水。</field>
+            <field name="series_name">759xx</field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_758" model="product.template">
+            <field name="name">tesa® 758xx 丙烯酸泡棉胶带</field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material">—</field>
+            <!-- — 表示无/没有 -->
+            <field name="catalog_adhesive_type">丙烯酸</field>
+            <field name="catalog_characteristics">耐化学腐蚀, 强粘性</field>
+            <field name="catalog_features">耐化学腐蚀，强粘性。黑色。</field>
+            <field name="catalog_applications">针对电子行业极端应用需求，抗冲击、高粘、防水。</field>
+            <field name="series_name">758xx</field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_757" model="product.template">
+            <field name="name">tesa® 757xx 丙烯酸泡棉胶带</field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material">PET</field>
+            <field name="catalog_adhesive_type">改性丙烯酸</field>
+            <field name="catalog_characteristics">浸润性, 重工性</field>
+            <field name="catalog_features">浸润性，重工性。黑色/白色。</field>
+            <field name="catalog_applications">针对电子行业极端应用需求，抗冲击、高粘、防水。</field>
+            <field name="series_name">757xx</field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_751" model="product.template">
+            <field name="name">tesa® 751xx 丙烯酸泡棉胶带</field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material">—</field>
+            <!-- — 表示无/没有 -->
+            <field name="catalog_adhesive_type">改性丙烯酸</field>
+            <field name="catalog_characteristics">高粘, 抗冲击</field>
+            <field name="catalog_features">高粘，抗冲击。黑色。</field>
+            <field name="catalog_applications">针对电子行业极端应用需求，抗冲击、高粘、防水。</field>
+            <field name="series_name">751xx</field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <!-- ======================================================= -->
+        <!-- 4. 属性线：将型号关联到各系列                           -->
+        <!-- ======================================================= -->
+        <record id="catalog_tesa_754_756_attr_line" model="product.template.attribute.line">
+            <field name="product_tmpl_id" ref="catalog_tesa_754_756" />
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="value_ids" eval="[
+                Command.link(ref('attr_val_75405')),
+                Command.link(ref('attr_val_75410')),
+                Command.link(ref('attr_val_75415')),
+                Command.link(ref('attr_val_75620')),
+                Command.link(ref('attr_val_75625')),
+                Command.link(ref('attr_val_75630')),
+                Command.link(ref('attr_val_75635')),
+                Command.link(ref('attr_val_75640')),
+                Command.link(ref('attr_val_75645')),
+                Command.link(ref('attr_val_75650')),
+            ]" />
+        </record>
+        <record id="catalog_tesa_759_attr_line" model="product.template.attribute.line">
+            <field name="product_tmpl_id" ref="catalog_tesa_759" />
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="value_ids" eval="[
+                Command.link(ref('attr_val_75920')),
+                Command.link(ref('attr_val_75925')),
+                Command.link(ref('attr_val_75930')),
+            ]" />
+        </record>
+        <record id="catalog_tesa_758_attr_line" model="product.template.attribute.line">
+            <field name="product_tmpl_id" ref="catalog_tesa_758" />
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="value_ids" eval="[
+                Command.link(ref('attr_val_75805')),
+                Command.link(ref('attr_val_75820')),
+            ]" />
+        </record>
+        <record id="catalog_tesa_757_attr_line" model="product.template.attribute.line">
+            <field name="product_tmpl_id" ref="catalog_tesa_757" />
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="value_ids" eval="[
+                Command.link(ref('attr_val_75710')),
+                Command.link(ref('attr_val_75715')),
+                Command.link(ref('attr_val_75720')),
+                Command.link(ref('attr_val_075743')),
+                Command.link(ref('attr_val_75725')),
+                Command.link(ref('attr_val_075746')),
+                Command.link(ref('attr_val_75730')),
+            ]" />
+        </record>
+        <record id="catalog_tesa_751_attr_line" model="product.template.attribute.line">
+            <field name="product_tmpl_id" ref="catalog_tesa_751" />
+            <field name="attribute_id" ref="attribute_model_sku" />
+            <field name="value_ids" eval="[
+                Command.link(ref('attr_val_75120')),
+                Command.link(ref('attr_val_75125')),
+                Command.link(ref('attr_val_75130')),
+            ]" />
+        </record>
+        <!-- ======================================================= -->
+        <!-- 5. 填充变体技术参数                                      -->
+        <!-- ======================================================= -->
+        <function model="product.product" name="_load_catalog_variant_data">
+            <value>diecut.catalog_tesa_754_756</value>
+            <value eval="[
+                ('75405',  {'default_code': '75405',  'variant_thickness': '50 µm',   'variant_color': '黑色/白色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:17.6 N/cm; 90°:15.0 N/cm', 'variant_sus_peel': '17.6 N/cm', 'variant_holding_power': '15.5/17.0 N/cm SUS', 'variant_push_force': '229 N', 'variant_removability': '***', 'variant_dupont': '1.3/1.0'}),
+                ('75410',  {'default_code': '75410',  'variant_thickness': '100 µm',  'variant_color': '黑色/白色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:17.6 N/cm; 90°:15.0 N/cm', 'variant_sus_peel': '17.6 N/cm', 'variant_holding_power': '15.5/17.0 N/cm SUS', 'variant_push_force': '229 N', 'variant_removability': '***', 'variant_dupont': '1.3/1.0'}),
+                ('75415',  {'default_code': '75415',  'variant_thickness': '150 µm',  'variant_color': '黑色/白色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:17.6 N/cm; 90°:15.0 N/cm', 'variant_sus_peel': '17.6 N/cm', 'variant_holding_power': '15.5/17.0 N/cm SUS', 'variant_push_force': '229 N', 'variant_removability': '***', 'variant_dupont': '1.3/1.0'}),
+                ('75620',  {'default_code': '75620',  'variant_thickness': '200 µm',  'variant_color': '黑色/白色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:17.6 N/cm; 90°:15.0 N/cm', 'variant_sus_peel': '17.6 N/cm', 'variant_holding_power': '15.5/17.0 N/cm SUS', 'variant_push_force': '229 N', 'variant_removability': '***', 'variant_dupont': '1.3/1.0'}),
+                ('75625',  {'default_code': '75625',  'variant_thickness': '250 µm',  'variant_color': '黑色/白色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:17.6 N/cm; 90°:15.0 N/cm', 'variant_sus_peel': '17.6 N/cm', 'variant_holding_power': '15.5/17.0 N/cm SUS', 'variant_push_force': '229 N', 'variant_removability': '***', 'variant_dupont': '1.3/1.0'}),
+                ('75630',  {'default_code': '75630',  'variant_thickness': '300 µm',  'variant_color': '黑色/白色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:17.6 N/cm; 90°:15.0 N/cm', 'variant_sus_peel': '17.6 N/cm', 'variant_holding_power': '15.5/17.0 N/cm SUS', 'variant_push_force': '229 N', 'variant_removability': '***', 'variant_dupont': '1.3/1.0'}),
+                ('75635',  {'default_code': '75635',  'variant_thickness': '350 µm',  'variant_color': '黑色/白色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:17.6 N/cm; 90°:15.0 N/cm', 'variant_sus_peel': '17.6 N/cm', 'variant_holding_power': '15.5/17.0 N/cm SUS', 'variant_push_force': '229 N', 'variant_removability': '***', 'variant_dupont': '1.3/1.0'}),
+                ('75640',  {'default_code': '75640',  'variant_thickness': '400 µm',  'variant_color': '黑色/白色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:17.6 N/cm; 90°:15.0 N/cm', 'variant_sus_peel': '17.6 N/cm', 'variant_holding_power': '15.5/17.0 N/cm SUS', 'variant_push_force': '229 N', 'variant_removability': '***', 'variant_dupont': '1.3/1.0'}),
+                ('75645',  {'default_code': '75645',  'variant_thickness': '450 µm',  'variant_color': '黑色/白色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:17.6 N/cm; 90°:15.0 N/cm', 'variant_sus_peel': '17.6 N/cm', 'variant_holding_power': '15.5/17.0 N/cm SUS', 'variant_push_force': '229 N', 'variant_removability': '***', 'variant_dupont': '1.3/1.0'}),
+                ('75650',  {'default_code': '75650',  'variant_thickness': '500 µm',  'variant_color': '黑色/白色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:17.6 N/cm; 90°:15.0 N/cm', 'variant_sus_peel': '17.6 N/cm', 'variant_holding_power': '15.5/17.0 N/cm SUS', 'variant_push_force': '229 N', 'variant_removability': '***', 'variant_dupont': '1.3/1.0'}),
+            ]" />
+        </function>
+        <function model="product.product" name="_load_catalog_variant_data">
+            <value>diecut.catalog_tesa_759</value>
+            <value eval="[
+                ('75920', {'default_code': '75920', 'variant_thickness': '200 µm', 'variant_color': '黑色', 'variant_adhesive_type': '丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:12.0 N/cm; 90°:10.0 N/cm', 'variant_sus_peel': '12.0 N/cm', 'variant_holding_power': '10.0/11.5 N/cm SUS', 'variant_push_force': '183 N', 'variant_removability': '*', 'variant_dupont': '1.7/1.2'}),
+                ('75925', {'default_code': '75925', 'variant_thickness': '250 µm', 'variant_color': '黑色', 'variant_adhesive_type': '丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:12.0 N/cm; 90°:10.0 N/cm', 'variant_sus_peel': '12.0 N/cm', 'variant_holding_power': '10.0/11.5 N/cm SUS', 'variant_push_force': '183 N', 'variant_removability': '*', 'variant_dupont': '1.7/1.2'}),
+                ('75930', {'default_code': '75930', 'variant_thickness': '300 µm', 'variant_color': '黑色', 'variant_adhesive_type': '丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:12.0 N/cm; 90°:10.0 N/cm', 'variant_sus_peel': '12.0 N/cm', 'variant_holding_power': '10.0/11.5 N/cm SUS', 'variant_push_force': '183 N', 'variant_removability': '*', 'variant_dupont': '1.7/1.2'}),
+            ]" />
+        </function>
+        <function model="product.product" name="_load_catalog_variant_data">
+            <value>diecut.catalog_tesa_758</value>
+            <value eval="[
+                ('75805', {'default_code': '75805', 'variant_thickness': '50 µm',  'variant_color': '黑色', 'variant_adhesive_type': '丙烯酸', 'variant_base_material': '—', 'variant_peel_strength': '180°:9.0 N/cm; 90°:7.0 N/cm', 'variant_sus_peel': '9.0 N/cm', 'variant_holding_power': '9.0/10.5 N/cm SUS', 'variant_push_force': '140 N', 'variant_removability': '***', 'variant_dupont': '1.6/1.3'}),
+                ('75820', {'default_code': '75820', 'variant_thickness': '200 µm', 'variant_color': '黑色', 'variant_adhesive_type': '丙烯酸', 'variant_base_material': '—', 'variant_peel_strength': '180°:9.0 N/cm; 90°:7.0 N/cm', 'variant_sus_peel': '9.0 N/cm', 'variant_holding_power': '9.0/10.5 N/cm SUS', 'variant_push_force': '140 N', 'variant_removability': '***', 'variant_dupont': '1.6/1.3'}),
+            ]" />
+        </function>
+        <function model="product.product" name="_load_catalog_variant_data">
+            <value>diecut.catalog_tesa_757</value>
+            <value eval="[
+                ('75710',  {'default_code': '75710',  'variant_thickness': '100 µm', 'variant_color': '黑色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:16.0 N/cm; 90°:14.0 N/cm', 'variant_sus_peel': '16.0 N/cm', 'variant_holding_power': '14.0/15.0 N/cm SUS', 'variant_push_force': '205 N', 'variant_removability': '***', 'variant_dupont': '0.9/0.9'}),
+                ('75715',  {'default_code': '75715',  'variant_thickness': '150 µm', 'variant_color': '黑色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:16.0 N/cm; 90°:14.0 N/cm', 'variant_sus_peel': '16.0 N/cm', 'variant_holding_power': '14.0/15.0 N/cm SUS', 'variant_push_force': '205 N', 'variant_removability': '***', 'variant_dupont': '0.9/0.9'}),
+                ('75720',  {'default_code': '75720',  'variant_thickness': '200 µm', 'variant_color': '黑色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:16.0 N/cm; 90°:14.0 N/cm', 'variant_sus_peel': '16.0 N/cm', 'variant_holding_power': '14.0/15.0 N/cm SUS', 'variant_push_force': '205 N', 'variant_removability': '***', 'variant_dupont': '0.9/0.9'}),
+                ('75743', {'default_code': '75743', 'variant_thickness': '200 µm', 'variant_color': '白色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:16.0 N/cm; 90°:14.0 N/cm', 'variant_sus_peel': '16.0 N/cm', 'variant_holding_power': '14.0/15.0 N/cm SUS', 'variant_push_force': '205 N', 'variant_removability': '***', 'variant_dupont': '0.9/0.9'}),
+                ('75725',  {'default_code': '75725',  'variant_thickness': '250 µm', 'variant_color': '黑色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:16.0 N/cm; 90°:14.0 N/cm', 'variant_sus_peel': '16.0 N/cm', 'variant_holding_power': '14.0/15.0 N/cm SUS', 'variant_push_force': '205 N', 'variant_removability': '***', 'variant_dupont': '0.9/0.9'}),
+                ('75745', {'default_code': '75745', 'variant_thickness': '250 µm', 'variant_color': '白色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:16.0 N/cm; 90°:14.0 N/cm', 'variant_sus_peel': '16.0 N/cm', 'variant_holding_power': '14.0/15.0 N/cm SUS', 'variant_push_force': '205 N', 'variant_removability': '***', 'variant_dupont': '0.9/0.9'}),
+                ('75730',  {'default_code': '75730',  'variant_thickness': '300 µm', 'variant_color': '黑色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': 'PET', 'variant_peel_strength': '180°:16.0 N/cm; 90°:14.0 N/cm', 'variant_sus_peel': '16.0 N/cm', 'variant_holding_power': '14.0/15.0 N/cm SUS', 'variant_push_force': '205 N', 'variant_removability': '***', 'variant_dupont': '0.9/0.9'}),
+            ]" />
+        </function>
+        <function model="product.product" name="_load_catalog_variant_data">
+            <value>diecut.catalog_tesa_751</value>
+            <value eval="[
+                ('75120', {'default_code': '75120', 'variant_thickness': '200 µm', 'variant_color': '黑色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': '—', 'variant_peel_strength': '180°:12.0 N/cm; 90°:10.0 N/cm', 'variant_sus_peel': '12.0 N/cm', 'variant_holding_power': '13.0/15.0 N/cm SUS', 'variant_push_force': '300 N', 'variant_removability': '**', 'variant_dupont': '1.4/1.2'}),
+                ('75125', {'default_code': '75125', 'variant_thickness': '250 µm', 'variant_color': '黑色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': '—', 'variant_peel_strength': '180°:12.0 N/cm; 90°:10.0 N/cm', 'variant_sus_peel': '12.0 N/cm', 'variant_holding_power': '13.0/15.0 N/cm SUS', 'variant_push_force': '300 N', 'variant_removability': '**', 'variant_dupont': '1.4/1.2'}),
+                ('75130', {'default_code': '75130', 'variant_thickness': '300 µm', 'variant_color': '黑色', 'variant_adhesive_type': '改性丙烯酸', 'variant_base_material': '—', 'variant_peel_strength': '180°:12.0 N/cm; 90°:10.0 N/cm', 'variant_sus_peel': '12.0 N/cm', 'variant_holding_power': '13.0/15.0 N/cm SUS', 'variant_push_force': '300 N', 'variant_removability': '**', 'variant_dupont': '1.4/1.2'}),
+            ]" />
+        </function>
+    </data>
+</odoo>
