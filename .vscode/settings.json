@@ -25,4 +25,6 @@
         "${workspaceFolder}/custom_addons"
     ],
     "cursorpyright.analysis.typeCheckingMode": "basic"
+    "workbench.editorAssociations": {
+  "*.csv": "rainbowcsv.csv"}
 }

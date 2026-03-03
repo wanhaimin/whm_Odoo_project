@@ -1,0 +1,14 @@
+﻿brand_id_xml,categ_id_xml,series_xml_id,name,series_name,catalog_base_material,catalog_adhesive_type,catalog_characteristics,catalog_features,catalog_applications
+brand_tesa,category_tape_foam,catalog_tesa_6262x,tesa® 6262x PE泡棉胶带,6262x,PE泡棉,改性丙烯酸,高粘，潮湿性,具有极高的初粘力和润湿性，特别适合粗糙表面及低温环境下的粘结。,电子元器件固定、电池粘贴、排线固定
+brand_tesa,category_tape_foam,catalog_tesa_6264x,tesa® 6264x PE泡棉胶带,6264x,PE泡棉+PET加强膜,改性丙烯酸,易于模切，性能均衡,独特的复合基材设计，提升了产品的加工稳定性和尺寸稳定性，满足高精度模切需求。,视窗粘结、LCD铭板固定
+brand_tesa,category_tape_foam,catalog_tesa_628xx,tesa® 628xx PE泡棉胶带,628xx,PE泡棉,改性丙烯酸,抗反弹，韧性,具有良好的韧性和抗剥离性能，适用于有一定弧度或张力需求的固定场景。,摄像头模组粘贴、听筒网固定
+brand_tesa,category_tape_foam,catalog_tesa_666xx,tesa® 666xx PE泡棉胶带,666xx,PE泡棉,改性丙烯酸,高粘，抗反弹,用于电子行业的通用固定方案。具有出色的初粘力和长期粘结性能。,视窗粘结、后盖粘结、摄像头镜片粘贴、显示屏底底粘结
+brand_tesa,category_tape_foam,catalog_tesa_668xx,tesa® 668xx PE泡棉胶带,668xx,PE泡棉,改性丙烯酸,抗冲击，抗反弹,专为抗冲击需求设计。具有卓越的吸收冲击能量能力和良好的防尘防水性能。,后盖粘结、视窗粘贴、触控面板固定。
+brand_tesa,category_tape_foam,catalog_tesa_754xx,tesa® 754xx/756xx 丙烯酸泡棉胶带,754xx/756xx,PET,改性丙烯酸,高粘、重工性,德莎薄款丙烯酸泡棉胶带系列，专为电子行业的严苛应用设计研发。具有特殊的粘粘表现，结合了高剥离强度与优异的抗冲性。,核窗粘贴、后盖粘贴、显示屏各层粘结、听筒网固定
+brand_tesa,category_tape_foam,catalog_tesa_759xx,tesa® 759xx 丙烯酸泡棉胶带,759xx,PET,丙烯酸,耐化学腐蚀、重工性,具有极佳的耐溢胶性能和优异的重工性能，适用于需要耐化学物质接触的电子元器件固定。,视窗粘结、LCD铭板固定、电池粘贴
+brand_tesa,category_tape_foam,catalog_tesa_758xx,tesa® 758xx 丙烯酸泡棉胶带,758xx,PET,丙烯酸,耐化学腐蚀、服帖性,具有超强的服帖性和耐化学腐蚀性，特别适合由于装配空间受限需要的超薄粘结场景。,听筒网固定、摄像头模组粘贴
+brand_tesa,category_tape_foam,catalog_tesa_757xx,tesa® 757xx 丙烯酸泡棉胶带,757xx,PET,改性丙烯酸,浸润性、重工性,优秀的表面浸润性能，能够快速达到最高粘性，且支持后续重工。包含黑色和白色两种选择。,视窗粘贴、触控面板固定、铭板粘贴
+brand_tesa,category_tape_foam,catalog_tesa_751xx,tesa® 751xx 丙烯酸泡棉胶带,751xx,PET,改性丙烯酸,高粘、抗冲击,针对抗冲击性能深度优化，具有极高的吸收冲击能量能力。适合作为屏幕保护和缓冲连接。,显示屏底座粘结、抗摔保护固定
+brand_tesa,category_tape_foam,catalog_tesa_761xx,tesa® 761xx 特殊泡棉胶带,761xx,PET,合成橡胶,快速粘合、适用于低表面能材料,适合特殊需求开发的泡棉胶带，具有优秀的重工性、抗冲击性和粘贴强度。升温后可快速移除无残留。,元器件粘贴、电池固定、前盖粘贴
+brand_tesa,category_tape_foam,catalog_tesa_471x,tesa® 471x 特殊泡棉胶带,471x,PU,特殊,可剥离设计、使用溶剂移除,适合特殊需求开发的泡棉胶带，使用溶剂移除无残留。,元器件粘贴、电池固定、前盖粘贴
+brand_tesa,category_tape_foam,catalog_tesa_473x,tesa® 473x 特殊泡棉胶带,473x,无基材,特殊结构,使用溶剂移除无残留,结构化表面特殊泡棉胶带，使用溶剂移除无残留。,元器件粘贴、电池固定、前盖粘贴

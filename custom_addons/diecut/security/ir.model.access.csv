@@ -21,3 +21,6 @@ access_diecut_color,Diecut Color Access,model_diecut_color,base.group_user,1,1,1
 access_diecut_material_filter_wizard,Diecut Material Filter Wizard,model_diecut_material_filter_wizard,base.group_user,1,1,1,1
 access_diecut_material_filter_line,Diecut Material Filter Line,model_diecut_material_filter_line,base.group_user,1,1,1,1
 access_diecut_catalog_activate_wizard,Diecut Catalog Activate Wizard,model_diecut_catalog_activate_wizard,base.group_user,1,1,1,1
+access_diecut_catalog_ops_wizard,Diecut Catalog Ops Wizard,model_diecut_catalog_ops_wizard,base.group_user,1,1,1,1
+access_diecut_catalog_ops_log,Diecut Catalog Ops Log,model_diecut_catalog_ops_log,base.group_user,1,1,1,1
+access_diecut_catalog_field_info,Diecut Catalog Field Info,model_diecut_catalog_field_info,base.group_user,1,1,1,1

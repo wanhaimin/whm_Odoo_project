@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="brand_ui_皇冠_4" model="diecut.brand">
+            <field name="name">皇冠</field>
+        </record>
+
+        <record id="catalog_ui_afadfdfadf_160" model="product.template">
+            <field name="name"><![CDATA[afADFDFADF]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_ui_皇冠_4" />
+            <field name="catalog_base_material"><![CDATA[]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[]]></field>
+            <field name="catalog_characteristics"><![CDATA[]]></field>
+            <field name="catalog_features"><![CDATA[]]></field>
+            <field name="catalog_applications"><![CDATA[]]></field>
+            <field name="series_name"><![CDATA[]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+    </data>
+</odoo>

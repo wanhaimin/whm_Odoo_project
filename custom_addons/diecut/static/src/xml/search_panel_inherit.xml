@@ -12,6 +12,7 @@
         <xpath expr="//header[hasclass('o_search_panel_section_header')]" position="inside">
             <button t-if="hasSelection(section.id)" t-on-click="() => this.clearSelection(section.id)" class="btn btn-sm btn-link text-danger p-0 float-end text-decoration-none" title="清除该类选择" style="margin-top: -2px;">
                 <i class="fa fa-trash" />
+                xx
             </button>
         </xpath>
     </t>

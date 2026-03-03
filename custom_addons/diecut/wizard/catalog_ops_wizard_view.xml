@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_catalog_ops_wizard_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.ops.wizard.form</field>
+        <field name="model">diecut.catalog.ops.wizard</field>
+        <field name="arch" type="xml">
+            <form string="数据运维">
+                <group string="操作配置">
+                    <group>
+                        <field name="operation" />
+                        <field name="xml_file" invisible="operation != 'import_xml'" />
+                        <field name="csv_target_file" invisible="operation != 'edit_csv'" />
+                        <field name="confirm_delete_token" invisible="operation not in ('cleanup_xml','generate_assets','sync_csv_to_db')" placeholder="真实删除前输入 DELETE" />
+                    </group>
+                    <group>
+                        <field name="auto_create_external_ids" invisible="operation not in ('export_csv')" />
+                        <field name="prune_unmatched_xml" invisible="operation not in ('generate_assets','sync_csv_to_db')" />
+                        <field name="dry_run" />
+                    </group>
+                </group>
+                <group string="删除预览" invisible="operation not in ('cleanup_xml','generate_assets','sync_csv_to_db')" col="1" colspan="2">
+                    <field name="delete_preview" nolabel="1" readonly="1" colspan="2" />
+                </group>
+                <group string="CSV轻量编辑" invisible="operation != 'edit_csv'" col="1" colspan="2">
+                    <field name="csv_content" nolabel="1" colspan="2" placeholder="点击“加载CSV”后编辑，保存写回 scripts/*.csv" />
+                </group>
+                <group string="操作指南" invisible="not guide_message" col="1" colspan="2">
+                    <field name="guide_message" nolabel="1" readonly="1" colspan="2" />
+                </group>
+                <group string="执行结果" invisible="not result_message" col="1" colspan="2">
+                    <field name="result_message" nolabel="1" readonly="1" colspan="2" />
+                </group>
+                <group string="字段维护清单" invisible="operation != 'view_fields_manual'" col="1" colspan="2">
+                    <p class="text-muted">
+                        以下是选型目录（系列与型号）中所有需要维护的业务相关字段。当代码中新增以
+                        <code>catalog_</code>
+                        或
+                        <code>variant_</code>
+                        开头的字段时，此列表将自动同步。
+                    </p>
+                    <field name="field_info_ids" nolabel="1" colspan="2" readonly="1">
+                        <list decoration-info="model_name == 'product.template'" decoration-success="model_name == 'product.product'">
+                            <field name="model_name" />
+                            <field name="field_name" />
+                            <field name="field_string" />
+                            <field name="field_type" />
+                            <field name="field_help" />
+                        </list>
+                    </field>
+                </group>
+                <footer>
+                    <button name="action_show_guide" string="操作指南" type="object" class="btn-secondary" />
+                    <button name="action_preview_delete_list" string="预览删除项目" type="object" class="btn-secondary" invisible="operation not in ('cleanup_xml','generate_assets','sync_csv_to_db')" />
+                    <button name="action_load_csv_editor" string="加载CSV" type="object" class="btn-secondary" invisible="operation != 'edit_csv'" />
+                    <button name="action_save_csv_editor" string="保存CSV" type="object" class="btn-secondary" invisible="operation != 'edit_csv'" />
+                    <button name="action_open_aggrid_editor" string="打开AG Grid编辑器" type="object" class="btn-secondary" invisible="operation != 'edit_csv'" />
+                    <button name="action_execute" string="执行" type="object" class="btn-primary" />
+                    <button string="关闭" special="cancel" class="btn-secondary" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_catalog_ops_wizard" model="ir.actions.act_window">
+        <field name="name">数据运维</field>
+        <field name="res_model">diecut.catalog.ops.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_catalog_ops_wizard_form" />
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_catalog_ops_log_tree" model="ir.ui.view">
+        <field name="name">diecut.catalog.ops.log.tree</field>
+        <field name="model">diecut.catalog.ops.log</field>
+        <field name="arch" type="xml">
+            <list string="数据运维日志">
+                <field name="create_date" string="时间" />
+                <field name="operator_id" />
+                <field name="operation" />
+                <field name="success" />
+                <field name="detail" />
+            </list>
+        </field>
+    </record>
+
+    <record id="action_catalog_ops_log" model="ir.actions.act_window">
+        <field name="name">数据运维日志</field>
+        <field name="res_model">diecut.catalog.ops.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_catalog_ops_log_tree" />
+    </record>
+</odoo>

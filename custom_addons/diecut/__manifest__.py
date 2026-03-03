@@ -10,9 +10,6 @@
         "data/mail_template_data.xml",
         "data/sequence.xml",
         "data/product_category_data.xml",
-        "data/catalog_sidike_dst_data.xml",
-        "data/catalog_sidike_uv_data.xml",
-        "data/catalog_tesa_acrylic_foam_data.xml",
         "security/ir.model.access.csv",
         
         "views/my_material_base_views.xml",
@@ -35,6 +32,7 @@
         "views/product_category_view.xml",
         "views/material_catalog_views.xml",
         "wizard/catalog_activate_wizard_view.xml",
+        "wizard/catalog_ops_wizard_view.xml",
         "views/diecut_menu_view.xml"
     ],
     'assets': {

@@ -11,3 +11,4 @@ from . import purchase_order
 from . import res_partner
 from . import stock_quant
 from . import stock_move
+from . import catalog_ops_log

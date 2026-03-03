@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="brand_tesa" model="diecut.brand">
+            <field name="name">Tesa</field>
+        </record>
+
+        <record id="catalog_tesa_6262x" model="product.template">
+            <field name="name"><![CDATA[tesa® 6262x PE泡棉胶带]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material"><![CDATA[PE泡棉]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[改性丙烯酸]]></field>
+            <field name="catalog_characteristics"><![CDATA[高粘，潮湿性]]></field>
+            <field name="catalog_features"><![CDATA[具有极高的初粘力和润湿性，特别适合粗糙表面及低温环境下的粘结。]]></field>
+            <field name="catalog_applications"><![CDATA[<p>电子元器件固定、电池粘贴、排线固定</p>]]></field>
+            <field name="series_name"><![CDATA[6262x]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_6264x" model="product.template">
+            <field name="name"><![CDATA[tesa® 6264x PE泡棉胶带]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material"><![CDATA[PE泡棉+PET加强膜]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[改性丙烯酸]]></field>
+            <field name="catalog_characteristics"><![CDATA[易于模切，性能均衡]]></field>
+            <field name="catalog_features"><![CDATA[独特的复合基材设计，提升了产品的加工稳定性和尺寸稳定性，满足高精度模切需求。]]></field>
+            <field name="catalog_applications"><![CDATA[<p>视窗粘结、LCD铭板固定</p>]]></field>
+            <field name="series_name"><![CDATA[6264x]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_628xx" model="product.template">
+            <field name="name"><![CDATA[tesa® 628xx PE泡棉胶带]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material"><![CDATA[PE泡棉]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[改性丙烯酸]]></field>
+            <field name="catalog_characteristics"><![CDATA[抗反弹，韧性]]></field>
+            <field name="catalog_features"><![CDATA[具有良好的韧性和抗剥离性能，适用于有一定弧度或张力需求的固定场景。]]></field>
+            <field name="catalog_applications"><![CDATA[<p>摄像头模组粘贴、听筒网固定</p>]]></field>
+            <field name="series_name"><![CDATA[628xx]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_666xx" model="product.template">
+            <field name="name"><![CDATA[tesa® 666xx PE泡棉胶带]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material"><![CDATA[PE泡棉]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[改性丙烯酸]]></field>
+            <field name="catalog_characteristics"><![CDATA[高粘，抗反弹]]></field>
+            <field name="catalog_features"><![CDATA[用于电子行业的通用固定方案。具有出色的初粘力和长期粘结性能。]]></field>
+            <field name="catalog_applications"><![CDATA[<p>视窗粘结、后盖粘结、摄像头镜片粘贴、显示屏底底粘结</p>]]></field>
+            <field name="series_name"><![CDATA[666xx]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_668xx" model="product.template">
+            <field name="name"><![CDATA[tesa® 668xx PE泡棉胶带]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material"><![CDATA[PE泡棉]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[改性丙烯酸]]></field>
+            <field name="catalog_characteristics"><![CDATA[抗冲击，抗反弹]]></field>
+            <field name="catalog_features"><![CDATA[专为抗冲击需求设计。具有卓越的吸收冲击能量能力和良好的防尘防水性能。]]></field>
+            <field name="catalog_applications"><![CDATA[<p>后盖粘结、视窗粘贴、触控面板固定。</p>]]></field>
+            <field name="series_name"><![CDATA[668xx]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_754xx" model="product.template">
+            <field name="name"><![CDATA[tesa® 754xx/756xx 丙烯酸泡棉胶带]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material"><![CDATA[PET]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[改性丙烯酸]]></field>
+            <field name="catalog_characteristics"><![CDATA[高粘、重工性]]></field>
+            <field name="catalog_features"><![CDATA[德莎薄款丙烯酸泡棉胶带系列，专为电子行业的严苛应用设计研发。具有特殊的粘粘表现，结合了高剥离强度与优异的抗冲性。]]></field>
+            <field name="catalog_applications"><![CDATA[<p>核窗粘贴、后盖粘贴、显示屏各层粘结、听筒网固定</p>]]></field>
+            <field name="series_name"><![CDATA[754xx/756xx]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_759xx" model="product.template">
+            <field name="name"><![CDATA[tesa® 759xx 丙烯酸泡棉胶带]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material"><![CDATA[PET]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[丙烯酸]]></field>
+            <field name="catalog_characteristics"><![CDATA[耐化学腐蚀、重工性]]></field>
+            <field name="catalog_features"><![CDATA[具有极佳的耐溢胶性能和优异的重工性能，适用于需要耐化学物质接触的电子元器件固定。]]></field>
+            <field name="catalog_applications"><![CDATA[<p>视窗粘结、LCD铭板固定、电池粘贴</p>]]></field>
+            <field name="series_name"><![CDATA[759xx]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_758xx" model="product.template">
+            <field name="name"><![CDATA[tesa® 758xx 丙烯酸泡棉胶带]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material"><![CDATA[PET]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[丙烯酸]]></field>
+            <field name="catalog_characteristics"><![CDATA[耐化学腐蚀、服帖性]]></field>
+            <field name="catalog_features"><![CDATA[具有超强的服帖性和耐化学腐蚀性，特别适合由于装配空间受限需要的超薄粘结场景。]]></field>
+            <field name="catalog_applications"><![CDATA[<p>听筒网固定、摄像头模组粘贴</p>]]></field>
+            <field name="series_name"><![CDATA[758xx]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_757xx" model="product.template">
+            <field name="name"><![CDATA[tesa® 757xx 丙烯酸泡棉胶带]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material"><![CDATA[PET]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[改性丙烯酸]]></field>
+            <field name="catalog_characteristics"><![CDATA[浸润性、重工性]]></field>
+            <field name="catalog_features"><![CDATA[优秀的表面浸润性能，能够快速达到最高粘性，且支持后续重工。包含黑色和白色两种选择。]]></field>
+            <field name="catalog_applications"><![CDATA[<p>视窗粘贴、触控面板固定、铭板粘贴</p>]]></field>
+            <field name="series_name"><![CDATA[757xx]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_751xx" model="product.template">
+            <field name="name"><![CDATA[tesa® 751xx 丙烯酸泡棉胶带]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material"><![CDATA[PET]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[改性丙烯酸]]></field>
+            <field name="catalog_characteristics"><![CDATA[高粘、抗冲击]]></field>
+            <field name="catalog_features"><![CDATA[针对抗冲击性能深度优化，具有极高的吸收冲击能量能力。适合作为屏幕保护和缓冲连接。]]></field>
+            <field name="catalog_applications"><![CDATA[<p>显示屏底座粘结、抗摔保护固定</p>]]></field>
+            <field name="series_name"><![CDATA[751xx]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_761xx" model="product.template">
+            <field name="name"><![CDATA[tesa® 761xx 特殊泡棉胶带]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material"><![CDATA[PET]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[合成橡胶]]></field>
+            <field name="catalog_characteristics"><![CDATA[快速粘合、适用于低表面能材料]]></field>
+            <field name="catalog_features"><![CDATA[适合特殊需求开发的泡棉胶带，具有优秀的重工性、抗冲击性和粘贴强度。升温后可快速移除无残留。]]></field>
+            <field name="catalog_applications"><![CDATA[<p>元器件粘贴、电池固定、前盖粘贴</p>]]></field>
+            <field name="series_name"><![CDATA[761xx]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_471x" model="product.template">
+            <field name="name"><![CDATA[tesa® 471x 特殊泡棉胶带]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material"><![CDATA[PU]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[特殊]]></field>
+            <field name="catalog_characteristics"><![CDATA[可剥离设计、使用溶剂移除]]></field>
+            <field name="catalog_features"><![CDATA[适合特殊需求开发的泡棉胶带，使用溶剂移除无残留。]]></field>
+            <field name="catalog_applications"><![CDATA[<p>元器件粘贴、电池固定、前盖粘贴</p>]]></field>
+            <field name="series_name"><![CDATA[471x]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+        <record id="catalog_tesa_473x" model="product.template">
+            <field name="name"><![CDATA[tesa® 473x 特殊泡棉胶带]]></field>
+            <field name="is_catalog">True</field>
+            <field name="catalog_status">published</field>
+            <field name="categ_id" ref="category_tape_foam" />
+            <field name="brand_id" ref="brand_tesa" />
+            <field name="catalog_base_material"><![CDATA[无基材]]></field>
+            <field name="catalog_adhesive_type"><![CDATA[特殊结构]]></field>
+            <field name="catalog_characteristics"><![CDATA[使用溶剂移除无残留]]></field>
+            <field name="catalog_features"><![CDATA[结构化表面特殊泡棉胶带，使用溶剂移除无残留。]]></field>
+            <field name="catalog_applications"><![CDATA[<p>元器件粘贴、电池固定、前盖粘贴</p>]]></field>
+            <field name="series_name"><![CDATA[473x]]></field>
+            <field name="purchase_ok">False</field>
+            <field name="sale_ok">False</field>
+            <field name="type">consu</field>
+        </record>
+    </data>
+</odoo>

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from datetime import date
 import re
-from odoo import models, fields, api
+from odoo import models, fields, api, Command
+import logging
 from odoo.exceptions import ValidationError
 
 class DiecutBrand(models.Model):
@@ -255,6 +256,7 @@ class ProductTemplate(models.Model):
             color_vals = sorted({str(v) for v in record.product_variant_ids.mapped('variant_color_std') if v}, key=str)
             adhesive_vals = sorted({str(v) for v in record.product_variant_ids.mapped('variant_adhesive_std') if v}, key=str)
             base_material_vals = sorted({str(v) for v in record.product_variant_ids.mapped('variant_base_material_std') if v}, key=str)
+            
             record.variant_thickness_std_index = ', '.join(thickness_vals)
             record.variant_color_std_index = ', '.join(color_vals)
             record.variant_adhesive_std_index = ', '.join(adhesive_vals)
@@ -697,6 +699,136 @@ class ProductTemplate(models.Model):
             })
         return res
 
+    @api.model
+    def _load_catalog_base_data_from_json(self):
+        """用于在模块安装或升级时被 XML 调用，智能装入 JSON 的变体物理参数。
+        特性：
+        - 始终以 JSON 为权威源覆盖写入（CSV 改什么，系统就更新什么）
+        - JSON 中移除的字段会被主动清空（支持"置空"操作）
+        """
+        import json
+        import os
+        import logging
+
+        _logger = logging.getLogger(__name__)
+        _logger.info("[DIECUT] Starting _load_catalog_base_data_from_json...")
+        
+        file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'catalog_materials.json')
+        if not os.path.exists(file_path):
+            _logger.warning(f"[DIECUT] JSON file NOT FOUND at: {file_path}")
+            return True
+
+        with open(file_path, 'r', encoding='utf-8') as f:
+            materials_data = json.load(f)
+
+        # 收集所有可写的 variant_ 字段名（排除二进制/关联类字段）
+        writable_variant_fields = set()
+        for fname, fobj in self.env['product.product']._fields.items():
+            if fname.startswith('variant_') and fobj.type in ('char', 'text', 'html', 'float', 'integer', 'boolean', 'selection'):
+                writable_variant_fields.add(fname)
+
+        for series_data in materials_data:
+            series_xml_id = series_data.get('series_xml_id')
+            if not series_xml_id:
+                continue
+                
+            tmpl = self.env.ref(series_xml_id, raise_if_not_found=False)
+            if not tmpl:
+                _logger.warning(f"[DIECUT] ⚠️ Template not found for XML ID: {series_xml_id}")
+                continue
+                
+            variants_info = series_data.get('variants', [])
+            
+            # --- 动态维护产品的变体属性线 ---
+            sku_attr = self.env.ref('diecut.attribute_model_sku', raise_if_not_found=False)
+            if not sku_attr:
+                _logger.error("[DIECUT] Attribute 'diecut.attribute_model_sku' not found! Cannot sync variants.")
+                continue
+
+            # 【防灾处理 1】确保一个模板只有一个“型号”属性行，防止由于多行导致的变体组合爆炸及唯一性冲突
+            sku_lines = tmpl.attribute_line_ids.filtered(lambda l: l.attribute_id == sku_attr)
+            if len(sku_lines) > 1:
+                _logger.warning(f"[DIECUT] 清理重复属性行: Template {tmpl.id}")
+                (sku_lines - sku_lines[0]).unlink()
+            attr_line = sku_lines[0] if sku_lines else self.env['product.template.attribute.line']
+
+            # 【核心修复】建立当前系列已绑定的“型号名称 -> 属性值ID”映射。
+            # 必须优先复用已有 ID，否则 Odoo 的变体算法会判定为映射变更，从而触发 savepoint 存档/创建，
+            # 在高并发或数据同步过程中极易引发 UniqueViolation。
+            existing_mapping = {val.name: val.id for val in (attr_line.value_ids or [])}
+            
+            final_val_ids = []
+            for v_dict in variants_info:
+                code_str = v_dict.get('default_code', '').strip()
+                if not code_str:
+                    continue
+                
+                v_id = existing_mapping.get(code_str)
+                if not v_id:
+                    # 现有未匹配，再从全局查找
+                    val_rec = self.env['product.attribute.value'].search([
+                        ('attribute_id', '=', sku_attr.id),
+                        ('name', '=', code_str)
+                    ], limit=1)
+                    if not val_rec:
+                        val_rec = self.env['product.attribute.value'].create({
+                            'attribute_id': sku_attr.id,
+                            'name': code_str,
+                        })
+                    v_id = val_rec.id
+                final_val_ids.append(v_id)
+
+            # 强制去重
+            unique_ids = list(set(final_val_ids))
+            
+            # 【防灾处理 2】仅在属性值集合真正改变时才触发 write，降低数据库 IO
+            current_ids = set(attr_line.value_ids.ids) if attr_line else set()
+            if set(unique_ids) != current_ids:
+                if not attr_line:
+                    attr_line = self.env['product.template.attribute.line'].create({
+                        'product_tmpl_id': tmpl.id,
+                        'attribute_id': sku_attr.id,
+                        'value_ids': [Command.set(unique_ids)]
+                    })
+                else:
+                    attr_line.write({'value_ids': [Command.set(unique_ids)]})
+                # 强制落盘，确保变体表就绪
+                tmpl.flush_recordset()
+
+            # 开始常规的参数覆盖同步
+            data_map = { v.get('default_code'): v for v in variants_info if v.get('default_code') }
+            updated_count = 0
+            
+            # --- 同步其余变体物理参数 ---
+            for variant in tmpl.product_variant_ids:
+                attr_value_names = variant.product_template_attribute_value_ids.mapped('product_attribute_value_id.name')
+                for attr_name in attr_value_names:
+                    if attr_name in data_map:
+                        v_data = data_map[attr_name]
+                        update_dict = {}
+                        
+                        # 1. 自动写入 JSON 匹配字段
+                        for field_name, value in v_data.items():
+                            if field_name in self.env['product.product']._fields:
+                                update_dict[field_name] = value
+                        
+                        # 2. 清理 JSON 中未指定的 variant_ 字段（保持权威源同步）
+                        std_keys = {'variant_thickness_std', 'variant_color_std', 'variant_adhesive_std', 'variant_base_material_std'}
+                        for fname in writable_variant_fields:
+                            if fname not in v_data and fname not in std_keys and getattr(variant, fname):
+                                field_obj = self.env['product.product']._fields[fname]
+                                if field_obj.type in ('char', 'text', 'html', 'selection'):
+                                    update_dict[fname] = False
+                        
+                        if update_dict:
+                            variant.write(update_dict)
+                            updated_count += 1
+                        break
+            _logger.info(f"[DIECUT] Series {series_xml_id}: 同步 {updated_count}/{len(tmpl.product_variant_ids)} 个型号。")
+        
+        _logger.info("[DIECUT] Finished loading catalog JSON data!")
+        return True
+
 
 class ProductSupplierinfo(models.Model):
     _inherit = 'product.supplierinfo'
@@ -756,7 +888,6 @@ class ProductSupplierinfo(models.Model):
         if self.product_tmpl_id:
             self.product_tmpl_id.main_vendor_id = self.partner_id.id
         return {'type': 'ir.actions.client', 'tag': 'reload'}
-
 
 class ProductProduct(models.Model):
     """产品变体扩展 - 选型目录的变体级技术参数"""
@@ -940,6 +1071,8 @@ class ProductProduct(models.Model):
 
         raw_keys = {'variant_thickness', 'variant_color', 'variant_adhesive_type', 'variant_base_material'}
         std_keys = {'variant_thickness_std', 'variant_color_std', 'variant_adhesive_std', 'variant_base_material_std'}
+        
+        # 1. 自动计算归一化字段
         if raw_keys.intersection(vals.keys()) and not std_keys.intersection(vals.keys()):
             for record in self:
                 auto_vals = record._build_variant_std_vals()
@@ -1005,46 +1138,4 @@ class ProductProduct(models.Model):
                 'target': 'current',
             }
 
-    @api.model
-    def _load_catalog_variant_data(self, tmpl_xml_id: str, variant_data: list):
-        """通用方法：批量填充选型目录变体的技术参数
 
-        Args:
-            tmpl_xml_id: 产品模板的完整 XML ID，如 'diecut.catalog_sidike_dst'
-            variant_data: 变体数据列表，每项为 (属性值名称, {字段: 值}) 的元组
-                示例: [('DST-3', {'default_code': 'DST-3', 'variant_thickness': '35±5 μm'})]
-        """
-        tmpl = self.env.ref(tmpl_xml_id, raise_if_not_found=False)
-        if not tmpl:
-            return
-
-        # 构建 属性值名称 → 变体数据 的映射
-        data_map = {name: vals for name, vals in variant_data}
-
-        for variant in tmpl.product_variant_ids:
-            # 获取该变体对应的属性值名称
-            attr_value_names = variant.product_template_attribute_value_ids.mapped(
-                'product_attribute_value_id.name'
-            )
-            for attr_name in attr_value_names:
-                if attr_name in data_map:
-                    variant.write(data_map[attr_name])
-                    break
-
-    @api.model
-    def _load_sidike_uv_variant_data(self):
-        """Sidike UV失粘胶带系列变体数据（硬编码避免XML转义问题）"""
-        variant_data = [
-            ('SDK2200UV',      {'default_code': 'SDK2200UV',      'variant_base_material': 'PET',      'variant_adhesive_type': '特殊亚克力胶', 'variant_thickness': '65±5 μm',  'variant_color': '透明', 'variant_peel_strength': '> 1500 gf/inch',       'variant_sus_peel': '≥100 gf/inch',  'variant_pe_peel': '≤15 gf/inch',       'variant_holding_power': '胶面 <10¹¹ 膜面 <10¹¹'}),
-            ('SDK2409UV',      {'default_code': 'SDK2409UV',      'variant_base_material': 'PET',      'variant_adhesive_type': '特殊亚克力胶', 'variant_thickness': '100±5 μm', 'variant_color': '透明', 'variant_peel_strength': '1400±400 gf/inch',    'variant_sus_peel': '≥100 gf/inch',  'variant_pe_peel': '≤20 gf/inch',       'variant_holding_power': '胶面 <10⁹ 膜面 <10⁹'}),
-            ('SDK2200UV-P-3',  {'default_code': 'SDK2200UV-P-3',  'variant_base_material': 'PET',      'variant_adhesive_type': '特殊亚克力胶', 'variant_thickness': '100±5 μm', 'variant_color': '透明', 'variant_peel_strength': '> 2200 gf/inch',       'variant_sus_peel': '≥100 gf/inch',  'variant_pe_peel': '≤20 gf/inch',       'variant_holding_power': '膜面 <10⁹'}),
-            ('SDK2408UV',      {'default_code': 'SDK2408UV',      'variant_base_material': 'PET',      'variant_adhesive_type': '特殊亚克力胶', 'variant_thickness': '100±5 μm', 'variant_color': '透明', 'variant_peel_strength': '> 1000 gf/inch',       'variant_sus_peel': '800±300 gf/inch','variant_pe_peel': '≤15 gf/inch',      'variant_holding_power': '/'}),
-            ('SDK2302UV',      {'default_code': 'SDK2302UV',      'variant_base_material': 'PET',      'variant_adhesive_type': '特殊亚克力胶', 'variant_thickness': '155±5 μm', 'variant_color': '透明', 'variant_peel_strength': '1400±400 gf/inch',    'variant_sus_peel': '≥100 gf/inch',  'variant_pe_peel': '≤20 gf/inch',       'variant_holding_power': '/'}),
-            ('SDK2100UV',      {'default_code': 'SDK2100UV',      'variant_base_material': 'PET+BOPP', 'variant_adhesive_type': '特殊亚克力胶', 'variant_thickness': '200±5 μm', 'variant_color': '透明', 'variant_peel_strength': '1400±400 gf/inch',    'variant_sus_peel': '≥100 gf/inch',  'variant_pe_peel': '≤20 gf/inch',       'variant_holding_power': '/'}),
-            ('SDK2304-1UV',    {'default_code': 'SDK2304-1UV',    'variant_base_material': 'PET+BOPP', 'variant_adhesive_type': '特殊亚克力胶', 'variant_thickness': '215±5 μm', 'variant_color': '透明', 'variant_peel_strength': '200±100 gf/inch',     'variant_sus_peel': '≥100 gf/inch',  'variant_pe_peel': '≤20 gf/inch',       'variant_holding_power': '/'}),
-            ('SDK99853UV-F',   {'default_code': 'SDK99853UV-F',   'variant_base_material': 'PO',       'variant_adhesive_type': '特殊亚克力胶', 'variant_thickness': '170±5 μm', 'variant_color': '透明', 'variant_peel_strength': '> 1500 gf/inch',       'variant_sus_peel': '/',             'variant_pe_peel': '<20 gf/inch',       'variant_holding_power': '/'}),
-            ('SDK925AU',       {'default_code': 'SDK925AU',       'variant_base_material': 'PET',      'variant_adhesive_type': '特殊亚克力胶', 'variant_thickness': '70±5 μm',  'variant_color': '透明', 'variant_peel_strength': '> 1700 gf/inch',       'variant_sus_peel': '/',             'variant_pe_peel': '≤10 gf/inch',       'variant_holding_power': '/'}),
-            ('SDK925AU(三抗)', {'default_code': 'SDK925AU(三抗)', 'variant_base_material': 'PET',      'variant_adhesive_type': '特殊亚克力胶', 'variant_thickness': '70±5 μm',  'variant_color': '透明', 'variant_peel_strength': '> 1700 gf/inch',       'variant_sus_peel': '/',             'variant_pe_peel': '≤10 gf/inch',       'variant_holding_power': '胶面 <10⁹ 膜面 <10⁹ 离型膜背面 <10⁹'}),
-            ('SDK9212UV',      {'default_code': 'SDK9212UV',      'variant_base_material': 'PET',      'variant_adhesive_type': '特殊亚克力胶', 'variant_thickness': '50±5 μm',  'variant_color': '透明', 'variant_peel_strength': '双面 > 1500 gf/inch',  'variant_sus_peel': '/',             'variant_pe_peel': '双面 <10 gf/inch',  'variant_holding_power': '/'}),
-        ]
-        self._load_catalog_variant_data('diecut.catalog_sidike_uv', variant_data)

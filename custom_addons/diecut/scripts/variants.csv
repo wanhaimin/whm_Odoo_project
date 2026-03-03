@@ -1,0 +1,55 @@
+﻿series_xml_id,default_code,variant_thickness,variant_color,variant_adhesive_type,variant_base_material,variant_peel_strength,variant_adhesive_std,variant_base_material_std,variant_color_std,variant_fire_rating,variant_holding_power,variant_pe_peel,variant_sus_peel,variant_thickness_std
+catalog_tesa_6262x,62624,200um,黑色,改性丙烯酸,PE泡棉,13.0/16.0N/cm,改性丙烯酸,PE泡棉,黑色,none,180,0.48/0.42,200,200um
+catalog_tesa_6262x,62625,250um,黑色,改性丙烯酸,PE泡棉,13.0/16.0N/cm,改性丙烯酸,PE泡棉,黑色,none,180,0.48/0.42,200,250um
+catalog_tesa_6262x,62626,300um,黑色,改性丙烯酸,PE泡棉,13.0/16.0N/cm,改性丙烯酸,PE泡棉,黑色,none,180,0.48/0.42,200,300um
+catalog_tesa_6264x,62645,250um,黑色,改性丙烯酸,PE泡棉+PET加强膜,10.0/13.5N/cm,改性丙烯酸,PE泡棉+PET加强膜,黑色,none,180,0.45/0.41,315,250um
+catalog_tesa_6264x,62646,300um,黑色,改性丙烯酸,PE泡棉+PET加强膜,10.0/13.5N/cm,改性丙烯酸,PE泡棉+PET加强膜,黑色,none,180,0.45/0.41,315,300um
+catalog_tesa_628xx,62824,200um,黑色,改性丙烯酸,PE泡棉,7.6/11.5N/cm,改性丙烯酸,PE泡棉,黑色,none,226,0.72/0.70,835,200um
+catalog_tesa_628xx,62865,250um,黑色,改性丙烯酸,PE泡棉,7.6/11.5N/cm,改性丙烯酸,PE泡棉,黑色,none,226,0.72/0.70,835,250um
+catalog_tesa_628xx,62866,300um,黑色,改性丙烯酸,PE泡棉,7.6/11.5N/cm,改性丙烯酸,PE泡棉,黑色,none,226,0.72/0.70,835,300um
+catalog_tesa_666xx,66624,200um,黑色,改性丙烯酸,PE泡棉,10.0/12.2N/cm,改性丙烯酸,PE泡棉,黑色,none,248,0.85/0.74,785,200um
+catalog_tesa_666xx,66625,250um,黑色,改性丙烯酸,PE泡棉,10.0/12.2 N/cm,改性丙烯酸,PE泡棉,黑色,none,248,0.85/0.74,785,250um
+catalog_tesa_666xx,66626,300um,黑色,改性丙烯酸,PE泡棉,10.0/12.2 N/cm,改性丙烯酸,PE泡棉,黑色,none,248,0.85/0.74,785,300um
+catalog_tesa_668xx,66822,150um,黑色,改性丙烯酸,PE泡棉,12.5/14.5 N/cm,改性丙烯酸,PE泡棉,黑色,none,252,0.88/0.77,515,150um
+catalog_tesa_668xx,66824,200um,黑色,改性丙烯酸,PE泡棉,12.5/14.5 N/cm,改性丙烯酸,PE泡棉,黑色,none,252,0.88/0.77,515,200um
+catalog_tesa_668xx,66825,250um,黑色,改性丙烯酸,PE泡棉,12.5/14.5 N/cm,改性丙烯酸,PE泡棉,黑色,none,252,0.88/0.77,515,250um
+catalog_tesa_668xx,66826,300um,黑色,改性丙烯酸,PE泡棉,12.5/14.5 N/cm,改性丙烯酸,PE泡棉,黑色,none,252,0.88/0.77,515,300um
+catalog_tesa_668xx,66828,400um,黑色,改性丙烯酸,PE泡棉,12.5/14.5 N/cm,改性丙烯酸,PE泡棉,黑色,none,252,0.88/0.77,515,400um
+catalog_tesa_668xx,66865,250um,白色,改性丙烯酸,PE泡棉,12.5/14.5 N/cm,改性丙烯酸,PE泡棉,白色,none,252,0.88/0.77,515,250um
+catalog_tesa_668xx,66866,300um,白色,改性丙烯酸,PE泡棉,12.5/14.5 N/cm,改性丙烯酸,PE泡棉,白色,none,252,0.88/0.77,515,300um
+catalog_tesa_754xx,75405,50um,黑色,改性丙烯酸,PET,15.5/17.0 N/cm,改性丙烯酸,PET,黑色,none,225,1.3,1.3,50um
+catalog_tesa_754xx,75410,100um,黑色,改性丙烯酸,PET,15.5/17.0 N/cm,改性丙烯酸,PET,黑色,none,225,1.3,1.3,100um
+catalog_tesa_754xx,75415,150um,黑色,改性丙烯酸,PET,15.5/17.0 N/cm,改性丙烯酸,PET,黑色,none,225,1.3,1.3,150um
+catalog_tesa_754xx,75620,200um,黑色,改性丙烯酸,PET,15.5/17.0 N/cm,改性丙烯酸,PET,黑色,none,225,1.3,1.3,200um
+catalog_tesa_754xx,75625,250um,黑色,改性丙烯酸,PET,15.5/17.0 N/cm,改性丙烯酸,PET,黑色,none,225,1.3,1.3,250um
+catalog_tesa_754xx,75630,300um,黑色,改性丙烯酸,PET,15.5/17.0 N/cm,改性丙烯酸,PET,黑色,none,225,1.3,1.3,300um
+catalog_tesa_754xx,75635,350um,黑色,改性丙烯酸,PET,15.5/17.0 N/cm,改性丙烯酸,PET,黑色,none,225,1.3,1.3,350um
+catalog_tesa_754xx,75640,400um,黑色,改性丙烯酸,PET,15.5/17.0 N/cm,改性丙烯酸,PET,黑色,none,225,1.3,1.3,400um
+catalog_tesa_754xx,75645,450um,黑色,改性丙烯酸,PET,15.5/17.0 N/cm,改性丙烯酸,PET,黑色,none,225,1.3,1.3,450um
+catalog_tesa_754xx,75650,500um,黑色,改性丙烯酸,PET,15.5/17.0 N/cm,改性丙烯酸,PET,黑色,none,225,1.3,1.3,500um
+catalog_tesa_759xx,75920,200um,黑色,丙烯酸,PET,10.0/11.5 N/cm,丙烯酸,PET,黑色,none,150,1.7,1.2,200um
+catalog_tesa_759xx,75925,250um,黑色,丙烯酸,PET,10.0/11.5 N/cm,丙烯酸,PET,黑色,none,150,1.7,1.2,250um
+catalog_tesa_759xx,75930,300um,黑色,丙烯酸,PET,10.0/11.5 N/cm,丙烯酸,PET,黑色,none,150,1.7,1.2,300um
+catalog_tesa_758xx,75805,50um,黑色,丙烯酸,PET,9.0/10.5 N/cm,丙烯酸,PET,黑色,none,140,1.5,1.3,50um
+catalog_tesa_758xx,75810,100um,黑色,丙烯酸,PET,9.0/10.5 N/cm,丙烯酸,PET,黑色,none,140,1.5,1.3,100um
+catalog_tesa_758xx,75815,150um,黑色,丙烯酸,PET,9.0/10.5 N/cm,丙烯酸,PET,黑色,none,140,1.5,1.3,150um
+catalog_tesa_758xx,75820,200um,黑色,丙烯酸,PET,9.0/10.5 N/cm,丙烯酸,PET,黑色,none,140,1.5,1.3,200um
+catalog_tesa_757xx,75710,100um,黑色,改性丙烯酸,PET,14.0/15.0 N/cm,改性丙烯酸,PET,黑色,none,205,0.9,0.8,100um
+catalog_tesa_757xx,75715,150um,黑色,改性丙烯酸,PET,14.0/15.0 N/cm,改性丙烯酸,PET,黑色,none,205,0.9,0.8,150um
+catalog_tesa_757xx,75720,200um,黑色,改性丙烯酸,PET,14.0/15.0 N/cm,改性丙烯酸,PET,黑色,none,205,0.9,0.8,200um
+catalog_tesa_757xx,75743,200um,白色,改性丙烯酸,PET,14.0/15.0 N/cm,改性丙烯酸,PET,白色,none,205,0.9,0.8,200um
+catalog_tesa_757xx,75725,250um,黑色,改性丙烯酸,PET,14.0/15.0 N/cm,改性丙烯酸,PET,黑色,none,205,0.9,0.8,250um
+catalog_tesa_757xx,75745,250um,白色,改性丙烯酸,PET,14.0/15.0 N/cm,改性丙烯酸,PET,白色,none,205,0.9,0.8,250um
+catalog_tesa_757xx,75730,300um,黑色,改性丙烯酸,PET,14.0/15.0 N/cm,改性丙烯酸,PET,黑色,none,205,0.9,0.8,300um
+catalog_tesa_751xx,75120,200um,黑色,改性丙烯酸,PET,13.0/15.0 N/cm,改性丙烯酸,PET,黑色,none,300,1.4,1.2,200um
+catalog_tesa_751xx,75125,250um,黑色,改性丙烯酸,PET,13.0/15.0 N/cm,改性丙烯酸,PET,黑色,none,300,1.4,1.2,250um
+catalog_tesa_751xx,75130,300um,黑色,改性丙烯酸,PET,13.0/15.0 N/cm,改性丙烯酸,PET,黑色,none,300,1.4,1.2,300um
+catalog_tesa_761xx,76105,50um,黑色,合成橡胶,PET,7.0/7.0 N/cm,合成橡胶,PET,黑色,none,230,0.7,0.6,50um
+catalog_tesa_761xx,76108,80um,黑色,合成橡胶,PET,7.0/7.0 N/cm,合成橡胶,PET,黑色,none,230,0.7,0.6,80um
+catalog_tesa_761xx,76110,100um,黑色,合成橡胶,PET,7.0/7.0 N/cm,合成橡胶,PET,黑色,none,230,0.7,0.6,100um
+catalog_tesa_761xx,76115,150um,黑色,合成橡胶,PET,7.0/7.0 N/cm,合成橡胶,PET,黑色,none,230,0.7,0.6,150um
+catalog_tesa_761xx,76120,200um,黑色,合成橡胶,PET,7.0/7.0 N/cm,合成橡胶,PET,黑色,none,230,0.7,0.6,200um
+catalog_tesa_761xx,76125,250um,黑色,合成橡胶,PET,7.0/7.0 N/cm,合成橡胶,PET,黑色,none,230,0.7,0.6,250um
+catalog_tesa_471x,4718,80um,白色半透明,特殊,PU,7.0 N/cm,特殊,PU,白色,none,230,0.7,0.6,80um
+catalog_tesa_471x,4710,100um,白色半透明,特殊,PU,7.0 N/cm,特殊,PU,白色,none,230,0.7,0.6,100um
+catalog_tesa_473x,4738,80um,白色半透明,特殊结构,无基材,6.5 N/cm,特殊结构,无基材,白色,none,230,0.7,0.8,80um

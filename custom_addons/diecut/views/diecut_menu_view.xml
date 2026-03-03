@@ -8,6 +8,8 @@
     <menuitem id="menu_material_catalog" name="📚 材料选型大全" parent="menu_diecut_root" action="action_material_catalog" sequence="15" />
     <menuitem id="menu_material_catalog_create_template" name="➕ 新建材料系列" parent="menu_material_catalog" action="action_material_catalog_create_template" sequence="19" />
     <menuitem id="menu_material_catalog_variant" name="📋 材料型号清单" parent="menu_material_catalog" action="action_material_catalog_variant" sequence="20" />
+    <menuitem id="menu_material_catalog_ops" name="数据运维" parent="menu_material_catalog" action="action_catalog_ops_wizard" sequence="21" />
+    <menuitem id="menu_material_catalog_ops_log" name="运维日志" parent="menu_material_catalog" action="action_catalog_ops_log" sequence="22" />
 
     <menuitem id="menu_diecut_raw_material_list" name="原材料" parent="menu_diecut_root" action="action_diecut_raw_material" sequence="20" />
 
