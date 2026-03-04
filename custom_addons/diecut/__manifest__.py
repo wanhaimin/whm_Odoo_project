@@ -10,6 +10,8 @@
         "data/mail_template_data.xml",
         "data/sequence.xml",
         "data/product_category_data.xml",
+        "data/catalog_tesa_data.xml",
+        "data/load_json_data.xml",
         "security/ir.model.access.csv",
         
         "views/my_material_base_views.xml",
