@@ -13,7 +13,11 @@ def main():
         print("ERROR: this script must run in odoo shell context")
         return
 
-    report = env["diecut.catalog.shadow.service"].compare_mapped_fields(limit=None, sample_size=20)
+    service = env["diecut.catalog.shadow.service"]
+    report = {
+        "mapped_fields": service.compare_mapped_fields(limit=None, sample_size=20),
+        "attachments": service.compare_attachment_fields(limit=None, sample_size=20),
+    }
     print(json.dumps(report, ensure_ascii=False, indent=2, default=str))
 
 

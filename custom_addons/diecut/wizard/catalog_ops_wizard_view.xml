@@ -10,18 +10,18 @@
                         <field name="operation" />
                         <field name="xml_file" invisible="operation != 'import_xml'" />
                         <field name="csv_target_file" invisible="operation != 'edit_csv'" />
-                        <field name="backfill_limit" invisible="operation not in ('shadow_backfill','shadow_compare_fields','shadow_refresh_fields')" />
+                        <field name="backfill_limit" invisible="operation not in ('shadow_backfill','shadow_compare_fields','shadow_refresh_fields','shadow_compare_attachments')" />
                         <field name="confirm_delete_token" invisible="operation not in ('cleanup_xml','generate_assets','sync_csv_to_db')" placeholder="真实删除前输入 DELETE" />
                     </group>
                     <group>
                         <field name="auto_create_external_ids" invisible="operation not in ('export_csv')" />
                         <field name="prune_unmatched_xml" invisible="operation not in ('generate_assets','sync_csv_to_db')" />
-                        <field name="dry_run" invisible="operation in ('edit_csv','view_fields_manual','shadow_reconcile','shadow_compare_fields','shadow_refresh_fields')" />
+                        <field name="dry_run" invisible="operation in ('edit_csv','view_fields_manual','shadow_reconcile','shadow_compare_fields','shadow_refresh_fields','shadow_compare_attachments')" />
                     </group>
                 </group>
-                <group string="新架构迁移提示" invisible="operation not in ('shadow_backfill','shadow_reconcile','shadow_compare_fields','shadow_refresh_fields')" col="1" colspan="2">
+                <group string="新架构迁移提示" invisible="operation not in ('shadow_backfill','shadow_reconcile','shadow_compare_fields','shadow_refresh_fields','shadow_compare_attachments')" col="1" colspan="2">
                     <p class="text-muted">
-                        建议流程：先执行“新架构影子回填（预演）”，再执行“新架构影子回填（已执行）”，然后执行“新架构影子对账报告”“新架构字段刷新”和“新旧字段一致性检查”。
+                        建议流程：先执行“新架构影子回填（预演）”，再执行“新架构影子回填（已执行）”，然后执行“新架构影子对账报告”“新架构字段刷新”“新旧字段一致性检查”和“新旧附件一致性检查”。
                     </p>
                 </group>
                 <group string="删除预览" invisible="operation not in ('cleanup_xml','generate_assets','sync_csv_to_db')" col="1" colspan="2">

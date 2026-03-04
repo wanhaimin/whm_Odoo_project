@@ -80,5 +80,22 @@ class DiecutCatalogSyncService(models.AbstractModel):
                 vals["variant_is_halogen_free"] = item.variant_is_halogen_free
             if (not changed_fields or "variant_fire_rating" in changed_fields) and "variant_fire_rating" in variant._fields:
                 vals["variant_fire_rating"] = item.variant_fire_rating
+            if (not changed_fields or "variant_tds_file" in changed_fields) and "variant_tds_file" in variant._fields:
+                vals["variant_tds_file"] = item.variant_tds_file
+            if (not changed_fields or "variant_tds_filename" in changed_fields) and "variant_tds_filename" in variant._fields:
+                vals["variant_tds_filename"] = item.variant_tds_filename
+            if (not changed_fields or "variant_msds_file" in changed_fields) and "variant_msds_file" in variant._fields:
+                vals["variant_msds_file"] = item.variant_msds_file
+            if (not changed_fields or "variant_msds_filename" in changed_fields) and "variant_msds_filename" in variant._fields:
+                vals["variant_msds_filename"] = item.variant_msds_filename
+            if (not changed_fields or "variant_datasheet" in changed_fields) and "variant_datasheet" in variant._fields:
+                vals["variant_datasheet"] = item.variant_datasheet
+            if (not changed_fields or "variant_datasheet_filename" in changed_fields) and "variant_datasheet_filename" in variant._fields:
+                vals["variant_datasheet_filename"] = item.variant_datasheet_filename
+            if (
+                (not changed_fields or "variant_catalog_structure_image" in changed_fields)
+                and "variant_catalog_structure_image" in variant._fields
+            ):
+                vals["variant_catalog_structure_image"] = item.variant_catalog_structure_image
             if vals:
                 variant.with_context(skip_shadow_sync=True).write(vals)

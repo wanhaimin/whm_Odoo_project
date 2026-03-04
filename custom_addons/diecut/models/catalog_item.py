@@ -68,6 +68,13 @@ class DiecutCatalogItem(models.Model):
     variant_is_rohs = fields.Boolean(string="ROHS", default=False)
     variant_is_reach = fields.Boolean(string="REACH", default=False)
     variant_is_halogen_free = fields.Boolean(string="无卤", default=False)
+    variant_tds_file = fields.Binary(string="TDS技术数据表")
+    variant_tds_filename = fields.Char(string="TDS文件名")
+    variant_msds_file = fields.Binary(string="MSDS安全数据表")
+    variant_msds_filename = fields.Char(string="MSDS文件名")
+    variant_datasheet = fields.Binary(string="规格书")
+    variant_datasheet_filename = fields.Char(string="规格书文件名")
+    variant_catalog_structure_image = fields.Binary(string="产品结构图")
     variant_fire_rating = fields.Selection(
         [
             ("ul94_v0", "UL94 V-0"),

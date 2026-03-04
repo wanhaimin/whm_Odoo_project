@@ -35,6 +35,15 @@ class DiecutCatalogShadowService(models.AbstractModel):
         ("variant_is_halogen_free", "variant_is_halogen_free"),
         ("variant_fire_rating", "variant_fire_rating"),
     ]
+    _ATTACHMENT_FIELD_MAP = [
+        ("variant_tds_file", "variant_tds_file", "binary"),
+        ("variant_tds_filename", "variant_tds_filename", "char"),
+        ("variant_msds_file", "variant_msds_file", "binary"),
+        ("variant_msds_filename", "variant_msds_filename", "char"),
+        ("variant_datasheet", "variant_datasheet", "binary"),
+        ("variant_datasheet_filename", "variant_datasheet_filename", "char"),
+        ("variant_catalog_structure_image", "variant_catalog_structure_image", "binary"),
+    ]
 
     @api.model
     def _legacy_series_code(self, template):
@@ -199,6 +208,13 @@ class DiecutCatalogShadowService(models.AbstractModel):
                 "variant_is_reach": variant.variant_is_reach,
                 "variant_is_halogen_free": variant.variant_is_halogen_free,
                 "variant_fire_rating": variant.variant_fire_rating,
+                "variant_tds_file": variant.variant_tds_file,
+                "variant_tds_filename": variant.variant_tds_filename,
+                "variant_msds_file": variant.variant_msds_file,
+                "variant_msds_filename": variant.variant_msds_filename,
+                "variant_datasheet": variant.variant_datasheet,
+                "variant_datasheet_filename": variant.variant_datasheet_filename,
+                "variant_catalog_structure_image": variant.variant_catalog_structure_image,
             }
 
             if dry_run:
@@ -344,6 +360,59 @@ class DiecutCatalogShadowService(models.AbstractModel):
         }
 
     @api.model
+    def compare_attachment_fields(self, limit=None, sample_size=20):
+        domain = [("item_level", "=", "model"), ("legacy_variant_id", "!=", False)]
+        items = self.env["diecut.catalog.item"].search(domain, limit=limit)
+        mismatch_counts = {}
+        samples = []
+        mismatch_rows = 0
+
+        for item in items:
+            variant = item.legacy_variant_id
+            row_mismatch = {}
+            for item_field, legacy_field, field_kind in self._ATTACHMENT_FIELD_MAP:
+                if legacy_field not in variant._fields:
+                    continue
+                left = item[item_field]
+                right = variant[legacy_field]
+
+                if field_kind == "binary":
+                    left_norm = bool(left)
+                    right_norm = bool(right)
+                else:
+                    left_norm = self._normalize_compare_value(left)
+                    right_norm = self._normalize_compare_value(right)
+
+                if left_norm != right_norm:
+                    mismatch_counts[item_field] = mismatch_counts.get(item_field, 0) + 1
+                    row_mismatch[item_field] = {"new": left_norm, "legacy": right_norm}
+
+            if row_mismatch and len(samples) < sample_size:
+                mismatch_rows += 1
+                samples.append(
+                    {
+                        "item_id": item.id,
+                        "legacy_variant_id": variant.id,
+                        "code": item.code,
+                        "mismatches": row_mismatch,
+                    }
+                )
+            elif row_mismatch:
+                mismatch_rows += 1
+
+        return {
+            "total_checked": len(items),
+            "mismatch_field_count": len(mismatch_counts),
+            "mismatch_counts": mismatch_counts,
+            "sample_mismatches": samples,
+            "all_match": not bool(mismatch_counts),
+            "sample_size": sample_size,
+            "limit": limit,
+            "mapping_fields": [f[0] for f in self._ATTACHMENT_FIELD_MAP],
+            "sample_rows": mismatch_rows,
+        }
+
+    @api.model
     def refresh_model_fields_from_legacy(self, limit=None):
         domain = [("item_level", "=", "model"), ("legacy_variant_id", "!=", False)]
         items = self.env["diecut.catalog.item"].search(domain, limit=limit)
@@ -372,6 +441,13 @@ class DiecutCatalogShadowService(models.AbstractModel):
                 "variant_is_reach": variant.variant_is_reach,
                 "variant_is_halogen_free": variant.variant_is_halogen_free,
                 "variant_fire_rating": variant.variant_fire_rating,
+                "variant_tds_file": variant.variant_tds_file,
+                "variant_tds_filename": variant.variant_tds_filename,
+                "variant_msds_file": variant.variant_msds_file,
+                "variant_msds_filename": variant.variant_msds_filename,
+                "variant_datasheet": variant.variant_datasheet,
+                "variant_datasheet_filename": variant.variant_datasheet_filename,
+                "variant_catalog_structure_image": variant.variant_catalog_structure_image,
             }
             item.with_context(skip_shadow_sync=True).write(vals)
             updated += 1

@@ -76,6 +76,20 @@
                             <field name="variant_fire_rating" string="防火等级"/>
                         </group>
                     </group>
+
+                    <group string="文档与附件（Phase4）" invisible="item_level != 'model'">
+                        <group>
+                            <field name="variant_tds_filename" string="TDS文件名"/>
+                            <field name="variant_msds_filename" string="MSDS文件名"/>
+                            <field name="variant_datasheet_filename" string="规格书文件名"/>
+                        </group>
+                        <group>
+                            <field name="variant_tds_file" string="TDS技术数据表" widget="binary" filename="variant_tds_filename"/>
+                            <field name="variant_msds_file" string="MSDS安全数据表" widget="binary" filename="variant_msds_filename"/>
+                            <field name="variant_datasheet" string="规格书" widget="binary" filename="variant_datasheet_filename"/>
+                            <field name="variant_catalog_structure_image" string="产品结构图" widget="image"/>
+                        </group>
+                    </group>
                 </sheet>
             </form>
         </field>

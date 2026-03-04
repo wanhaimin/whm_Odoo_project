@@ -26,6 +26,10 @@
 | ERP启用 | `erp_enabled` | `product.product.is_activated` | 双向（影子回填 + 双写） | 旧 | |
 | ERP产品映射 | `erp_product_tmpl_id` | `product.product.activated_product_tmpl_id` | 双向（影子回填 + 双写） | 旧 | |
 | 型号归属系列 | `parent_id` | （旧无直接字段） | 旧->新 | 新 | 由系列名/模板映射推导 |
+| TDS附件 | `variant_tds_file` / `variant_tds_filename` | `product.product.variant_tds_file` / `variant_tds_filename` | 双向（影子回填 + 双写） | 旧 | 附件一致性按“是否有文件 + 文件名”比对 |
+| MSDS附件 | `variant_msds_file` / `variant_msds_filename` | `product.product.variant_msds_file` / `variant_msds_filename` | 双向（影子回填 + 双写） | 旧 | 同上 |
+| 规格书附件 | `variant_datasheet` / `variant_datasheet_filename` | `product.product.variant_datasheet` / `variant_datasheet_filename` | 双向（影子回填 + 双写） | 旧 | 同上 |
+| 结构图附件 | `variant_catalog_structure_image` | `product.product.variant_catalog_structure_image` | 双向（影子回填 + 双写） | 旧 | 按是否有图片比对 |
 
 ## 3. 运行时切换策略（当前）
 
@@ -44,7 +48,7 @@
 - 文档字段（TDS/MSDS/规格书文件及文件名）
 - 价格/参考价字段
 
-说明：第一批技术参数与合规基础字段已在新模型落地（见上表），剩余重点为文档与附件类字段。
+说明：第一批技术参数、合规字段及附件字段已在新模型落地（见上表），后续重点转向切换窗口演练与主源切换规则。
 
 每个字段需补充：
 
@@ -63,5 +67,6 @@
 ## 6. 一键校验入口
 
 - 运维向导操作：`新旧字段一致性检查`
+- 运维向导操作：`新旧附件一致性检查`
 - 脚本入口（容器内 Odoo shell）：
   - `/mnt/extra-addons/diecut/scripts/check_shadow_field_parity.py`
