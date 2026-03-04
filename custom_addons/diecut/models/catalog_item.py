@@ -55,6 +55,30 @@ class DiecutCatalogItem(models.Model):
 
     erp_enabled = fields.Boolean(string="已启用ERP", default=False, index=True)
     erp_product_tmpl_id = fields.Many2one("product.template", string="ERP产品", readonly=True, copy=False)
+    variant_thickness = fields.Char(string="厚度")
+    variant_color = fields.Char(string="颜色")
+    variant_adhesive_type = fields.Char(string="胶系(变体)")
+    variant_base_material = fields.Char(string="基材(变体)")
+    variant_thickness_std = fields.Char(string="厚度(标准)")
+    variant_color_std = fields.Char(string="颜色(标准)")
+    variant_adhesive_std = fields.Char(string="胶系(标准)")
+    variant_base_material_std = fields.Char(string="基材(标准)")
+    variant_ref_price = fields.Float(string="参考单价", digits=(16, 4))
+    variant_note = fields.Text(string="型号备注")
+    variant_is_rohs = fields.Boolean(string="ROHS", default=False)
+    variant_is_reach = fields.Boolean(string="REACH", default=False)
+    variant_is_halogen_free = fields.Boolean(string="无卤", default=False)
+    variant_fire_rating = fields.Selection(
+        [
+            ("ul94_v0", "UL94 V-0"),
+            ("ul94_v1", "UL94 V-1"),
+            ("ul94_v2", "UL94 V-2"),
+            ("ul94_hb", "UL94 HB"),
+            ("none", "无"),
+        ],
+        string="防火等级",
+        default="none",
+    )
     is_orphan = fields.Boolean(
         string="孤儿型号",
         compute="_compute_is_orphan",

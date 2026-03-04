@@ -12,6 +12,30 @@ class DiecutCatalogShadowService(models.AbstractModel):
     _name = "diecut.catalog.shadow.service"
     _description = "新架构影子迁移服务"
 
+    _MODEL_FIELD_MAP = [
+        ("name", "name"),
+        ("code", "default_code"),
+        ("catalog_status", "catalog_status"),
+        ("brand_id", "catalog_brand_id"),
+        ("categ_id", "catalog_categ_id"),
+        ("erp_enabled", "is_activated"),
+        ("erp_product_tmpl_id", "activated_product_tmpl_id"),
+        ("variant_thickness", "variant_thickness"),
+        ("variant_color", "variant_color"),
+        ("variant_adhesive_type", "variant_adhesive_type"),
+        ("variant_base_material", "variant_base_material"),
+        ("variant_thickness_std", "variant_thickness_std"),
+        ("variant_color_std", "variant_color_std"),
+        ("variant_adhesive_std", "variant_adhesive_std"),
+        ("variant_base_material_std", "variant_base_material_std"),
+        ("variant_ref_price", "variant_ref_price"),
+        ("variant_note", "variant_note"),
+        ("variant_is_rohs", "variant_is_rohs"),
+        ("variant_is_reach", "variant_is_reach"),
+        ("variant_is_halogen_free", "variant_is_halogen_free"),
+        ("variant_fire_rating", "variant_fire_rating"),
+    ]
+
     @api.model
     def _legacy_series_code(self, template):
         xml_map = template.get_external_id() if template else {}
@@ -161,6 +185,20 @@ class DiecutCatalogShadowService(models.AbstractModel):
                 "legacy_variant_id": variant.id,
                 "erp_enabled": bool(variant.is_activated),
                 "erp_product_tmpl_id": variant.activated_product_tmpl_id.id,
+                "variant_thickness": variant.variant_thickness,
+                "variant_color": variant.variant_color,
+                "variant_adhesive_type": variant.variant_adhesive_type,
+                "variant_base_material": variant.variant_base_material,
+                "variant_thickness_std": variant.variant_thickness_std,
+                "variant_color_std": variant.variant_color_std,
+                "variant_adhesive_std": variant.variant_adhesive_std,
+                "variant_base_material_std": variant.variant_base_material_std,
+                "variant_ref_price": variant.variant_ref_price,
+                "variant_note": variant.variant_note,
+                "variant_is_rohs": variant.variant_is_rohs,
+                "variant_is_reach": variant.variant_is_reach,
+                "variant_is_halogen_free": variant.variant_is_halogen_free,
+                "variant_fire_rating": variant.variant_fire_rating,
             }
 
             if dry_run:
@@ -250,3 +288,99 @@ class DiecutCatalogShadowService(models.AbstractModel):
             "duplicate_brand_code_count": duplicate_brand_code_count,
             "orphan_model_count": orphan_model_count,
         }
+
+    @api.model
+    def compare_mapped_fields(self, limit=None, sample_size=20):
+        domain = [("item_level", "=", "model"), ("legacy_variant_id", "!=", False)]
+        items = self.env["diecut.catalog.item"].search(domain, limit=limit)
+        mismatch_counts = {}
+        samples = []
+        mismatch_rows = 0
+
+        for item in items:
+            variant = item.legacy_variant_id
+            row_mismatch = {}
+            for item_field, legacy_field in self._MODEL_FIELD_MAP:
+                if legacy_field not in variant._fields:
+                    continue
+                left = item[item_field]
+                right = variant[legacy_field]
+
+                left_norm = self._normalize_compare_value(left)
+                right_norm = self._normalize_compare_value(right)
+
+                if item_field == "variant_ref_price":
+                    left_norm = round(float(left_norm or 0.0), 4)
+                    right_norm = round(float(right_norm or 0.0), 4)
+
+                if left_norm != right_norm:
+                    mismatch_counts[item_field] = mismatch_counts.get(item_field, 0) + 1
+                    row_mismatch[item_field] = {"new": left_norm, "legacy": right_norm}
+
+            if row_mismatch and len(samples) < sample_size:
+                mismatch_rows += 1
+                samples.append(
+                    {
+                        "item_id": item.id,
+                        "legacy_variant_id": variant.id,
+                        "code": item.code,
+                        "mismatches": row_mismatch,
+                    }
+                )
+            elif row_mismatch:
+                mismatch_rows += 1
+
+        total = len(items)
+        return {
+            "total_checked": total,
+            "mismatch_field_count": len(mismatch_counts),
+            "mismatch_counts": mismatch_counts,
+            "sample_mismatches": samples,
+            "all_match": not bool(mismatch_counts),
+            "sample_size": sample_size,
+            "limit": limit,
+            "mapping_fields": [f[0] for f in self._MODEL_FIELD_MAP],
+            "sample_rows": mismatch_rows,
+        }
+
+    @api.model
+    def refresh_model_fields_from_legacy(self, limit=None):
+        domain = [("item_level", "=", "model"), ("legacy_variant_id", "!=", False)]
+        items = self.env["diecut.catalog.item"].search(domain, limit=limit)
+        updated = 0
+        for item in items:
+            variant = item.legacy_variant_id
+            vals = {
+                "name": variant.name,
+                "code": variant.default_code,
+                "catalog_status": variant.catalog_status,
+                "brand_id": variant.catalog_brand_id.id,
+                "categ_id": variant.catalog_categ_id.id,
+                "erp_enabled": bool(variant.is_activated),
+                "erp_product_tmpl_id": variant.activated_product_tmpl_id.id,
+                "variant_thickness": variant.variant_thickness,
+                "variant_color": variant.variant_color,
+                "variant_adhesive_type": variant.variant_adhesive_type,
+                "variant_base_material": variant.variant_base_material,
+                "variant_thickness_std": variant.variant_thickness_std,
+                "variant_color_std": variant.variant_color_std,
+                "variant_adhesive_std": variant.variant_adhesive_std,
+                "variant_base_material_std": variant.variant_base_material_std,
+                "variant_ref_price": variant.variant_ref_price,
+                "variant_note": variant.variant_note,
+                "variant_is_rohs": variant.variant_is_rohs,
+                "variant_is_reach": variant.variant_is_reach,
+                "variant_is_halogen_free": variant.variant_is_halogen_free,
+                "variant_fire_rating": variant.variant_fire_rating,
+            }
+            item.with_context(skip_shadow_sync=True).write(vals)
+            updated += 1
+        return {"total": len(items), "updated": updated}
+
+    @api.model
+    def _normalize_compare_value(self, value):
+        if isinstance(value, models.BaseModel):
+            return value.id if value else False
+        if isinstance(value, str):
+            return value.strip()
+        return value

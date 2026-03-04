@@ -87,6 +87,7 @@
 - 模块升级：`odoo -u diecut`
 - 统一入口模式检查：应为 `legacy_split`
 - 影子对账：缺失/重复/孤儿应为 0
+- 字段一致性：`odoo shell --shell-file /mnt/extra-addons/diecut/scripts/check_shadow_field_parity.py --shell-interface=python`
 - 菜单权限：普通用户不可见实验入口
 
 ## 9. 交付物

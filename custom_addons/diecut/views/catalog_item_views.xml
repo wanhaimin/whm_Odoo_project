@@ -12,6 +12,10 @@
                 <field name="name" string="名称"/>
                 <field name="parent_id" string="所属系列"/>
                 <field name="catalog_status" string="状态"/>
+                <field name="variant_thickness_std" string="厚度(标准)" optional="hide"/>
+                <field name="variant_color_std" string="颜色(标准)" optional="hide"/>
+                <field name="variant_adhesive_std" string="胶系(标准)" optional="hide"/>
+                <field name="variant_base_material_std" string="基材(标准)" optional="hide"/>
                 <field name="is_system_default_series" string="系统默认"/>
                 <field name="is_orphan" string="孤儿型号" optional="hide"/>
                 <field name="is_duplicate_key" string="编码重复" optional="hide"/>
@@ -51,6 +55,27 @@
                             <field name="legacy_variant_id" string="旧型号" readonly="1"/>
                         </group>
                     </group>
+
+                    <group string="技术参数（Phase4）" invisible="item_level != 'model'">
+                        <group>
+                            <field name="variant_thickness" string="厚度"/>
+                            <field name="variant_color" string="颜色"/>
+                            <field name="variant_adhesive_type" string="胶系(变体)"/>
+                            <field name="variant_base_material" string="基材(变体)"/>
+                            <field name="variant_ref_price" string="参考单价"/>
+                            <field name="variant_note" string="型号备注"/>
+                        </group>
+                        <group>
+                            <field name="variant_thickness_std" string="厚度(标准)"/>
+                            <field name="variant_color_std" string="颜色(标准)"/>
+                            <field name="variant_adhesive_std" string="胶系(标准)"/>
+                            <field name="variant_base_material_std" string="基材(标准)"/>
+                            <field name="variant_is_rohs" string="ROHS"/>
+                            <field name="variant_is_reach" string="REACH"/>
+                            <field name="variant_is_halogen_free" string="无卤"/>
+                            <field name="variant_fire_rating" string="防火等级"/>
+                        </group>
+                    </group>
                 </sheet>
             </form>
         </field>
@@ -65,6 +90,10 @@
                 <field name="brand_id" string="品牌"/>
                 <field name="series_code" string="系列编码"/>
                 <field name="code" string="型号编码"/>
+                <field name="variant_thickness_std" string="厚度(标准)"/>
+                <field name="variant_color_std" string="颜色(标准)"/>
+                <field name="variant_adhesive_std" string="胶系(标准)"/>
+                <field name="variant_base_material_std" string="基材(标准)"/>
                 <field name="catalog_status" string="状态"/>
                 <filter name="filter_level_series" string="系列" domain="[('item_level', '=', 'series')]"/>
                 <filter name="filter_level_model" string="型号" domain="[('item_level', '=', 'model')]"/>
@@ -76,6 +105,8 @@
                 <separator/>
                 <filter name="filter_erp_enabled" string="已启用ERP" domain="[('item_level', '=', 'model'), ('erp_enabled', '=', True)]"/>
                 <filter name="filter_erp_not_enabled" string="未启用ERP" domain="[('item_level', '=', 'model'), ('erp_enabled', '=', False)]"/>
+                <filter name="filter_rohs" string="ROHS" domain="[('item_level', '=', 'model'), ('variant_is_rohs', '=', True)]"/>
+                <filter name="filter_reach" string="REACH" domain="[('item_level', '=', 'model'), ('variant_is_reach', '=', True)]"/>
                 <separator/>
                 <filter name="filter_orphan" string="孤儿型号" domain="[('is_orphan', '=', True)]"/>
                 <filter name="filter_duplicate_code" string="编码重复" domain="[('is_duplicate_key', '=', True)]"/>

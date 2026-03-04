@@ -43,6 +43,8 @@ class CatalogOpsWizard(models.TransientModel):
             ("sync_csv_to_db", "CSV同步入库"),
             ("shadow_backfill", "新架构影子回填（旧模型 -> catalog.item）"),
             ("shadow_reconcile", "新架构影子对账报告"),
+            ("shadow_refresh_fields", "新架构字段刷新（旧模型 -> 新模型）"),
+            ("shadow_compare_fields", "新旧字段一致性检查"),
             ("import_xml", "导入指定XML"),
             ("cleanup_xml", "清理未匹配品牌XML"),
             ("edit_csv", "CSV轻量编辑"),
@@ -506,9 +508,15 @@ class CatalogOpsWizard(models.TransientModel):
             "8) 新架构影子对账报告\n"
             "   - 用途：检查旧型号总量与新影子模型一致性（缺失、重复、孤儿）。\n"
             "   - 建议在影子回填后立即执行。\n\n"
+            "9) 新旧字段一致性检查\n"
+            "   - 用途：对比新模型与旧型号关键字段是否一致（技术参数/状态/映射等）。\n"
+            "   - 建议在影子回填后和每次部署后执行。\n\n"
+            "10) 新架构字段刷新（旧模型 -> 新模型）\n"
+            "   - 用途：按 legacy_variant_id 将旧型号关键字段批量刷新到新模型。\n"
+            "   - 适用于模型字段新增后的历史数据补齐。\n\n"
             "【推荐流程】\n"
             "导出CSV -> 编辑CSV -> 从CSV生成JSON/XML（预演） -> CSV同步入库（先预演，再执行）\n"
-            "新架构迁移：影子回填（先预演） -> 影子回填（执行） -> 影子对账报告"
+            "新架构迁移：影子回填（先预演） -> 影子回填（执行） -> 影子对账报告 -> 字段刷新 -> 字段一致性检查"
         )
         return {
             "type": "ir.actions.act_window",
@@ -664,6 +672,28 @@ class CatalogOpsWizard(models.TransientModel):
                     f"缺失影子记录: {report['missing_shadow_count']}\n"
                     f"品牌+编码重复组: {report['duplicate_brand_code_count']}\n"
                     f"孤儿型号(无父系列): {report['orphan_model_count']}"
+                )
+            elif self.operation == "shadow_compare_fields":
+                limit = self.backfill_limit if (self.backfill_limit or 0) > 0 else None
+                report = self.env["diecut.catalog.shadow.service"].compare_mapped_fields(limit=limit, sample_size=20)
+                mismatch_lines = []
+                for field_name, count in sorted(report["mismatch_counts"].items(), key=lambda x: (-x[1], x[0]))[:10]:
+                    mismatch_lines.append(f"- {field_name}: {count}")
+                msg = (
+                    "新旧字段一致性检查\n"
+                    f"检查条数: {report['total_checked']}\n"
+                    f"异常记录数: {report['mismatch_rows']}\n"
+                    f"异常字段数: {report['mismatch_field_count']}\n"
+                    f"结论: {'全部一致' if report['all_match'] else '存在不一致'}\n"
+                    + ("字段异常TOP:\n" + "\n".join(mismatch_lines) if mismatch_lines else "字段异常TOP:\n(无)")
+                )
+            elif self.operation == "shadow_refresh_fields":
+                limit = self.backfill_limit if (self.backfill_limit or 0) > 0 else None
+                stats = self.env["diecut.catalog.shadow.service"].refresh_model_fields_from_legacy(limit=limit)
+                msg = (
+                    "新架构字段刷新完成\n"
+                    f"处理条数: {stats['total']}\n"
+                    f"刷新条数: {stats['updated']}"
                 )
             elif self.operation == "cleanup_xml":
                 planned = self._list_unmatched_brand_xml()
