@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_diecut_catalog_item_tree" model="ir.ui.view">
+        <field name="name">diecut.catalog.item.tree</field>
+        <field name="model">diecut.catalog.item</field>
+        <field name="arch" type="xml">
+            <list string="材料选型条目" default_order="brand_id, is_system_default_series, sequence, id">
+                <field name="item_level" string="层级"/>
+                <field name="brand_id" string="品牌"/>
+                <field name="series_code" string="系列编码"/>
+                <field name="code" string="型号编码"/>
+                <field name="name" string="名称"/>
+                <field name="parent_id" string="所属系列"/>
+                <field name="catalog_status" string="状态"/>
+                <field name="is_system_default_series" string="系统默认"/>
+                <field name="is_orphan" string="孤儿型号" optional="hide"/>
+                <field name="is_duplicate_key" string="编码重复" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_item_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.item.form</field>
+        <field name="model">diecut.catalog.item</field>
+        <field name="arch" type="xml">
+            <form string="材料选型条目（灰度）">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="item_level" string="层级"/>
+                            <field name="brand_id" string="品牌"/>
+                            <field name="categ_id" string="材料分类"/>
+                            <field name="catalog_status" string="目录状态"/>
+                        </group>
+                        <group>
+                            <field name="name" string="名称"/>
+                            <field name="series_code" string="系列编码" invisible="item_level != 'series'"/>
+                            <field name="code" string="型号编码" invisible="item_level != 'model'"/>
+                            <field name="parent_id" string="所属系列" invisible="item_level != 'model'"/>
+                            <field name="is_system_default_series" string="系统默认系列" invisible="item_level != 'series'"/>
+                        </group>
+                    </group>
+
+                    <group string="ERP映射与追溯">
+                        <group>
+                            <field name="erp_enabled" string="已启用ERP" readonly="1"/>
+                            <field name="erp_product_tmpl_id" string="ERP产品" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="legacy_tmpl_id" string="旧系列" readonly="1"/>
+                            <field name="legacy_variant_id" string="旧型号" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_item_search" model="ir.ui.view">
+        <field name="name">diecut.catalog.item.search</field>
+        <field name="model">diecut.catalog.item</field>
+        <field name="arch" type="xml">
+            <search string="材料选型条目搜索">
+                <field name="name" string="名称"/>
+                <field name="brand_id" string="品牌"/>
+                <field name="series_code" string="系列编码"/>
+                <field name="code" string="型号编码"/>
+                <field name="catalog_status" string="状态"/>
+                <filter name="filter_level_series" string="系列" domain="[('item_level', '=', 'series')]"/>
+                <filter name="filter_level_model" string="型号" domain="[('item_level', '=', 'model')]"/>
+                <filter name="filter_default_series" string="默认系列" domain="[('item_level', '=', 'series'), ('is_system_default_series', '=', True)]"/>
+                <separator/>
+                <filter name="filter_status_published" string="已发布" domain="[('catalog_status', '=', 'published')]"/>
+                <filter name="filter_status_review" string="评审中" domain="[('catalog_status', '=', 'review')]"/>
+                <filter name="filter_status_draft" string="草稿" domain="[('catalog_status', '=', 'draft')]"/>
+                <separator/>
+                <filter name="filter_erp_enabled" string="已启用ERP" domain="[('item_level', '=', 'model'), ('erp_enabled', '=', True)]"/>
+                <filter name="filter_erp_not_enabled" string="未启用ERP" domain="[('item_level', '=', 'model'), ('erp_enabled', '=', False)]"/>
+                <separator/>
+                <filter name="filter_orphan" string="孤儿型号" domain="[('is_orphan', '=', True)]"/>
+                <filter name="filter_duplicate_code" string="编码重复" domain="[('is_duplicate_key', '=', True)]"/>
+                <filter name="filter_integrity_issue" string="结构异常" domain="['|', ('is_orphan', '=', True), ('is_duplicate_key', '=', True)]"/>
+                <separator/>
+                <filter name="group_brand" string="按品牌分组" context="{'group_by': 'brand_id'}"/>
+                <filter name="group_level" string="按层级分组" context="{'group_by': 'item_level'}"/>
+                <filter name="group_series" string="按系列分组" context="{'group_by': 'parent_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_catalog_item_gray" model="ir.actions.act_window">
+        <field name="name">材料型号清单（新架构-灰度）</field>
+        <field name="res_model">diecut.catalog.item</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_catalog_item_search"/>
+        <field name="context">{'search_default_filter_level_model': 1}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_diecut_catalog_item_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_diecut_catalog_item_form')})]"/>
+    </record>
+</odoo>

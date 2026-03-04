@@ -41,6 +41,8 @@ class CatalogOpsWizard(models.TransientModel):
             ("export_csv", "导出CSV（DB -> scripts）"),
             ("generate_assets", "从CSV生成JSON/XML"),
             ("sync_csv_to_db", "CSV同步入库"),
+            ("shadow_backfill", "新架构影子回填（旧模型 -> catalog.item）"),
+            ("shadow_reconcile", "新架构影子对账报告"),
             ("import_xml", "导入指定XML"),
             ("cleanup_xml", "清理未匹配品牌XML"),
             ("edit_csv", "CSV轻量编辑"),
@@ -62,6 +64,7 @@ class CatalogOpsWizard(models.TransientModel):
     auto_create_external_ids = fields.Boolean(string="自动补齐外部ID", default=True)
     prune_unmatched_xml = fields.Boolean(string="删除未匹配品牌XML", default=False)
     dry_run = fields.Boolean(string="预演（不落盘/不删除）", default=True)
+    backfill_limit = fields.Integer(string="回填上限", default=0, help="仅用于影子回填；0 表示不限制。")
     confirm_delete_token = fields.Char(
         string="删除确认词",
         help="执行真实删除前，请输入：DELETE",
@@ -496,8 +499,16 @@ class CatalogOpsWizard(models.TransientModel):
             "   - 用途：在界面直接编辑 scripts 下 CSV（series/variants）。\n"
             "   - 先点“加载CSV”，编辑后点“保存CSV”。\n"
             "   - 建议保存后先执行“从CSV生成JSON/XML（预演）”检查结果。\n\n"
+            "7) 新架构影子回填（旧模型 -> catalog.item）\n"
+            "   - 用途：把旧选型型号按品牌/系列规则回填到 diecut.catalog.item。\n"
+            "   - 可设置“回填上限”做小批量灰度验证。\n"
+            "   - 建议先预演，确认跳过与错误数量后再执行。\n\n"
+            "8) 新架构影子对账报告\n"
+            "   - 用途：检查旧型号总量与新影子模型一致性（缺失、重复、孤儿）。\n"
+            "   - 建议在影子回填后立即执行。\n\n"
             "【推荐流程】\n"
-            "导出CSV -> 编辑CSV -> 从CSV生成JSON/XML（预演） -> CSV同步入库（先预演，再执行）"
+            "导出CSV -> 编辑CSV -> 从CSV生成JSON/XML（预演） -> CSV同步入库（先预演，再执行）\n"
+            "新架构迁移：影子回填（先预演） -> 影子回填（执行） -> 影子对账报告"
         )
         return {
             "type": "ir.actions.act_window",
@@ -628,6 +639,32 @@ class CatalogOpsWizard(models.TransientModel):
                 else:
                     rel = self._import_xml(self.xml_file)
                     msg = f"导入成功: {rel}"
+            elif self.operation == "shadow_backfill":
+                limit = self.backfill_limit if (self.backfill_limit or 0) > 0 else None
+                stats = self.env["diecut.catalog.shadow.service"].shadow_backfill_from_legacy(
+                    dry_run=self.dry_run,
+                    limit=limit,
+                )
+                msg = (
+                    f"影子回填完成（{'预演' if self.dry_run else '已执行'}）\n"
+                    f"回填上限: {limit or '不限'}\n"
+                    f"旧型号总数: {stats['total_variants']}\n"
+                    f"系列写入: {stats['series_upserted']}\n"
+                    f"型号写入: {stats['models_upserted']}\n"
+                    f"跳过(无编码): {stats['models_skipped_no_code']}\n"
+                    f"跳过(无品牌): {stats['models_skipped_no_brand']}\n"
+                    f"错误数: {stats['errors']}"
+                )
+            elif self.operation == "shadow_reconcile":
+                report = self.env["diecut.catalog.shadow.service"].shadow_reconcile_report()
+                msg = (
+                    "影子对账报告\n"
+                    f"旧模型型号数: {report['legacy_model_count']}\n"
+                    f"新模型型号数: {report['shadow_model_count']}\n"
+                    f"缺失影子记录: {report['missing_shadow_count']}\n"
+                    f"品牌+编码重复组: {report['duplicate_brand_code_count']}\n"
+                    f"孤儿型号(无父系列): {report['orphan_model_count']}"
+                )
             elif self.operation == "cleanup_xml":
                 planned = self._list_unmatched_brand_xml()
                 self._ensure_delete_confirmation(planned)

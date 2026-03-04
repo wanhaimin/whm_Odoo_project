@@ -24,4 +24,7 @@ access_diecut_catalog_activate_wizard,Diecut Catalog Activate Wizard,model_diecu
 access_diecut_catalog_ops_wizard,Diecut Catalog Ops Wizard,model_diecut_catalog_ops_wizard,base.group_user,1,1,1,1
 access_diecut_catalog_ops_log,Diecut Catalog Ops Log,model_diecut_catalog_ops_log,base.group_user,1,1,1,1
 access_diecut_catalog_field_info,Diecut Catalog Field Info,model_diecut_catalog_field_info,base.group_user,1,1,1,1
+access_diecut_catalog_shadow_health_wizard,Diecut Catalog Shadow Health Wizard,model_diecut_catalog_shadow_health_wizard,base.group_user,1,1,1,1
+access_diecut_catalog_runtime_switch_wizard,Diecut Catalog Runtime Switch Wizard,model_diecut_catalog_runtime_switch_wizard,base.group_user,1,1,1,1
 access_product_product_internal_edit,product.product.internal.edit,product.model_product_product,base.group_user,1,1,1,0
+access_diecut_catalog_item_user,diecut.catalog.item.user,model_diecut_catalog_item,base.group_user,1,1,1,0

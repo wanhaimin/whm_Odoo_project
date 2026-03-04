@@ -12,3 +12,7 @@ from . import res_partner
 from . import stock_quant
 from . import stock_move
 from . import catalog_ops_log
+from . import catalog_sync_service
+from . import catalog_runtime_service
+from . import catalog_shadow_service
+from . import catalog_item

@@ -34,9 +34,12 @@
         "views/sample_order_view.xml",
         "views/website_templates.xml",
         "views/product_category_view.xml",
+        "views/catalog_item_views.xml",
         "views/material_catalog_views.xml",
         "wizard/catalog_activate_wizard_view.xml",
         "wizard/catalog_ops_wizard_view.xml",
+        "wizard/catalog_shadow_health_wizard_view.xml",
+        "wizard/catalog_runtime_switch_wizard_view.xml",
         "views/diecut_menu_view.xml"
     ],
     'assets': {

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_catalog_runtime_switch_wizard_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.runtime.switch.wizard.form</field>
+        <field name="model">diecut.catalog.runtime.switch.wizard</field>
+        <field name="arch" type="xml">
+            <form string="目录统一入口切换" create="0" edit="1" delete="0">
+                <group>
+                    <field name="read_mode" />
+                    <p class="text-muted">该设置仅决定“统一入口”跳转目标，不影响旧入口与灰度入口。</p>
+                </group>
+                <footer>
+                    <button name="action_apply" string="保存模式" type="object" class="btn-primary" />
+                    <button name="action_open_entry" string="打开统一入口" type="object" class="btn-secondary" />
+                    <button string="关闭" special="cancel" class="btn-secondary" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_catalog_runtime_switch_wizard" model="ir.actions.act_window">
+        <field name="name">统一入口切换</field>
+        <field name="res_model">diecut.catalog.runtime.switch.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_catalog_runtime_switch_wizard_form" />
+        <field name="target">new</field>
+    </record>
+
+    <record id="action_catalog_unified_entry" model="ir.actions.server">
+        <field name="name">材料型号清单(统一入口)</field>
+        <field name="model_id" ref="product.model_product_product" />
+        <field name="state">code</field>
+        <field name="code">action = env['diecut.catalog.runtime.service'].action_open_catalog_entry()</field>
+    </record>
+</odoo>

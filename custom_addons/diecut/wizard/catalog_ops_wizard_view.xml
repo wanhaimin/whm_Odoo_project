@@ -10,13 +10,19 @@
                         <field name="operation" />
                         <field name="xml_file" invisible="operation != 'import_xml'" />
                         <field name="csv_target_file" invisible="operation != 'edit_csv'" />
+                        <field name="backfill_limit" invisible="operation != 'shadow_backfill'" />
                         <field name="confirm_delete_token" invisible="operation not in ('cleanup_xml','generate_assets','sync_csv_to_db')" placeholder="真实删除前输入 DELETE" />
                     </group>
                     <group>
                         <field name="auto_create_external_ids" invisible="operation not in ('export_csv')" />
                         <field name="prune_unmatched_xml" invisible="operation not in ('generate_assets','sync_csv_to_db')" />
-                        <field name="dry_run" />
+                        <field name="dry_run" invisible="operation in ('edit_csv','view_fields_manual','shadow_reconcile')" />
                     </group>
+                </group>
+                <group string="新架构迁移提示" invisible="operation not in ('shadow_backfill','shadow_reconcile')" col="1" colspan="2">
+                    <p class="text-muted">
+                        建议流程：先执行“新架构影子回填（预演）”，再执行“新架构影子回填（已执行）”，最后执行“新架构影子对账报告”。
+                    </p>
                 </group>
                 <group string="删除预览" invisible="operation not in ('cleanup_xml','generate_assets','sync_csv_to_db')" col="1" colspan="2">
                     <field name="delete_preview" nolabel="1" readonly="1" colspan="2" />

@@ -1,6 +1,6 @@
 # 模切管理系统 (Diecut ERP) — 设计手册
 
-> **版本**: v1.4
+> **版本**: v1.5
 > **模块技术名**: `diecut`
 > **Odoo 版本**: 19
 > **最后更新**: 2026-03-04
@@ -85,11 +85,19 @@ custom_addons/diecut/
 │   ├── purchase_order.py        # 采购单扩展
 │   ├── res_partner.py           # 联系人扩展
 │   ├── stock_quant.py           # 库存扩展
-│   └── stock_move.py            # 库存移动扩展
+│   ├── stock_move.py            # 库存移动扩展
+│   ├── catalog_item.py          # 新架构目录模型（系列/型号统一）
+│   ├── catalog_shadow_service.py  # 影子回填/对账服务
+│   ├── catalog_sync_service.py    # 新旧目录双写同步服务
+│   └── catalog_runtime_service.py # 统一入口运行时路由服务
 ├── wizard/
-│   └── catalog_activate_wizard.py  # 选型目录启用向导
+│   ├── catalog_activate_wizard.py       # 选型目录启用向导
+│   ├── catalog_ops_wizard.py            # 数据运维向导
+│   ├── catalog_shadow_health_wizard.py  # 迁移健康检查向导
+│   └── catalog_runtime_switch_wizard.py # 统一入口切换向导
 ├── views/
-│   ├── material_catalog_views.xml  # ★ 选型目录视图
+│   ├── material_catalog_views.xml  # ★ 旧架构选型目录视图
+│   ├── catalog_item_views.xml      # ★ 新架构灰度视图
 │   ├── my_material_base_views.xml  # 原材料视图
 │   ├── product_category_view.xml   # 分类视图
 │   ├── diecut_quote_views.xml      # 报价视图
@@ -153,6 +161,24 @@ diecut.color          → 颜色主数据
 diecut.quote          → 模切报价单
 diecut.catalog.activate.wizard → 选型启用向导
 ```
+
+### 2.3 目录迁移分层架构（Phase 1/2/3）
+
+当前目录迁移采用“可回滚、可灰度、可切换”三层结构：
+
+1. **领域模型层**（`diecut.catalog.item`）
+   - 承载新架构系列/型号统一模型、结构约束与关键索引。
+   - 通过 `legacy_tmpl_id` / `legacy_variant_id` 保留旧数据映射。
+2. **服务层**（`catalog_shadow_service` / `catalog_sync_service` / `catalog_runtime_service`）
+   - `catalog_shadow_service`：旧 -> 新影子回填、对账、重复键计算。
+   - `catalog_sync_service`：新 -> 旧双写同步（开发期保障兼容）。
+   - `catalog_runtime_service`：统一入口运行时路由（旧分栏/新灰度）。
+3. **交互与运维层**（Wizard + Menu）
+   - `catalog_ops_wizard`：运维操作（回填、对账等）。
+   - `catalog_shadow_health_wizard`：迁移健康检查 + 一键查看结构异常。
+   - `catalog_runtime_switch_wizard`：统一入口模式切换。
+
+> 设计原则：旧入口、灰度入口、统一入口并存；任何时候都能回到旧架构路径。
 
 ---
 
@@ -1129,6 +1155,9 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 ## 10. 变更日志
 
+| 2026-03 | v1.5 | **Phase 3（统一入口路由）**：新增运行时路由服务 `diecut.catalog.runtime.service`，提供统一入口菜单与可切换模式（`legacy_split` / `new_gray`），实现不中断切换。 | models/catalog_runtime_service.py、wizard/catalog_runtime_switch_wizard.py、wizard/catalog_runtime_switch_wizard_view.xml、views/diecut_menu_view.xml |
+| 2026-03 | v1.5 | **Phase 2（结构化双写）**：新增 `diecut.catalog.sync.service`，将新模型关键变更双写回旧模型，并通过 `skip_shadow_sync` 上下文避免回灌环路。 | models/catalog_sync_service.py、models/catalog_item.py |
+| 2026-03 | v1.5 | **Phase 1 收口（服务化+健康检查）**：影子回填/对账逻辑下沉到 `diecut.catalog.shadow.service`；新增迁移健康检查向导与结构异常筛选（孤儿/重复）。 | models/catalog_shadow_service.py、wizard/catalog_shadow_health_wizard.py、views/catalog_item_views.xml |
 | 2026-03 | v1.4 | **材料型号清单分屏升级**：引入 `diecut_split_list` 视图，支持控制栏原生位置切换（三种模式：左右/上下/仅列表）、拖拽调宽与本地记忆。 | static/src/js/material_split_preview.js、static/src/xml/material_split_preview.xml、static/src/scss/material_split_preview.scss、material_catalog_views.xml |
 | 2026-03 | v1.4 | **型号清单权限补充**：为内部用户增加 `product.product` 读/写/创建（不删除）以支持分屏右侧直接编辑。 | security/ir.model.access.csv、DESIGN_MANUAL 7.1 |
 | 2026-03 | v1.3 | **运维与数据安全**：在附录 B.4 补充 Odoo 数据库备份、Docker 命令行备份及 CSV 业务备份机制，保障开发数据不丢失。 | DESIGN_MANUAL.md |
