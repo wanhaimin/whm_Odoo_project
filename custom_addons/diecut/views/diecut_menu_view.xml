@@ -5,14 +5,14 @@
     <!-- Cloud Menu Structure: Flat / One Level -->
     <menuitem id="menu_diecut_quote_backend" name="成本计算器" parent="menu_diecut_root" action="action_diecut_quote" sequence="10" />
 
-    <menuitem id="menu_material_catalog" name="材料选型大全" parent="menu_diecut_root" action="action_material_catalog" sequence="15" />
-    <menuitem id="menu_material_catalog_create_template" name="新建材料系列" parent="menu_material_catalog" action="action_material_catalog_create_template" sequence="19" />
-    <menuitem id="menu_material_catalog_variant_unified" name="材料型号清单(自动路由)" parent="menu_material_catalog" action="action_catalog_unified_entry" sequence="20" />
-    <menuitem id="menu_material_catalog_variant" name="材料型号清单(旧架构)" parent="menu_material_catalog" action="action_material_catalog_variant_split" sequence="21" />
-    <menuitem id="menu_material_catalog_variant_list" name="材料型号清单(旧架构列表)" parent="menu_material_catalog" action="action_material_catalog_variant" sequence="22" />
-    <menuitem id="menu_material_catalog_variant_gray" name="[实验] 材料型号清单(新架构)" parent="menu_material_catalog" action="action_diecut_catalog_item_gray" sequence="23" groups="base.group_system" />
-    <menuitem id="menu_material_catalog_shadow_health" name="迁移健康检查" parent="menu_material_catalog" action="action_catalog_shadow_health_wizard" sequence="24" groups="base.group_system" />
-    <menuitem id="menu_material_catalog_runtime_switch" name="统一入口切换" parent="menu_material_catalog" action="action_catalog_runtime_switch_wizard" sequence="25" groups="base.group_system" />
+    <menuitem id="menu_material_catalog" name="📚 材料选型大全" parent="menu_diecut_root" action="action_material_catalog" sequence="15" />
+    <menuitem id="menu_material_catalog_create_template" name="➕ 新建材料系列" parent="menu_material_catalog" action="action_material_catalog_create_template" sequence="19" />
+    <menuitem id="menu_material_catalog_variant_unified" name="🧭 材料型号清单(自动路由)" parent="menu_material_catalog" action="action_catalog_unified_entry" sequence="20" />
+    <menuitem id="menu_material_catalog_variant" name="📋 材料型号清单(旧架构)" parent="menu_material_catalog" action="action_material_catalog_variant_split" sequence="21" />
+    <menuitem id="menu_material_catalog_variant_list" name="📄 材料型号清单(旧架构列表)" parent="menu_material_catalog" action="action_material_catalog_variant" sequence="22" />
+    <menuitem id="menu_material_catalog_variant_gray" name="🧪 [实验] 材料型号清单(新架构)" parent="menu_material_catalog" action="action_diecut_catalog_item_gray" sequence="23" groups="base.group_system" />
+    <menuitem id="menu_material_catalog_shadow_health" name="📈 迁移健康检查" parent="menu_material_catalog" action="action_catalog_shadow_health_wizard" sequence="24" groups="base.group_system" />
+    <menuitem id="menu_material_catalog_runtime_switch" name="⚙ 统一入口切换" parent="menu_material_catalog" action="action_catalog_runtime_switch_wizard" sequence="25" groups="base.group_system" />
     <menuitem id="menu_material_catalog_ops" name="数据运维" parent="menu_material_catalog" action="action_catalog_ops_wizard" sequence="26" />
     <menuitem id="menu_material_catalog_ops_log" name="运维日志" parent="menu_material_catalog" action="action_catalog_ops_log" sequence="27" />
 
