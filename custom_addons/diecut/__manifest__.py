@@ -4,6 +4,8 @@
     'version': '1.0',
     'category': 'Manufacturing',
     'summary': '模切管理系统',
+    'author': 'Diecut Team',
+    'license': 'LGPL-3',
     'depends': ['base', 'product', 'sale', 'purchase', 'stock', 'website', 'website_sale', 'mail', 'web_hierarchy'],
     "data": [
         "data/ir_sequence_data.xml",
@@ -45,8 +47,11 @@
             'diecut/static/src/js/enter_to_next.js',
             'diecut/static/src/js/shift_select.js',
             'diecut/static/src/js/catalog_dynamic_columns.js',
+            'diecut/static/src/js/material_split_preview.js',
             'diecut/static/src/scss/quick_entry.scss',
+            'diecut/static/src/scss/material_split_preview.scss',
             'diecut/static/src/xml/search_panel_inherit.xml',
+            'diecut/static/src/xml/material_split_preview.xml',
         ],
     },
     'external_dependencies': {

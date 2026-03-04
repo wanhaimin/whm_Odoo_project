@@ -1,5 +1,6 @@
 # 忽略文件
 venv/
+.venv/
 *.pyc
 __pycache__/
 .env

@@ -1,9 +1,9 @@
 # 模切管理系统 (Diecut ERP) — 设计手册
 
-> **版本**: v1.3
+> **版本**: v1.4
 > **模块技术名**: `diecut`
 > **Odoo 版本**: 19
-> **最后更新**: 2026-03-01
+> **最后更新**: 2026-03-04
 > **维护者**: 开发团队
 
 ---
@@ -15,7 +15,7 @@
 3. [数据模型详解](#3-数据模型详解)
 4. [核心业务规则](#4-核心业务规则)
 5. [状态机与工作流](#5-状态机与工作流)
-6. [视图与菜单结构](#6-视图与菜单结构)（含 [6.7 表单视图高级 UI 布局 (Bootstrap 5 栅格)](#6-7-表单视图高级-ui-布局-bootstrap-5-栅格)）
+6. [视图与菜单结构](#6-视图与菜单结构)（含 [6.7 表单视图高级 UI 布局 (Bootstrap 5 栅格)](#6-7-表单视图高级-ui-布局-bootstrap-5-栅格)、[6.8 型号清单分屏工作台](#6-8-型号清单分屏工作台)）
 7. [安全与权限](#7-安全与权限)
 8. [设计决策记录 (ADR)](#8-设计决策记录-adr)
 9. [数据库约束与索引](#9-数据库约束与索引)
@@ -117,9 +117,12 @@ custom_addons/diecut/
 └── static/
     └── src/
         ├── scss/                   # 样式
+        │   └── material_split_preview.scss   # 型号清单分屏布局样式
         ├── js/
-        │           └── catalog_dynamic_columns.js  # ★ SearchPanel 联动列显隐
+        │   ├── catalog_dynamic_columns.js    # ★ SearchPanel 联动列显隐
+        │   └── material_split_preview.js     # ★ 型号清单分屏控制器/渲染器
         └── xml/                    # 前端模板
+            └── material_split_preview.xml    # ★ 分屏模板 + 原生控制栏切换按钮
 ```
 
 **选型目录硬编码数据与代码生成**：我们采用 Excel (CSV) 驱动的自动代码生成策略（详见 [ADR-011](#8-设计决策记录-adr)）。业务人员维护 `scripts/` 下的 `series.csv` 与 `variants.csv`，运行批处理脚本后，自动产出 `data/catalog_{brand}_data.xml` （作为 Odoo `<record>` 骨架，`noupdate="1"` 以防后期业务分类被覆盖）及 `data/catalog_materials.json`。随后在更新模块时，`load_json_data.xml` (`noupdate="0"`) 会触发 Python 钩子 `_load_catalog_base_data_from_json`，将所有的 JSON 血肉参数智能合并回 `product.product`，彻底做到了防丢失、防覆盖。
@@ -587,7 +590,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 ```
 选型目录变体 (product.product, is_catalog=True)
     │
-    │  点击"🚀 启用到ERP"
+    │  点击"启用到ERP"
     │
     ▼
 启用向导 (diecut.catalog.activate.wizard)
@@ -729,7 +732,8 @@ diecut.catalog.activate.wizard → 选型启用向导
 ├── 成本计算器              → action_diecut_quote
 ├── 📚 材料选型大全         → action_material_catalog (product.template, is_catalog=True)
 │   ├── ➕ 新建材料系列      → action_material_catalog_create_template
-│   └── 📋 材料型号清单     → action_material_catalog_variant (product.product)
+│   ├── 📋 材料型号清单     → action_material_catalog_variant_split (product.product, 分屏)
+│   └── 📄 材料型号清单(列表) → action_material_catalog_variant (product.product, 纯列表)
 ├── 原材料                  → action_diecut_raw_material (product.template, is_raw_material=True)
 ├── 客户管理                → action_diecut_customer
 ├── 刀模管理                → action_diecut_mold
@@ -740,14 +744,16 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 ### 6.2 选型目录视图清单
 
-| View ID                                  | 类型   | 模型             | 用途                |
-| ---------------------------------------- | ------ | ---------------- | ------------------- |
-| `view_material_catalog_form`           | Form   | product.template | 系列详情+变体对比表 |
-| `view_material_catalog_tree`           | List   | product.template | 系列级快速浏览      |
-| `view_material_catalog_search`         | Search | product.template | 搜索/筛选/分组      |
-| `view_material_catalog_variant_tree`   | List   | product.product  | 型号级清单          |
-| `view_material_catalog_variant_form`   | Form   | product.product  | 型号详情与规格页    |
-| `view_material_catalog_variant_search` | Search | product.product  | 型号搜索            |
+| View ID                                      | 类型   | 模型             | 用途                           |
+| -------------------------------------------- | ------ | ---------------- | ------------------------------ |
+| `view_material_catalog_form`               | Form   | product.template | 系列详情+变体对比表            |
+| `view_material_catalog_tree`               | List   | product.template | 系列级快速浏览                 |
+| `view_material_catalog_search`             | Search | product.template | 搜索/筛选/分组                 |
+| `view_material_catalog_variant_tree`       | List   | product.product  | 型号级清单                     |
+| `view_material_catalog_variant_split_tree` | List   | product.product  | 型号清单（分屏入口）           |
+| `view_material_catalog_variant_form`       | Form   | product.product  | 型号详情与规格页               |
+| `view_material_catalog_variant_split_form` | Form   | product.product  | 分屏右侧型号表单（去 chatter） |
+| `view_material_catalog_variant_search`     | Search | product.product  | 型号搜索                       |
 
 ### 6.3 Action 配置
 
@@ -755,7 +761,8 @@ diecut.catalog.activate.wizard → 选型启用向导
 | ------------------------------------------- | ---------------- | ---------------------------------------------------------------- | ------------------------------------ |
 | `action_material_catalog`                 | product.template | `is_catalog=True`                                              | 选型大全主入口                       |
 | `action_material_catalog_create_template` | product.template | `is_catalog=True`                                              | 新建系列入口                         |
-| `action_material_catalog_variant`         | product.product  | `product_tmpl_id.is_catalog=True`                              | 型号清单                             |
+| `action_material_catalog_variant_split`   | product.product  | `product_tmpl_id.is_catalog=True`                              | 型号清单（分屏主入口）               |
+| `action_material_catalog_variant`         | product.product  | `product_tmpl_id.is_catalog=True`                              | 型号清单（纯列表回退入口）           |
 | `action_diecut_raw_material`              | product.template | `is_raw_material=True`                                         | ERP原材料                            |
 | `stock.product_template_action_product`   | product.template | `is_catalog=False`                                             | 库存模块产品模板列表（排除选型目录） |
 | `stock.stock_product_normal_action`       | product.product  | `product_tmpl_id.is_catalog=False`                             | 库存模块产品变体列表（排除选型目录） |
@@ -818,7 +825,10 @@ diecut.catalog.activate.wizard → 选型启用向导
 - **视图**：`view_material_catalog_variant_form`（`product.product` 的 form 视图），仅在从「材料型号清单」入口打开单条型号时使用（通过 Action `view_ids` 绑定）。
 - **布局**：顶部为产品结构图或主图（优先该型号独立 `variant_catalog_structure_image`，否则系列/主图）、型号编码与系列名、产品描述、主要应用；中部为技术特性与型号技术参数；Notebook 含「特性评级」「粘合特性」「认证与合规」「替代建议」「附件与资料」——**认证与合规、替代建议、附件与资料**均为该型号独立字段（`variant_*`），每个变体单独拥有各自的值；系列表单中对应三项为系列默认，各型号可在本页覆盖或单独填写。
 - **数据来源**：变体自身字段（`variant_*`、`catalog_*` 等）及系列上的关联展示字段。为在变体 form 中展示系列内容，在 `ProductProduct` 上增加了关联字段：`catalog_structure_image`、`catalog_features`、`catalog_applications`、`tds_file`/`tds_filename`、`msds_file`/`msds_filename`，均 `related='product_tmpl_id.xxx'`；变体物理特性使用自有字段 `variant_diecut_properties`（不在变体上做 related 的 diecut_properties，避免创建变体时报错）。
-- **入口**：材料选型大全 → 材料型号清单 → 点击某行打开即进入该 Form；列表/表单上的「启用到ERP」「已启用产品」按钮保留在表单顶部。
+- **入口**：
+  - 分屏主入口：材料选型大全 → 材料型号清单（`action_material_catalog_variant_split`），点击左侧行在右侧面板加载该 Form。
+  - 纯列表入口：材料选型大全 → 材料型号清单(列表)（`action_material_catalog_variant`），按 Odoo 原生列表→表单流程打开。
+  - 列表/表单上的「启用到ERP」「已启用ERP」按钮保留并统一图标样式。
 
 **变体动态属性**：变体可以拥有自己的**属性值**，但不能单独建**属性定义**。
 
@@ -863,7 +873,7 @@ diecut.catalog.activate.wizard → 选型启用向导
     ...
     <!-- 核心信息美化排版 (Bootstrap 5 栅格与卡片方案) -->
     <div class="row mt-4 mb-4 g-3">
-      
+    
         <!-- 左侧：基本信息 占4/12 -->
         <div class="col-12 col-md-4">
             <div class="card h-100 border-0 shadow-sm">
@@ -876,7 +886,7 @@ diecut.catalog.activate.wizard → 选型启用向导
                 </div>
             </div>
         </div>
-      
+    
         <!-- 中间：产品特点 -->
         <div class="col-12 col-md-4">
             <div class="card h-100 border-0 shadow-sm">
@@ -902,6 +912,44 @@ diecut.catalog.activate.wizard → 选型启用向导
 - 使用 `<div class="card border-0 shadow-sm">` 构建卡片面板；
 - 根据业务重要程度设定主色调分类 (`text-primary`, `text-success`, `text-info` 等) 和前缀 icon。
 
+`<a id="6-8-型号清单分屏工作台"></a>`
+
+### 6.8 型号清单分屏工作台
+
+**目标**：在一个页面中实现“左侧型号列表 + 右侧可编辑表单”，减少列表/表单来回切换。
+
+**实现组成**：
+
+- **自定义视图类型**：`js_class="diecut_split_list"`（挂载于 `view_material_catalog_variant_split_tree`）。
+- **控制器**：`DiecutSplitListController`（`static/src/js/material_split_preview.js`）负责模式状态与本地记忆。
+- **渲染器**：`DiecutSplitListRenderer` 负责左右/上下布局、拖拽分隔条、右侧内嵌 `View(type='form')`。
+- **模板**：`static/src/xml/material_split_preview.xml`。
+- **样式**：`static/src/scss/material_split_preview.scss`。
+
+**三种布局模式（ControlPanel 原生位置切换）**：
+
+- 左右分屏（`vertical`）
+- 上下分屏（`horizontal`）
+- 仅列表（`list`）
+
+按钮放置在 Odoo 原生控制栏右侧导航区域，采用 `o_cp_switch_buttons` / `o_switch_view` 风格与 OI 图标，保持与系统视图切换一致。
+
+**状态记忆**：
+
+- 存储位置：`localStorage`
+- Key：`diecut_split_layout:product.product:variant`
+- 存储内容：`layoutMode`、`splitRatio`
+
+**性能策略**：
+
+- 拖拽分隔条使用 `requestAnimationFrame` 节流；拖动中优先更新 CSS 变量，`mouseup` 再提交最终比例。
+- 拖动中临时禁用右侧表单的 pointer events，降低重渲染带来的卡顿感。
+
+**编辑能力与权限说明**：
+
+- 右侧内嵌 Form 视图使用 `view_material_catalog_variant_split_form`（去 chatter，聚焦编辑）。
+- 为满足业务编辑需求，内部用户组已补充 `product.product` 读/写/创建权限（不含删除），用于型号清单分屏编辑。
+
 ---
 
 `<a id="7-安全与权限"></a>`
@@ -920,10 +968,11 @@ diecut.catalog.activate.wizard → 选型启用向导
 | diecut.brand                    | group_user   | ✓ | ✓ |  ✓  |  ✓  |
 | diecut.color                    | group_user   | ✓ | ✓ |  ✓  |  ✓  |
 | diecut.catalog.activate.wizard  | group_user   | ✓ | ✓ |  ✓  |  ✓  |
+| product.product                 | group_user   | ✓ | ✓ |  ✓  |  ✗  |
 | sample.order                    | group_user   | ✓ | ✓ |  ✓  |  ✓  |
 | sample.order                    | group_portal | ✓ | ✓ |  ✓  |  ✗  |
 
-> 注：`product.template` 和 `product.product` 的权限由 Odoo 原生 `product` 模块管理。
+> 注：为支持「材料型号清单」分屏右侧直接编辑，本模块在 `security/ir.model.access.csv` 中额外授予 `base.group_user` 对 `product.product` 的读/写/创建权限（不授予删除）。
 
 ---
 
@@ -1035,6 +1084,17 @@ diecut.catalog.activate.wizard → 选型启用向导
 - **权衡**: 提升了工具在异构系统（Windows 开发 & Linux 运行）下的交互体验，减少了因不可见字符导致的数据校验故障。
 - **日期**: 2026-03
 
+### ADR-014: 材料型号清单分屏工作台（原生控制栏切换）
+
+- **背景**: 传统列表→表单切换在型号维护场景下操作链路较长，且需要频繁返回列表；同时自定义悬浮切换条样式与 Odoo 原生控制栏不一致。
+- **决策**: 在 `product.product` 型号清单上引入 `diecut_split_list` 视图：
+  1. 继承 `web.ListView`，将模式切换按钮插入 `control-panel-navigation-additional` 插槽（原生位置）；
+  2. 采用 OI 图标与 `o_cp_switch_buttons` / `o_switch_view` 样式；
+  3. 保留三种模式：左右/上下/仅列表；
+  4. 右侧表单使用专用 `view_material_catalog_variant_split_form`（去 chatter），支持直接编辑；。
+- **权衡**: 前端实现复杂度提高（Controller + Renderer + XML 继承 + 状态同步），但显著提升了操作效率与一致性，且与 Odoo 原生 UI 视觉语言对齐。
+- **日期**: 2026-03
+
 ---
 
 `<a id="9-数据库约束与索引"></a>`
@@ -1069,9 +1129,12 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 ## 10. 变更日志
 
+| 2026-03 | v1.4 | **材料型号清单分屏升级**：引入 `diecut_split_list` 视图，支持控制栏原生位置切换（三种模式：左右/上下/仅列表）、拖拽调宽与本地记忆。 | static/src/js/material_split_preview.js、static/src/xml/material_split_preview.xml、static/src/scss/material_split_preview.scss、material_catalog_views.xml |
+| 2026-03 | v1.4 | **型号清单权限补充**：为内部用户增加 `product.product` 读/写/创建（不删除）以支持分屏右侧直接编辑。 | security/ir.model.access.csv、DESIGN_MANUAL 7.1 |
 | 2026-03 | v1.3 | **运维与数据安全**：在附录 B.4 补充 Odoo 数据库备份、Docker 命令行备份及 CSV 业务备份机制，保障开发数据不丢失。 | DESIGN_MANUAL.md |
 | 2026-03 | v1.3 | **同步机制大升级**：1. 实现 **Bi-directional Sync**（导出脚本支持 zh_CN 语境，防止名字回退）；2. 引入 **Field Clearing** 逻辑（CSV 置空可同步清空系统数据）；3. 解决 Windows/Linux 跨平台回车符乱码重叠问题；4. **Manifest 自动化**：generator 自动同步模块注册表；5. **自动归一化补全**：修复导入时 _std 字段的自动填充逻辑。 | scripts/export_from_db.py, scripts/generate_catalog.py, models/product_diecut.py, __manifest__.py |
-| 2026-03 | v1.3 | **设计手册更新**：整理并详细说明了技术指标归一化逻辑，以及主子表（Template/Product）之间 compute/related 的数据同步与隔离机制。 | DESIGN_MANUAL.md || 2026-03 | v1.2 | 重构 ADR-011 数据初始化规范：引入 `generate_catalog.py` 脚本，实现 Excel/CSV 业务驱动自动生成 XML/JSON，彻底废弃 `post_init_hook`，改用全自动化和升级强刷机制 | DESIGN_MANUAL 8 (ADR-011)、scripts/generate_catalog.py、catalog_materials.json、product_diecut.py |
+| 2026-03 | v1.3 | **设计手册更新**：整理并详细说明了技术指标归一化逻辑，以及主子表（Template/Product）之间 compute/related 的数据同步与隔离机制。 | DESIGN_MANUAL.md |
+| 2026-03 | v1.2 | 重构 ADR-011 数据初始化规范：引入 `generate_catalog.py` 脚本，实现 Excel/CSV 业务驱动自动生成 XML/JSON，彻底废弃 `post_init_hook`，改用全自动化和升级强刷机制 | DESIGN_MANUAL 8 (ADR-011)、scripts/generate_catalog.py、catalog_materials.json、product_diecut.py |
 | 2026-03 | v1.2 | 重构 6.5.1 及 ADR-008 动态列显隐：废弃前端 CSS 注入黑魔法，重构为符合规范的 Owl Patch (直接拦截 ListRenderer.getActiveColumns)，保障 100% 框架安全 | static/src/js/catalog_dynamic_columns.js、DESIGN_MANUAL 6.5.1、8（ADR-008） |
 | 2025-01 | v1.2 | 图册符号约定（—=无、〇=白、●=黑）；新增推出力/可移除性字段；Tesa 泡棉数据补全剥离力/推出力/可移除性/DuPont | product_diecut.py、catalog_tesa_acrylic_foam_data.xml、material_catalog_views.xml、DESIGN_MANUAL 3.2.2 |
 | 2025-01 | v1.2 | 设计手册补充列显隐刷新机制：requestAnimationFrame + 点击 80/350ms 延迟 + MutationObserver + 500ms 轮询兜底，加速显示 | DESIGN_MANUAL 6.5.1                                                |

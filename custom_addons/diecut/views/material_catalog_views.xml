@@ -110,8 +110,8 @@
                                     <field name="variant_holding_power" optional="hide" />
                                     <field name="variant_note" optional="hide" />
                                     <field name="is_activated" column_invisible="True" />
-                                    <button name="action_activate_to_erp" string="🚀 启用到ERP" type="object" class="btn-primary" invisible="is_activated" />
-                                    <button name="action_view_erp_product" string="✅ 已启用" type="object" class="btn-success" invisible="not is_activated" />
+                                    <button name="action_activate_to_erp" string="启用到ERP" type="object" icon="fa-cube" class="btn-secondary o_diecut_erp_btn" invisible="is_activated" />
+                                    <button name="action_view_erp_product" string="已启用ERP" type="object" icon="fa-check-circle" class="btn-secondary o_diecut_erp_btn" invisible="not is_activated" />
                                 </list>
                             </field>
                         </page>
@@ -313,9 +313,20 @@
                 <field name="catalog_density" string="密度(g/cm³)" optional="hide" />
                 <field name="catalog_status" string="状态" widget="badge" decoration-success="catalog_status == 'published'" decoration-info="catalog_status == 'review'" decoration-warning="catalog_status == 'draft'" decoration-danger="catalog_status == 'deprecated'" />
                 <field name="is_activated" string="已启用ERP" widget="boolean_toggle" optional="show" />
-                <button name="action_activate_to_erp" string="🚀 启用到ERP" type="object" class="btn-primary" invisible="is_activated" />
-                <button name="action_view_erp_product" string="✅ 已启用" type="object" class="btn-success" invisible="not is_activated" />
+                <button name="action_activate_to_erp" string="启用到ERP" type="object" icon="fa-cube" class="btn-secondary o_diecut_erp_btn" invisible="is_activated" />
+                <button name="action_view_erp_product" string="已启用ERP" type="object" icon="fa-check-circle" class="btn-secondary o_diecut_erp_btn" invisible="not is_activated" />
             </list>
+        </field>
+    </record>
+
+    <record id="view_material_catalog_variant_split_tree" model="ir.ui.view">
+        <field name="name">material.catalog.variant.split.tree</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="view_material_catalog_variant_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="js_class">diecut_split_list</attribute>
+            </xpath>
         </field>
     </record>
 
@@ -460,8 +471,19 @@
         </field>
     </record>
 
+    <record id="view_material_catalog_variant_split_form" model="ir.ui.view">
+        <field name="name">material.catalog.variant.split.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="view_material_catalog_variant_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//chatter" position="replace"/>
+            <xpath expr="//div[@name='button_box']/button[@name='action_activate_to_erp']" position="replace"/>
+            <xpath expr="//div[@name='button_box']/button[@name='action_view_erp_product']" position="replace"/>
+        </field>
+    </record>
+
     <record id="action_material_catalog_variant" model="ir.actions.act_window">
-        <field name="name">材料型号清单</field>
+        <field name="name">材料型号清单(纯列表)</field>
         <field name="res_model">product.product</field>
         <field name="view_mode">list,form</field>
         <field name="domain">[('product_tmpl_id.is_catalog', '=', True)]</field>
@@ -469,6 +491,18 @@
         <field name="context">{'search_default_filter_variant_published': 1}</field>
         <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'list', 'view_id': ref('view_material_catalog_variant_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_material_catalog_variant_form')})]" />
+    </record>
+
+    <record id="action_material_catalog_variant_split" model="ir.actions.act_window">
+        <field name="name">材料型号清单</field>
+        <field name="res_model">product.product</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('product_tmpl_id.is_catalog', '=', True)]</field>
+        <field name="search_view_id" ref="view_material_catalog_variant_search" />
+        <field name="context" eval="{'search_default_filter_variant_published': 1, 'split_form_view_id': ref('view_material_catalog_variant_split_form'), 'split_storage_key': 'action_material_catalog_variant_split', 'edit': True, 'create': True}"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_material_catalog_variant_split_tree')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('view_material_catalog_variant_form')})]" />
     </record>
 </odoo>

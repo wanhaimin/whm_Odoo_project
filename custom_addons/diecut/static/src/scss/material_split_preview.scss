@@ -1,0 +1,151 @@
+.o_diecut_split_renderer {
+    display: grid;
+    height: 100%;
+    min-height: 0;
+    border: 1px solid #d7dde5;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.o_diecut_split_renderer.is-vertical {
+    grid-template-columns: minmax(520px, var(--diecut-split-left, 45%)) 8px minmax(380px, 1fr);
+}
+
+.o_diecut_split_renderer.is-horizontal {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(260px, var(--diecut-split-top, 45%)) 8px minmax(280px, 1fr);
+}
+
+.o_diecut_split_renderer.is-list-only {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+.o_diecut_split_left {
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+    background: #fff;
+}
+
+.o_diecut_split_left .o_list_table {
+    margin-bottom: 0;
+}
+
+.o_diecut_split_renderer .o_data_row.o_diecut_split_row_active {
+    background: #dce9ff !important;
+}
+
+.o_diecut_split_renderer.is-resizing {
+    user-select: none;
+}
+
+.o_diecut_split_renderer.is-resizing .o_diecut_split_panel_form {
+    pointer-events: none;
+}
+
+.o_diecut_split_left .o_diecut_erp_btn {
+    border: 1px solid #c8d2e0 !important;
+    background: #f8fafc !important;
+    color: #334155 !important;
+    border-radius: 6px !important;
+    font-size: 12px;
+    line-height: 1.2;
+    padding: 2px 8px !important;
+}
+
+.o_diecut_split_left .o_diecut_erp_btn:hover {
+    background: #eef4ff !important;
+    border-color: #9bb5d3 !important;
+}
+
+.o_diecut_split_left .o_diecut_erp_btn i {
+    margin-right: 4px;
+}
+
+.o_diecut_split_handle {
+    background: #dfe5ed;
+}
+
+.o_diecut_split_renderer.is-resizing .o_diecut_split_handle,
+.o_diecut_split_handle:hover {
+    background: #c9d6e6;
+}
+
+.o_diecut_split_handle.is-vertical {
+    cursor: col-resize;
+}
+
+.o_diecut_split_handle.is-horizontal {
+    cursor: row-resize;
+}
+
+.o_diecut_split_panel {
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #fff;
+    border-left: 1px solid #d7dde5;
+}
+
+.o_cp_switch_buttons .o_diecut_oi_rotate_90 {
+    display: inline-block;
+    transform: rotate(90deg);
+}
+
+.o_diecut_split_panel_form {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    background: #fff;
+}
+
+.o_diecut_split_panel_form .o_diecut_split_embedded_form,
+.o_diecut_split_panel_form .o_view_controller,
+.o_diecut_split_panel_form .o_action {
+    position: static !important;
+    inset: auto !important;
+    height: auto !important;
+    min-height: 100%;
+}
+
+.o_diecut_split_panel_form .o_form_view {
+    border: 0;
+}
+
+.o_diecut_split_panel_empty {
+    padding: 16px;
+    color: #64748b;
+}
+
+.o_diecut_split_renderer.is-horizontal .o_diecut_split_left {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.o_diecut_split_renderer.is-horizontal .o_diecut_split_handle {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.o_diecut_split_renderer.is-horizontal .o_diecut_split_panel {
+    grid-column: 1;
+    grid-row: 3;
+    border-left: 0;
+    border-top: 1px solid #d7dde5;
+}
+
+@media (max-width: 1199px) {
+    .o_diecut_split_renderer {
+        grid-template-columns: 1fr !important;
+        grid-template-rows: minmax(260px, 45%) 8px minmax(280px, 1fr) !important;
+    }
+
+    .o_diecut_split_panel {
+        border-left: 0;
+        border-top: 1px solid #d7dde5;
+    }
+}
