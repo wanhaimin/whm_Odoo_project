@@ -4,7 +4,7 @@
         <field name="name">diecut.catalog.item.tree</field>
         <field name="model">diecut.catalog.item</field>
         <field name="arch" type="xml">
-            <list string="材料选型条目" default_order="brand_id, is_system_default_series, sequence, id">
+            <list string="新架构灰度条目（非product.product字段）" default_order="brand_id, is_system_default_series, sequence, id">
                 <field name="item_level" string="层级"/>
                 <field name="brand_id" string="品牌"/>
                 <field name="series_code" string="系列编码"/>
@@ -23,7 +23,7 @@
         <field name="name">diecut.catalog.item.form</field>
         <field name="model">diecut.catalog.item</field>
         <field name="arch" type="xml">
-            <form string="材料选型条目（灰度）">
+            <form string="材料选型条目（灰度，非product.product字段）">
                 <sheet>
                     <group>
                         <group>
@@ -89,7 +89,7 @@
     </record>
 
     <record id="action_diecut_catalog_item_gray" model="ir.actions.act_window">
-        <field name="name">材料型号清单（新架构-灰度）</field>
+        <field name="name">材料型号清单（新架构灰度，非product.product）</field>
         <field name="res_model">diecut.catalog.item</field>
         <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="view_diecut_catalog_item_search"/>
