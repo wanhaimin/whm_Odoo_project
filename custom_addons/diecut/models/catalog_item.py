@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 
 class DiecutCatalogItem(models.Model):
@@ -132,6 +132,36 @@ class DiecutCatalogItem(models.Model):
     @api.model
     def shadow_reconcile_report(self):
         return self.env["diecut.catalog.shadow.service"].shadow_reconcile_report()
+
+    def _ensure_model_record(self):
+        self.ensure_one()
+        if self.item_level != "model":
+            raise UserError("仅型号条目支持该操作。")
+        if not self.legacy_variant_id:
+            raise UserError("当前新模型条目未绑定旧型号，无法执行ERP操作。")
+        return self.legacy_variant_id
+
+    def _sync_erp_status_from_legacy(self):
+        self.ensure_one()
+        legacy = self.legacy_variant_id
+        self.with_context(skip_shadow_sync=True).write(
+            {
+                "erp_enabled": bool(legacy.is_activated),
+                "erp_product_tmpl_id": legacy.activated_product_tmpl_id.id,
+            }
+        )
+
+    def action_activate_to_erp(self):
+        legacy = self._ensure_model_record()
+        action = legacy.action_activate_to_erp()
+        self._sync_erp_status_from_legacy()
+        return action
+
+    def action_view_erp_product(self):
+        legacy = self._ensure_model_record()
+        action = legacy.action_view_erp_product()
+        self._sync_erp_status_from_legacy()
+        return action
 
     @api.model_create_multi
     def create(self, vals_list):

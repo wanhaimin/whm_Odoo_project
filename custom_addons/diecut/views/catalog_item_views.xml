@@ -4,19 +4,27 @@
         <field name="name">diecut.catalog.item.tree</field>
         <field name="model">diecut.catalog.item</field>
         <field name="arch" type="xml">
-            <list string="新架构灰度条目（非product.product字段）" default_order="brand_id, is_system_default_series, sequence, id">
-                <field name="item_level" string="层级"/>
-                <field name="brand_id" string="品牌"/>
-                <field name="series_code" string="系列编码"/>
+            <list string="新架构型号清单（灰度）" default_order="brand_id, parent_id, code, id" decoration-muted="item_level == 'series'">
+                <field name="item_level" string="层级" optional="hide"/>
                 <field name="code" string="型号编码"/>
-                <field name="name" string="名称"/>
-                <field name="parent_id" string="所属系列"/>
-                <field name="catalog_status" string="状态"/>
+                <field name="parent_id" string="系列" widget="badge"/>
+                <field name="variant_thickness" string="厚度"/>
+                <field name="variant_color" string="颜色" widget="badge"/>
+                <field name="variant_adhesive_type" string="胶系" widget="badge"/>
+                <field name="variant_base_material" string="基材"/>
+                <field name="variant_note" string="特性说明"/>
+                <field name="catalog_status" string="状态" widget="badge" decoration-success="catalog_status == 'published'" decoration-info="catalog_status == 'review'" decoration-warning="catalog_status == 'draft'" decoration-danger="catalog_status == 'deprecated'"/>
+                <field name="erp_enabled" string="已启用ERP" widget="boolean_toggle" optional="show"/>
+                <button name="action_activate_to_erp" string="启用到ERP" type="object" icon="fa-cube" class="btn-secondary" invisible="item_level != 'model' or erp_enabled"/>
+                <button name="action_view_erp_product" string="已启用ERP" type="object" icon="fa-check-circle" class="btn-secondary" invisible="item_level != 'model' or not erp_enabled"/>
+                <field name="brand_id" string="品牌" optional="hide"/>
+                <field name="series_code" string="系列编码" optional="hide"/>
+                <field name="name" string="名称" optional="hide"/>
                 <field name="variant_thickness_std" string="厚度(标准)" optional="hide"/>
                 <field name="variant_color_std" string="颜色(标准)" optional="hide"/>
                 <field name="variant_adhesive_std" string="胶系(标准)" optional="hide"/>
                 <field name="variant_base_material_std" string="基材(标准)" optional="hide"/>
-                <field name="is_system_default_series" string="系统默认"/>
+                <field name="is_system_default_series" string="系统默认" optional="hide"/>
                 <field name="is_orphan" string="孤儿型号" optional="hide"/>
                 <field name="is_duplicate_key" string="编码重复" optional="hide"/>
             </list>
@@ -29,6 +37,10 @@
         <field name="arch" type="xml">
             <form string="材料选型条目（灰度，非product.product字段）">
                 <sheet>
+                    <div name="button_box" class="oe_button_box" invisible="item_level != 'model'">
+                        <button name="action_activate_to_erp" string="启用到ERP" type="object" class="oe_stat_button" icon="fa-cube" invisible="erp_enabled"/>
+                        <button name="action_view_erp_product" string="已启用ERP" type="object" class="oe_stat_button" icon="fa-external-link" invisible="not erp_enabled"/>
+                    </div>
                     <group>
                         <group>
                             <field name="item_level" string="层级"/>
@@ -129,7 +141,32 @@
                 <filter name="group_brand" string="按品牌分组" context="{'group_by': 'brand_id'}"/>
                 <filter name="group_level" string="按层级分组" context="{'group_by': 'item_level'}"/>
                 <filter name="group_series" string="按系列分组" context="{'group_by': 'parent_id'}"/>
+                <searchpanel>
+                    <field name="brand_id" string="品牌" select="multi" enable_counters="1"/>
+                    <field name="parent_id" string="系列" select="multi" enable_counters="1" domain="[('item_level', '=', 'series')]"/>
+                </searchpanel>
             </search>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_item_split_tree" model="ir.ui.view">
+        <field name="name">diecut.catalog.item.split.tree</field>
+        <field name="model">diecut.catalog.item</field>
+        <field name="inherit_id" ref="view_diecut_catalog_item_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//list" position="attributes">
+                <attribute name="js_class">diecut_split_list</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_item_split_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.item.split.form</field>
+        <field name="model">diecut.catalog.item</field>
+        <field name="inherit_id" ref="view_diecut_catalog_item_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']/button[@name='action_activate_to_erp']" position="replace"/>
+            <xpath expr="//div[@name='button_box']/button[@name='action_view_erp_product']" position="replace"/>
         </field>
     </record>
 
@@ -138,9 +175,9 @@
         <field name="res_model">diecut.catalog.item</field>
         <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="view_diecut_catalog_item_search"/>
-        <field name="context">{'search_default_filter_level_model': 1}</field>
+        <field name="context" eval="{'search_default_filter_level_model': 1, 'split_form_view_id': ref('view_diecut_catalog_item_split_form'), 'split_storage_key': 'action_diecut_catalog_item_gray', 'edit': True, 'create': True}"/>
         <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'list', 'view_id': ref('view_diecut_catalog_item_tree')}),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_diecut_catalog_item_split_tree')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('view_diecut_catalog_item_form')})]"/>
     </record>
 </odoo>
