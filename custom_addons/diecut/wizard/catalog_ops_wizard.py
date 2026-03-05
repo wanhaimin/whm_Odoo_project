@@ -46,6 +46,7 @@ class CatalogOpsWizard(models.TransientModel):
             ("shadow_refresh_fields", "新架构字段刷新（旧模型 -> 新模型）"),
             ("shadow_compare_fields", "新旧字段一致性检查"),
             ("shadow_compare_attachments", "新旧附件一致性检查"),
+            ("cutover_baseline_snapshot", "生成切换基线记录"),
             ("import_xml", "导入指定XML"),
             ("cleanup_xml", "清理未匹配品牌XML"),
             ("edit_csv", "CSV轻量编辑"),
@@ -518,9 +519,12 @@ class CatalogOpsWizard(models.TransientModel):
             "11) 新旧附件一致性检查\n"
             "   - 用途：对比新旧模型附件字段（文件名/是否有附件）的一致性。\n"
             "   - 建议在字段刷新后执行。\n\n"
+            "12) 生成切换基线记录\n"
+            "   - 用途：将入口模式、影子对账、字段一致性、附件一致性打包记录到运维日志。\n"
+            "   - 建议每次部署后执行一次，用于审计与回归对比。\n\n"
             "【推荐流程】\n"
             "导出CSV -> 编辑CSV -> 从CSV生成JSON/XML（预演） -> CSV同步入库（先预演，再执行）\n"
-            "新架构迁移：影子回填（先预演） -> 影子回填（执行） -> 影子对账报告 -> 字段刷新 -> 字段一致性检查 -> 附件一致性检查"
+            "新架构迁移：影子回填（先预演） -> 影子回填（执行） -> 影子对账报告 -> 字段刷新 -> 字段一致性检查 -> 附件一致性检查 -> 生成切换基线记录"
         )
         return {
             "type": "ir.actions.act_window",
@@ -605,17 +609,43 @@ class CatalogOpsWizard(models.TransientModel):
         _generated, deleted, _json_path = self._generate_assets(prune_xml=True)
         return deleted
 
-    def _write_log(self, success, detail):
-        self.env["diecut.catalog.ops.log"].create(
-            {
-                "operation": self.operation,
-                "success": success,
-                "detail": detail,
-            }
-        )
+    def _write_log(self, success, detail, extra_vals=None):
+        vals = {
+            "operation": self.operation,
+            "success": success,
+            "detail": detail,
+        }
+        if extra_vals:
+            vals.update(extra_vals)
+        self.env["diecut.catalog.ops.log"].create(vals)
+
+    def _build_cutover_baseline(self, limit=None):
+        runtime = self.env["diecut.catalog.runtime.service"]
+        shadow = self.env["diecut.catalog.shadow.service"]
+        reconcile = shadow.shadow_reconcile_report()
+        mapped = shadow.compare_mapped_fields(limit=limit, sample_size=20)
+        attachments = shadow.compare_attachment_fields(limit=limit, sample_size=20)
+        payload = {
+            "read_mode": runtime.get_read_mode(),
+            "reconcile": reconcile,
+            "mapped_fields": {
+                "all_match": mapped["all_match"],
+                "mismatch_field_count": mapped["mismatch_field_count"],
+                "sample_rows": mapped["sample_rows"],
+                "top_mismatch": mapped["mismatch_counts"],
+            },
+            "attachments": {
+                "all_match": attachments["all_match"],
+                "mismatch_field_count": attachments["mismatch_field_count"],
+                "sample_rows": attachments["sample_rows"],
+                "top_mismatch": attachments["mismatch_counts"],
+            },
+        }
+        return payload
 
     def action_execute(self):
         self.ensure_one()
+        log_extra = {}
         try:
             if self.operation == "export_csv":
                 msg = self._export_csv()
@@ -713,6 +743,37 @@ class CatalogOpsWizard(models.TransientModel):
                     f"结论: {'全部一致' if report['all_match'] else '存在不一致'}\n"
                     + ("附件异常TOP:\n" + "\n".join(mismatch_lines) if mismatch_lines else "附件异常TOP:\n(无)")
                 )
+            elif self.operation == "cutover_baseline_snapshot":
+                limit = self.backfill_limit if (self.backfill_limit or 0) > 0 else None
+                payload = self._build_cutover_baseline(limit=limit)
+                reconcile = payload["reconcile"]
+                mapped = payload["mapped_fields"]
+                attachments = payload["attachments"]
+                msg = (
+                    "切换基线记录已生成\n"
+                    f"入口模式: {payload['read_mode']}\n"
+                    f"对账(旧/新/缺失/重复/孤儿): "
+                    f"{reconcile['legacy_model_count']}/{reconcile['shadow_model_count']}/"
+                    f"{reconcile['missing_shadow_count']}/{reconcile['duplicate_brand_code_count']}/"
+                    f"{reconcile['orphan_model_count']}\n"
+                    f"字段一致: {'是' if mapped['all_match'] else '否'}，异常字段: {mapped['mismatch_field_count']}，异常记录: {mapped['sample_rows']}\n"
+                    f"附件一致: {'是' if attachments['all_match'] else '否'}，异常字段: {attachments['mismatch_field_count']}，异常记录: {attachments['sample_rows']}"
+                )
+                log_extra = {
+                    "read_mode": payload["read_mode"],
+                    "legacy_model_count": reconcile["legacy_model_count"],
+                    "shadow_model_count": reconcile["shadow_model_count"],
+                    "missing_shadow_count": reconcile["missing_shadow_count"],
+                    "duplicate_brand_code_count": reconcile["duplicate_brand_code_count"],
+                    "orphan_model_count": reconcile["orphan_model_count"],
+                    "mapped_all_match": mapped["all_match"],
+                    "mapped_mismatch_field_count": mapped["mismatch_field_count"],
+                    "mapped_sample_rows": mapped["sample_rows"],
+                    "attachment_all_match": attachments["all_match"],
+                    "attachment_mismatch_field_count": attachments["mismatch_field_count"],
+                    "attachment_sample_rows": attachments["sample_rows"],
+                    "baseline_payload": json.dumps(payload, ensure_ascii=False, indent=2),
+                }
             elif self.operation == "cleanup_xml":
                 planned = self._list_unmatched_brand_xml()
                 self._ensure_delete_confirmation(planned)
@@ -731,11 +792,11 @@ class CatalogOpsWizard(models.TransientModel):
             else:
                 raise UserError("不支持的操作。")
             self.result_message = msg
-            self._write_log(True, msg)
+            self._write_log(True, msg, log_extra)
         except Exception as exc:
             err = f"执行失败: {exc}"
             self.result_message = err
-            self._write_log(False, err)
+            self._write_log(False, err, log_extra)
             raise
         return {
             "type": "ir.actions.act_window",
