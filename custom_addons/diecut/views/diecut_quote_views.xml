@@ -48,7 +48,7 @@
                         <group name="group_middle">
                             <field name="product_name" />
                             <field name="internal_sn" string="料号" />
-                            <field name="specification" />
+                            <field name="specification" placeholder="如: 33.35 * 17.05" />
                             <field name="project_sn" string="终端项目号 ： " />
                         </group>
                         <group name="group_right">
@@ -196,7 +196,7 @@
                         <field name="product_name" />
                         <field name="internal_sn" />
                         <field name="project_sn" />
-                        <field name="specification" />
+                        <field name="specification" placeholder="如: 33.35 * 17.05" />
                         <field name="terminal" />
                         <field name="user_id" widget="many2one_avatar_user" />
                         <field name="moq" />

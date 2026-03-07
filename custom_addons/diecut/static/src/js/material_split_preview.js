@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
+import { useService } from "@web/core/utils/hooks";
 import { listView } from "@web/views/list/list_view";
 import { ListController } from "@web/views/list/list_controller";
 import { ListRenderer } from "@web/views/list/list_renderer";
@@ -89,10 +90,16 @@ export class DiecutSplitListRenderer extends ListRenderer {
 
     setup() {
         super.setup();
+        this.orm = useService("orm");
+        this.actionService = useService("action");
         this.state = useState({
             viewportWidth: window.innerWidth,
             resizing: false,
             selectedResId: null,
+            refreshTick: 0,
+            kbBreadcrumbs: [],
+            kbBreadcrumbsLoading: false,
+            kbBreadcrumbsToken: 0,
         });
         this._liveSplitRatio = this.props.splitRatio || 45;
         this._rafResizeTick = null;
@@ -140,6 +147,18 @@ export class DiecutSplitListRenderer extends ListRenderer {
         return this.props.splitLayoutMode === "list";
     }
 
+    get isKnowledgeModel() {
+        return (this.props.list.resModel || this.props.resModel) === "diecut.kb.article";
+    }
+
+    get kbBreadcrumbs() {
+        return this.state.kbBreadcrumbs || [];
+    }
+
+    get kbBreadcrumbsLoading() {
+        return Boolean(this.state.kbBreadcrumbsLoading);
+    }
+
     get splitRecords() {
         return this._collectRecords(this.props.list);
     }
@@ -175,7 +194,54 @@ export class DiecutSplitListRenderer extends ListRenderer {
         if (this.props.list.selection.length || this.props.list.model.multiEdit || this.isInlineEditable(record)) {
             return super.onCellClicked(record, column, ev, newWindow);
         }
-        this.state.selectedResId = this._getRecordResId(record);
+        const resId = this._getRecordResId(record);
+        this.state.selectedResId = resId;
+        this._loadKnowledgeBreadcrumbs(resId);
+    }
+
+    onButtonCellClicked(record, column, ev) {
+        const button = ev.target.closest("button");
+        const actionName = button?.getAttribute("name");
+        if (actionName === "action_activate_to_erp") {
+            ev.preventDefault();
+            ev.stopPropagation();
+            this._handleActivateToErp(record);
+            return;
+        }
+        super.onButtonCellClicked(record, column, ev);
+    }
+
+    async _handleActivateToErp(record) {
+        const resId = this._getRecordResId(record);
+        if (!resId) {
+            return;
+        }
+        const resModel = this.props.list.resModel || this.props.resModel;
+        const context = {
+            ...(this.props.list.context || {}),
+            ...(this.props.context || {}),
+            is_split_view_action: true,
+        };
+        let action;
+        try {
+            action = await this.orm.call(resModel, "action_activate_to_erp", [[resId]], { context });
+        } catch {
+            return;
+        }
+        if (action && typeof action === "object" && action.type) {
+            if (action.context) {
+                action.context.is_split_view_action = true;
+            } else {
+                action.context = { is_split_view_action: true };
+            }
+            await this.actionService.doAction(action, {
+                onClose: () => {
+                    this._refreshRowStatus(resId);
+                },
+            });
+            return;
+        }
+        this._refreshRowStatus(resId);
     }
 
     startResize(ev) {
@@ -238,7 +304,12 @@ export class DiecutSplitListRenderer extends ListRenderer {
         if (!resId) {
             return null;
         }
+        const splitForceEdit = this.props.context?.split_force_edit ?? this.props.list.context?.split_force_edit ?? true;
         const formViewId = this.splitFormViewId;
+        const formViewRef =
+            this.props.context?.split_form_view_ref ||
+            this.props.list.context?.split_form_view_ref ||
+            "diecut.view_material_catalog_variant_split_form";
         return {
             type: "form",
             resModel: this.props.list.resModel || this.props.resModel,
@@ -249,8 +320,8 @@ export class DiecutSplitListRenderer extends ListRenderer {
                 ...(this.props.context || this.props.list.context || {}),
                 edit: true,
                 create: false,
-                form_view_initial_mode: "edit",
-                form_view_ref: "diecut.view_material_catalog_variant_split_form",
+                form_view_initial_mode: splitForceEdit ? "edit" : "readonly",
+                form_view_ref: formViewRef,
             },
             display: { controlPanel: {} },
             className: "o_diecut_split_embedded_form",
@@ -272,7 +343,51 @@ export class DiecutSplitListRenderer extends ListRenderer {
 
     async onFormSaved(record) {
         this.state.selectedResId = record.resId;
+        this._loadKnowledgeBreadcrumbs(record.resId);
         await this.props.list.model.root.load();
+    }
+
+    async _loadKnowledgeBreadcrumbs(resId) {
+        if (!this.isKnowledgeModel) {
+            this.state.kbBreadcrumbs = [];
+            this.state.kbBreadcrumbsLoading = false;
+            return;
+        }
+        if (!resId) {
+            this.state.kbBreadcrumbs = [];
+            this.state.kbBreadcrumbsLoading = false;
+            return;
+        }
+
+        const token = (this.state.kbBreadcrumbsToken || 0) + 1;
+        this.state.kbBreadcrumbsToken = token;
+        this.state.kbBreadcrumbsLoading = true;
+
+        try {
+            const labels = [];
+            let currentId = resId;
+            let guard = 0;
+            while (currentId && guard < 30) {
+                const [row] = await this.orm.read("diecut.kb.article", [currentId], ["name", "parent_id"]);
+                if (!row) {
+                    break;
+                }
+                labels.unshift(row.name || `#${currentId}`);
+                currentId = row.parent_id && row.parent_id[0] ? row.parent_id[0] : false;
+                guard += 1;
+            }
+            if (this.state.kbBreadcrumbsToken === token) {
+                this.state.kbBreadcrumbs = labels;
+            }
+        } catch {
+            if (this.state.kbBreadcrumbsToken === token) {
+                this.state.kbBreadcrumbs = [];
+            }
+        } finally {
+            if (this.state.kbBreadcrumbsToken === token) {
+                this.state.kbBreadcrumbsLoading = false;
+            }
+        }
     }
 
     _collectRecords(list) {
@@ -307,6 +422,19 @@ export class DiecutSplitListRenderer extends ListRenderer {
         }
     }
 
+    async _refreshRowStatus(resId) {
+        if (!resId || this.props.list.resModel !== "diecut.catalog.item") return;
+
+        const [row] = await this.orm.read("diecut.catalog.item", [resId], ["erp_enabled", "erp_product_tmpl_id"]);
+        if (row) {
+            const record = this.splitRecords.find((item) => this._getRecordResId(item) === resId);
+            if (record) {
+                record.data.erp_enabled = Boolean(row.erp_enabled);
+                record.data.erp_product_tmpl_id = row.erp_product_tmpl_id ? row.erp_product_tmpl_id[0] : false;
+                this.state.refreshTick += 1;
+            }
+        }
+    }
 }
 
 export const diecutSplitListView = {

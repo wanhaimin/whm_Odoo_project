@@ -16,12 +16,12 @@ class DiecutQuote(models.Model):
     internal_sn = fields.Char(string="内部料号 :")
     terminal = fields.Char(string="终端客户 :")
     user_id = fields.Many2one('res.users', string="制单人", default=lambda self: self.env.user)
-    specification = fields.Char(string="产品规格(mm) :", placeholder="如: 33.35 * 17.05")
+    specification = fields.Char(string="产品规格(mm) :")
     moq = fields.Integer(string="MOQ")
     lead_time = fields.Integer(string="交期(天) :")
 
     quote_date = fields.Date(string="报价日期 :", default=fields.Date.context_today)
-    quote_date_show = fields.Date(string="报价日期 :", related='quote_date', store=True) # For list view if needed
+    quote_date_show = fields.Date(string="报价日期(列表)", related='quote_date', store=True) # For list view if needed
     
     
     currency_id = fields.Many2one('res.currency', string="币种", default=lambda self: self.env.company.currency_id)
@@ -471,7 +471,7 @@ class DiecutQuoteWizard(models.TransientModel):
     project_sn = fields.Char(string="项目编号 :")
     terminal = fields.Char(string="终端客户 :")
     user_id = fields.Many2one('res.users', string="制单人")
-    specification = fields.Char(string="产品规格(mm)", placeholder="如: 33.35 * 17.05")
+    specification = fields.Char(string="产品规格(mm)")
     moq = fields.Integer(string="MOQ")
     lead_time = fields.Integer(string="交期(天)")
     quote_date = fields.Date(string="报价日期")

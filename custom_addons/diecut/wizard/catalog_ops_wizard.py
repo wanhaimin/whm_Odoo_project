@@ -23,8 +23,7 @@ class CatalogFieldInfo(models.TransientModel):
 
     wizard_id = fields.Many2one("diecut.catalog.ops.wizard")
     model_name = fields.Selection([
-        ('product.template', '系列 (Template)'),
-        ('product.product', '型号 (Product)')
+        ('diecut.catalog.item', '目录条目 (Catalog Item)'),
     ], string="所属层级")
     field_name = fields.Char(string="字段技术名称")
     field_string = fields.Char(string="中文标签")
@@ -41,16 +40,11 @@ class CatalogOpsWizard(models.TransientModel):
             ("export_csv", "导出CSV（DB -> scripts）"),
             ("generate_assets", "从CSV生成JSON/XML"),
             ("sync_csv_to_db", "CSV同步入库"),
-            ("shadow_backfill", "新架构影子回填（旧模型 -> catalog.item）"),
-            ("shadow_reconcile", "新架构影子对账报告"),
-            ("shadow_refresh_fields", "新架构字段刷新（旧模型 -> 新模型）"),
-            ("shadow_compare_fields", "新旧字段一致性检查"),
-            ("shadow_compare_attachments", "新旧附件一致性检查"),
             ("cutover_baseline_snapshot", "生成切换基线记录"),
             ("import_xml", "导入指定XML"),
             ("cleanup_xml", "清理未匹配品牌XML"),
             ("edit_csv", "CSV轻量编辑"),
-            ("view_fields_manual", "字段维护清单"),
+            ("view_fields_manual", "字段维护清单（catalog_item.py）"),
         ],
         string="操作",
         required=True,
@@ -68,7 +62,7 @@ class CatalogOpsWizard(models.TransientModel):
     auto_create_external_ids = fields.Boolean(string="自动补齐外部ID", default=True)
     prune_unmatched_xml = fields.Boolean(string="删除未匹配品牌XML", default=False)
     dry_run = fields.Boolean(string="预演（不落盘/不删除）", default=True)
-    backfill_limit = fields.Integer(string="回填上限", default=0, help="仅用于影子回填；0 表示不限制。")
+    backfill_limit = fields.Integer(string="统计上限", default=0, help="用于基线快照抽样；0 表示不限制。")
     confirm_delete_token = fields.Char(
         string="删除确认词",
         help="执行真实删除前，请输入：DELETE",
@@ -213,10 +207,19 @@ class CatalogOpsWizard(models.TransientModel):
             "series_xml_id",
             "default_code",
             "variant_thickness",
+            "variant_adhesive_thickness",
             "variant_color",
+            "variant_peel_strength",
+            "variant_structure",
             "variant_adhesive_type",
             "variant_base_material",
-            "variant_peel_strength",
+            "variant_sus_peel",
+            "variant_pe_peel",
+            "variant_dupont",
+            "variant_push_force",
+            "variant_removability",
+            "variant_tumbler",
+            "variant_holding_power",
         ]
         extra_headers = set()
         variant_fields = []
@@ -503,28 +506,11 @@ class CatalogOpsWizard(models.TransientModel):
             "   - 用途：在界面直接编辑 scripts 下 CSV（series/variants）。\n"
             "   - 先点“加载CSV”，编辑后点“保存CSV”。\n"
             "   - 建议保存后先执行“从CSV生成JSON/XML（预演）”检查结果。\n\n"
-            "7) 新架构影子回填（旧模型 -> catalog.item）\n"
-            "   - 用途：把旧选型型号按品牌/系列规则回填到 diecut.catalog.item。\n"
-            "   - 可设置“回填上限”做小批量灰度验证。\n"
-            "   - 建议先预演，确认跳过与错误数量后再执行。\n\n"
-            "8) 新架构影子对账报告\n"
-            "   - 用途：检查旧型号总量与新影子模型一致性（缺失、重复、孤儿）。\n"
-            "   - 建议在影子回填后立即执行。\n\n"
-            "9) 新旧字段一致性检查\n"
-            "   - 用途：对比新模型与旧型号关键字段是否一致（技术参数/状态/映射等）。\n"
-            "   - 建议在影子回填后和每次部署后执行。\n\n"
-            "10) 新架构字段刷新（旧模型 -> 新模型）\n"
-            "   - 用途：按 legacy_variant_id 将旧型号关键字段批量刷新到新模型。\n"
-            "   - 适用于模型字段新增后的历史数据补齐。\n\n"
-            "11) 新旧附件一致性检查\n"
-            "   - 用途：对比新旧模型附件字段（文件名/是否有附件）的一致性。\n"
-            "   - 建议在字段刷新后执行。\n\n"
-            "12) 生成切换基线记录\n"
-            "   - 用途：将入口模式、影子对账、字段一致性、附件一致性打包记录到运维日志。\n"
+            "7) 生成切换基线记录\n"
+            "   - 用途：记录新架构当前基线（型号总数、重复编码、系列文本缺失）。\n"
             "   - 建议每次部署后执行一次，用于审计与回归对比。\n\n"
             "【推荐流程】\n"
-            "导出CSV -> 编辑CSV -> 从CSV生成JSON/XML（预演） -> CSV同步入库（先预演，再执行）\n"
-            "新架构迁移：影子回填（先预演） -> 影子回填（执行） -> 影子对账报告 -> 字段刷新 -> 字段一致性检查 -> 附件一致性检查 -> 生成切换基线记录"
+            "导出CSV -> 编辑CSV -> 从CSV生成JSON/XML（预演） -> CSV同步入库（先预演，再执行） -> 生成切换基线记录"
         )
         return {
             "type": "ir.actions.act_window",
@@ -620,25 +606,22 @@ class CatalogOpsWizard(models.TransientModel):
         self.env["diecut.catalog.ops.log"].create(vals)
 
     def _build_cutover_baseline(self, limit=None):
-        runtime = self.env["diecut.catalog.runtime.service"]
-        shadow = self.env["diecut.catalog.shadow.service"]
-        reconcile = shadow.shadow_reconcile_report()
-        mapped = shadow.compare_mapped_fields(limit=limit, sample_size=20)
-        attachments = shadow.compare_attachment_fields(limit=limit, sample_size=20)
+        catalog = self.env["diecut.catalog.item"]
+        model_domain = [("code", "!=", False)]
+        total_models = catalog.search_count(model_domain)
+        duplicate_ids = catalog._get_duplicate_model_ids()
+        missing_series_text = catalog.search_count([("code", "!=", False), ("series_text", "=", False)])
+        sample_domain = model_domain
+        if limit and limit > 0:
+            sample_domain = [("id", "in", catalog.search(model_domain, limit=limit).ids)]
+        sampled_models = catalog.search_count(sample_domain)
         payload = {
-            "read_mode": runtime.get_read_mode(),
-            "reconcile": reconcile,
-            "mapped_fields": {
-                "all_match": mapped["all_match"],
-                "mismatch_field_count": mapped["mismatch_field_count"],
-                "sample_rows": mapped["sample_rows"],
-                "top_mismatch": mapped["mismatch_counts"],
-            },
-            "attachments": {
-                "all_match": attachments["all_match"],
-                "mismatch_field_count": attachments["mismatch_field_count"],
-                "sample_rows": attachments["sample_rows"],
-                "top_mismatch": attachments["mismatch_counts"],
+            "read_mode": "new_gray",
+            "catalog_models": {
+                "total": total_models,
+                "sampled": sampled_models,
+                "duplicate_code_count": len(duplicate_ids),
+                "series_text_missing_count": missing_series_text,
             },
         }
         return payload
@@ -681,97 +664,23 @@ class CatalogOpsWizard(models.TransientModel):
                 else:
                     rel = self._import_xml(self.xml_file)
                     msg = f"导入成功: {rel}"
-            elif self.operation == "shadow_backfill":
-                limit = self.backfill_limit if (self.backfill_limit or 0) > 0 else None
-                stats = self.env["diecut.catalog.shadow.service"].shadow_backfill_from_legacy(
-                    dry_run=self.dry_run,
-                    limit=limit,
-                )
-                msg = (
-                    f"影子回填完成（{'预演' if self.dry_run else '已执行'}）\n"
-                    f"回填上限: {limit or '不限'}\n"
-                    f"旧型号总数: {stats['total_variants']}\n"
-                    f"系列写入: {stats['series_upserted']}\n"
-                    f"型号写入: {stats['models_upserted']}\n"
-                    f"跳过(无编码): {stats['models_skipped_no_code']}\n"
-                    f"跳过(无品牌): {stats['models_skipped_no_brand']}\n"
-                    f"错误数: {stats['errors']}"
-                )
-            elif self.operation == "shadow_reconcile":
-                report = self.env["diecut.catalog.shadow.service"].shadow_reconcile_report()
-                msg = (
-                    "影子对账报告\n"
-                    f"旧模型型号数: {report['legacy_model_count']}\n"
-                    f"新模型型号数: {report['shadow_model_count']}\n"
-                    f"缺失影子记录: {report['missing_shadow_count']}\n"
-                    f"品牌+编码重复组: {report['duplicate_brand_code_count']}\n"
-                    f"孤儿型号(无父系列): {report['orphan_model_count']}"
-                )
-            elif self.operation == "shadow_compare_fields":
-                limit = self.backfill_limit if (self.backfill_limit or 0) > 0 else None
-                report = self.env["diecut.catalog.shadow.service"].compare_mapped_fields(limit=limit, sample_size=20)
-                mismatch_lines = []
-                for field_name, count in sorted(report["mismatch_counts"].items(), key=lambda x: (-x[1], x[0]))[:10]:
-                    mismatch_lines.append(f"- {field_name}: {count}")
-                msg = (
-                    "新旧字段一致性检查\n"
-                    f"检查条数: {report['total_checked']}\n"
-                    f"异常记录数: {report['mismatch_rows']}\n"
-                    f"异常字段数: {report['mismatch_field_count']}\n"
-                    f"结论: {'全部一致' if report['all_match'] else '存在不一致'}\n"
-                    + ("字段异常TOP:\n" + "\n".join(mismatch_lines) if mismatch_lines else "字段异常TOP:\n(无)")
-                )
-            elif self.operation == "shadow_refresh_fields":
-                limit = self.backfill_limit if (self.backfill_limit or 0) > 0 else None
-                stats = self.env["diecut.catalog.shadow.service"].refresh_model_fields_from_legacy(limit=limit)
-                msg = (
-                    "新架构字段刷新完成\n"
-                    f"处理条数: {stats['total']}\n"
-                    f"刷新条数: {stats['updated']}"
-                )
-            elif self.operation == "shadow_compare_attachments":
-                limit = self.backfill_limit if (self.backfill_limit or 0) > 0 else None
-                report = self.env["diecut.catalog.shadow.service"].compare_attachment_fields(limit=limit, sample_size=20)
-                mismatch_lines = []
-                for field_name, count in sorted(report["mismatch_counts"].items(), key=lambda x: (-x[1], x[0]))[:10]:
-                    mismatch_lines.append(f"- {field_name}: {count}")
-                msg = (
-                    "新旧附件一致性检查\n"
-                    f"检查条数: {report['total_checked']}\n"
-                    f"异常记录数: {report['sample_rows']}\n"
-                    f"异常字段数: {report['mismatch_field_count']}\n"
-                    f"结论: {'全部一致' if report['all_match'] else '存在不一致'}\n"
-                    + ("附件异常TOP:\n" + "\n".join(mismatch_lines) if mismatch_lines else "附件异常TOP:\n(无)")
-                )
             elif self.operation == "cutover_baseline_snapshot":
                 limit = self.backfill_limit if (self.backfill_limit or 0) > 0 else None
                 payload = self._build_cutover_baseline(limit=limit)
-                reconcile = payload["reconcile"]
-                mapped = payload["mapped_fields"]
-                attachments = payload["attachments"]
+                catalog_models = payload["catalog_models"]
                 msg = (
                     "切换基线记录已生成\n"
                     f"入口模式: {payload['read_mode']}\n"
-                    f"对账(旧/新/缺失/重复/孤儿): "
-                    f"{reconcile['legacy_model_count']}/{reconcile['shadow_model_count']}/"
-                    f"{reconcile['missing_shadow_count']}/{reconcile['duplicate_brand_code_count']}/"
-                    f"{reconcile['orphan_model_count']}\n"
-                    f"字段一致: {'是' if mapped['all_match'] else '否'}，异常字段: {mapped['mismatch_field_count']}，异常记录: {mapped['sample_rows']}\n"
-                    f"附件一致: {'是' if attachments['all_match'] else '否'}，异常字段: {attachments['mismatch_field_count']}，异常记录: {attachments['sample_rows']}"
+                    f"型号总数: {catalog_models['total']}\n"
+                    f"抽样条数: {catalog_models['sampled']}\n"
+                    f"重复编码数: {catalog_models['duplicate_code_count']}\n"
+                    f"系列文本缺失数: {catalog_models['series_text_missing_count']}"
                 )
                 log_extra = {
                     "read_mode": payload["read_mode"],
-                    "legacy_model_count": reconcile["legacy_model_count"],
-                    "shadow_model_count": reconcile["shadow_model_count"],
-                    "missing_shadow_count": reconcile["missing_shadow_count"],
-                    "duplicate_brand_code_count": reconcile["duplicate_brand_code_count"],
-                    "orphan_model_count": reconcile["orphan_model_count"],
-                    "mapped_all_match": mapped["all_match"],
-                    "mapped_mismatch_field_count": mapped["mismatch_field_count"],
-                    "mapped_sample_rows": mapped["sample_rows"],
-                    "attachment_all_match": attachments["all_match"],
-                    "attachment_mismatch_field_count": attachments["mismatch_field_count"],
-                    "attachment_sample_rows": attachments["sample_rows"],
+                    "shadow_model_count": catalog_models["total"],
+                    "duplicate_brand_code_count": catalog_models["duplicate_code_count"],
+                    "orphan_model_count": catalog_models["series_text_missing_count"],
                     "baseline_payload": json.dumps(payload, ensure_ascii=False, indent=2),
                 }
             elif self.operation == "cleanup_xml":
@@ -809,34 +718,29 @@ class CatalogOpsWizard(models.TransientModel):
 
     def _collect_field_entries(self):
         field_entries = []
+        model = self.env['diecut.catalog.item']
+        system_native_fields = {
+            'id',
+            'display_name',
+            'create_uid',
+            'create_date',
+            'write_uid',
+            'write_date',
+            '__last_update',
+        }
 
-        tmpl_core_fnames = {'brand_id', 'series_name', 'manufacturer_id', 'is_catalog', 'categ_id', 'color_id', 'variant_color_std_index'}
-        tmpl_model = self.env['product.template']
-        for fname, field in tmpl_model._fields.items():
-            if fname.startswith('catalog_') or fname in tmpl_core_fnames:
-                field_entries.append({
-                    'model_name': 'product.template',
-                    'field_name': fname,
-                    'field_string': field.string or fname,
-                    'field_type': field.type,
-                    'field_help': field.help or ''
-                })
+        for fname, field in model._fields.items():
+            if fname in system_native_fields:
+                continue
+            field_entries.append({
+                'model_name': 'diecut.catalog.item',
+                'field_name': fname,
+                'field_string': field.string or fname,
+                'field_type': field.type,
+                'field_help': field.help or '',
+            })
 
-        prod_core_fnames = {'default_code', 'active', 'barcode'}
-        prod_model = self.env['product.product']
-        for fname, field in prod_model._fields.items():
-            if fname.startswith('variant_') or fname in prod_core_fnames:
-                if fname.endswith('_std_index') and not field.string:
-                    continue
-                field_entries.append({
-                    'model_name': 'product.product',
-                    'field_name': fname,
-                    'field_string': field.string or fname,
-                    'field_type': field.type,
-                    'field_help': field.help or ''
-                })
-
-        field_entries.sort(key=lambda x: (x['model_name'], x['field_name']))
+        field_entries.sort(key=lambda x: x['field_name'])
         return field_entries
 
     def _reload_field_info_lines(self):
@@ -851,7 +755,7 @@ class CatalogOpsWizard(models.TransientModel):
         self._reload_field_info_lines()
         return {
             "type": "ir.actions.act_window",
-            "name": "????",
+            "name": "数据运维",
             "res_model": self._name,
             "res_id": self.id,
             "view_mode": "form",

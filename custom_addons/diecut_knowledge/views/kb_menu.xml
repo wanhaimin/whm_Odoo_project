@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem
+        id="menu_diecut_kb_article"
+        name="知识库工作台"
+        parent="diecut.menu_material_catalog"
+        action="action_diecut_kb_workspace"
+        sequence="25"
+    />
+
+    <menuitem
+        id="menu_diecut_kb_article_manage"
+        name="页面管理（后台）"
+        parent="diecut.menu_material_catalog"
+        action="action_diecut_kb_article_manage"
+        sequence="26"
+        groups="base.group_system"
+    />
+
+    <menuitem
+        id="menu_diecut_kb_recycle"
+        name="垃圾回收站"
+        parent="diecut.menu_material_catalog"
+        action="action_diecut_kb_article_recycle"
+        sequence="27"
+    />
+</odoo>

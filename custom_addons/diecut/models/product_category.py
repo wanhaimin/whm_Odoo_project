@@ -8,11 +8,10 @@ class ProductCategoryExtend(models.Model):
     _inherit = 'product.category'
     _order = 'sequence, id'  # 按序列和ID排序
     
-    _sql_constraints = [
-        ('name_parent_uniq', 
-         'UNIQUE(name, parent_id)', 
-         '同一层级下不能有重复的分类名称！')
-    ]
+    _name_parent_uniq = models.Constraint(
+        'UNIQUE(name, parent_id)',
+        '同一层级下不能有重复的分类名称！',
+    )
     
     # ==================== 排序字段 ====================
     sequence = fields.Integer(
@@ -44,7 +43,7 @@ class ProductCategoryExtend(models.Model):
         ('raw', '原材料'),
         ('semi', '半成品'),
         ('finished', '成品'),
-    ], string='分类类型', help='一级分类手动设置，子分类自动继承', compute='_compute_category_type', store=True, readonly=False)
+    ], string='分类类型', help='一级分类手动设置，子分类自动继承', compute='_compute_category_type', store=True, recursive=True, readonly=False)
     
     # ==================== 二级分类字段 ====================
     material_code_prefix = fields.Char(

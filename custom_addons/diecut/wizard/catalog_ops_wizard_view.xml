@@ -10,18 +10,18 @@
                         <field name="operation" />
                         <field name="xml_file" invisible="operation != 'import_xml'" />
                         <field name="csv_target_file" invisible="operation != 'edit_csv'" />
-                        <field name="backfill_limit" invisible="operation not in ('shadow_backfill','shadow_compare_fields','shadow_refresh_fields','shadow_compare_attachments','cutover_baseline_snapshot')" />
+                        <field name="backfill_limit" invisible="operation not in ('cutover_baseline_snapshot')" />
                         <field name="confirm_delete_token" invisible="operation not in ('cleanup_xml','generate_assets','sync_csv_to_db')" placeholder="真实删除前输入 DELETE" />
                     </group>
                     <group>
                         <field name="auto_create_external_ids" invisible="operation not in ('export_csv')" />
                         <field name="prune_unmatched_xml" invisible="operation not in ('generate_assets','sync_csv_to_db')" />
-                        <field name="dry_run" invisible="operation in ('edit_csv','view_fields_manual','shadow_reconcile','shadow_compare_fields','shadow_refresh_fields','shadow_compare_attachments','cutover_baseline_snapshot')" />
+                        <field name="dry_run" invisible="operation in ('edit_csv','view_fields_manual','cutover_baseline_snapshot')" />
                     </group>
                 </group>
-                <group string="新架构迁移提示" invisible="operation not in ('shadow_backfill','shadow_reconcile','shadow_compare_fields','shadow_refresh_fields','shadow_compare_attachments','cutover_baseline_snapshot')" col="1" colspan="2">
+                <group string="新架构基线提示" invisible="operation != 'cutover_baseline_snapshot'" col="1" colspan="2">
                     <p class="text-muted">
-                        建议流程：先执行“新架构影子回填（预演）”，再执行“新架构影子回填（已执行）”，然后执行“新架构影子对账报告”“新架构字段刷新”“新旧字段一致性检查”“新旧附件一致性检查”和“生成切换基线记录”。
+                        建议在每次部署后执行“生成切换基线记录”，用于持续记录新架构关键指标（总数/重复/系列文本缺失）。
                     </p>
                 </group>
                 <group string="删除预览" invisible="operation not in ('cleanup_xml','generate_assets','sync_csv_to_db')" col="1" colspan="2">
@@ -38,14 +38,14 @@
                 </group>
                 <group string="字段维护清单" invisible="operation != 'view_fields_manual'" col="1" colspan="2">
                     <p class="text-muted">
-                        以下是选型目录（系列与型号）中所有需要维护的业务相关字段。当代码中新增以
-                        <code>catalog_</code>
-                        或
-                        <code>variant_</code>
-                        开头的字段时，此列表将自动同步。
+                        以下清单直接读取
+                        <code>models/catalog_item.py</code>
+                        （模型
+                        <code>diecut.catalog.item</code>
+                        ）字段定义，已排除系统原生元字段。
                     </p>
                     <field name="field_info_ids" nolabel="1" colspan="2" readonly="1">
-                        <list decoration-info="model_name == 'product.template'" decoration-success="model_name == 'product.product'">
+                        <list>
                             <field name="model_name" />
                             <field name="field_name" />
                             <field name="field_string" />

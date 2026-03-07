@@ -4,29 +4,34 @@
         <field name="name">diecut.catalog.item.tree</field>
         <field name="model">diecut.catalog.item</field>
         <field name="arch" type="xml">
-            <list string="新架构型号清单（灰度）" default_order="brand_id, parent_id, code, id" decoration-muted="item_level == 'series'">
-                <field name="item_level" string="层级" optional="hide"/>
-                <field name="code" string="型号编码"/>
-                <field name="parent_id" string="系列" widget="badge"/>
-                <field name="variant_thickness" string="厚度"/>
-                <field name="variant_color" string="颜色" widget="badge"/>
-                <field name="variant_adhesive_type" string="胶系" widget="badge"/>
-                <field name="variant_base_material" string="基材"/>
-                <field name="variant_note" string="特性说明"/>
-                <field name="catalog_status" string="状态" widget="badge" decoration-success="catalog_status == 'published'" decoration-info="catalog_status == 'review'" decoration-warning="catalog_status == 'draft'" decoration-danger="catalog_status == 'deprecated'"/>
-                <field name="erp_enabled" string="已启用ERP" widget="boolean_toggle" optional="show"/>
-                <button name="action_activate_to_erp" string="启用到ERP" type="object" icon="fa-cube" class="btn-secondary" invisible="item_level != 'model' or erp_enabled"/>
-                <button name="action_view_erp_product" string="已启用ERP" type="object" icon="fa-check-circle" class="btn-secondary" invisible="item_level != 'model' or not erp_enabled"/>
-                <field name="brand_id" string="品牌" optional="hide"/>
-                <field name="series_code" string="系列编码" optional="hide"/>
-                <field name="name" string="名称" optional="hide"/>
-                <field name="variant_thickness_std" string="厚度(标准)" optional="hide"/>
-                <field name="variant_color_std" string="颜色(标准)" optional="hide"/>
-                <field name="variant_adhesive_std" string="胶系(标准)" optional="hide"/>
-                <field name="variant_base_material_std" string="基材(标准)" optional="hide"/>
-                <field name="is_system_default_series" string="系统默认" optional="hide"/>
-                <field name="is_orphan" string="孤儿型号" optional="hide"/>
-                <field name="is_duplicate_key" string="编码重复" optional="hide"/>
+            <list string="材料型号清单" default_order="brand_id, code, id">
+                <field name="name" string="名称" optional="hide" />
+                <field name="code" string="型号" />
+                <field name="series_text" string="系列" optional="show" />
+                <field name="variant_thickness" string="厚度" />
+                <field name="variant_adhesive_thickness" string="胶厚" optional="hide" />
+                <field name="variant_color" string="颜色" />
+                <field name="variant_peel_strength" string="剥离力" optional="hide" />
+                <field name="variant_structure" string="结构描述" optional="hide" />
+                <field name="variant_adhesive_type" string="胶系" />
+                <field name="variant_base_material" string="基材" />
+                <field name="variant_sus_peel" string="SUS剥离力" optional="hide" />
+                <field name="variant_pe_peel" string="PE剥离力" optional="hide" />
+                <field name="variant_dupont" string="DuPont冲击" optional="hide" />
+                <field name="variant_push_force" string="推出力" optional="hide" />
+                <field name="variant_removability" string="可移除性" optional="hide" />
+                <field name="variant_tumbler" string="Tumbler滚球" optional="hide" />
+                <field name="variant_holding_power" string="保持力" optional="hide" />
+                <field name="brand_id" string="品牌" optional="hide" />
+                <field name="variant_thickness_std" string="厚度(标准)" optional="hide" />
+                <field name="variant_color_std" string="颜色(标准)" optional="hide" />
+                <field name="variant_adhesive_std" string="胶系(标准)" optional="hide" />
+                <field name="variant_base_material_std" string="基材(标准)" optional="hide" />
+                <field name="is_duplicate_key" string="编码重复" optional="hide" />
+                <field name="catalog_status" string="状态" decoration-success="catalog_status == 'published'" decoration-info="catalog_status == 'review'" decoration-warning="catalog_status == 'draft'" decoration-danger="catalog_status == 'deprecated'" optional="show" />
+                <field name="erp_enabled" string="已启用ERP" widget="boolean_toggle" optional="show" readonly="1" />
+                <button name="action_activate_to_erp" string="启用到ERP" type="object" icon="fa-cube" class="btn-secondary" invisible="erp_enabled" />
+                <button name="action_view_erp_product" string="已启用ERP" type="object" icon="fa-check-circle" class="btn-secondary" invisible="not erp_enabled" />
             </list>
         </field>
     </record>
@@ -35,71 +40,64 @@
         <field name="name">diecut.catalog.item.form</field>
         <field name="model">diecut.catalog.item</field>
         <field name="arch" type="xml">
-            <form string="材料选型条目（灰度，非product.product字段）">
+            <form string="材料选型目录">
                 <sheet>
-                    <div name="button_box" class="oe_button_box" invisible="item_level != 'model'">
-                        <button name="action_activate_to_erp" string="启用到ERP" type="object" class="oe_stat_button" icon="fa-cube" invisible="erp_enabled"/>
-                        <button name="action_view_erp_product" string="已启用ERP" type="object" class="oe_stat_button" icon="fa-external-link" invisible="not erp_enabled"/>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_activate_to_erp" string="启用到ERP" type="object" class="oe_stat_button" icon="fa-cube" invisible="erp_enabled" />
+                        <button name="action_view_erp_product" string="已启用ERP" type="object" class="oe_stat_button" icon="fa-external-link" invisible="not erp_enabled" />
                     </div>
                     <group>
                         <group>
-                            <field name="item_level" string="层级"/>
-                            <field name="brand_id" string="品牌"/>
-                            <field name="categ_id" string="材料分类"/>
-                            <field name="catalog_status" string="目录状态"/>
+                            <field name="brand_id" string="品牌" />
+                            <field name="categ_id" string="材料分类" />
+                            <field name="catalog_status" string="目录状态" />
                         </group>
                         <group>
-                            <field name="name" string="名称"/>
-                            <field name="series_code" string="系列编码" invisible="item_level != 'series'"/>
-                            <field name="code" string="型号编码" invisible="item_level != 'model'"/>
-                            <field name="parent_id" string="所属系列" invisible="item_level != 'model'"/>
-                            <field name="is_system_default_series" string="系统默认系列" invisible="item_level != 'series'"/>
+                            <field name="name" string="名称" />
+                            <field name="code" string="型号编码" />
+                            <field name="series_text" string="系列" />
                         </group>
                     </group>
-
-                    <group string="ERP映射与追溯">
+                    <group string="技术参数">
                         <group>
-                            <field name="erp_enabled" string="已启用ERP" readonly="1"/>
-                            <field name="erp_product_tmpl_id" string="ERP产品" readonly="1"/>
+                            <field name="variant_thickness" string="厚度" />
+                            <field name="variant_adhesive_thickness" string="胶厚" />
+                            <field name="variant_color" string="颜色" />
+                            <field name="variant_peel_strength" string="剥离力" />
+                            <field name="variant_structure" string="结构描述" />
+                            <field name="variant_adhesive_type" string="胶系" />
+                            <field name="variant_base_material" string="基材" />
+                            <field name="variant_sus_peel" string="SUS面剥离力" />
+                            <field name="variant_pe_peel" string="PE面剥离力" />
+                            <field name="variant_dupont" string="DuPont冲击" />
+                            <field name="variant_ref_price" string="参考单价" />
                         </group>
                         <group>
-                            <field name="legacy_tmpl_id" string="旧系列" readonly="1"/>
-                            <field name="legacy_variant_id" string="旧型号" readonly="1"/>
-                        </group>
-                    </group>
-
-                    <group string="技术参数（Phase4）" invisible="item_level != 'model'">
-                        <group>
-                            <field name="variant_thickness" string="厚度"/>
-                            <field name="variant_color" string="颜色"/>
-                            <field name="variant_adhesive_type" string="胶系(变体)"/>
-                            <field name="variant_base_material" string="基材(变体)"/>
-                            <field name="variant_ref_price" string="参考单价"/>
-                            <field name="variant_note" string="型号备注"/>
-                        </group>
-                        <group>
-                            <field name="variant_thickness_std" string="厚度(标准)"/>
-                            <field name="variant_color_std" string="颜色(标准)"/>
-                            <field name="variant_adhesive_std" string="胶系(标准)"/>
-                            <field name="variant_base_material_std" string="基材(标准)"/>
-                            <field name="variant_is_rohs" string="ROHS"/>
-                            <field name="variant_is_reach" string="REACH"/>
-                            <field name="variant_is_halogen_free" string="无卤"/>
-                            <field name="variant_fire_rating" string="防火等级"/>
+                            <field name="variant_push_force" string="推出力" />
+                            <field name="variant_removability" string="可移除性" />
+                            <field name="variant_tumbler" string="Tumbler滚球" />
+                            <field name="variant_holding_power" string="保持力" />
+                            <field name="variant_thickness_std" string="厚度(标准)" />
+                            <field name="variant_color_std" string="颜色(标准)" />
+                            <field name="variant_adhesive_std" string="胶系(标准)" />
+                            <field name="variant_base_material_std" string="基材(标准)" />
+                            <field name="variant_is_rohs" string="ROHS" />
+                            <field name="variant_is_reach" string="REACH" />
+                            <field name="variant_is_halogen_free" string="无卤" />
+                            <field name="variant_fire_rating" string="防火等级" />
                         </group>
                     </group>
-
-                    <group string="文档与附件（Phase4）" invisible="item_level != 'model'">
+                    <group string="文档与附件">
                         <group>
-                            <field name="variant_tds_filename" string="TDS文件名"/>
-                            <field name="variant_msds_filename" string="MSDS文件名"/>
-                            <field name="variant_datasheet_filename" string="规格书文件名"/>
+                            <field name="variant_tds_filename" string="TDS文件名" />
+                            <field name="variant_msds_filename" string="MSDS文件名" />
+                            <field name="variant_datasheet_filename" string="规格书文件名" />
                         </group>
                         <group>
-                            <field name="variant_tds_file" string="TDS技术数据表" widget="binary" filename="variant_tds_filename"/>
-                            <field name="variant_msds_file" string="MSDS安全数据表" widget="binary" filename="variant_msds_filename"/>
-                            <field name="variant_datasheet" string="规格书" widget="binary" filename="variant_datasheet_filename"/>
-                            <field name="variant_catalog_structure_image" string="产品结构图" widget="image"/>
+                            <field name="variant_tds_file" string="TDS技术数据表" widget="binary" filename="variant_tds_filename" />
+                            <field name="variant_msds_file" string="MSDS安全数据表" widget="binary" filename="variant_msds_filename" />
+                            <field name="variant_datasheet" string="规格书" widget="binary" filename="variant_datasheet_filename" />
+                            <field name="variant_catalog_structure_image" string="产品结构图" widget="image" />
                         </group>
                     </group>
                 </sheet>
@@ -112,38 +110,34 @@
         <field name="model">diecut.catalog.item</field>
         <field name="arch" type="xml">
             <search string="材料选型条目搜索">
-                <field name="name" string="名称"/>
-                <field name="brand_id" string="品牌"/>
-                <field name="series_code" string="系列编码"/>
-                <field name="code" string="型号编码"/>
-                <field name="variant_thickness_std" string="厚度(标准)"/>
-                <field name="variant_color_std" string="颜色(标准)"/>
-                <field name="variant_adhesive_std" string="胶系(标准)"/>
-                <field name="variant_base_material_std" string="基材(标准)"/>
-                <field name="catalog_status" string="状态"/>
-                <filter name="filter_level_series" string="系列" domain="[('item_level', '=', 'series')]"/>
-                <filter name="filter_level_model" string="型号" domain="[('item_level', '=', 'model')]"/>
-                <filter name="filter_default_series" string="默认系列" domain="[('item_level', '=', 'series'), ('is_system_default_series', '=', True)]"/>
-                <separator/>
-                <filter name="filter_status_published" string="已发布" domain="[('catalog_status', '=', 'published')]"/>
-                <filter name="filter_status_review" string="评审中" domain="[('catalog_status', '=', 'review')]"/>
-                <filter name="filter_status_draft" string="草稿" domain="[('catalog_status', '=', 'draft')]"/>
-                <separator/>
-                <filter name="filter_erp_enabled" string="已启用ERP" domain="[('item_level', '=', 'model'), ('erp_enabled', '=', True)]"/>
-                <filter name="filter_erp_not_enabled" string="未启用ERP" domain="[('item_level', '=', 'model'), ('erp_enabled', '=', False)]"/>
-                <filter name="filter_rohs" string="ROHS" domain="[('item_level', '=', 'model'), ('variant_is_rohs', '=', True)]"/>
-                <filter name="filter_reach" string="REACH" domain="[('item_level', '=', 'model'), ('variant_is_reach', '=', True)]"/>
-                <separator/>
-                <filter name="filter_orphan" string="孤儿型号" domain="[('is_orphan', '=', True)]"/>
-                <filter name="filter_duplicate_code" string="编码重复" domain="[('is_duplicate_key', '=', True)]"/>
-                <filter name="filter_integrity_issue" string="结构异常" domain="['|', ('is_orphan', '=', True), ('is_duplicate_key', '=', True)]"/>
-                <separator/>
-                <filter name="group_brand" string="按品牌分组" context="{'group_by': 'brand_id'}"/>
-                <filter name="group_level" string="按层级分组" context="{'group_by': 'item_level'}"/>
-                <filter name="group_series" string="按系列分组" context="{'group_by': 'parent_id'}"/>
+                <field name="name" string="名称" />
+                <field name="brand_id" string="品牌" />
+                <field name="series_text" string="系列" />
+                <field name="code" string="型号编码" />
+                <field name="variant_thickness_std" string="厚度(标准)" />
+                <field name="variant_color_std" string="颜色(标准)" />
+                <field name="variant_adhesive_std" string="胶系(标准)" />
+                <field name="variant_base_material_std" string="基材(标准)" />
+                <field name="catalog_status" string="状态" />
+                <filter name="filter_status_published" string="已发布" domain="[('catalog_status', '=', 'published')]" />
+                <filter name="filter_status_review" string="评审中" domain="[('catalog_status', '=', 'review')]" />
+                <filter name="filter_status_draft" string="草稿" domain="[('catalog_status', '=', 'draft')]" />
+                <separator />
+                <filter name="filter_erp_enabled" string="已启用ERP" domain="[('erp_enabled', '=', True)]" />
+                <filter name="filter_erp_not_enabled" string="未启用ERP" domain="[('erp_enabled', '=', False)]" />
+                <filter name="filter_rohs" string="ROHS" domain="[('variant_is_rohs', '=', True)]" />
+                <filter name="filter_reach" string="REACH" domain="[('variant_is_reach', '=', True)]" />
+                <separator />
+                <filter name="group_name" string="按名称分组" context="{'group_by': 'name'}" />
+                <filter name="group_brand" string="按品牌分组" context="{'group_by': 'brand_id'}" />
+                <filter name="group_series_text" string="按系列分组" context="{'group_by': 'series_text'}" />
+                <filter name="group_thickness" string="按厚度分组" context="{'group_by': 'variant_thickness_std'}" />
+                <filter name="group_color" string="按颜色分组" context="{'group_by': 'variant_color_std'}" />
+                <filter name="group_adhesive" string="按胶系分组" context="{'group_by': 'variant_adhesive_std'}" />
+                <filter name="group_base_material" string="按基材分组" context="{'group_by': 'variant_base_material_std'}" />
                 <searchpanel>
-                    <field name="brand_id" string="品牌" select="multi" enable_counters="1"/>
-                    <field name="parent_id" string="系列" select="multi" enable_counters="1" domain="[('item_level', '=', 'series')]"/>
+                    <field name="categ_id" string="材料分类" hierarchize="1" enable_counters="1" />
+                    <field name="brand_id" string="品牌" select="multi" enable_counters="1" />
                 </searchpanel>
             </search>
         </field>
@@ -152,7 +146,7 @@
     <record id="view_diecut_catalog_item_split_tree" model="ir.ui.view">
         <field name="name">diecut.catalog.item.split.tree</field>
         <field name="model">diecut.catalog.item</field>
-        <field name="inherit_id" ref="view_diecut_catalog_item_tree"/>
+        <field name="inherit_id" ref="view_diecut_catalog_item_tree" />
         <field name="arch" type="xml">
             <xpath expr="//list" position="attributes">
                 <attribute name="js_class">diecut_split_list</attribute>
@@ -163,21 +157,21 @@
     <record id="view_diecut_catalog_item_split_form" model="ir.ui.view">
         <field name="name">diecut.catalog.item.split.form</field>
         <field name="model">diecut.catalog.item</field>
-        <field name="inherit_id" ref="view_diecut_catalog_item_form"/>
+        <field name="inherit_id" ref="view_diecut_catalog_item_form" />
         <field name="arch" type="xml">
-            <xpath expr="//div[@name='button_box']/button[@name='action_activate_to_erp']" position="replace"/>
-            <xpath expr="//div[@name='button_box']/button[@name='action_view_erp_product']" position="replace"/>
+            <xpath expr="//div[@name='button_box']/button[@name='action_activate_to_erp']" position="replace" />
+            <xpath expr="//div[@name='button_box']/button[@name='action_view_erp_product']" position="replace" />
         </field>
     </record>
 
     <record id="action_diecut_catalog_item_gray" model="ir.actions.act_window">
-        <field name="name">材料型号清单（新架构灰度，非product.product）</field>
+        <field name="name">材料型号清单（新架构）</field>
         <field name="res_model">diecut.catalog.item</field>
         <field name="view_mode">list,form</field>
-        <field name="search_view_id" ref="view_diecut_catalog_item_search"/>
-        <field name="context" eval="{'search_default_filter_level_model': 1, 'split_form_view_id': ref('view_diecut_catalog_item_split_form'), 'split_storage_key': 'action_diecut_catalog_item_gray', 'edit': True, 'create': True}"/>
+        <field name="search_view_id" ref="view_diecut_catalog_item_search" />
+        <field name="context" eval="{'split_form_view_id': ref('view_diecut_catalog_item_split_form'), 'split_form_view_ref': 'diecut.view_diecut_catalog_item_split_form', 'split_storage_key': 'action_diecut_catalog_item_gray', 'edit': True, 'create': True}" />
         <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'list', 'view_id': ref('view_diecut_catalog_item_split_tree')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('view_diecut_catalog_item_form')})]"/>
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_diecut_catalog_item_form')})]" />
     </record>
 </odoo>

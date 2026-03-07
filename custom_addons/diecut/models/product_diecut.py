@@ -5,12 +5,6 @@ from odoo import models, fields, api, Command
 import logging
 from odoo.exceptions import ValidationError
 
-class DiecutBrand(models.Model):
-    _name = 'diecut.brand'
-    _description = '品牌'
-
-    name = fields.Char(string='品牌名称', required=True)
-
 class DiecutColor(models.Model):
     _name = 'diecut.color'
     _description = '颜色'
@@ -80,27 +74,27 @@ class ProductTemplate(models.Model):
         domain="[('is_company', '=', True)]",
     )
     catalog_base_material = fields.Char(string='基材类型', help='如 PET、PU、PI、铜箔等')
-    catalog_adhesive_type = fields.Char(string='胶系', help='如 丙烯酸、合成橡胶、硅胶等')
+    catalog_adhesive_type = fields.Char(string='目录胶系', help='如 丙烯酸、合成橡胶、硅胶等')
     variant_thickness_std_index = fields.Char(
-        string='厚度',
+        string='厚度索引',
         compute='_compute_variant_std_index',
         store=True,
         help='系列下所有型号的标准化厚度索引（用于筛选）',
     )
     variant_color_std_index = fields.Char(
-        string='颜色',
+        string='颜色索引',
         compute='_compute_variant_std_index',
         store=True,
         help='系列下所有型号的标准化颜色索引（用于筛选）',
     )
     variant_adhesive_std_index = fields.Char(
-        string='胶系',
+        string='胶系索引',
         compute='_compute_variant_std_index',
         store=True,
         help='系列下所有型号的标准化胶系索引（用于筛选）',
     )
     variant_base_material_std_index = fields.Char(
-        string='基材',
+        string='基材索引',
         compute='_compute_variant_std_index',
         store=True,
         help='系列下所有型号的标准化基材索引（用于筛选）',
@@ -153,7 +147,7 @@ class ProductTemplate(models.Model):
     def init(self):
         """数据库级约束：为 source_catalog_variant_id 创建唯一部分索引。"""
         super().init()
-        self._cr.execute("""
+        self.env.cr.execute("""
             SELECT source_catalog_variant_id, array_agg(id ORDER BY id)
             FROM product_template
             WHERE source_catalog_variant_id IS NOT NULL
@@ -161,7 +155,7 @@ class ProductTemplate(models.Model):
             HAVING COUNT(*) > 1
             LIMIT 1
         """)
-        duplicate = self._cr.fetchone()
+        duplicate = self.env.cr.fetchone()
         if duplicate:
             variant_id, tmpl_ids = duplicate
             raise ValidationError(
@@ -170,7 +164,7 @@ class ProductTemplate(models.Model):
                 % (variant_id, tmpl_ids)
             )
 
-        self._cr.execute(
+        self.env.cr.execute(
             f"""
             CREATE UNIQUE INDEX IF NOT EXISTS {self._catalog_source_unique_index}
             ON product_template (source_catalog_variant_id)
@@ -264,7 +258,18 @@ class ProductTemplate(models.Model):
 
     def unlink(self):
         """删除ERP原材料时，自动重置对应选型目录变体的启用状态"""
-        # 查找所有引用即将删除产品的选型目录变体
+        # 1. 自动重置新架构 (Phase 4) 的选型目录条目启用状态
+        catalog_items = self.env['diecut.catalog.item'].search([
+            ('erp_product_tmpl_id', 'in', self.ids),
+            ('erp_enabled', '=', True),
+        ])
+        if catalog_items:
+            catalog_items.with_context(skip_shadow_sync=True).write({
+                'erp_enabled': False,
+                'erp_product_tmpl_id': False,
+            })
+                    
+        # 2. 自动重置旧架构 (Phase 3) 选型目录变体的启用状态
         catalog_variants = self.env['product.product'].search([
             ('activated_product_tmpl_id', 'in', self.ids),
             ('is_activated', '=', True),
@@ -274,6 +279,8 @@ class ProductTemplate(models.Model):
                 'is_activated': False,
                 'activated_product_tmpl_id': False,
             })
+            catalog_variants._sync_gray_item_erp_status_from_variant()
+            
         return super().unlink()
 
     @api.onchange('is_raw_material')
@@ -897,7 +904,7 @@ class ProductProduct(models.Model):
         'product.category', related='product_tmpl_id.categ_id', store=True, string='分类'
     )
     catalog_brand_id = fields.Many2one(
-        'diecut.brand', related='product_tmpl_id.brand_id', store=True, string='品牌'
+        'diecut.brand', related='product_tmpl_id.brand_id', store=True, string='目录品牌'
     )
     catalog_status = fields.Selection(
         related='product_tmpl_id.catalog_status', store=True, string='目录状态'
@@ -906,10 +913,10 @@ class ProductProduct(models.Model):
         related='product_tmpl_id.recommendation_level', store=True, string='推荐等级'
     )
     catalog_density = fields.Float(
-        related='product_tmpl_id.density', store=True, string='密度(g/cm³)'
+        related='product_tmpl_id.density', store=True, string='目录密度(g/cm³)'
     )
     # 变体详情/规格页展示用：继承自系列
-    catalog_structure_image = fields.Binary(related='product_tmpl_id.catalog_structure_image', string='产品结构图')
+    catalog_structure_image = fields.Binary(related='product_tmpl_id.catalog_structure_image', string='系列结构图')
     catalog_features = fields.Text(related='product_tmpl_id.catalog_features', string='产品特点')
     catalog_applications = fields.Html(related='product_tmpl_id.catalog_applications', string='典型应用')
     catalog_characteristics = fields.Char(related='product_tmpl_id.catalog_characteristics', string='特性', store=True)
@@ -918,18 +925,19 @@ class ProductProduct(models.Model):
     variant_diecut_properties = fields.Properties(
         string='变体物理特性',
         definition='catalog_categ_id.diecut_properties_definition',
+        precompute=False,
         copy=True,
     )
     tds_file = fields.Binary(related='product_tmpl_id.tds_file', string='TDS')
-    tds_filename = fields.Char(related='product_tmpl_id.tds_filename')
+    tds_filename = fields.Char(related='product_tmpl_id.tds_filename', string='系列TDS文件名')
     msds_file = fields.Binary(related='product_tmpl_id.msds_file', string='MSDS')
-    msds_filename = fields.Char(related='product_tmpl_id.msds_filename')
+    msds_filename = fields.Char(related='product_tmpl_id.msds_filename', string='系列MSDS文件名')
 
     # ==================== 变体级技术参数（选型目录专用）====================
     # 使用 Char 类型保留原厂数据完整性（公差、条件、双面差异等）
-    variant_thickness = fields.Char(string='厚度', help='如：35±5 μm、100±10 μm')
+    variant_thickness = fields.Char(string='厚度(原始)', help='如：35±5 μm、100±10 μm')
     variant_adhesive_thickness = fields.Char(string='胶厚', help='如：13/13、35/40（双面胶厚）')
-    variant_color = fields.Char(string='颜色', help='如：透明、黑色、75蓝')
+    variant_color = fields.Char(string='颜色(原始)', help='如：透明、黑色、75蓝')
     variant_peel_strength = fields.Char(string='剥离力', help='如：>800 gf/inch、A>1000 B>800')
     variant_structure = fields.Char(string='结构描述', help='如：胶+PET+胶+白色LXZ')
     variant_adhesive_type = fields.Char(string='胶系(变体)', help='可覆盖模板级胶系')
@@ -942,32 +950,32 @@ class ProductProduct(models.Model):
     variant_tumbler = fields.Char(string='Tumbler滚球', help='如：Upon request、40.0')
     variant_holding_power = fields.Char(string='保持力', help='如：4.0 N/cm')
     variant_note = fields.Text(string='型号备注')
-    variant_ref_price = fields.Float(string='参考单价', digits=(16, 4), help='该型号的参考单价')
+    variant_ref_price = fields.Float(string='型号参考单价', digits=(16, 4), help='该型号的参考单价')
     # 标准化字段：用于销售/工程筛选，不替代原厂原文字段
     variant_thickness_std = fields.Char(
-        string='厚度', help='标准化厚度，如 100um', oldname='variant_thickness_grade'
+        string='标准厚度', help='标准化厚度，如 100um'
     )
     variant_color_std = fields.Char(
-        string='颜色', help='标准化颜色，如 透明/黑色', oldname='variant_color_grade'
+        string='标准颜色', help='标准化颜色，如 透明/黑色'
     )
     variant_adhesive_std = fields.Char(
-        string='胶系', help='标准化胶系', oldname='variant_adhesive_grade'
+        string='标准胶系', help='标准化胶系'
     )
     variant_base_material_std = fields.Char(
-        string='基材', help='标准化基材', oldname='variant_base_material_grade'
+        string='标准基材', help='标准化基材'
     )
 
     # ==================== 变体独立：认证与合规、替代建议、附件与资料 ====================
-    variant_is_rohs = fields.Boolean(string='ROHS', default=False, help='该型号是否通过ROHS认证')
-    variant_is_reach = fields.Boolean(string='REACH', default=False, help='该型号是否通过REACH认证')
-    variant_is_halogen_free = fields.Boolean(string='无卤', default=False, help='该型号是否为无卤材料')
+    variant_is_rohs = fields.Boolean(string='ROHS(型号)', default=False, help='该型号是否通过ROHS认证')
+    variant_is_reach = fields.Boolean(string='REACH(型号)', default=False, help='该型号是否通过REACH认证')
+    variant_is_halogen_free = fields.Boolean(string='无卤(型号)', default=False, help='该型号是否为无卤材料')
     variant_fire_rating = fields.Selection([
         ('ul94_v0', 'UL94 V-0'),
         ('ul94_v1', 'UL94 V-1'),
         ('ul94_v2', 'UL94 V-2'),
         ('ul94_hb', 'UL94 HB'),
         ('none', '无'),
-    ], string='防火等级', default='none')
+    ], string='防火等级(型号)', default='none')
     variant_replacement_catalog_ids = fields.Many2many(
         'product.template',
         'product_product_catalog_replacement_rel',
@@ -978,12 +986,12 @@ class ProductProduct(models.Model):
         domain="[('is_catalog', '=', True)]",
     )
     variant_tds_file = fields.Binary(string='TDS技术数据表')
-    variant_tds_filename = fields.Char(string='TDS文件名')
+    variant_tds_filename = fields.Char(string='型号TDS文件名')
     variant_msds_file = fields.Binary(string='MSDS安全数据表')
-    variant_msds_filename = fields.Char(string='MSDS文件名')
-    variant_datasheet = fields.Binary(string='规格书')
-    variant_datasheet_filename = fields.Char(string='规格书文件名')
-    variant_catalog_structure_image = fields.Binary(string='产品结构图')
+    variant_msds_filename = fields.Char(string='型号MSDS文件名')
+    variant_datasheet = fields.Binary(string='型号规格书')
+    variant_datasheet_filename = fields.Char(string='型号规格书文件名')
+    variant_catalog_structure_image = fields.Binary(string='型号结构图')
 
     # ==================== 选型目录溯源字段 ====================
     is_activated = fields.Boolean(
@@ -1027,8 +1035,8 @@ class ProductProduct(models.Model):
 
         rounded = round(um_val, 1)
         if rounded.is_integer():
-            return f"{int(rounded)}um"
-        return f"{rounded:g}um"
+            return f"{int(rounded)}μm"
+        return f"{rounded:g}μm"
 
     @classmethod
     def _build_variant_std_vals_from_raw(cls, vals):

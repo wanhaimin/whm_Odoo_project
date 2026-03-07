@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from . import product_category
+from . import diecut_brand
 from . import product_diecut
 from . import mold
 from . import diecut_quote
@@ -12,7 +13,4 @@ from . import res_partner
 from . import stock_quant
 from . import stock_move
 from . import catalog_ops_log
-from . import catalog_sync_service
-from . import catalog_runtime_service
-from . import catalog_shadow_service
 from . import catalog_item

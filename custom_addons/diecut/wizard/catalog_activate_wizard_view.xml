@@ -6,8 +6,9 @@
         <field name="arch" type="xml">
             <form string="启用到ERP原材料管理">
                 <group string="来源信息（自动获取）">
-                    <field name="catalog_tmpl_id" readonly="1" />
-                    <field name="variant_id" readonly="1" />
+                    <field name="catalog_item_id" readonly="1" invisible="not catalog_item_id" />
+                    <field name="catalog_tmpl_id" readonly="1" invisible="not catalog_tmpl_id" />
+                    <field name="variant_id" readonly="1" invisible="not variant_id" />
                 </group>
                 <group string="产品信息（可修改）" col="4">
                     <field name="product_name" colspan="2" />

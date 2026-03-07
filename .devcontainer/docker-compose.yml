@@ -1,4 +1,4 @@
-version: '3.8'
+name: my_odoo_project_devcontainer
 
 services:
   # 数据库服务

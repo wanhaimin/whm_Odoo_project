@@ -1,9 +1,9 @@
 # 模切管理系统 (Diecut ERP) — 设计手册
 
-> **版本**: v1.5
+> **版本**: v1.6
 > **模块技术名**: `diecut`
 > **Odoo 版本**: 19
-> **最后更新**: 2026-03-04
+> **最后更新**: 2026-03-06
 > **维护者**: 开发团队
 
 ---
@@ -75,6 +75,7 @@ custom_addons/diecut/
 ├── __manifest__.py              # 模块声明
 ├── models/
 │   ├── __init__.py
+│   ├── diecut_brand.py          # 品牌主数据（独立模型）
 │   ├── product_diecut.py        # ★ 核心：产品模板/变体/供应商扩展
 │   ├── product_category.py      # 产品分类扩展（三级目录）
 │   ├── diecut_quote.py          # 成本计算器
@@ -87,17 +88,14 @@ custom_addons/diecut/
 │   ├── stock_quant.py           # 库存扩展
 │   ├── stock_move.py            # 库存移动扩展
 │   ├── catalog_item.py          # 新架构目录模型（系列/型号统一）
-│   ├── catalog_shadow_service.py  # 影子回填/对账服务
-│   ├── catalog_sync_service.py    # 新旧目录双写同步服务
-│   └── catalog_runtime_service.py # 统一入口运行时路由服务
+│   └── catalog_ops_log.py       # 目录运维日志
 ├── wizard/
 │   ├── catalog_activate_wizard.py       # 选型目录启用向导
-│   ├── catalog_ops_wizard.py            # 数据运维向导
-│   ├── catalog_shadow_health_wizard.py  # 迁移健康检查向导
-│   └── catalog_runtime_switch_wizard.py # 统一入口切换向导
+│   └── catalog_ops_wizard.py            # 数据运维向导
 ├── views/
-│   ├── material_catalog_views.xml  # ★ 旧架构选型目录视图
-│   ├── catalog_item_views.xml      # ★ 新架构灰度视图
+│   ├── material_catalog_views.xml  # ★ 选型目录主视图（系列/型号）
+│   ├── catalog_item_views.xml      # ★ 型号清单（新架构主入口）
+│   ├── diecut_brand_views.xml      # 品牌主数据视图
 │   ├── my_material_base_views.xml  # 原材料视图
 │   ├── product_category_view.xml   # 分类视图
 │   ├── diecut_quote_views.xml      # 报价视图
@@ -107,7 +105,6 @@ custom_addons/diecut/
 │   └── ir.model.access.csv        # 权限控制
 ├── data/
 │   ├── product_category_data.xml   # 预置分类
-│   ├── catalog_sidike_data.xml     # [自动生成] Sidike 选型大纲骨架
 │   ├── catalog_tesa_data.xml       # [自动生成] Tesa 选型大纲骨架
 │   ├── catalog_materials.json      # [自动生成] 跨品牌变体技术参数
 │   └── load_json_data.xml          # ★ JSON挂载触发器 (noupdate="0")
@@ -116,6 +113,8 @@ custom_addons/diecut/
 │   ├── variants.csv                # [业务维护] 型号与多变体参数总表
 │   ├── generate_catalog.py         # CSV -> XML/JSON 生成核心
 │   ├── export_from_db.py           # Odoo DB -> CSV 反向导出核心
+│   ├── migrate_thickness_std_um_to_unicode.py # 厚度标准值单位迁移（um→μm）
+│   ├── recompute_variant_thickness_std.py     # 厚度标准值全量重算脚本
 │   ├── 1_导出Odoo全量物料到Excel.bat  # 快捷运行批处理
 │   └── 2_从Excel生成选型目录代码.bat   # 快捷运行批处理
 ├── docs/
@@ -159,26 +158,27 @@ product.category (Odoo 原生)
 diecut.brand          → 品牌主数据
 diecut.color          → 颜色主数据
 diecut.quote          → 模切报价单
+diecut.catalog.item   → 目录型号主模型（新架构）
+diecut.catalog.ops.log → 目录运维日志
 diecut.catalog.activate.wizard → 选型启用向导
 ```
 
-### 2.3 目录迁移分层架构（Phase 1/2/3）
+### 2.3 目录新结构（Phase 4，单模型收口）
 
-当前目录迁移采用“可回滚、可灰度、可切换”三层结构：
+当前目录架构已从“多服务路由/双写”收口为“单模型主线”：
 
-1. **领域模型层**（`diecut.catalog.item`）
-   - 承载新架构系列/型号统一模型、结构约束与关键索引。
-   - 通过 `legacy_tmpl_id` / `legacy_variant_id` 保留旧数据映射。
-2. **服务层**（`catalog_shadow_service` / `catalog_sync_service` / `catalog_runtime_service`）
-   - `catalog_shadow_service`：旧 -> 新影子回填、对账、重复键计算。
-   - `catalog_sync_service`：新 -> 旧双写同步（开发期保障兼容）。
-   - `catalog_runtime_service`：统一入口运行时路由（旧分栏/新灰度）。
-3. **交互与运维层**（Wizard + Menu）
-   - `catalog_ops_wizard`：运维操作（回填、对账等）。
-   - `catalog_shadow_health_wizard`：迁移健康检查 + 一键查看结构异常。
-   - `catalog_runtime_switch_wizard`：统一入口模式切换。
+1. **主数据模型层**（`diecut.catalog.item`）
+   - 作为目录域的主模型，统一承载型号清单。
+   - 以 `brand_id + code` 作为核心业务标识，`series_text` 作为展示维度。
+2. **业务动作层**（Model + Wizard）
+   - `catalog_item.py`：主业务规则、索引、启用状态关联。
+   - `catalog_activate_wizard.py`：型号启用到 ERP 的确认与落库。
+   - `catalog_ops_wizard.py`：目录运维动作统一入口。
+3. **可观测层**（日志 + 菜单）
+   - `catalog_ops_log.py`：记录运维动作与结果。
+   - `catalog_item_views.xml` + `diecut_menu_view.xml`：统一运营入口与菜单组织。
 
-> 设计原则：旧入口、灰度入口、统一入口并存；任何时候都能回到旧架构路径。
+> 设计原则：单一事实源、显式兼容字段、减少运行时分支和双写复杂度。
 
 ---
 
@@ -388,9 +388,9 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 | 字段名                         | 类型        | 说明         | 示例值                       |
 | ------------------------------ | ----------- | ------------ | ---------------------------- |
-| `variant_thickness`          | Char        | 厚度         | "35±5 μm"                  |
+| `variant_thickness`          | Char        | 厚度（原始） | "35±5 μm"                  |
 | `variant_adhesive_thickness` | Char        | 胶厚         | "13/13"                      |
-| `variant_color`              | Char        | 颜色         | "透明"、"黑色"               |
+| `variant_color`              | Char        | 颜色（原始） | "透明"、"黑色"               |
 | `variant_peel_strength`      | Char        | 剥离力       | ">800 gf/inch"               |
 | `variant_structure`          | Char        | 结构描述     | "胶+PET+胶+白色LXZ"          |
 | `variant_adhesive_type`      | Char        | 胶系(变体级) | 可覆盖模板级                 |
@@ -403,7 +403,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 | `variant_tumbler`            | Char        | Tumbler滚球  | "40.0"                       |
 | `variant_holding_power`      | Char        | 保持力       | "4.0 N/cm"                   |
 | `variant_note`               | Text        | 型号备注     | —                           |
-| `variant_ref_price`          | Float(16,4) | 参考单价     | —                           |
+| `variant_ref_price`          | Float(16,4) | 型号参考单价 | —                           |
 
 > **设计决策**: 使用 Char 类型而非 Float，因为原厂数据含公差(±)、条件说明、双面参数等复杂格式。
 >
@@ -413,12 +413,12 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 | 字段名                        | 说明       | 自动归一化规则        |
 | ----------------------------- | ---------- | --------------------- |
-| `variant_thickness_std`     | 标准化厚度 | "35±5 μm" → "35um" |
+| `variant_thickness_std`     | 标准化厚度 | "35±5 μm" → "35μm" |
 | `variant_color_std`         | 标准化颜色 | 去多余空格            |
 | `variant_adhesive_std`      | 标准化胶系 | 去多余空格            |
 | `variant_base_material_std` | 标准化基材 | 去多余空格            |
 
-> 通过 `_normalize_thickness_std()` 和 `_normalize_text_std()` 方法自动从原文字段派生，`create()` / `write()` 时自动同步。支持 `oldname` 从 `*_grade` 字段迁移。
+> 通过 `_normalize_thickness_std()` 和 `_normalize_text_std()` 方法自动从原文字段派生，`create()` / `write()` 时自动同步。历史值修正采用脚本迁移（见 `scripts/migrate_thickness_std_um_to_unicode.py` 与 `scripts/recompute_variant_thickness_std.py`）。
 
 #### 3.2.4 变体独立：认证与合规、替代建议、附件与资料
 
@@ -544,11 +544,53 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 | 模型                              | 文件              | 说明                          |
 | --------------------------------- | ----------------- | ----------------------------- |
-| `diecut.brand`                  | product_diecut.py | 品牌主数据                    |
+| `diecut.brand`                  | diecut_brand.py   | 品牌主数据（独立模型）        |
 | `diecut.color`                  | product_diecut.py | 颜色主数据                    |
+| `diecut.catalog.item`           | catalog_item.py   | 新架构型号主模型              |
+| `diecut.catalog.ops.log`        | catalog_ops_log.py| 目录运维日志                  |
 | `my.material.requisition`       | requisition.py    | 领料申请（参考价按 m² 单价） |
 | `diecut.material.filter.wizard` | diecut_quote.py   | 报价单中的材料筛选向导        |
 | `diecut.material.filter.line`   | diecut_quote.py   | 筛选结果行                    |
+
+---
+
+### 3.8 数据运维字段维护清单（`diecut.catalog.item`）
+
+> 本清单用于数据运维（导入/导出/对账/补录）口径统一，字段来源为 `models/catalog_item.py`。
+>
+> 口径说明：已排除 Odoo 系统原生元字段（`id`, `create_uid`, `create_date`, `write_uid`, `write_date`, `__last_update`, `display_name`）。
+
+#### 3.8.1 基础结构字段
+
+`name`, `active`, `sequence`
+
+#### 3.8.2 组织与目录字段
+
+`brand_id`, `categ_id`, `code`, `series_text`, `catalog_status`
+
+#### 3.8.3 兼容映射与启用链路字段
+
+`erp_enabled`, `erp_product_tmpl_id`
+
+#### 3.8.4 型号原文字段（业务录入主维护项）
+
+`variant_thickness`, `variant_adhesive_thickness`, `variant_color`, `variant_peel_strength`, `variant_structure`, `variant_adhesive_type`, `variant_base_material`, `variant_sus_peel`, `variant_pe_peel`, `variant_dupont`, `variant_push_force`, `variant_removability`, `variant_tumbler`, `variant_holding_power`, `variant_ref_price`, `variant_note`
+
+#### 3.8.5 标准化字段（系统计算/可人工修正）
+
+`variant_thickness_std`, `variant_color_std`, `variant_adhesive_std`, `variant_base_material_std`
+
+#### 3.8.6 替代、合规与附件字段
+
+`variant_is_rohs`, `variant_is_reach`, `variant_is_halogen_free`, `variant_fire_rating`, `variant_tds_file`, `variant_tds_filename`, `variant_msds_file`, `variant_msds_filename`, `variant_datasheet`, `variant_datasheet_filename`, `variant_catalog_structure_image`
+
+#### 3.8.7 运维检查字段（计算）
+
+`is_duplicate_key`
+
+#### 3.8.8 合计
+
+以上非系统原生字段共 **42** 个。
 
 ---
 
@@ -659,8 +701,8 @@ diecut.catalog.activate.wizard → 选型启用向导
 #### 4.5.3 归一化处理规则
 
 - **厚度归一化** (`_normalize_thickness_std`):
-  - 规则：提取核心数值，并统一单位至 `um`。
-  - 示例："35±5 μm" → "35um"；"0.1mm" → "100um"；"100" (无单位且 >10) → "100um"；"0.05" (无单位且 ≤10) → "50um"。
+  - 规则：提取核心数值，并统一单位至 `μm`。
+  - 示例："35±5 μm" → "35μm"；"0.1mm" → "100μm"；"100" (无单位且 >10) → "100μm"；"0.05" (无单位且 ≤10) → "50μm"。
 - **文本归一化** (`_normalize_text_std`):
   - 适用字段：颜色 (`variant_color`)、胶系 (`variant_adhesive_type`)、基材 (`variant_base_material`)。
   - 规则：去除首尾空格、将内部连续空格压缩为一个、移除换行符。
@@ -715,7 +757,10 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 ### 4.7 产品删除清理
 
-当 ERP 原材料（`product.template`）被删除时，`unlink()` 会自动重置对应选型目录变体的 `is_activated=False` 和 `activated_product_tmpl_id=False`。
+当 ERP 原材料（`product.template`）被删除时，`unlink()` 会自动执行两类清理：
+
+1. 重置旧映射变体：`is_activated=False`、`activated_product_tmpl_id=False`；
+2. 重置新架构目录条目：`diecut.catalog.item.erp_enabled=False`、`erp_product_tmpl_id=False`。
 
 ---
 
@@ -757,9 +802,10 @@ diecut.catalog.activate.wizard → 选型启用向导
 模切管理系统 (menu_diecut_root)
 ├── 成本计算器              → action_diecut_quote
 ├── 📚 材料选型大全         → action_material_catalog (product.template, is_catalog=True)
-│   ├── ➕ 新建材料系列      → action_material_catalog_create_template
-│   ├── 📋 材料型号清单     → action_material_catalog_variant_split (product.product, 分屏)
-│   └── 📄 材料型号清单(列表) → action_material_catalog_variant (product.product, 纯列表)
+│   ├── 📋 材料型号清单      → action_diecut_catalog_item_gray (diecut.catalog.item)
+│   ├── 品牌库               → action_diecut_brand
+│   ├── 数据运维             → action_catalog_ops_wizard
+│   └── 运维日志             → action_catalog_ops_log
 ├── 原材料                  → action_diecut_raw_material (product.template, is_raw_material=True)
 ├── 客户管理                → action_diecut_customer
 ├── 刀模管理                → action_diecut_mold
@@ -768,31 +814,34 @@ diecut.catalog.activate.wizard → 选型启用向导
 └── 样品订单                → action_sample_order_custom
 ```
 
+> 说明：`action_material_catalog_variant_split` / `action_material_catalog_variant` 等旧架构入口仍保留为隐藏菜单，用于兼容与回溯，不作为默认业务入口。
+
 ### 6.2 选型目录视图清单
 
-| View ID                                      | 类型   | 模型             | 用途                           |
-| -------------------------------------------- | ------ | ---------------- | ------------------------------ |
-| `view_material_catalog_form`               | Form   | product.template | 系列详情+变体对比表            |
-| `view_material_catalog_tree`               | List   | product.template | 系列级快速浏览                 |
-| `view_material_catalog_search`             | Search | product.template | 搜索/筛选/分组                 |
-| `view_material_catalog_variant_tree`       | List   | product.product  | 型号级清单                     |
-| `view_material_catalog_variant_split_tree` | List   | product.product  | 型号清单（分屏入口）           |
-| `view_material_catalog_variant_form`       | Form   | product.product  | 型号详情与规格页               |
-| `view_material_catalog_variant_split_form` | Form   | product.product  | 分屏右侧型号表单（去 chatter） |
-| `view_material_catalog_variant_search`     | Search | product.product  | 型号搜索                       |
+| View ID                                 | 类型   | 模型               | 用途                                 |
+| --------------------------------------- | ------ | ------------------ | ------------------------------------ |
+| `view_material_catalog_form`          | Form   | product.template   | 系列详情+变体对比表                  |
+| `view_material_catalog_tree`          | List   | product.template   | 系列级快速浏览                       |
+| `view_material_catalog_search`        | Search | product.template   | 搜索/筛选/分组                       |
+| `view_diecut_catalog_item_tree`       | List   | diecut.catalog.item | 型号清单（新架构主列表）             |
+| `view_diecut_catalog_item_split_tree` | List   | diecut.catalog.item | 型号清单（分屏入口，js_class 挂载）  |
+| `view_diecut_catalog_item_form`       | Form   | diecut.catalog.item | 型号详情与技术参数                   |
+| `view_diecut_catalog_item_split_form` | Form   | diecut.catalog.item | 分屏右侧型号表单（去按钮箱干扰）     |
+| `view_diecut_catalog_item_search`     | Search | diecut.catalog.item | 型号搜索 + SearchPanel               |
+| `view_diecut_brand_list`              | List   | diecut.brand       | 品牌主数据维护                       |
+| `view_diecut_brand_form`              | Form   | diecut.brand       | 品牌详情维护                         |
 
 ### 6.3 Action 配置
 
-| Action ID                                   | 模型             | Domain                                                           | 说明                                 |
-| ------------------------------------------- | ---------------- | ---------------------------------------------------------------- | ------------------------------------ |
-| `action_material_catalog`                 | product.template | `is_catalog=True`                                              | 选型大全主入口                       |
-| `action_material_catalog_create_template` | product.template | `is_catalog=True`                                              | 新建系列入口                         |
-| `action_material_catalog_variant_split`   | product.product  | `product_tmpl_id.is_catalog=True`                              | 型号清单（分屏主入口）               |
-| `action_material_catalog_variant`         | product.product  | `product_tmpl_id.is_catalog=True`                              | 型号清单（纯列表回退入口）           |
-| `action_diecut_raw_material`              | product.template | `is_raw_material=True`                                         | ERP原材料                            |
-| `stock.product_template_action_product`   | product.template | `is_catalog=False`                                             | 库存模块产品模板列表（排除选型目录） |
-| `stock.stock_product_normal_action`       | product.product  | `product_tmpl_id.is_catalog=False`                             | 库存模块产品变体列表（排除选型目录） |
-| `stock.action_product_stock_view`         | product.product  | `detailed_type='product' and product_tmpl_id.is_catalog=False` | 库存在手产品视图（排除选型目录）     |
+| Action ID                                | 模型               | Domain                                                           | 说明                                 |
+| ---------------------------------------- | ------------------ | ---------------------------------------------------------------- | ------------------------------------ |
+| `action_material_catalog`              | product.template   | `is_catalog=True`                                              | 选型大全系列入口                     |
+| `action_diecut_catalog_item_gray`      | diecut.catalog.item | —                                                                | 型号清单主入口（新架构）             |
+| `action_diecut_brand`                  | diecut.brand       | —                                                                | 品牌主数据入口                       |
+| `action_diecut_raw_material`           | product.template   | `is_raw_material=True`                                         | ERP 原材料                           |
+| `stock.product_template_action_product`| product.template   | `is_catalog=False`                                             | 库存模块产品模板列表（排除选型目录） |
+| `stock.stock_product_normal_action`    | product.product    | `product_tmpl_id.is_catalog=False`                             | 库存模块产品变体列表（排除选型目录） |
+| `stock.action_product_stock_view`      | product.product    | `detailed_type='product' and product_tmpl_id.is_catalog=False` | 库存在手产品视图（排除选型目录）     |
 
 ### 6.4 采购模块隔离策略（已落地）
 
@@ -813,15 +862,16 @@ diecut.catalog.activate.wizard → 选型启用向导
 - 材质分类（`categ_id`，层级单选，展开）
 - 品牌（`brand_id`，多选）
 
-**型号清单搜索面板**:
+**型号清单搜索面板（新架构）**:
 
-- 材料分类（`catalog_categ_id`，层级单选）
-- 品牌（`catalog_brand_id`，多选）
-- 列显隐（前端脚本 `catalog_dynamic_columns.js`，**仅材料型号清单生效**）：① 密度列仅在选择泡棉/屏蔽材料/金属箔/石墨等分类时显示；② **全空列自动隐藏**：当选择某一类时，若某列在当前结果集中全部为空（无值）则自动隐藏该列。原材料等其它列表视图不执行上述逻辑，避免误隐藏列影响体验。
+- 材料分类（`categ_id`，层级单选）
+- 品牌（`brand_id`，多选）
 
-#### 6.5.1 不同分类列表显示不同字段 — 规则与配置（Owl VDOM 补丁）
+> 说明：`catalog_dynamic_columns.js` 的动态列显隐逻辑当前仅作用于旧架构 `product.product` 型号清单（隐藏入口）；新架构 `diecut.catalog.item` 默认采用稳定列集展示。
 
-**设计目的**：同一张型号清单列表，随左侧材料分类切换而显示不同列集，使每类材料只展示相关字段，减少空列干扰。
+#### 6.5.1 不同分类列表显示不同字段 — 规则与配置（Owl VDOM 补丁，旧架构兼容）
+
+**设计目的**：在旧架构 `product.product` 型号清单中，随左侧材料分类切换显示不同列集，减少空列干扰。
 
 **显隐规则（二者叠加）**：
 
@@ -832,7 +882,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 **配置与实现机制（Owl Patch）**：
 
-- **实现文件**：`static/src/js/catalog_dynamic_columns.js`。
+- **实现文件**：`static/src/js/catalog_dynamic_columns.js`（仅旧架构入口启用）。
 - **Odoo 19 正规做法**：脚本不再注入 CSS 或者粗暴操作 DOM。相反，它使用了 `@web/core/utils/patch` 对 `@web/views/list/list_renderer` 的 `getActiveColumns()` 方法进行了补丁（Patch）。
 - **拦截逻辑**：在 Owl 系统准备把字段列传递给虚拟 DOM（VDOM）渲染之前，拦截并检查当前视图是否为“材料型号清单”（依据是否同时拥有 `product_tmpl_id` 和 `catalog_categ_id`）。如果是，则通过遍历 `this.props.list.records` 并判定每列数据。
 - **全空列隐藏**：如果判定某列在所有 `records` 中的 `val` 全都是空的（如 `false`, `null`, `""`, `0` 或者像 `—`、`...`），那么这列就会从返回的 `columns` 数组里被移除，渲染引擎根本就不会为该列生成 `<th>` 或 `<td>`。
@@ -842,26 +892,25 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 **结论**：逻辑一致。Odoo SearchPanel 的默认行为就是：**若某分类（或某选项）在当前 domain 下没有任何记录，则不会作为可选值出现在面板中**。
 
-### 6.6 型号详情与规格页（变体 Form）
+### 6.6 型号详情与规格页（Catalog Item Form）
 
-**目的**：为每个产品变体（材料型号）提供类似“产品详情与规格”的单页，便于工程师/销售查看技术参数、应用、特性评级与附件。
+**目的**：以 `diecut.catalog.item` 作为型号清单的主展示与编辑对象，在同一入口完成技术参数、标准化字段、认证与附件维护。
 
 **实现方式**：
 
-- **视图**：`view_material_catalog_variant_form`（`product.product` 的 form 视图），仅在从「材料型号清单」入口打开单条型号时使用（通过 Action `view_ids` 绑定）。
-- **布局**：顶部为产品结构图或主图（优先该型号独立 `variant_catalog_structure_image`，否则系列/主图）、型号编码与系列名、产品描述、主要应用；中部为技术特性与型号技术参数；Notebook 含「特性评级」「粘合特性」「认证与合规」「替代建议」「附件与资料」——**认证与合规、替代建议、附件与资料**均为该型号独立字段（`variant_*`），每个变体单独拥有各自的值；系列表单中对应三项为系列默认，各型号可在本页覆盖或单独填写。
-- **数据来源**：变体自身字段（`variant_*`、`catalog_*` 等）及系列上的关联展示字段。为在变体 form 中展示系列内容，在 `ProductProduct` 上增加了关联字段：`catalog_structure_image`、`catalog_features`、`catalog_applications`、`tds_file`/`tds_filename`、`msds_file`/`msds_filename`，均 `related='product_tmpl_id.xxx'`；变体物理特性使用自有字段 `variant_diecut_properties`（不在变体上做 related 的 diecut_properties，避免创建变体时报错）。
+- **视图**：`view_diecut_catalog_item_form`（`diecut.catalog.item`），由 `action_diecut_catalog_item_gray` 绑定。
+- **布局**：分为「基础信息」「技术参数」「文档与附件」三个区块，支持在一个表单内维护型号级参数与标准化字段。
+- **数据来源**：`diecut.catalog.item` 自身字段为主，旧模型仅作为历史兼容入口存在。
 - **入口**：
-  - 分屏主入口：材料选型大全 → 材料型号清单（`action_material_catalog_variant_split`），点击左侧行在右侧面板加载该 Form。
-  - 纯列表入口：材料选型大全 → 材料型号清单(列表)（`action_material_catalog_variant`），按 Odoo 原生列表→表单流程打开。
-  - 列表/表单上的「启用到ERP」「已启用ERP」按钮保留并统一图标样式。
+  - 主入口：材料选型大全 → 材料型号清单（`action_diecut_catalog_item_gray`）。
+  - 分屏：`view_diecut_catalog_item_split_tree` + `view_diecut_catalog_item_split_form`。
+  - 列表/表单均保留「启用到ERP」「已启用ERP」动作按钮。
 
-**变体动态属性**：变体可以拥有自己的**属性值**，但不能单独建**属性定义**。
+**动态属性说明**：
 
-- **定义**：沿用 Odoo 机制，Properties 的“定义”（有哪些项、类型、选项）必须来自某条定义记录；当前实现中变体与系列共用**材料分类**上的 `diecut_properties_definition`，即定义在「产品分类」中配置，变体无法单独建一套只属于自己的定义。
-- **值**：每个变体可存自己的值，字段为 `variant_diecut_properties`（`definition='catalog_categ_id.diecut_properties_definition'`），在变体 Form「特性评级」页编辑。视图中需包含 definition record（如 `catalog_categ_id`），且该变体所属系列已设置材料分类、该分类下已配置「物理特性库」，否则前端可能不提供编辑或无法保存。
-
-**扩展**：若需“粘合特性”结构化（如按基材+时间点存 N/cm），可后续增加 `diecut.adhesion.test_result` 等 one2many 模型并在本 Form 的「粘合特性」页嵌入列表；当前用 `variant_note` 做文字说明。
+- 新架构 `diecut.catalog.item` 当前聚焦于标准参数、状态和 ERP 启用链路，未直接承载 `fields.Properties`。
+- `fields.Properties` 仍由兼容模型 `product.product.variant_diecut_properties` 承载（定义来源于 `product.category.diecut_properties_definition`），用于旧入口与兼容编辑场景。
+- 若后续需要把动态属性完全迁入新架构，可在 `diecut.catalog.item` 增加对应字段并制定一次性迁移策略。
 
 **说明**：
 
@@ -942,11 +991,11 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 ### 6.8 型号清单分屏工作台
 
-**目标**：在一个页面中实现“左侧型号列表 + 右侧可编辑表单”，减少列表/表单来回切换。
+**目标**：在一个页面中实现“左侧型号列表 + 右侧可编辑表单”，减少列表/表单来回切换（当前主用于 `diecut.catalog.item`）。
 
 **实现组成**：
 
-- **自定义视图类型**：`js_class="diecut_split_list"`（挂载于 `view_material_catalog_variant_split_tree`）。
+- **自定义视图类型**：`js_class="diecut_split_list"`（挂载于 `view_diecut_catalog_item_split_tree`）。
 - **控制器**：`DiecutSplitListController`（`static/src/js/material_split_preview.js`）负责模式状态与本地记忆。
 - **渲染器**：`DiecutSplitListRenderer` 负责左右/上下布局、拖拽分隔条、右侧内嵌 `View(type='form')`。
 - **模板**：`static/src/xml/material_split_preview.xml`。
@@ -963,7 +1012,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 **状态记忆**：
 
 - 存储位置：`localStorage`
-- Key：`diecut_split_layout:product.product:variant`
+- Key：`diecut_split_layout:action_diecut_catalog_item_gray`（由 action context 显式指定）
 - 存储内容：`layoutMode`、`splitRatio`
 
 **性能策略**：
@@ -973,8 +1022,8 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 **编辑能力与权限说明**：
 
-- 右侧内嵌 Form 视图使用 `view_material_catalog_variant_split_form`（去 chatter，聚焦编辑）。
-- 为满足业务编辑需求，内部用户组已补充 `product.product` 读/写/创建权限（不含删除），用于型号清单分屏编辑。
+- 右侧内嵌 Form 视图使用 `view_diecut_catalog_item_split_form`（去按钮箱干扰，聚焦编辑）。
+- 为满足业务编辑需求，内部用户组具备 `diecut.catalog.item` 读/写/创建权限（普通用户不删除）；兼容路径保留 `product.product` 读/写/创建权限（不含删除）。
 
 ---
 
@@ -994,11 +1043,12 @@ diecut.catalog.activate.wizard → 选型启用向导
 | diecut.brand                    | group_user   | ✓ | ✓ |  ✓  |  ✓  |
 | diecut.color                    | group_user   | ✓ | ✓ |  ✓  |  ✓  |
 | diecut.catalog.activate.wizard  | group_user   | ✓ | ✓ |  ✓  |  ✓  |
+| diecut.catalog.item             | group_user   | ✓ | ✓ |  ✓  |  ✗  |
 | product.product                 | group_user   | ✓ | ✓ |  ✓  |  ✗  |
 | sample.order                    | group_user   | ✓ | ✓ |  ✓  |  ✓  |
 | sample.order                    | group_portal | ✓ | ✓ |  ✓  |  ✗  |
 
-> 注：为支持「材料型号清单」分屏右侧直接编辑，本模块在 `security/ir.model.access.csv` 中额外授予 `base.group_user` 对 `product.product` 的读/写/创建权限（不授予删除）。
+> 注：为支持「材料型号清单」分屏右侧直接编辑，本模块在 `security/ir.model.access.csv` 中为 `base.group_user` 配置了 `diecut.catalog.item` 读/写/创建（不授予删除），并保留 `product.product` 的读/写/创建权限用于兼容旧入口。
 
 ---
 
@@ -1042,12 +1092,14 @@ diecut.catalog.activate.wizard → 选型启用向导
 - **权衡**: 增加了两个技术字段，但解决了 Odoo onchange 的上下文隔离问题。
 - **日期**: 2025-01
 
-### ADR-006: 使用 oldname 进行字段迁移
+### ADR-006: 标准化字段迁移改为脚本化
 
-- **背景**: 标准化字段从 `variant_thickness_grade` 改名为 `variant_thickness_std`。
-- **决策**: 使用 Odoo 字段的 `oldname` 属性，让 ORM 自动处理数据库列重命名。
-- **权衡**: 比 `pre_init_hook` 更简洁，但仅适用于简单的字段重命名。
-- **日期**: 2025-01
+- **背景**: Odoo 19 对业务字段 `oldname` 参数不再兼容，升级时会出现 unknown parameter 告警。
+- **决策**: 停用 `oldname` 迁移写法，改为显式脚本迁移与重算：
+  1. `migrate_thickness_std_um_to_unicode.py` 负责厚度标准单位从 `um` 统一为 `μm`；
+  2. `recompute_variant_thickness_std.py` 负责按当前归一化规则全量重算 `variant_thickness_std`。
+- **权衡**: 需要一次性执行运维脚本，但迁移逻辑更透明、可审计、可重复执行。
+- **日期**: 2026-03
 
 ### ADR-007: 选型目录产品与库存模块隔离
 
@@ -1113,11 +1165,11 @@ diecut.catalog.activate.wizard → 选型启用向导
 ### ADR-014: 材料型号清单分屏工作台（原生控制栏切换）
 
 - **背景**: 传统列表→表单切换在型号维护场景下操作链路较长，且需要频繁返回列表；同时自定义悬浮切换条样式与 Odoo 原生控制栏不一致。
-- **决策**: 在 `product.product` 型号清单上引入 `diecut_split_list` 视图：
+- **决策**: 在材料型号清单主入口（现为 `diecut.catalog.item`）引入 `diecut_split_list` 视图：
   1. 继承 `web.ListView`，将模式切换按钮插入 `control-panel-navigation-additional` 插槽（原生位置）；
   2. 采用 OI 图标与 `o_cp_switch_buttons` / `o_switch_view` 样式；
   3. 保留三种模式：左右/上下/仅列表；
-  4. 右侧表单使用专用 `view_material_catalog_variant_split_form`（去 chatter），支持直接编辑；。
+  4. 右侧表单使用专用 `view_diecut_catalog_item_split_form`（去按钮箱干扰），支持直接编辑；。
 - **权衡**: 前端实现复杂度提高（Controller + Renderer + XML 继承 + 状态同步），但显著提升了操作效率与一致性，且与 Odoo 原生 UI 视觉语言对齐。
 - **日期**: 2026-03
 
@@ -1129,9 +1181,11 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 ### SQL 约束
 
-| 模型             | 约束名               | 类型                    | 说明           |
-| ---------------- | -------------------- | ----------------------- | -------------- |
-| product.category | `name_parent_uniq` | UNIQUE(name, parent_id) | 同层级不能重名 |
+| 模型                    | 约束名                 | 类型                    | 说明               |
+| ----------------------- | ---------------------- | ----------------------- | ------------------ |
+| `diecut.brand`          | `diecut_brand_name_uniq` | UNIQUE(name)            | 品牌名称精确唯一   |
+| `product.category`      | `name_parent_uniq`     | UNIQUE(name, parent_id) | 同层级不能重名     |
+| `diecut.mold.location`  | `name_unique`          | UNIQUE(name)            | 刀模存放位置唯一   |
 
 ### 自定义索引
 
@@ -1155,6 +1209,9 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 ## 10. 变更日志
 
+| 2026-03 | v1.6 | **目录架构收口（Phase 4）**：下线 `catalog_runtime_service` / `catalog_sync_service` / `catalog_shadow_service` 与相关切换/健康检查向导，收口为 `diecut.catalog.item` 单模型主线 + 运维日志。 | models/catalog_item.py、models/catalog_ops_log.py、wizard/catalog_ops_wizard.py、views/catalog_item_views.xml、views/diecut_menu_view.xml |
+| 2026-03 | v1.6 | **品牌主数据独立化**：`diecut.brand` 抽离为独立模型文件，新增品牌库基础视图与菜单，并落地 `UNIQUE(name)` 精确唯一约束（含历史重复品牌合并）。 | models/diecut_brand.py、views/diecut_brand_views.xml、views/diecut_menu_view.xml、security/ir.model.access.csv |
+| 2026-03 | v1.6 | **Odoo 19 兼容清理**：移除不兼容 `oldname`/字段级 `placeholder` 写法，约束升级为 `models.Constraint`，厚度标准值统一为 `μm` 并提供重算脚本。 | models/product_diecut.py、models/diecut_quote.py、models/product_category.py、models/mold.py、scripts/migrate_thickness_std_um_to_unicode.py、scripts/recompute_variant_thickness_std.py |
 | 2026-03 | v1.5 | **Phase 3（统一入口路由）**：新增运行时路由服务 `diecut.catalog.runtime.service`，提供统一入口菜单与可切换模式（`legacy_split` / `new_gray`），实现不中断切换。 | models/catalog_runtime_service.py、wizard/catalog_runtime_switch_wizard.py、wizard/catalog_runtime_switch_wizard_view.xml、views/diecut_menu_view.xml |
 | 2026-03 | v1.5 | **Phase 2（结构化双写）**：新增 `diecut.catalog.sync.service`，将新模型关键变更双写回旧模型，并通过 `skip_shadow_sync` 上下文避免回灌环路。 | models/catalog_sync_service.py、models/catalog_item.py |
 | 2026-03 | v1.5 | **Phase 1 收口（服务化+健康检查）**：影子回填/对账逻辑下沉到 `diecut.catalog.shadow.service`；新增迁移健康检查向导与结构异常筛选（孤儿/重复）。 | models/catalog_shadow_service.py、wizard/catalog_shadow_health_wizard.py、views/catalog_item_views.xml |

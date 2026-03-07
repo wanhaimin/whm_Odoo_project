@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_diecut_brand_list" model="ir.ui.view">
+        <field name="name">diecut.brand.list</field>
+        <field name="model">diecut.brand</field>
+        <field name="arch" type="xml">
+            <list string="品牌" editable="bottom">
+                <field name="name" string="品牌名称"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_brand_form" model="ir.ui.view">
+        <field name="name">diecut.brand.form</field>
+        <field name="model">diecut.brand</field>
+        <field name="arch" type="xml">
+            <form string="品牌">
+                <sheet>
+                    <group>
+                        <field name="name" string="品牌名称"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_brand_search" model="ir.ui.view">
+        <field name="name">diecut.brand.search</field>
+        <field name="model">diecut.brand</field>
+        <field name="arch" type="xml">
+            <search string="搜索品牌">
+                <field name="name" string="品牌名称"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_brand" model="ir.actions.act_window">
+        <field name="name">品牌</field>
+        <field name="res_model">diecut.brand</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_brand_search"/>
+        <field name="help" type="html">
+            <p>维护选型目录和原材料使用的品牌主数据。</p>
+        </field>
+    </record>
+</odoo>

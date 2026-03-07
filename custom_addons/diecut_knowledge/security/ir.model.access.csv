@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_diecut_kb_article_user,diecut.kb.article.user,model_diecut_kb_article,base.group_user,1,1,1,0
+access_diecut_kb_article_admin,diecut.kb.article.admin,model_diecut_kb_article,base.group_system,1,1,1,1
+access_diecut_kb_block_user,diecut.kb.block.user,model_diecut_kb_block,base.group_user,1,1,1,0
+access_diecut_kb_block_admin,diecut.kb.block.admin,model_diecut_kb_block,base.group_system,1,1,1,1

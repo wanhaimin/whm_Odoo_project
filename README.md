@@ -11,10 +11,18 @@
 
 为了简化操作，根目录下提供了两个批处理脚本：
 
-*   **`Start_Odoo.bat`** (双击运行)
-    *   启动 Odoo 服务和数据库。
+*   **`Start_Odoo.bat`** (双击运行，默认推荐)
+    *   启动 Odoo 服务和数据库（**FAST 模式**）。
+    *   特点：无 `--dev`，页面更快，适合日常使用与演示。
+    *   访问地址: [http://localhost:8070](http://localhost:8070)
+*   **`Start_Odoo_Dev.bat`** (双击运行)
+    *   启动 Odoo **DEV 热重载模式**。
+    *   特点：`--dev=all,reload`，适合前端/视图调试。
     *   自动打开日志窗口，方便查看报错。
     *   访问地址: [http://localhost:8070](http://localhost:8070)
+*   **`Start_Odoo_Fast_W3.bat`** (双击运行)
+    *   启动 Odoo **FAST W3 模式**（`workers=3`）。
+    *   用于和默认 FAST（`workers=2`）做体感对比，选择更顺滑配置。
 *   **`Stop_Odoo.bat`** (双击运行)
     *   停止并移除容器，释放系统资源。
 
@@ -22,7 +30,7 @@
 
 ## 2. Docker 常用命令 (命令行)
 
-如果你更喜欢在终端 (VS Code / PowerShell) 中手动操作，主要使用 `docker-compose` 命令。
+如果你更喜欢在终端 (VS Code / PowerShell) 中手动操作，主要使用 `docker compose` 命令。
 **前提：请先进入 `.devcontainer` 目录：**
 ```powershell
 cd .devcontainer
@@ -31,28 +39,39 @@ cd .devcontainer
 ### 启动与停止
 ```powershell
 # 启动服务 (后台运行)
-docker-compose up -d
+docker compose -p my_odoo_project_devcontainer -f docker-compose.fast.yml up -d
+
+# 启动服务 (DEV 热重载)
+docker compose -p my_odoo_project_devcontainer -f docker-compose.yml up -d
+
+# 启动服务 (FAST W3, workers=3)
+docker compose -p my_odoo_project_devcontainer -f docker-compose.yml -f docker-compose.fast.w3.yml up -d
 
 # 停止服务 (并移除容器)
-docker-compose down
+docker compose -p my_odoo_project_devcontainer -f docker-compose.yml down
 
 # 停止服务 (仅暂停，不移除)
-docker-compose stop
+docker compose -p my_odoo_project_devcontainer -f docker-compose.yml stop
 ```
 
 ### 查看日志
 ```powershell
 # 查看实时日志 (按 Ctrl+C 退出)
-docker-compose logs -f web
+docker compose -p my_odoo_project_devcontainer -f docker-compose.fast.yml logs -f web
 
 # 查看最近 50 行日志 (简略)
-docker-compose logs -f --tail=50 web
+docker compose -p my_odoo_project_devcontainer -f docker-compose.fast.yml logs -f --tail=50 web
 ```
 
 ### 重启服务
-由于开启了开发模式，大部分代码修改会自动生效。如果遇到无法生效的情况（如修改了 `__manifest__.py` 或安全性文件）：
+FAST 模式下不会自动热重载，如果遇到代码改动未生效（如修改了 `__manifest__.py` 或安全性文件）：
 ```powershell
-docker-compose restart web
+docker compose -p my_odoo_project_devcontainer -f docker-compose.yml restart web
+```
+
+### 模块升级（FAST/DEV 都通用）
+```powershell
+docker exec my_odoo_project_devcontainer-web-1 odoo -d odoo -u your_module --stop-after-init --db_host=db --db_user=odoo --db_password=odoo
 ```
 
 ---

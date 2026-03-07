@@ -1,0 +1,45 @@
+
+name: my_odoo_project_devcontainer
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+
+  mailpit:
+    image: axllent/mailpit
+    restart: always
+    ports:
+      - "8025:8025"
+      - "1026:1025"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "8070:8069"
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+    volumes:
+      - ../custom_addons:/mnt/extra-addons
+      - odoo-web-data:/var/lib/odoo
+    command: >
+      odoo -d odoo
+      --workers=2
+      --max-cron-threads=1
+
+volumes:
+  odoo-db-data:
+  odoo-web-data:

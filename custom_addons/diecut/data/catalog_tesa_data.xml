@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <!-- 注意：此系列下变体的属性及变体行绑定（Attribute Values & Lines）
-             已全权交由 _load_catalog_base_data_from_json 钩子在 Python ORM 层面动态生成，
-             以支持 Odoo 中型号的新增、废弃，避免 XML External ID 强绑定的 Another model is using 错误。 -->
-
-
-        <!-- 品牌（每次升级同步） -->
         <record id="brand_tesa" model="diecut.brand">
             <field name="name">Tesa</field>
         </record>
 
-        <!-- 选型目录产品模板（每次升级同步 CSV 中的描述） -->
         <record id="catalog_tesa_496xx" model="product.template">
             <field name="name"><![CDATA[tesa® 496xx 胶带]]></field>
             <field name="is_catalog">True</field>

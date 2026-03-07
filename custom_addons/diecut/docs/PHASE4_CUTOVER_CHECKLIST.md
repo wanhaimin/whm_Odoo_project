@@ -26,12 +26,12 @@
 
 建议先覆盖以下关键字段：
 
-- 目录标识与层级：`item_level`、`parent_id`、`is_system_default_series`
+- 目录标识：`brand_id`、`code`（唯一键）
 - 品牌与分类：`brand_id`、`categ_id`
-- 编码与名称：`series_code`、`code`、`name`
+- 编码与名称：`code`、`name`、`series_text`
 - 状态与发布：`catalog_status`
 - ERP 映射：`erp_enabled`、`erp_product_tmpl_id`
-- 追溯关系：`legacy_tmpl_id`、`legacy_variant_id`
+- 追溯关系：已下线 `legacy_*` 字段，不再作为切换门槛
 
 ## 4. 数据一致性门槛（Go/No-Go）
 

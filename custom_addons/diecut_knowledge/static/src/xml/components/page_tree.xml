@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="diecut_knowledge.PageTree">
+        <div class="o_kb_tree">
+            <t t-foreach="this.roots" t-as="root" t-key="root.id">
+                <t t-call="diecut_knowledge.PageTreeNode">
+                    <t t-set="node" t-value="root"/>
+                </t>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="diecut_knowledge.PageTreeNode">
+        <div class="o_kb_tree_node" t-att-class="this.props.selectedId === node.id ? 'is-active' : ''">
+            <button type="button" class="o_kb_tree_toggle" t-if="this.hasChildren(node.id)" t-on-click="() => this.toggleNode(node.id)">
+                <t t-esc="this.isExpanded(node.id) ? '▾' : '▸'"/>
+            </button>
+            <span class="o_kb_tree_toggle o_kb_tree_toggle_empty" t-else=""/>
+            <button type="button" class="o_kb_tree_link" t-on-click="() => this.props.onSelect(node.id)">
+                <span class="o_kb_tree_icon" t-esc="node.icon || '📄'"/>
+                <span class="o_kb_tree_name" t-esc="node.name"/>
+            </button>
+        </div>
+        <div class="o_kb_tree_children" t-if="this.childrenOf(node.id).length and this.isExpanded(node.id)">
+            <t t-foreach="this.childrenOf(node.id)" t-as="child" t-key="child.id">
+                <t t-call="diecut_knowledge.PageTreeNode">
+                    <t t-set="node" t-value="child"/>
+                </t>
+            </t>
+        </div>
+    </t>
+</templates>

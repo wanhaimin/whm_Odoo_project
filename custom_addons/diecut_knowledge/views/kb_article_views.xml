@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_diecut_kb_article_list" model="ir.ui.view">
+        <field name="name">diecut.kb.article.list</field>
+        <field name="model">diecut.kb.article</field>
+        <field name="arch" type="xml">
+            <list string="知识库文章" default_order="parent_path, sequence, id desc">
+                <field name="sequence" optional="hide"/>
+                <field name="name" string="标题"/>
+                <field name="parent_id" string="上级页面" optional="show"/>
+                <field name="state" string="状态" optional="show"/>
+                <field name="catalog_item_id" string="关联型号" optional="show"/>
+                <field name="brand_id" string="品牌" optional="show"/>
+                <field name="categ_id" string="材料分类" optional="show"/>
+                <field name="publish_date" string="发布时间" optional="show"/>
+                <field name="write_date" string="更新时间" optional="show"/>
+                <field name="active" string="启用" widget="boolean_toggle" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_article_recycle_list" model="ir.ui.view">
+        <field name="name">diecut.kb.article.recycle.list</field>
+        <field name="model">diecut.kb.article</field>
+        <field name="arch" type="xml">
+            <list string="知识库垃圾回收站" create="false" delete="false" edit="false">
+                <field name="name" string="页面标题"/>
+                <field name="parent_id" string="上级页面"/>
+                <field name="state" string="状态"/>
+                <field name="write_date" string="删除时间"/>
+                <button name="action_restore_from_recycle" type="object" string="恢复" class="btn-link"/>
+                <button name="action_permanent_delete" type="object" string="永久删除" class="btn-link text-danger" confirm="确认永久删除该页面？此操作不可恢复。"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_article_form" model="ir.ui.view">
+        <field name="name">diecut.kb.article.form</field>
+        <field name="model">diecut.kb.article</field>
+        <field name="arch" type="xml">
+            <form string="知识库文章" class="o_diecut_kb_form">
+                <header>
+                    <button name="action_open_full_editor" type="object" string="全屏编辑" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" string="标题"/>
+                            <field name="parent_id" string="上级页面"/>
+                            <field name="state" string="状态"/>
+                            <field name="publish_date" string="发布时间"/>
+                            <field name="active" string="启用"/>
+                        </group>
+                        <group>
+                            <field name="catalog_item_id" string="关联型号"/>
+                            <field name="brand_id" string="品牌" readonly="1"/>
+                            <field name="categ_id" string="材料分类" readonly="1"/>
+                            <field name="sequence" string="排序"/>
+                        </group>
+                    </group>
+                    <separator string="摘要"/>
+                    <field name="summary" nolabel="1" placeholder="简要说明该型号关键知识点"/>
+                    <separator string="正文"/>
+                    <field name="content_html" nolabel="1" widget="html" placeholder="输入详细知识内容"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_article_workspace_form" model="ir.ui.view">
+        <field name="name">diecut.kb.article.workspace.form</field>
+        <field name="model">diecut.kb.article</field>
+        <field name="arch" type="xml">
+            <form string="知识库页面" class="o_diecut_kb_workspace_form">
+                <sheet>
+                    <group col="2">
+                        <group>
+                            <field name="name" string="页面标题"/>
+                            <field name="parent_id" string="上级页面"/>
+                        </group>
+                        <group>
+                            <field name="state" string="状态"/>
+                            <field name="publish_date" string="发布时间"/>
+                        </group>
+                    </group>
+                    <separator string="正文"/>
+                    <field name="content_html" widget="html" nolabel="1" placeholder="输入知识内容..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_article_search" model="ir.ui.view">
+        <field name="name">diecut.kb.article.search</field>
+        <field name="model">diecut.kb.article</field>
+        <field name="arch" type="xml">
+            <search string="知识库搜索">
+                <field name="name" string="标题"/>
+                <field name="catalog_item_id" string="关联型号"/>
+                <field name="brand_id" string="品牌"/>
+                <field name="categ_id" string="材料分类"/>
+                <field name="parent_id" string="上级页面"/>
+                <field name="state" string="状态"/>
+                <separator/>
+                <filter name="kb_published" string="已发布" domain="[('state', '=', 'published')]"/>
+                <filter name="kb_review" string="评审中" domain="[('state', '=', 'review')]"/>
+                <filter name="kb_draft" string="草稿" domain="[('state', '=', 'draft')]"/>
+                <filter name="kb_archived" string="已归档" domain="[('state', '=', 'archived')]"/>
+                <separator/>
+                <filter name="kb_root_pages" string="顶级页面" domain="[('parent_id', '=', False)]"/>
+                <filter name="group_brand" string="按品牌分组" context="{'group_by': 'brand_id'}"/>
+                <filter name="group_categ" string="按分类分组" context="{'group_by': 'categ_id'}"/>
+                <filter name="group_state" string="按状态分组" context="{'group_by': 'state'}"/>
+                <filter name="group_parent" string="按上级页面分组" context="{'group_by': 'parent_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_kb_article_manage" model="ir.actions.act_window">
+        <field name="name">知识库页面管理</field>
+        <field name="res_model">diecut.kb.article</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_kb_article_search"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_diecut_kb_article_list')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_diecut_kb_article_form')})]"/>
+        <field name="help" type="html">
+            <p>维护知识库页面基础信息与元数据。</p>
+        </field>
+    </record>
+
+    <record id="action_diecut_kb_article_recycle" model="ir.actions.act_window">
+        <field name="name">垃圾回收站</field>
+        <field name="res_model">diecut.kb.article</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[("active", "=", False)]</field>
+        <field name="context">{"active_test": False}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_diecut_kb_article_recycle_list')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_diecut_kb_article_form')})]"/>
+        <field name="help" type="html">
+            <p>查看已软删除页面，可恢复或永久删除。</p>
+        </field>
+    </record>
+</odoo>

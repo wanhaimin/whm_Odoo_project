@@ -30,7 +30,7 @@
             class="o_list_renderer o_renderer o_diecut_split_renderer"
             tabindex="-1"
             t-ref="root"
-            t-att-class="{'is-vertical': isVertical and !isListMode, 'is-horizontal': !isVertical and !isListMode, 'is-list-only': isListMode, 'is-resizing': state.resizing}"
+            t-att-class="{'is-vertical': isVertical and !isListMode, 'is-horizontal': !isVertical and !isListMode, 'is-list-only': isListMode, 'is-resizing': state.resizing, 'hide-split-handle': (props.context and props.context.hide_split_handle) or (props.list and props.list.context and props.list.context.hide_split_handle)}"
             t-att-style="splitLayoutStyle"
         >
             <t t-if="showNoContentHelper">
@@ -104,16 +104,32 @@
                 </table>
             </div>
 
-            <div t-if="!isListMode" class="o_diecut_split_handle" t-att-class="isVertical ? 'is-vertical' : 'is-horizontal'" t-on-mousedown="startResize"/>
+            <div t-if="!isListMode" class="o_diecut_split_handle" t-att-class="isVertical ? 'is-vertical' : 'is-horizontal'" t-on-mousedown="startResize">
+                <span class="o_diecut_split_handle_grip" aria-hidden="true"/>
+            </div>
 
             <aside t-if="!isListMode" class="o_diecut_split_panel">
                 <t t-if="formViewProps">
                     <div class="o_diecut_split_panel_form">
+                        <div t-if="isKnowledgeModel" class="o_diecut_split_breadcrumb_bar">
+                            <span class="o_diecut_split_breadcrumb_label">页面路径：</span>
+                            <t t-if="kbBreadcrumbsLoading">
+                                <span class="o_diecut_split_breadcrumb_item text-muted">加载中...</span>
+                            </t>
+                            <t t-else="">
+                                <t t-if="kbBreadcrumbs.length">
+                                    <t t-foreach="kbBreadcrumbs" t-as="crumb" t-key="crumb_index">
+                                        <span class="o_diecut_split_breadcrumb_item" t-esc="crumb"/>
+                                        <span t-if="!crumb_last" class="o_diecut_split_breadcrumb_sep">/</span>
+                                    </t>
+                                </t>
+                            </t>
+                        </div>
                         <View t-key="effectiveSelectedResId" t-props="formViewProps"/>
                     </div>
                 </t>
                 <t t-else="">
-                    <div class="o_diecut_split_panel_empty">请先在左侧选择一个型号以加载右侧表单</div>
+                    <div class="o_diecut_split_panel_empty" t-esc="isKnowledgeModel ? '请先在左侧选择一个知识页面以加载右侧内容' : '请先在左侧选择一个型号以加载右侧表单'"/>
                 </t>
             </aside>
         </div>

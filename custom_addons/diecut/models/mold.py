@@ -241,9 +241,10 @@ class MoldLocation(models.Model):
     description = fields.Text(string='位置说明')
     active = fields.Boolean(string='有效', default=True)
     
-    _sql_constraints = [
-        ('name_unique', 'UNIQUE(name)', '位置编号必须唯一！')
-    ]
+    _name_unique = models.Constraint(
+        'UNIQUE(name)',
+        '位置编号必须唯一！',
+    )
 
 
 # ============================================================================
