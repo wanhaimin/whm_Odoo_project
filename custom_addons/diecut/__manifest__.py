@@ -61,5 +61,5 @@
     },
     'installable': True,
     'application': True,
-    'post_init_hook': 'odoo.addons.diecut.scripts.migrate_thickness_std_um_to_unicode.post_init_hook',
+    # 'post_init_hook': 'odoo.addons.diecut.scripts.migrate_thickness_std_um_to_unicode.post_init_hook',
 }

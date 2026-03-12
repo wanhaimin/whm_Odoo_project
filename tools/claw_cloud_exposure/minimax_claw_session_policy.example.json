@@ -1,0 +1,33 @@
+{
+  "name": "odoo-localhost-temporary-session",
+  "base_url": "REPLACE_WITH_PROTECTED_URL",
+  "allowed_domains": [
+    "REPLACE_WITH_TRYCLOUDFLARE_HOST"
+  ],
+  "forbidden_domains": [
+    "*"
+  ],
+  "browser_context": {
+    "isolated_profile": true,
+    "disable_extensions": true,
+    "download_policy": "deny"
+  },
+  "session_ttl_minutes": 120,
+  "allowed_actions": [
+    "open_url",
+    "click",
+    "type",
+    "press",
+    "wait_for",
+    "screenshot",
+    "get_console_errors",
+    "get_network_failures",
+    "eval_js_readonly"
+  ],
+  "forbidden_actions": [
+    "execute_shell",
+    "read_local_files",
+    "write_local_files",
+    "window_control"
+  ]
+}

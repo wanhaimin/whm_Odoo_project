@@ -20,6 +20,18 @@ class DiecutCatalogItem(models.Model):
 
     code = fields.Char(string="型号编码", index=True)
     series_text = fields.Char(string="系列")
+    tds_content = fields.Html(string="TDS技术数据表")
+    msds_content = fields.Html(string="MSDS安全数据表")
+    datasheet_content = fields.Html(string="规格书")
+    diecut_properties = fields.Properties(
+        string="物理特性参数",
+        definition="categ_id.diecut_properties_definition",
+        copy=True,
+    )
+    feature_desc = fields.Text(string="特性")
+    special_applications = fields.Html(string="特殊应用")
+    typical_applications = fields.Html(string="典型应用")
+    equivalent_type = fields.Char(string="相当品（替代类型）")
 
     catalog_status = fields.Selection(
         [
@@ -57,12 +69,6 @@ class DiecutCatalogItem(models.Model):
     variant_is_rohs = fields.Boolean(string="ROHS", default=False)
     variant_is_reach = fields.Boolean(string="REACH", default=False)
     variant_is_halogen_free = fields.Boolean(string="无卤", default=False)
-    variant_tds_file = fields.Binary(string="TDS技术数据表")
-    variant_tds_filename = fields.Char(string="TDS文件名")
-    variant_msds_file = fields.Binary(string="MSDS安全数据表")
-    variant_msds_filename = fields.Char(string="MSDS文件名")
-    variant_datasheet = fields.Binary(string="规格书")
-    variant_datasheet_filename = fields.Char(string="规格书文件名")
     variant_catalog_structure_image = fields.Binary(string="产品结构图")
     variant_fire_rating = fields.Selection(
         [

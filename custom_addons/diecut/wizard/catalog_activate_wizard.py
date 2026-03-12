@@ -199,8 +199,8 @@ class CatalogActivateWizard(models.TransientModel):
             is_reach = item.variant_is_reach
             is_halogen_free = item.variant_is_halogen_free
             fire_rating = item.variant_fire_rating
-            datasheet = item.variant_datasheet
-            datasheet_filename = item.variant_datasheet_filename
+            datasheet = False
+            datasheet_filename = False
             application = ""
             process_note = ""
             source_catalog_variant_id = False

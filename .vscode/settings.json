@@ -24,7 +24,8 @@
         "${workspaceFolder}/odoo/addons",
         "${workspaceFolder}/custom_addons"
     ],
-    "cursorpyright.analysis.typeCheckingMode": "basic"
+    "cursorpyright.analysis.typeCheckingMode": "basic",
     "workbench.editorAssociations": {
-  "*.csv": "rainbowcsv.csv"}
+        "*.csv": "default"
+    }
 }
