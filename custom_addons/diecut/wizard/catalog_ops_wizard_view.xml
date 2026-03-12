@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="view_catalog_ops_wizard_form" model="ir.ui.view">
         <field name="name">diecut.catalog.ops.wizard.form</field>
@@ -7,61 +7,43 @@
             <form string="数据运维">
                 <group string="操作配置">
                     <group>
-                        <field name="operation" />
-                        <field name="xml_file" invisible="operation != 'import_xml'" />
-                        <field name="csv_target_file" invisible="operation != 'edit_csv'" />
-                        <field name="backfill_limit" invisible="operation not in ('cutover_baseline_snapshot')" />
-                        <field name="confirm_delete_token" invisible="operation not in ('cleanup_xml','generate_assets','sync_csv_to_db')" placeholder="真实删除前输入 DELETE" />
-                    </group>
-                    <group>
-                        <field name="auto_create_external_ids" invisible="operation not in ('export_csv')" />
-                        <field name="prune_unmatched_xml" invisible="operation not in ('generate_assets','sync_csv_to_db')" />
-                        <field name="dry_run" invisible="operation in ('edit_csv','view_fields_manual','cutover_baseline_snapshot')" />
+                        <field name="operation"/>
+                        <field name="backfill_limit" invisible="operation not in ('cutover_baseline_snapshot')"/>
+                        <field name="dry_run" invisible="operation in ('edit_csv','view_fields_manual','cutover_baseline_snapshot')"/>
                     </group>
                 </group>
-                <group string="新架构基线提示" invisible="operation != 'cutover_baseline_snapshot'" col="1" colspan="2">
-                    <p class="text-muted">
-                        建议在每次部署后执行“生成切换基线记录”，用于持续记录新架构关键指标（总数/重复/系列文本缺失）。
-                    </p>
-                </group>
-                <group string="删除预览" invisible="operation not in ('cleanup_xml','generate_assets','sync_csv_to_db')" col="1" colspan="2">
-                    <field name="delete_preview" nolabel="1" readonly="1" colspan="2" />
-                </group>
+
                 <group string="CSV轻量编辑" invisible="operation != 'edit_csv'" col="1" colspan="2">
-                    <field name="csv_content" nolabel="1" colspan="2" placeholder="点击“加载CSV”后编辑，保存写回 scripts/*.csv" />
+                    <field name="csv_content" nolabel="1" colspan="2" placeholder="点击“加载CSV”后编辑，保存回 scripts/catalog_items.csv"/>
                 </group>
-                <group string="操作指南" invisible="not guide_message" col="1" colspan="2">
-                    <field name="guide_message" nolabel="1" readonly="1" colspan="2" />
-                </group>
-                <group string="执行结果" invisible="not result_message" col="1" colspan="2">
-                    <field name="result_message" nolabel="1" readonly="1" colspan="2" />
-                </group>
+
                 <group string="字段维护清单" invisible="operation != 'view_fields_manual'" col="1" colspan="2">
-                    <p class="text-muted">
-                        以下清单直接读取
-                        <code>models/catalog_item.py</code>
-                        （模型
-                        <code>diecut.catalog.item</code>
-                        ）字段定义，已排除系统原生元字段。
-                    </p>
                     <field name="field_info_ids" nolabel="1" colspan="2" readonly="1">
                         <list>
-                            <field name="model_name" />
-                            <field name="field_name" />
-                            <field name="field_string" />
-                            <field name="field_type" />
-                            <field name="field_help" />
+                            <field name="model_name"/>
+                            <field name="field_name"/>
+                            <field name="field_string"/>
+                            <field name="field_type"/>
+                            <field name="field_help"/>
                         </list>
                     </field>
                 </group>
+
+                <group string="操作指南" invisible="not guide_message" col="1" colspan="2">
+                    <field name="guide_message" nolabel="1" readonly="1" colspan="2"/>
+                </group>
+
+                <group string="执行结果" invisible="not result_message" col="1" colspan="2">
+                    <field name="result_message" nolabel="1" readonly="1" colspan="2"/>
+                </group>
+
                 <footer>
-                    <button name="action_show_guide" string="操作指南" type="object" class="btn-secondary" />
-                    <button name="action_preview_delete_list" string="预览删除项目" type="object" class="btn-secondary" invisible="operation not in ('cleanup_xml','generate_assets','sync_csv_to_db')" />
-                    <button name="action_load_csv_editor" string="加载CSV" type="object" class="btn-secondary" invisible="operation != 'edit_csv'" />
-                    <button name="action_save_csv_editor" string="保存CSV" type="object" class="btn-secondary" invisible="operation != 'edit_csv'" />
-                    <button name="action_open_aggrid_editor" string="打开AG Grid编辑器" type="object" class="btn-secondary" invisible="operation != 'edit_csv'" />
-                    <button name="action_execute" string="执行" type="object" class="btn-primary" />
-                    <button string="关闭" special="cancel" class="btn-secondary" />
+                    <button name="action_show_guide" string="操作指南" type="object" class="btn-secondary"/>
+                    <button name="action_load_csv_editor" string="加载CSV" type="object" class="btn-secondary" invisible="operation != 'edit_csv'"/>
+                    <button name="action_save_csv_editor" string="保存CSV" type="object" class="btn-secondary" invisible="operation != 'edit_csv'"/>
+                    <button name="action_open_aggrid_editor" string="打开AG Grid编辑器" type="object" class="btn-secondary" invisible="operation != 'edit_csv'"/>
+                    <button name="action_execute" string="执行" type="object" class="btn-primary"/>
+                    <button string="关闭" special="cancel" class="btn-secondary"/>
                 </footer>
             </form>
         </field>
@@ -71,7 +53,7 @@
         <field name="name">数据运维</field>
         <field name="res_model">diecut.catalog.ops.wizard</field>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="view_catalog_ops_wizard_form" />
+        <field name="view_id" ref="view_catalog_ops_wizard_form"/>
         <field name="target">new</field>
     </record>
 
@@ -80,19 +62,15 @@
         <field name="model">diecut.catalog.ops.log</field>
         <field name="arch" type="xml">
             <list string="数据运维日志">
-                <field name="create_date" string="时间" />
-                <field name="operator_id" />
-                <field name="operation" />
-                <field name="success" />
-                <field name="read_mode" optional="hide" />
-                <field name="legacy_model_count" optional="hide" />
-                <field name="shadow_model_count" optional="hide" />
-                <field name="missing_shadow_count" optional="hide" />
-                <field name="duplicate_brand_code_count" optional="hide" />
-                <field name="orphan_model_count" optional="hide" />
-                <field name="mapped_all_match" optional="hide" />
-                <field name="attachment_all_match" optional="hide" />
-                <field name="detail" />
+                <field name="create_date" string="时间"/>
+                <field name="operator_id"/>
+                <field name="operation"/>
+                <field name="success"/>
+                <field name="read_mode" optional="hide"/>
+                <field name="shadow_model_count" optional="hide"/>
+                <field name="duplicate_brand_code_count" optional="hide"/>
+                <field name="orphan_model_count" optional="hide"/>
+                <field name="detail"/>
             </list>
         </field>
     </record>
@@ -101,6 +79,6 @@
         <field name="name">数据运维日志</field>
         <field name="res_model">diecut.catalog.ops.log</field>
         <field name="view_mode">list,form</field>
-        <field name="view_id" ref="view_catalog_ops_log_tree" />
+        <field name="view_id" ref="view_catalog_ops_log_tree"/>
     </record>
 </odoo>

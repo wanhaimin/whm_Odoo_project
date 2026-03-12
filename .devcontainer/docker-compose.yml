@@ -31,6 +31,7 @@ services:
       - db
     ports:
       - "8070:8069"
+      - "8072:8072"
     environment:
       - HOST=db
       - USER=odoo

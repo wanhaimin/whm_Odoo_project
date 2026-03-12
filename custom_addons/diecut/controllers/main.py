@@ -13,21 +13,21 @@ class MaterialWebsite(http.Controller):
     
     @http.route(['/materials', '/materials/page/<int:page>'], type='http', auth='public', website=True)
     def materials_list(self, page=1, category=None, search=None, **kwargs):
-        """材料列表页面"""
-        # 使用 Odoo 原生的 website_published 机制
-        # 对于 Product, 可以在 is_published 上过滤，且只看 raw material
+        """鏉愭枡鍒楄〃椤甸潰"""
+        # 浣跨敤 Odoo 鍘熺敓鐨?website_published 鏈哄埗
+        # 瀵逛簬 Product, 鍙互鍦?is_published 涓婅繃婊わ紝涓斿彧鐪?raw material
         domain = [('is_published', '=', True), ('is_raw_material', '=', True)]
         
-        # 分类筛选
+        # 鍒嗙被绛涢€?
         if category:
             category_obj = request.env['product.category'].sudo().browse(int(category or 0))
             domain.append(('categ_id', '=', category_obj.id))
         
-        # 搜索
+        # 鎼滅储
         if search:
             domain += ['|', ('name', 'ilike', search), ('default_code', 'ilike', search)]
         
-        # 分页
+        # 鍒嗛〉
         materials_per_page = 12
         total_materials = request.env['product.template'].sudo().search_count(domain)
         pager = request.website.pager(
@@ -45,8 +45,8 @@ class MaterialWebsite(http.Controller):
             order='create_date desc'
         )
         
-        # 获取所有分类 (只获取原材料分类)
-        # 假设原材料分类是 'category_type'='raw' 或者您有特定的根分类
+        # 鑾峰彇鎵€鏈夊垎绫?(鍙幏鍙栧師鏉愭枡鍒嗙被)
+        # 鍋囪鍘熸潗鏂欏垎绫绘槸 'category_type'='raw' 鎴栬€呮偍鏈夌壒瀹氱殑鏍瑰垎绫?
         categories = request.env['product.category'].sudo().search([('category_type', '=', 'raw')]) 
         if not categories:
              categories = request.env['product.category'].sudo().search([])
@@ -62,19 +62,19 @@ class MaterialWebsite(http.Controller):
     
     @http.route(['/material/<int:material_id>'], type='http', auth='public', website=True)
     def material_detail(self, material_id, **kwargs):
-        """材料详情页面"""
+        """鏉愭枡璇︽儏椤甸潰"""
         # Browse product.template
         material = request.env['product.template'].sudo().browse(material_id)
         
         if not material.exists() or not material.is_published: # or not material.is_raw_material:
             return request.redirect('/materials')
         
-        # 增加浏览次数
-        # 注意：product.template 原生没有 view_count, 使用我们自定义加的
+        # 澧炲姞娴忚娆℃暟
+        # 娉ㄦ剰锛歱roduct.template 鍘熺敓娌℃湁 view_count, 浣跨敤鎴戜滑鑷畾涔夊姞鐨?
         if hasattr(material, 'view_count'):
              material.sudo().write({'view_count': material.view_count + 1})
 
-        # 推荐材料(同分类)
+        # 鎺ㄨ崘鏉愭枡(鍚屽垎绫?
         recommended_materials = request.env['product.template'].sudo().search([
             ('categ_id', '=', material.categ_id.id),
             ('id', '!=', material.id),
@@ -89,7 +89,7 @@ class MaterialWebsite(http.Controller):
     
     @http.route(['/sample/order'], type='http', auth='user', website=True)
     def sample_order_form(self, **kwargs):
-        """打样订单表单"""
+        """鎵撴牱璁㈠崟琛ㄥ崟"""
         materials = request.env['product.template'].sudo().search([
             ('is_published', '=', True),
             ('is_raw_material', '=', True)
@@ -101,8 +101,8 @@ class MaterialWebsite(http.Controller):
     
     @http.route(['/sample/order/submit'], type='http', auth='user', website=True, methods=['POST'], csrf=True)
     def sample_order_submit(self, **post):
-        """提交打样订单"""
-        # 创建打样订单
+        """鎻愪氦鎵撴牱璁㈠崟"""
+        # 鍒涘缓鎵撴牱璁㈠崟
         order_vals = {
             'partner_id': request.env.user.partner_id.id,
             'product_name': post.get('product_name'),
@@ -115,20 +115,20 @@ class MaterialWebsite(http.Controller):
         
         order = request.env['sample.order'].sudo().create(order_vals)
         
-        # 创建订单明细
-        # material_id 此处来自前端选择，实际上是 product.template ID
-        # 如果 sample.order.line 需要 product.product, 我们需要转换
+        # 鍒涘缓璁㈠崟鏄庣粏
+        # material_id 姝ゅ鏉ヨ嚜鍓嶇閫夋嫨锛屽疄闄呬笂鏄?product.template ID
+        # 濡傛灉 sample.order.line 闇€瑕?product.product, 鎴戜滑闇€瑕佽浆鎹?
         template_id = int(post.get('material_id') or 0)
         product_id = False
         if template_id:
              tmpl = request.env['product.template'].sudo().browse(template_id)
-             # 获取第一个变体
+             # 鑾峰彇绗竴涓彉浣?
              if tmpl.product_variant_ids:
                  product_id = tmpl.product_variant_ids[0].id
         
         line_vals = {
             'order_id': order.id,
-            'material_id': product_id, # 注意 sample.order.line 现在应该链接 product.product
+            'material_id': product_id, # 娉ㄦ剰 sample.order.line 鐜板湪搴旇閾炬帴 product.product
             'length': float(post.get('length') or 0.0),
             'width': float(post.get('width') or 0.0),
             'thickness': float(post.get('thickness') or 0.0),
@@ -136,19 +136,19 @@ class MaterialWebsite(http.Controller):
             'process_type': post.get('process_type', 'die_cut'),
             'special_requirements': post.get('special_requirements'),
         }
-        # 如果没选材料（product_id is False），可能要在 sample.order.line 允许为空或者抛错
-        # 假设允许为空
+        # 濡傛灉娌￠€夋潗鏂欙紙product_id is False锛夛紝鍙兘瑕佸湪 sample.order.line 鍏佽涓虹┖鎴栬€呮姏閿?
+        # 鍋囪鍏佽涓虹┖
         
         request.env['sample.order.line'].sudo().create(line_vals)
         
-        # 提交订单
+        # 鎻愪氦璁㈠崟
         order.action_submit()
         
         return request.redirect('/sample/order/success/%s' % order.id)
     
     @http.route(['/sample/order/success/<int:order_id>'], type='http', auth='user', website=True)
     def sample_order_success(self, order_id, **kwargs):
-        """订单提交成功页面"""
+        """璁㈠崟鎻愪氦鎴愬姛椤甸潰"""
         order = request.env['sample.order'].sudo().browse(order_id)
         
         if not order.exists():
@@ -160,7 +160,7 @@ class MaterialWebsite(http.Controller):
     
     @http.route(['/my/sample/orders'], type='http', auth='user', website=True)
     def my_sample_orders(self, **kwargs):
-        """我的打样订单"""
+        """鎴戠殑鎵撴牱璁㈠崟"""
         orders = request.env['sample.order'].sudo().search([
             ('partner_id', '=', request.env.user.partner_id.id)
         ], order='create_date desc')
@@ -171,7 +171,7 @@ class MaterialWebsite(http.Controller):
 
 
 class CatalogCsvGridController(http.Controller):
-    _ALLOWED = {"series.csv", "variants.csv"}
+    _ALLOWED = {"catalog_items.csv"}
 
     def _scripts_dir(self):
         module_dir = get_module_path("diecut")
@@ -189,7 +189,7 @@ class CatalogCsvGridController(http.Controller):
         return os.path.join(scripts_dir, name), name
 
     @http.route("/diecut/catalog/csv-grid", type="http", auth="user")
-    def csv_grid_page(self, file="series.csv", **kwargs):
+    def csv_grid_page(self, file="catalog_items.csv", **kwargs):
         _full_path, safe_name = self._resolve_csv(file)
         if not safe_name:
             return request.not_found()
@@ -287,10 +287,10 @@ class CatalogCsvGridController(http.Controller):
       }});
       const payload = await resp.json();
       if (!payload.ok) {{
-        statusEl.textContent = (payload.error || '保存失败') + (payload.errors && payload.errors.length ? '（' + payload.errors.length + ' 处）' : '');
+        statusEl.textContent = (payload.error || '保存失败') + (payload.errors && payload.errors.length ? `（${{payload.errors.length}} 处）` : '');
         if (payload.errors && payload.errors.length) {{
           payload.errors.forEach(e => validationErrors.add(e.rowIndex + ':' + e.field));
-          errorListEl.innerHTML = '<strong>校验错误：</strong><br>' + payload.errors.map(e => '第' + (e.rowIndex + 1) + '行 · ' + e.field + ': ' + e.message).join('<br>');
+          errorListEl.innerHTML = '<strong>校验错误：</strong><br>' + payload.errors.map(e => '第 ' + (e.rowIndex + 1) + ' 行 · ' + e.field + ': ' + e.message).join('<br>');
           errorListEl.style.display = 'block';
           if (gridApi) gridApi.refreshCells({{ force: true }});
         }}
@@ -314,7 +314,7 @@ class CatalogCsvGridController(http.Controller):
         return request.make_response(html, headers=[("Content-Type", "text/html; charset=utf-8")])
 
     @http.route("/diecut/catalog/csv-grid/data", type="http", auth="user")
-    def csv_grid_data(self, file="series.csv", **kwargs):
+    def csv_grid_data(self, file="catalog_items.csv", **kwargs):
         full_path, safe_name = self._resolve_csv(file)
         if not safe_name:
             return request.make_response(json.dumps({"ok": False, "error": "非法文件名"}), headers=[("Content-Type", "application/json")])
@@ -341,55 +341,39 @@ class CatalogCsvGridController(http.Controller):
         )
 
     def _validate_csv_primary_keys(self, safe_name, headers, rows):
-        """主键校验，返回错误列表 [{rowIndex, field, message}]。"""
         errors = []
-        if safe_name == "series.csv":
-            key_field = "series_xml_id"
-            if key_field not in headers:
-                return [{"rowIndex": -1, "field": key_field, "message": "缺少列 series_xml_id"}]
-            seen = {}
-            for i, row in enumerate(rows):
-                if not isinstance(row, dict):
-                    continue
-                val = (row.get(key_field) or "").strip()
-                if not val:
-                    errors.append({"rowIndex": i, "field": key_field, "message": "不能为空"})
-                    continue
-                if val in seen:
-                    errors.append({
-                        "rowIndex": i,
-                        "field": key_field,
-                        "message": f"与第 {seen[val] + 1} 行重复",
-                    })
-                else:
-                    seen[val] = i
-        elif safe_name == "variants.csv":
-            f1, f2 = "series_xml_id", "default_code"
-            for f in (f1, f2):
-                if f not in headers:
-                    errors.append({"rowIndex": -1, "field": f, "message": f"缺少列 {f}"})
-            if any(e["rowIndex"] == -1 for e in errors):
-                return errors
-            seen = {}
-            for i, row in enumerate(rows):
-                if not isinstance(row, dict):
-                    continue
-                v1 = (row.get(f1) or "").strip()
-                v2 = (row.get(f2) or "").strip()
-                if not v1:
-                    errors.append({"rowIndex": i, "field": f1, "message": "不能为空"})
-                if not v2:
-                    errors.append({"rowIndex": i, "field": f2, "message": "不能为空"})
+        if safe_name != "catalog_items.csv":
+            return errors
+
+        f1, f2 = "brand_id_xml", "code"
+        for f in (f1, f2):
+            if f not in headers:
+                errors.append({"rowIndex": -1, "field": f, "message": f"缺少列 {f}"})
+        if any(e["rowIndex"] == -1 for e in errors):
+            return errors
+
+        seen = {}
+        for i, row in enumerate(rows):
+            if not isinstance(row, dict):
+                continue
+            v1 = (row.get(f1) or "").strip().lower()
+            v2 = (row.get(f2) or "").strip().lower()
+            if not v1:
+                errors.append({"rowIndex": i, "field": f1, "message": "不能为空"})
+            if not v2:
+                errors.append({"rowIndex": i, "field": f2, "message": "不能为空"})
+            if v1 and v2:
                 key = (v1, v2)
-                if v1 and v2:
-                    if key in seen:
-                        errors.append({
+                if key in seen:
+                    errors.append(
+                        {
                             "rowIndex": i,
                             "field": f2,
-                            "message": f"与第 {seen[key] + 1} 行重复（系列+型号）",
-                        })
-                    else:
-                        seen[key] = i
+                            "message": f"与第 {seen[key] + 1} 行重复（brand_id_xml + code）",
+                        }
+                    )
+                else:
+                    seen[key] = i
         return errors
 
     @http.route("/diecut/catalog/csv-grid/save", type="http", auth="user", methods=["POST"], csrf=False)

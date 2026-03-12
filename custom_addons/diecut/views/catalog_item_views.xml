@@ -89,16 +89,30 @@
                     </group>
                     <group string="文档与附件">
                         <group>
-                            <field name="variant_tds_filename" string="TDS文件名" />
-                            <field name="variant_msds_filename" string="MSDS文件名" />
-                            <field name="variant_datasheet_filename" string="规格书文件名" />
-                        </group>
-                        <group>
-                            <field name="variant_tds_file" string="TDS技术数据表" widget="binary" filename="variant_tds_filename" />
-                            <field name="variant_msds_file" string="MSDS安全数据表" widget="binary" filename="variant_msds_filename" />
-                            <field name="variant_datasheet" string="规格书" widget="binary" filename="variant_datasheet_filename" />
                             <field name="variant_catalog_structure_image" string="产品结构图" widget="image" />
                         </group>
+                        <group string="TDS技术数据表" colspan="2">
+                            <field name="tds_content" widget="html" nolabel="1" />
+                        </group>
+                        <group string="MSDS安全数据表" colspan="2">
+                            <field name="msds_content" widget="html" nolabel="1" />
+                        </group>
+                        <group string="规格书" colspan="2">
+                            <field name="datasheet_content" widget="html" nolabel="1" />
+                        </group>
+                    </group>
+                    <group string="应用与特性">
+                        <group>
+                            <field name="equivalent_type" string="相当品（替代类型）" />
+                            <field name="feature_desc" string="特性" placeholder="请输入产品特性..." />
+                        </group>
+                        <group>
+                            <field name="special_applications" string="特殊应用" widget="html" />
+                            <field name="typical_applications" string="典型应用" widget="html" />
+                        </group>
+                    </group>
+                    <group string="动态物理特性">
+                        <field name="diecut_properties" widget="properties" nolabel="1" colspan="2" />
                     </group>
                 </sheet>
             </form>

@@ -361,7 +361,7 @@
                                     " 的报价
                                 </h5>
                                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
+                                    <span aria-hidden="true">&#215;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
