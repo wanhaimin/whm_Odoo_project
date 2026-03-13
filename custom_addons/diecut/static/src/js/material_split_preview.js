@@ -243,6 +243,29 @@ export class DiecutSplitListRenderer extends ListRenderer {
         }
         this._refreshRowStatus(resId);
     }
+    
+    openFullForm() {
+        const resId = this.effectiveSelectedResId;
+        if (!resId) return;
+        const resModel = this.props.list.resModel || this.props.resModel;
+        this.actionService.doAction({
+            type: "ir.actions.act_window",
+            res_model: resModel,
+            res_id: resId,
+            views: [[false, "form"]],
+            target: "current",
+        });
+    }
+
+    createNewRecord() {
+        const resModel = this.props.list.resModel || this.props.resModel;
+        this.actionService.doAction({
+            type: "ir.actions.act_window",
+            res_model: resModel,
+            views: [[false, "form"]],
+            target: "current",
+        });
+    }
 
     startResize(ev) {
         ev.preventDefault();
@@ -304,7 +327,7 @@ export class DiecutSplitListRenderer extends ListRenderer {
         if (!resId) {
             return null;
         }
-        const splitForceEdit = this.props.context?.split_force_edit ?? this.props.list.context?.split_force_edit ?? true;
+        const splitForceEdit = this.props.context?.split_force_edit ?? this.props.list.context?.split_force_edit ?? false;
         const formViewId = this.splitFormViewId;
         const formViewRef =
             this.props.context?.split_form_view_ref ||

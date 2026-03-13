@@ -13,4 +13,6 @@ from . import res_partner
 from . import stock_quant
 from . import stock_move
 from . import catalog_ops_log
+from . import catalog_spec
+from . import catalog_series
 from . import catalog_item

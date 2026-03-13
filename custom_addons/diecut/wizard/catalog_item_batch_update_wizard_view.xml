@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_catalog_item_batch_update_wizard_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.item.batch.update.wizard.form</field>
+        <field name="model">diecut.catalog.item.batch.update.wizard</field>
+        <field name="arch" type="xml">
+            <form string="批量修改字段">
+                <sheet>
+                    <group>
+                        <field name="target_count" readonly="1"/>
+                    </group>
+
+                    <group string="批量改材料分类（专用流程）">
+                        <field name="target_categ_id"/>
+                        <field name="categ_change_policy" invisible="not target_categ_id"/>
+                    </group>
+
+                    <group string="待修改字段">
+                        <field name="line_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="field_name"/>
+                                <field name="field_type" readonly="1" optional="hide"/>
+                                <field name="value_char" invisible="field_type != 'char'"/>
+                                <field name="value_text" invisible="field_type not in ('text', 'html')"/>
+                                <field name="value_float" invisible="field_type != 'float'"/>
+                                <field name="value_categ_id" invisible="field_name != 'categ_id'"/>
+                                <field name="value_series_id" invisible="field_name != 'series_id'"/>
+                                <field name="value_boolean" invisible="field_type != 'boolean'"/>
+                                <field name="value_selection" invisible="field_type != 'selection'"/>
+                            </list>
+                            <form string="待修改字段">
+                                <group>
+                                    <field name="field_name"/>
+                                    <field name="field_type" readonly="1"/>
+                                    <field name="value_char" invisible="field_type != 'char'"/>
+                                    <field name="value_text" invisible="field_type not in ('text', 'html')"/>
+                                    <field name="value_float" invisible="field_type != 'float'"/>
+                                    <field name="value_categ_id" invisible="field_name != 'categ_id'"/>
+                                    <field name="value_series_id" invisible="field_name != 'series_id'"/>
+                                    <field name="value_boolean" invisible="field_type != 'boolean'"/>
+                                    <field name="value_selection" invisible="field_type != 'selection'"/>
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+
+                    <group invisible="not result_message">
+                        <field name="result_message" readonly="1" nolabel="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button
+                        name="action_execute_resolve_incompatible"
+                        type="object"
+                        string="同步更新新分类参数列表"
+                        class="btn-secondary"
+                        invisible="not has_incompatible"
+                    />
+                    <button name="action_execute" type="object" string="确认修改" class="btn-primary"/>
+                    <button string="取消" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_server_catalog_item_batch_update" model="ir.actions.server">
+        <field name="name">批量修改字段</field>
+        <field name="model_id" ref="model_diecut_catalog_item"/>
+        <field name="binding_model_id" ref="model_diecut_catalog_item"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_batch_update_wizard()</field>
+    </record>
+</odoo>

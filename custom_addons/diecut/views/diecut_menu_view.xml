@@ -1,32 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Top menu item -->
-    <menuitem id="menu_diecut_root" name="模切管理系统" sequence="10" />
-    <!-- Cloud Menu Structure: Flat / One Level -->
-    <menuitem id="menu_diecut_quote_backend" name="成本计算器" parent="menu_diecut_root" action="action_diecut_quote" sequence="10" />
+    <menuitem id="menu_diecut_root" name="模切管理系统" sequence="10"/>
 
-    <menuitem id="menu_material_catalog" name="📚 材料选型大全" parent="menu_diecut_root" action="action_material_catalog" sequence="15" />
-    <menuitem id="menu_material_catalog_variant_unified" name="📋 材料型号清单" parent="menu_material_catalog" action="action_diecut_catalog_item_gray" sequence="20" />
-    <menuitem id="menu_material_catalog_create_template" name="➕ 新建材料系列" parent="menu_material_catalog" action="action_material_catalog_create_template" sequence="19" active="False" />
-    <menuitem id="menu_material_catalog_variant" name="📋 材料型号清单(旧架构)" parent="menu_material_catalog" action="action_material_catalog_variant_split" sequence="21" active="False" />
-    <menuitem id="menu_material_catalog_variant_list" name="📄 材料型号清单(旧架构列表)" parent="menu_material_catalog" action="action_material_catalog_variant" sequence="22" active="False" />
-    <menuitem id="menu_material_catalog_variant_gray" name="🧪 [实验] 材料型号清单(新架构)" parent="menu_material_catalog" action="action_diecut_catalog_item_gray" sequence="23" active="False" />
-    <menuitem id="menu_material_catalog_brand" name="品牌库" parent="menu_material_catalog" action="action_diecut_brand" sequence="24" />
-    <menuitem id="menu_material_catalog_ops" name="数据运维" parent="menu_material_catalog" action="action_catalog_ops_wizard" sequence="26" />
-    <menuitem id="menu_material_catalog_ops_log" name="运维日志" parent="menu_material_catalog" action="action_catalog_ops_log" sequence="27" />
+    <menuitem id="menu_diecut_quote_backend" name="成本计算器" parent="menu_diecut_root" action="action_diecut_quote" sequence="10"/>
 
-    <menuitem id="menu_diecut_raw_material_list" name="原材料" parent="menu_diecut_root" action="action_diecut_raw_material" sequence="20" />
+    <menuitem id="menu_material_catalog" name="材料型号库" parent="menu_diecut_root" action="action_diecut_catalog_item_gray" sequence="15"/>
+    <menuitem id="menu_material_catalog_variant_unified" name="材料型号清单" parent="menu_material_catalog" action="action_diecut_catalog_item_gray" sequence="20"/>
+    <menuitem id="menu_material_catalog_brand" name="品牌库" parent="menu_material_catalog" action="action_diecut_brand" sequence="24"/>
+    <menuitem id="menu_material_catalog_series" name="系列模板管理" parent="menu_material_catalog" action="action_diecut_catalog_series" sequence="25"/>
+    <menuitem id="menu_material_catalog_spec_def" name="技术参数模板" parent="menu_material_catalog" action="action_diecut_catalog_spec_def" sequence="26"/>
+    <menuitem id="menu_material_catalog_ops" name="数据运维" parent="menu_material_catalog" action="action_catalog_ops_wizard" sequence="27"/>
+    <menuitem id="menu_material_catalog_ops_log" name="运维日志" parent="menu_material_catalog" action="action_catalog_ops_log" sequence="28"/>
 
-    <menuitem id="menu_diecut_customer" name="客户管理" parent="menu_diecut_root" action="action_diecut_customer" sequence="30" />
+    <menuitem id="menu_diecut_raw_material_list" name="原材料" parent="menu_diecut_root" action="action_diecut_raw_material" sequence="20"/>
+    <menuitem id="menu_diecut_customer" name="客户管理" parent="menu_diecut_root" action="action_diecut_customer" sequence="30"/>
+    <menuitem id="menu_diecut_mold" name="刀模管理" parent="menu_diecut_root" action="action_diecut_mold" sequence="40"/>
+    <menuitem id="menu_material_slitting_flat" name="分切管理" parent="menu_diecut_root" action="action_material_slitting" sequence="50"/>
+    <menuitem id="menu_requisition_demo_flat" name="领料申请" parent="menu_diecut_root" action="action_requisition_demo" sequence="60"/>
+    <menuitem id="menu_sample_order_flat" name="样品订单" parent="menu_diecut_root" action="action_sample_order_custom" sequence="70"/>
 
-    <menuitem id="menu_diecut_mold" name="刀模管理" parent="menu_diecut_root" action="action_diecut_mold" sequence="40" />
-
-    <menuitem id="menu_material_slitting_flat" name="分切管理" parent="menu_diecut_root" action="action_material_slitting" sequence="50" />
-
-    <menuitem id="menu_requisition_demo_flat" name="领料申请" parent="menu_diecut_root" action="action_requisition_demo" sequence="60" />
-
-    <menuitem id="menu_sample_order_flat" name="样品订单" parent="menu_diecut_root" action="action_sample_order_custom" sequence="70" />
-    <!-- 修改 Odoo 原生"应用"菜单的默认筛选：默认显示已安装 -->
     <record id="base.open_module_tree" model="ir.actions.act_window">
         <field name="context">{'search_default_app': 1, 'search_default_installed': 1}</field>
     </record>

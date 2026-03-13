@@ -1,0 +1,50 @@
+brand_id_xml,categ_id_xml,item_code,param_key,value,unit,test_method,test_condition,remark,sequence
+brand_tesa,category_foam,EVA-001,density,120,kg/m3,ASTM D3575,23℃,示例数值型参数,10
+brand_tesa,category_foam,EVA-001,hardness,45,Shore C,ASTM D2240,23℃,示例数值型参数,20
+brand_tesa,category_foam,EVA-001,compression_set,8,%,ASTM D3575,70℃*22h,示例数值型参数,30
+brand_tesa,category_foam,EVA-001,rebound_rate,35,%,ASTM D3575,23℃,示例数值型参数,40
+brand_tesa,category_foam,EVA-001,adhesive_backing,单面背胶,,内部定义,,枚举参数示例,50
+brand_tesa,category_metal_foil,CF-001,surface_resistance,0.05,ohm/sq,ASTM D257,23℃,导电参数示例,10
+brand_tesa,category_metal_foil,CF-001,shielding_effectiveness,65,dB,GB/T 12190,1GHz,屏蔽参数示例,20
+brand_tesa,category_metal_foil,CF-001,conductive_direction,XYZ,,内部定义,,枚举参数示例,30
+brand_tesa,category_metal_foil,CF-001,foil_peel_strength,14,N/25mm,ASTM D3330,23℃,剥离力示例,40
+brand_tesa,category_tape_pet_single,PETS-001,total_thickness,60,μm,ASTM D3652,23℃,PET 单面总厚度,10
+brand_tesa,category_tape_pet_single,PETS-001,substrate_thickness,25,μm,内部定义,23℃,PET 单面基材厚度,20
+brand_tesa,category_tape_pet_single,PETS-001,adhesive_system,改性丙烯酸,,内部定义,,PET 单面胶系,30
+brand_tesa,category_tape_pet_single,PETS-001,peel_strength_180,9.5,N/25mm,ASTM D3330,23℃,PET 单面剥离力,40
+brand_tesa,category_tape_pet_single,PETS-001,temperature_grade,120,℃,内部定义,,PET 单面耐温等级,50
+brand_tesa,category_tape_pet_double,PETD-001,total_thickness,120,μm,ASTM D3652,23℃,PET 双面总厚度,10
+brand_tesa,category_tape_pet_double,PETD-001,carrier_thickness,12,μm,内部定义,23℃,PET 双面载体厚度,20
+brand_tesa,category_tape_pet_double,PETD-001,adhesive_system,丙烯酸,,内部定义,,PET 双面胶系,30
+brand_tesa,category_tape_pet_double,PETD-001,initial_tack,14#钢球,,GB/T 4852,23℃,PET 双面初粘力,40
+brand_tesa,category_tape_pet_double,PETD-001,holding_power,24,h,GB/T 4851,23℃*1kg,PET 双面持粘力,50
+brand_tesa,category_tape_insulation,INS-001,base_material_type,PI,,内部定义,,绝缘胶带基材,10
+brand_tesa,category_tape_insulation,INS-001,breakdown_voltage,7.5,kV,ASTM D149,23℃,绝缘击穿电压,20
+brand_tesa,category_tape_insulation,INS-001,dielectric_strength,120,kV/mm,ASTM D149,23℃,绝缘介电强度,30
+brand_tesa,category_tape_insulation,INS-001,temperature_class,180℃,,内部定义,,绝缘耐温等级,40
+brand_tesa,category_tape_insulation,INS-001,flame_class,UL94 V-0,,内部定义,,绝缘阻燃等级,50
+brand_tesa,category_graphite,GR-001,thermal_conductivity_xy,900,W/mK,ASTM E1461,23℃,面内导热系数,10
+brand_tesa,category_graphite,GR-001,thermal_conductivity_z,15,W/mK,ASTM E1461,23℃,厚向导热系数,20
+brand_tesa,category_graphite,GR-001,total_thickness,25,μm,内部定义,23℃,导热石墨总厚度,30
+brand_tesa,category_graphite,GR-001,surface_resistance,0.02,Ω/sq,ASTM D257,23℃,表面电阻,40
+brand_tesa,category_graphite,GR-001,shielding_effectiveness,50,dB,GB/T 12190,1GHz,屏蔽效能,50
+brand_tesa,category_release_film,REL-001,base_film_type,PET,,内部定义,,离型膜基膜类型,10
+brand_tesa,category_release_film,REL-001,total_thickness,50,μm,ASTM D3652,23℃,离型膜总厚度,20
+brand_tesa,category_release_film,REL-001,release_force,18,gf/in,FINAT FTM 10,23℃,离型力示例,30
+brand_tesa,category_release_film,REL-001,surface_treatment,单面硅油,,内部定义,,表面处理示例,40
+brand_tesa,category_release_film,REL-001,color_tone,蓝色,,内部定义,,颜色示例,50
+brand_tesa,category_protection_film,PRO-001,base_material_type,PE,,内部定义,,保护膜基材类型,10
+brand_tesa,category_protection_film,PRO-001,total_thickness,60,μm,ASTM D3652,23℃,保护膜总厚度,20
+brand_tesa,category_protection_film,PRO-001,adhesion_force,250,gf/25mm,GB/T 2792,23℃,粘着力示例,30
+brand_tesa,category_protection_film,PRO-001,temperature_grade,80,℃,内部定义,,保护膜耐温等级,40
+brand_tesa,category_protection_film,PRO-001,application_surface,玻璃,,内部定义,,适用表面示例,50
+brand_tesa,category_conductive_cloth,CC-001,cloth_base_type,聚酯纤维,,内部定义,,导电布布基类型,10
+brand_tesa,category_conductive_cloth,CC-001,total_thickness,0.12,mm,ASTM D374,23℃,导电布总厚度,20
+brand_tesa,category_conductive_cloth,CC-001,surface_resistance,0.03,Ω/sq,ASTM D257,23℃,表面电阻示例,30
+brand_tesa,category_conductive_cloth,CC-001,shielding_effectiveness,60,dB,GB/T 12190,1GHz,屏蔽效能示例,40
+brand_tesa,category_conductive_cloth,CC-001,adhesive_backing,单面导电胶,,内部定义,,背胶类型示例,50
+brand_tesa,category_paper,PAP-001,paper_base_type,Nomex,,内部定义,,绝缘纸基材类型,10
+brand_tesa,category_paper,PAP-001,total_thickness,0.20,mm,ASTM D374,23℃,绝缘纸总厚度,20
+brand_tesa,category_paper,PAP-001,breakdown_voltage,8.5,kV,ASTM D149,23℃,击穿电压示例,30
+brand_tesa,category_paper,PAP-001,temperature_class,220℃,,内部定义,,耐温等级示例,40
+brand_tesa,category_paper,PAP-001,density,0.9,g/cm3,内部定义,23℃,密度示例,50

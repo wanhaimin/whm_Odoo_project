@@ -24,16 +24,16 @@
         </field>
     </record>
 
-    <!-- 3. Exclude catalog-only materials from stock product lists -->
+    <!-- 3. Keep stock screens focused on ERP raw materials -->
     <record id="stock.product_template_action_product" model="ir.actions.act_window">
-        <field name="domain">[('is_catalog', '=', False)]</field>
+        <field name="domain">[('is_raw_material', '=', True)]</field>
     </record>
 
     <record id="stock.stock_product_normal_action" model="ir.actions.act_window">
-        <field name="domain">[('product_tmpl_id.is_catalog', '=', False)]</field>
+        <field name="domain">[('product_tmpl_id.is_raw_material', '=', True)]</field>
     </record>
 
     <record id="stock.action_product_stock_view" model="ir.actions.act_window">
-        <field name="domain">[('detailed_type', '=', 'product'), ('product_tmpl_id.is_catalog', '=', False)]</field>
+        <field name="domain">[('detailed_type', '=', 'product'), ('product_tmpl_id.is_raw_material', '=', True)]</field>
     </record>
 </odoo>

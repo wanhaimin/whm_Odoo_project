@@ -108,11 +108,11 @@
                 <span class="o_diecut_split_handle_grip" aria-hidden="true"/>
             </div>
 
-            <aside t-if="!isListMode" class="o_diecut_split_panel">
+            <aside t-if="!isListMode" class="o_diecut_split_panel position-relative">
                 <t t-if="formViewProps">
                     <div class="o_diecut_split_panel_form">
                         <div t-if="isKnowledgeModel" class="o_diecut_split_breadcrumb_bar">
-                            <span class="o_diecut_split_breadcrumb_label">页面路径：</span>
+                            <span class="o_diecut_split_breadcrumb_label">页面路径:</span>
                             <t t-if="kbBreadcrumbsLoading">
                                 <span class="o_diecut_split_breadcrumb_item text-muted">加载中...</span>
                             </t>
@@ -129,7 +129,13 @@
                     </div>
                 </t>
                 <t t-else="">
-                    <div class="o_diecut_split_panel_empty" t-esc="isKnowledgeModel ? '请先在左侧选择一个知识页面以加载右侧内容' : '请先在左侧选择一个型号以加载右侧表单'"/>
+                    <div class="o_diecut_split_panel_empty d-flex flex-column align-items-center gap-3">
+                        <span t-esc="isKnowledgeModel ? '请先在左侧选择一个知识页面以加载右侧内容' : '请先在左侧选择一个型号以加载右侧表单'"/>
+                        <button t-if="!isKnowledgeModel" class="btn btn-primary btn-sm" type="button" t-on-click="createNewRecord">
+                            <i class="fa fa-plus me-1"/>
+                            <span>新建型号</span>
+                        </button>
+                    </div>
                 </t>
             </aside>
         </div>

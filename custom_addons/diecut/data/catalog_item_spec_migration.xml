@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+    <function model="diecut.catalog.item" name="_migrate_product_info_fields"/>
+    <function model="diecut.catalog.item" name="_migrate_legacy_spec_fields_to_lines"/>
+    <function model="diecut.catalog.item" name="_migrate_series_to_master"/>
+</odoo>

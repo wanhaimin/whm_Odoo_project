@@ -13,11 +13,9 @@ class DiecutColor(models.Model):
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
-    _catalog_source_unique_index = 'diecut_product_template_source_catalog_variant_uidx'
 
     # --- 标志位 ---
     is_raw_material = fields.Boolean(string="是原材料", default=False)
-    is_catalog = fields.Boolean(string="选型目录", default=False, help="勾选后该产品作为选型目录使用，支持变体管理")
 
     raw_material_categ_id = fields.Many2one(
         'product.category',
@@ -35,227 +33,6 @@ class ProductTemplate(models.Model):
     )
 
     # ==================== 选型目录专用字段 ====================
-    catalog_status = fields.Selection([
-        ('draft', '草稿'),
-        ('review', '评审中'),
-        ('published', '已发布'),
-        ('deprecated', '已停产'),
-    ], string='目录状态', default='draft', tracking=True)
-    recommendation_level = fields.Selection([
-        ('a', 'A-强推荐'),
-        ('b', 'B-备选'),
-        ('c', 'C-谨慎/淘汰'),
-    ], string='推荐等级', default='b', tracking=True)
-    source_catalog_variant_id = fields.Many2one(
-        'product.product', string='源选型目录变体',
-        help='该ERP产品是从哪个选型目录变体启用而来',
-        readonly=True, copy=False,
-    )
-    replacement_catalog_ids = fields.Many2many(
-        'product.template',
-        'product_template_catalog_replacement_rel',
-        'src_tmpl_id',
-        'dst_tmpl_id',
-        string='替代系列',
-        help='当当前系列不适配或停产时，可推荐的替代系列（目录层）',
-    )
-    replaced_by_catalog_ids = fields.Many2many(
-        'product.template',
-        'product_template_catalog_replacement_rel',
-        'dst_tmpl_id',
-        'src_tmpl_id',
-        string='被以下系列替代',
-        readonly=True,
-    )
-    series_name = fields.Char(string='系列名称', help='如：Bond & Detach、PET Double Sided Tape')
-    manufacturer_id = fields.Many2one(
-        'res.partner', string='生产厂家',
-        help='原厂（如 3M, tesa, Sidike），区别于供应商/经销商',
-        domain="[('is_company', '=', True)]",
-    )
-    catalog_base_material = fields.Char(string='基材类型', help='如 PET、PU、PI、铜箔等')
-    catalog_adhesive_type = fields.Char(string='目录胶系', help='如 丙烯酸、合成橡胶、硅胶等')
-    variant_thickness_std_index = fields.Char(
-        string='厚度索引',
-        compute='_compute_variant_std_index',
-        store=True,
-        help='系列下所有型号的标准化厚度索引（用于筛选）',
-    )
-    variant_color_std_index = fields.Char(
-        string='颜色索引',
-        compute='_compute_variant_std_index',
-        store=True,
-        help='系列下所有型号的标准化颜色索引（用于筛选）',
-    )
-    variant_adhesive_std_index = fields.Char(
-        string='胶系索引',
-        compute='_compute_variant_std_index',
-        store=True,
-        help='系列下所有型号的标准化胶系索引（用于筛选）',
-    )
-    variant_base_material_std_index = fields.Char(
-        string='基材索引',
-        compute='_compute_variant_std_index',
-        store=True,
-        help='系列下所有型号的标准化基材索引（用于筛选）',
-    )
-    catalog_features = fields.Text(string='产品特点', help='如：抗拉强度好、耐温耐候性好')
-    catalog_applications = fields.Html(string='典型应用', help='如：LCD铭板、手机部件粘接；支持富文本（标题、列表、加粗等）')
-    catalog_characteristics = fields.Char(string='特性', help='简短特性标签，如：耐化学腐蚀, 重工性；高粘, 抗冲击')
-    catalog_structure_image = fields.Binary(string='产品结构图')
-    catalog_ref_price = fields.Float(string='参考单价', digits=(16, 4), help='仅供选型参考，不参与ERP计价')
-    catalog_ref_currency_id = fields.Many2one(
-        'res.currency', string='参考价币种',
-        default=lambda self: self.env.company.currency_id,
-    )
-    tds_file = fields.Binary(string='TDS技术数据表')
-    tds_filename = fields.Char(string='TDS文件名')
-    msds_file = fields.Binary(string='MSDS安全数据表')
-    msds_filename = fields.Char(string='MSDS文件名')
-
-    @api.constrains('is_catalog', 'is_raw_material')
-    def _check_catalog_raw_material_exclusive(self):
-        """选型目录和ERP原材料互斥"""
-        for record in self:
-            if record.is_catalog and record.is_raw_material:
-                raise ValidationError('一个产品不能同时是「选型目录」和「原材料」，请只勾选其中一项！')
-
-    @api.constrains('source_catalog_variant_id')
-    def _check_source_catalog_variant_unique(self):
-        """业务约束：一个目录变体只能映射一个ERP原材料"""
-        for record in self.filtered('source_catalog_variant_id'):
-            duplicate = self.search_count([
-                ('id', '!=', record.id),
-                ('source_catalog_variant_id', '=', record.source_catalog_variant_id.id),
-            ])
-            if duplicate:
-                raise ValidationError(
-                    '同一个选型目录变体只能映射一个ERP原材料，请检查重复映射后再保存。'
-                )
-
-    @api.constrains('replacement_catalog_ids', 'is_catalog')
-    def _check_catalog_replacements(self):
-        for record in self:
-            if not record.is_catalog and record.replacement_catalog_ids:
-                raise ValidationError('只有材料选型目录可以设置“替代系列”。')
-            if record in record.replacement_catalog_ids:
-                raise ValidationError('替代系列不能包含自己。')
-            invalid = record.replacement_catalog_ids.filtered(lambda r: not r.is_catalog)
-            if invalid:
-                raise ValidationError('替代系列中包含非“选型目录”产品，请修正后保存。')
-
-    def init(self):
-        """数据库级约束：为 source_catalog_variant_id 创建唯一部分索引。"""
-        super().init()
-        self.env.cr.execute("""
-            SELECT source_catalog_variant_id, array_agg(id ORDER BY id)
-            FROM product_template
-            WHERE source_catalog_variant_id IS NOT NULL
-            GROUP BY source_catalog_variant_id
-            HAVING COUNT(*) > 1
-            LIMIT 1
-        """)
-        duplicate = self.env.cr.fetchone()
-        if duplicate:
-            variant_id, tmpl_ids = duplicate
-            raise ValidationError(
-                '检测到历史重复映射数据：source_catalog_variant_id=%s, product_template_ids=%s。'
-                '请先清理重复数据，再升级模块以创建唯一索引。'
-                % (variant_id, tmpl_ids)
-            )
-
-        self.env.cr.execute(
-            f"""
-            CREATE UNIQUE INDEX IF NOT EXISTS {self._catalog_source_unique_index}
-            ON product_template (source_catalog_variant_id)
-            WHERE source_catalog_variant_id IS NOT NULL
-            """
-        )
-
-    def action_view_catalog_source(self):
-        """从ERP原材料跳转回源选型目录"""
-        self.ensure_one()
-        if self.source_catalog_variant_id:
-            return {
-                'type': 'ir.actions.act_window',
-                'res_model': 'product.template',
-                'res_id': self.source_catalog_variant_id.product_tmpl_id.id,
-                'view_mode': 'form',
-                'view_id': self.env.ref('diecut.view_material_catalog_form').id,
-                'target': 'current',
-            }
-
-    def action_submit_review(self):
-        for record in self:
-            if record.is_catalog and record.catalog_status == 'draft':
-                record.catalog_status = 'review'
-        return True
-
-    def _validate_catalog_publish(self):
-        self.ensure_one()
-        errors = []
-        if not self.is_catalog:
-            errors.append('仅“选型目录”可执行发布。')
-        if not self.brand_id:
-            errors.append('品牌不能为空。')
-        if not self.categ_id:
-            errors.append('材料分类不能为空。')
-        if not (self.series_name or self.name):
-            errors.append('系列名称不能为空。')
-        if not self.catalog_base_material:
-            errors.append('基材类型不能为空。')
-        if not self.catalog_adhesive_type:
-            errors.append('胶系不能为空。')
-        if not self.catalog_features:
-            errors.append('产品特点不能为空。')
-        if not self.catalog_applications:
-            errors.append('典型应用不能为空。')
-        if not (self.tds_file or self.msds_file or self.datasheet):
-            errors.append('至少上传一份技术文档（TDS/MSDS/规格书）。')
-        if not self.product_variant_ids:
-            errors.append('至少需要一个型号变体。')
-        else:
-            missing_code_variants = self.product_variant_ids.filtered(lambda v: not v.default_code)
-            if missing_code_variants:
-                errors.append('存在未填写型号编码的变体。')
-        if errors:
-            raise ValidationError('发布校验未通过：\n- ' + '\n- '.join(errors))
-
-    def action_publish_catalog(self):
-        for record in self:
-            record._validate_catalog_publish()
-            record.catalog_status = 'published'
-        return True
-
-    def action_set_catalog_draft(self):
-        for record in self.filtered('is_catalog'):
-            record.catalog_status = 'draft'
-        return True
-
-    def action_deprecate_catalog(self):
-        for record in self.filtered('is_catalog'):
-            record.catalog_status = 'deprecated'
-        return True
-
-    @api.depends(
-        'product_variant_ids',
-        'product_variant_ids.variant_thickness_std',
-        'product_variant_ids.variant_color_std',
-        'product_variant_ids.variant_adhesive_std',
-        'product_variant_ids.variant_base_material_std',
-    )
-    def _compute_variant_std_index(self):
-        for record in self:
-            thickness_vals = sorted({str(v) for v in record.product_variant_ids.mapped('variant_thickness_std') if v}, key=str)
-            color_vals = sorted({str(v) for v in record.product_variant_ids.mapped('variant_color_std') if v}, key=str)
-            adhesive_vals = sorted({str(v) for v in record.product_variant_ids.mapped('variant_adhesive_std') if v}, key=str)
-            base_material_vals = sorted({str(v) for v in record.product_variant_ids.mapped('variant_base_material_std') if v}, key=str)
-            
-            record.variant_thickness_std_index = ', '.join(thickness_vals)
-            record.variant_color_std_index = ', '.join(color_vals)
-            record.variant_adhesive_std_index = ', '.join(adhesive_vals)
-            record.variant_base_material_std_index = ', '.join(base_material_vals)
-
     def unlink(self):
         """删除ERP原材料时，自动重置对应选型目录变体的启用状态"""
         # 1. 自动重置新架构 (Phase 4) 的选型目录条目启用状态
@@ -269,18 +46,6 @@ class ProductTemplate(models.Model):
                 'erp_product_tmpl_id': False,
             })
                     
-        # 2. 自动重置旧架构 (Phase 3) 选型目录变体的启用状态
-        catalog_variants = self.env['product.product'].search([
-            ('activated_product_tmpl_id', 'in', self.ids),
-            ('is_activated', '=', True),
-        ])
-        if catalog_variants:
-            catalog_variants.write({
-                'is_activated': False,
-                'activated_product_tmpl_id': False,
-            })
-            catalog_variants._sync_gray_item_erp_status_from_variant()
-            
         return super().unlink()
 
     @api.onchange('is_raw_material')
@@ -467,8 +232,6 @@ class ProductTemplate(models.Model):
     application = fields.Text('应用场景')
     process_note = fields.Text('加工工艺说明')
     caution = fields.Text('注意事项')
-    view_count = fields.Integer('浏览次数', default=0, readonly=True)
-    inquiry_count = fields.Integer('询价次数', default=0, readonly=True)
 
     def action_open_detail(self):
         self.ensure_one()
@@ -706,137 +469,6 @@ class ProductTemplate(models.Model):
             })
         return res
 
-    @api.model
-    def _load_catalog_base_data_from_json(self):
-        """用于在模块安装或升级时被 XML 调用，智能装入 JSON 的变体物理参数。
-        特性：
-        - 始终以 JSON 为权威源覆盖写入（CSV 改什么，系统就更新什么）
-        - JSON 中移除的字段会被主动清空（支持"置空"操作）
-        """
-        import json
-        import os
-        import logging
-
-        _logger = logging.getLogger(__name__)
-        _logger.info("[DIECUT] Starting _load_catalog_base_data_from_json...")
-        
-        file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'catalog_materials.json')
-        if not os.path.exists(file_path):
-            _logger.warning(f"[DIECUT] JSON file NOT FOUND at: {file_path}")
-            return True
-
-        with open(file_path, 'r', encoding='utf-8') as f:
-            materials_data = json.load(f)
-
-        # 收集所有可写的 variant_ 字段名（排除二进制/关联类字段）
-        writable_variant_fields = set()
-        for fname, fobj in self.env['product.product']._fields.items():
-            if fname.startswith('variant_') and fobj.type in ('char', 'text', 'html', 'float', 'integer', 'boolean', 'selection'):
-                writable_variant_fields.add(fname)
-
-        for series_data in materials_data:
-            series_xml_id = series_data.get('series_xml_id')
-            if not series_xml_id:
-                continue
-                
-            tmpl = self.env.ref(series_xml_id, raise_if_not_found=False)
-            if not tmpl:
-                _logger.warning(f"[DIECUT] ⚠️ Template not found for XML ID: {series_xml_id}")
-                continue
-                
-            variants_info = series_data.get('variants', [])
-            
-            # --- 动态维护产品的变体属性线 ---
-            sku_attr = self.env.ref('diecut.attribute_model_sku', raise_if_not_found=False)
-            if not sku_attr:
-                _logger.error("[DIECUT] Attribute 'diecut.attribute_model_sku' not found! Cannot sync variants.")
-                continue
-
-            # 【防灾处理 1】确保一个模板只有一个“型号”属性行，防止由于多行导致的变体组合爆炸及唯一性冲突
-            sku_lines = tmpl.attribute_line_ids.filtered(lambda l: l.attribute_id == sku_attr)
-            if len(sku_lines) > 1:
-                _logger.warning(f"[DIECUT] 清理重复属性行: Template {tmpl.id}")
-                (sku_lines - sku_lines[0]).unlink()
-            attr_line = sku_lines[0] if sku_lines else self.env['product.template.attribute.line']
-
-            # 【核心修复】建立当前系列已绑定的“型号名称 -> 属性值ID”映射。
-            # 必须优先复用已有 ID，否则 Odoo 的变体算法会判定为映射变更，从而触发 savepoint 存档/创建，
-            # 在高并发或数据同步过程中极易引发 UniqueViolation。
-            existing_mapping = {val.name: val.id for val in (attr_line.value_ids or [])}
-            
-            final_val_ids = []
-            for v_dict in variants_info:
-                code_str = v_dict.get('default_code', '').strip()
-                if not code_str:
-                    continue
-                
-                v_id = existing_mapping.get(code_str)
-                if not v_id:
-                    # 现有未匹配，再从全局查找
-                    val_rec = self.env['product.attribute.value'].search([
-                        ('attribute_id', '=', sku_attr.id),
-                        ('name', '=', code_str)
-                    ], limit=1)
-                    if not val_rec:
-                        val_rec = self.env['product.attribute.value'].create({
-                            'attribute_id': sku_attr.id,
-                            'name': code_str,
-                        })
-                    v_id = val_rec.id
-                final_val_ids.append(v_id)
-
-            # 强制去重
-            unique_ids = list(set(final_val_ids))
-            
-            # 【防灾处理 2】仅在属性值集合真正改变时才触发 write，降低数据库 IO
-            current_ids = set(attr_line.value_ids.ids) if attr_line else set()
-            if set(unique_ids) != current_ids:
-                if not attr_line:
-                    attr_line = self.env['product.template.attribute.line'].create({
-                        'product_tmpl_id': tmpl.id,
-                        'attribute_id': sku_attr.id,
-                        'value_ids': [Command.set(unique_ids)]
-                    })
-                else:
-                    attr_line.write({'value_ids': [Command.set(unique_ids)]})
-                # 强制落盘，确保变体表就绪
-                tmpl.flush_recordset()
-
-            # 开始常规的参数覆盖同步
-            data_map = { v.get('default_code'): v for v in variants_info if v.get('default_code') }
-            updated_count = 0
-            
-            # --- 同步其余变体物理参数 ---
-            for variant in tmpl.product_variant_ids:
-                attr_value_names = variant.product_template_attribute_value_ids.mapped('product_attribute_value_id.name')
-                for attr_name in attr_value_names:
-                    if attr_name in data_map:
-                        v_data = data_map[attr_name]
-                        update_dict = {}
-                        
-                        # 1. 自动写入 JSON 匹配字段
-                        for field_name, value in v_data.items():
-                            if field_name in self.env['product.product']._fields:
-                                update_dict[field_name] = value
-                        
-                        # 2. 清理 JSON 中未指定的 variant_ 字段（保持权威源同步）
-                        std_keys = {'variant_thickness_std', 'variant_color_std', 'variant_adhesive_std', 'variant_base_material_std'}
-                        for fname in writable_variant_fields:
-                            if fname not in v_data and fname not in std_keys and getattr(variant, fname):
-                                field_obj = self.env['product.product']._fields[fname]
-                                if field_obj.type in ('char', 'text', 'html', 'selection'):
-                                    update_dict[fname] = False
-                        
-                        if update_dict:
-                            variant.write(update_dict)
-                            updated_count += 1
-                        break
-            _logger.info(f"[DIECUT] Series {series_xml_id}: 同步 {updated_count}/{len(tmpl.product_variant_ids)} 个型号。")
-        
-        _logger.info("[DIECUT] Finished loading catalog JSON data!")
-        return True
-
-
 class ProductSupplierinfo(models.Model):
     _inherit = 'product.supplierinfo'
 
@@ -906,32 +538,6 @@ class ProductProduct(models.Model):
     catalog_brand_id = fields.Many2one(
         'diecut.brand', related='product_tmpl_id.brand_id', store=True, string='目录品牌'
     )
-    catalog_status = fields.Selection(
-        related='product_tmpl_id.catalog_status', store=True, string='目录状态'
-    )
-    recommendation_level = fields.Selection(
-        related='product_tmpl_id.recommendation_level', store=True, string='推荐等级'
-    )
-    catalog_density = fields.Float(
-        related='product_tmpl_id.density', store=True, string='目录密度(g/cm³)'
-    )
-    # 变体详情/规格页展示用：继承自系列
-    catalog_structure_image = fields.Binary(related='product_tmpl_id.catalog_structure_image', string='系列结构图')
-    catalog_features = fields.Text(related='product_tmpl_id.catalog_features', string='产品特点')
-    catalog_applications = fields.Html(related='product_tmpl_id.catalog_applications', string='典型应用')
-    catalog_characteristics = fields.Char(related='product_tmpl_id.catalog_characteristics', string='特性', store=True)
-    # 不在变体上做 related diecut_properties，避免创建变体时 Properties 的 definition_record 解析为 None 导致 TypeError（变体表单使用 variant_diecut_properties）
-    # 变体自有动态属性：与系列共用分类下的定义，但每个变体可存不同值
-    variant_diecut_properties = fields.Properties(
-        string='变体物理特性',
-        definition='catalog_categ_id.diecut_properties_definition',
-        precompute=False,
-        copy=True,
-    )
-    tds_file = fields.Binary(related='product_tmpl_id.tds_file', string='TDS')
-    tds_filename = fields.Char(related='product_tmpl_id.tds_filename', string='系列TDS文件名')
-    msds_file = fields.Binary(related='product_tmpl_id.msds_file', string='MSDS')
-    msds_filename = fields.Char(related='product_tmpl_id.msds_filename', string='系列MSDS文件名')
 
     # ==================== 变体级技术参数（选型目录专用）====================
     # 使用 Char 类型保留原厂数据完整性（公差、条件、双面差异等）
@@ -976,15 +582,6 @@ class ProductProduct(models.Model):
         ('ul94_hb', 'UL94 HB'),
         ('none', '无'),
     ], string='防火等级(型号)', default='none')
-    variant_replacement_catalog_ids = fields.Many2many(
-        'product.template',
-        'product_product_catalog_replacement_rel',
-        'src_variant_id',
-        'dst_tmpl_id',
-        string='可替代系列',
-        help='该型号不适配或停产时可推荐的替代系列（目录层）',
-        domain="[('is_catalog', '=', True)]",
-    )
     variant_tds_file = fields.Binary(string='TDS技术数据表')
     variant_tds_filename = fields.Char(string='型号TDS文件名')
     variant_msds_file = fields.Binary(string='MSDS安全数据表')
@@ -992,17 +589,6 @@ class ProductProduct(models.Model):
     variant_datasheet = fields.Binary(string='型号规格书')
     variant_datasheet_filename = fields.Char(string='型号规格书文件名')
     variant_catalog_structure_image = fields.Binary(string='型号结构图')
-
-    # ==================== 选型目录溯源字段 ====================
-    is_activated = fields.Boolean(
-        string='已启用到ERP', default=False, readonly=True, copy=False,
-        help='标记该选型目录变体是否已被启用到ERP原材料管理',
-    )
-    activated_product_tmpl_id = fields.Many2one(
-        'product.template', string='已启用的ERP产品',
-        readonly=True, copy=False,
-        help='该变体启用后对应的ERP原材料产品',
-    )
 
     @staticmethod
     def _normalize_text_std(value):
@@ -1086,64 +672,4 @@ class ProductProduct(models.Model):
                 auto_vals = record._build_variant_std_vals()
                 record.with_context(**{self._variant_std_sync_ctx_key: True}).write(auto_vals)
         return res
-
-    @api.constrains('variant_replacement_catalog_ids', 'product_tmpl_id')
-    def _check_variant_replacement_catalog(self):
-        for record in self:
-            if record.product_tmpl_id and record.product_tmpl_id in record.variant_replacement_catalog_ids:
-                raise ValidationError('可替代系列不能包含本型号所属系列。')
-
-    def action_activate_to_erp(self):
-        """一键启用到ERP：将选型目录变体转化为独立的ERP原材料产品"""
-        self.ensure_one()
-        existing_product = self.env['product.template'].search(
-            [('source_catalog_variant_id', '=', self.id)],
-            limit=1,
-        )
-        if existing_product:
-            if not (self.is_activated and self.activated_product_tmpl_id == existing_product):
-                self.write({
-                    'is_activated': True,
-                    'activated_product_tmpl_id': existing_product.id,
-                })
-            return {
-                'type': 'ir.actions.act_window',
-                'res_model': 'product.template',
-                'res_id': existing_product.id,
-                'view_mode': 'form',
-                'target': 'current',
-            }
-        # 检查是否已启用
-        if self.is_activated and self.activated_product_tmpl_id:
-            return {
-                'type': 'ir.actions.act_window',
-                'res_model': 'product.template',
-                'res_id': self.activated_product_tmpl_id.id,
-                'view_mode': 'form',
-                'target': 'current',
-            }
-        # 打开确认向导
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'diecut.catalog.activate.wizard',
-            'view_mode': 'form',
-            'target': 'new',
-            'context': {
-                'default_variant_id': self.id,
-                'default_catalog_tmpl_id': self.product_tmpl_id.id,
-            },
-        }
-
-    def action_view_erp_product(self):
-        """跳转到已启用的ERP产品"""
-        self.ensure_one()
-        if self.activated_product_tmpl_id:
-            return {
-                'type': 'ir.actions.act_window',
-                'res_model': 'product.template',
-                'res_id': self.activated_product_tmpl_id.id,
-                'view_mode': 'form',
-                'target': 'current',
-            }
-
 

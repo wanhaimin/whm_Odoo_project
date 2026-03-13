@@ -13,13 +13,6 @@
                     <label for="is_raw_material" />
                 </span>
             </div>
-            <!-- 在 button_box 里添加"查看选型资料"智能按钮 -->
-            <div position="inside" name="button_box">
-                <field name="source_catalog_variant_id" invisible="1" />
-                <button name="action_view_catalog_source" type="object" class="oe_stat_button" icon="fa-book" invisible="not source_catalog_variant_id">
-                    <span class="o_stat_text">📚 选型资料</span>
-                </button>
-            </div>
             <!-- 增加一个新的 Notebook Page -->
             <notebook position="inside">
                 <page name="diecut_props" string="模切属性" invisible="not is_raw_material">

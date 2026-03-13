@@ -1,9 +1,9 @@
 # 模切管理系统 (Diecut ERP) — 设计手册
 
-> **版本**: v1.6
+> **版本**: v1.7
 > **模块技术名**: `diecut`
 > **Odoo 版本**: 19
-> **最后更新**: 2026-03-06
+> **最后更新**: 2026-03-13
 > **维护者**: 开发团队
 
 ---
@@ -93,7 +93,6 @@ custom_addons/diecut/
 │   ├── catalog_activate_wizard.py       # 选型目录启用向导
 │   └── catalog_ops_wizard.py            # 数据运维向导
 ├── views/
-│   ├── material_catalog_views.xml  # ★ 选型目录主视图（系列/型号）
 │   ├── catalog_item_views.xml      # ★ 型号清单（新架构主入口）
 │   ├── diecut_brand_views.xml      # 品牌主数据视图
 │   ├── my_material_base_views.xml  # 原材料视图
@@ -105,22 +104,18 @@ custom_addons/diecut/
 │   └── ir.model.access.csv        # 权限控制
 ├── data/
 │   ├── product_category_data.xml   # 预置分类
-│   ├── catalog_tesa_data.xml       # [自动生成] Tesa 选型大纲骨架
-│   ├── catalog_materials.json      # [自动生成] 跨品牌变体技术参数
-│   └── load_json_data.xml          # ★ JSON挂载触发器 (noupdate="0")
+│   ├── catalog_item_spec_migration.xml # Catalog Item 旧参数字段迁移脚本
+│   └── catalog_spec_def_data.xml   # 技术参数定义初始化数据
 ├── scripts/                        # ★ 数据生成器脚本
-│   ├── series.csv                  # [业务维护] 系列与大类总表
-│   ├── variants.csv                # [业务维护] 型号与多变体参数总表
-│   ├── generate_catalog.py         # CSV -> XML/JSON 生成核心
-│   ├── export_from_db.py           # Odoo DB -> CSV 反向导出核心
+│   ├── catalog_items.csv           # [业务维护] 目录主表
+│   ├── catalog_item_specs.csv      # [业务维护] 技术参数明细表
+│   ├── generate_catalog.py         # CSV 主数据生成/对齐脚本
 │   ├── migrate_thickness_std_um_to_unicode.py # 厚度标准值单位迁移（um→μm）
 │   ├── recompute_variant_thickness_std.py     # 厚度标准值全量重算脚本
-│   ├── 1_导出Odoo全量物料到Excel.bat  # 快捷运行批处理
-│   └── 2_从Excel生成选型目录代码.bat   # 快捷运行批处理
+│   └── catalog_*_template.csv      # 主表/参数明细模板
 ├── docs/
 │   ├── DESIGN_MANUAL.md            # 本文档
-│   ├── check_source_catalog_variant_duplicates.sql
-│   └── fix_source_catalog_variant_duplicates.sql
+│   └── PHASE4_*                    # Catalog Item 收敛期文档
 └── static/
     └── src/
         ├── scss/                   # 样式
@@ -132,20 +127,18 @@ custom_addons/diecut/
             └── material_split_preview.xml    # ★ 分屏模板 + 原生控制栏切换按钮
 ```
 
-**选型目录硬编码数据与代码生成**：我们采用 Excel (CSV) 驱动的自动代码生成策略（详见 [ADR-011](#8-设计决策记录-adr)）。业务人员维护 `scripts/` 下的 `series.csv` 与 `variants.csv`，运行批处理脚本后，自动产出 `data/catalog_{brand}_data.xml` （作为 Odoo `<record>` 骨架，`noupdate="1"` 以防后期业务分类被覆盖）及 `data/catalog_materials.json`。随后在更新模块时，`load_json_data.xml` (`noupdate="0"`) 会触发 Python 钩子 `_load_catalog_base_data_from_json`，将所有的 JSON 血肉参数智能合并回 `product.product`，彻底做到了防丢失、防覆盖。
+**目录主数据与代码生成**：当前主线以 `catalog_items.csv` 与 `catalog_item_specs.csv` 作为运维输入，配合 `generate_catalog.py`、运维向导和迁移脚本维护 `diecut.catalog.item` 及其技术参数明细。`series.csv` / `variants.csv` 已在 v1.7 清理，不再作为任何维护入口。
 
 ### 2.2 模型继承关系图
 
 ```
-product.template (Odoo 原生)
-  └── ProductTemplate (product_diecut.py)
-        ├── is_catalog=True  → 选型目录系列
-        └── is_raw_material=True → ERP 原材料
-              ↑ 启用（一键创建）
-              │
-product.product (Odoo 原生)
-  └── ProductProduct (product_diecut.py)
-        └── 选型目录变体（型号级技术参数）
+diecut.catalog.item
+  ├── 主表：型号主信息 / ERP 启用状态 / 标准筛选字段
+  └── one2many → diecut.catalog.item.spec.line
+                 └── many2one → diecut.catalog.spec.def（按分类参数模板）
+
+product.template (Odoo 原生 + diecut 扩展)
+  └── 仅承载 ERP 原材料主线（is_raw_material）
 
 product.supplierinfo (Odoo 原生)
   └── ProductSupplierinfo (product_diecut.py)
@@ -180,6 +173,28 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 > 设计原则：单一事实源、显式兼容字段、减少运行时分支和双写复杂度。
 
+### 2.4 网站兼容链路现状
+
+当前后台目录主线已经收口到 `diecut.catalog.item`，但网站页面仍有一条刻意保留的兼容链路：
+
+- `/materials`、`/material/<id>` 当前展示的是 **ERP 原材料**（`product.template`, `is_raw_material=True`），不是 `diecut.catalog.item`。
+- `/sample/order` 及其提交链路依赖 `sample.order.line.material_id -> product.product`，并直接使用 ERP 原材料价格参与试算。
+
+当前网站模板实际依赖了以下 `product.template / product.product` 字段能力：
+
+- 商品图片：`image_1920`
+- 价格与计量：`list_price`、`uom_id`
+- 原材料规格：`width`、`length`、`thickness`、`spec`
+- 原材料属性：`color_id`、`weight_gram`、`track_batch`
+- 网站展示文案：`description`、`application`、`process_note`
+
+因此，现阶段 **不能直接把网站页的模型查询从 `product.template` 替换为 `diecut.catalog.item`**。如果要继续下线旧产品模型链路，需要先补齐下面两类能力：
+
+1. `diecut.catalog.item` 侧新增或映射网站所需字段。
+2. 样品申请链路改造为接受 `diecut.catalog.item`，并在提交时明确映射到 ERP 原材料或目录型号。
+
+> 结论：后台旧架构已经基本退出主线；网站兼容链路仍然是一个独立迁移项目，不能与后台入口清理混为一步。
+
 ---
 
 `<a id="3-数据模型详解"></a>`
@@ -191,6 +206,11 @@ diecut.catalog.activate.wizard → 选型启用向导
 **模型**: `product.template` | **文件**: `models/product_diecut.py`
 
 > 同一模型通过 `is_catalog` 和 `is_raw_material` 两个布尔标志位区分用途，二者互斥。
+
+> 当前口径说明（2026-03-13）：
+> - `product.template` 现在主要承担 **ERP 原材料主模型** 与 **网站兼容链路**。
+> - 后台“材料选型大全”的主模型已经收口到 `diecut.catalog.item`。
+> - `source_catalog_variant_id`、`is_activated`、`activated_product_tmpl_id` 这一组旧后台启用链路字段已退出当前代码主线；本节后续若提到旧目录字段，应理解为历史兼容说明，而不是当前后台主设计。
 
 #### 3.1.1 标志位字段
 
@@ -218,7 +238,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 | `catalog_ref_currency_id`       | Many2one→res.currency    | 参考价币种     | —                                |
 | `tds_file` / `tds_filename`   | Binary/Char               | TDS技术数据表  | —                                |
 | `msds_file` / `msds_filename` | Binary/Char               | MSDS安全数据表 | —                                |
-| `source_catalog_variant_id`     | Many2one→product.product | 源选型目录变体 | 溯源字段，有唯一索引              |
+| `source_catalog_variant_id`     | Many2one→product.product | 历史兼容字段 | 已退出后台主线，不建议继续扩展     |
 | `replacement_catalog_ids`       | Many2many→self           | 替代系列       | 停产时推荐替代                    |
 | `replaced_by_catalog_ids`       | Many2many→self           | 被替代系列     | 反向只读                          |
 
@@ -442,8 +462,8 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 | 字段名                        | 类型                       | 说明            |
 | ----------------------------- | -------------------------- | --------------- |
-| `is_activated`              | Boolean                    | 是否已启用到ERP |
-| `activated_product_tmpl_id` | Many2one→product.template | 已启用的ERP产品 |
+| `is_activated`              | Boolean                    | 历史兼容字段 |
+| `activated_product_tmpl_id` | Many2one→product.template | 历史兼容字段 |
 
 ---
 
@@ -530,13 +550,15 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 **模型**: `diecut.catalog.activate.wizard` | **文件**: `wizard/catalog_activate_wizard.py`
 
-将选型目录变体"一键启用"为 ERP 原材料产品：
+当前向导将 `diecut.catalog.item` 中的目录型号“一键启用”为 ERP 原材料产品：
 
 1. 自动预填产品名称、型号、分类、品牌、材质、厚度
 2. 用户补填宽度、长度、形态、供应商
 3. 确认后创建新的 `product.template`（`is_raw_material=True`）
-4. 设置溯源关联（`source_catalog_variant_id`）
-5. 并发保护：`FOR UPDATE` 行锁 + 唯一索引
+4. 将新产品回写到 `diecut.catalog.item.erp_product_tmpl_id`
+5. 同步标记 `diecut.catalog.item.erp_enabled=True`
+
+> 说明：当前后台向导不再支持旧 `product.product` / `catalog_tmpl_id` 分支，也不再维护 `source_catalog_variant_id` 溯源字段。
 
 ---
 
@@ -572,25 +594,249 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 `erp_enabled`, `erp_product_tmpl_id`
 
-#### 3.8.4 型号原文字段（业务录入主维护项）
+#### 3.8.4 产品信息与应用字段
 
-`variant_thickness`, `variant_adhesive_thickness`, `variant_color`, `variant_peel_strength`, `variant_structure`, `variant_adhesive_type`, `variant_base_material`, `variant_sus_peel`, `variant_pe_peel`, `variant_dupont`, `variant_push_force`, `variant_removability`, `variant_tumbler`, `variant_holding_power`, `variant_ref_price`, `variant_note`
+`product_features`, `product_description`, `main_applications`, `equivalent_type`
 
-#### 3.8.5 标准化字段（系统计算/可人工修正）
+#### 3.8.5 型号基础属性字段（主表保留）
+
+`variant_thickness`, `variant_adhesive_thickness`, `variant_color`, `variant_adhesive_type`, `variant_base_material`, `variant_ref_price`
+
+> 说明：这些字段属于“型号基础属性”，仍由主表直接维护，并继续参与标准化、列表展示或 ERP 启用链路。
+
+#### 3.8.6 标准化字段（系统计算/可人工修正）
 
 `variant_thickness_std`, `variant_color_std`, `variant_adhesive_std`, `variant_base_material_std`
 
-#### 3.8.6 替代、合规与附件字段
+#### 3.8.7 合规、结构图与文档字段
 
-`variant_is_rohs`, `variant_is_reach`, `variant_is_halogen_free`, `variant_fire_rating`, `variant_tds_file`, `variant_tds_filename`, `variant_msds_file`, `variant_msds_filename`, `variant_datasheet`, `variant_datasheet_filename`, `variant_catalog_structure_image`
+`variant_is_rohs`, `variant_is_reach`, `variant_is_halogen_free`, `variant_fire_rating`, `variant_catalog_structure_image`, `tds_content`, `msds_content`, `datasheet_content`
 
-#### 3.8.7 运维检查字段（计算）
+#### 3.8.8 技术参数关联与统计字段
+
+`spec_line_ids`, `spec_line_count`
+
+> 说明：`diecut.catalog.item` 已不再作为“技术参数主存储表”平铺维护大量测试字段。  
+> 技术参数明细统一外置到：
+> - `diecut.catalog.spec.def`：参数模板/定义
+> - `diecut.catalog.item.spec.line`：参数值明细
+>
+> 例如剥离力、持粘力、导热系数、击穿电压、表面电阻等，都应通过参数模板按分类定义，再在 `spec_line_ids` 中维护具体值。
+
+#### 3.8.9 运维检查字段（计算）
 
 `is_duplicate_key`
 
-#### 3.8.8 合计
+#### 3.8.10 当前主表中的历史迁移保留字段
 
-以上非系统原生字段共 **42** 个。
+以下字段当前仍存在于模型中，但仅用于历史迁移或兼容，不再作为正式主维护入口：
+
+`variant_peel_strength`, `variant_structure`, `variant_sus_peel`, `variant_pe_peel`, `variant_dupont`, `variant_push_force`, `variant_removability`, `variant_tumbler`, `variant_holding_power`
+
+> 这些字段的正式语义已经迁移到 `diecut.catalog.item.spec.line`，设计和运维都不应再围绕它们继续扩展。
+
+#### 3.8.11 合计
+
+以上清单反映的是 `diecut.catalog.item` 当前主表口径；若涉及技术参数的分类模板、值类型和参数值维护，请以 **3.9 材料技术参数管理方法** 为准。
+
+### 3.9 材料技术参数管理方法（Catalog Item 新架构）
+
+> 当前 `diecut.catalog.item` 的技术参数管理已经从“主表平铺很多技术字段”升级为“主表 + 参数定义 + 参数值”的三层结构。
+
+#### 3.9.1 三层结构
+
+| 层级 | 模型 | 作用 |
+| --- | --- | --- |
+| 主表 | `diecut.catalog.item` | 管理型号主信息、标准筛选字段、ERP 启用链路 |
+| 参数定义表 | `diecut.catalog.spec.def` | 定义“某个材料分类可以有哪些技术参数” |
+| 参数值表 | `diecut.catalog.item.spec.line` | 保存某个型号在某个参数上的实际值 |
+
+**设计原则**：
+
+- 主表只保留高频检索、ERP 启用、合规与附件等稳定字段。
+- 不同材料分类的“长尾技术参数”不再继续往主表堆字段，而是下沉到参数定义表与参数值表。
+- 同一参数名称、单位、值类型、排序在同一分类内由参数模板统一约束，避免业务录入时自由发挥。
+
+#### 3.9.2 参数定义表（`diecut.catalog.spec.def`）
+
+该模型用于定义“某类材料应该维护哪些技术参数”。核心字段如下：
+
+| 字段 | 含义 |
+| --- | --- |
+| `name` | 参数显示名称 |
+| `param_key` | 参数内部键，分类内唯一 |
+| `categ_id` | 适用材料分类 |
+| `value_type` | 值类型：`char` / `float` / `boolean` / `selection` |
+| `unit` | 默认单位 |
+| `selection_options` | 枚举型可选值 |
+| `sequence` | 同分类内展示顺序 |
+| `required` | 是否必填 |
+| `active` | 是否启用 |
+| `show_in_form` | 是否在表单展示 |
+| `allow_import` | 是否允许通过导入写入 |
+
+**约束**：
+
+- `(categ_id, param_key)` 唯一。
+- `param_key` 不允许为空，不允许带空白字符。
+
+#### 3.9.3 参数值表（`diecut.catalog.item.spec.line`）
+
+该模型用于保存“某个型号的某个技术参数值”。核心字段如下：
+
+| 字段 | 含义 |
+| --- | --- |
+| `catalog_item_id` | 所属型号 |
+| `spec_def_id` | 对应参数定义 |
+| `categ_id` | 关联出所属分类（related/store） |
+| `sequence` | 展示顺序 |
+| `param_key` / `param_name` | 从参数定义同步下来的冗余键与名称 |
+| `value_char` / `value_float` / `value_boolean` / `value_selection` | 按值类型落到对应字段 |
+| `value_text` | 统一编辑值（计算 + 反写，列表主展示列“值”） |
+| `display_value` | 前端展示值（用于“值+单位”拼接场景） |
+| `unit` | 实际单位 |
+| `test_method` | 测试方法 |
+| `test_condition` | 测试条件 |
+| `remark` | 备注 |
+
+**约束**：
+
+- `(catalog_item_id, spec_def_id)` 唯一。
+- `spec_def_id.categ_id` 必须与 `catalog_item_id.categ_id` 一致。
+- 只允许填写与 `value_type` 匹配的那个值字段。
+- 若参数定义 `required=True`，则该参数行必须有值。
+- 枚举值必须落在 `selection_options` 定义范围内。
+
+**界面交互（2026-03 收敛）**：
+
+- 主 form 与 split form 的技术参数列表统一只显示单列 `value_text`（标题：`值`）。
+- `value_text` 按参数类型自动映射：文本显示文本、数值显示数字字符串。
+- `value_text` 在列表中使用 `diecut_spec_value_widget`：
+  - `value_type=selection` 时渲染下拉菜单（选项来源 `spec_def_id.selection_options`）。
+  - 其他类型保持文本输入框。
+- `unit` 保持独立列展示，不在“值”列拼接单位。
+- one2many 行内 form 仍保留分类型字段编辑（`value_char/value_float/value_boolean/value_selection`）。
+
+#### 3.9.4 按分类定义技术参数的方法
+
+每种材料分类通过 `diecut.catalog.spec.def` 维护一组“参数模板”，同一分类的所有型号共用这一组模板。
+
+**运行机制**：
+
+1. 新建 `diecut.catalog.item` 并选择 `categ_id` 后，系统会按该分类下 `active=True` 且 `show_in_form=True` 的参数定义自动补齐 `spec_line_ids`。
+2. 若已有型号已存在参数值，不允许直接切换到另一分类，避免把 A 类模板参数错误带到 B 类材料。
+3. 用户在型号表单里只需要填写参数值，不需要重复发明参数名称。
+
+**管理入口**：
+
+- 参数模板维护：`diecut.catalog.spec.def`
+- 型号参数维护：`diecut.catalog.item.spec.line`（在型号表单 `spec_line_ids` 中编辑）
+
+#### 3.9.5 当前已预置的分类参数模板
+
+当前系统已经按分类预置了一批参数定义。每类材料的参数集合可以完全不同。
+
+**EVA / 泡棉类**（`diecut.category_foam`）
+
+- `density`：密度
+- `hardness`：硬度
+- `compression_set`：压缩永久变形
+- `rebound_rate`：回弹率
+- `temperature_range`：耐温范围
+- `adhesive_backing`：背胶类型
+
+**导电铜箔 / 金属箔类**（`diecut.category_metal_foil`）
+
+- `surface_resistance`：表面电阻
+- `shielding_effectiveness`：屏蔽效能
+- `conductive_direction`：导电方向
+- `foil_peel_strength`：铜箔剥离力
+- `temperature_resistance`：耐温
+- `conductive_adhesive_type`：导电胶类型
+
+**PET 单面胶带**（`diecut.category_tape_pet_single`）
+
+- `total_thickness`：总厚度
+- `substrate_thickness`：基材厚度
+- `adhesive_system`：胶系
+- `peel_strength_180`：剥离力
+- `temperature_grade`：耐温等级
+
+**PET 双面胶带**（`diecut.category_tape_pet_double`）
+
+- `total_thickness`：总厚度
+- `carrier_thickness`：载体厚度
+- `adhesive_system`：胶系
+- `initial_tack`：初粘力
+- `holding_power`：持粘力
+
+**电气绝缘胶带**（`diecut.category_tape_insulation`）
+
+- `base_material_type`：基材类型
+- `breakdown_voltage`：击穿电压
+- `dielectric_strength`：介电强度
+- `temperature_class`：耐温等级
+- `flame_class`：阻燃等级
+
+**导热石墨 / 导热类材料**（`diecut.category_graphite`）
+
+- `thermal_conductivity_xy`：面内导热系数
+- `thermal_conductivity_z`：厚向导热系数
+- `total_thickness`：总厚度
+- `surface_resistance`：表面电阻
+- `shielding_effectiveness`：屏蔽效能
+
+**离型膜**（`diecut.category_release_film`）
+
+- `base_film_type`：基膜类型
+- `total_thickness`：总厚度
+- `release_force`：离型力
+- `surface_treatment`：表面处理
+- `color_tone`：颜色/外观
+
+**保护膜**（`diecut.category_protection_film`）
+
+- `base_material_type`：基材类型
+- `total_thickness`：总厚度
+- `adhesion_force`：粘着力
+- `temperature_grade`：耐温等级
+- `application_surface`：适用表面
+
+**导电布**（`diecut.category_conductive_cloth`）
+
+- `cloth_base_type`：布基类型
+- `total_thickness`：总厚度
+- `surface_resistance`：表面电阻
+- `shielding_effectiveness`：屏蔽效能
+- `adhesive_backing`：背胶类型
+
+**绝缘纸类**（`diecut.category_insulation_paper`）
+
+- `paper_base_type`：纸基类型
+- `total_thickness`：总厚度
+- `breakdown_voltage`：击穿电压
+- `temperature_class`：耐温等级
+- `density`：密度
+
+#### 3.9.6 维护与导入原则
+
+**参数模板（定义层）**
+
+- 由管理员维护，不建议业务同事在导入明细时随意创造新的 `param_key`。
+- 新增一个全新材料分类时，优先先建好该分类的参数模板，再开始导入型号明细。
+
+**参数值（数据层）**
+
+- 业务数据可通过型号表单中的 `spec_line_ids` 维护。
+- 批量维护时推荐使用“主表 CSV + 参数明细 CSV”双文件直导：
+  - 主表 CSV：型号主信息
+  - 参数明细 CSV：一行一条参数值
+- 导入参数明细时，按 `item_code + categ_code + param_key` 匹配主表记录与参数定义。
+
+**迁移原则**
+
+- 历史上平铺在 `diecut.catalog.item` 主表上的技术字段，已按 `param_key` 映射迁移到 `spec_line_ids`。
+- 后续新增大多数“测试型参数”时，原则上不再修改主表 schema，而是通过新增 `diecut.catalog.spec.def` 解决。
 
 ---
 
@@ -669,17 +915,17 @@ diecut.catalog.activate.wizard → 选型启用向导
     │
     ▼
 新 ERP 原材料 (product.template, is_raw_material=True)
-    │  source_catalog_variant_id → 原变体ID (溯源)
+    │  `diecut.catalog.item.erp_product_tmpl_id` → 新 ERP 产品
     │
     ▼
-原变体标记: is_activated=True, activated_product_tmpl_id=新产品ID
+目录条目标记: erp_enabled=True, erp_product_tmpl_id=新产品ID
 ```
 
 **幂等保护**:
 
 1. `FOR UPDATE` 行锁防并发
-2. 启用前检查 `source_catalog_variant_id` 是否已存在对应产品
-3. 数据库唯一索引 `diecut_product_template_source_catalog_variant_uidx`
+2. 启用前检查当前目录条目是否已存在 `erp_product_tmpl_id`
+3. 目录主表业务唯一键 `brand_id + code`
 
 ### 4.5 技术参数自动归一化 (Normalization)
 
@@ -759,8 +1005,8 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 当 ERP 原材料（`product.template`）被删除时，`unlink()` 会自动执行两类清理：
 
-1. 重置旧映射变体：`is_activated=False`、`activated_product_tmpl_id=False`；
-2. 重置新架构目录条目：`diecut.catalog.item.erp_enabled=False`、`erp_product_tmpl_id=False`。
+1. 重置目录条目：`diecut.catalog.item.erp_enabled=False`、`erp_product_tmpl_id=False`。
+2. ERP 原材料自身按正常删除链路处理，不再回写旧变体启用状态。
 
 ---
 
@@ -801,7 +1047,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 ```
 模切管理系统 (menu_diecut_root)
 ├── 成本计算器              → action_diecut_quote
-├── 📚 材料选型大全         → action_material_catalog (product.template, is_catalog=True)
+├── 📚 材料选型大全         → action_diecut_catalog_item_gray (diecut.catalog.item)
 │   ├── 📋 材料型号清单      → action_diecut_catalog_item_gray (diecut.catalog.item)
 │   ├── 品牌库               → action_diecut_brand
 │   ├── 数据运维             → action_catalog_ops_wizard
@@ -814,13 +1060,13 @@ diecut.catalog.activate.wizard → 选型启用向导
 └── 样品订单                → action_sample_order_custom
 ```
 
-> 说明：`action_material_catalog_variant_split` / `action_material_catalog_variant` 等旧架构入口仍保留为隐藏菜单，用于兼容与回溯，不作为默认业务入口。
+> 说明：自 `v1.7` 起，后台旧架构入口 `action_material_catalog_variant_split` / `action_material_catalog_variant` / `action_material_catalog` 已从默认菜单与模块加载清单中移除；后台目录主线统一收口到 `diecut.catalog.item`。
 
 ### 6.2 选型目录视图清单
 
 | View ID                                 | 类型   | 模型               | 用途                                 |
 | --------------------------------------- | ------ | ------------------ | ------------------------------------ |
-| `view_material_catalog_form`          | Form   | product.template   | 系列详情+变体对比表                  |
+| `view_material_catalog_form`          | Form   | product.template   | 历史后台视图（已退出主菜单）          |
 | `view_material_catalog_tree`          | List   | product.template   | 系列级快速浏览                       |
 | `view_material_catalog_search`        | Search | product.template   | 搜索/筛选/分组                       |
 | `view_diecut_catalog_item_tree`       | List   | diecut.catalog.item | 型号清单（新架构主列表）             |
@@ -835,7 +1081,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 | Action ID                                | 模型               | Domain                                                           | 说明                                 |
 | ---------------------------------------- | ------------------ | ---------------------------------------------------------------- | ------------------------------------ |
-| `action_material_catalog`              | product.template   | `is_catalog=True`                                              | 选型大全系列入口                     |
+| `action_material_catalog`              | product.template   | `is_catalog=True`                                              | 历史后台动作（已退出主菜单）         |
 | `action_diecut_catalog_item_gray`      | diecut.catalog.item | —                                                                | 型号清单主入口（新架构）             |
 | `action_diecut_brand`                  | diecut.brand       | —                                                                | 品牌主数据入口                       |
 | `action_diecut_raw_material`           | product.template   | `is_raw_material=True`                                         | ERP 原材料                           |
@@ -867,11 +1113,11 @@ diecut.catalog.activate.wizard → 选型启用向导
 - 材料分类（`categ_id`，层级单选）
 - 品牌（`brand_id`，多选）
 
-> 说明：`catalog_dynamic_columns.js` 的动态列显隐逻辑当前仅作用于旧架构 `product.product` 型号清单（隐藏入口）；新架构 `diecut.catalog.item` 默认采用稳定列集展示。
+> 说明：`catalog_dynamic_columns.js` 属于旧架构时期的列表增强脚本；当前后台主入口 `diecut.catalog.item` 默认采用稳定列集展示，不再依赖旧 `product.product` 型号清单。
 
-#### 6.5.1 不同分类列表显示不同字段 — 规则与配置（Owl VDOM 补丁，旧架构兼容）
+#### 6.5.1 不同分类列表显示不同字段 — 规则与配置（历史兼容说明）
 
-**设计目的**：在旧架构 `product.product` 型号清单中，随左侧材料分类切换显示不同列集，减少空列干扰。
+**设计目的**：该机制最初用于旧架构 `product.product` 型号清单，在按分类切换时收缩空列干扰；当前保留为历史兼容说明，不再作为后台主线设计。
 
 **显隐规则（二者叠加）**：
 
@@ -882,7 +1128,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 **配置与实现机制（Owl Patch）**：
 
-- **实现文件**：`static/src/js/catalog_dynamic_columns.js`（仅旧架构入口启用）。
+- **实现文件**：`static/src/js/catalog_dynamic_columns.js`（历史兼容脚本，当前后台主入口默认不依赖）。
 - **Odoo 19 正规做法**：脚本不再注入 CSS 或者粗暴操作 DOM。相反，它使用了 `@web/core/utils/patch` 对 `@web/views/list/list_renderer` 的 `getActiveColumns()` 方法进行了补丁（Patch）。
 - **拦截逻辑**：在 Owl 系统准备把字段列传递给虚拟 DOM（VDOM）渲染之前，拦截并检查当前视图是否为“材料型号清单”（依据是否同时拥有 `product_tmpl_id` 和 `catalog_categ_id`）。如果是，则通过遍历 `this.props.list.records` 并判定每列数据。
 - **全空列隐藏**：如果判定某列在所有 `records` 中的 `val` 全都是空的（如 `false`, `null`, `""`, `0` 或者像 `—`、`...`），那么这列就会从返回的 `columns` 数组里被移除，渲染引擎根本就不会为该列生成 `<th>` 或 `<td>`。
@@ -941,7 +1187,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 #### 6.7.1 布局范例与实施参考
 
-以材料选型大全的 **产品系列表单 (view_material_catalog_form)** 为例，结构如下：
+以当前 `diecut.catalog.item` 的完整表单为例，结构如下：
 
 ```xml
 <sheet>
@@ -1025,6 +1271,85 @@ diecut.catalog.activate.wizard → 选型启用向导
 - 右侧内嵌 Form 视图使用 `view_diecut_catalog_item_split_form`（去按钮箱干扰，聚焦编辑）。
 - 为满足业务编辑需求，内部用户组具备 `diecut.catalog.item` 读/写/创建权限（普通用户不删除）；兼容路径保留 `product.product` 读/写/创建权限（不含删除）。
 
+#### 6.8.1 2026-03-13 界面收敛更新（Catalog Item / Split）
+
+**本次目标**：统一 `diecut.catalog.item` 的产品信息表达、补足完整表单附件区、并优化分屏右侧的主操作入口位置。
+
+**产品信息字段收敛**
+
+- `diecut.catalog.item` 正式保留 4 个产品说明字段：
+  - `product_features`：产品特点，`Text`
+  - `product_description`：产品描述，`Text`
+  - `main_applications`：主要应用，`Html`
+  - `equivalent_type`：相当品（替代类型），`Text`
+- 旧字段 `feature_desc`、`special_applications`、`typical_applications` 已退出正式界面与导入导出链路。
+- 主 form 与 split 右侧 form 使用同一套字段语义，不再保留两套“产品信息/应用与特性”并行结构。
+
+**产品信息区顺序**
+
+- 主 form 与 split form 的“产品信息与应用”区块统一按以下顺序展示：
+  1. `product_features`
+  2. `product_description`
+  3. `main_applications`
+  4. `equivalent_type`
+- 这样把“相当品（替代类型）”放在“主要应用”之后，阅读顺序更贴近业务录入习惯。
+
+**完整表单附件区**
+
+- `diecut.catalog.item` 继承 `mail.thread` 与 `mail.activity.mixin`。
+- 完整 form 在 `</sheet>` 后接入标准 `<chatter />`，用于显示：
+  - 发送消息
+  - 备注
+  - 活动
+  - 附加文件
+- split 右侧预览/编辑表单不显示 `chatter`，避免分屏区域变重。
+- 原“文档与附件”业务区继续保留，仍负责：
+  - 结构图
+  - `tds_content`
+  - `msds_content`
+  - `datasheet_content`
+- 设计上形成“两层职责”：
+  - 业务资料正文：表单中部“文档与附件”区
+  - 任意上传附件：完整 form 底部 `chatter`
+
+**ERP 主操作入口调整**
+
+- 列表视图中不再展示“启用到ERP”按钮，仅保留 `erp_enabled` 状态列。
+- 主 form 顶部 `header` 保留：
+  - `action_activate_to_erp`
+  - `action_view_erp_product`
+- split 右侧 form 顶部 `header` 保留同样的 ERP 动作按钮。
+
+**split 右侧“打开表单”入口**
+
+- 分屏右侧不再使用绝对定位悬浮按钮。
+- 新增模型动作 `action_open_full_form()`，返回 `diecut.catalog.item` 主 form 的标准 `ir.actions.act_window`。
+- 在 split standalone form 的 `header` 中新增按钮：
+  - `action_open_full_form`
+  - 文案：`打开表单`
+- 该按钮与 `启用到ERP` / `已启用ERP` 位于同一 `header` 行，保持同层、同高、同线，不再受右上角分页控件遮挡。
+- 主 form 本身不显示这个“打开表单”按钮，避免完整页出现自跳转入口。
+
+**技术参数列表“值”列收敛**
+
+- 主 form 与 split form 的 `spec_line_ids` 列表从“文本值/数值/布尔值/枚举值”四列收敛为单列 `值`。
+- 统一使用 `value_text` 字段承载列表显示与编辑，`unit` 保持独立列。
+- `display_value` 不再作为列表主展示列，继续保留给“值+单位”拼接展示场景。
+- one2many 行内 form 继续保留分类型字段，保证类型校验与录入兼容。
+
+**相关文件**
+
+- `models/catalog_item.py`
+- `views/catalog_item_views.xml`
+- `static/src/xml/material_split_preview.xml`
+
+#### 6.8.2 2026-03-13 后台旧目录入口清理
+
+- 顶层菜单 `材料选型大全` 已直接绑定到 `action_diecut_catalog_item_gray`。
+- 旧后台视图文件 `views/material_catalog_views.xml` 已从模块加载清单移除。
+- 旧隐藏菜单 `材料型号清单(旧架构)`、`材料型号清单(旧架构列表)`、`新建材料系列` 与实验入口不再保留。
+- `catalog_activate_wizard` 后台启用流程已收敛为仅支持 `diecut.catalog.item`，不再走 `product.product` 旧变体分支。
+
 ---
 
 `<a id="7-安全与权限"></a>`
@@ -1048,7 +1373,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 | sample.order                    | group_user   | ✓ | ✓ |  ✓  |  ✓  |
 | sample.order                    | group_portal | ✓ | ✓ |  ✓  |  ✗  |
 
-> 注：为支持「材料型号清单」分屏右侧直接编辑，本模块在 `security/ir.model.access.csv` 中为 `base.group_user` 配置了 `diecut.catalog.item` 读/写/创建（不授予删除），并保留 `product.product` 的读/写/创建权限用于兼容旧入口。
+> 注：为支持「材料型号清单」分屏右侧直接编辑，本模块在 `security/ir.model.access.csv` 中为 `base.group_user` 配置了 `diecut.catalog.item` 读/写/创建（不授予删除）。`product.product` 的权限当前仅服务于 ERP / 网站兼容链路，不再作为后台目录入口设计前提。
 
 ---
 
@@ -1065,6 +1390,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 ### ADR-002: 选型目录与ERP原材料共用 product.template
 
+- **状态**: 已被 `Phase 4 / v1.7` 的后台目录主线收口部分替代。后台型号管理与启用流程现以 `diecut.catalog.item` 为主；`product.template` 仍保留给 ERP 原材料与网站兼容链路。
 - **背景**: 选型目录（材料手册）和 ERP 原材料（实际采购件）都涉及"材料"，需决定是否拆分为独立模型。
 - **决策**: 共用 `product.template`，通过 `is_catalog` 和 `is_raw_material` 互斥标志位区分。
 - **权衡**: 减少代码重复，可复用 Odoo 原生产品功能（变体、供应商、图片等），但需要严格的互斥约束和 domain 过滤。
@@ -1080,9 +1406,9 @@ diecut.catalog.activate.wizard → 选型启用向导
 ### ADR-004: 启用到ERP的幂等性保障
 
 - **背景**: 多用户同时在选型目录中点击"启用到ERP"，可能导致重复创建 ERP 原材料。
-- **决策**: 三重保护：① `FOR UPDATE` 行锁防并发 ② 创建前二次查询检查 ③ 数据库 UNIQUE INDEX（partial）。
-- **权衡**: 性能略有开销（行锁），但确保了数据一致性。
-- **辅助工具**: `docs/check_source_catalog_variant_duplicates.sql` 和 `docs/fix_source_catalog_variant_duplicates.sql` 用于历史数据修复。
+- **决策**: 当前后台主线在 `diecut.catalog.item` 上维持单一启用状态，通过 `erp_enabled` / `erp_product_tmpl_id` 回写结果，并在目录主表上保持业务唯一键 `brand_id + code`。
+- **权衡**: 收口后不再依赖旧 `source_catalog_variant_id` 链路；网站兼容层仍保留在 `product.template / product.product` 周边，后续如继续清理需单独评估。
+- **辅助工具**: 老的 `source_catalog_variant_id` 排重 SQL 仅保留为历史资料，不再作为当前后台主链路运维工具。
 - **日期**: 2025-01
 
 ### ADR-005: 供应商价格表的影子缓存字段
@@ -1128,15 +1454,15 @@ diecut.catalog.activate.wizard → 选型启用向导
 - **背景**: 原本计划开发前端拖拽调整表单字段顺序和分组的功能，但这在 Odoo 19 (Owl VDOM) 中容易导致严重的渲染重绘冲突和生命周期问题，且配置过于复杂。
 - **决策**: 放弃 “自定义拖拽表单排版” 方案。改为全面利用 Odoo 19 原生支持的 **Bootstrap 5 UI 卡片与栅格化布局**（`<div class="row">` / `<div class="col-md-4">` / `<div class="card">`）。
 - **权衡**: 牺牲了用户级的“拖拽改排版”自由度，换来了极高颜值的企业级界面、零前端报错风险，以及长期的可维护性（纯 XML 继承控制）。
-- **范围**: 适用于需要增强展示体验的核心模块表单（如材料选型大全）。
-- **状态**: 已落地；在 `view_material_catalog_form` 中全面实装。
+- **范围**: 适用于需要增强展示体验的核心模块表单（如当前 `diecut.catalog.item` 完整 form / split form）。
+- **状态**: 已落地；当前主线视图见 `views/catalog_item_views.xml`。
 - **日期**: 2026-03
 
 ### ADR-011: 多变体产品数据初始化的生成器策略 (Excel/CSV -> XML + JSON)
 
 - **背景**: 在 Odoo 核心机制中，如果使用 XML 的 `<record>` 为 `product.template` 挂载属性（Attribute Lines），系统会后台自动生成一堆空壳变体。如果手写 `<record>` 写入变体的特有参数（如厚度、初粘力等），不仅代码极其臃肿，而且容易覆盖业务数据的修改。早前尝试过手写 JSON 并用 `post_init_hook` 拦截，但 `post_init_hook` 仅在首次安装生效，不支持后续的模块升级 (`Upgrade`)。同时，针对品牌分散、文件繁多的情况，手动维护 `__manifest__.py` 容易遗漏新生成的 XML 文件，导致数据“离奇失踪”。
 - **决策**: 采用 **“Excel/CSV 业务驱动代码生成 + 自动注册”** 的大厂企业级策略：
-  1. 彻底拥抱 Python 脚本生成器（`scripts/generate_catalog.py`）。通过开放 `series.csv`（系列大表）和 `variants.csv`（型号大表）供非技术人员用 Excel 直接维护。
+  1. 彻底拥抱 Python 脚本生成器（`scripts/generate_catalog.py`）。当前主线以 `catalog_items.csv`（目录主表）和 `catalog_item_specs.csv`（技术参数明细）供非技术人员用 Excel 直接维护。
   2. 脚本运行后，自动生成标准的 `data/catalog_{brand}_data.xml` 和 `data/catalog_materials.json`。
   3. **注册自动化**: 脚本在结束前会**自动扫描并覆写 `__manifest__.py` 里的 `data` 列表**。它会精准定位 `catalog_*.xml` 文件并按顺序注册到触发器 `load_json_data.xml` 之前。
   4. 采用后置触发器 (`noupdate="0"`) 驱动 `_load_catalog_base_data_from_json` 钩子，根据 JSON 内容动态装填变体（使用 `getattr` 防覆盖机制）。
@@ -1147,7 +1473,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 - **背景**: 早期同步方案仅支持覆盖（Overwrite）或忽略。用户反馈在 CSV 中把某个格子的值删掉置空后，Odoo 系统里对应的字段依然保留旧值，无法实现“删除”或“清空”的业务意图。同时，用户在 Odoo UI 界面手动修改的名字（如修复笔误）在导出后容易丢失中文语境。
 - **决策**: 引入 **双向闭环同步 (Bi-directional Closure)** 与 **主动清除逻辑**:
-  1. **导出加持 (export_from_db.py)**: 导出脚本强制注入 `{'lang': 'zh_CN'}` 上下文。确保 Odoo 界面里通过中文 UI 改写过的字段（Stored Translations）能精准导出到 CSV，不会因为导出时缺少语境而退化回旧的英文底稿名（如 CCCCCCC）。
+  1. **导出加持（已收敛）**: 目录主数据导出以 Catalog Item 运维向导为主入口，统一中文语境并保证字段口径与主表/参数明细模板一致。
   2. **临时 ID 保护**: 针对 UI 手工创建的临时记录（如 `brand_ui_exported_21`），在同步时增加“白名单过滤”，防止生成器反向将品牌名误改为数字（乱码）。
   3. **主动清除 (Active Field Clearing)**: 在 `product_diecut.py` 的加载钩子中，改变以往“只管加，不管减”的逻辑。当 JSON 中某个变体字段明确不存在或为空字符串时，同步机制会**主动向 Odoo 写入 `False` (对应数据库 Null)**，从而物理级响应用户在 CSV 中的“置空”删除行为。
 - **权衡**: 响应了用户对“所见即所得”的同步期待。虽然由于 Odoo 变体引擎限制，我们仍然不建议物理删除 `product.product` 记录（以防破坏订单关联），但实现了“数据内容层”的 100% 记录清零。
@@ -1173,6 +1499,24 @@ diecut.catalog.activate.wizard → 选型启用向导
 - **权衡**: 前端实现复杂度提高（Controller + Renderer + XML 继承 + 状态同步），但显著提升了操作效率与一致性，且与 Odoo 原生 UI 视觉语言对齐。
 - **日期**: 2026-03
 
+### ADR-015: 技术参数模板分级继承与三 CSV 标准化
+
+- **背景**: 原有技术参数模板仅按当前分类精确匹配，无法复用父分类参数；同时参数定义缺乏标准化导入导出，重装环境恢复依赖人工补录。
+- **决策**:
+  1. 参数模板改为分类继承链解析（父到子），同 `param_key` 冲突时子级覆盖父级；
+  2. 型号新建、补齐模板、重建模板全部使用继承结果；
+  3. 参数值导入匹配改为继承匹配，父分类参数可用于子分类型号；
+  4. 运维标准升级为三 CSV：`catalog_items.csv`（主表）、`catalog_item_specs.csv`（参数值）、`catalog_spec_defs.csv`（参数定义）；
+  5. 参数定义采用 upsert（`categ_id_xml + param_key` 唯一键），不做隐式删除。
+- **重装恢复 SOP**:
+  1. 安装模块（加载基线参数定义）；
+  2. 导入 `catalog_spec_defs.csv`；
+  3. 导入 `catalog_items.csv`；
+  4. 导入 `catalog_item_specs.csv`；
+  5. 执行“补齐参数模板”。
+- **升级策略**: 保持参数定义基线数据 `noupdate=1`，升级不覆盖界面维护数据；仅显式导入参数定义 CSV 时变更参数定义。
+- **日期**: 2026-03
+
 ---
 
 `<a id="9-数据库约束与索引"></a>`
@@ -1191,7 +1535,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 | 索引名                                                  | 表               | 列                        | 类型             | 条件                                        |
 | ------------------------------------------------------- | ---------------- | ------------------------- | ---------------- | ------------------------------------------- |
-| `diecut_product_template_source_catalog_variant_uidx` | product_template | source_catalog_variant_id | UNIQUE (partial) | WHERE source_catalog_variant_id IS NOT NULL |
+| `diecut_product_template_source_catalog_variant_uidx` | product_template | source_catalog_variant_id | 历史索引 | 已退出后台主链路，保留历史说明 |
 
 > 在 `init()` 方法中创建，升级前会检测历史重复数据，如有重复则抛出错误要求先清理。
 
@@ -1200,7 +1544,7 @@ diecut.catalog.activate.wizard → 选型启用向导
 | 方法                                      | 触发字段                    | 说明                     |
 | ----------------------------------------- | --------------------------- | ------------------------ |
 | `_check_catalog_raw_material_exclusive` | is_catalog, is_raw_material | 互斥                     |
-| `_check_source_catalog_variant_unique`  | source_catalog_variant_id   | 唯一映射                 |
+| `_check_source_catalog_variant_unique`  | source_catalog_variant_id   | 历史约束说明（当前后台主线不再使用） |
 | `_check_catalog_replacements`           | replacement_catalog_ids     | 不能包含自己、非目录产品 |
 
 ---
@@ -1209,7 +1553,12 @@ diecut.catalog.activate.wizard → 选型启用向导
 
 ## 10. 变更日志
 
+| 2026-03 | v1.10 | **技术参数“值”列枚举下拉**：新增前端字段组件 `diecut_spec_value_widget`，在主 form 与 split form 的 `spec_line_ids` 列表中为 `value_text` 提供动态渲染；当 `value_type=selection` 时显示下拉菜单（来源 `selection_options`），其他类型维持文本输入；不改数据模型与导入协议。 | static/src/js/spec_value_field.js、static/src/xml/spec_value_field.xml、views/catalog_item_views.xml、docs/DESIGN_MANUAL.md、__manifest__.py |
+| 2026-03 | v1.9 | **技术参数列表“值”列收敛**：`diecut.catalog.item` 主 form 与 split form 的 `spec_line_ids` 列表由四列值字段（文本/数值/布尔/枚举）收敛为单列 `value_text`（标题“值”）；`unit` 保持独立列；`display_value` 保留为“值+单位”拼接场景，one2many 行内 form 继续保留分类型编辑。 | views/catalog_item_views.xml、docs/DESIGN_MANUAL.md |
+| 2026-03 | v1.7 | **Catalog Item 界面、技术参数、后台入口与文档收敛**：统一产品信息字段为 `product_features` / `product_description` / `main_applications` / `equivalent_type`；完整 form 底部接入 `chatter` 附件区；split 右侧新增 `打开表单` 入口并移入表单 `header`；产品信息区顺序统一为“产品特点 → 产品描述 → 主要应用 → 相当品”；新增 `diecut.catalog.item + diecut.catalog.spec.def + diecut.catalog.item.spec.line` 三层技术参数管理说明与分类模板示例；后台旧目录入口、旧分屏视图与旧激活向导分支下线。 | models/catalog_item.py、models/catalog_spec.py、wizard/catalog_activate_wizard.py、views/catalog_item_views.xml、views/diecut_menu_view.xml、views/my_material_base_views.xml、static/src/xml/material_split_preview.xml、data/catalog_spec_def_data.xml、docs/DESIGN_MANUAL.md |
+| 2026-03 | v1.8 | **技术参数模板继承与三 CSV 运维标准化**：参数模板支持分类继承（父到子、子级同键覆盖）；参数行约束放宽为“同分类或祖先分类”；参数值导入改为继承匹配；运维向导与 AG Grid 支持 `catalog_spec_defs.csv` 参数定义导入导出与主键校验；新增参数定义模板 CSV 与重装恢复SOP文档。 | models/catalog_item.py、models/catalog_spec.py、views/catalog_item_views.xml、wizard/catalog_ops_wizard.py、wizard/catalog_ops_wizard_view.xml、controllers/main.py、scripts/catalog_spec_defs.csv、scripts/catalog_spec_defs_template.csv、scripts/catalog_csv_templates_README.md、docs/DESIGN_MANUAL.md |
 | 2026-03 | v1.6 | **目录架构收口（Phase 4）**：下线 `catalog_runtime_service` / `catalog_sync_service` / `catalog_shadow_service` 与相关切换/健康检查向导，收口为 `diecut.catalog.item` 单模型主线 + 运维日志。 | models/catalog_item.py、models/catalog_ops_log.py、wizard/catalog_ops_wizard.py、views/catalog_item_views.xml、views/diecut_menu_view.xml |
+| 2026-03 | v1.7 | **旧架构代码直清理**：移除 `is_catalog/source_catalog_variant_id` 老链路字段与旧网站模板依赖，删除旧 CSV 导出/爬取脚本（`series.csv/variants.csv` 流程），库存过滤统一转为 `is_raw_material` 主线。 | models/product_diecut.py、controllers/main.py、views/stock_quant_views.xml、__manifest__.py、scripts/*、docs/DESIGN_MANUAL.md |
 | 2026-03 | v1.6 | **品牌主数据独立化**：`diecut.brand` 抽离为独立模型文件，新增品牌库基础视图与菜单，并落地 `UNIQUE(name)` 精确唯一约束（含历史重复品牌合并）。 | models/diecut_brand.py、views/diecut_brand_views.xml、views/diecut_menu_view.xml、security/ir.model.access.csv |
 | 2026-03 | v1.6 | **Odoo 19 兼容清理**：移除不兼容 `oldname`/字段级 `placeholder` 写法，约束升级为 `models.Constraint`，厚度标准值统一为 `μm` 并提供重算脚本。 | models/product_diecut.py、models/diecut_quote.py、models/product_category.py、models/mold.py、scripts/migrate_thickness_std_um_to_unicode.py、scripts/recompute_variant_thickness_std.py |
 | 2026-03 | v1.5 | **Phase 3（统一入口路由）**：新增运行时路由服务 `diecut.catalog.runtime.service`，提供统一入口菜单与可切换模式（`legacy_split` / `new_gray`），实现不中断切换。 | models/catalog_runtime_service.py、wizard/catalog_runtime_switch_wizard.py、wizard/catalog_runtime_switch_wizard_view.xml、views/diecut_menu_view.xml |
@@ -1328,8 +1677,8 @@ cat backup.sql | docker exec -i db psql -U odoo odoo
 
 本模块独有的 **“业务驱动备份”**：
 
-- **原理**: 通过 `scripts/export_from_db.py` 导出的 `series.csv` 和 `variants.csv` 实际上包含了一家模切厂最核心的材料库知识。
-- **价值**: 即便整库丢失，只要保留这两个 CSV，通过 `generate_catalog.py` 可以在任何新的 Odoo 系统中物理级重构所有产品模板、变体及物理参数。
+- **原理**: 通过目录运维向导导出的 `catalog_items.csv` 和 `catalog_item_specs.csv`，实际承载了当前 Catalog Item 主线的核心材料目录知识。
+- **价值**: 即便整库丢失，只要保留这两份 CSV，也可以重建 `diecut.catalog.item` 主表与技术参数明细表。
 - **建议**: 定期提交 CSV 文件到 Git 仓库，实现数据与代码同步版本化。
 
 #### B.4.4 企业级自动备份建议
@@ -1392,3 +1741,177 @@ cat backup.sql | docker exec -i db psql -U odoo odoo
 ---
 
 *本手册由开发团队维护，如有疑问请联系系统架构师。 AAAA*
+---
+
+## v1.8 设计增补：Catalog 系列主数据 + 型号可覆盖（混合模式）
+
+> 更新时间：2026-03-13  
+> 适用模块：`diecut`  
+> 目标：把“应用/描述/特性”从纯型号维护升级为“品牌下系列模板 + 型号按字段覆盖”。
+
+### 1. 总体原则
+
+1. 系列按品牌隔离管理，不同品牌系列不混用。  
+2. 型号以 `series_id`（Many2one）作为系列主入口，`series_text`降级为迁移兼容字段。  
+3. 三个业务字段采用“继承默认 + 按字段覆盖”：
+   - `product_features`
+   - `product_description`
+   - `main_applications`
+4. 覆盖是字段级，不是整条记录级。  
+5. CSV 标准链路升级为 4 文件：主表、参数值、参数定义、系列模板。  
+
+### 2. 新增模型：`diecut.catalog.series`
+
+系列模板主数据模型（品牌维度）：
+
+- 关键字段：
+  - `brand_id`
+  - `name`
+  - `product_features`
+  - `product_description`
+  - `main_applications`
+  - `active`
+  - `sequence`
+- 业务约束：
+  - 同品牌下系列名唯一：`(brand_id, name)`。
+- 管理入口：
+  - 菜单“系列模板管理”。
+
+### 3. Catalog Item 继承与覆盖机制
+
+`diecut.catalog.item` 使用以下规则：
+
+1. 品牌与系列联动：
+   - `series_id` 仅可选择当前 `brand_id` 下的系列。
+   - `brand_id` 变更后，若现有 `series_id` 不属于新品牌，自动清空。  
+2. 覆盖开关（三字段独立）：
+   - `override_product_features`
+   - `override_product_description`
+   - `override_main_applications`
+3. 生效规则：
+   - 覆盖开关为 `false`：默认跟随系列模板值。
+   - 覆盖开关为 `true`：使用型号自身字段值。  
+4. 系列切换后可通过“应用系列模板”向导二选一：
+   - 仅填空（`fill_empty`）
+   - 覆盖全部（`overwrite`，但仅作用于未勾选覆盖的字段）
+
+### 4. 表单与分屏（split）交互规范
+
+1. 主 form 与 split form 的“产品信息与应用”区展示一致：
+   - 系列（`series_id`）
+   - 产品特点、产品描述、主要应用
+   - 各字段覆盖开关状态
+2. 系列字段禁 quick create，允许“弹窗创建并编辑”，保证主数据质量。  
+3. “应用系列模板”按钮用于显式套用模板策略，不隐式覆盖人工维护内容。  
+
+### 5. CSV 标准化（v1.8）
+
+#### 5.1 四文件标准
+
+1. `catalog_items.csv`（型号主表）
+2. `catalog_item_specs.csv`（型号参数值）
+3. `catalog_spec_defs.csv`（参数定义）
+4. `catalog_series.csv`（系列模板）
+
+#### 5.2 主表列规范（关键变化）
+
+- 主入口从 `series_text` 切换到 `series_name`。  
+- 品牌解析支持：
+  - `brand_id_xml`（优先）
+  - `brand_name`（兼容）
+
+#### 5.3 导入顺序建议
+
+1. 先导入 `catalog_series.csv`（按 `brand + series_name` upsert）。
+2. 再导入 `catalog_items.csv`（绑定 `series_id`）。
+3. 再导入 `catalog_spec_defs.csv` 与 `catalog_item_specs.csv`。  
+
+#### 5.4 兼容说明
+
+- 迁移阶段仍兼容读取 `series_text`，但它不再是新模板标准列。  
+- 新模板与新增数据维护应统一使用 `series_name`。  
+
+### 6. 历史数据迁移规则（多数优先）
+
+历史 `brand + series_text` 数据迁移到系列主数据时：
+
+1. 按 `brand + series_text` 分组生成系列记录。
+2. 每组对三字段取“多数值”写入系列模板。
+3. 与多数值不同的型号自动打对应 `override_* = true`，并保留型号原值。
+4. 型号最终关联到 `series_id`。
+
+### 7. 回归边界
+
+本次方案不改变以下主线：
+
+1. 技术参数定义/值的分类继承逻辑（父到子，子覆盖父）。
+2. `catalog_activate_wizard` 启用 ERP 主流程。
+3. split 作为高频浏览入口的定位。  
+
+### 8. 运维SOP（重装恢复）
+
+重装或新库恢复推荐流程：
+
+1. 安装模块并升级到目标版本。
+2. 导入 4 CSV（系列模板 -> 主表 -> 参数定义 -> 参数值）。
+3. 对需要的分类执行参数补齐动作。
+4. 抽样验证：
+   - 品牌-系列下拉隔离
+   - 覆盖开关行为
+   - 列表筛选/分组
+   - 启用 ERP 流程
+
+### 9. 变更日志（新增）
+
+- **2026-03-13 / v1.8**
+  - 新增系列主数据模型 `diecut.catalog.series`（品牌维度唯一）。
+  - `diecut.catalog.item` 增加 `series_id` 与三字段覆盖开关。
+  - 主 form / split form 统一系列继承+覆盖交互。
+  - 运维 CSV 升级为四文件标准，加入 `catalog_series.csv`。
+  - 明确 `series_text` 退为迁移兼容字段，不再作为新模板主入口。
+
+- **2026-03-13 / v1.8.1**
+  - `Catalog Item` 区块更名为“系列信息与应用”。
+  - 型号侧 `product_features / product_description / main_applications` 改为只读强同步（以 `series_id` 模板为唯一来源）。
+  - 新增型号层独立字段 `special_applications(Html)`（“型号特殊应用”），不参与系列同步。
+  - 主 form 与 split form 同步调整：移除“应用系列模板”按钮与覆盖勾选项展示，仅保留系列强同步 + 型号特殊应用编辑。
+## v1.8.2 设计增补（批量改分类与参数约束调整）
+
+> 更新时间：2026-03-13  
+> 适用模块：`diecut`
+
+### 1) 批量改材料分类（含技术参数处理 + ERP同步）
+
+在 `diecut.catalog.item.batch.update.wizard` 中新增分类专用流程：
+
+- 新增向导字段：
+  - `target_categ_id`（目标材料分类）
+  - `categ_change_policy`（`keep_specs` / `rebuild_specs`）
+- `keep_specs`（策略3）：
+  - 仅改分类；
+  - 若存在不兼容参数（参数定义不在目标分类继承链）则整批拦截并返回清单。
+- `rebuild_specs`（策略1）：
+  - 改分类后清空旧参数；
+  - 按目标分类模板重建 `spec_line_ids`。
+- 新增不兼容二次处理动作：
+  - “同步更新新分类参数列表”；
+  - 不兼容记录按重建处理，兼容记录仅改分类。
+- ERP分类同步规则：
+  - 仅对 `erp_enabled=True` 且 `erp_product_tmpl_id` 非空的记录同步 `product.template.categ_id`；
+  - 未关联ERP产品的记录跳过并计入结果统计。
+
+### 2) 技术参数“必填”强约束取消
+
+`diecut.catalog.item.spec.line` 的后端约束已调整：
+
+- 取消 `spec_def_id.required` 对参数值的强制拦截（不再因为“参数XX为必填项”阻止保存/批量改分类）。
+- 保留以下校验不变：
+  - 值类型互斥校验（char/float/boolean/selection 仅允许填写匹配字段）；
+  - 枚举值合法性校验；
+  - 参数定义分类必须属于当前型号分类继承链校验。
+
+### 3) 操作建议
+
+- 对已有大量参数的型号批量改分类时，优先使用策略3做兼容性预检；
+- 若存在不兼容条目，使用“同步更新新分类参数列表”完成分流处理；
+- 若业务允许参数重置，可直接使用策略1提高处理效率。

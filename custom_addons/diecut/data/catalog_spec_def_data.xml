@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="catalog_spec_def_eva_density" model="diecut.catalog.spec.def">
+            <field name="name">密度</field>
+            <field name="param_key">density</field>
+            <field name="categ_id" ref="diecut.category_foam"/>
+            <field name="value_type">float</field>
+            <field name="unit">kg/m3</field>
+            <field name="sequence">10</field>
+            <field name="required">True</field>
+        </record>
+        <record id="catalog_spec_def_eva_hardness" model="diecut.catalog.spec.def">
+            <field name="name">硬度</field>
+            <field name="param_key">hardness</field>
+            <field name="categ_id" ref="diecut.category_foam"/>
+            <field name="value_type">float</field>
+            <field name="unit">Shore C</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="catalog_spec_def_eva_compression_set" model="diecut.catalog.spec.def">
+            <field name="name">压缩永久变形</field>
+            <field name="param_key">compression_set</field>
+            <field name="categ_id" ref="diecut.category_foam"/>
+            <field name="value_type">float</field>
+            <field name="unit">%</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="catalog_spec_def_eva_rebound" model="diecut.catalog.spec.def">
+            <field name="name">回弹率</field>
+            <field name="param_key">rebound_rate</field>
+            <field name="categ_id" ref="diecut.category_foam"/>
+            <field name="value_type">float</field>
+            <field name="unit">%</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="catalog_spec_def_eva_temperature" model="diecut.catalog.spec.def">
+            <field name="name">耐温范围</field>
+            <field name="param_key">temperature_range</field>
+            <field name="categ_id" ref="diecut.category_foam"/>
+            <field name="value_type">char</field>
+            <field name="unit">℃</field>
+            <field name="sequence">50</field>
+        </record>
+        <record id="catalog_spec_def_eva_adhesive_backing" model="diecut.catalog.spec.def">
+            <field name="name">背胶类型</field>
+            <field name="param_key">adhesive_backing</field>
+            <field name="categ_id" ref="diecut.category_foam"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">无背胶
+单面背胶
+双面背胶</field>
+            <field name="sequence">60</field>
+        </record>
+
+        <record id="catalog_spec_def_copper_surface_resistance" model="diecut.catalog.spec.def">
+            <field name="name">表面电阻</field>
+            <field name="param_key">surface_resistance</field>
+            <field name="categ_id" ref="diecut.category_metal_foil"/>
+            <field name="value_type">float</field>
+            <field name="unit">ohm/sq</field>
+            <field name="sequence">10</field>
+            <field name="required">True</field>
+        </record>
+        <record id="catalog_spec_def_copper_shielding" model="diecut.catalog.spec.def">
+            <field name="name">屏蔽效能</field>
+            <field name="param_key">shielding_effectiveness</field>
+            <field name="categ_id" ref="diecut.category_metal_foil"/>
+            <field name="value_type">float</field>
+            <field name="unit">dB</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="catalog_spec_def_copper_conductive_direction" model="diecut.catalog.spec.def">
+            <field name="name">导电方向</field>
+            <field name="param_key">conductive_direction</field>
+            <field name="categ_id" ref="diecut.category_metal_foil"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">X
+Y
+Z
+XY
+XYZ</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="catalog_spec_def_copper_peel" model="diecut.catalog.spec.def">
+            <field name="name">铜箔剥离力</field>
+            <field name="param_key">foil_peel_strength</field>
+            <field name="categ_id" ref="diecut.category_metal_foil"/>
+            <field name="value_type">float</field>
+            <field name="unit">N/25mm</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="catalog_spec_def_copper_temperature" model="diecut.catalog.spec.def">
+            <field name="name">耐温</field>
+            <field name="param_key">temperature_resistance</field>
+            <field name="categ_id" ref="diecut.category_metal_foil"/>
+            <field name="value_type">char</field>
+            <field name="unit">℃</field>
+            <field name="sequence">50</field>
+        </record>
+        <record id="catalog_spec_def_copper_adhesive" model="diecut.catalog.spec.def">
+            <field name="name">导电胶类型</field>
+            <field name="param_key">conductive_adhesive_type</field>
+            <field name="categ_id" ref="diecut.category_metal_foil"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">无胶
+单面导电胶
+双面导电胶</field>
+            <field name="sequence">60</field>
+        </record>
+
+        <record id="catalog_spec_def_pet_single_total_thickness" model="diecut.catalog.spec.def">
+            <field name="name">总厚度</field>
+            <field name="param_key">total_thickness</field>
+            <field name="categ_id" ref="diecut.category_tape_pet_single"/>
+            <field name="value_type">float</field>
+            <field name="unit">μm</field>
+            <field name="sequence">10</field>
+            <field name="required">True</field>
+        </record>
+        <record id="catalog_spec_def_pet_single_substrate_thickness" model="diecut.catalog.spec.def">
+            <field name="name">基材厚度</field>
+            <field name="param_key">substrate_thickness</field>
+            <field name="categ_id" ref="diecut.category_tape_pet_single"/>
+            <field name="value_type">float</field>
+            <field name="unit">μm</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="catalog_spec_def_pet_single_adhesive_system" model="diecut.catalog.spec.def">
+            <field name="name">胶系</field>
+            <field name="param_key">adhesive_system</field>
+            <field name="categ_id" ref="diecut.category_tape_pet_single"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">丙烯酸
+改性丙烯酸
+硅胶
+橡胶</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="catalog_spec_def_pet_single_peel_strength" model="diecut.catalog.spec.def">
+            <field name="name">剥离力</field>
+            <field name="param_key">peel_strength_180</field>
+            <field name="categ_id" ref="diecut.category_tape_pet_single"/>
+            <field name="value_type">float</field>
+            <field name="unit">N/25mm</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="catalog_spec_def_pet_single_temperature" model="diecut.catalog.spec.def">
+            <field name="name">耐温等级</field>
+            <field name="param_key">temperature_grade</field>
+            <field name="categ_id" ref="diecut.category_tape_pet_single"/>
+            <field name="value_type">char</field>
+            <field name="unit">℃</field>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="catalog_spec_def_pet_double_total_thickness" model="diecut.catalog.spec.def">
+            <field name="name">总厚度</field>
+            <field name="param_key">total_thickness</field>
+            <field name="categ_id" ref="diecut.category_tape_pet_double"/>
+            <field name="value_type">float</field>
+            <field name="unit">μm</field>
+            <field name="sequence">10</field>
+            <field name="required">True</field>
+        </record>
+        <record id="catalog_spec_def_pet_double_carrier_thickness" model="diecut.catalog.spec.def">
+            <field name="name">载体厚度</field>
+            <field name="param_key">carrier_thickness</field>
+            <field name="categ_id" ref="diecut.category_tape_pet_double"/>
+            <field name="value_type">float</field>
+            <field name="unit">μm</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="catalog_spec_def_pet_double_adhesive_system" model="diecut.catalog.spec.def">
+            <field name="name">胶系</field>
+            <field name="param_key">adhesive_system</field>
+            <field name="categ_id" ref="diecut.category_tape_pet_double"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">丙烯酸
+改性丙烯酸
+硅胶
+橡胶</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="catalog_spec_def_pet_double_initial_tack" model="diecut.catalog.spec.def">
+            <field name="name">初粘力</field>
+            <field name="param_key">initial_tack</field>
+            <field name="categ_id" ref="diecut.category_tape_pet_double"/>
+            <field name="value_type">char</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="catalog_spec_def_pet_double_holding_power" model="diecut.catalog.spec.def">
+            <field name="name">持粘力</field>
+            <field name="param_key">holding_power</field>
+            <field name="categ_id" ref="diecut.category_tape_pet_double"/>
+            <field name="value_type">char</field>
+            <field name="unit">h</field>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="catalog_spec_def_insulation_base_material" model="diecut.catalog.spec.def">
+            <field name="name">基材类型</field>
+            <field name="param_key">base_material_type</field>
+            <field name="categ_id" ref="diecut.category_tape_insulation"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">PI
+PET
+PVC
+无纺布
+复合基材</field>
+            <field name="sequence">10</field>
+            <field name="required">True</field>
+        </record>
+        <record id="catalog_spec_def_insulation_breakdown_voltage" model="diecut.catalog.spec.def">
+            <field name="name">击穿电压</field>
+            <field name="param_key">breakdown_voltage</field>
+            <field name="categ_id" ref="diecut.category_tape_insulation"/>
+            <field name="value_type">float</field>
+            <field name="unit">kV</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="catalog_spec_def_insulation_dielectric_strength" model="diecut.catalog.spec.def">
+            <field name="name">介电强度</field>
+            <field name="param_key">dielectric_strength</field>
+            <field name="categ_id" ref="diecut.category_tape_insulation"/>
+            <field name="value_type">float</field>
+            <field name="unit">kV/mm</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="catalog_spec_def_insulation_temperature_class" model="diecut.catalog.spec.def">
+            <field name="name">耐温等级</field>
+            <field name="param_key">temperature_class</field>
+            <field name="categ_id" ref="diecut.category_tape_insulation"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">105℃
+130℃
+155℃
+180℃
+200℃</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="catalog_spec_def_insulation_flame_class" model="diecut.catalog.spec.def">
+            <field name="name">阻燃等级</field>
+            <field name="param_key">flame_class</field>
+            <field name="categ_id" ref="diecut.category_tape_insulation"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">UL94 V-0
+UL94 V-1
+UL94 HB
+无</field>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="catalog_spec_def_graphite_conductivity_xy" model="diecut.catalog.spec.def">
+            <field name="name">面内导热系数</field>
+            <field name="param_key">thermal_conductivity_xy</field>
+            <field name="categ_id" ref="diecut.category_graphite"/>
+            <field name="value_type">float</field>
+            <field name="unit">W/mK</field>
+            <field name="sequence">10</field>
+            <field name="required">True</field>
+        </record>
+        <record id="catalog_spec_def_graphite_conductivity_z" model="diecut.catalog.spec.def">
+            <field name="name">厚向导热系数</field>
+            <field name="param_key">thermal_conductivity_z</field>
+            <field name="categ_id" ref="diecut.category_graphite"/>
+            <field name="value_type">float</field>
+            <field name="unit">W/mK</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="catalog_spec_def_graphite_total_thickness" model="diecut.catalog.spec.def">
+            <field name="name">总厚度</field>
+            <field name="param_key">total_thickness</field>
+            <field name="categ_id" ref="diecut.category_graphite"/>
+            <field name="value_type">float</field>
+            <field name="unit">μm</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="catalog_spec_def_graphite_surface_resistance" model="diecut.catalog.spec.def">
+            <field name="name">表面电阻</field>
+            <field name="param_key">surface_resistance</field>
+            <field name="categ_id" ref="diecut.category_graphite"/>
+            <field name="value_type">char</field>
+            <field name="unit">Ω/sq</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="catalog_spec_def_graphite_shielding" model="diecut.catalog.spec.def">
+            <field name="name">屏蔽效能</field>
+            <field name="param_key">shielding_effectiveness</field>
+            <field name="categ_id" ref="diecut.category_graphite"/>
+            <field name="value_type">float</field>
+            <field name="unit">dB</field>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="catalog_spec_def_release_film_base_material" model="diecut.catalog.spec.def">
+            <field name="name">基膜类型</field>
+            <field name="param_key">base_film_type</field>
+            <field name="categ_id" ref="diecut.category_release_film"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">PET
+PE
+PP
+复合膜</field>
+            <field name="sequence">10</field>
+            <field name="required">True</field>
+        </record>
+        <record id="catalog_spec_def_release_film_total_thickness" model="diecut.catalog.spec.def">
+            <field name="name">总厚度</field>
+            <field name="param_key">total_thickness</field>
+            <field name="categ_id" ref="diecut.category_release_film"/>
+            <field name="value_type">float</field>
+            <field name="unit">μm</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="catalog_spec_def_release_film_release_force" model="diecut.catalog.spec.def">
+            <field name="name">离型力</field>
+            <field name="param_key">release_force</field>
+            <field name="categ_id" ref="diecut.category_release_film"/>
+            <field name="value_type">float</field>
+            <field name="unit">gf/in</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="catalog_spec_def_release_film_surface_treatment" model="diecut.catalog.spec.def">
+            <field name="name">表面处理</field>
+            <field name="param_key">surface_treatment</field>
+            <field name="categ_id" ref="diecut.category_release_film"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">单面硅油
+双面硅油
+防静电
+哑面</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="catalog_spec_def_release_film_color" model="diecut.catalog.spec.def">
+            <field name="name">颜色</field>
+            <field name="param_key">color_tone</field>
+            <field name="categ_id" ref="diecut.category_release_film"/>
+            <field name="value_type">char</field>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="catalog_spec_def_protection_film_base_material" model="diecut.catalog.spec.def">
+            <field name="name">基材类型</field>
+            <field name="param_key">base_material_type</field>
+            <field name="categ_id" ref="diecut.category_protection_film"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">PE
+PET
+PP
+PVC</field>
+            <field name="sequence">10</field>
+            <field name="required">True</field>
+        </record>
+        <record id="catalog_spec_def_protection_film_total_thickness" model="diecut.catalog.spec.def">
+            <field name="name">总厚度</field>
+            <field name="param_key">total_thickness</field>
+            <field name="categ_id" ref="diecut.category_protection_film"/>
+            <field name="value_type">float</field>
+            <field name="unit">μm</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="catalog_spec_def_protection_film_adhesion" model="diecut.catalog.spec.def">
+            <field name="name">粘着力</field>
+            <field name="param_key">adhesion_force</field>
+            <field name="categ_id" ref="diecut.category_protection_film"/>
+            <field name="value_type">float</field>
+            <field name="unit">gf/25mm</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="catalog_spec_def_protection_film_temperature" model="diecut.catalog.spec.def">
+            <field name="name">耐温等级</field>
+            <field name="param_key">temperature_grade</field>
+            <field name="categ_id" ref="diecut.category_protection_film"/>
+            <field name="value_type">char</field>
+            <field name="unit">℃</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="catalog_spec_def_protection_film_application_surface" model="diecut.catalog.spec.def">
+            <field name="name">适用表面</field>
+            <field name="param_key">application_surface</field>
+            <field name="categ_id" ref="diecut.category_protection_film"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">玻璃
+塑胶
+金属
+涂层面</field>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="catalog_spec_def_conductive_cloth_base_material" model="diecut.catalog.spec.def">
+            <field name="name">布基类型</field>
+            <field name="param_key">cloth_base_type</field>
+            <field name="categ_id" ref="diecut.category_conductive_cloth"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">聚酯纤维
+尼龙纤维
+混纺纤维</field>
+            <field name="sequence">10</field>
+            <field name="required">True</field>
+        </record>
+        <record id="catalog_spec_def_conductive_cloth_total_thickness" model="diecut.catalog.spec.def">
+            <field name="name">总厚度</field>
+            <field name="param_key">total_thickness</field>
+            <field name="categ_id" ref="diecut.category_conductive_cloth"/>
+            <field name="value_type">float</field>
+            <field name="unit">mm</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="catalog_spec_def_conductive_cloth_surface_resistance" model="diecut.catalog.spec.def">
+            <field name="name">表面电阻</field>
+            <field name="param_key">surface_resistance</field>
+            <field name="categ_id" ref="diecut.category_conductive_cloth"/>
+            <field name="value_type">char</field>
+            <field name="unit">Ω/sq</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="catalog_spec_def_conductive_cloth_shielding" model="diecut.catalog.spec.def">
+            <field name="name">屏蔽效能</field>
+            <field name="param_key">shielding_effectiveness</field>
+            <field name="categ_id" ref="diecut.category_conductive_cloth"/>
+            <field name="value_type">float</field>
+            <field name="unit">dB</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="catalog_spec_def_conductive_cloth_adhesive_type" model="diecut.catalog.spec.def">
+            <field name="name">背胶类型</field>
+            <field name="param_key">adhesive_backing</field>
+            <field name="categ_id" ref="diecut.category_conductive_cloth"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">无背胶
+单面导电胶
+双面导电胶</field>
+            <field name="sequence">50</field>
+        </record>
+
+        <record id="catalog_spec_def_paper_base_material" model="diecut.catalog.spec.def">
+            <field name="name">纸基类型</field>
+            <field name="param_key">paper_base_type</field>
+            <field name="categ_id" ref="diecut.category_paper"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">青壳纸
+红钢纸
+快巴纸
+Nomex
+复合绝缘纸</field>
+            <field name="sequence">10</field>
+            <field name="required">True</field>
+        </record>
+        <record id="catalog_spec_def_paper_total_thickness" model="diecut.catalog.spec.def">
+            <field name="name">总厚度</field>
+            <field name="param_key">total_thickness</field>
+            <field name="categ_id" ref="diecut.category_paper"/>
+            <field name="value_type">float</field>
+            <field name="unit">mm</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="catalog_spec_def_paper_breakdown_voltage" model="diecut.catalog.spec.def">
+            <field name="name">击穿电压</field>
+            <field name="param_key">breakdown_voltage</field>
+            <field name="categ_id" ref="diecut.category_paper"/>
+            <field name="value_type">float</field>
+            <field name="unit">kV</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="catalog_spec_def_paper_temperature_class" model="diecut.catalog.spec.def">
+            <field name="name">耐温等级</field>
+            <field name="param_key">temperature_class</field>
+            <field name="categ_id" ref="diecut.category_paper"/>
+            <field name="value_type">selection</field>
+            <field name="selection_options">105℃
+130℃
+155℃
+180℃
+220℃</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="catalog_spec_def_paper_density" model="diecut.catalog.spec.def">
+            <field name="name">密度</field>
+            <field name="param_key">density</field>
+            <field name="categ_id" ref="diecut.category_paper"/>
+            <field name="value_type">float</field>
+            <field name="unit">g/cm3</field>
+            <field name="sequence">50</field>
+        </record>
+    </data>
+</odoo>

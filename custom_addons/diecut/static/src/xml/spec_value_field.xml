@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="diecut.SpecValueField">
+        <t t-if="props.readonly">
+            <span t-esc="value" />
+        </t>
+        <t t-elif="isSelectionType">
+            <select
+                class="o_input"
+                t-att-id="props.id"
+                t-att-value="value"
+                t-on-change="onSelect"
+            >
+                <option value=""></option>
+                <t t-foreach="state.choices" t-as="choice" t-key="choice.value">
+                    <option t-att-value="choice.value" t-att-selected="choice.value === value">
+                        <t t-esc="choice.label" />
+                    </option>
+                </t>
+            </select>
+        </t>
+        <t t-else="">
+            <input
+                class="o_input"
+                t-att-id="props.id"
+                type="text"
+                t-att-value="value"
+                t-att-placeholder="props.placeholder"
+                t-on-input="onInput"
+            />
+        </t>
+    </t>
+
+</templates>

@@ -1,0 +1,7 @@
+﻿categ_id_xml,param_key,name,value_type,unit,selection_options,sequence,required,active,show_in_form,allow_import
+category_tape,peel_strength,剥离力,float,N/25mm,,10,0,1,1,1
+category_tape_pet_single,total_thickness,总厚度,float,μm,,10,1,1,1,1
+category_tape_pet_single,adhesive_system,胶系,selection,,"丙烯酸
+改性丙烯酸
+硅胶
+橡胶",20,0,1,1,1

@@ -8,13 +8,17 @@
                 <group string="操作配置">
                     <group>
                         <field name="operation"/>
+                        <field name="csv_target" invisible="operation != 'edit_csv'"/>
+                        <field name="sync_scope" invisible="operation != 'sync_csv_to_db'"/>
+                        <field name="sync_item_codes" invisible="operation != 'sync_csv_to_db' or sync_scope != 'codes'" placeholder="例如：EVA-001, CF-001"/>
+                        <field name="sync_categ_id" invisible="operation != 'sync_csv_to_db' or sync_scope != 'category'"/>
                         <field name="backfill_limit" invisible="operation not in ('cutover_baseline_snapshot')"/>
                         <field name="dry_run" invisible="operation in ('edit_csv','view_fields_manual','cutover_baseline_snapshot')"/>
                     </group>
                 </group>
 
                 <group string="CSV轻量编辑" invisible="operation != 'edit_csv'" col="1" colspan="2">
-                    <field name="csv_content" nolabel="1" colspan="2" placeholder="点击“加载CSV”后编辑，保存回 scripts/catalog_items.csv"/>
+                    <field name="csv_content" nolabel="1" colspan="2" placeholder="点击“加载CSV”后编辑，保存回 scripts/catalog_items.csv / scripts/catalog_item_specs.csv / scripts/catalog_spec_defs.csv / scripts/catalog_series.csv"/>
                 </group>
 
                 <group string="字段维护清单" invisible="operation != 'view_fields_manual'" col="1" colspan="2">
@@ -35,6 +39,11 @@
 
                 <group string="执行结果" invisible="not result_message" col="1" colspan="2">
                     <field name="result_message" nolabel="1" readonly="1" colspan="2"/>
+                </group>
+
+                <group string="校验报告" invisible="not validation_report_file" col="1" colspan="2">
+                    <field name="validation_report_file" filename="validation_report_filename" readonly="1" colspan="2"/>
+                    <field name="validation_report_filename" readonly="1" invisible="1"/>
                 </group>
 
                 <footer>

@@ -1,0 +1,11 @@
+brand_id_xml,brand_name,categ_id_xml,name,code,series_name,catalog_status,active,sequence,equivalent_type,product_features,product_description,main_applications,special_applications,tds_content,msds_content,datasheet_content,variant_thickness,variant_adhesive_thickness,variant_color,variant_adhesive_type,variant_base_material,variant_thickness_std,variant_color_std,variant_adhesive_std,variant_base_material_std,variant_ref_price,variant_is_rohs,variant_is_reach,variant_is_halogen_free,variant_fire_rating
+brand_tesa,Tesa,category_foam,Tesa EVA 示例,EVA-001,EVA系列,published,1,10,,柔软缓冲材料,适用于需要缓冲与密封的模切辅料。,"<p>消费电子缓冲垫片</p><p>壳体密封与减震</p>",,,,0.5mm,,黑色,丙烯酸,EVA,500μm,黑色,丙烯酸,EVA,0,1,1,0,none
+brand_tesa,Tesa,category_metal_foil,导电铜箔 示例,CF-001,导电系列,published,1,20,,导电屏蔽材料,适用于EMI屏蔽和接地导通场景。,"<p>FPC/模组接地</p><p>EMI 屏蔽贴合</p>",,,,0.08mm,,铜色,导电胶,铜箔,80μm,铜色,导电胶,铜箔,0,1,1,0,none
+brand_tesa,Tesa,category_tape_pet_single,PET 单面胶 示例,PETS-001,PET单面系列,published,1,30,,薄膜单面胶带,适用于轻量固定和标签贴合。,"<p>铭牌与标签固定</p><p>电子辅料贴合</p>",,,,0.06mm,,透明,改性丙烯酸,PET薄膜,60μm,透明,改性丙烯酸,PET薄膜,0,1,1,0,none
+brand_tesa,Tesa,category_tape_pet_double,PET 双面胶 示例,PETD-001,PET双面系列,published,1,40,,薄膜双面胶带,适用于双面粘接和模组装配。,"<p>泡棉与铭牌贴合</p><p>模组结构粘接</p>",,,,0.12mm,,透明,丙烯酸,PET薄膜,120μm,透明,丙烯酸,PET薄膜,0,1,1,0,none
+brand_tesa,Tesa,category_tape_insulation,绝缘胶带 示例,INS-001,绝缘系列,published,1,50,,电气绝缘材料,适用于耐温绝缘和电池包扎。,"<p>线束绝缘包扎</p><p>电池绝缘防护</p>",,,,0.05mm,,琥珀色,硅胶,PI薄膜,50μm,琥珀色,硅胶,PI薄膜,0,1,1,1,ul94_v0
+brand_tesa,Tesa,category_graphite,导热石墨 示例,GR-001,导热系列,published,1,60,,石墨散热材料,适用于热点均温和薄型散热。,"<p>手机/平板均温散热</p><p>模组热点扩散</p>",,,,0.025mm,,黑灰色,,石墨膜,25μm,黑灰色,,石墨膜,0,1,1,1,none
+brand_tesa,Tesa,category_release_film,离型膜 示例,REL-001,离型膜系列,published,1,70,,涂硅离型材料,适用于胶带复合和模切保护。,"<p>胶带模切离型</p><p>复合工艺承载保护</p>",,,,0.05mm,,蓝色,,PET离型膜,50μm,蓝色,,PET离型膜,0,1,1,0,none
+brand_tesa,Tesa,category_protection_film,保护膜 示例,PRO-001,保护膜系列,published,1,80,,表面保护材料,适用于制程中表面防刮与短期保护。,"<p>玻璃面板表面保护</p><p>喷涂件制程防护</p>",,,,0.06mm,,透明,亚克力胶,PE保护膜,60μm,透明,亚克力胶,PE保护膜,0,1,1,0,none
+brand_tesa,Tesa,category_conductive_cloth,导电布 示例,CC-001,导电布系列,published,1,90,,柔性屏蔽材料,适用于柔性接地和导电屏蔽。,"<p>机壳接地导通</p><p>缝隙屏蔽补强</p>",,,,0.12mm,,银灰色,单面导电胶,导电布,120μm,银灰色,单面导电胶,导电布,0,1,1,0,none
+brand_tesa,Tesa,category_paper,绝缘纸 示例,PAP-001,绝缘纸系列,published,1,100,,纸类绝缘材料,适用于高温绝缘隔离。,"<p>电机槽间绝缘</p><p>变压器绝缘垫片</p>",,,,0.20mm,,本色,,Nomex绝缘纸,200μm,本色,,Nomex绝缘纸,0,1,1,1,ul94_v0
