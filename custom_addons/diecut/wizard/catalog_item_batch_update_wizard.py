@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 import json
 
@@ -50,16 +50,16 @@ class CatalogItemBatchUpdateWizard(models.TransientModel):
             "main_applications",
             "special_applications",
             "catalog_status",
-            "variant_thickness",
-            "variant_adhesive_thickness",
-            "variant_color",
-            "variant_adhesive_type",
-            "variant_base_material",
-            "variant_ref_price",
-            "variant_is_rohs",
-            "variant_is_reach",
-            "variant_is_halogen_free",
-            "variant_fire_rating",
+            "thickness",
+            "adhesive_thickness",
+            "color_id",
+            "adhesive_type_id",
+            "base_material_id",
+            "ref_price",
+            "is_rohs",
+            "is_reach",
+            "is_halogen_free",
+            "fire_rating",
         ]
 
     @api.model
@@ -135,18 +135,19 @@ class CatalogItemBatchUpdateWizard(models.TransientModel):
         compatible_records = self.env["diecut.catalog.item"]
         incompatible_records = self.env["diecut.catalog.item"]
         for record in records:
-            chain_ids = set(record._get_category_chain_ids(target_categ.id))
-            bad_lines = record.spec_line_ids.filtered(lambda line: line.spec_def_id.categ_id.id not in chain_ids)
+            allowed_map = record._get_effective_category_param_map(target_categ.id)
+            bad_lines = record.spec_line_ids.filtered(lambda line: line.param_id.id not in allowed_map)
             if bad_lines:
                 incompatible_records |= record
                 for line in bad_lines:
+                    category_param = line.category_param_id
                     incompatible.append(
                         {
                             "item_id": record.id,
                             "item_code": record.code or record.name,
-                            "param_name": line.param_name or line.spec_def_id.name,
-                            "param_key": line.param_key or line.spec_def_id.param_key,
-                            "spec_def_categ": line.spec_def_id.categ_id.display_name,
+                            "param_name": line.param_name or line.param_id.name,
+                            "param_key": line.param_key or line.param_id.param_key,
+                            "spec_def_categ": category_param.categ_id.display_name if category_param else "未知来源",
                         }
                     )
             else:
@@ -366,6 +367,9 @@ class CatalogItemBatchUpdateLine(models.TransientModel):
     value_float = fields.Char(string="数值")
     value_categ_id = fields.Many2one("product.category", string="产品分类")
     value_series_id = fields.Many2one("diecut.catalog.series", string="系列")
+    value_color_id = fields.Many2one("diecut.color", string="颜色")
+    value_adhesive_type_id = fields.Many2one("diecut.catalog.adhesive.type", string="胶系")
+    value_base_material_id = fields.Many2one("diecut.catalog.base.material", string="基材")
     value_boolean = fields.Selection(
         [("true", "是"), ("false", "否")],
         string="布尔值",
@@ -413,6 +417,9 @@ class CatalogItemBatchUpdateLine(models.TransientModel):
             line.value_float = False
             line.value_categ_id = False
             line.value_series_id = False
+            line.value_color_id = False
+            line.value_adhesive_type_id = False
+            line.value_base_material_id = False
             line.value_boolean = False
             line.value_selection = False
 
@@ -469,6 +476,18 @@ class CatalogItemBatchUpdateLine(models.TransientModel):
                 if not self.value_series_id:
                     return field_name, False, False
                 return field_name, True, self.value_series_id.id
+            if field_name == "color_id":
+                if not self.value_color_id:
+                    return field_name, False, False
+                return field_name, True, self.value_color_id.id
+            if field_name == "adhesive_type_id":
+                if not self.value_adhesive_type_id:
+                    return field_name, False, False
+                return field_name, True, self.value_adhesive_type_id.id
+            if field_name == "base_material_id":
+                if not self.value_base_material_id:
+                    return field_name, False, False
+                return field_name, True, self.value_base_material_id.id
             raise ValidationError(f"字段 {field_meta['label']} 暂不支持当前关联类型批量修改。")
 
         raise ValidationError(f"暂不支持的字段类型：{field_type}")

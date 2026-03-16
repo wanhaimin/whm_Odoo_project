@@ -15,6 +15,7 @@ class DiecutCatalogSeries(models.Model):
     brand_id = fields.Many2one("diecut.brand", string="品牌", required=True, index=True)
     active = fields.Boolean(string="启用", default=True)
     sequence = fields.Integer(string="排序", default=10)
+    linked_item_count = fields.Integer(string="目录条目数", readonly=True, default=0)
 
     product_features = fields.Text(string="产品特点模板")
     product_description = fields.Text(string="产品描述模板")
@@ -23,6 +24,37 @@ class DiecutCatalogSeries(models.Model):
     _sql_constraints = [
         ("diecut_catalog_series_brand_name_uniq", "unique(brand_id, name)", "同一品牌下系列名称不能重复。"),
     ]
+
+    def _refresh_usage_counts(self):
+        if not self:
+            return
+        self.env.cr.execute(
+            """
+            UPDATE diecut_catalog_series
+               SET linked_item_count = 0
+             WHERE id = ANY(%s)
+            """,
+            (list(self.ids),),
+        )
+        self.env.cr.execute(
+            """
+            UPDATE diecut_catalog_series series
+               SET linked_item_count = counts.cnt
+              FROM (
+                    SELECT series_id, COUNT(*) AS cnt
+                      FROM diecut_catalog_item
+                     WHERE series_id = ANY(%s)
+                     GROUP BY series_id
+                   ) counts
+             WHERE series.id = counts.series_id
+            """,
+            (list(self.ids),),
+        )
+
+    @api.model
+    def _refresh_all_usage_counts(self):
+        self.with_context(active_test=False).search([])._refresh_usage_counts()
+        return True
 
     def _sync_items_from_series(self, sync_name=False):
         item_model = self.env["diecut.catalog.item"].sudo()

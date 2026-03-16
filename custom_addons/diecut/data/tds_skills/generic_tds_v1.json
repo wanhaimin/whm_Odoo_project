@@ -1,0 +1,52 @@
+{
+  "task_instructions": [
+    "For any TDS, identify series, item codes, main searchable fields, long-tail spec values, method descriptions, structure images, and unmatched content.",
+    "Always return strict JSON with exactly six top-level buckets: series, items, params, category_params, spec_values, unmatched.",
+    "If content cannot be matched to an existing dictionary key with high confidence, send it to unmatched with a reason instead of guessing."
+  ],
+  "output_schema": {
+    "required_buckets": [
+      "series",
+      "items",
+      "params",
+      "category_params",
+      "spec_values",
+      "unmatched"
+    ],
+    "main_item_fields": [
+      "brand_name",
+      "series_name",
+      "code",
+      "name",
+      "thickness",
+      "thickness_std",
+      "color_name",
+      "adhesive_type_name",
+      "base_material_name"
+    ]
+  },
+  "field_mapping_guidance": [
+    "Series-level description, features, and applications belong in series.",
+    "Item matrix information belongs in items.",
+    "Measured technical metrics belong in spec_values.",
+    "Standard test explanations belong in params[].method_html."
+  ],
+  "table_patterns": [
+    "Item matrix tables usually combine code with thickness or color.",
+    "Performance tables are often grouped by condition, substrate, or environment."
+  ],
+  "method_patterns": [
+    "Testing",
+    "Typical Results",
+    "Test Method",
+    "Procedure"
+  ],
+  "negative_rules": [
+    "Do not map legal disclaimers into business data.",
+    "Do not map generic marketing slogans into parameter values."
+  ],
+  "few_shot_examples": [
+    "Pluck Testing should become a method card plus related parameter values, not a main item field.",
+    "Static Shear at 70C usually becomes spec_values with conditions and units."
+  ]
+}

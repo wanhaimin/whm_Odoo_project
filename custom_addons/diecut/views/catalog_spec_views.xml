@@ -1,16 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_diecut_catalog_param_tree" model="ir.ui.view">
+        <field name="name">diecut.catalog.param.tree</field>
+        <field name="model">diecut.catalog.param</field>
+        <field name="arch" type="xml">
+            <list string="参数字典" default_order="sequence, id">
+                <field name="sequence" optional="hide"/>
+                <field name="name"/>
+                <field name="param_key"/>
+                <field name="spec_category_id" optional="show"/>
+                <field name="value_type"/>
+                <field name="preferred_unit" optional="show"/>
+                <field name="is_main_field" optional="show"/>
+                <field name="main_field_name" optional="show"/>
+                <field name="description" optional="hide"/>
+                <field name="category_config_count" optional="show"/>
+                <field name="line_count" optional="show"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_param_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.param.form</field>
+        <field name="model">diecut.catalog.param</field>
+        <field name="arch" type="xml">
+            <form string="参数字典">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="param_key"/>
+                            <field name="spec_category_id"/>
+                            <field name="value_type"/>
+                            <field name="description" placeholder="填写该参数的业务含义、口径或维护说明"/>
+                            <field name="parse_hint" placeholder="填写给 AI/TDS 映射使用的解析提示"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="canonical_name_zh"/>
+                            <field name="canonical_name_en"/>
+                            <field name="category_config_count" readonly="1"/>
+                            <field name="line_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="AI/TDS 标准化">
+                        <group>
+                            <field name="aliases_text" placeholder="同义词、缩写、英文别名，建议按换行维护"/>
+                            <field name="unit"/>
+                            <field name="preferred_unit"/>
+                            <field name="common_units"/>
+                        </group>
+                        <group>
+                            <field name="is_main_field"/>
+                            <field name="main_field_name" invisible="not is_main_field"/>
+                            <field name="selection_options" invisible="value_type != 'selection'" placeholder="枚举类型可按英文逗号或换行维护选项"/>
+                        </group>
+                    </group>
+                    <group string="标准测试方法">
+                        <field name="method_html" nolabel="1" widget="html" placeholder="可维护标准测试方法、图例说明、判读口径和引用条件。"/>
+                        <group>
+                            <field name="method_image" widget="image" filename="method_image_filename" options="{'size': [0, 800]}"/>
+                            <field name="method_image_filename" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_param_search" model="ir.ui.view">
+        <field name="name">diecut.catalog.param.search</field>
+        <field name="model">diecut.catalog.param</field>
+        <field name="arch" type="xml">
+            <search string="参数字典搜索">
+                <field name="name"/>
+                <field name="param_key"/>
+                <field name="spec_category_id"/>
+                <field name="description"/>
+                <field name="canonical_name_en"/>
+                <filter name="filter_active" string="启用" domain="[('active', '=', True)]"/>
+                <filter name="filter_main" string="主字段" domain="[('is_main_field', '=', True)]"/>
+                <separator/>
+                <filter name="group_type" string="按值类型分组" context="{'group_by': 'value_type'}"/>
+                <filter name="group_spec_category" string="按参数分类分组" context="{'group_by': 'spec_category_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_catalog_param" model="ir.actions.act_window">
+        <field name="name">参数字典</field>
+        <field name="res_model">diecut.catalog.param</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_catalog_param_search"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_diecut_catalog_param_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_diecut_catalog_param_form')})]"/>
+    </record>
+
     <record id="view_diecut_catalog_spec_def_tree" model="ir.ui.view">
         <field name="name">diecut.catalog.spec.def.tree</field>
         <field name="model">diecut.catalog.spec.def</field>
         <field name="arch" type="xml">
-            <list string="技术参数模板" default_order="categ_id, sequence, id">
+            <list string="分类参数配置" default_order="categ_id, sequence, id">
                 <field name="sequence" optional="hide"/>
                 <field name="categ_id"/>
-                <field name="name"/>
-                <field name="param_key"/>
-                <field name="value_type"/>
+                <field name="param_id"/>
+                <field name="param_key" optional="show"/>
+                <field name="description" optional="show"/>
+                <field name="value_type" optional="show"/>
                 <field name="unit"/>
+                <field name="unit_override" optional="show"/>
                 <field name="required"/>
                 <field name="show_in_form"/>
                 <field name="allow_import"/>
@@ -24,30 +125,35 @@
         <field name="name">diecut.catalog.spec.def.form</field>
         <field name="model">diecut.catalog.spec.def</field>
         <field name="arch" type="xml">
-            <form string="技术参数模板">
+            <form string="分类参数配置">
                 <sheet>
                     <group>
                         <group>
                             <field name="categ_id"/>
-                            <field name="name"/>
-                            <field name="param_key"/>
-                            <field name="value_type"/>
+                            <field name="param_id"/>
+                            <field name="param_key" readonly="1"/>
+                            <field name="description" readonly="1" placeholder="引用参数字典中的说明"/>
+                            <field name="method_html" nolabel="1" widget="html" readonly="1"/>
+                            <field name="method_image" widget="image" filename="method_image_filename" options="{'size': [0, 800]}" readonly="1"/>
+                            <field name="method_image_filename" invisible="1"/>
+                            <field name="value_type" readonly="1"/>
                         </group>
                         <group>
                             <field name="sequence"/>
-                            <field name="unit"/>
-                            <field name="required"/>
-                            <field name="active"/>
+                            <field name="unit" readonly="1"/>
+                            <field name="unit_override"/>
+                            <field name="line_count" readonly="1"/>
                         </group>
                     </group>
                     <group>
                         <group>
+                            <field name="required"/>
+                            <field name="active"/>
                             <field name="show_in_form"/>
                             <field name="allow_import"/>
-                            <field name="line_count" readonly="1"/>
                         </group>
                         <group>
-                            <field name="selection_options" placeholder="selection 类型可按逗号或换行填写选项"/>
+                            <field name="selection_options" readonly="1" invisible="value_type != 'selection'"/>
                         </group>
                     </group>
                 </sheet>
@@ -59,22 +165,24 @@
         <field name="name">diecut.catalog.spec.def.search</field>
         <field name="model">diecut.catalog.spec.def</field>
         <field name="arch" type="xml">
-            <search string="技术参数模板搜索">
-                <field name="name"/>
+            <search string="分类参数配置搜索">
+                <field name="param_id"/>
                 <field name="param_key"/>
+                <field name="description"/>
                 <field name="categ_id"/>
                 <field name="value_type"/>
                 <filter name="filter_active" string="启用" domain="[('active', '=', True)]"/>
                 <filter name="filter_required" string="必填" domain="[('required', '=', True)]"/>
                 <separator/>
                 <filter name="group_categ" string="按分类分组" context="{'group_by': 'categ_id'}"/>
+                <filter name="group_param" string="按参数分组" context="{'group_by': 'param_id'}"/>
                 <filter name="group_type" string="按值类型分组" context="{'group_by': 'value_type'}"/>
             </search>
         </field>
     </record>
 
     <record id="action_diecut_catalog_spec_def" model="ir.actions.act_window">
-        <field name="name">技术参数模板</field>
+        <field name="name">分类参数配置</field>
         <field name="res_model">diecut.catalog.spec.def</field>
         <field name="view_mode">list,form</field>
         <field name="context">{'search_default_group_categ': 1, 'create': True}</field>

@@ -1,0 +1,43 @@
+{
+  "task_instructions": [
+    "Use die-cut and electronic auxiliary material terminology when interpreting the TDS.",
+    "Treat thickness, adhesive thickness, color, adhesive type, and base material as high-frequency main fields when they are explicitly present.",
+    "Treat peel, shear, torque, pluck, liner options, shelf life, and method sections as parameter or method-card content unless routing says otherwise."
+  ],
+  "field_mapping_guidance": [
+    "Main searchable fields should route to item core fields whenever the dictionary marks them as main fields.",
+    "Conditioned or chart-based performance metrics should go to spec_values, not to the main table.",
+    "Liner, storage, and shelf-life content may become parameter values or series notes depending on specificity."
+  ],
+  "param_aliases": {
+    "thickness": ["total thickness", "overall thickness", "厚度"],
+    "adhesive_type": ["adhesive", "pressure sensitive adhesive", "acrylic adhesive", "胶系"],
+    "base_material": ["foam core", "carrier", "backing", "基材"],
+    "pluck_testing": ["pluck testing", "pluck adhesion"],
+    "torque_testing": ["torque testing", "twist resistance"],
+    "static_shear_70c": ["static shear", "70c static shear", "shear holding"]
+  },
+  "brand_or_domain_conventions": [
+    "Die-cut material documents often mix method explanation and values on the same page; split them into method cards plus parameter values.",
+    "Double-sided tapes and foam tapes often share series-level conclusions, but the draft should preserve that these are inferred as series-wide."
+  ],
+  "table_patterns": [
+    "Thickness matrix rows are usually ordered by item code.",
+    "Performance tables may be grouped by substrate such as Painted Panel, PVC, or SUS."
+  ],
+  "method_patterns": [
+    "Peel Adhesion",
+    "Shear Strength",
+    "Static Shear",
+    "Torque Testing",
+    "Pluck Testing"
+  ],
+  "negative_rules": [
+    "Do not mistake chart legend colors for actual product color.",
+    "Do not treat Typical Results as guaranteed specification limits."
+  ],
+  "few_shot_examples": [
+    "180 Peel Adhesion to Painted Panel belongs to adhesion performance values, not a main field.",
+    "Liner Options SC2 or PET are liner configuration parameters or series notes."
+  ]
+}

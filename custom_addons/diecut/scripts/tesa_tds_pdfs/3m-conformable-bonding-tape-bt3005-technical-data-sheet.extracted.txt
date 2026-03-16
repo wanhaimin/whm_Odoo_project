@@ -1,0 +1,237 @@
+FILE: 3m-conformable-bonding-tape-bt3005-technical-data-sheet.pdf
+PAGES: 3
+
+===== PAGE 1 =====
+December 2025 
+Supersedes version dated February 2020 
+3M™ Conformable Bonding Tape BT3005 
+Technical Data Sheet 
+General Description 
+3M™ Conformable Bonding Tape BT3005 offers very good adhesion performance and high 
+flexibility. This tape is specially designed for rough or highly irregular surfaces, providing strong 
+adhesion for applications such as automotive wire harness assembly, and offering excellent 
+conformability for sealing applications. 3M Conformable Bonding Tape offers a reduction in 
+VOCs (Volatile Organic Compounds) compared to conventional products. 
+3M Conformable Bonding Tapes BT3005 offer the following key features: 
+ Excellent initial adhesion and static performance on uneven substrates 
+ Highly conformable tape for sealing and bonding to rough or irregular surfaces 
+ Demonstrates good visibility due to its light blue color 
+ Excellent adhesion performance with weather resistance, heat resistance, and chemical 
+resistance 
+ Can be applied to various substrates used for automotive parts without special surface treatment * 
+Typical applications for 3M Conformable Bonding Tapes BT3005 include sealing or bonding support for various interior 
+or exterior part attachments and fixing wire harnesses to the headliner. 
+*Note: Depending on the material (e.g., EPDM rubber), 3M™ Adhesion Promoter may be required. Please check before 
+use. 
+Product Construction 
+Physical Properties 
+Property BT3005 
+Thickness* 0.5 mm 
+Color Light blue 
+Liner Paper 
+Adhesive Acrylic pressure sensitive adhesive 
+*Liner thickness is not included 
+Performance Properties 
+3M  understands that development of automotive applications is typically driven by specification requirements and 
+performance. Each OEM has their own unique criteria, and 3M continues to develop products to meet those demands. 
+Test reports are available upon request. Please contact your 3M application engineer for support and to obtain specific 
+test data. 
+Typical performance of 3M Conformable Bonding Tapes (CBT) BT3005 is shown below. Peel and shear values depend 
+on substrate characteristics and/or paint composition. These values are for reference only, and not to be used for 
+specification purposes. For specification values please see the certificate of analysis. 
+3NI 
+Science. 
+Applied to Life.™ 
+Paper liner 
+Acrylic pressure sensitive adhesive
+Non-woven cloth
+Acrylic pressure sensitive adhesive
+_ _________________ _ 
+-­
+--
+--.__ _________________ __, 
+
+===== PAGE 2 =====
+ 
+          
+ 
+ 
+    
+  
+  
+    
+      
+       
+   
+  
+     
+  
+ 
+         
+   
+ 
+   
+       
+  
+ 
+ 
+2 
+Technical Data Sheet 
+3M™  Conformable Bonding Tape  BT3005  
+Conditions/Test Parameter Definitions:  
+• Immediate: 23 deg. C x 5 min. 
+• Initial State = 23°C, 20 mins 
+• Normal State = 23°C, 24 hours 
+• High Temperature = 23°C, 24 hours -> 80°C 
+• Heat-aging = 23°C, 24 hours -> 80°C, 336 hours -> 23°C, 24 hours 
+• Humidity-aging = 23°C, 24 hours -> 50°C 95%Rh, 336h -> 23°C, 24 hours 
+180° Peel Adhesion  Non -Liner Side Adhesive to  Headliner,  Painted Panel and Polypropylene (PP) Substrate  
+Tape Size: 10 mm width; Tape backing:  50  μm PET film; Rolling  Pressure: 2 kg  roller  one- way; Peel Speed: 50 
+mm/min.  
+Substrate  Conditions/Test Parameters  
+Immediate  2.8  
+Initial state  3.5  
+Headliner A  
+(Non-woven cloth surface)  
+Normal state  3.5  
+At high temperature  1.4  
+Heat aging  4.1  
+Humidity aging  4.1  
+Immediate  3.9  
+Initial state  4.6  
+Headliner A  
+(Non-woven cloth surface)  
+Normal state  5.1  
+At high temperature  2.6  
+Heat aging  12.6  
+Humidity aging  9.7  
+Immediate  8.2  
+Painted Panel  
+(white colored  painted panel used on 
+vehicle)  
+Initial state  10.9  
+Normal state  11.2  
+At high temperature  5.8  
+Heat aging  14.2  
+Humidity aging  13.9  
+Immediate  6.6  
+Initial state  7.1  
+Polypropylene  Normal state  7  
+At high temperature  1.5  
+Heat aging  6.3  
+Humidity aging  7.8  
+BT3005  Typical Performance Value  
+(N/cm)  
+Note: The adhesive performance on liner side is lower than these values. Underline: headlining surface cloth break . 
+Shelf Life 
+Three years (36 months) from date of manufacture when stored at recommended storage condition 23°C and 50% 
+relative humidity. 
+Regulatory Information 
+The product is published as a material entry and is available for access on www.mdsystem.com. For product IMDS I.D. 
+number, email requests to 3M-IMDSrequest@mmm.com. 
+Contact Information 
+The information provided in this technical document is intended as a guide for this product. For more information or 
+help in selecting a 3M product for an application, please contact your 3M application engineering representative or 
+connect with a 3M expert. 
+
+===== PAGE 3 =====
+/to/ 
+ 
+             
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+  
+    
+  
+    
+    
+      
+   
+    
+      
+    
+     
+    
+      
+   
+         
+          
+      
+      
+   
+3 
+Technical Data Sheet 
+3M™ Conformable Bonding Tape BT3005 
+Technical Information: The technical information, guidance, and other statements contained in this document or otherwise provided by 3M are 
+based upon records, tests, or experience that 3M believes to be reliable, but the accuracy, completeness, and representative nature of such 
+information is not guaranteed. Such information is intended for people with knowledge and technical skills sufficient to assess and apply their 
+own informed judgment to the information. No license under any 3M or third party intellectual property rights is granted or implied with this 
+information. Product Selection and Use: Many factors beyond 3M’s control and uniquely within user’s knowledge and control can affect the use 
+and performance of a 3M product in a particular application. As a result, customer is solely responsible for evaluating the product and 
+determining whether it is appropriate and suitable for customer’s application, including conducting a workplace hazard assessment and reviewing 
+all applicable regulations and standards (
+e.g., OSHA, ANSI, etc.). Failure to properly evaluate, select, and use a 3M product and appropriate 
+safety products, or to meet all applicable safety regulations, may result in injury, sickness, death, and/or harm to property. Warranty, Limited 
+Remedy, and Disclaimer: Unless a different warranty is specifically stated on the applicable 3M product packaging or product literature (in which 
+case such warranty governs), 3M warrants that each 3M product meets the applicable 3M product specification at the time 3M ships the 
+product. 3M MAKES NO OTHER WARRANTIES OR CONDITIONS, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, ANY IMPLIED 
+WARRANTY OR CONDITION OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR ARISING OUT OF A COURSE OF 
+DEALING, CUSTOM, OR USAGE OF TRADE. If a 3M product does not conform to this warranty, then the sole and exclusive remedy is, at 3M’s 
+option, replacement of the 3M product or refund of the purchase price. Limitation of Liability: Except for the limited remedy stated above, and 
+except to the extent prohibited by law, 3M will not be liable for any loss or damage arising from or related to the 3M product, whether direct, 
+indirect, special, incidental, or consequential (including, but not limited to, lost profits or business opportunity), regardless of the legal or equitable 
+theory asserted, including, but not limited to, warranty, contract, negligence, or strict liability. 
+Automotive and Aerospace  
+Solutions Division  
+3M  Center, 223-3S-33  
+St. Paul, MN 55144-1000  
+Phone 1-800-328-1684  
+Web    
+www.3M.com/autosolutions  
+3M  Japan Limited  
+6-7-29, Kitashinagawa,   
+Shinagawa-ku, Tokyo  
+141-8684 | Japan  
+Web:  www.mmm.co.jp/auto 3M is a trademark of 3M Company. © 3M 2025.  All rights reserved.  

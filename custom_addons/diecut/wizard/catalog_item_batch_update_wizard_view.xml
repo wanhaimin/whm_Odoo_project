@@ -25,6 +25,9 @@
                                 <field name="value_float" invisible="field_type != 'float'"/>
                                 <field name="value_categ_id" invisible="field_name != 'categ_id'"/>
                                 <field name="value_series_id" invisible="field_name != 'series_id'"/>
+                                <field name="value_color_id" invisible="field_name != 'color_id'"/>
+                                <field name="value_adhesive_type_id" invisible="field_name != 'adhesive_type_id'"/>
+                                <field name="value_base_material_id" invisible="field_name != 'base_material_id'"/>
                                 <field name="value_boolean" invisible="field_type != 'boolean'"/>
                                 <field name="value_selection" invisible="field_type != 'selection'"/>
                             </list>
@@ -37,6 +40,9 @@
                                     <field name="value_float" invisible="field_type != 'float'"/>
                                     <field name="value_categ_id" invisible="field_name != 'categ_id'"/>
                                     <field name="value_series_id" invisible="field_name != 'series_id'"/>
+                                    <field name="value_color_id" invisible="field_name != 'color_id'"/>
+                                    <field name="value_adhesive_type_id" invisible="field_name != 'adhesive_type_id'"/>
+                                    <field name="value_base_material_id" invisible="field_name != 'base_material_id'"/>
                                     <field name="value_boolean" invisible="field_type != 'boolean'"/>
                                     <field name="value_selection" invisible="field_type != 'selection'"/>
                                 </group>

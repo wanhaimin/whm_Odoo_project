@@ -1,283 +1,325 @@
-﻿brand_id_xml,brand_name,categ_id_xml,name,code,series_text,catalog_status,active,sequence,equivalent_type,product_features,product_description,main_applications,tds_content,msds_content,datasheet_content,variant_thickness,variant_adhesive_thickness,variant_color,variant_adhesive_type,variant_base_material,variant_thickness_std,variant_color_std,variant_adhesive_std,variant_base_material_std,variant_ref_price,variant_is_rohs,variant_is_reach,variant_is_halogen_free,variant_fire_rating
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS611,DS611,棉纸双面胶带,published,1,10,3M9075、德莎60975,,,,,,,0.12,,,,不织布,120μm,,,棉纸双面胶带；0.12,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS611PN,DS611PN,棉纸双面胶带,published,1,10,,,,,,,,0.12,,,,不织布,120μm,,,棉纸双面胶带；0.12,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS612,DS612,棉纸双面胶带,published,1,10,3M9448、SONY T4000、日东5015,,,,,,,0.14,,,,不织布,140μm,,,棉纸双面胶带；0.14,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS612PN,DS612PN,棉纸双面胶带,published,1,10,积水5760,,,,,,,0.14,,,,不织布,140μm,,,棉纸双面胶带；0.14,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS613,DS613,棉纸双面胶带,published,1,10,3M9080、日东500、 TESA60980、日东GA808,,,,,,,0.16,,,,不织布,160μm,,,棉纸双面胶带；0.16,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS613PN,DS613PN,棉纸双面胶带,published,1,10,,,,,,,,0.16,,,,不织布,160μm,,,棉纸双面胶带；0.16,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS601,DS601,棉纸双面胶带,published,1,10,我司创新产品,,,,,,,0.14,,,,不织布,140μm,,,棉纸双面胶带；0.14,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS602,DS602,棉纸双面胶带,published,1,10,我司创新产品,,,,,,,0.11,,,,不织布,110μm,,,棉纸双面胶带；0.11/0.13,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS603,DS603,棉纸双面胶带,published,1,10,力王D500C,,,,,,,0.14,,,,不织布,140μm,,,棉纸双面胶带；0.14/0.16,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS510,DS510,棉纸双面胶带,published,1,10,TESA60933、TESA60975,,,,,,,0.1,,,,不织布,100μm,,,棉纸双面胶带；0.1,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS511,DS511,棉纸双面胶带,published,1,10,日东5216A、3M9075、德莎60975,,,,,,,0.12,,,,不织布,120μm,,,棉纸双面胶带；0.12,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS511PN,DS511PN,棉纸双面胶带,published,1,10,,,,,,,,0.12,,,,不织布,120μm,,,棉纸双面胶带；0.12,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS512,DS512,棉纸双面胶带,published,1,10,"德莎68646、3M9448 3M9888T SONYG9000,3M9448A",,,,,,,0.14,,,,不织布,140μm,,,棉纸双面胶带；0.14,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS512PN,DS512PN,棉纸双面胶带,published,1,10,,,,,,,,0.14,,,,不织布,140μm,,,棉纸双面胶带；0.14,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS513,DS513,棉纸双面胶带,published,1,10,日东500、3M9448,,,,,,,0.16,,,,不织布,160μm,,,棉纸双面胶带；0.16,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS513PN,DS513PN,棉纸双面胶带,published,1,10,,,,,,,,0.16,,,,不织布,160μm,,,棉纸双面胶带；0.16,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS767,DS767,DS767,published,1,10,,,,,,,,0.05,,,,,767μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS767G,DS767G,无基材；0.05,published,1,10,,,,,,,,0.05,,,,无基材；0.05,50μm,,,无基材；0.05,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS768,DS768,DS768,published,1,10,,,,,,,,0.13,,,,,768μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS768G,DS768G,无基材；0.13,published,1,10,,,,,,,,0.13,,,,无基材；0.13,130μm,,,无基材；0.13,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS6200,DS6200,棉纸双面胶带,published,1,10,DIC#8810SA-200S，日东5100,,,,,,,0.2,,,,不织布,200μm,,,棉纸双面胶带；0.2,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS6300,DS6300,棉纸双面胶带,published,1,10,日东507,,,,,,,0.3,,,,不织布,300μm,,,棉纸双面胶带；0.3,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS6400,DS6400,棉纸双面胶带,published,1,10,我司创新产品,,,,,,,0.4,,,,不织布,400μm,,,棉纸双面胶带；0.4,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7967,7967,透明PET双面胶带；0.16（白、棕色格拉辛离型纸）,published,1,10,TESA4967、3M9500、3M9795,,,,,,,0.16,,,,透明PET双面胶带,160μm,,,棉纸双面胶带；0.16,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS742,DS742,棉纸双面胶带,published,1,10,力王D5550,,,,,,,0.05,,,,不织布,50μm,,,棉纸双面胶带；0.05,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7983,7983,透明PET双面胶带；0.03（白、棕色格拉辛离型纸）,published,1,10,TESA4983、3M9009、日东5603,,,,,,,0.03,,,,透明PET双面胶带,30μm,,,透明PET双面胶带；0.03,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7972,7972,透明PET双面胶带；0.05（白、棕色格拉辛离型纸）,published,1,10,TESA4972、3M9019、日东5605,,,,,,,0.05,,,,透明PET双面胶带,50μm,,,透明PET双面胶带；0.05,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7980,7980,透明PET双面胶带；0.08（白、棕色格拉辛离型纸）,published,1,10,TESA4980、日东5608,,,,,,,0.08,,,,透明PET双面胶带,80μm,,,透明PET双面胶带；0.08,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7982,7982,透明PET双面胶带；0.1（白、棕色格拉辛离型纸）,published,1,10,TESA4982、日东5610,,,,,,,0.1,,,,透明PET双面胶带,100μm,,,透明PET双面胶带；0.1,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7928,7928,透明PET双面胶带；0.125（白、棕色格拉辛离型纸）,published,1,10,"TESA4928、3M9495MP、日东5612,3M9795Le",,,,,,,0.125,,,,透明PET双面胶带,125μm,,,透明PET双面胶带；0.125,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7965,7965,透明PET双面胶带；0.205（浅红色OPP离型膜）,published,1,10,TESA4965,,,,,,,0.205,,,,透明PET双面胶带,205μm,,,透明PET双面胶带；0.205,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA4965,TESA4965,在高温和低温下都有良好的粘接力，对非极性材料有很高的粘接强度，适用于手机视窗/镜头、电池仓的固定；数码相机镜盖、橡胶片、内存卡的固定。,published,1,10,,,,,,,,0.225,,,,白色PVC双面胶带,225μm,,,白色PVC双面胶带,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7970,7970,白色PVC双面胶带；0.225/0.245（白、棕色格拉辛离型纸）,published,1,10,TESA4970,,,,,,,0.225,,,,白色PVC双面胶带,225μm,,,白色PVC双面胶带；0.225/0.245,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA4970,TESA4970,适用于家具行业中模具及装饰件的固定及电子行业中负重部件的固定。,published,1,10,,,,,,,,0.3,,,,白色PVC双面胶带,300μm,,,白色PVC双面胶带,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7968,7968,白色PVC双面胶带；0.3/0.325（白、棕色格拉辛离型纸）,published,1,10,TESA4968,,,,,,,0.3,,,,白色PVC双面胶带,300μm,,,白色PVC双面胶带；0.3/0.325,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA4968,TESA4968,对粗糙的表面有良好的粘接力，适用于模具、装饰件的自粘。,published,1,10,,,,,,,,0.08,,,,???,80μm,,,??PET????????,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7980BH,7980BH,透明PET双面胶带（黑色）；0.08（白、棕色格拉辛离型纸）,published,1,10,TESA4980黑胶，日东5608B,,,,,,,0.08,,,,透明PET双面胶带（黑色）,80μm,,,透明PET双面胶带（黑色）；0.08,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7982BH,7982BH,透明PET双面胶带（黑色）；0.1（白、棕色格拉辛离型纸）,published,1,10,TESA4982黑胶，日东5610B,,,,,,,0.1,,,,透明PET双面胶带（黑色）,100μm,,,透明PET双面胶带（黑色）；0.1,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7982P,7982P,透明PP双面胶带；0.1（白、棕色格拉辛离型纸）,published,1,10,TESA4982（PP基材）,,,,,,,0.1,,,,透明PP双面胶带,100μm,,,透明PP双面胶带；0.1,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS15BH #160,DS15BH,棉纸双面胶带（黑色）；0.12、0.14、0.16,published,1,10,3M9448B、SONY T-4000B,,,,,,,0.16,,,,不织布,120μm,,,不织布,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,CF5060,CF5060,排废保护膜；0.06,published,1,10,我司创新产品,,,,,,,0.06,,,,排废保护膜,60μm,,,排废保护膜；0.06,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,CF775080DT,CF775080DT,黑色PET基材遮光胶带（夹心）；0.08,published,1,10,我司创新产品,,,,,,,0.08,,,,黑色PET基材遮光胶带（夹心）,80μm,,,黑色PET基材遮光胶带（夹心）；0.08,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6025,DS31-6025,PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.125,,,,PET,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,6025DT,6025DT,PET双面胶带,published,1,10,,,,,,,,0.125,,,,PET,125μm,,,PET,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6050,DS31-6050,PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.15,,,,PET,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,6050DT,6050DT,PET双面胶带,published,1,10,,,,,,,,0.15,,,,PET,150μm,,,PET,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6075,DS31-6075,PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.175,,,,PET,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,6075DT,6075DT,PET双面胶带,published,1,10,,,,,,,,0.175,,,,PET,175μm,,,PET,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6100,DS31-6100,PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.2,,,,PET,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,6100DT,6100DT,PET双面胶带,published,1,10,,,,,,,,0.2 mm,,,,PET,200μm,,,PET,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6125,DS31-6125,PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.225,,,,PET,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,6125DT,6125DT,PET双面胶带,published,1,10,,,,,,,,0.225,,,,PET,225μm,,,PET,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6175,DS31-6175,PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.275,,,,PET,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,6175DT,6175DT,PET双面胶带,published,1,10,,,,,,,,0.275,,,,PET,275μm,,,PET,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6188,DS31-6188,PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.288,,,,PET,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,6188DT,6188DT,PET双面胶带,published,1,10,,,,,,,,0.288,,,,PET,288μm,,,PET,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7025,DS31-7025,PET双面胶带DS31-7#,published,1,10,,,,,,,,0.125,,,,,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7025DT,7025DT,PET双面胶带；0.125,published,1,10,,,,,,,,0.125,,,,PET双面胶带；0.125,125μm,,,PET双面胶带；0.125,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7050,DS31-7050,PET双面胶带DS31-7#,published,1,10,,,,,,,,0.15,,,,,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7075,DS31-7075,PET双面胶带DS31-7#,published,1,10,,,,,,,,0.175,,,,,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7075DT,7075DT,PET双面胶带；0.175,published,1,10,,,,,,,,0.175,,,,PET双面胶带；0.175,175μm,,,PET双面胶带；0.175,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7100,DS31-7100,PET双面胶带DS31-7#,published,1,10,,,,,,,,0.2,,,,,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7100DT,7100DT,PET双面胶带；0.2,published,1,10,,,,,,,,0.2,,,,PET双面胶带；0.2,200μm,,,PET双面胶带；0.2,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7125,DS31-7125,PET双面胶带DS31-7#,published,1,10,,,,,,,,0.225,,,,,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7125DT,7125DT,PET双面胶带；0.225,published,1,10,,,,,,,,0.225,,,,PET双面胶带；0.225,225μm,,,PET双面胶带；0.225,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7175,DS31-7175,PET双面胶带DS31-7#,published,1,10,,,,,,,,0.275,,,,,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7175DT,7175DT,PET双面胶带；0.275,published,1,10,,,,,,,,0.275,,,,PET双面胶带；0.275,275μm,,,PET双面胶带；0.275,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7188,DS31-7188,PET双面胶带DS31-7#,published,1,10,,,,,,,,0.288,,,,,31μm,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7188DT,7188DT,PET双面胶带；0.288,published,1,10,,,,,,,,0.288,,,,PET双面胶带；0.288,288μm,,,PET双面胶带；0.288,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7025ST,7025ST,PET单面胶带；0.75,published,1,10,,,,,,,,0.75,,,,PET单面胶带,750μm,,,PET单面胶带；0.75,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7050ST,7050ST,PET单面胶带；0.1,published,1,10,,,,,,,,0.1,,,,PET单面胶带,100μm,,,PET单面胶带；0.1,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7075ST,7075ST,PET单面胶带；0.125,published,1,10,,,,,,,,0.125,,,,PET单面胶带,125μm,,,PET单面胶带；0.125,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7100ST,7100ST,PET单面胶带；0.15,published,1,10,,,,,,,,0.15,,,,PET单面胶带,150μm,,,PET单面胶带；0.15,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7125ST,7125ST,PET单面胶带；0.175,published,1,10,,,,,,,,0.175,,,,PET单面胶带,175μm,,,PET单面胶带；0.175,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7175ST,7175ST,PET单面胶带；0.225,published,1,10,,,,,,,,0.225,,,,PET单面胶带,225μm,,,PET单面胶带；0.225,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,7188ST,7188ST,PET单面胶带；0.238,published,1,10,,,,,,,,0.238,,,,PET单面胶带,238μm,,,PET单面胶带；0.238,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DP1020B,DP1020B,10倍黑色PE泡绵胶带 DP10#,published,1,10,,,,,,,,2,,,,10倍黑色PE泡绵,2000μm,,,10倍黑色PE泡绵；2.0,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DP1010B,DP1010B,10倍黑色PE泡绵胶带 DP10#,published,1,10,,,,,,,,1,,,,10倍黑色PE泡绵,1000μm,,,10倍黑色PE泡绵；1.0,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DP1005B,DP1005B,10倍黑色PE泡绵胶带 DP10#,published,1,10,,,,,,,,0.5,,,,10倍黑色PE泡绵,500μm,,,10倍黑色PE泡绵；0.5,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DP1020W,DP1020W,10倍白色PE泡绵胶带 DP10#,published,1,10,,,,,,,,2,,,,10倍白色PE泡绵,2000μm,,,10倍白色PE泡绵；2.0,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DP1010W,DP1010W,10倍白色PE泡绵胶带 DP10#,published,1,10,,,,,,,,1,,,,10倍白色PE泡绵,2000μm,,,10倍白色PE泡绵；2.0,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DP1005W,DP1005W,10倍白色PE泡绵胶带 DP10#,published,1,10,,,,,,,,0.5,,,,10倍白色PE泡绵,500μm,,,10倍白色PE泡绵；0.5,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DP1520B,DP1520B,15倍黑色PE泡绵胶带 DP15#,published,1,10,,,,,,,,2,,,,15倍黑色PE泡绵,2000μm,,,15倍黑色PE泡绵；2.0,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DP1510B,DP1510B,15倍黑色PE泡绵胶带 DP15#,published,1,10,,,,,,,,1,,,,15倍黑色PE泡绵,1000μm,,,15倍黑色PE泡绵；1.0,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DP1505B,DP1505B,15倍黑色PE泡绵胶带 DP15#,published,1,10,,,,,,,,0.5,,,,15倍黑色PE泡绵,500μm,,,15倍黑色PE泡绵；0.5,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DP1520W,DP1520W,15倍白色PE泡绵胶带  DP15#,published,1,10,,,,,,,,2,,,,15倍白色PE泡绵,2000μm,,,15倍白色PE泡绵；2.0,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DP1510W,DP1510W,15倍白色PE泡绵胶带  DP15#,published,1,10,,,,,,,,1,,,,15倍白色PE泡绵,1000μm,,,15倍白色PE泡绵；1.0,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DP1505W,DP1505W,15倍白色PE泡绵胶带  DP15#,published,1,10,,,,,,,,0.5,,,,15倍白色PE泡绵,500μm,,,15倍白色PE泡绵；0.5,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,71972,71972,茶色PET双面胶带；0.05（白、棕色格拉辛离型纸）,published,1,10,TESA51972,,,,,,,0.05,,,,茶色PET双面胶带,50μm,,,茶色PET双面胶带；0.05,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA51972,TESA51972,厚度较薄，适用于手机铭牌、耳机/话筒附件的粘接；数码相机反光膜的固定；LCD反光片与背光膜组之间的固定。,published,1,10,,,,,,,,0.08,,,,茶色PET双面胶带,80μm,,,茶色PET双面胶带,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,71980,71980,茶色PET双面胶带；0.08（白、棕色格拉辛离型纸）,published,1,10,TESA51980,,,,,,,0.08,,,,茶色PET双面胶带,80μm,,,茶色PET双面胶带；0.08,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA51980,TESA51980,良好的粘接力，适用于手机键盘、LCD框架的固定；数码相机按钮及硬质材料的固定；LCD前壳与LCD面板之间的固定。,published,1,10,,,,,,,,0.1,,,,茶色PET双面胶带,100μm,,,茶色PET双面胶带,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,71982,71982,茶色PET双面胶带；0.1（白、棕色格拉辛离型纸）,published,1,10,TESA51982,,,,,,,0.1,,,,茶色PET双面胶带,100μm,,,茶色PET双面胶带；0.1,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA51982,TESA51982,对于一般较平滑的表面有很好的粘接强度，用于手机、LCD，适用于LCD背光膜组与底框之间的固定。,published,1,10,,,,,,,,0.125,,,,茶色PET双面胶带,125μm,,,茶色PET双面胶带,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,71928,71928,茶色PET双面胶带；0.125（白、棕色格拉辛离型纸）,published,1,10,TESA51928,,,,,,,0.125,,,,茶色PET双面胶带,125μm,,,茶色PET双面胶带；0.125,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA51928,TESA51928,综合性能良好，并具有良好的抗剪切性及耐温性，适用于手机视窗/镜头的固定；数码相机LCD模块的固定；LCD背光膜组与底框之间的固定。,published,1,10,,,,,,,,0.16,,,,茶色PET双面胶带,160μm,,,茶色PET双面胶带,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,71967,71967,茶色PET双面胶带；0.16（白、棕色格拉辛离型纸）,published,1,10,"TESA51967,3M9795B",,,,,,,0.16,,,,茶色PET双面胶带,160μm,,,茶色PET双面胶带；0.16,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,71965,71965,茶色PET双面胶带；0.205（棕色格拉辛离型纸）,published,1,10,TESA51965,,,"<div data-oe-version=""2.0""><br></div>",,,,0.205,,,,茶色PET双面胶带,205μm,,,茶色PET双面胶带；0.205,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA51965,TESA51965,在高温和低温下都有良好的粘接力，对非极性材料有很高的粘接强度，适用于手机视窗/镜头、电池仓的固定；数码相机镜盖、橡胶片、内存卡的固定。,published,1,10,,,,,,,,0.11,,,,不织布,110μm,,,棉纸双面胶带,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS311/PN,DS311/PN,棉纸双面胶带,published,1,10,永大、永一标牌贴产品,,,,,,,0.11,,,,不织布,110μm,,,棉纸双面胶带；0.11,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS312/PN,DS312/PN,棉纸双面胶带,published,1,10,"永大、永一标牌贴产品,3M9448A",,,,,,,0.13,,,,不织布,130μm,,,棉纸双面胶带；0.13,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS313/PN,DS313/PN,棉纸双面胶带,published,1,10,永大、永一标牌贴产品,,,,,,,0.15,,,,不织布,150μm,,,棉纸双面胶带；0.15,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS767DS767G,DS767DS767G,无基材；0.05无基材；0.05（经济型）,published,1,10,3M467、日东591,,,,,,,0.05,,,,无基材,,,,,,,,,
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS768DS768G,DS768DS768G,无基材；0.13无基材；0.13（经济型）,published,1,10,3M468,,,,,,,0.13,,,,无基材,,,,,,,,,
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6025DT,DS31-6025DT,夹芯PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.125,,,,PET,,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6050DT,DS31-6050DT,夹芯PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.15,,,,PET,,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6075DT,DS31-6075DT,夹芯PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.175,,,,PET,,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6100DT,DS31-6100DT,夹芯PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.2,,,,PET,,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6125DT,DS31-6125DT,夹芯PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.225,,,,PET,,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6175DT,DS31-6175DT,夹芯PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.275,,,,PET,,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-6188DT,DS31-6188DT,夹芯PET双面胶带 DS31-6#,published,1,10,,,,,,,,0.288,,,,PET,,,,,,,,,none
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7025DT,DS31-7025DT,夹芯PET双面胶带DS31-7#,published,1,10,,,,,,,,0.125,,,,PET双面胶带,,,,,,,,,
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7050DT,DS31-7050DT,夹芯PET双面胶带DS31-7#,published,1,10,,,,,,,,0.15,,,,PET双面胶带,,,,,,,,,
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7075DT,DS31-7075DT,夹芯PET双面胶带DS31-7#,published,1,10,,,,,,,,0.175,,,,PET双面胶带,,,,,,,,,
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7100DT,DS31-7100DT,夹芯PET双面胶带DS31-7#,published,1,10,,,,,,,,0.2,,,,PET双面胶带,,,,,,,,,
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7125DT,DS31-7125DT,夹芯PET双面胶带DS31-7#,published,1,10,,,,,,,,0.225,,,,PET双面胶带,,,,,,,,,
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7175DT,DS31-7175DT,夹芯PET双面胶带DS31-7#,published,1,10,,,,,,,,0.275,,,,PET双面胶带,,,,,,,,,
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7188DT,DS31-7188DT,夹芯PET双面胶带DS31-7#,published,1,10,,,,,,,,0.288,,,,PET双面胶带,,,,,,,,,
-brand_tesa,Tesa,category_tape_foam,tesa® 496xx 胶带 4961,4961,496xx,published,1,10,,天然橡胶双面胶带,适用于通用双面贴合和粗糙表面固定。,<p>泡棉辅料贴合</p><p>一般工业固定</p>,,,,205 μm,,白色,天然橡胶,平板纸,205μm,白色,天然橡胶,平板纸,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 496xx 胶带 4963,4963,496xx,published,1,10,,PVC基材双面胶带,适用于透明基材的结构贴合。,<p>透明件贴合</p><p>装饰件固定</p>,,,,107 μm,,透明,天然橡胶,PVC（聚氯乙烯）薄膜,107μm,透明,天然橡胶,PVC（聚氯乙烯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 496xx 胶带 4965,4965,496xx,published,1,10,,黑色双面胶带,适用于外观遮蔽和结构固定。,<p>黑色外观件贴合</p><p>遮光固定</p>,,,,,,黑色,天然橡胶,平板纸,,黑色,天然橡胶,平板纸,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa 4980,4980,498xx,published,1,10,,高粘双面PET胶带,适用于薄型双面贴合与结构固定。,<p>铭牌固定</p><p>塑胶件双面贴合</p>,,,,0.08mm,,透明,改性丙烯酸,PET,80μm,透明,改性丙烯酸,PET,,1,1,1,none
-brand_tesa,Tesa,category_tape_foam,tesa® 498xx 胶带 4982,4982,498xx,published,1,10,,改性丙烯酸双面胶带,适用于高粘性PET双面贴合。,<p>铭牌和薄膜贴合</p><p>结构辅料固定</p>,,,,100 μm,,透明,改性丙烯酸,PET（聚酯）薄膜,100μm,透明,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 519xx 胶带 51928,51928,519xx,published,1,10,,,,,,,,125 μm,,黑色,改性丙烯酸,PET（聚酯）薄膜,125μm,黑色,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 519xx 胶带 51966,51966,519xx,published,1,10,,,,,,,,200 μm,,透明,丙烯酸,PET（聚酯）薄膜 生物基(生物碳),200μm,透明,丙烯酸,PET（聚酯）薄膜 生物基(生物碳),,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 519xx 胶带 51970,51970,519xx,published,1,10,,,,,,,,220 μm,,透明,改性丙烯酸,PP（聚丙烯）薄膜,220μm,透明,改性丙烯酸,PP（聚丙烯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 519xx 胶带 51977,51977,519xx,published,1,10,,,,,,,,240 μm,,白色,改性丙烯酸,PP（聚丙烯）薄膜,240μm,白色,改性丙烯酸,PP（聚丙烯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 519xx 胶带 51980,51980,519xx,published,1,10,,,,,,,,80 μm,,黑色,改性丙烯酸,PET（聚酯）薄膜,80μm,黑色,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 522xx 胶带 52215,52215,522xx,published,1,10,,,,,,,,150 μm,,半透明,水性丙烯酸,无纺布,150μm,半透明,水性丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 583xx 胶带 58323,58323,583xx,published,1,10,,,,,,,,75 μm,,半透明,改性丙烯酸,无纺布,75μm,半透明,改性丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 583xx 胶带 58332,58332,583xx,published,1,10,,,,,,,,50 μm,,透明,改性丙烯酸,PET（聚酯）,50μm,透明,改性丙烯酸,PET（聚酯）,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 583xx 胶带 58334,58334,583xx,published,1,10,,,,,,,,100 μm,,透明,改性丙烯酸,PET（聚酯）,100μm,透明,改性丙烯酸,PET（聚酯）,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 583xx 胶带 58360,58360,583xx,published,1,10,,,,,,,,50 μm,,透明,改性丙烯酸,PET（聚酯）,50μm,透明,改性丙烯酸,PET（聚酯）,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 583xx 胶带 58364,58364,583xx,published,1,10,,,,,,,,200 μm,,透明,改性丙烯酸,PET（聚酯）,200μm,透明,改性丙烯酸,PET（聚酯）,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 583xx 胶带 58372,58372,583xx,published,1,10,,,,,,,,50 μm,,半透明,改性丙烯酸,PET（聚酯）薄膜,50μm,半透明,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 583xx 胶带 58374,58374,583xx,published,1,10,,,,,,,,100 μm,,透明,改性丙烯酸,PET（聚酯）,100μm,透明,改性丙烯酸,PET（聚酯）,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 583xx 胶带 58375,58375,583xx,published,1,10,,,,,,,,130μm,,半透明,改性丙烯酸,PET无纺布,130μm,半透明,改性丙烯酸,PET无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 609xx 胶带 60975,60975,609xx,published,1,10,,,,,,,,100 μm,,半透明,改性丙烯酸,无纺布,100μm,半透明,改性丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 609xx 胶带 60977,60977,609xx,published,1,10,,,,,,,,140μm,,半透明,改性丙烯酸,无纺布,140μm,半透明,改性丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 609xx 胶带 60978,60978,609xx,published,1,10,,,,,,,,160μm,,半透明,改性丙烯酸,无纺布,160μm,半透明,改性丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 609xx 胶带 60980,60980,609xx,published,1,10,,,,,,,,140 μm,,半透明,改性丙烯酸,无纺布,140μm,半透明,改性丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 610xx 胶带 61055,61055,610xx,published,1,10,,,,,,,,300 μm,,黑色,改性丙烯酸,丙烯酸泡棉,300μm,黑色,改性丙烯酸,丙烯酸泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 610xx 胶带 61086,61086,610xx,published,1,10,,,,,,,,300 μm,,黑色,改性丙烯酸,Acrylic foam,300μm,黑色,改性丙烯酸,Acrylic foam,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 610xx 胶带 61087,61087,610xx,published,1,10,,,,,,,,350 μm,,黑色,改性丙烯酸,Acrylic foam,350μm,黑色,改性丙烯酸,Acrylic foam,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 610xx 胶带 61088,61088,610xx,published,1,10,,,,,,,,400 μm,,黑色,改性丙烯酸,Acrylic foam,400μm,黑色,改性丙烯酸,Acrylic foam,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 612xx 胶带 61210,61210,612xx,published,1,10,,,,,,,,100 μm,,黑色,特殊,PET,100μm,黑色,特殊,PET,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 612xx 胶带 61220,61220,612xx,published,1,10,,,,,,,,200 μm,,黑色,特殊,PET,200μm,黑色,特殊,PET,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 613xx 胶带 61325,61325,613xx,published,1,10,,,,,,,,250 μm,,黑色,改性丙烯酸,PET（聚酯）薄膜,250μm,黑色,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 613xx 胶带 61335,61335,613xx,published,1,10,,,,,,,,200 μm,,黑色,改性丙烯酸,PET（聚酯）薄膜,200μm,黑色,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 613xx 胶带 61360,61360,613xx,published,1,10,,,,,,,,100 μm,,透明,改性丙烯酸,PET（聚酯）薄膜,100μm,透明,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 613xx 胶带 61365,61365,613xx,published,1,10,,,,,,,,100 μm,,黑色,改性丙烯酸,PET（聚酯）薄膜,100μm,黑色,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 613xx 胶带 61370,61370,613xx,published,1,10,,,,,,,,125 μm,,透明,改性丙烯酸,PET（聚酯）薄膜,125μm,透明,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 613xx 胶带 61385,61385,613xx,published,1,10,,,,,,,,150 μm,,黑色,改性丙烯酸,PET（聚酯）薄膜,150μm,黑色,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 613xx 胶带 61390,61390,613xx,published,1,10,,,,,,,,200 μm,,透明,改性丙烯酸,PET（聚酯）薄膜,200μm,透明,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 618xx 胶带 61865,61865,618xx,published,1,10,,,,,,,,100 μm,,黑色,改性丙烯酸,PET（聚酯）薄膜,100μm,黑色,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 618xx 胶带 61885,61885,618xx,published,1,10,,,,,,,,150 μm,,黑色,改性丙烯酸,PET（聚酯）薄膜,150μm,黑色,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 619xx 胶带 61970,61970,619xx,published,1,10,,,,,,,,220 μm,,透明,改性丙烯酸,PP（聚丙烯）薄膜,220μm,透明,改性丙烯酸,PP（聚丙烯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 6262x 胶带 62624,62624,6262x,published,1,10,,,,,,,,200 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,200μm,黑色,改性丙烯酸,PE（聚乙烯）泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 6262x 胶带 62625,62625,6262x,published,1,10,,,,,,,,250 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,250μm,黑色,改性丙烯酸,PE（聚乙烯）泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 6262x 胶带 62626,62626,6262x,published,1,10,,,,,,,,300 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,300μm,黑色,改性丙烯酸,PE（聚乙烯）泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 649xx 胶带 64908,64908,649xx,published,1,10,,,,,,,,800 μm,,黑色,LSE,PE泡棉,800μm,黑色,LSE,PE泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 649xx 胶带 64912,64912,649xx,published,1,10,,,,,,,,1200 μm,,黑色,特殊,PE（聚乙烯）泡棉,1200μm,黑色,特殊,PE（聚乙烯）泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 660xx 胶带 66022,66022,660xx,published,1,10,,,,,,,,220μm,,透明,水性丙烯酸,PET网格,220μm,透明,水性丙烯酸,PET网格,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 661xx 胶带 66186,66186,661xx,published,1,10,,,,,,,,300 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,300μm,黑色,改性丙烯酸,PE（聚乙烯）泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 668xx 胶带 66822,66822,668xx,published,1,10,,,,,,,,150 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,150μm,黑色,改性丙烯酸,PE（聚乙烯）泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 668xx 胶带 66824,66824,668xx,published,1,10,,,,,,,,200 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,200μm,黑色,改性丙烯酸,PE（聚乙烯）泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 668xx 胶带 66825,66825,668xx,published,1,10,,,,,,,,250 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,250μm,黑色,改性丙烯酸,PE（聚乙烯）泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 668xx 胶带 66826,66826,668xx,published,1,10,,,,,,,,300 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,300μm,黑色,改性丙烯酸,PE（聚乙烯）泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 668xx 胶带 66828,66828,668xx,published,1,10,,,,,,,,400 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,400μm,黑色,改性丙烯酸,PE（聚乙烯）泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 668xx 胶带 66866,66866,668xx,published,1,10,,,,,,,,300 μm,,白色,改性丙烯酸,PE（聚乙烯）泡棉,300μm,白色,改性丙烯酸,PE（聚乙烯）泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 669xx 胶带 66932,66932,669xx,published,1,10,,,,,,,,50 μm,,透明,改性丙烯酸,PET（聚酯）薄膜,50μm,透明,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 669xx 胶带 66934,66934,669xx,published,1,10,,,,,,,,100 μm,,透明,改性丙烯酸,PET（聚酯）薄膜,100μm,透明,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 686xx 胶带 68618,68618,686xx,published,1,10,,,,,,,,150μm,,透明,改性丙烯酸,无纺布,150μm,透明,改性丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 686xx 胶带 68646,68646,686xx,published,1,10,,,,,,,,140 μm,,半透明,改性丙烯酸,无纺布,140μm,半透明,改性丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 688xx 胶带 68878,68878,688xx,published,1,10,,,,,,,,150 μm,,透明,丙烯酸,PET（聚酯）,150μm,透明,丙烯酸,PET（聚酯）,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 688xx 胶带 68879,68879,688xx,published,1,10,,,,,,,,200 μm,,透明,丙烯酸,PET（聚酯）,200μm,透明,丙烯酸,PET（聚酯）,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 692xx 胶带 6928,6928,692xx,published,1,10,,,,,,,,125 μm,,透明,改性丙烯酸,PET（聚酯）薄膜,125μm,透明,改性丙烯酸,PET（聚酯）薄膜,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 704xx 胶带 70415,70415,704xx,published,1,10,,,,,,,,150 μm,,白色,特殊,无,150μm,白色,特殊,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 704xx 胶带 70425,70425,704xx,published,1,10,,,,,,,,250 μm,,白色,特殊,无,250μm,白色,特殊,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 704xx 胶带 70499,70499,704xx,published,1,10,,,,,,,,1000 μm,,白色,特殊,无,1000μm,白色,特殊,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 706xx 胶带 70615,70615,706xx,published,1,10,,,,,,,,150 μm,,黑色,特殊,无,150μm,黑色,特殊,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 706xx 胶带 70620,70620,706xx,published,1,10,,,,,,,,200 μm,,黑色,特殊,无,200μm,黑色,特殊,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 706xx 胶带 70625,70625,706xx,published,1,10,,,,,,,,250 μm,,黑色,特殊,无,250μm,黑色,特殊,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 706xx 胶带 70630,70630,706xx,published,1,10,,,,,,,,300 μm,,黑色,特殊,无,300μm,黑色,特殊,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 706xx 胶带 70640,70640,706xx,published,1,10,,,,,,,,400 μm,,黑色,特殊,无,400μm,黑色,特殊,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 706xx 胶带 70680,70680,706xx,published,1,10,,,,,,,,800 μm,,黑色,特殊,无,800μm,黑色,特殊,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 706xx 胶带 70697,70697,706xx,published,1,10,,,,,,,,1300 μm,,黑色,特殊,无,1300μm,黑色,特殊,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 706xx 胶带 70699,70699,706xx,published,1,10,,,,,,,,1000 μm,,黑色,特殊,无,1000μm,黑色,特殊,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 751xx 胶带 75120,75120,751xx,published,1,10,,,,,,,,200 μm,,黑色,改性丙烯酸,黑色丙烯酸泡棉,200μm,黑色,改性丙烯酸,黑色丙烯酸泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 751xx 胶带 75125,75125,751xx,published,1,10,,,,,,,,250 μm,,黑色,改性丙烯酸,丙烯酸泡棉,250μm,黑色,改性丙烯酸,丙烯酸泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 751xx 胶带 75130,75130,751xx,published,1,10,,,,,,,,300 μm,,黑色,改性丙烯酸,丙烯酸,300μm,黑色,改性丙烯酸,丙烯酸,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 754xx/756xx 胶带 75405,75405,754xx/756xx,published,1,10,,,,,,,,50 μm,,黑色,改性丙烯酸,丙烯酸,50μm,黑色,改性丙烯酸,丙烯酸,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 754xx/756xx 胶带 75410,75410,754xx/756xx,published,1,10,,,,,,,,100 μm,,黑色,改性丙烯酸,PE泡棉,100μm,黑色,改性丙烯酸,PE泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 754xx/756xx 胶带 75415,75415,754xx/756xx,published,1,10,,,,,,,,150μm,,黑色,改性丙烯酸,丙烯酸,150μm,黑色,改性丙烯酸,丙烯酸,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 754xx/756xx 胶带 75620,75620,754xx/756xx,published,1,10,,,,,,,,200 μm,,黑色,改性丙烯酸,丙烯酸,200μm,黑色,改性丙烯酸,丙烯酸,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 754xx/756xx 胶带 75625,75625,754xx/756xx,published,1,10,,,,,,,,250 μm,,黑色,改性丙烯酸,丙烯酸,250μm,黑色,改性丙烯酸,丙烯酸,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 754xx/756xx 胶带 75630,75630,754xx/756xx,published,1,10,,,,,,,,300 μm,,黑色,改性丙烯酸,丙烯酸,300μm,黑色,改性丙烯酸,丙烯酸,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 754xx/756xx 胶带 75635,75635,754xx/756xx,published,1,10,,,,,,,,350 μm,,黑色,改性丙烯酸,丙烯酸,350μm,黑色,改性丙烯酸,丙烯酸,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 754xx/756xx 胶带 75640,75640,754xx/756xx,published,1,10,,,,,,,,400 μm,,黑色,改性丙烯酸,丙烯酸,400μm,黑色,改性丙烯酸,丙烯酸,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 754xx/756xx 胶带 75645,75645,754xx/756xx,published,1,10,,,,,,,,450 μm,,黑色,改性丙烯酸,丙烯酸,450μm,黑色,改性丙烯酸,丙烯酸,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 754xx/756xx 胶带 75650,75650,754xx/756xx,published,1,10,,,,,,,,500 μm,,黑色,改性丙烯酸,黑色丙烯酸泡棉,500μm,黑色,改性丙烯酸,黑色丙烯酸泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 757xx 胶带 75710,75710,757xx,published,1,10,,,,,,,,100 μm,,黑色,改性丙烯酸,PET,100μm,黑色,改性丙烯酸,PET,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 757xx 胶带 75715,75715,757xx,published,1,10,,,,,,,,150 μm,,黑色,改性丙烯酸,PETP,150μm,黑色,改性丙烯酸,PETP,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 757xx 胶带 75720,75720,757xx,published,1,10,,,,,,,,200μm,,黑色,改性丙烯酸,PETP,200μm,黑色,改性丙烯酸,PETP,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 757xx 胶带 75725,75725,757xx,published,1,10,,,,,,,,250 μm,,黑色,改性丙烯酸,PETP,250μm,黑色,改性丙烯酸,PETP,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 757xx 胶带 75730,75730,757xx,published,1,10,,,,,,,,300μm,,黑色,改性丙烯酸,PETP,300μm,黑色,改性丙烯酸,PETP,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 757xx 胶带 75743,75743,757xx,published,1,10,,,,,,,,200 μm,,white,改性丙烯酸,PET,200μm,white,改性丙烯酸,PET,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 760xx 胶带 76010,76010,760xx,published,1,10,,,,,,,,100 μm,,黑色,改性丙烯酸,无,100μm,黑色,改性丙烯酸,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 761xx 胶带 76115,76115,761xx,published,1,10,,,,,,,,150 μm,,黑色,特殊,PETP,150μm,黑色,特殊,PETP,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 769xx 胶带 76925,76925,769xx,published,1,10,,,,,,,,250 μm,,黑色,特殊,无,250μm,黑色,特殊,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 772xx 胶带 77210,77210,772xx,published,1,10,,,,,,,,1000 μm,,灰色,纯丙烯酸,丙烯酸泡棉,1000μm,灰色,纯丙烯酸,丙烯酸泡棉,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 778xx 胶带 77811,77811,778xx,published,1,10,,,,,,,,1100 μm,,灰色,LSE,Acrylic foam,1100μm,灰色,LSE,Acrylic foam,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 778xx 胶带 77815,77815,778xx,published,1,10,,,,,,,,1500 μm,,灰色,LSE,Acrylic foam,1500μm,灰色,LSE,Acrylic foam,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 885xx 胶带 8854,8854,885xx,published,1,10,,,,,,,,100 μm,,半透明,改性丙烯酸,无纺布,100μm,半透明,改性丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 886xx 胶带 88641,88641,886xx,published,1,10,,,,,,,,100 μm,,半透明,改性丙烯酸,无纺布,100μm,半透明,改性丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 886xx 胶带 88644,88644,886xx,published,1,10,,,,,,,,160 μm,,半透明,改性丙烯酸,无纺布,160μm,半透明,改性丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 886xx 胶带 88645,88645,886xx,published,1,10,,,,,,,,120 μm,,半透明,改性丙烯酸,无纺布,120μm,半透明,改性丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 886xx 胶带 88648,88648,886xx,published,1,10,,,,,,,,160 μm,,translucent,改性丙烯酸,无纺布,160μm,translucent,改性丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 886xx 胶带 88656,88656,886xx,published,1,10,,,,,,,,140 μm,,半透明,阻燃丙烯酸,无纺布,140μm,半透明,阻燃丙烯酸,无纺布,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 886xx 胶带 88663,88663,886xx,published,1,10,,,,,,,,150 μm,,透明,改性丙烯酸,PET（聚酯）,150μm,透明,改性丙烯酸,PET（聚酯）,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 921xx 胶带 92111,92111,921xx,published,1,10,,,,,,,,1100 μm,,黑色,performance polymer foam,无,1100μm,黑色,performance polymer foam,无,,,,,none
-brand_tesa,Tesa,category_tape_foam,tesa® 320xx 胶带 3202/10,2-Oct,320xx,published,1,10,,,,,,,,,,黑色,,,,黑色,,,,,,,none
-,3m,category_tape_foam,3M VHB Tape Max-060GF,B5005577010,3M VHB,published,1,10,,,,,,,,0.6mm,,,,,0.6mm,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape LSE-060,B5005405028,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape GPL-060GF,B5005387006,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape LSE-110WF,B5005036160,3M VHB,published,1,10,,,,,,,,1150mm,,gray,,,1150mm,gray,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5925,B40072038,3M VHB,published,1,10,,,,,,,,,,black,,,,black,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4646,B40065659,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4914,B40065767,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape Max-110GF,B5005577011,3M VHB,published,1,10,,,,,,,,1.1mm,,,,,1.1mm,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape RP+060GF,B5005359003,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape GP Extrudable Tape,B5005341007,3M VHB,published,1,10,,,,,,,,8.5mm,,black,,,8.5mm,black,,,,,,,
-,3m,category_tape_foam,3M VHB Tape GPL-080GF,B5005387007,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape RP+080GF,B5005359004,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape GPL-040GF,B5005387005,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape RP+160GF,B5005359006,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5708,B5005088026,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4959,B40072034,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4936,B40072027,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape RP45,B40065648,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape LSE-060WF,B5005036159,3M VHB,published,1,10,,,,,,,,1150mm,,gray,,,1150mm,gray,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4979,B40072035,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4941,B40072028,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4611,B40072021,3M VHB,published,1,10,,,,,,,,610mm,,gray,,,610mm,gray,,,,,,,
-,3m,category_tape_foam,3M VHB Tape RP62,B40071691,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5611N-GF,B5005405026,3M VHB,published,1,10,,,,,,,,600mm,,gray,,,600mm,gray,,,,,,,
-,3m,category_tape_foam,3M VHB Tape RP+110GF,B5005359005,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5962P,B5005321049,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5711,B5005088027,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape Max-160GF,B5005577012,3M VHB,published,1,10,,,,,,,,1.6mm,,,,,1.6mm,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape RP+110GP,B5005433006,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape GPL-110GF,B5005387008,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape LSE-160WF,B5005036161,3M VHB,published,1,10,,,,,,,,1120mm,,gray,,,1120mm,gray,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4991,B40072036,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4618,B40065823,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4910,B40072022,3M VHB,published,1,10,,,,,,,,600mm,,clear,,,600mm,clear,,,,,,,
-,3m,category_tape_foam,3M VHB Tape B23F,B40065672,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape G11F,B40065741,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5915,B40072037,3M VHB,published,1,10,,,,,,,,,,black,,,,black,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4945,B40071687,3M VHB,published,1,10,,,,,,,,610mm,,white,,,610mm,white,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4950,B40065670,3M VHB,published,1,10,,,,,,,,610mm,,white,,,610mm,white,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5930,B40072039,3M VHB,published,1,10,,,,,,,,,,black,,,,black,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4947,B40065653,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4905,B40065643,3M VHB,published,1,10,,,,,,,,600mm,,clear,,,600mm,clear,,,,,,,
-,3m,category_tape_foam,3M VHB Tape Max-230GF,B5005577013,3M VHB,published,1,10,,,,,,,,2.3mm,,,,,2.3mm,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape RP+160GP,B5005433007,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape GPL-200GF,B5005387009,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5906,B40065769,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape RP+040GP,B5005429011,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape GPL-160GF,B5005387010,3M VHB,published,1,10,,,,,,,,,,,,,,,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4914-020,JT270068516,3M VHB,published,1,10,,,,,,,,600mm,,white,,,600mm,white,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4959F,70006414455,3M VHB,published,1,10,,,,,,,,,,white,,,,white,,,,,,,
-,3m,category_tape_foam,3M VHB Tape RP+230GF,B5005359000,3M VHB,published,1,10,,,,,,,,2.3mm,,gray,,,2.3mm,gray,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5907,B40065795,3M VHB,published,1,10,,,,,,,,0.2 mm,,black,,,200μm,black,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5908,B40065685,3M VHB,published,1,10,,,,,,,,0.25 mm,,black,,,250μm,black,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5952,B40065688,3M VHB,published,1,10,,,,,,,,,,black,,,,black,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5915P,B5005321045,3M VHB,published,1,10,,,,,,,,0.4mm,,black,,,0.4mm,black,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5909,B40065779,3M VHB,published,1,10,,,,,,,,0.3 mm,,black,,,300μm,black,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4658,B40072049,3M VHB,published,1,10,,,,,,,,0.8mm,,clear,,,0.8mm,clear,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 4655,B40065660,3M VHB,published,1,10,,,,,,,,1.6mm,,dark gray,,,1.6mm,dark gray,,,,,,,
-,3m,category_tape_foam,3M VHB Tape 5962,B40072040,3M VHB,published,1,10,,,,,,,,,,black,,,,black,,,,,,,
-,3m,category_tape_foam,3M VHB Tape LVO-110BF,B5005452026,3M VHB,published,1,10,,,,,,,,1.1mm,,black,,,1.1mm,black,,,,,,,
+﻿brand_id_xml,brand_name,categ_id_xml,series_name,name,code,catalog_status,active,sequence,equivalent_type,product_features,product_description,main_applications,special_applications,thickness,adhesive_thickness,color_id,adhesive_type_id,base_material_id,ref_price,is_rohs,is_reach,is_halogen_free,fire_rating
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带61系列（耐温120°）,DS611,DS611,published,1,10,3M9075、德莎60975,棉纸双面胶，耐温120°。,,"<div data-oe-version=""2.0"">冲压铭板，薄膜开关的粘贴</div>","<div data-oe-version=""2.0""><font>适用于冲压型、铭板、薄膜开关的粘贴，耐温120℃</font></div>",0.12,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带61系列（耐温120°）,DS611PN,DS611PN,published,1,10,积水5760,棉纸双面胶，耐温120°。,,"<div data-oe-version=""2.0"">冲压铭板，薄膜开关的粘贴</div>","<div data-oe-version=""2.0"">用于曲面。</div>",0.12,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带61系列（耐温120°）,DS612,DS612,published,1,10,3M9448、SONY T4000、日东5015,棉纸双面胶，耐温120°。,,"<div data-oe-version=""2.0"">冲压铭板，薄膜开关的粘贴</div>",,0.14,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带61系列（耐温120°）,DS612PN,DS612PN,published,1,10,积水5760,棉纸双面胶，耐温120°。,,"<div data-oe-version=""2.0"">冲压铭板，薄膜开关的粘贴</div>",,0.14,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带61系列（耐温120°）,DS613,DS613,published,1,10,3M9080、日东500、 TESA60980、日东GA808,棉纸双面胶，耐温120°。,,"<div data-oe-version=""2.0"">冲压铭板，薄膜开关的粘贴</div>",,0.16,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带61系列（耐温120°）,DS613PN,DS613PN,published,1,10,,棉纸双面胶，耐温120°。,,"<div data-oe-version=""2.0"">冲压铭板，薄膜开关的粘贴</div>",,0.16,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带60系列（泡棉粘贴）,DS601,DS601,published,1,10,我司创新产品,,,,"<table class=""table table-bordered o_table"" data-oe-version=""2.0""><tbody><tr><td><p><font>适合各种泡棉材料的粘贴，它具有粘接性好，粘接力强的优点，并可耐温60℃～80℃。单、双面都粘泡绵。</font></p></td></tr></tbody></table>",0.14,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带60系列（泡棉粘贴）,DS602,DS602 #11,published,1,10,我司创新产品,,,,"<div data-oe-version=""2.0""><font>适合各种泡棉及软质材料，耐温一般。双面粘泡绵，单面粘钢板和ABS板，不耐温。</font></div><div><font>棉纸双面胶带；0.11/0.13</font></div><div><br></div>",0.11,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带60系列（泡棉粘贴）,DS603,DS603 #14,published,1,10,力王D500C,,,,"<div data-oe-version=""2.0""><font>适合各种泡棉材料的粘贴，单、双面都粘泡棉，它具有粘接性好，粘接力强的优点，并可耐温100℃。</font></div><div>&nbsp;两种厚度 0.14 0..16</div>",0.14,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带,DS510,DS510,published,1,10,TESA60933、TESA60975,,,,"<div data-oe-version=""2.0""><font>适用于冲压型、铭板、薄膜开关的粘贴，耐温80℃</font></div>",0.1,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带,DS511,DS511,published,1,10,日东5216A、3M9075、德莎60975,,,,"<div data-oe-version=""2.0""><font>适用于冲压型、铭板、薄膜开关的粘贴，耐温100℃</font></div>",0.12,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带,DS511PN,DS511PN,published,1,10,,,,,"<div data-oe-version=""2.0""><font>用于曲面</font></div>",0.12,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带,DS512,DS512,published,1,10,"德莎68646、3M9448 3M9888T SONYG9000,3M9448A",,,,"<div data-oe-version=""2.0""><font>适用于泡棉与橡胶的黏结，冰箱蒸发器固定，铭板的固定，电子行业零部件的固定及组装，耐温100℃。</font></div>",0.14,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带,DS512PN,DS512PN,published,1,10,,,,,,0.14,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带,DS513,DS513,published,1,10,日东500、3M9448,,,,"<div data-oe-version=""2.0""><font>适用于冲压型、铭板、薄膜开关的粘贴，耐温100℃</font></div>",0.16,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带,DS513PN,DS513PN,published,1,10,,,,,"<div data-oe-version=""2.0"">用于曲面。</div>",0.16,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,无基材双面胶带,DS767,DS767,published,1,10,,无基材,,,,0.05mm,,透明,,无基材,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,无基材双面胶带,DS767G（经济型）,DS767G,published,1,10,易于做冲型和操作，广泛应用于一般工业组装，薄膜面板开关，铭板及电子产品等方面,无基材,,,,0.05mm,,透明,,无基材,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,无基材双面胶带,DS768G（经济型）,DS768G,published,1,10,3M468,无基材,,,"<div data-oe-version=""2.0""><font>易于做冲型和操作，广泛应用于一般工业组装，薄膜面板开关，铭板及电子产品等方面</font></div>",0.13,,透明,,无基材,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带,DS6200,DS6200,published,1,10,DIC#8810SA-200S，日东5100,,,,"<div data-oe-version=""2.0"">高粘</div>",0.2,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带,DS6300,DS6300,published,1,10,日东507,,,,"<div data-oe-version=""2.0"">强粘</div>",0.3,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带,DS6400,DS6400,published,1,10,我司创新产品,,,,"<div data-oe-version=""2.0"">超强粘</div>",0.4,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,透明PET双面胶带（对标TESA）,7967,7967,published,1,10,TESA4967、3M9500、3M9795,,,,"<p data-oe-version=""2.0""><font>透明PET双面胶带；0.16</font></p><div><font>（白、棕色格拉辛离型纸）</font></div><div><br></div><div><br></div><div><font>优良的抗剪切强度和粘接强度，在苛刻的外力及温度条件下也能保证可靠的粘接效果，适用于手机视窗/镜头、电池仓的固定；数码相机橡胶片、内存卡、电池板的固定。</font></div>",0.16,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,棉纸双面胶带,DS742,DS742,published,1,10,力王D5550,,,,"<div data-oe-version=""2.0""><font>&nbsp;超薄型双面胶</font></div>",0.05,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,透明PET双面胶带（对标TESA）,7983,7983,published,1,10,TESA4983、3M9009、日东5603,,,,"<div data-oe-version=""2.0""><font>超薄，适用于LCD以及固定铭牌等。</font></div>",0.03,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,透明PET双面胶带（对标TESA）,7972,7972,published,1,10,TESA4972、3M9019、日东5605,,,,"<div data-oe-version=""2.0""><font>厚度较薄，适用于手机铭牌、耳机/话筒附件的粘接；数码相机反光膜的固定；LCD反光片与背光膜组之间的固定。</font></div><div><br></div><p><font>透明PET双面胶带；0.05</font></p><div><font>（白、棕色格拉辛离型纸）</font></div>",0.05,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,透明PET双面胶带（对标TESA）,7980,7980,published,1,10,TESA4980、日东5608,,,,"<div data-oe-version=""2.0""><font>良好的粘接力，适用于手机键盘、LCD框架的固定；数码相机按钮及硬质材料的固定；LCD前壳与LCD面板之间的固定。</font></div>",0.08,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,透明PET双面胶带（对标TESA）,7982,7982,published,1,10,TESA4982、日东5610,,,,"<div data-oe-version=""2.0""><font>对于一般较平滑的表面有很好的粘接强度，用于手机、LCD，适用于LCD背光膜组与底框之间的固定。</font></div><div><br></div><p><font>透明PET双面胶带；0.1</font></p><p><font>（白、棕色格拉辛离型纸）</font></p><div><br></div>",0.1,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,透明PET双面胶带（对标TESA）,7928,7928,published,1,10,"TESA4928、3M9495MP、日东5612,3M9795Le",,,,"<div data-oe-version=""2.0""><font>1，综合性能良好，并具有良好的抗剪切性及耐温性，适用于手机视窗/镜头的固定；数码相机LCD模块的固定；LCD背光膜组与底框之间的固定。</font></div><div><font>2，透明PET双面胶带；0.125（白、棕色格拉辛离型纸）</font><br></div>",0.125,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,透明PET双面胶带（对标TESA）,7965,7965,published,1,10,TESA4965,,,,"<p data-oe-version=""2.0""><font>透明PET双面胶带；0.205</font></p><div><font>（浅红色OPP离型膜）</font></div><div><br></div><div><font>在高温和低温下都有良好的粘接力，对非极性材料有很高的粘接强度，适用于手机视窗/镜头、电池仓的固定；数码相机镜盖、橡胶片、内存卡的固定。</font></div>",0.205,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,,白色PVC双面胶带,白色PVC胶带 7970,7970,published,1,10,TESA4970,,,,"<div data-oe-version=""2.0""><font>1,白色PVC双面胶带；0.225/0.245 （白、棕色格拉辛离型纸)</font></div><div><font>2. 适用于家具行业中模具及装饰件的固定及电子行业中负重部件的固定。</font></div>",0.225,,白色,,白色PVC,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,,白色PVC双面胶带,7968,7968,published,1,10,TESA4968,,,,"<div data-oe-version=""2.0""><font>1.对粗糙的表面有良好的粘接力，适用于模具、装饰件的自粘。</font></div><div><font>2.白色PVC双面胶带；0.3/0.325&nbsp; （白、棕色格拉辛离型纸）</font></div>",0.3,,白色,,白色PVC,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带（遮光）,7980BH,7980BH,published,1,10,TESA4980黑胶，日东5608B,,,"<div data-oe-version=""2.0""><font>用于遮光。</font></div>","<p data-oe-version=""2.0""><font>透明PET双面胶带（黑色）；0.08</font></p><div><font>（白、棕色格拉辛离型纸）</font></div>",0.08,,黑色,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带（遮光）,7982BH,7982BH,published,1,10,TESA4982黑胶，日东5610B,,,"<div data-oe-version=""2.0""><font>用于遮光。</font></div>","<p data-oe-version=""2.0""><font>透明PET双面胶带（黑色）；0.1</font></p><div><font>（白、棕色格拉辛离型纸）</font></div>",0.1,,黑色,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,透明PP双面胶带（对标TESA）,7982P,7982P,published,1,10,TESA4982（PP基材）,PP基材,,,"<div data-oe-version=""2.0"">PP基材。</div><div><br></div><div><font>对于一般较平滑的表面有很好的粘接强度，用于手机、LCD，适用于LCD背光膜组与底框之间的固定。</font></div>",0.1,,透明,,PP（聚丙烯）薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS15BH黑色棉纸双面胶带,DS15BH,DS15BH #160,published,1,10,3M9448B、SONY T-4000B,黑色,,"<div data-oe-version=""2.0""><font>用于电视机喇叭网的粘贴。</font></div>","<div data-oe-version=""2.0""><br></div>",0.16mm,,黑色,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_protection_film,排废保护膜；0.06,CF5060,CF5060,published,1,10,,制程排废用,,"<div data-oe-version=""2.0"">制程排废</div>","<div data-oe-version=""2.0"">皇冠创新产品</div>",0.06,,半透明,,PE（聚乙烯）,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带（遮光）,CF775080DT,CF775080DT,published,1,10,,,,"<div data-oe-version=""2.0""><font>用于遮光。</font></div>","<div data-oe-version=""2.0"">皇冠创新产品，夹芯。</div>",0.08,,黑色,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带 DS31-6#,DS31-6025,DS31-6025,published,1,10,,,,,,0.125,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带,6025DT,6025DT,published,1,10,,,,,,0.125,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带 DS31-6#,DS31-6050,DS31-6050,published,1,10,,,,,,0.15,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带,6050DT,6050DT,published,1,10,,,,"<div data-oe-version=""2.0"">双面带胶</div>",,0.15,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带 DS31-6#,DS31-6075,DS31-6075,published,1,10,,,,,,0.175,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带,6075DT,6075DT,published,1,10,,,,,"<div data-oe-version=""2.0"">自动化回归-20260313-01</div>",0.175,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带 DS31-6#,DS31-6100,DS31-6100,published,1,10,,,,,,0.2,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带,6100DT,6100DT,published,1,10,,,,,,0.2 mm,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带 DS31-6#,DS31-6125,DS31-6125,published,1,10,,,,,,0.225,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带,6125DT,6125DT,published,1,10,,,,,,0.225,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带 DS31-6#,DS31-6175,DS31-6175,published,1,10,,,,,,0.275,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带,6175DT,6175DT,published,1,10,,,,,,0.275,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带 DS31-6#,DS31-6188,DS31-6188,published,1,10,,,,,,0.288,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带,6188DT,6188DT,published,1,10,,,,,,0.288,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带DS31-7#,DS31-7025,DS31-7025,published,1,10,,耐温100℃。,,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.125,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带,7025DT,7025DT,published,1,10,,,,,,0.125,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带DS31-7#,DS31-7050,DS31-7050,published,1,10,,耐温100℃。,,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.15,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带DS31-7#,DS31-7075,DS31-7075,published,1,10,,耐温100℃。,,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.175,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带,7075DT,7075DT,published,1,10,,,,,,0.175,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带DS31-7#,DS31-7100,DS31-7100,published,1,10,,耐温100℃。,,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.2,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带,7100DT,7100DT,published,1,10,,,,,,0.2,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带DS31-7#,DS31-7125,DS31-7125,published,1,10,,耐温100℃。,,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.225,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带,7125DT,7125DT,published,1,10,,,,,,0.225,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带DS31-7#,DS31-7175,DS31-7175,published,1,10,,耐温100℃。,,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.275,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带,7175DT,7175DT,published,1,10,,,,,,0.275,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带DS31-7#,DS31-7188,DS31-7188,published,1,10,,耐温100℃。,,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.288,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带,7188DT,7188DT,published,1,10,,,,,,0.288,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,PET单面胶带,7025ST,7025ST,published,1,10,,,,,,0.75,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,PET双面胶带,7050ST,7050ST,published,1,10,,,,"<div data-oe-version=""2.0"">双面带胶</div>",,0.1,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,PET单面胶带,7075ST,7075ST,published,1,10,,,,,,0.125,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,PET单面胶带,7100ST,7100ST,published,1,10,,,,,,0.15,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,PET单面胶带,7125ST,7125ST,published,1,10,,,,,,0.175,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,PET单面胶带,7175ST,7175ST,published,1,10,,,,,,0.225,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,PET单面胶带,7188ST,7188ST,published,1,10,,,,,,0.238,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,10倍黑色PE泡绵胶带 DP10#,DP1020B,DP1020B,published,1,10,,,,,,2,,黑色,,PE泡棉,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,10倍黑色PE泡绵胶带 DP10#,DP1010B,DP1010B,published,1,10,,,,,,1,,黑色,,PE泡棉,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,10倍黑色PE泡绵胶带 DP10#,DP1005B,DP1005B,published,1,10,,,,,,0.5,,黑色,,PE泡棉,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,10倍白色PE泡绵胶带 DP10#,DP1020W,DP1020W,published,1,10,,,白色,"<div data-oe-version=""2.0""><br></div>",,2,,白色,,PE泡棉,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,10倍白色PE泡绵胶带 DP10#,DP1010W,DP1010W,published,1,10,,,白色,"<div data-oe-version=""2.0""><br></div>",,1,,白色,,PE泡棉,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,10倍白色PE泡绵胶带 DP10#,DP1005W,DP1005W,published,1,10,,,白色,"<div data-oe-version=""2.0""><br></div>",,0.5,,白色,,PE泡棉,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,15倍黑色PE泡绵胶带 DP15#,DP1520B,DP1520B,published,1,10,,,,,,2,,黑色,,PE泡棉,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,15倍黑色PE泡绵胶带 DP15#,DP1510B,DP1510B,published,1,10,,,,,,1,,黑色,,PE泡棉,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,15倍黑色PE泡绵胶带 DP15#,DP1505B,DP1505B,published,1,10,,,,,,0.5,,黑色,,PE泡棉,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,15倍白色PE泡绵胶带  DP15#,DP1520W,DP1520W,published,1,10,,,,,,2,,白色,,PE泡棉,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,15倍白色PE泡绵胶带  DP15#,DP1510W,DP1510W,published,1,10,,,,,,1,,白色,,PE泡棉,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,15倍白色PE泡绵胶带  DP15#,DP1505W,DP1505W,published,1,10,,,,,,0.5,,白色,,PE泡棉,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,茶色PET双面胶带 (对标TESA),71972,71972,published,1,10,TESA51972,白、棕色格拉辛离型纸,,,"<div data-oe-version=""2.0""><font>厚度较薄，适用于手机铭牌、耳机/话筒附件的粘接；数码相机反光膜的固定；LCD反光片与背光膜组之间的固定。</font></div>",0.05,,茶色,,茶色PET,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,茶色PET双面胶带 (对标TESA),71980,71980,published,1,10,TESA51980,白、棕色格拉辛离型纸,,,"<div data-oe-version=""2.0""><font>良好的粘接力，适用于手机键盘、LCD框架的固定；数码相机按钮及硬质材料的固定；LCD前壳与LCD面板之间的固定。</font><br></div>",0.08,,茶色,,茶色PET,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,茶色PET双面胶带 (对标TESA),71982,71982,published,1,10,TESA51982,白、棕色格拉辛离型纸,,,"<div data-oe-version=""2.0""><font>对于一般较平滑的表面有很好的粘接强度，用于手机、LCD，适用于LCD背光膜组与底框之间的固定。</font><br></div>",0.1,,茶色,,茶色PET,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,茶色PET双面胶带 (对标TESA),71928,71928,published,1,10,TESA51928,白、棕色格拉辛离型纸,,,"<div data-oe-version=""2.0""><font>综合性能良好，并具有良好的抗剪切性及耐温性，适用于手机视窗/镜头的固定；数码相机LCD模块的固定；LCD背光膜组与底框之间的固定。</font></div>",0.125,,茶色,,茶色PET,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,茶色PET双面胶带 (对标TESA),71967,71967,published,1,10,"TESA51967,3M9795B",白、棕色格拉辛离型纸,,,"<div data-oe-version=""2.0""><font>优良的抗剪切强度和粘接强度，在苛刻的外力及温度条件下也能保证可靠的粘接效果，适用于手机视窗/镜头、电池仓的固定；数码相机橡胶片、内存卡、电池板的固定。</font></div>",0.16,,茶色,,茶色PET,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,茶色PET双面胶带 (对标TESA),71965,71965,published,1,10,TESA51965,白、棕色格拉辛离型纸,,,"<div data-oe-version=""2.0""><font>在高温和低温下都有良好的粘接力，对非极性材料有很高的粘接强度，适用于手机视窗/镜头、电池仓的固定；数码相机镜盖、橡胶片、内存卡的固定。</font></div>",0.205,,茶色,,茶色PET,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,标牌棉纸双面胶带,DS311/PN,DS311/PN,published,1,10,永大、永一标牌贴产品,,,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等，</div>",,0.11,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,标牌棉纸双面胶带,DS312/PN,DS312/PN,published,1,10,"永大、永一标牌贴产品,3M9448A",,,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等，</div>",,0.13,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,标牌棉纸双面胶带,DS313/PN,DS313/PN,published,1,10,永大、永一标牌贴产品,,,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等，</div>",,0.15,,,,不织布,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,无基材双面胶带,DS768,DS768,published,1,10,3M468,无基材,,,,0.13,,透明,,无基材,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带 DS31-6#,DS31-6025DT,DS31-6025DT,published,1,10,,,,,,0.125,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带 DS31-6#,DS31-6050DT,DS31-6050DT,published,1,10,,,,,,0.15,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带 DS31-6#,DS31-6075DT,DS31-6075DT,published,1,10,,,,,,0.175,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带 DS31-6#,DS31-6100DT,DS31-6100DT,published,1,10,,,,,,0.2,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带 DS31-6#,DS31-6125DT,DS31-6125DT,published,1,10,,,,,,0.225,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带 DS31-6#,DS31-6175DT,DS31-6175DT,published,1,10,,,,,,0.275,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带 DS31-6#,DS31-6188DT,DS31-6188DT,published,1,10,,,,,,0.288,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带DS31-7#,DS31-7025DT,DS31-7025DT,published,1,10,,"耐温100℃
+两面离型PET",,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.125,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带DS31-7#,DS31-7050DT,DS31-7050DT,published,1,10,,"耐温100℃
+两面离型PET",,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.15,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带DS31-7#,DS31-7075DT,DS31-7075DT,published,1,10,,"耐温100℃
+两面离型PET",,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.175,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带DS31-7#,DS31-7100DT,DS31-7100DT,published,1,10,,"耐温100℃
+两面离型PET",,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.2,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带DS31-7#,DS31-7125DT,DS31-7125DT,published,1,10,,"耐温100℃
+两面离型PET",,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.225,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带DS31-7#,DS31-7175DT,DS31-7175DT,published,1,10,,"耐温100℃
+两面离型PET",,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.275,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,夹芯PET双面胶带DS31-7#,DS31-7188DT,DS31-7188DT,published,1,10,,"耐温100℃
+两面离型PET",,"<div data-oe-version=""2.0"">适用于薄膜开关间隔片和手机按键等.</div>",,0.288,,透明,,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,496xx,tesa® 496xx 胶带 4961,4961,published,1,10,,天然橡胶双面胶带,适用于通用双面贴合和粗糙表面固定。,<p>泡棉辅料贴合</p><p>一般工业固定</p>,,205 μm,,白色,天然橡胶,平板纸,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,496xx,tesa® 496xx 胶带 4963,4963,published,1,10,,天然橡胶双面胶带,适用于通用双面贴合和粗糙表面固定。,<p>泡棉辅料贴合</p><p>一般工业固定</p>,,107 μm,,透明,天然橡胶,PVC（聚氯乙烯）薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,496xx,tesa® 496xx 胶带 4965,4965,published,1,10,,天然橡胶双面胶带,适用于通用双面贴合和粗糙表面固定。,<p>泡棉辅料贴合</p><p>一般工业固定</p>,,,,黑色,天然橡胶,平板纸,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,498xx,tesa 4980,4980,published,1,10,,高粘双面PET胶带,适用于薄型双面贴合与结构固定。,<p>铭牌固定</p><p>塑胶件双面贴合</p>,,0.08mm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,1,1,1,none
+brand_tesa,Tesa,category_tape_foam,498xx,tesa® 498xx 胶带 4982,4982,published,1,10,,高粘双面PET胶带,适用于薄型双面贴合与结构固定。,<p>铭牌固定</p><p>塑胶件双面贴合</p>,,100 μm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,519xx,tesa® 519xx 胶带 51928,51928,published,1,10,,,,,,125 μm,,黑色,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,519xx,tesa® 519xx 胶带 51966,51966,published,1,10,,,,,,200 μm,,透明,丙烯酸,PET（聚酯）薄膜 生物基(生物碳),0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,519xx,tesa® 519xx 胶带 51970,51970,published,1,10,,,,,,220 μm,,透明,改性丙烯酸,PP（聚丙烯）薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,519xx,tesa® 519xx 胶带 51977,51977,published,1,10,,,,,,240 μm,,白色,改性丙烯酸,PP（聚丙烯）薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,519xx,tesa® 519xx 胶带 51980,51980,published,1,10,,,,,,80 μm,,黑色,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,522xx,tesa® 522xx 胶带 52215,52215,published,1,10,,,,,,150 μm,,半透明,水性丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,583xx,tesa® 583xx 胶带 58323,58323,published,1,10,,,,,,75 μm,,半透明,改性丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,583xx,tesa® 583xx 胶带 58332,58332,published,1,10,,,,,,50 μm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,583xx,tesa® 583xx 胶带 58334,58334,published,1,10,,,,,,100 μm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,583xx,tesa® 583xx 胶带 58360,58360,published,1,10,,,,,,50 μm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,583xx,tesa® 583xx 胶带 58364,58364,published,1,10,,,,,,200 μm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,583xx,tesa® 583xx 胶带 58372,58372,published,1,10,,,,,,50 μm,,半透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,583xx,tesa® 583xx 胶带 58374,58374,published,1,10,,,,,,100 μm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,583xx,tesa® 583xx 胶带 58375,58375,published,1,10,,,,,,130μm,,半透明,改性丙烯酸,PET无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,609xx,tesa® 609xx 胶带 60975,60975,published,1,10,,,,,,100 μm,,半透明,改性丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,609xx,tesa® 609xx 胶带 60977,60977,published,1,10,,,,,,140μm,,半透明,改性丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,609xx,tesa® 609xx 胶带 60978,60978,published,1,10,,,,,,160μm,,半透明,改性丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,609xx,tesa® 609xx 胶带 60980,60980,published,1,10,,,,,,140 μm,,半透明,改性丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,610xx,tesa® 610xx 胶带 61055,61055,published,1,10,,,,,,300 μm,,黑色,改性丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,610xx,tesa® 610xx 胶带 61086,61086,published,1,10,,,,,,300 μm,,黑色,改性丙烯酸,Acrylic foam,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,610xx,tesa® 610xx 胶带 61087,61087,published,1,10,,,,,,350 μm,,黑色,改性丙烯酸,Acrylic foam,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,610xx,tesa® 610xx 胶带 61088,61088,published,1,10,,,,,,400 μm,,黑色,改性丙烯酸,Acrylic foam,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,612xx,tesa® 612xx 胶带 61210,61210,published,1,10,,,,,,100 μm,,黑色,特殊,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,612xx,tesa® 612xx 胶带 61220,61220,published,1,10,,,,,,200 μm,,黑色,特殊,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,613xx,tesa® 613xx 胶带 61325,61325,published,1,10,,,,,,250 μm,,黑色,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,613xx,tesa® 613xx 胶带 61335,61335,published,1,10,,,,,,200 μm,,黑色,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,613xx,tesa® 613xx 胶带 61360,61360,published,1,10,,,,,,100 μm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,613xx,tesa® 613xx 胶带 61365,61365,published,1,10,,,,,,100 μm,,黑色,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,613xx,tesa® 613xx 胶带 61370,61370,published,1,10,,,,,,125 μm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,613xx,tesa® 613xx 胶带 61385,61385,published,1,10,,,,,,150 μm,,黑色,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,613xx,tesa® 613xx 胶带 61390,61390,published,1,10,,,,,,200 μm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,618xx,tesa® 618xx 胶带 61865,61865,published,1,10,,,,,,100 μm,,黑色,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,618xx,tesa® 618xx 胶带 61885,61885,published,1,10,,,,,,150 μm,,黑色,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,619xx,tesa® 619xx 胶带 61970,61970,published,1,10,,,,,,220 μm,,透明,改性丙烯酸,PP（聚丙烯）薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,6262x,tesa® 6262x 胶带 62624,62624,published,1,10,,,,,,200 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,6262x,tesa® 6262x 胶带 62625,62625,published,1,10,,,,,,250 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,6262x,tesa® 6262x 胶带 62626,62626,published,1,10,,,,,,300 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,649xx,tesa® 649xx 胶带 64908,64908,published,1,10,,,,,,800 μm,,黑色,LSE,PE泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,649xx,tesa® 649xx 胶带 64912,64912,published,1,10,,,,,,1200 μm,,黑色,特殊,PE（聚乙烯）泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,660xx,tesa® 660xx 胶带 66022,66022,published,1,10,,,,,,220μm,,透明,水性丙烯酸,PET网格,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,661xx,tesa® 661xx 胶带 66186,66186,published,1,10,,,,,,300 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,668xx,tesa® 668xx 胶带 66822,66822,published,1,10,,,,,,150 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,668xx,tesa® 668xx 胶带 66824,66824,published,1,10,,,,,,200 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,668xx,tesa® 668xx 胶带 66825,66825,published,1,10,,,,,,250 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,668xx,tesa® 668xx 胶带 66826,66826,published,1,10,,,,,,300 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,668xx,tesa® 668xx 胶带 66828,66828,published,1,10,,,,,,400 μm,,黑色,改性丙烯酸,PE（聚乙烯）泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,668xx,tesa® 668xx 胶带 66866,66866,published,1,10,,,,,,300 μm,,白色,改性丙烯酸,PE（聚乙烯）泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,669xx,tesa® 669xx 胶带 66932,66932,published,1,10,,,,,,50 μm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,669xx,tesa® 669xx 胶带 66934,66934,published,1,10,,,,,,100 μm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,686xx,tesa® 686xx 胶带 68618,68618,published,1,10,,,,,,150μm,,透明,改性丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,686xx,tesa® 686xx 胶带 68646,68646,published,1,10,,,,,,140 μm,,半透明,改性丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,688xx,tesa® 688xx 胶带 68878,68878,published,1,10,,,,,,150 μm,,透明,丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,688xx,tesa® 688xx 胶带 68879,68879,published,1,10,,,,,,200 μm,,透明,丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,692xx,tesa® 692xx 胶带 6928,6928,published,1,10,,,,,,125 μm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,704xx,tesa® 704xx 胶带 70415,70415,published,1,10,,,,,,150 μm,,白色,特殊,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,704xx,tesa® 704xx 胶带 70425,70425,published,1,10,,,,,,250 μm,,白色,特殊,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,704xx,tesa® 704xx 胶带 70499,70499,published,1,10,,,,,,1000 μm,,白色,特殊,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,706xx,tesa® 706xx 胶带 70615,70615,published,1,10,,,,,,150 μm,,黑色,特殊,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,706xx,tesa® 706xx 胶带 70620,70620,published,1,10,,,,,,200 μm,,黑色,特殊,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,706xx,tesa® 706xx 胶带 70625,70625,published,1,10,,,,,,250 μm,,黑色,特殊,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,706xx,tesa® 706xx 胶带 70630,70630,published,1,10,,,,,,300 μm,,黑色,特殊,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,706xx,tesa® 706xx 胶带 70640,70640,published,1,10,,,,,,400 μm,,黑色,特殊,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,706xx,tesa® 706xx 胶带 70680,70680,published,1,10,,,,,,800 μm,,黑色,特殊,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,706xx,tesa® 706xx 胶带 70697,70697,published,1,10,,,,,,1300 μm,,黑色,特殊,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,706xx,tesa® 706xx 胶带 70699,70699,published,1,10,,,,,,1000 μm,,黑色,特殊,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,751xx,tesa® 751xx 胶带 75120,75120,published,1,10,,,,,,200 μm,,黑色,改性丙烯酸,黑色丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,751xx,tesa® 751xx 胶带 75125,75125,published,1,10,,,,,,250 μm,,黑色,改性丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,751xx,tesa® 751xx 胶带 75130,75130,published,1,10,,,,,,300 μm,,黑色,改性丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,754xx/756xx,tesa® 754xx/756xx 胶带 75405,75405,published,1,10,,,,,,50 μm,,黑色,改性丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,754xx/756xx,tesa® 754xx/756xx 胶带 75410,75410,published,1,10,,,,,,100 μm,,黑色,改性丙烯酸,PE泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,754xx/756xx,tesa® 754xx/756xx 胶带 75415,75415,published,1,10,,,,,,150μm,,黑色,改性丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,754xx/756xx,tesa® 754xx/756xx 胶带 75620,75620,published,1,10,,,,,,200 μm,,黑色,改性丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,754xx/756xx,tesa® 754xx/756xx 胶带 75625,75625,published,1,10,,,,,,250 μm,,黑色,改性丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,754xx/756xx,tesa® 754xx/756xx 胶带 75630,75630,published,1,10,,,,,,300 μm,,黑色,改性丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,754xx/756xx,tesa® 754xx/756xx 胶带 75635,75635,published,1,10,,,,,,350 μm,,黑色,改性丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,754xx/756xx,tesa® 754xx/756xx 胶带 75640,75640,published,1,10,,,,,,400 μm,,黑色,改性丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,754xx/756xx,tesa® 754xx/756xx 胶带 75645,75645,published,1,10,,,,,,450 μm,,黑色,改性丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,754xx/756xx,tesa® 754xx/756xx 胶带 75650,75650,published,1,10,,,,,,500 μm,,黑色,改性丙烯酸,黑色丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,757xx,tesa® 757xx 胶带 75710,75710,published,1,10,,,,,,100 μm,,黑色,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,757xx,tesa® 757xx 胶带 75715,75715,published,1,10,,,,,,150 μm,,黑色,改性丙烯酸,PETP,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,757xx,tesa® 757xx 胶带 75720,75720,published,1,10,,,,,,200μm,,黑色,改性丙烯酸,PETP,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,757xx,tesa® 757xx 胶带 75725,75725,published,1,10,,,,,,250 μm,,黑色,改性丙烯酸,PETP,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,757xx,tesa® 757xx 胶带 75730,75730,published,1,10,,,,,,300μm,,黑色,改性丙烯酸,PETP,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,757xx,tesa® 757xx 胶带 75743,75743,published,1,10,,,,,,200 μm,,white,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,760xx,tesa® 760xx 胶带 76010,76010,published,1,10,,,,,,100 μm,,黑色,改性丙烯酸,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,761xx,tesa® 761xx 胶带 76115,76115,published,1,10,,,,,,150 μm,,黑色,特殊,PETP,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,769xx,tesa® 769xx 胶带 76925,76925,published,1,10,,,,,,250 μm,,黑色,特殊,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,772xx,tesa® 772xx 胶带 77210,77210,published,1,10,,,,,,1000 μm,,灰色,纯丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,778xx,tesa® 778xx 胶带 77811,77811,published,1,10,,,,,,1100 μm,,灰色,LSE,Acrylic foam,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,778xx,tesa® 778xx 胶带 77815,77815,published,1,10,,,,,,1500 μm,,灰色,LSE,Acrylic foam,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,885xx,tesa® 885xx 胶带 8854,8854,published,1,10,,,,,,100 μm,,半透明,改性丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,886xx,tesa® 886xx 胶带 88641,88641,published,1,10,,,,,,100 μm,,半透明,改性丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,886xx,tesa® 886xx 胶带 88644,88644,published,1,10,,,,,,160 μm,,半透明,改性丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,886xx,tesa® 886xx 胶带 88645,88645,published,1,10,,,,,,120 μm,,半透明,改性丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,886xx,tesa® 886xx 胶带 88648,88648,published,1,10,,,,,,160 μm,,translucent,改性丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,886xx,tesa® 886xx 胶带 88656,88656,published,1,10,,,,,,140 μm,,半透明,阻燃丙烯酸,无纺布,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,886xx,tesa® 886xx 胶带 88663,88663,published,1,10,,,,,,150 μm,,透明,改性丙烯酸,PET（聚酯) 薄膜,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,921xx,tesa® 921xx 胶带 92111,92111,published,1,10,,,,,,1100 μm,,黑色,performance polymer foam,,0.0,0,0,0,none
+brand_tesa,Tesa,category_tape_foam,320xx,tesa® 320xx 胶带 3202/10,2-Oct,published,1,10,,,,,,,,黑色,,,0.0,0,0,0,none
+,3M,category_tape_foam,3M GT7100 系列,3M GT7102,GT7102,published,1,10,,"对汽车漆面与基材具有优异的最终粘接力和保持力
+满足多项 OEM 规范要求
+能够跟随塑料件因温度变化产生的收缩与伸长
+粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
+在不同温度条件下保持良好粘接性能
+具备耐候、耐溶剂与耐高温能力",3M GT7100 系列为面向汽车内外饰件固定应用设计的亚克力泡棉胶带，采用丙烯酸压敏胶体系，兼具高柔顺性、耐环境性与优异的长期粘接表现。,"<div data-oe-version=""2.0""><ul><li>汽车外饰条固定</li><li>汽车内饰件固定</li></ul></div><div><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1093-c1845dba/image.png?access_token=a73784b7-d6fb-4b71-8279-69e8d8a23443"" data-original-id=""1093"" data-original-src=""/web/image/1093-c1845dba/image.png"" data-mimetype-before-conversion=""image/png"" style=""width: 50%;""></div><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""6472a798-6121-484a-b09f-f97d12c4ee37"",""checksum"":""a2304a6d49b7be9400d2ba8ca43ed2d9503b75f9"",""extension"":""pdf"",""filename"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""id"":1094,""mimetype"":""application/pdf"",""name"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""type"":""binary"",""url"":""""}}'></span></div>","<div data-oe-version=""2.0""><p>红色半透明聚乙烯离型膜；离型膜厚度不计入总厚度。</p></div>",0.2,,灰色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,DC2000,3M DC2005,DC2005,draft,1,10,,"1. 对油漆面和镀铬表面具有良好粘接力。
+2. 泡棉芯材较硬，抗扭转能力强，适合字母徽标类贴合。
+3. 低温冲击表现较好。
+4. 适用于高速旋转模切、平刀模切和激光模切。
+5. 可选 SC2 白色高密度聚乙烯离型膜或 PET 透明聚酯离型膜。
+6. 建议在 4°C-38°C、0-95%RH 环境储存，最佳储存条件为 22°C、50%RH。
+7. 拔脱测试表明其适用于带突缘或开口结构的铭牌件固定。
+8. 扭矩测试表明其可用于承受一定扭转载荷的徽标与装饰件粘接。",3M DC2000 系列是一款黑色丙烯酸泡棉双面胶，主要用于汽车外饰铭牌、徽标和标识件固定，兼顾模切加工适配性与抗扯脱、抗扭转能力。,"<p data-oe-version=""2.0"">适用于汽车外饰铭牌、徽章、标识件，以及部分以机械固定为主的低载荷应用，例如轻量 A 柱饰板、局部密封和需要胶带兼作垫片的尾翼应用。</p><p><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1106-50886dde/image.png?access_token=feb8b683-51e9-4023-a05f-b8980d057896""></p><p><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""b95f7df8-f054-48f7-bb4a-b3b415e69194"",""checksum"":""fdfd65eecc9e580ec86e474dabecf69c58842662"",""extension"":""pdf"",""filename"":""3M DC2000.pdf"",""id"":1238,""mimetype"":""application/pdf"",""name"":""3M DC2000.pdf"",""type"":""binary"",""url"":""""}}'></span></p>",,0.51 +/- 0.075 mm,,黑色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,DC2000,3M DC2008,DC2008,draft,1,10,,"1. 对油漆面和镀铬表面具有良好粘接力。
+2. 泡棉芯材较硬，抗扭转能力强，适合字母徽标类贴合。
+3. 低温冲击表现较好。
+4. 适用于高速旋转模切、平刀模切和激光模切。
+5. 可选 SC2 白色高密度聚乙烯离型膜或 PET 透明聚酯离型膜。
+6. 建议在 4°C-38°C、0-95%RH 环境储存，最佳储存条件为 22°C、50%RH。
+7. 拔脱测试表明其适用于带突缘或开口结构的铭牌件固定。
+8. 扭矩测试表明其可用于承受一定扭转载荷的徽标与装饰件粘接。",3M DC2000 系列是一款黑色丙烯酸泡棉双面胶，主要用于汽车外饰铭牌、徽标和标识件固定，兼顾模切加工适配性与抗扯脱、抗扭转能力。,"<p data-oe-version=""2.0"">适用于汽车外饰铭牌、徽章、标识件，以及部分以机械固定为主的低载荷应用，例如轻量 A 柱饰板、局部密封和需要胶带兼作垫片的尾翼应用。</p><p><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1106-50886dde/image.png?access_token=feb8b683-51e9-4023-a05f-b8980d057896""></p><p><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""b95f7df8-f054-48f7-bb4a-b3b415e69194"",""checksum"":""fdfd65eecc9e580ec86e474dabecf69c58842662"",""extension"":""pdf"",""filename"":""3M DC2000.pdf"",""id"":1238,""mimetype"":""application/pdf"",""name"":""3M DC2000.pdf"",""type"":""binary"",""url"":""""}}'></span></p>",,0.76 +/- 0.102 mm,,黑色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,DC2000,3M DC2011,DC2011,draft,1,10,,"1. 对油漆面和镀铬表面具有良好粘接力。
+2. 泡棉芯材较硬，抗扭转能力强，适合字母徽标类贴合。
+3. 低温冲击表现较好。
+4. 适用于高速旋转模切、平刀模切和激光模切。
+5. 可选 SC2 白色高密度聚乙烯离型膜或 PET 透明聚酯离型膜。
+6. 建议在 4°C-38°C、0-95%RH 环境储存，最佳储存条件为 22°C、50%RH。
+7. 拔脱测试表明其适用于带突缘或开口结构的铭牌件固定。
+8. 扭矩测试表明其可用于承受一定扭转载荷的徽标与装饰件粘接。",3M DC2000 系列是一款黑色丙烯酸泡棉双面胶，主要用于汽车外饰铭牌、徽标和标识件固定，兼顾模切加工适配性与抗扯脱、抗扭转能力。,"<p data-oe-version=""2.0"">适用于汽车外饰铭牌、徽章、标识件，以及部分以机械固定为主的低载荷应用，例如轻量 A 柱饰板、局部密封和需要胶带兼作垫片的尾翼应用。</p><p><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1106-50886dde/image.png?access_token=feb8b683-51e9-4023-a05f-b8980d057896""></p><p><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""b95f7df8-f054-48f7-bb4a-b3b415e69194"",""checksum"":""fdfd65eecc9e580ec86e474dabecf69c58842662"",""extension"":""pdf"",""filename"":""3M DC2000.pdf"",""id"":1238,""mimetype"":""application/pdf"",""name"":""3M DC2000.pdf"",""type"":""binary"",""url"":""""}}'></span></p>",,1.14 +/- 0.12 mm,,黑色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,DC2000,3M DC2015,DC2015,draft,1,10,,"1. 对油漆面和镀铬表面具有良好粘接力。
+2. 泡棉芯材较硬，抗扭转能力强，适合字母徽标类贴合。
+3. 低温冲击表现较好。
+4. 适用于高速旋转模切、平刀模切和激光模切。
+5. 可选 SC2 白色高密度聚乙烯离型膜或 PET 透明聚酯离型膜。
+6. 建议在 4°C-38°C、0-95%RH 环境储存，最佳储存条件为 22°C、50%RH。
+7. 拔脱测试表明其适用于带突缘或开口结构的铭牌件固定。
+8. 扭矩测试表明其可用于承受一定扭转载荷的徽标与装饰件粘接。",3M DC2000 系列是一款黑色丙烯酸泡棉双面胶，主要用于汽车外饰铭牌、徽标和标识件固定，兼顾模切加工适配性与抗扯脱、抗扭转能力。,"<p data-oe-version=""2.0"">适用于汽车外饰铭牌、徽章、标识件，以及部分以机械固定为主的低载荷应用，例如轻量 A 柱饰板、局部密封和需要胶带兼作垫片的尾翼应用。</p><p><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1106-50886dde/image.png?access_token=feb8b683-51e9-4023-a05f-b8980d057896""></p><p><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""b95f7df8-f054-48f7-bb4a-b3b415e69194"",""checksum"":""fdfd65eecc9e580ec86e474dabecf69c58842662"",""extension"":""pdf"",""filename"":""3M DC2000.pdf"",""id"":1238,""mimetype"":""application/pdf"",""name"":""3M DC2000.pdf"",""type"":""binary"",""url"":""""}}'></span></p>",,1.52 +/- 0.012 mm,,黑色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_raw_material,3M Conformable Bonding Tape BT3005,3M BT3005,BT3005,published,1,10,,初粘力高；可贴合性强；耐候、耐热、耐化学性能优异。,用于粗糙或不规则表面的可贴合双面胶带。,<p>适用于汽车线束固定、内外饰件粘接与密封。</p>,<p>在部分基材（如 EPDM 橡胶）上使用时，可能需要配合底涂剂。</p>,0.5 mm,,浅蓝色,丙烯酸,无纺布,0.0,0,0,0,none
+,3M,category_tape_foam,3M GT7100 系列,3M GT7104,GT7104,published,1,20,,"对汽车漆面与基材具有优异的最终粘接力和保持力
+满足多项 OEM 规范要求
+能够跟随塑料件因温度变化产生的收缩与伸长
+粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
+在不同温度条件下保持良好粘接性能
+具备耐候、耐溶剂与耐高温能力",3M GT7100 系列为面向汽车内外饰件固定应用设计的亚克力泡棉胶带，采用丙烯酸压敏胶体系，兼具高柔顺性、耐环境性与优异的长期粘接表现。,"<div data-oe-version=""2.0""><ul><li>汽车外饰条固定</li><li>汽车内饰件固定</li></ul></div><div><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1093-c1845dba/image.png?access_token=a73784b7-d6fb-4b71-8279-69e8d8a23443"" data-original-id=""1093"" data-original-src=""/web/image/1093-c1845dba/image.png"" data-mimetype-before-conversion=""image/png"" style=""width: 50%;""></div><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""6472a798-6121-484a-b09f-f97d12c4ee37"",""checksum"":""a2304a6d49b7be9400d2ba8ca43ed2d9503b75f9"",""extension"":""pdf"",""filename"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""id"":1094,""mimetype"":""application/pdf"",""name"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""type"":""binary"",""url"":""""}}'></span></div>","<div data-oe-version=""2.0""><p>红色半透明聚乙烯离型膜；离型膜厚度不计入总厚度。</p></div>",0.4,,灰色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,3M GT7100 系列,3M GT7106,GT7106,published,1,30,,"对汽车漆面与基材具有优异的最终粘接力和保持力
+满足多项 OEM 规范要求
+能够跟随塑料件因温度变化产生的收缩与伸长
+粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
+在不同温度条件下保持良好粘接性能
+具备耐候、耐溶剂与耐高温能力",3M GT7100 系列为面向汽车内外饰件固定应用设计的亚克力泡棉胶带，采用丙烯酸压敏胶体系，兼具高柔顺性、耐环境性与优异的长期粘接表现。,"<div data-oe-version=""2.0""><ul><li>汽车外饰条固定</li><li>汽车内饰件固定</li></ul></div><div><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1093-c1845dba/image.png?access_token=a73784b7-d6fb-4b71-8279-69e8d8a23443"" data-original-id=""1093"" data-original-src=""/web/image/1093-c1845dba/image.png"" data-mimetype-before-conversion=""image/png"" style=""width: 50%;""></div><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""6472a798-6121-484a-b09f-f97d12c4ee37"",""checksum"":""a2304a6d49b7be9400d2ba8ca43ed2d9503b75f9"",""extension"":""pdf"",""filename"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""id"":1094,""mimetype"":""application/pdf"",""name"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""type"":""binary"",""url"":""""}}'></span></div>","<div data-oe-version=""2.0""><p>红色半透明聚乙烯离型膜；离型膜厚度不计入总厚度。</p></div>",0.6,,灰色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,3M GT7100 系列,3M GT7108,GT7108,published,1,40,,"对汽车漆面与基材具有优异的最终粘接力和保持力
+满足多项 OEM 规范要求
+能够跟随塑料件因温度变化产生的收缩与伸长
+粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
+在不同温度条件下保持良好粘接性能
+具备耐候、耐溶剂与耐高温能力",3M GT7100 系列为面向汽车内外饰件固定应用设计的亚克力泡棉胶带，采用丙烯酸压敏胶体系，兼具高柔顺性、耐环境性与优异的长期粘接表现。,"<div data-oe-version=""2.0""><ul><li>汽车外饰条固定</li><li>汽车内饰件固定</li></ul></div><div><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1093-c1845dba/image.png?access_token=a73784b7-d6fb-4b71-8279-69e8d8a23443"" data-original-id=""1093"" data-original-src=""/web/image/1093-c1845dba/image.png"" data-mimetype-before-conversion=""image/png"" style=""width: 50%;""></div><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""6472a798-6121-484a-b09f-f97d12c4ee37"",""checksum"":""a2304a6d49b7be9400d2ba8ca43ed2d9503b75f9"",""extension"":""pdf"",""filename"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""id"":1094,""mimetype"":""application/pdf"",""name"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""type"":""binary"",""url"":""""}}'></span></div>","<div data-oe-version=""2.0""><p>红色半透明聚乙烯离型膜；离型膜厚度不计入总厚度。</p></div>",0.8,,灰色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,3M GT7100 系列,3M GT7110,GT7110,published,1,50,,"对汽车漆面与基材具有优异的最终粘接力和保持力
+满足多项 OEM 规范要求
+能够跟随塑料件因温度变化产生的收缩与伸长
+粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
+在不同温度条件下保持良好粘接性能
+具备耐候、耐溶剂与耐高温能力",3M GT7100 系列为面向汽车内外饰件固定应用设计的亚克力泡棉胶带，采用丙烯酸压敏胶体系，兼具高柔顺性、耐环境性与优异的长期粘接表现。,"<div data-oe-version=""2.0""><ul><li>汽车外饰条固定</li><li>汽车内饰件固定</li></ul></div><div><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1093-c1845dba/image.png?access_token=a73784b7-d6fb-4b71-8279-69e8d8a23443"" data-original-id=""1093"" data-original-src=""/web/image/1093-c1845dba/image.png"" data-mimetype-before-conversion=""image/png"" style=""width: 50%;""></div><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""6472a798-6121-484a-b09f-f97d12c4ee37"",""checksum"":""a2304a6d49b7be9400d2ba8ca43ed2d9503b75f9"",""extension"":""pdf"",""filename"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""id"":1094,""mimetype"":""application/pdf"",""name"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""type"":""binary"",""url"":""""}}'></span></div>","<div data-oe-version=""2.0""><p>红色半透明聚乙烯离型膜；离型膜厚度不计入总厚度。</p></div>",1.0,,灰色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,3M GT7100 系列,3M GT7112,GT7112,published,1,60,,"对汽车漆面与基材具有优异的最终粘接力和保持力
+满足多项 OEM 规范要求
+能够跟随塑料件因温度变化产生的收缩与伸长
+粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
+在不同温度条件下保持良好粘接性能
+具备耐候、耐溶剂与耐高温能力",3M GT7100 系列为面向汽车内外饰件固定应用设计的亚克力泡棉胶带，采用丙烯酸压敏胶体系，兼具高柔顺性、耐环境性与优异的长期粘接表现。,"<div data-oe-version=""2.0""><ul><li>汽车外饰条固定</li><li>汽车内饰件固定</li></ul></div><div><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1093-c1845dba/image.png?access_token=a73784b7-d6fb-4b71-8279-69e8d8a23443"" data-original-id=""1093"" data-original-src=""/web/image/1093-c1845dba/image.png"" data-mimetype-before-conversion=""image/png"" style=""width: 50%;""></div><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""6472a798-6121-484a-b09f-f97d12c4ee37"",""checksum"":""a2304a6d49b7be9400d2ba8ca43ed2d9503b75f9"",""extension"":""pdf"",""filename"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""id"":1094,""mimetype"":""application/pdf"",""name"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""type"":""binary"",""url"":""""}}'></span></div>","<div data-oe-version=""2.0""><p>红色半透明聚乙烯离型膜；离型膜厚度不计入总厚度。</p></div>",1.2,,灰色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,3M GT7100 系列,3M GT7116,GT7116,published,1,70,,"对汽车漆面与基材具有优异的最终粘接力和保持力
+满足多项 OEM 规范要求
+能够跟随塑料件因温度变化产生的收缩与伸长
+粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
+在不同温度条件下保持良好粘接性能
+具备耐候、耐溶剂与耐高温能力",3M GT7100 系列为面向汽车内外饰件固定应用设计的亚克力泡棉胶带，采用丙烯酸压敏胶体系，兼具高柔顺性、耐环境性与优异的长期粘接表现。,"<div data-oe-version=""2.0""><ul><li>汽车外饰条固定</li><li>汽车内饰件固定</li></ul></div><div><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1093-c1845dba/image.png?access_token=a73784b7-d6fb-4b71-8279-69e8d8a23443"" data-original-id=""1093"" data-original-src=""/web/image/1093-c1845dba/image.png"" data-mimetype-before-conversion=""image/png"" style=""width: 50%;""></div><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""6472a798-6121-484a-b09f-f97d12c4ee37"",""checksum"":""a2304a6d49b7be9400d2ba8ca43ed2d9503b75f9"",""extension"":""pdf"",""filename"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""id"":1094,""mimetype"":""application/pdf"",""name"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""type"":""binary"",""url"":""""}}'></span></div>","<div data-oe-version=""2.0""><p>红色半透明聚乙烯离型膜；离型膜厚度不计入总厚度。</p></div>",1.6,,灰色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,3M GT7100 系列,3M GT7120,GT7120,published,1,80,,"对汽车漆面与基材具有优异的最终粘接力和保持力
+满足多项 OEM 规范要求
+能够跟随塑料件因温度变化产生的收缩与伸长
+粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
+在不同温度条件下保持良好粘接性能
+具备耐候、耐溶剂与耐高温能力",3M GT7100 系列为面向汽车内外饰件固定应用设计的亚克力泡棉胶带，采用丙烯酸压敏胶体系，兼具高柔顺性、耐环境性与优异的长期粘接表现。,"<div data-oe-version=""2.0""><ul><li>汽车外饰条固定</li><li>汽车内饰件固定</li></ul></div><div><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1093-c1845dba/image.png?access_token=a73784b7-d6fb-4b71-8279-69e8d8a23443"" data-original-id=""1093"" data-original-src=""/web/image/1093-c1845dba/image.png"" data-mimetype-before-conversion=""image/png"" style=""width: 50%;""></div><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""6472a798-6121-484a-b09f-f97d12c4ee37"",""checksum"":""a2304a6d49b7be9400d2ba8ca43ed2d9503b75f9"",""extension"":""pdf"",""filename"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""id"":1094,""mimetype"":""application/pdf"",""name"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""type"":""binary"",""url"":""""}}'></span></div>","<div data-oe-version=""2.0""><p>红色半透明聚乙烯离型膜；离型膜厚度不计入总厚度。</p></div>",2.0,,灰色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,3M GT7100 系列,3M GT7125,GT7125,published,1,90,,"对汽车漆面与基材具有优异的最终粘接力和保持力
+满足多项 OEM 规范要求
+能够跟随塑料件因温度变化产生的收缩与伸长
+粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
+在不同温度条件下保持良好粘接性能
+具备耐候、耐溶剂与耐高温能力",3M GT7100 系列为面向汽车内外饰件固定应用设计的亚克力泡棉胶带，采用丙烯酸压敏胶体系，兼具高柔顺性、耐环境性与优异的长期粘接表现。,"<div data-oe-version=""2.0""><ul><li>汽车外饰条固定</li><li>汽车内饰件固定</li></ul></div><div><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1093-c1845dba/image.png?access_token=a73784b7-d6fb-4b71-8279-69e8d8a23443"" data-original-id=""1093"" data-original-src=""/web/image/1093-c1845dba/image.png"" data-mimetype-before-conversion=""image/png"" style=""width: 50%;""></div><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""6472a798-6121-484a-b09f-f97d12c4ee37"",""checksum"":""a2304a6d49b7be9400d2ba8ca43ed2d9503b75f9"",""extension"":""pdf"",""filename"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""id"":1094,""mimetype"":""application/pdf"",""name"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""type"":""binary"",""url"":""""}}'></span></div>","<div data-oe-version=""2.0""><p>红色半透明聚乙烯离型膜；离型膜厚度不计入总厚度。</p></div>",2.5,,灰色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,3M GT7100 系列,3M GT7130,GT7130,published,1,100,,"对汽车漆面与基材具有优异的最终粘接力和保持力
+满足多项 OEM 规范要求
+能够跟随塑料件因温度变化产生的收缩与伸长
+粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
+在不同温度条件下保持良好粘接性能
+具备耐候、耐溶剂与耐高温能力",3M GT7100 系列为面向汽车内外饰件固定应用设计的亚克力泡棉胶带，采用丙烯酸压敏胶体系，兼具高柔顺性、耐环境性与优异的长期粘接表现。,"<div data-oe-version=""2.0""><ul><li>汽车外饰条固定</li><li>汽车内饰件固定</li></ul></div><div><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1093-c1845dba/image.png?access_token=a73784b7-d6fb-4b71-8279-69e8d8a23443"" data-original-id=""1093"" data-original-src=""/web/image/1093-c1845dba/image.png"" data-mimetype-before-conversion=""image/png"" style=""width: 50%;""></div><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""6472a798-6121-484a-b09f-f97d12c4ee37"",""checksum"":""a2304a6d49b7be9400d2ba8ca43ed2d9503b75f9"",""extension"":""pdf"",""filename"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""id"":1094,""mimetype"":""application/pdf"",""name"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""type"":""binary"",""url"":""""}}'></span></div>","<div data-oe-version=""2.0""><p>红色半透明聚乙烯离型膜；离型膜厚度不计入总厚度。</p></div>",3.0,,白色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,3M GT7100 系列,3M GT7135,GT7135,published,1,110,,"对汽车漆面与基材具有优异的最终粘接力和保持力
+满足多项 OEM 规范要求
+能够跟随塑料件因温度变化产生的收缩与伸长
+粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
+在不同温度条件下保持良好粘接性能
+具备耐候、耐溶剂与耐高温能力",3M GT7100 系列为面向汽车内外饰件固定应用设计的亚克力泡棉胶带，采用丙烯酸压敏胶体系，兼具高柔顺性、耐环境性与优异的长期粘接表现。,"<div data-oe-version=""2.0""><ul><li>汽车外饰条固定</li><li>汽车内饰件固定</li></ul></div><div><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1093-c1845dba/image.png?access_token=a73784b7-d6fb-4b71-8279-69e8d8a23443"" data-original-id=""1093"" data-original-src=""/web/image/1093-c1845dba/image.png"" data-mimetype-before-conversion=""image/png"" style=""width: 50%;""></div><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""6472a798-6121-484a-b09f-f97d12c4ee37"",""checksum"":""a2304a6d49b7be9400d2ba8ca43ed2d9503b75f9"",""extension"":""pdf"",""filename"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""id"":1094,""mimetype"":""application/pdf"",""name"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""type"":""binary"",""url"":""""}}'></span></div>","<div data-oe-version=""2.0""><p>红色半透明聚乙烯离型膜；离型膜厚度不计入总厚度。</p></div>",3.5,,白色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none
+,3M,category_tape_foam,3M GT7100 系列,3M GT7140,GT7140,published,1,120,,"对汽车漆面与基材具有优异的最终粘接力和保持力
+满足多项 OEM 规范要求
+能够跟随塑料件因温度变化产生的收缩与伸长
+粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
+在不同温度条件下保持良好粘接性能
+具备耐候、耐溶剂与耐高温能力",3M GT7100 系列为面向汽车内外饰件固定应用设计的亚克力泡棉胶带，采用丙烯酸压敏胶体系，兼具高柔顺性、耐环境性与优异的长期粘接表现。,"<div data-oe-version=""2.0""><ul><li>汽车外饰条固定</li><li>汽车内饰件固定</li></ul></div><div><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1093-c1845dba/image.png?access_token=a73784b7-d6fb-4b71-8279-69e8d8a23443"" data-original-id=""1093"" data-original-src=""/web/image/1093-c1845dba/image.png"" data-mimetype-before-conversion=""image/png"" style=""width: 50%;""></div><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""6472a798-6121-484a-b09f-f97d12c4ee37"",""checksum"":""a2304a6d49b7be9400d2ba8ca43ed2d9503b75f9"",""extension"":""pdf"",""filename"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""id"":1094,""mimetype"":""application/pdf"",""name"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""type"":""binary"",""url"":""""}}'></span></div>","<div data-oe-version=""2.0""><p>红色半透明聚乙烯离型膜；离型膜厚度不计入总厚度。</p></div>",4.0,,白色,丙烯酸,丙烯酸泡棉,0.0,0,0,0,none

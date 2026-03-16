@@ -1,0 +1,17 @@
+﻿param_key,name,value_type,description,unit,selection_options,sequence,active
+peel_180_painted_immediate,涂装板-即时状态-180度剥离力,float,180度剥离力，测试对象为涂装板，即时状态。,N/cm,,10,1
+peel_180_painted_normal,涂装板-常温状态-180度剥离力,float,180度剥离力，测试对象为涂装板，常温静置后测得。,N/cm,,20,1
+peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,float,180度剥离力，测试对象为涂装板，经常温静置后再进行高温处理。,N/cm,,30,1
+peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,float,180度剥离力，测试对象为涂装板，经热老化后测得。,N/cm,,40,1
+peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,float,180度剥离力，测试对象为涂装板，经温水浸泡后测得。,N/cm,,50,1
+peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,float,180度剥离力，测试对象为PVC板，即时状态。,N/cm,,60,1
+peel_180_pvc_normal,PVC板-常温状态-180度剥离力,float,180度剥离力，测试对象为PVC板，常温静置后测得。,N/cm,,70,1
+peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,float,180度剥离力，测试对象为PVC板，经常温静置后再进行高温处理。,N/cm,,80,1
+peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,float,180度剥离力，测试对象为PVC板，经热老化后测得。,N/cm,,90,1
+peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,float,180度剥离力，测试对象为PVC板，经温水浸泡后测得。,N/cm,,100,1
+shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,float,剪切强度，测试对象为涂装板/PVC板组合，即时状态。,MPa,,110,1
+shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,float,剪切强度，测试对象为涂装板/PVC板组合，常温静置后测得。,MPa,,120,1
+shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,float,剪切强度，测试对象为涂装板/PVC板组合，经常温静置后再进行高温处理。,MPa,,130,1
+shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,float,剪切强度，测试对象为涂装板/PVC板组合，经温水浸泡后测得。,MPa,,140,1
+shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,float,剪切强度，测试对象为涂装板/PVC板组合，经汽油浸泡后测得。,MPa,,150,1
+shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,float,剪切强度，测试对象为涂装板/PVC板组合，经除蜡剂浸泡后测得。,MPa,,160,1

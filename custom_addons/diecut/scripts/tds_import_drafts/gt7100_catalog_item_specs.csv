@@ -1,0 +1,193 @@
+﻿brand_id_xml,brand_name,categ_id_xml,item_code,param_key,param_name,value,unit,test_method,test_condition,remark,sequence
+,3m,category_tape_foam,GT7102,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,6.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3m,category_tape_foam,GT7102,peel_180_painted_normal,涂装板-常温状态-180度剥离力,8.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3m,category_tape_foam,GT7102,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,5.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3m,category_tape_foam,GT7102,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,12.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3m,category_tape_foam,GT7102,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,9.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3m,category_tape_foam,GT7102,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,10.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3m,category_tape_foam,GT7102,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,11.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3m,category_tape_foam,GT7102,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,5.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3m,category_tape_foam,GT7102,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,4.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3m,category_tape_foam,GT7102,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,9.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3m,category_tape_foam,GT7102,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.84,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3m,category_tape_foam,GT7102,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.86,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3m,category_tape_foam,GT7102,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.28,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3m,category_tape_foam,GT7102,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.84,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3m,category_tape_foam,GT7102,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.83,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3m,category_tape_foam,GT7102,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.75,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3m,category_tape_foam,GT7104,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,8.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3m,category_tape_foam,GT7104,peel_180_painted_normal,涂装板-常温状态-180度剥离力,11.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3m,category_tape_foam,GT7104,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,6.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3m,category_tape_foam,GT7104,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,14.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3m,category_tape_foam,GT7104,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,12.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3m,category_tape_foam,GT7104,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,12.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3m,category_tape_foam,GT7104,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,12.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3m,category_tape_foam,GT7104,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,6.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3m,category_tape_foam,GT7104,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,8.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3m,category_tape_foam,GT7104,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,10.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3m,category_tape_foam,GT7104,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.75,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3m,category_tape_foam,GT7104,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.79,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3m,category_tape_foam,GT7104,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.24,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3m,category_tape_foam,GT7104,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.75,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3m,category_tape_foam,GT7104,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.75,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3m,category_tape_foam,GT7104,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.69,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3m,category_tape_foam,GT7106,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,9.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3m,category_tape_foam,GT7106,peel_180_painted_normal,涂装板-常温状态-180度剥离力,11.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3m,category_tape_foam,GT7106,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,7.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3m,category_tape_foam,GT7106,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,15.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3m,category_tape_foam,GT7106,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,13.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3m,category_tape_foam,GT7106,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,13.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3m,category_tape_foam,GT7106,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,13.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3m,category_tape_foam,GT7106,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,7.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3m,category_tape_foam,GT7106,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,10.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3m,category_tape_foam,GT7106,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,12.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3m,category_tape_foam,GT7106,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.73,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3m,category_tape_foam,GT7106,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.75,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3m,category_tape_foam,GT7106,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.23,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3m,category_tape_foam,GT7106,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.71,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3m,category_tape_foam,GT7106,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.72,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3m,category_tape_foam,GT7106,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.64,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3m,category_tape_foam,GT7108,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,10.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3m,category_tape_foam,GT7108,peel_180_painted_normal,涂装板-常温状态-180度剥离力,12.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3m,category_tape_foam,GT7108,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,7.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3m,category_tape_foam,GT7108,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,17.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3m,category_tape_foam,GT7108,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,15.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3m,category_tape_foam,GT7108,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,14.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3m,category_tape_foam,GT7108,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,14.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3m,category_tape_foam,GT7108,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,8.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3m,category_tape_foam,GT7108,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,13.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3m,category_tape_foam,GT7108,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,14.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3m,category_tape_foam,GT7108,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.7,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3m,category_tape_foam,GT7108,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.71,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3m,category_tape_foam,GT7108,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.22,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3m,category_tape_foam,GT7108,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.67,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3m,category_tape_foam,GT7108,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.69,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3m,category_tape_foam,GT7108,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.61,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3m,category_tape_foam,GT7110,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,10.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3m,category_tape_foam,GT7110,peel_180_painted_normal,涂装板-常温状态-180度剥离力,13.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3m,category_tape_foam,GT7110,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,7.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3m,category_tape_foam,GT7110,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,18.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3m,category_tape_foam,GT7110,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,15.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3m,category_tape_foam,GT7110,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,15.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3m,category_tape_foam,GT7110,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,16.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3m,category_tape_foam,GT7110,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,8.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3m,category_tape_foam,GT7110,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,15.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3m,category_tape_foam,GT7110,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,15.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3m,category_tape_foam,GT7110,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.66,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3m,category_tape_foam,GT7110,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.65,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3m,category_tape_foam,GT7110,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.21,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3m,category_tape_foam,GT7110,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.63,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3m,category_tape_foam,GT7110,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.63,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3m,category_tape_foam,GT7110,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.58,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3m,category_tape_foam,GT7112,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,11.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3m,category_tape_foam,GT7112,peel_180_painted_normal,涂装板-常温状态-180度剥离力,14.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3m,category_tape_foam,GT7112,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,8.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3m,category_tape_foam,GT7112,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,19.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3m,category_tape_foam,GT7112,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,16.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3m,category_tape_foam,GT7112,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,16.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3m,category_tape_foam,GT7112,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,17.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3m,category_tape_foam,GT7112,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,8.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3m,category_tape_foam,GT7112,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,16.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3m,category_tape_foam,GT7112,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,16.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3m,category_tape_foam,GT7112,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.61,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3m,category_tape_foam,GT7112,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.61,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3m,category_tape_foam,GT7112,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.2,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3m,category_tape_foam,GT7112,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.58,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3m,category_tape_foam,GT7112,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.6,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3m,category_tape_foam,GT7112,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.53,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3m,category_tape_foam,GT7116,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,12.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3m,category_tape_foam,GT7116,peel_180_painted_normal,涂装板-常温状态-180度剥离力,16.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3m,category_tape_foam,GT7116,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,8.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3m,category_tape_foam,GT7116,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,22.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3m,category_tape_foam,GT7116,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,19.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3m,category_tape_foam,GT7116,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,19.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3m,category_tape_foam,GT7116,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,19.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3m,category_tape_foam,GT7116,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,9.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3m,category_tape_foam,GT7116,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,18.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3m,category_tape_foam,GT7116,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,18.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3m,category_tape_foam,GT7116,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.56,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3m,category_tape_foam,GT7116,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.56,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3m,category_tape_foam,GT7116,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.19,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3m,category_tape_foam,GT7116,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.53,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3m,category_tape_foam,GT7116,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.52,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3m,category_tape_foam,GT7116,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.47,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3m,category_tape_foam,GT7120,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,12.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3m,category_tape_foam,GT7120,peel_180_painted_normal,涂装板-常温状态-180度剥离力,17.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3m,category_tape_foam,GT7120,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,8.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3m,category_tape_foam,GT7120,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,24.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3m,category_tape_foam,GT7120,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,21.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3m,category_tape_foam,GT7120,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,20.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3m,category_tape_foam,GT7120,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,21.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3m,category_tape_foam,GT7120,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,9.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3m,category_tape_foam,GT7120,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,20.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3m,category_tape_foam,GT7120,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,20.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3m,category_tape_foam,GT7120,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.52,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3m,category_tape_foam,GT7120,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.52,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3m,category_tape_foam,GT7120,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.18,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3m,category_tape_foam,GT7120,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.49,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3m,category_tape_foam,GT7120,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.48,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3m,category_tape_foam,GT7120,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.43,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3m,category_tape_foam,GT7125,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,13.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3m,category_tape_foam,GT7125,peel_180_painted_normal,涂装板-常温状态-180度剥离力,19.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3m,category_tape_foam,GT7125,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,9.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3m,category_tape_foam,GT7125,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,26.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3m,category_tape_foam,GT7125,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,23.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3m,category_tape_foam,GT7125,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,23.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3m,category_tape_foam,GT7125,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,23.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3m,category_tape_foam,GT7125,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,9.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3m,category_tape_foam,GT7125,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,23.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3m,category_tape_foam,GT7125,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,22.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3m,category_tape_foam,GT7125,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.48,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3m,category_tape_foam,GT7125,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.49,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3m,category_tape_foam,GT7125,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.17,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3m,category_tape_foam,GT7125,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.47,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3m,category_tape_foam,GT7125,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.47,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3m,category_tape_foam,GT7125,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.4,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3m,category_tape_foam,GT7130,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,13.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3m,category_tape_foam,GT7130,peel_180_painted_normal,涂装板-常温状态-180度剥离力,21.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3m,category_tape_foam,GT7130,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,9.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3m,category_tape_foam,GT7130,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,29.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3m,category_tape_foam,GT7130,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,25.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3m,category_tape_foam,GT7130,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,24.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3m,category_tape_foam,GT7130,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,24.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3m,category_tape_foam,GT7130,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,10.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3m,category_tape_foam,GT7130,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,26.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3m,category_tape_foam,GT7130,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,24.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3m,category_tape_foam,GT7130,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.47,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3m,category_tape_foam,GT7130,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.47,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3m,category_tape_foam,GT7130,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.16,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3m,category_tape_foam,GT7130,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.46,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3m,category_tape_foam,GT7130,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.45,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3m,category_tape_foam,GT7130,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.4,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3m,category_tape_foam,GT7135,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,14.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3m,category_tape_foam,GT7135,peel_180_painted_normal,涂装板-常温状态-180度剥离力,23.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3m,category_tape_foam,GT7135,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,9.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3m,category_tape_foam,GT7135,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,31.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3m,category_tape_foam,GT7135,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,27.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3m,category_tape_foam,GT7135,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,24.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3m,category_tape_foam,GT7135,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,25.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3m,category_tape_foam,GT7135,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,10.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3m,category_tape_foam,GT7135,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,29.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3m,category_tape_foam,GT7135,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,27.0,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3m,category_tape_foam,GT7135,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.45,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3m,category_tape_foam,GT7135,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.45,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3m,category_tape_foam,GT7135,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.15,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3m,category_tape_foam,GT7135,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.44,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3m,category_tape_foam,GT7135,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.44,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3m,category_tape_foam,GT7135,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.39,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3m,category_tape_foam,GT7140,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,15.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3m,category_tape_foam,GT7140,peel_180_painted_normal,涂装板-常温状态-180度剥离力,25.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3m,category_tape_foam,GT7140,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,9.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3m,category_tape_foam,GT7140,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,32.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3m,category_tape_foam,GT7140,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,28.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3m,category_tape_foam,GT7140,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,25.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3m,category_tape_foam,GT7140,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,25.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3m,category_tape_foam,GT7140,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,10.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3m,category_tape_foam,GT7140,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,31.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3m,category_tape_foam,GT7140,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,28.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3m,category_tape_foam,GT7140,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.45,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3m,category_tape_foam,GT7140,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.45,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3m,category_tape_foam,GT7140,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.15,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3m,category_tape_foam,GT7140,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.42,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3m,category_tape_foam,GT7140,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.44,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3m,category_tape_foam,GT7140,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.38,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160

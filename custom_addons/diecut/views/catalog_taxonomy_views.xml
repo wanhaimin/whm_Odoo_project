@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_diecut_color_list" model="ir.ui.view">
+        <field name="name">diecut.color.list</field>
+        <field name="model">diecut.color</field>
+        <field name="arch" type="xml">
+            <list string="颜色字典" default_order="sequence, name, id">
+                <field name="sequence" optional="hide"/>
+                <field name="name"/>
+                <field name="usage_count_total" string="总使用量"/>
+                <field name="usage_count_catalog_item" string="目录条目数量" optional="show"/>
+                <field name="usage_count_product_template" string="产品模板数量" optional="show"/>
+                <field name="usage_count_other" string="其他模型数量" optional="hide"/>
+                <field name="active"/>
+                <field name="note" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_color_form" model="ir.ui.view">
+        <field name="name">diecut.color.form</field>
+        <field name="model">diecut.color</field>
+        <field name="arch" type="xml">
+            <form string="颜色字典">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="note"/>
+                        </group>
+                        <group string="引用统计">
+                            <field name="usage_count_total" readonly="1"/>
+                            <field name="usage_count_catalog_item" readonly="1"/>
+                            <field name="usage_count_product_template" readonly="1"/>
+                            <field name="usage_count_other" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="按模型统计">
+                        <field name="usage_count_breakdown" nolabel="1" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_color_search" model="ir.ui.view">
+        <field name="name">diecut.color.search</field>
+        <field name="model">diecut.color</field>
+        <field name="arch" type="xml">
+            <search string="搜索颜色字典">
+                <field name="name"/>
+                <filter name="active_only" string="启用" domain="[('active', '=', True)]"/>
+                <filter name="inactive_only" string="停用" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter name="in_use" string="在用" domain="[('usage_count_total', '&gt;', 0)]"/>
+                <filter name="unused" string="未使用" domain="[('usage_count_total', '=', 0)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_color" model="ir.actions.act_window">
+        <field name="name">颜色字典</field>
+        <field name="res_model">diecut.color</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_color_search"/>
+    </record>
+
+    <record id="view_diecut_catalog_adhesive_type_list" model="ir.ui.view">
+        <field name="name">diecut.catalog.adhesive.type.list</field>
+        <field name="model">diecut.catalog.adhesive.type</field>
+        <field name="arch" type="xml">
+            <list string="胶系字典" default_order="sequence, name, id">
+                <field name="sequence" optional="hide"/>
+                <field name="name"/>
+                <field name="usage_count_total" string="总使用量"/>
+                <field name="usage_count_catalog_item" string="目录条目数量" optional="show"/>
+                <field name="usage_count_product_template" string="产品模板数量" optional="show"/>
+                <field name="usage_count_other" string="其他模型数量" optional="hide"/>
+                <field name="active"/>
+                <field name="note" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_adhesive_type_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.adhesive.type.form</field>
+        <field name="model">diecut.catalog.adhesive.type</field>
+        <field name="arch" type="xml">
+            <form string="胶系字典">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="note"/>
+                        </group>
+                        <group string="引用统计">
+                            <field name="usage_count_total" readonly="1"/>
+                            <field name="usage_count_catalog_item" readonly="1"/>
+                            <field name="usage_count_product_template" readonly="1"/>
+                            <field name="usage_count_other" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="按模型统计">
+                        <field name="usage_count_breakdown" nolabel="1" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_adhesive_type_search" model="ir.ui.view">
+        <field name="name">diecut.catalog.adhesive.type.search</field>
+        <field name="model">diecut.catalog.adhesive.type</field>
+        <field name="arch" type="xml">
+            <search string="搜索胶系字典">
+                <field name="name"/>
+                <filter name="active_only" string="启用" domain="[('active', '=', True)]"/>
+                <filter name="inactive_only" string="停用" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter name="in_use" string="在用" domain="[('usage_count_total', '&gt;', 0)]"/>
+                <filter name="unused" string="未使用" domain="[('usage_count_total', '=', 0)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_catalog_adhesive_type" model="ir.actions.act_window">
+        <field name="name">胶系字典</field>
+        <field name="res_model">diecut.catalog.adhesive.type</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_catalog_adhesive_type_search"/>
+    </record>
+
+    <record id="view_diecut_catalog_base_material_list" model="ir.ui.view">
+        <field name="name">diecut.catalog.base.material.list</field>
+        <field name="model">diecut.catalog.base.material</field>
+        <field name="arch" type="xml">
+            <list string="基材字典" default_order="sequence, name, id">
+                <field name="sequence" optional="hide"/>
+                <field name="name"/>
+                <field name="usage_count_total" string="总使用量"/>
+                <field name="usage_count_catalog_item" string="目录条目数量" optional="show"/>
+                <field name="usage_count_product_template" string="产品模板数量" optional="show"/>
+                <field name="usage_count_other" string="其他模型数量" optional="hide"/>
+                <field name="active"/>
+                <field name="note" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_base_material_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.base.material.form</field>
+        <field name="model">diecut.catalog.base.material</field>
+        <field name="arch" type="xml">
+            <form string="基材字典">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="note"/>
+                        </group>
+                        <group string="引用统计">
+                            <field name="usage_count_total" readonly="1"/>
+                            <field name="usage_count_catalog_item" readonly="1"/>
+                            <field name="usage_count_product_template" readonly="1"/>
+                            <field name="usage_count_other" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="按模型统计">
+                        <field name="usage_count_breakdown" nolabel="1" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_base_material_search" model="ir.ui.view">
+        <field name="name">diecut.catalog.base.material.search</field>
+        <field name="model">diecut.catalog.base.material</field>
+        <field name="arch" type="xml">
+            <search string="搜索基材字典">
+                <field name="name"/>
+                <filter name="active_only" string="启用" domain="[('active', '=', True)]"/>
+                <filter name="inactive_only" string="停用" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter name="in_use" string="在用" domain="[('usage_count_total', '&gt;', 0)]"/>
+                <filter name="unused" string="未使用" domain="[('usage_count_total', '=', 0)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_catalog_base_material" model="ir.actions.act_window">
+        <field name="name">基材字典</field>
+        <field name="res_model">diecut.catalog.base.material</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_catalog_base_material_search"/>
+    </record>
+</odoo>

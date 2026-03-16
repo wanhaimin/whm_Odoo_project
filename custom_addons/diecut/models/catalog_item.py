@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 import re
 from collections import Counter, defaultdict
@@ -74,31 +74,18 @@ class DiecutCatalogItem(models.Model):
     erp_enabled = fields.Boolean(string="已启用ERP", default=False, index=True, readonly=True)
     erp_product_tmpl_id = fields.Many2one("product.template", string="ERP产品", readonly=True, copy=False)
 
-    variant_thickness = fields.Char(string="厚度")
-    variant_adhesive_thickness = fields.Char(string="胶层厚", help="如：13/13、15/40（双面胶层厚）")
-    variant_color = fields.Char(string="颜色")
-    variant_peel_strength = fields.Char(string="剥离力", help="遗留字段，仅用于迁移。")
-    variant_structure = fields.Char(string="结构描述", help="遗留字段，仅用于迁移。")
-    variant_adhesive_type = fields.Char(string="胶系")
-    variant_base_material = fields.Char(string="基材")
-    variant_sus_peel = fields.Char(string="SUS面剥离力", help="遗留字段，仅用于迁移。")
-    variant_pe_peel = fields.Char(string="PE面剥离力", help="遗留字段，仅用于迁移。")
-    variant_dupont = fields.Char(string="DuPont冲击", help="遗留字段，仅用于迁移。")
-    variant_push_force = fields.Char(string="推出力", help="遗留字段，仅用于迁移。")
-    variant_removability = fields.Char(string="可移除性", help="遗留字段，仅用于迁移。")
-    variant_tumbler = fields.Char(string="Tumbler滚球", help="遗留字段，仅用于迁移。")
-    variant_holding_power = fields.Char(string="保持力", help="遗留字段，仅用于迁移。")
-
-    variant_thickness_std = fields.Char(string="厚度(标准)")
-    variant_color_std = fields.Char(string="颜色(标准)")
-    variant_adhesive_std = fields.Char(string="胶系(标准)")
-    variant_base_material_std = fields.Char(string="基材(标准)")
-    variant_ref_price = fields.Float(string="参考单价", digits=(16, 4))
-    variant_is_rohs = fields.Boolean(string="ROHS", default=False)
-    variant_is_reach = fields.Boolean(string="REACH", default=False)
-    variant_is_halogen_free = fields.Boolean(string="无卤", default=False)
-    variant_catalog_structure_image = fields.Binary(string="产品结构图")
-    variant_fire_rating = fields.Selection(
+    thickness = fields.Char(string="厚度")
+    adhesive_thickness = fields.Char(string="胶层厚", help="如：13/13、15/40（双面胶层厚）")
+    color_id = fields.Many2one("diecut.color", string="颜色", index=True)
+    adhesive_type_id = fields.Many2one("diecut.catalog.adhesive.type", string="胶系", index=True)
+    base_material_id = fields.Many2one("diecut.catalog.base.material", string="基材", index=True)
+    thickness_std = fields.Char(string="厚度(标准)")
+    ref_price = fields.Float(string="参考单价", digits=(16, 4))
+    is_rohs = fields.Boolean(string="ROHS", default=False)
+    is_reach = fields.Boolean(string="REACH", default=False)
+    is_halogen_free = fields.Boolean(string="无卤", default=False)
+    catalog_structure_image = fields.Binary(string="产品结构图")
+    fire_rating = fields.Selection(
         [
             ("ul94_v0", "UL94 V-0"),
             ("ul94_v1", "UL94 V-1"),
@@ -110,17 +97,112 @@ class DiecutCatalogItem(models.Model):
         default="none",
     )
 
+    variant_thickness = fields.Char(string="厚度(兼容)", help="兼容旧字段，请使用 thickness。")
+    variant_adhesive_thickness = fields.Char(string="胶层厚(兼容)", help="兼容旧字段，请使用 adhesive_thickness。")
+    variant_color = fields.Many2one("diecut.color", string="颜色(兼容)", index=True, help="兼容旧字段，请使用 color_id。")
+    variant_peel_strength = fields.Char(string="剥离力", help="遗留字段，仅用于迁移。")
+    variant_structure = fields.Char(string="结构描述", help="遗留字段，仅用于迁移。")
+    variant_adhesive_type = fields.Many2one("diecut.catalog.adhesive.type", string="胶系(兼容)", index=True, help="兼容旧字段，请使用 adhesive_type_id。")
+    variant_base_material = fields.Many2one("diecut.catalog.base.material", string="基材(兼容)", index=True, help="兼容旧字段，请使用 base_material_id。")
+    variant_sus_peel = fields.Char(string="SUS面剥离力", help="遗留字段，仅用于迁移。")
+    variant_pe_peel = fields.Char(string="PE面剥离力", help="遗留字段，仅用于迁移。")
+    variant_dupont = fields.Char(string="DuPont冲击", help="遗留字段，仅用于迁移。")
+    variant_push_force = fields.Char(string="推出力", help="遗留字段，仅用于迁移。")
+    variant_removability = fields.Char(string="可移除性", help="遗留字段，仅用于迁移。")
+    variant_tumbler = fields.Char(string="Tumbler滚球", help="遗留字段，仅用于迁移。")
+    variant_holding_power = fields.Char(string="保持力", help="遗留字段，仅用于迁移。")
+
+    variant_thickness_std = fields.Char(string="厚度(标准)(兼容)", help="兼容旧字段，请使用 thickness_std。")
+    variant_ref_price = fields.Float(string="参考单价(兼容)", digits=(16, 4), help="兼容旧字段，请使用 ref_price。")
+    variant_is_rohs = fields.Boolean(string="ROHS(兼容)", default=False, help="兼容旧字段，请使用 is_rohs。")
+    variant_is_reach = fields.Boolean(string="REACH(兼容)", default=False, help="兼容旧字段，请使用 is_reach。")
+    variant_is_halogen_free = fields.Boolean(string="无卤(兼容)", default=False, help="兼容旧字段，请使用 is_halogen_free。")
+    variant_catalog_structure_image = fields.Binary(string="产品结构图(兼容)", help="兼容旧字段，请使用 catalog_structure_image。")
+    variant_fire_rating = fields.Selection(
+        [
+            ("ul94_v0", "UL94 V-0"),
+            ("ul94_v1", "UL94 V-1"),
+            ("ul94_v2", "UL94 V-2"),
+            ("ul94_hb", "UL94 HB"),
+            ("none", "无"),
+        ],
+        string="防火等级(兼容)",
+        default="none",
+        help="兼容旧字段，请使用 fire_rating。",
+    )
+
     spec_line_ids = fields.One2many("diecut.catalog.item.spec.line", "catalog_item_id", string="技术参数", copy=True)
     spec_line_count = fields.Integer(string="参数条数", compute="_compute_spec_line_count")
-    spec_def_domain_ids = fields.Many2many(
-        "diecut.catalog.spec.def",
-        compute="_compute_spec_def_domain_ids",
-        string="可选参数定义",
+    param_domain_ids = fields.Many2many(
+        "diecut.catalog.param",
+        compute="_compute_param_domain_ids",
+        string="可选参数字典",
     )
     is_duplicate_key = fields.Boolean(string="编码重复", compute="_compute_is_duplicate_key", search="_search_is_duplicate_key")
 
-    _STD_RAW_KEYS = {"variant_thickness", "variant_color", "variant_adhesive_type", "variant_base_material"}
-    _STD_KEYS = {"variant_thickness_std", "variant_color_std", "variant_adhesive_std", "variant_base_material_std"}
+    _FIELD_COMPATIBILITY_MAP = {
+        "thickness": "variant_thickness",
+        "adhesive_thickness": "variant_adhesive_thickness",
+        "color_id": "variant_color",
+        "adhesive_type_id": "variant_adhesive_type",
+        "base_material_id": "variant_base_material",
+        "thickness_std": "variant_thickness_std",
+        "ref_price": "variant_ref_price",
+        "is_rohs": "variant_is_rohs",
+        "is_reach": "variant_is_reach",
+        "is_halogen_free": "variant_is_halogen_free",
+        "catalog_structure_image": "variant_catalog_structure_image",
+        "fire_rating": "variant_fire_rating",
+    }
+    _STD_RAW_KEYS = {"thickness", "variant_thickness"}
+    _STD_KEYS = {"thickness_std", "variant_thickness_std"}
+    _TAXONOMY_MODEL_BY_FIELD = {
+        "color_id": "diecut.color",
+        "adhesive_type_id": "diecut.catalog.adhesive.type",
+        "base_material_id": "diecut.catalog.base.material",
+    }
+
+    @api.model
+    def _selection_main_field_name(self):
+        return [
+            ("thickness", "厚度"),
+            ("thickness_std", "厚度(标准)"),
+            ("adhesive_thickness", "胶层厚"),
+            ("color_id", "颜色"),
+            ("adhesive_type_id", "胶系"),
+            ("base_material_id", "基材"),
+            ("ref_price", "参考单价"),
+            ("is_rohs", "ROHS"),
+            ("is_reach", "REACH"),
+            ("is_halogen_free", "无卤"),
+            ("fire_rating", "防火等级"),
+        ]
+
+    @classmethod
+    def _normalize_compatibility_vals(cls, vals):
+        normalized = dict(vals or {})
+        for new_name, old_name in cls._FIELD_COMPATIBILITY_MAP.items():
+            if new_name in normalized and old_name not in normalized:
+                normalized[old_name] = normalized[new_name]
+            elif old_name in normalized and new_name not in normalized:
+                normalized[new_name] = normalized[old_name]
+        return normalized
+
+    def _collect_taxonomy_usage_ids(self):
+        usage_ids = {model_name: set() for model_name in self._TAXONOMY_MODEL_BY_FIELD.values()}
+        for record in self.with_context(active_test=False):
+            for field_name, model_name in self._TAXONOMY_MODEL_BY_FIELD.items():
+                field_value = record[field_name]
+                if field_value:
+                    usage_ids[model_name].add(field_value.id)
+        return usage_ids
+
+    @api.model
+    def _refresh_taxonomy_usage_counts_from_map(self, usage_ids):
+        for model_name, ids in usage_ids.items():
+            if ids:
+                self.env[model_name].sudo().browse(list(ids))._refresh_usage_counts()
+        return True
 
     @api.depends("spec_line_ids")
     def _compute_spec_line_count(self):
@@ -128,12 +210,12 @@ class DiecutCatalogItem(models.Model):
             record.spec_line_count = len(record.spec_line_ids)
 
     @api.depends("categ_id")
-    def _compute_spec_def_domain_ids(self):
+    def _compute_param_domain_ids(self):
         for record in self:
             if not record.categ_id:
-                record.spec_def_domain_ids = self.env["diecut.catalog.spec.def"]
+                record.param_domain_ids = self.env["diecut.catalog.param"]
                 continue
-            record.spec_def_domain_ids = record._get_active_spec_defs(record.categ_id.id)
+            record.param_domain_ids = record._get_active_params(record.categ_id.id)
 
     @api.model
     def _get_duplicate_model_ids(self):
@@ -174,11 +256,41 @@ class DiecutCatalogItem(models.Model):
         return [("id", "not in", duplicate_ids or [0])]
 
     @staticmethod
-    def _normalize_text_std(value):
+    def _normalize_taxonomy_name(value):
         if not value:
             return False
-        normalized = re.sub(r"\s+", " ", (value or "").strip())
+        normalized = re.sub(r"\s+", " ", str(value).strip())
         return normalized or False
+
+    @api.model
+    def _resolve_or_create_taxonomy_id(self, model_name, value):
+        name = self._normalize_taxonomy_name(value)
+        if not name:
+            return False
+        taxonomy_model = self.env[model_name].sudo()
+        record = taxonomy_model.search([("name", "=", name)], limit=1)
+        if record:
+            return record.id
+        return taxonomy_model.create({"name": name}).id
+
+    @api.model
+    def _prepare_taxonomy_many2one_vals(self, vals):
+        resolved = {}
+        for field_name, model_name in self._TAXONOMY_MODEL_BY_FIELD.items():
+            if field_name not in vals:
+                continue
+            value = vals.get(field_name)
+            if isinstance(value, models.BaseModel):
+                resolved[field_name] = value.id
+                continue
+            if isinstance(value, int):
+                resolved[field_name] = value or False
+                continue
+            if value in (False, None, ""):
+                resolved[field_name] = False
+                continue
+            resolved[field_name] = self._resolve_or_create_taxonomy_id(model_name, value)
+        return resolved
 
     @staticmethod
     def _normalize_thickness_std(thickness_text):
@@ -203,24 +315,17 @@ class DiecutCatalogItem(models.Model):
     @classmethod
     def _build_variant_std_vals_from_raw(cls, vals):
         std_vals = {}
-        if "variant_thickness" in vals:
-            std_vals["variant_thickness_std"] = cls._normalize_thickness_std(vals.get("variant_thickness"))
-        if "variant_color" in vals:
-            std_vals["variant_color_std"] = cls._normalize_text_std(vals.get("variant_color"))
-        if "variant_adhesive_type" in vals:
-            std_vals["variant_adhesive_std"] = cls._normalize_text_std(vals.get("variant_adhesive_type"))
-        if "variant_base_material" in vals:
-            std_vals["variant_base_material_std"] = cls._normalize_text_std(vals.get("variant_base_material"))
+        thickness_value = vals.get("thickness") if "thickness" in vals else vals.get("variant_thickness")
+        if "thickness" in vals or "variant_thickness" in vals:
+            std_vals["thickness_std"] = cls._normalize_thickness_std(thickness_value)
+            std_vals["variant_thickness_std"] = std_vals["thickness_std"]
         return std_vals
 
     def _build_variant_std_vals(self):
         self.ensure_one()
         return self._build_variant_std_vals_from_raw(
             {
-                "variant_thickness": self.variant_thickness,
-                "variant_color": self.variant_color,
-                "variant_adhesive_type": self.variant_adhesive_type,
-                "variant_base_material": self.variant_base_material,
+                "thickness": self.thickness,
             }
         )
 
@@ -309,65 +414,211 @@ class DiecutCatalogItem(models.Model):
         return chain_ids
 
     @api.model
-    def _get_active_spec_defs(self, categ_id):
+    def _get_active_category_params(self, categ_id):
         if not categ_id:
             return self.env["diecut.catalog.spec.def"]
         chain_ids = self._get_category_chain_ids(categ_id)
         if not chain_ids:
             return self.env["diecut.catalog.spec.def"]
-        spec_def_model = self.env["diecut.catalog.spec.def"]
-        effective_by_key = {}
+        category_param_model = self.env["diecut.catalog.spec.def"]
+        effective_by_param = {}
         for category_id in chain_ids:
-            category_defs = spec_def_model.search(
+            category_defs = category_param_model.search(
                 [("categ_id", "=", category_id), ("active", "=", True), ("show_in_form", "=", True)],
                 order="sequence, id",
             )
             for spec_def in category_defs:
-                effective_by_key[spec_def.param_key] = spec_def
-        if not effective_by_key:
-            return spec_def_model
-        return spec_def_model.browse([record.id for record in sorted(effective_by_key.values(), key=lambda rec: (rec.sequence, rec.id))])
+                effective_by_param[spec_def.param_id.id] = spec_def
+        if not effective_by_param:
+            return category_param_model
+        return category_param_model.browse(
+            [record.id for record in sorted(effective_by_param.values(), key=lambda rec: (rec.sequence, rec.id))]
+        )
+
+    @api.model
+    def _get_active_spec_defs(self, categ_id):
+        return self._get_active_category_params(categ_id)
+
+    @api.model
+    def _get_effective_category_param_map(self, categ_id):
+        return {record.param_id.id: record for record in self._get_active_category_params(categ_id)}
+
+    @api.model
+    def _get_active_params(self, categ_id):
+        category_params = self._get_active_category_params(categ_id)
+        return category_params.mapped("param_id")
 
     @api.model
     def _get_effective_importable_spec_def_map(self, categ_id):
-        spec_defs = self._get_active_spec_defs(categ_id).filtered("allow_import")
+        spec_defs = self._get_active_category_params(categ_id).filtered("allow_import")
         return {record.param_key: record for record in spec_defs}
 
-    def _build_default_spec_line_commands(self, categ_id, existing_spec_def_ids=None, existing_param_keys=None):
-        existing_ids = set(existing_spec_def_ids or [])
+    def _build_default_spec_line_commands(self, categ_id, existing_param_ids=None, existing_param_keys=None):
+        existing_ids = set(existing_param_ids or [])
         existing_keys = {key for key in (existing_param_keys or []) if key}
         commands = []
-        for spec_def in self._get_active_spec_defs(categ_id):
-            if spec_def.id in existing_ids or spec_def.param_key in existing_keys:
+        for spec_def in self._get_active_category_params(categ_id):
+            if spec_def.param_id.id in existing_ids or spec_def.param_key in existing_keys:
                 continue
             commands.append(
                 Command.create(
                     {
-                        "spec_def_id": spec_def.id,
+                        "param_id": spec_def.param_id.id,
+                        "category_param_id": spec_def.id,
                         "sequence": spec_def.sequence,
                         "param_key": spec_def.param_key,
                         "param_name": spec_def.name,
-                        "unit": spec_def.unit,
+                        "unit": spec_def.unit_override or spec_def.unit,
                     }
                 )
             )
         return commands
+
+    @api.model
+    def get_spec_template_commands(self, categ_id):
+        categ_id = int(categ_id or 0)
+        if not categ_id:
+            return [list(Command.clear())]
+        commands = [list(Command.clear())]
+        commands.extend(list(command) for command in self._build_default_spec_line_commands(categ_id))
+        return commands
+
+    def _spec_lines_are_blank_template(self):
+        self.ensure_one()
+        if not self.spec_line_ids:
+            return True
+        for line in self.spec_line_ids:
+            if (line.value_text or "").strip():
+                return False
+            if (line.test_method or "").strip():
+                return False
+            if (line.test_condition or "").strip():
+                return False
+            if (line.remark or "").strip():
+                return False
+        return True
+
+    def _spec_lines_match_category_template(self, categ_id):
+        self.ensure_one()
+        if not categ_id:
+            return not self.spec_line_ids
+        effective_map = self._get_effective_category_param_map(categ_id)
+        current_param_ids = set(self.spec_line_ids.mapped("param_id").ids)
+        expected_param_ids = set(effective_map.keys())
+        if current_param_ids != expected_param_ids:
+            return False
+        current_cfg_ids = set(self.spec_line_ids.mapped("category_param_id").ids)
+        expected_cfg_ids = {cfg.id for cfg in effective_map.values()}
+        return current_cfg_ids == expected_cfg_ids
+
+    def _coerce_main_field_value(self, field_name, raw_value):
+        self.ensure_one()
+        field = self._fields.get(field_name)
+        if not field:
+            raise ValidationError(f"未知主字段：{field_name}")
+        if raw_value in (False, None, ""):
+            return False
+        if field.type == "many2one":
+            if isinstance(raw_value, models.BaseModel):
+                return raw_value.id
+            if isinstance(raw_value, int):
+                return raw_value
+            model_name = getattr(field, "comodel_name", False)
+            return self._resolve_or_create_taxonomy_id(model_name, raw_value) if model_name else False
+        if field.type == "boolean":
+            return str(raw_value).strip().lower() in ("1", "true", "yes", "y", "是")
+        if field.type == "float":
+            return float(raw_value)
+        return str(raw_value).strip()
+
+    def apply_param_payload(
+        self,
+        *,
+        param,
+        raw_value,
+        unit=None,
+        test_method=None,
+        test_condition=None,
+        remark=None,
+        source_document=None,
+        source_excerpt=None,
+        confidence=None,
+        is_ai_generated=False,
+        review_status="confirmed",
+    ):
+        self.ensure_one()
+        if not param:
+            return False
+        if param.is_main_field and param.main_field_name:
+            main_value = self._coerce_main_field_value(param.main_field_name, raw_value)
+            self.write({param.main_field_name: main_value})
+            existing_line = self.spec_line_ids.filtered(lambda line: line.param_id == param)
+            if existing_line:
+                existing_line.unlink()
+            return True
+
+        category_param = False
+        if self.categ_id:
+            category_param = self._get_effective_category_param_map(self.categ_id.id).get(param.id)
+        line_vals = {
+            "catalog_item_id": self.id,
+            "param_id": param.id,
+            "category_param_id": category_param.id if category_param else False,
+            "sequence": category_param.sequence if category_param else param.sequence,
+            "param_key": param.param_key,
+            "param_name": param.name,
+            "unit": unit or (category_param.unit_override if category_param else False) or param.unit or False,
+            "normalized_unit": param.preferred_unit or unit or param.unit or False,
+            "test_method": test_method or False,
+            "test_condition": test_condition or False,
+            "remark": remark or False,
+            "raw_value_text": False if raw_value in (False, None) else str(raw_value),
+            "source_document_id": source_document.id if source_document else False,
+            "source_excerpt": source_excerpt or False,
+            "confidence": float(confidence) if confidence not in (False, None, "") else 0.0,
+            "is_ai_generated": bool(is_ai_generated),
+            "review_status": review_status or "confirmed",
+        }
+        if param.value_type == "float":
+            line_vals["value_float"] = float(raw_value) if raw_value not in (False, None, "") else 0.0
+        elif param.value_type == "boolean":
+            line_vals["value_boolean"] = str(raw_value).strip().lower() in ("1", "true", "yes", "y", "是")
+        elif param.value_type == "selection":
+            line_vals["value_selection"] = False if raw_value in (False, None, "") else str(raw_value).strip()
+        else:
+            line_vals["value_char"] = False if raw_value in (False, None, "") else str(raw_value).strip()
+
+        line = self.spec_line_ids.filtered(lambda spec_line: spec_line.param_id == param)[:1]
+        if line:
+            line.write(line_vals)
+        else:
+            self.write({"spec_line_ids": [Command.create(line_vals)]})
+        return True
 
     @api.onchange("categ_id")
     def _onchange_categ_id_fill_spec_lines(self):
         for record in self:
             if not record.categ_id:
                 continue
-            if record._origin and record._origin.id and record._origin.categ_id != record.categ_id and record._origin.spec_line_ids:
+            previous_categ_id = record._origin.categ_id.id if record._origin and record._origin.categ_id else False
+            categ_changed = bool(previous_categ_id and previous_categ_id != record.categ_id.id)
+            template_mismatch = not record._spec_lines_match_category_template(record.categ_id.id)
+            if categ_changed and record.spec_line_ids and not record._spec_lines_are_blank_template():
                 record.categ_id = record._origin.categ_id
                 return {
                     "warning": {
                         "title": "无法直接切换分类",
-                        "message": "该型号已经存在技术参数，请先清空参数，或使用“按分类模板补齐参数”处理。",
+                        "message": "当前技术参数已填写内容，请先清空参数，或使用“重建参数模板”后再切换分类。",
                     }
                 }
-            if not record.spec_line_ids:
-                record.spec_line_ids = record._build_default_spec_line_commands(record.categ_id.id)
+            if not record.spec_line_ids or (record._spec_lines_are_blank_template() and template_mismatch):
+                commands = [Command.clear()] + record._build_default_spec_line_commands(record.categ_id.id)
+                record.update(
+                    {
+                        "spec_line_ids": commands
+                    }
+                )
+                return {"value": {"spec_line_ids": commands}}
 
     def action_activate_to_erp(self):
         self._ensure_model_record()
@@ -417,8 +668,8 @@ class DiecutCatalogItem(models.Model):
         for record in self:
             if not record.categ_id:
                 raise UserError("请先选择材料分类。")
-            existing_ids = record.spec_line_ids.mapped("spec_def_id").ids
-            existing_keys = set(record.spec_line_ids.mapped("param_key")) | set(record.spec_line_ids.mapped("spec_def_id.param_key"))
+            existing_ids = record.spec_line_ids.mapped("param_id").ids
+            existing_keys = set(record.spec_line_ids.mapped("param_key")) | set(record.spec_line_ids.mapped("param_id.param_key"))
             commands = record._build_default_spec_line_commands(record.categ_id.id, existing_ids, existing_keys)
             if commands:
                 record.write({"spec_line_ids": commands})
@@ -435,7 +686,10 @@ class DiecutCatalogItem(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         series_model = self.env["diecut.catalog.series"]
+        touched_series_ids = set()
         for vals in vals_list:
+            vals.update(self._normalize_compatibility_vals(vals))
+            vals.update(self._prepare_taxonomy_many2one_vals(vals))
             if vals.get("code"):
                 vals["code"] = vals["code"].strip()
             if vals.get("series_text"):
@@ -444,6 +698,9 @@ class DiecutCatalogItem(models.Model):
                 series = series_model.browse(vals["series_id"])
                 if series.exists():
                     vals["series_text"] = series.name
+                    touched_series_ids.add(series.id)
+            elif vals.get("series_id"):
+                touched_series_ids.add(vals["series_id"])
             if vals.get("categ_id") and "spec_line_ids" not in vals and not self.env.context.get("skip_spec_autofill"):
                 vals["spec_line_ids"] = self._build_default_spec_line_commands(vals["categ_id"])
         records = super().create(vals_list)
@@ -455,11 +712,21 @@ class DiecutCatalogItem(models.Model):
             if auto_vals:
                 record.write(auto_vals)
             record._apply_series_template("overwrite")
+            if record.series_id:
+                touched_series_ids.add(record.series_id.id)
+        records._refresh_taxonomy_usage_counts_from_map(records._collect_taxonomy_usage_ids())
+        if touched_series_ids:
+            self.env["diecut.catalog.series"].sudo().browse(list(touched_series_ids))._refresh_usage_counts()
         return records
 
     def write(self, vals):
         if self.env.context.get("skip_series_sync"):
             return super().write(vals)
+        vals = self._normalize_compatibility_vals(vals)
+        tracked_taxonomy_fields = set(self._TAXONOMY_MODEL_BY_FIELD)
+        old_usage_ids = self._collect_taxonomy_usage_ids() if tracked_taxonomy_fields.intersection(vals.keys()) else None
+        old_series_ids = set(self.mapped("series_id").ids) if "series_id" in vals else set()
+        vals.update(self._prepare_taxonomy_many2one_vals(vals))
         if vals.get("code"):
             vals["code"] = vals["code"].strip()
         if vals.get("series_text"):
@@ -473,7 +740,7 @@ class DiecutCatalogItem(models.Model):
             for record in self:
                 if record.series_id and brand and record.series_id.brand_id != brand:
                     raise ValidationError("系列不属于当前品牌，请先调整系列。")
-        if "categ_id" in vals and not self.env.context.get("allow_spec_categ_change"):
+        if "categ_id" in vals and "spec_line_ids" not in vals and not self.env.context.get("allow_spec_categ_change"):
             for record in self:
                 new_categ_id = vals.get("categ_id")
                 if record.categ_id.id != new_categ_id and record.spec_line_ids:
@@ -492,6 +759,26 @@ class DiecutCatalogItem(models.Model):
                 commands = record._build_default_spec_line_commands(record.categ_id.id)
                 if commands:
                     record.write({"spec_line_ids": commands})
+        if old_usage_ids is not None:
+            new_usage_ids = self._collect_taxonomy_usage_ids()
+            merged_usage_ids = {
+                model_name: set(old_usage_ids.get(model_name, set())) | set(new_usage_ids.get(model_name, set()))
+                for model_name in self._TAXONOMY_MODEL_BY_FIELD.values()
+            }
+            self._refresh_taxonomy_usage_counts_from_map(merged_usage_ids)
+        if "series_id" in vals:
+            touched_series_ids = old_series_ids | set(self.mapped("series_id").ids)
+            if touched_series_ids:
+                self.env["diecut.catalog.series"].sudo().browse(list(touched_series_ids))._refresh_usage_counts()
+        return result
+
+    def unlink(self):
+        usage_ids = self._collect_taxonomy_usage_ids()
+        series_ids = set(self.mapped("series_id").ids)
+        result = super().unlink()
+        self._refresh_taxonomy_usage_counts_from_map(usage_ids)
+        if series_ids:
+            self.env["diecut.catalog.series"].sudo().browse(list(series_ids))._refresh_usage_counts()
         return result
 
     @api.constrains("brand_id", "code")
@@ -508,6 +795,51 @@ class DiecutCatalogItem(models.Model):
             if record.series_id and record.brand_id and record.series_id.brand_id != record.brand_id:
                 raise ValidationError("所选系列不属于当前品牌。")
 
+    @staticmethod
+    def _column_exists(cr, table_name, column_name):
+        cr.execute(
+            """
+            SELECT 1
+              FROM information_schema.columns
+             WHERE table_name = %s
+               AND column_name = %s
+            """,
+            (table_name, column_name),
+        )
+        return bool(cr.fetchone())
+
+    @staticmethod
+    def _column_data_type(cr, table_name, column_name):
+        cr.execute(
+            """
+            SELECT data_type
+              FROM information_schema.columns
+             WHERE table_name = %s
+               AND column_name = %s
+            """,
+            (table_name, column_name),
+        )
+        row = cr.fetchone()
+        return row[0] if row else None
+
+    def _auto_init(self):
+        table_name = self._table
+        legacy_columns = {
+            "variant_color": "variant_color_legacy_text",
+            "variant_adhesive_type": "variant_adhesive_type_legacy_text",
+            "variant_base_material": "variant_base_material_legacy_text",
+        }
+        for column_name, legacy_column in legacy_columns.items():
+            if not self._column_exists(self.env.cr, table_name, column_name):
+                continue
+            if self._column_exists(self.env.cr, table_name, legacy_column):
+                continue
+            data_type = self._column_data_type(self.env.cr, table_name, column_name)
+            if data_type not in ("character varying", "text"):
+                continue
+            self.env.cr.execute(f'ALTER TABLE {table_name} RENAME COLUMN "{column_name}" TO "{legacy_column}"')
+        return super()._auto_init()
+
     def init(self):
         super().init()
         self.env.cr.execute(
@@ -517,6 +849,28 @@ class DiecutCatalogItem(models.Model):
             WHERE code IS NOT NULL AND trim(code) <> ''
             """
         )
+        self._migrate_variant_taxonomy_many2one()
+        self._migrate_core_field_compatibility()
+        self.env["diecut.color"].sudo()._refresh_all_usage_counts()
+        self.env["diecut.catalog.adhesive.type"].sudo()._refresh_all_usage_counts()
+        self.env["diecut.catalog.base.material"].sudo()._refresh_all_usage_counts()
+        self.env["diecut.catalog.series"].sudo()._refresh_all_usage_counts()
+
+    @api.model
+    def _migrate_core_field_compatibility(self):
+        for new_name, old_name in self._FIELD_COMPATIBILITY_MAP.items():
+            if not self._column_exists(self.env.cr, self._table, new_name):
+                continue
+            if not self._column_exists(self.env.cr, self._table, old_name):
+                continue
+            self.env.cr.execute(
+                f"""
+                UPDATE {self._table}
+                   SET "{new_name}" = COALESCE("{new_name}", "{old_name}"),
+                       "{old_name}" = COALESCE("{old_name}", "{new_name}")
+                """
+            )
+        return True
 
     @api.model
     def _migrate_legacy_spec_fields_to_lines(self):
@@ -545,17 +899,18 @@ class DiecutCatalogItem(models.Model):
                             "allow_import": True,
                         }
                     )
-                line = line_model.search([("catalog_item_id", "=", item.id), ("spec_def_id", "=", spec_def.id)], limit=1)
+                line = line_model.search([("catalog_item_id", "=", item.id), ("param_id", "=", spec_def.param_id.id)], limit=1)
                 if not line:
                     line_model.create(
                         {
                             "catalog_item_id": item.id,
-                            "spec_def_id": spec_def.id,
+                            "param_id": spec_def.param_id.id,
+                            "category_param_id": spec_def.id,
                             "sequence": spec_def.sequence,
                             "param_key": spec_def.param_key,
                             "param_name": spec_def.name,
                             "value_char": legacy_value,
-                            "unit": spec_def.unit,
+                            "unit": spec_def.unit_override or spec_def.unit,
                         }
                     )
         return True
@@ -612,6 +967,64 @@ class DiecutCatalogItem(models.Model):
             DELETE FROM ir_model_fields
              WHERE model = 'diecut.catalog.item'
                AND name IN ('feature_desc', 'typical_applications')
+            """
+        )
+        return True
+
+    @api.model
+    def _migrate_variant_taxonomy_many2one(self):
+        column_map = {
+            "color_id": "variant_color_legacy_text",
+            "adhesive_type_id": "variant_adhesive_type_legacy_text",
+            "base_material_id": "variant_base_material_legacy_text",
+        }
+
+        self.env.cr.execute(
+            """
+            SELECT column_name
+              FROM information_schema.columns
+             WHERE table_name = 'diecut_catalog_item'
+            """
+        )
+        existing_columns = {row[0] for row in self.env.cr.fetchall()}
+        legacy_columns = [column for column in column_map.values() if column in existing_columns]
+
+        if legacy_columns:
+            select_sql = ", ".join(["id"] + legacy_columns)
+            self.env.cr.execute(f"SELECT {select_sql} FROM diecut_catalog_item")
+            for row in self.env.cr.dictfetchall():
+                record = self.sudo().browse(row["id"])
+                if not record.exists():
+                    continue
+                vals = {}
+                for field_name, legacy_column in column_map.items():
+                    legacy_value = row.get(legacy_column)
+                    if legacy_value in (False, None, ""):
+                        continue
+                    if record[field_name]:
+                        continue
+                    vals[field_name] = self._resolve_or_create_taxonomy_id(
+                        self._TAXONOMY_MODEL_BY_FIELD[field_name], legacy_value
+                    )
+                if vals:
+                    record.with_context(skip_series_sync=True, skip_spec_autofill=True).write(vals)
+
+        for column_name in legacy_columns + ["variant_color_std", "variant_adhesive_std", "variant_base_material_std"]:
+            if column_name in existing_columns:
+                self.env.cr.execute(f'ALTER TABLE diecut_catalog_item DROP COLUMN IF EXISTS "{column_name}"')
+
+        self.env.cr.execute(
+            """
+            DELETE FROM ir_model_fields
+             WHERE model = 'diecut.catalog.item'
+               AND name IN (
+                   'variant_color_std',
+                   'variant_adhesive_std',
+                   'variant_base_material_std',
+                   'variant_color_legacy_text',
+                   'variant_adhesive_type_legacy_text',
+                   'variant_base_material_legacy_text'
+               )
             """
         )
         return True

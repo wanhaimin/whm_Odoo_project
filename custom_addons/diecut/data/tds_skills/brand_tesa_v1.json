@@ -1,0 +1,28 @@
+{
+  "task_instructions": [
+    "tesa TDS files often present concise property tables and application notes with fewer marketing sections than 3M.",
+    "Watch for tesa product codes that appear as 4 to 6 digit families with suffix or thickness variants."
+  ],
+  "brand_or_domain_conventions": [
+    "tesa layouts often put product structure and key values near the first property table.",
+    "tesa property labels may be short and direct, so prefer dictionary matching over free interpretation."
+  ],
+  "table_patterns": [
+    "tesa physical property tables are often compact and should be parsed row by row.",
+    "Application or handling sections may appear before full performance detail tables."
+  ],
+  "method_patterns": [
+    "Peel Adhesion",
+    "Shear Resistance",
+    "Static Shear",
+    "Liner"
+  ],
+  "negative_rules": [
+    "Do not over-split short tesa notes into many fake parameters.",
+    "Do not infer hidden variants unless the code is clearly shown."
+  ],
+  "few_shot_examples": [
+    "A liner row usually maps to liner configuration, not a free-text unmatched note.",
+    "A short tesa property table should become one item plus several main fields and parameter values."
+  ]
+}

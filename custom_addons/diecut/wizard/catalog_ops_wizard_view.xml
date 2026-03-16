@@ -18,7 +18,7 @@
                 </group>
 
                 <group string="CSV轻量编辑" invisible="operation != 'edit_csv'" col="1" colspan="2">
-                    <field name="csv_content" nolabel="1" colspan="2" placeholder="点击“加载CSV”后编辑，保存回 scripts/catalog_items.csv / scripts/catalog_item_specs.csv / scripts/catalog_spec_defs.csv / scripts/catalog_series.csv"/>
+                    <field name="csv_content" nolabel="1" colspan="2" placeholder="点击“加载CSV”后编辑，保存回 scripts/catalog_items.csv / scripts/catalog_item_specs.csv / scripts/catalog_params.csv / scripts/catalog_category_params.csv / scripts/catalog_series.csv"/>
                 </group>
 
                 <group string="字段维护清单" invisible="operation != 'view_fields_manual'" col="1" colspan="2">
@@ -48,6 +48,7 @@
 
                 <footer>
                     <button name="action_show_guide" string="操作指南" type="object" class="btn-secondary"/>
+                    <button name="action_open_source_documents" string="打开AI/TDS草稿" type="object" class="btn-secondary"/>
                     <button name="action_load_csv_editor" string="加载CSV" type="object" class="btn-secondary" invisible="operation != 'edit_csv'"/>
                     <button name="action_save_csv_editor" string="保存CSV" type="object" class="btn-secondary" invisible="operation != 'edit_csv'"/>
                     <button name="action_open_aggrid_editor" string="打开AG Grid编辑器" type="object" class="btn-secondary" invisible="operation != 'edit_csv'"/>

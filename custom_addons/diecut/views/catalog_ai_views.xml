@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_diecut_catalog_param_category_tree" model="ir.ui.view">
+        <field name="name">diecut.catalog.param.category.tree</field>
+        <field name="model">diecut.catalog.param.category</field>
+        <field name="arch" type="xml">
+            <list string="参数分类" default_order="sequence, id">
+                <field name="sequence" optional="hide"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="parent_id"/>
+                <field name="param_count" optional="show"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_param_category_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.param.category.form</field>
+        <field name="model">diecut.catalog.param.category</field>
+        <field name="arch" type="xml">
+            <form string="参数分类">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="parent_id"/>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="param_count" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_param_category_search" model="ir.ui.view">
+        <field name="name">diecut.catalog.param.category.search</field>
+        <field name="model">diecut.catalog.param.category</field>
+        <field name="arch" type="xml">
+            <search string="参数分类搜索">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="parent_id"/>
+                <filter name="filter_active" string="启用" domain="[('active', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_catalog_param_category" model="ir.actions.act_window">
+        <field name="name">参数分类</field>
+        <field name="res_model">diecut.catalog.param.category</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_catalog_param_category_search"/>
+    </record>
+
+    <record id="view_diecut_catalog_source_document_tree" model="ir.ui.view">
+        <field name="name">diecut.catalog.source.document.tree</field>
+        <field name="model">diecut.catalog.source.document</field>
+        <field name="arch" type="xml">
+            <list string="AI/TDS 草稿" default_order="create_date desc, id desc">
+                <field name="name"/>
+                <field name="source_type"/>
+                <field name="brand_id"/>
+                <field name="categ_id" optional="show"/>
+                <field name="primary_attachment_name" optional="show"/>
+                <field name="parse_version" optional="show"/>
+                <field name="import_status"/>
+                <field name="line_count" optional="show"/>
+                <field name="create_date" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_source_document_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.source.document.form</field>
+        <field name="model">diecut.catalog.source.document</field>
+        <field name="arch" type="xml">
+            <form string="AI/TDS 草稿">
+                <header>
+                    <button name="action_extract_source" string="提取原文" type="object" class="btn btn-secondary" invisible="import_status in ('applied', 'validated')"/>
+                    <button name="action_generate_draft" string="AI生成草稿" type="object" class="oe_highlight" invisible="import_status == 'applied'"/>
+                    <button name="action_validate_draft" string="校验草稿" type="object" class="btn btn-secondary" invisible="import_status == 'applied'"/>
+                    <button name="action_apply_draft" string="入库草稿" type="object" class="btn btn-primary" invisible="import_status == 'applied'"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="source_type"/>
+                            <field name="brand_id"/>
+                            <field name="categ_id"/>
+                            <field name="skill_profile"/>
+                            <field name="brand_skill_name"/>
+                            <field name="source_url" invisible="source_type != 'url'"/>
+                            <field name="source_file" filename="source_filename" invisible="source_type == 'url'"/>
+                            <field name="source_filename" invisible="1"/>
+                            <field name="primary_attachment_id"/>
+                            <field name="attachment_count" readonly="1"/>
+                            <field name="primary_attachment_name" readonly="1"/>
+                            <field name="primary_attachment_mimetype" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="parse_version"/>
+                            <field name="import_status"/>
+                            <field name="line_count" readonly="1"/>
+                            <field name="active"/>
+                            <field name="extracted_image" widget="image" filename="extracted_image_filename"/>
+                            <field name="extracted_image_filename" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="结构化预览">
+                            <group>
+                                <field name="draft_summary" readonly="1"/>
+                                <field name="draft_preview_html" nolabel="1" widget="html" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="视觉中间结果">
+                            <group>
+                                <field name="vision_summary" readonly="1"/>
+                                <field name="vision_payload" nolabel="1" widget="text" readonly="1" placeholder='{"sections": [], "tables": [], "charts": [], "methods": [], "candidate_items": []}'/>
+                            </group>
+                        </page>
+                        <page string="原始内容">
+                            <group>
+                                <div class="o_form_label">优先使用 chatter 附件上传 PDF/图片；如果未选择主解析附件，系统将自动取最新可解析附件。</div>
+                                <field name="raw_text" nolabel="1" placeholder="可粘贴 OCR 文本或网页正文，也可以先上传附件后点“提取原文”。"/>
+                            </group>
+                        </page>
+                        <page string="原始 JSON">
+                            <group>
+                                <field name="draft_payload" nolabel="1" widget="text" placeholder='{"series": [], "items": [], "params": [], "category_params": [], "spec_values": [], "unmatched": []}'/>
+                            </group>
+                        </page>
+                        <page string="处理结果">
+                            <group>
+                                <field name="result_message" nolabel="1" readonly="1"/>
+                                <field name="unmatched_payload" nolabel="1" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Copilot 上下文">
+                            <group>
+                                <field name="context_used" nolabel="1" widget="text" readonly="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_source_document_search" model="ir.ui.view">
+        <field name="name">diecut.catalog.source.document.search</field>
+        <field name="model">diecut.catalog.source.document</field>
+        <field name="arch" type="xml">
+            <search string="AI/TDS 草稿搜索">
+                <field name="name"/>
+                <field name="brand_id"/>
+                <field name="categ_id"/>
+                <field name="source_type"/>
+                <field name="import_status"/>
+                <filter name="filter_pending" string="待确认" domain="[('import_status', 'in', ('draft', 'extracted', 'generated', 'review'))]"/>
+                <filter name="filter_applied" string="已入库" domain="[('import_status', '=', 'applied')]"/>
+                <separator/>
+                <filter name="group_brand" string="按品牌分组" context="{'group_by': 'brand_id'}"/>
+                <filter name="group_status" string="按状态分组" context="{'group_by': 'import_status'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_catalog_source_document" model="ir.actions.act_window">
+        <field name="name">AI/TDS 草稿</field>
+        <field name="res_model">diecut.catalog.source.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_catalog_source_document_search"/>
+    </record>
+</odoo>

@@ -14,6 +14,15 @@ class DiecutColor(models.Model):
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
+    def _collect_color_usage_ids(self):
+        return set(self.with_context(active_test=False).mapped('color_id').ids)
+
+    @api.model
+    def _refresh_color_usage_counts(self, color_ids):
+        if color_ids:
+            self.env['diecut.color'].sudo().browse(list(color_ids))._refresh_usage_counts()
+        return True
+
     # --- 标志位 ---
     is_raw_material = fields.Boolean(string="是原材料", default=False)
 
@@ -34,6 +43,7 @@ class ProductTemplate(models.Model):
 
     # ==================== 选型目录专用字段 ====================
     def unlink(self):
+        color_ids = self._collect_color_usage_ids()
         """删除ERP原材料时，自动重置对应选型目录变体的启用状态"""
         # 1. 自动重置新架构 (Phase 4) 的选型目录条目启用状态
         catalog_items = self.env['diecut.catalog.item'].search([
@@ -46,7 +56,9 @@ class ProductTemplate(models.Model):
                 'erp_product_tmpl_id': False,
             })
                     
-        return super().unlink()
+        result = super().unlink()
+        self._refresh_color_usage_counts(color_ids)
+        return result
 
     @api.onchange('is_raw_material')
     def _onchange_is_raw_material(self):
@@ -412,9 +424,11 @@ class ProductTemplate(models.Model):
                         'calc_area_cache': area,
                         'calc_weight_cache': weight,
                     })
+        records._refresh_color_usage_counts(records._collect_color_usage_ids())
         return records
 
     def write(self, vals):
+        old_color_ids = self._collect_color_usage_ids() if 'color_id' in vals else set()
         res = super(ProductTemplate, self).write(vals)
         for record in self:
             if not record.is_raw_material:
@@ -467,6 +481,8 @@ class ProductTemplate(models.Model):
                 'calc_area_cache': area,
                 'calc_weight_cache': weight,
             })
+        if 'color_id' in vals:
+            self._refresh_color_usage_counts(old_color_ids | self._collect_color_usage_ids())
         return res
 
 class ProductSupplierinfo(models.Model):

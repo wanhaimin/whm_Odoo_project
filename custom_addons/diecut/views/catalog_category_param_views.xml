@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_category_form_diecut_catalog_param" model="ir.ui.view">
+        <field name="name">product.category.form.diecut.catalog.param</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="diecut.view_product_category_form_diecut"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <div class="oe_button_box" name="diecut_category_param_button_box">
+                    <button
+                        name="action_open_category_param_overview"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-sliders"
+                    >
+                        <field name="category_param_count" widget="statinfo" string="参数配置"/>
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_category_catalog_param_form" model="ir.ui.view">
+        <field name="name">product.category.catalog.param.form</field>
+        <field name="model">product.category</field>
+        <field name="arch" type="xml">
+            <form string="分类参数配置">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_open_category_param_overview"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-sliders"
+                        >
+                            <field name="category_param_count" widget="statinfo" string="参数配置"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" string="分类名称"/>
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                        <field name="complete_name" readonly="1" class="text-muted"/>
+                    </div>
+                    <group>
+                        <group string="分类信息">
+                            <field name="parent_id" readonly="1"/>
+                            <field name="category_type" readonly="1"/>
+                            <field name="level" readonly="1"/>
+                            <field name="product_count" readonly="1"/>
+                        </group>
+                        <group string="维护操作">
+                            <button
+                                name="action_open_category_param_bulk_wizard"
+                                type="object"
+                                string="批量添加参数"
+                                class="btn btn-primary"
+                            />
+                            <button
+                                name="action_open_category_param_overview"
+                                type="object"
+                                string="查看当前分类全部配置"
+                                class="btn btn-secondary"
+                            />
+                        </group>
+                    </group>
+                    <group string="当前分类参数">
+                        <field name="category_param_ids" context="{'default_categ_id': id}">
+                            <list string="分类参数配置" editable="bottom" default_order="sequence, id">
+                                <field name="sequence" widget="handle"/>
+                                <field name="param_id"/>
+                                <field name="param_key" optional="show"/>
+                                <field name="value_type" optional="show"/>
+                                <field name="unit" optional="show"/>
+                                <field name="unit_override" optional="show"/>
+                                <field name="required"/>
+                                <field name="show_in_form"/>
+                                <field name="allow_import"/>
+                                <field name="active"/>
+                                <field name="line_count" optional="show"/>
+                            </list>
+                            <form string="分类参数配置">
+                                <group>
+                                    <group>
+                                        <field name="param_id"/>
+                                        <field name="param_key" readonly="1"/>
+                                        <field name="value_type" readonly="1"/>
+                                        <field name="unit" readonly="1"/>
+                                        <field name="unit_override"/>
+                                    </group>
+                                    <group>
+                                        <field name="sequence"/>
+                                        <field name="required"/>
+                                        <field name="show_in_form"/>
+                                        <field name="allow_import"/>
+                                        <field name="active"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_product_category_catalog_param" model="ir.actions.act_window">
+        <field name="name">分类参数配置</field>
+        <field name="res_model">product.category</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('diecut.view_product_category_list_diecut')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_product_category_catalog_param_form')})]"/>
+        <field name="search_view_id" ref="diecut.view_product_category_search_diecut"/>
+        <field name="context">{'default_category_type': 'raw'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">先选择一个材料分类，再进入表单页批量配置参数。</p>
+        </field>
+    </record>
+
+    <record id="menu_material_catalog_spec_def" model="ir.ui.menu">
+        <field name="action" ref="action_product_category_catalog_param"/>
+    </record>
+</odoo>

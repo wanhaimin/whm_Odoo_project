@@ -38,7 +38,7 @@ export class DiecutSpecValueField extends Component {
     }
 
     get specDefId() {
-        const raw = this.props.record.data.spec_def_id;
+        const raw = this.props.record.data.param_id;
         if (!raw) {
             return null;
         }
@@ -74,7 +74,7 @@ export class DiecutSpecValueField extends Component {
             return;
         }
         const rows = await this.orm.read(
-            "diecut.catalog.spec.def",
+            "diecut.catalog.param",
             [specDefId],
             ["selection_options"]
         );

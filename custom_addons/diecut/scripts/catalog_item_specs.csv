@@ -1,230 +1,957 @@
-﻿brand_id_xml,brand_name,categ_id_xml,item_code,param_key,value,unit,test_method,test_condition,remark,sequence
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS611,peel_strength,适用于冲压型、铭板、薄膜开关的粘贴，耐温120℃,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS611,structure,3M9075、德莎60975,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS611PN,structure,用于曲面,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS612,peel_strength,适用于冲压型、铭板、薄膜开关的粘贴，耐温120℃,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS612,structure,3M9448、SONY T4000、日东5015,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS612PN,peel_strength,用于曲面,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS612PN,structure,积水5760,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS613,peel_strength,、日东GA808,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS613,structure,3M9080、日东500、 TESA60980,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS613PN,structure,用于曲面,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS601,peel_strength,适合各种泡棉材料的粘贴，它具有粘接性好，粘接力强的优点，并可耐温60℃～80℃。单、双面都粘泡绵。,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS601,structure,我司创新产品,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS602,peel_strength,适合各种泡棉及软质材料，耐温一般。双面粘泡绵，单面粘钢板和ABS板，不耐温,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS602,structure,我司创新产品,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS603,peel_strength,适合各种泡棉材料的粘贴，单、双面都粘泡棉，它具有粘接性好，粘接力强的优点，并可耐温100℃。,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS603,structure,力王D500C,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS510,peel_strength,适用于冲压型、铭板、薄膜开关的粘贴，耐温80℃,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS510,structure,TESA60933、TESA60975,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS511,peel_strength,适用于冲压型、铭板、薄膜开关的粘贴，耐温100℃,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS511,structure,日东5216A、3M9075、德莎60975,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS511PN,structure,用于曲面,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS512,peel_strength,"SONYG9000,3M9448A",,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS512,structure,德莎68646、3M9448 3M9888T,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS512PN,structure,用于曲面,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS513,peel_strength,适用于冲压型、铭板、薄膜开关的粘贴，耐温100℃,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS513,structure,日东500、3M9448,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS513PN,structure,用于曲面,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS767,peel_strength,无基材；0.05（经济型）,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS767,structure,无基材；0.05,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS767G,peel_strength,3M467、日东591,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS767G,structure,无基材；0.05（经济型）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS768,peel_strength,无基材；0.13（经济型）,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS768,structure,无基材；0.13,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS768G,peel_strength,3M468,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS768G,structure,无基材；0.13（经济型）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS6200,peel_strength,高粘,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS6200,structure,DIC#8810SA-200S，日东5100,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS6300,peel_strength,强粘,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS6300,structure,日东507,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS6400,peel_strength,超强粘,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS6400,structure,我司创新产品,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7967,peel_strength,模切行业用,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7967,structure,3M9495LE、日东5615,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS742,peel_strength,超薄型双面胶,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS742,structure,力王D5550,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7983,peel_strength,TESA4983、3M9009、日东5603,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7983,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7972,peel_strength,TESA4972、3M9019、日东5605,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7972,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7980,peel_strength,TESA4980、日东5608,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7980,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7982,peel_strength,TESA4982、日东5610,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7982,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7928,peel_strength,"TESA4928、3M9495MP、日东5612,3M9795Le",,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7928,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7965,structure,（浅红色OPP离型膜）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA4965,peel_strength,白色PVC双面胶带；0.225/0.245,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7970,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA4970,peel_strength,白色PVC双面胶带；0.3/0.325,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7968,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA4968,peel_strength,透明PET双面胶带（黑色）；0.08,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7980BH,peel_strength,TESA4980黑胶，日东5608B,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7980BH,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7982BH,peel_strength,TESA4982黑胶，日东5610B,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7982BH,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7982P,peel_strength,TESA4982（PP基材）,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7982P,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS15BH,peel_strength,用于电视机喇叭网的粘贴,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,CF5060,peel_strength,用于胶带模切过程中的排废用,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,CF5060,structure,我司创新产品,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,CF775080DT,peel_strength,手机、LCD背光源遮光胶带,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,CF775080DT,structure,我司创新产品,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,6025DT,peel_strength,,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,6025DT,structure,,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,6050DT,peel_strength,3M9157,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,6050DT,structure,夹心PET双面胶带；0.15,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,6075DT,structure,夹心PET双面胶带；0.175,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,6100DT,structure,夹心PET双面胶带；0.2,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,6125DT,structure,夹心PET双面胶带；0.225,N/cm,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,6175DT,structure,夹心PET双面胶带；0.275,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,6188DT,structure,夹心PET双面胶带；0.288,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7025,peel_strength,夹心PET双面胶带；0.125,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7025,structure,PET双面胶带；0.125,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7025DT,peel_strength,适用于薄膜开关间隔片和手机按键等，耐温100℃。,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7025DT,structure,夹心PET双面胶带；0.125,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7050,peel_strength,夹心PET双面胶带；0.150,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7050,structure,PET双面胶带；0.150,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7075,peel_strength,夹心PET双面胶带；0.175,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7075,structure,PET双面胶带；0.175,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7075DT,structure,夹心PET双面胶带；0.175,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7100,peel_strength,夹心PET双面胶带；0.2,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7100,structure,PET双面胶带；0.2,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7100DT,structure,夹心PET双面胶带；0.2,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7125,peel_strength,夹心PET双面胶带；0.225,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7125,structure,PET双面胶带；0.225,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7125DT,structure,夹心PET双面胶带；0.225,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7175,peel_strength,夹心PET双面胶带；0.275,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7175,structure,PET双面胶带；0.275,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7175DT,structure,夹心PET双面胶带；0.275,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7188,peel_strength,夹心PET双面胶带；0.288,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS31-7188,structure,PET双面胶带；0.288,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7188DT,structure,夹心PET双面胶带；0.288,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7025ST,structure,耐温100℃。,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,7050ST,peel_strength,PET单面胶带；0.125,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7075ST,peel_strength,PET单面胶带；0.15,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7100ST,peel_strength,PET单面胶带；0.175,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7125ST,peel_strength,PET单面胶带；0.225,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7175ST,peel_strength,PET单面胶带；0.238,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,7188ST,peel_strength,10倍黑色PE泡绵；2.0,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,71972,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA51972,peel_strength,茶色PET,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,71980,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA51980,peel_strength,茶色PET,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,71982,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA51982,peel_strength,茶色PET,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,71928,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA51928,peel_strength,茶色PET,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,71967,peel_strength,"TESA51967,3M9795B",,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,71967,structure,（白、棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,71965,structure,（棕色格拉辛离型纸）,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,TESA51965,peel_strength,不织布,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS311/PN,peel_strength,用于标牌贴,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS311/PN,structure,永大、永一标牌贴产品,,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS312/PN,peel_strength,用于标牌贴,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS312/PN,structure,"永大、永一标牌贴产品,3M9448A",,,,,1001
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS313/PN,peel_strength,用于标牌贴,,,,,1000
-brand_ui_皇冠_4,皇冠,category_tape_foam,DS313/PN,structure,永大、永一标牌贴产品,,,,,1001
-brand_tesa,Tesa,category_tape_foam,4961,peel_strength,5.2 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,4963,peel_strength,5.9 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,4980,peel_strength,8.6 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,4982,peel_strength,11 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,51928,peel_strength,9.6 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,51966,peel_strength,10.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,51970,peel_strength,13 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,51977,peel_strength,12.6 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,51980,peel_strength,8.6 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,52215,peel_strength,8 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,58323,peel_strength,8 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,58332,peel_strength,4.7 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,58334,peel_strength,7 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,58360,peel_strength,7.3 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,58364,peel_strength,7.6 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,58372,peel_strength,7.1 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,58374,peel_strength,8.2 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,58375,peel_strength,8.9 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,60975,peel_strength,7 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,60977,peel_strength,9.6 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,60978,peel_strength,7.9 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,60980,peel_strength,9.8 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61055,peel_strength,17.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61086,peel_strength,15.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61087,peel_strength,16.1 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61088,peel_strength,16.6 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61210,peel_strength,12.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61220,peel_strength,16.6 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61325,peel_strength,16.4 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61335,peel_strength,15.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61360,peel_strength,13.7 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61365,peel_strength,13.7 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61370,peel_strength,13.9 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61385,peel_strength,14.1 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61390,peel_strength,14.3 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61865,peel_strength,11 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61885,peel_strength,13.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,61970,peel_strength,13 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,62624,peel_strength,13 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,62625,peel_strength,13 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,62626,peel_strength,13 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,64908,peel_strength,19 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,64912,peel_strength,20 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,66022,peel_strength,12.3 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,66186,peel_strength,11 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,66822,peel_strength,9 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,66824,peel_strength,11.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,66825,peel_strength,11.8 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,66826,peel_strength,12.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,66828,peel_strength,12.6 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,66866,peel_strength,11.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,66932,peel_strength,7.6 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,66934,peel_strength,10.7 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,68618,peel_strength,9 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,68646,peel_strength,9.8 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,68878,peel_strength,13.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,68879,peel_strength,15.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,6928,peel_strength,9.6 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,70415,peel_strength,13 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,70425,peel_strength,16 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,70499,peel_strength,29 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,70615,peel_strength,13 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,70620,peel_strength,14 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,70625,peel_strength,16 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,70630,peel_strength,17 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,70640,peel_strength,19 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,70680,peel_strength,24 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,70697,peel_strength,27 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,70699,peel_strength,26 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75120,peel_strength,13 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75125,peel_strength,14.3 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75130,peel_strength,16.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75405,peel_strength,9.1 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75410,peel_strength,11.6 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75415,peel_strength,14.1 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75620,peel_strength,15.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75625,peel_strength,16 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75630,peel_strength,17.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75635,peel_strength,17 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75640,peel_strength,17.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75645,peel_strength,18 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75650,peel_strength,18 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75710,peel_strength,10 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75715,peel_strength,12 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75720,peel_strength,14 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75725,peel_strength,14 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75730,peel_strength,14 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,75743,peel_strength,14 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,76010,peel_strength,8.5 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,76115,peel_strength,10 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,76925,peel_strength,12 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,77210,peel_strength,10 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,77811,peel_strength,32 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,77815,peel_strength,36 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,8854,peel_strength,8.1 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,88641,peel_strength,9.1 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,88644,peel_strength,7.9 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,88645,peel_strength,9.3 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,88648,peel_strength,9 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,88656,peel_strength,8.2 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,88663,peel_strength,11.6 N/cm,,,,,1000
-brand_tesa,Tesa,category_tape_foam,92111,peel_strength,35 N/cm,,,,,1000
+﻿brand_id_xml,brand_name,categ_id_xml,item_code,param_key,param_name,value,unit,test_method,test_condition,remark,sequence
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS611,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS611,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS611,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS611PN,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS611PN,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS611PN,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS612,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS612,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS612,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS612PN,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS612PN,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS612PN,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS613,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS613,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS613,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS613PN,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS613PN,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS613PN,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS601,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS601,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS601,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS602 #11,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS602 #11,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS602 #11,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS603 #14,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS603 #14,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS603 #14,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS510,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS510,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS510,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS511,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS511,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS511,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS511PN,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS511PN,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS511PN,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS512,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS512,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS512,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS512PN,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS512PN,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS512PN,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS513,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS513,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS513,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS513PN,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS513PN,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS513PN,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,DS767,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,DS767,peel_strength,剥离力,无基材；0.05（经济型）,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,DS767,structure,结构描述,无基材；0.05,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,DS767G,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,DS767G,peel_strength,剥离力,3M467、日东591,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,DS767G,structure,结构描述,无基材；0.05（经济型）,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,DS768G,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,DS768G,peel_strength,剥离力,3M468,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,DS768G,structure,结构描述,无基材；0.13（经济型）,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS6200,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS6200,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS6200,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS6300,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS6300,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS6300,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS6400,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS6400,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS6400,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7967,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7967,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7967,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7967,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7967,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7967,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7967,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7967,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS742,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS742,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS742,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7983,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7983,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7983,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7983,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7983,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7983,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7983,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7983,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7972,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7972,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7972,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7972,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7972,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7972,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7972,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7972,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7928,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7928,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7928,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7928,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7928,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7928,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7928,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7928,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7965,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7965,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7965,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7965,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7965,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7965,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7965,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7965,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980BH,total_thickness,总厚度,0.08,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980BH,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980BH,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980BH,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980BH,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980BH,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980BH,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7980BH,structure,结构描述,（白、棕色格拉辛离型纸）,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982BH,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982BH,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982BH,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982BH,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982BH,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982BH,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982BH,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982BH,structure,结构描述,（白、棕色格拉辛离型纸）,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982P,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982P,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982P,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982P,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982P,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982P,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982P,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7982P,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS15BH #160,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS15BH #160,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS15BH #160,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_protection_film,CF5060,base_material_type,基材类型,,false,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_protection_film,CF5060,total_thickness,总厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_protection_film,CF5060,adhesion_force,粘着力,,gf/25mm,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_protection_film,CF5060,temperature_grade,耐温等级,,℃,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_protection_film,CF5060,application_surface,适用表面,,false,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_protection_film,CF5060,peel_strength,剥离力,用于胶带模切过程中的排废用,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_protection_film,CF5060,structure,结构描述,我司创新产品,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,CF775080DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,CF775080DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,CF775080DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,CF775080DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,CF775080DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,CF775080DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,CF775080DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,CF775080DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6025DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6025DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6025DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6025DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6025DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6025DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6025DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6025DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6050DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6050DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6050DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6050DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6050DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6050DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6050DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6050DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6075DT,structure,结构描述,夹心PET双面胶带；0.175,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6100DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6100DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6100DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6100DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6100DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6100DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6100DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6100DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6125DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6125DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6125DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6125DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6125DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6125DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6125DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6125DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6175DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6175DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6175DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6175DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6175DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6175DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6175DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6175DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6188DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6188DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6188DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6188DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6188DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6188DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6188DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,6188DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025,peel_strength,剥离力,夹心PET双面胶带；0.125,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025,structure,结构描述,PET双面胶带；0.125,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7025DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7025DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7025DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7025DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7025DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7025DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7025DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7025DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050,peel_strength,剥离力,夹心PET双面胶带；0.150,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050,structure,结构描述,PET双面胶带；0.150,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075,peel_strength,剥离力,夹心PET双面胶带；0.175,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075,structure,结构描述,PET双面胶带；0.175,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7075DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7075DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7075DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7075DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7075DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7075DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7075DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7075DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100,peel_strength,剥离力,夹心PET双面胶带；0.2,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100,structure,结构描述,PET双面胶带；0.2,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7100DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7100DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7100DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7100DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7100DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7100DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7100DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7100DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125,peel_strength,剥离力,夹心PET双面胶带；0.225,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125,structure,结构描述,PET双面胶带；0.225,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7125DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7125DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7125DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7125DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7125DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7125DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7125DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7125DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175,peel_strength,剥离力,夹心PET双面胶带；0.275,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175,structure,结构描述,PET双面胶带；0.275,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7175DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7175DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7175DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7175DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7175DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7175DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7175DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7175DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188,peel_strength,剥离力,夹心PET双面胶带；0.288,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188,structure,结构描述,PET双面胶带；0.288,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7188DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7188DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7188DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7188DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7188DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7188DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7188DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7188DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7025ST,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7025ST,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7025ST,substrate_thickness,基材厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7025ST,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7025ST,peel_strength_180,剥离力,,N/25mm,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7025ST,temperature_grade,耐温等级,,℃,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7025ST,structure,结构描述,耐温100℃。,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7050ST,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7050ST,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7050ST,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7050ST,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7050ST,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7050ST,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7050ST,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,7050ST,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7075ST,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7075ST,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7075ST,substrate_thickness,基材厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7075ST,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7075ST,peel_strength_180,剥离力,,N/25mm,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7075ST,temperature_grade,耐温等级,,℃,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7075ST,peel_strength,剥离力,PET单面胶带；0.15,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7100ST,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7100ST,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7100ST,substrate_thickness,基材厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7100ST,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7100ST,peel_strength_180,剥离力,,N/25mm,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7100ST,temperature_grade,耐温等级,,℃,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7100ST,peel_strength,剥离力,PET单面胶带；0.175,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7125ST,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7125ST,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7125ST,substrate_thickness,基材厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7125ST,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7125ST,peel_strength_180,剥离力,,N/25mm,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7125ST,temperature_grade,耐温等级,,℃,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7125ST,peel_strength,剥离力,PET单面胶带；0.225,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7175ST,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7175ST,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7175ST,substrate_thickness,基材厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7175ST,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7175ST,peel_strength_180,剥离力,,N/25mm,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7175ST,temperature_grade,耐温等级,,℃,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7175ST,peel_strength,剥离力,PET单面胶带；0.238,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7188ST,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7188ST,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7188ST,substrate_thickness,基材厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7188ST,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7188ST,peel_strength_180,剥离力,,N/25mm,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7188ST,temperature_grade,耐温等级,,℃,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_single,7188ST,peel_strength,剥离力,10倍黑色PE泡绵；2.0,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1020B,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1020B,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1020B,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1010B,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1010B,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1010B,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1005B,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1005B,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1005B,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1020W,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1020W,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1020W,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1010W,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1010W,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1010W,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1005W,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1005W,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1005W,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1520B,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1520B,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1520B,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1510B,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1510B,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1510B,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1505B,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1505B,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1505B,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1520W,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1520W,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1520W,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1510W,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1510W,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1510W,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1505W,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1505W,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_foam,DP1505W,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71972,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71972,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71972,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71972,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71972,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71972,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71972,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71972,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71980,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71980,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71980,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71980,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71980,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71980,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71980,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71980,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71982,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71982,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71982,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71982,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71982,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71982,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71982,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71982,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71928,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71928,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71928,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71928,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71928,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71928,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71928,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71928,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71967,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71967,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71967,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71967,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71967,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71967,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71967,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71967,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71965,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71965,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71965,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71965,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71965,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71965,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71965,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,71965,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS311/PN,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS311/PN,peel_strength,剥离力,用于标牌贴,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS311/PN,structure,结构描述,永大、永一标牌贴产品,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS312/PN,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS312/PN,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS312/PN,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS313/PN,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS313/PN,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_tissue,DS313/PN,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_no_substrate,DS768,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6025DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6050DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6075DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6100DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6125DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6175DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188DT,peel_strength,剥离力,,false,,,,1000
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-6188DT,structure,结构描述,,false,,,,1001
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7025DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7050DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7075DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7100DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7125DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7175DT,holding_power,持粘力,,h,,,,50
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188DT,total_thickness,总厚度,,μm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188DT,sus_adhesive,对SUS粘性,,N/cm,,,,10
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188DT,carrier_thickness,载体厚度,,μm,,,,20
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188DT,adhesive_system,胶系,,false,,,,30
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188DT,initial_tack,初粘力,,false,,,,40
+brand_ui_皇冠_4,皇冠（huangguan）,category_tape_pet_double,DS31-7188DT,holding_power,持粘力,,h,,,,50
+brand_tesa,Tesa,category_tape_foam,4961,peel_strength,剥离力,5.2 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,4963,peel_strength,剥离力,5.9 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,4980,peel_strength,剥离力,8.6 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,4982,peel_strength,剥离力,11 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,51928,peel_strength,剥离力,9.6 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,51966,peel_strength,剥离力,10.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,51970,peel_strength,剥离力,13 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,51977,peel_strength,剥离力,12.6 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,51980,peel_strength,剥离力,8.6 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,52215,peel_strength,剥离力,8 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,58323,peel_strength,剥离力,8 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,58332,peel_strength,剥离力,4.7 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,58334,peel_strength,剥离力,7 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,58360,peel_strength,剥离力,7.3 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,58364,peel_strength,剥离力,7.6 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,58372,peel_strength,剥离力,7.1 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,58374,peel_strength,剥离力,8.2 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,58375,peel_strength,剥离力,8.9 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,60975,peel_strength,剥离力,7 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,60977,peel_strength,剥离力,9.6 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,60978,peel_strength,剥离力,7.9 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,60980,peel_strength,剥离力,9.8 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61055,peel_strength,剥离力,17.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61086,peel_strength,剥离力,15.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61087,peel_strength,剥离力,16.1 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61088,peel_strength,剥离力,16.6 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61210,peel_strength,剥离力,12.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61220,peel_strength,剥离力,16.6 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61325,peel_strength,剥离力,16.4 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61335,peel_strength,剥离力,15.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61360,peel_strength,剥离力,13.7 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61365,peel_strength,剥离力,13.7 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61370,peel_strength,剥离力,13.9 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61385,peel_strength,剥离力,14.1 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61390,peel_strength,剥离力,14.3 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61865,peel_strength,剥离力,11 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61885,peel_strength,剥离力,13.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,61970,peel_strength,剥离力,13 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,62624,peel_strength,剥离力,13 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,62625,peel_strength,剥离力,13 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,62626,peel_strength,剥离力,13 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,64908,peel_strength,剥离力,19 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,64912,peel_strength,剥离力,20 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,66022,peel_strength,剥离力,12.3 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,66186,peel_strength,剥离力,11 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,66822,peel_strength,剥离力,9 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,66824,peel_strength,剥离力,11.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,66825,peel_strength,剥离力,11.8 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,66826,peel_strength,剥离力,12.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,66828,peel_strength,剥离力,12.6 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,66866,peel_strength,剥离力,11.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,66932,peel_strength,剥离力,7.6 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,66934,peel_strength,剥离力,10.7 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,68618,peel_strength,剥离力,9 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,68646,peel_strength,剥离力,9.8 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,68878,peel_strength,剥离力,13.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,68879,peel_strength,剥离力,15.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,6928,peel_strength,剥离力,9.6 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,70415,peel_strength,剥离力,13 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,70425,peel_strength,剥离力,16 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,70499,peel_strength,剥离力,29 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,70615,peel_strength,剥离力,13 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,70620,peel_strength,剥离力,14 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,70625,peel_strength,剥离力,16 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,70630,peel_strength,剥离力,17 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,70640,peel_strength,剥离力,19 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,70680,peel_strength,剥离力,24 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,70697,peel_strength,剥离力,27 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,70699,peel_strength,剥离力,26 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75120,peel_strength,剥离力,13 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75125,peel_strength,剥离力,14.3 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75130,peel_strength,剥离力,16.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75405,peel_strength,剥离力,9.1 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75410,peel_strength,剥离力,11.6 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75415,peel_strength,剥离力,14.1 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75620,peel_strength,剥离力,15.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75625,peel_strength,剥离力,16 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75630,peel_strength,剥离力,17.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75635,peel_strength,剥离力,17 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75640,peel_strength,剥离力,17.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75645,peel_strength,剥离力,18 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75650,peel_strength,剥离力,18 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75710,peel_strength,剥离力,10 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75715,peel_strength,剥离力,12 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75720,peel_strength,剥离力,14 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75725,peel_strength,剥离力,14 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75730,peel_strength,剥离力,14 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,75743,peel_strength,剥离力,14 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,76010,peel_strength,剥离力,8.5 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,76115,peel_strength,剥离力,10 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,76925,peel_strength,剥离力,12 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,77210,peel_strength,剥离力,10 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,77811,peel_strength,剥离力,32 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,77815,peel_strength,剥离力,36 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,8854,peel_strength,剥离力,8.1 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,88641,peel_strength,剥离力,9.1 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,88644,peel_strength,剥离力,7.9 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,88645,peel_strength,剥离力,9.3 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,88648,peel_strength,剥离力,9 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,88656,peel_strength,剥离力,8.2 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,88663,peel_strength,剥离力,11.6 N/cm,false,,,,1000
+brand_tesa,Tesa,category_tape_foam,92111,peel_strength,剥离力,35 N/cm,false,,,,1000
+,3M,category_tape_foam,GT7102,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,6.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3M,category_tape_foam,GT7102,peel_180_painted_normal,涂装板-常温状态-180度剥离力,8.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3M,category_tape_foam,GT7102,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,5.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3M,category_tape_foam,GT7102,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,12.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3M,category_tape_foam,GT7102,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,9.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3M,category_tape_foam,GT7102,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,10.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3M,category_tape_foam,GT7102,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,11.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3M,category_tape_foam,GT7102,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,5.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3M,category_tape_foam,GT7102,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3M,category_tape_foam,GT7102,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,9.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3M,category_tape_foam,GT7102,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.84,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3M,category_tape_foam,GT7102,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.86,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3M,category_tape_foam,GT7102,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.28,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3M,category_tape_foam,GT7102,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.84,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3M,category_tape_foam,GT7102,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.83,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3M,category_tape_foam,GT7102,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.75,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3M,category_tape_foam,DC2005,density,密度,609,kg/m3,,,±100 kg/m3 (38 +/- 4 lb/ft3),20
+,3M,category_tape_foam,DC2005,processing_compatibility,加工兼容性,适用于旋转模切、平刀模切和激光模切。,,,,,30
+,3M,category_tape_foam,DC2005,static_shear_70c,70度静态剪切,超过100小时,hour,,70C; 25.4 mm x 25.4 mm; chrome against enamel paint; 500 g,,40
+,3M,category_tape_foam,DC2005,shelf_life_storage,保质期与储存,保质期为一年；建议在 4°C-38°C、0-95%RH 环境储存，最佳储存条件为 22°C、50%RH。,,,,,50
+,3M,category_tape_foam,DC2005,liner_option_sc2,离型膜选项-SC2,可选白色高密度聚乙烯离型膜，双面硅处理，代号 SC2。,,,,,60
+,3M,category_tape_foam,DC2005,liner_option_pet,离型膜选项-PET,可选透明聚酯离型膜，双面硅处理，代号 PET。,,,,,70
+,3M,category_tape_foam,DC2005,pluck_testing,拔脱测试,拔脱测试表明，该产品适用于带突缘、局部开口或需承受剥离应力的铭牌与标识件固定。,,,,,80
+,3M,category_tape_foam,DC2005,torque_testing,扭矩测试,扭矩测试表明，该产品适用于需承受一定扭转载荷的徽标与装饰件粘接。,,,,,90
+,3M,category_tape_foam,DC2008,density,密度,569,kg/m3,,,±100 kg/m3 (35.5 +/- 4 lb/ft3),20
+,3M,category_tape_foam,DC2008,processing_compatibility,加工兼容性,适用于旋转模切、平刀模切和激光模切。,,,,,30
+,3M,category_tape_foam,DC2008,static_shear_70c,70度静态剪切,超过100小时,hour,,70C; 25.4 mm x 25.4 mm; chrome against enamel paint; 500 g,,40
+,3M,category_tape_foam,DC2008,shelf_life_storage,保质期与储存,保质期为一年；建议在 4°C-38°C、0-95%RH 环境储存，最佳储存条件为 22°C、50%RH。,,,,,50
+,3M,category_tape_foam,DC2008,liner_option_sc2,离型膜选项-SC2,可选白色高密度聚乙烯离型膜，双面硅处理，代号 SC2。,,,,,60
+,3M,category_tape_foam,DC2008,liner_option_pet,离型膜选项-PET,可选透明聚酯离型膜，双面硅处理，代号 PET。,,,,,70
+,3M,category_tape_foam,DC2008,pluck_testing,拔脱测试,拔脱测试表明，该产品适用于带突缘、局部开口或需承受剥离应力的铭牌与标识件固定。,,,,,80
+,3M,category_tape_foam,DC2008,torque_testing,扭矩测试,扭矩测试表明，该产品适用于需承受一定扭转载荷的徽标与装饰件粘接。,,,,,90
+,3M,category_tape_foam,DC2011,density,密度,545,kg/m3,,,±100 kg/m3 (34 +/- 4 lb/ft3),20
+,3M,category_tape_foam,DC2011,processing_compatibility,加工兼容性,适用于旋转模切、平刀模切和激光模切。,,,,,30
+,3M,category_tape_foam,DC2011,static_shear_70c,70度静态剪切,超过100小时,hour,,70C; 25.4 mm x 25.4 mm; chrome against enamel paint; 500 g,,40
+,3M,category_tape_foam,DC2011,shelf_life_storage,保质期与储存,保质期为一年；建议在 4°C-38°C、0-95%RH 环境储存，最佳储存条件为 22°C、50%RH。,,,,,50
+,3M,category_tape_foam,DC2011,liner_option_sc2,离型膜选项-SC2,可选白色高密度聚乙烯离型膜，双面硅处理，代号 SC2。,,,,,60
+,3M,category_tape_foam,DC2011,liner_option_pet,离型膜选项-PET,可选透明聚酯离型膜，双面硅处理，代号 PET。,,,,,70
+,3M,category_tape_foam,DC2011,pluck_testing,拔脱测试,拔脱测试表明，该产品适用于带突缘、局部开口或需承受剥离应力的铭牌与标识件固定。,,,,,80
+,3M,category_tape_foam,DC2011,torque_testing,扭矩测试,扭矩测试表明，该产品适用于需承受一定扭转载荷的徽标与装饰件粘接。,,,,,90
+,3M,category_tape_foam,DC2015,density,密度,529,kg/m3,,,±100 kg/m3 (33 +/- 4 lb/ft3),20
+,3M,category_tape_foam,DC2015,processing_compatibility,加工兼容性,适用于旋转模切、平刀模切和激光模切。,,,,,30
+,3M,category_tape_foam,DC2015,static_shear_70c,70度静态剪切,超过100小时,hour,,70C; 25.4 mm x 25.4 mm; chrome against enamel paint; 500 g,,40
+,3M,category_tape_foam,DC2015,shelf_life_storage,保质期与储存,保质期为一年；建议在 4°C-38°C、0-95%RH 环境储存，最佳储存条件为 22°C、50%RH。,,,,,50
+,3M,category_tape_foam,DC2015,liner_option_sc2,离型膜选项-SC2,可选白色高密度聚乙烯离型膜，双面硅处理，代号 SC2。,,,,,60
+,3M,category_tape_foam,DC2015,liner_option_pet,离型膜选项-PET,可选透明聚酯离型膜，双面硅处理，代号 PET。,,,,,70
+,3M,category_tape_foam,DC2015,pluck_testing,拔脱测试,拔脱测试表明，该产品适用于带突缘、局部开口或需承受剥离应力的铭牌与标识件固定。,,,,,80
+,3M,category_tape_foam,DC2015,torque_testing,扭矩测试,扭矩测试表明，该产品适用于需承受一定扭转载荷的徽标与装饰件粘接。,,,,,90
+,3M,category_raw_material,BT3005,liner_material,离型材料,离型纸,,,,,220
+,3M,category_raw_material,BT3005,shelf_life,保质期,36 months at 23shes and 50% sheshi℃,,,,,220
+,3M,category_raw_material,BT3005,peel_180_headliner_immediate,180°剥离-顶棚-即刻,2.8,N/cm,180 Peel Adhesion,,,220
+,3M,category_raw_material,BT3005,peel_180_headliner_initial,180°剥离-顶棚-初始,3.5,N/cm,180 Peel Adhesion,,,220
+,3M,category_raw_material,BT3005,peel_180_headliner_normal,180°剥离-顶棚-常态,3.5,N/cm,180 Peel Adhesion,,,220
+,3M,category_raw_material,BT3005,peel_180_headliner_high_temp,180°剥离-顶棚-高温,1.4,N/cm,180 Peel Adhesion,,,220
+,3M,category_raw_material,BT3005,peel_180_headliner_heat_aging,180°剥离-顶棚-热老化,4.1,N/cm,180 Peel Adhesion,,,220
+,3M,category_raw_material,BT3005,peel_180_headliner_humidity_aging,180°剥离-顶棚-湿热老化,4.1,N/cm,180 Peel Adhesion,,,220
+,3M,category_raw_material,BT3005,peel_180_painted_panel_initial,180°剥离-喷涂板-初始,10.9,N/cm,180 Peel Adhesion,,,220
+,3M,category_raw_material,BT3005,peel_180_painted_panel_normal,180°剥离-喷涂板-常态,11.2,N/cm,180 Peel Adhesion,,,220
+,3M,category_raw_material,BT3005,peel_180_pp_initial,180°剥离-PP-初始,7.1,N/cm,180 Peel Adhesion,,,220
+,3M,category_raw_material,BT3005,peel_180_pp_normal,180°剥离-PP-常态,7,N/cm,180 Peel Adhesion,,,220
+,3M,category_tape_foam,GT7104,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,8.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3M,category_tape_foam,GT7104,peel_180_painted_normal,涂装板-常温状态-180度剥离力,11,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3M,category_tape_foam,GT7104,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,6.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3M,category_tape_foam,GT7104,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,14.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3M,category_tape_foam,GT7104,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,12.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3M,category_tape_foam,GT7104,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,12,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3M,category_tape_foam,GT7104,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,12.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3M,category_tape_foam,GT7104,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,6.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3M,category_tape_foam,GT7104,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3M,category_tape_foam,GT7104,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,10.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3M,category_tape_foam,GT7104,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.75,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3M,category_tape_foam,GT7104,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.79,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3M,category_tape_foam,GT7104,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.24,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3M,category_tape_foam,GT7104,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.75,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3M,category_tape_foam,GT7104,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.75,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3M,category_tape_foam,GT7104,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.69,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3M,category_tape_foam,GT7106,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,9.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3M,category_tape_foam,GT7106,peel_180_painted_normal,涂装板-常温状态-180度剥离力,11.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3M,category_tape_foam,GT7106,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3M,category_tape_foam,GT7106,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,15.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3M,category_tape_foam,GT7106,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,13.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3M,category_tape_foam,GT7106,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,13,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3M,category_tape_foam,GT7106,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,13.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3M,category_tape_foam,GT7106,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,7.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3M,category_tape_foam,GT7106,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,10.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3M,category_tape_foam,GT7106,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,12.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3M,category_tape_foam,GT7106,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.73,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3M,category_tape_foam,GT7106,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.75,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3M,category_tape_foam,GT7106,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.23,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3M,category_tape_foam,GT7106,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.71,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3M,category_tape_foam,GT7106,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.72,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3M,category_tape_foam,GT7106,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.64,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3M,category_tape_foam,GT7108,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,10.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3M,category_tape_foam,GT7108,peel_180_painted_normal,涂装板-常温状态-180度剥离力,12.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3M,category_tape_foam,GT7108,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,7.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3M,category_tape_foam,GT7108,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,17.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3M,category_tape_foam,GT7108,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,15.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3M,category_tape_foam,GT7108,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,14.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3M,category_tape_foam,GT7108,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,14.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3M,category_tape_foam,GT7108,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,8.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3M,category_tape_foam,GT7108,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,13.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3M,category_tape_foam,GT7108,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,14,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3M,category_tape_foam,GT7108,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.7,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3M,category_tape_foam,GT7108,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.71,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3M,category_tape_foam,GT7108,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.22,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3M,category_tape_foam,GT7108,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.67,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3M,category_tape_foam,GT7108,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.69,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3M,category_tape_foam,GT7108,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.61,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3M,category_tape_foam,GT7110,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,10.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3M,category_tape_foam,GT7110,peel_180_painted_normal,涂装板-常温状态-180度剥离力,13.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3M,category_tape_foam,GT7110,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,7.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3M,category_tape_foam,GT7110,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,18.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3M,category_tape_foam,GT7110,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,15.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3M,category_tape_foam,GT7110,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,15.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3M,category_tape_foam,GT7110,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,16,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3M,category_tape_foam,GT7110,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,8.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3M,category_tape_foam,GT7110,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,15,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3M,category_tape_foam,GT7110,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,15,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3M,category_tape_foam,GT7110,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.66,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3M,category_tape_foam,GT7110,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.65,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3M,category_tape_foam,GT7110,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.21,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3M,category_tape_foam,GT7110,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.63,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3M,category_tape_foam,GT7110,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.63,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3M,category_tape_foam,GT7110,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.58,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3M,category_tape_foam,GT7112,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,11.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3M,category_tape_foam,GT7112,peel_180_painted_normal,涂装板-常温状态-180度剥离力,14.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3M,category_tape_foam,GT7112,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,8.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3M,category_tape_foam,GT7112,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,19.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3M,category_tape_foam,GT7112,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,16.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3M,category_tape_foam,GT7112,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,16.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3M,category_tape_foam,GT7112,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,17,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3M,category_tape_foam,GT7112,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,8.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3M,category_tape_foam,GT7112,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,16.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3M,category_tape_foam,GT7112,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,16.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3M,category_tape_foam,GT7112,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.61,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3M,category_tape_foam,GT7112,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.61,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3M,category_tape_foam,GT7112,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.2,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3M,category_tape_foam,GT7112,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.58,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3M,category_tape_foam,GT7112,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.6,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3M,category_tape_foam,GT7112,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.53,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3M,category_tape_foam,GT7116,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,12.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3M,category_tape_foam,GT7116,peel_180_painted_normal,涂装板-常温状态-180度剥离力,16.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3M,category_tape_foam,GT7116,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,8.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3M,category_tape_foam,GT7116,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,22.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3M,category_tape_foam,GT7116,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,19.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3M,category_tape_foam,GT7116,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,19.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3M,category_tape_foam,GT7116,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,19.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3M,category_tape_foam,GT7116,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,9.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3M,category_tape_foam,GT7116,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,18.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3M,category_tape_foam,GT7116,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,18.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3M,category_tape_foam,GT7116,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.56,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3M,category_tape_foam,GT7116,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.56,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3M,category_tape_foam,GT7116,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.19,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3M,category_tape_foam,GT7116,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.53,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3M,category_tape_foam,GT7116,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.52,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3M,category_tape_foam,GT7116,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.47,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3M,category_tape_foam,GT7120,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,12.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3M,category_tape_foam,GT7120,peel_180_painted_normal,涂装板-常温状态-180度剥离力,17.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3M,category_tape_foam,GT7120,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,8.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3M,category_tape_foam,GT7120,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,24.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3M,category_tape_foam,GT7120,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,21.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3M,category_tape_foam,GT7120,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,20.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3M,category_tape_foam,GT7120,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,21,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3M,category_tape_foam,GT7120,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,9.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3M,category_tape_foam,GT7120,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,20.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3M,category_tape_foam,GT7120,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,20.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3M,category_tape_foam,GT7120,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.52,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3M,category_tape_foam,GT7120,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.52,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3M,category_tape_foam,GT7120,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.18,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3M,category_tape_foam,GT7120,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.49,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3M,category_tape_foam,GT7120,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.48,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3M,category_tape_foam,GT7120,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.43,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3M,category_tape_foam,GT7125,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,13.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3M,category_tape_foam,GT7125,peel_180_painted_normal,涂装板-常温状态-180度剥离力,19.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3M,category_tape_foam,GT7125,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3M,category_tape_foam,GT7125,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,26.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3M,category_tape_foam,GT7125,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,23.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3M,category_tape_foam,GT7125,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,23.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3M,category_tape_foam,GT7125,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,23.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3M,category_tape_foam,GT7125,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,9.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3M,category_tape_foam,GT7125,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,23.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3M,category_tape_foam,GT7125,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,22.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3M,category_tape_foam,GT7125,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.48,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3M,category_tape_foam,GT7125,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.49,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3M,category_tape_foam,GT7125,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.17,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3M,category_tape_foam,GT7125,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.47,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3M,category_tape_foam,GT7125,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.47,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3M,category_tape_foam,GT7125,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.4,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3M,category_tape_foam,GT7130,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,13.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3M,category_tape_foam,GT7130,peel_180_painted_normal,涂装板-常温状态-180度剥离力,21.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3M,category_tape_foam,GT7130,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,9.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3M,category_tape_foam,GT7130,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,29.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3M,category_tape_foam,GT7130,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,25.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3M,category_tape_foam,GT7130,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,24.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3M,category_tape_foam,GT7130,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,24.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3M,category_tape_foam,GT7130,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,10.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3M,category_tape_foam,GT7130,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,26,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3M,category_tape_foam,GT7130,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,24.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3M,category_tape_foam,GT7130,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.47,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3M,category_tape_foam,GT7130,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.47,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3M,category_tape_foam,GT7130,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.16,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3M,category_tape_foam,GT7130,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.46,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3M,category_tape_foam,GT7130,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.45,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3M,category_tape_foam,GT7130,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.4,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3M,category_tape_foam,GT7135,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,14.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3M,category_tape_foam,GT7135,peel_180_painted_normal,涂装板-常温状态-180度剥离力,23.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3M,category_tape_foam,GT7135,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,9.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3M,category_tape_foam,GT7135,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,31.4,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3M,category_tape_foam,GT7135,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,27.2,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3M,category_tape_foam,GT7135,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,24.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3M,category_tape_foam,GT7135,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,25.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3M,category_tape_foam,GT7135,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,10.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3M,category_tape_foam,GT7135,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,29,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3M,category_tape_foam,GT7135,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,27,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3M,category_tape_foam,GT7135,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.45,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3M,category_tape_foam,GT7135,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.45,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3M,category_tape_foam,GT7135,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.15,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3M,category_tape_foam,GT7135,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.44,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3M,category_tape_foam,GT7135,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.44,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3M,category_tape_foam,GT7135,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.39,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160
+,3M,category_tape_foam,GT7140,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,15.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板。,10
+,3M,category_tape_foam,GT7140,peel_180_painted_normal,涂装板-常温状态-180度剥离力,25.3,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板。,20
+,3M,category_tape_foam,GT7140,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,9.6,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板。,30
+,3M,category_tape_foam,GT7140,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,32.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：涂装板。,40
+,3M,category_tape_foam,GT7140,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,28.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板。,50
+,3M,category_tape_foam,GT7140,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,25.8,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,60
+,3M,category_tape_foam,GT7140,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,25.9,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,70
+,3M,category_tape_foam,GT7140,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,10.5,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,80
+,3M,category_tape_foam,GT7140,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,31.1,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,90
+,3M,category_tape_foam,GT7140,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,28.7,N/cm,180度剥离力；25 mm 宽，25 μm PET 背材，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：PVC板，测试前使用 3M N-210NT 底涂。,100
+,3M,category_tape_foam,GT7140,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,0.45,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 20 分钟,测试基材：涂装板/PVC板组合。,110
+,3M,category_tape_foam,GT7140,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,0.45,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24 小时,测试基材：涂装板/PVC板组合。,120
+,3M,category_tape_foam,GT7140,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,0.15,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 80°C,测试基材：涂装板/PVC板组合。,130
+,3M,category_tape_foam,GT7140,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,0.42,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 40°C 温水 336h -> 23°C 24h,测试基材：涂装板/PVC板组合。,140
+,3M,category_tape_foam,GT7140,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,0.44,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 汽油 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,150
+,3M,category_tape_foam,GT7140,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,0.38,MPa,剪切强度；25 mm × 25 mm 搭接，5 kg 滚压，50 mm/min。,23°C 24h -> 除蜡剂 1h -> 23°C 24h,测试基材：涂装板/PVC板组合。,160

@@ -1,4 +1,4 @@
-﻿categ_id_xml,param_key,name,value_type,unit,selection_options,sequence,required,active,show_in_form,allow_import
+categ_id_xml,param_key,name,value_type,unit,selection_options,sequence,required,active,show_in_form,allow_import
 category_tape,sus_adhesive,对SUS粘性,float,N/cm,,10,0,1,1,1
 category_foam,density,密度,float,kg/m3,,10,1,1,1,1
 category_foam,hardness,硬度,float,Shore C,,20,0,1,1,1
@@ -16,6 +16,8 @@ category_tape_pet_single,adhesive_system,胶系,selection,,"丙烯酸
 橡胶",30,0,1,1,1
 category_tape_pet_single,peel_strength_180,剥离力,float,N/25mm,,40,0,1,1,1
 category_tape_pet_single,temperature_grade,耐温等级,char,℃,,50,0,1,1,1
+category_tape_pet_single,peel_strength,剥离力,char,,,1000,0,1,1,1
+category_tape_pet_single,structure,结构描述,char,,,1001,0,1,1,1
 category_release_film,base_film_type,基膜类型,selection,,"PET
 PE
 PP
@@ -35,6 +37,8 @@ category_tape_pet_double,adhesive_system,胶系,selection,,"丙烯酸
 橡胶",30,0,1,1,1
 category_tape_pet_double,initial_tack,初粘力,char,,,40,0,1,1,1
 category_tape_pet_double,holding_power,持粘力,char,h,,50,0,1,1,1
+category_tape_pet_double,peel_strength,剥离力,char,,,1000,0,1,1,1
+category_tape_pet_double,structure,结构描述,char,,,1001,0,1,1,1
 category_protection_film,base_material_type,基材类型,selection,,"PE
 PET
 PP
@@ -46,6 +50,12 @@ category_protection_film,application_surface,适用表面,selection,,"玻璃
 塑胶
 金属
 涂层面",50,0,1,1,1
+category_protection_film,peel_strength,剥离力,char,,,1000,0,1,1,1
+category_protection_film,structure,结构描述,char,,,1001,0,1,1,1
+category_tape_no_substrate,peel_strength,剥离力,char,,,1000,0,1,1,1
+category_tape_no_substrate,structure,结构描述,char,,,1001,0,1,1,1
+category_tape_tissue,peel_strength,剥离力,char,,,1000,0,1,1,1
+category_tape_tissue,structure,结构描述,char,,,1001,0,1,1,1
 category_metal_foil,surface_resistance,表面电阻,float,ohm/sq,,10,1,1,1,1
 category_metal_foil,shielding_effectiveness,屏蔽效能,float,dB,,20,0,1,1,1
 category_metal_foil,conductive_direction,导电方向,selection,,"X
@@ -85,6 +95,7 @@ category_conductive_cloth,shielding_effectiveness,屏蔽效能,float,dB,,40,0,1,
 category_conductive_cloth,adhesive_backing,背胶类型,selection,,"无背胶
 单面导电胶
 双面导电胶",50,0,1,1,1
+,structure,结构描述,char,,,1001,0,1,1,1
 category_tape_foam,peel_strength,剥离力,char,,,1000,0,1,1,1
 category_tape_foam,structure,结构描述,char,,,1001,0,1,1,1
 category_tape_insulation,base_material_type,基材类型,selection,,"PI

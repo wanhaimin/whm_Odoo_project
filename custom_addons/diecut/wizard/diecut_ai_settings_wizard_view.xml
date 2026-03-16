@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_diecut_ai_settings_wizard_form" model="ir.ui.view">
+        <field name="name">diecut.ai.settings.wizard.form</field>
+        <field name="model">diecut.ai.settings.wizard</field>
+        <field name="arch" type="xml">
+            <form string="AI/TDS 设置">
+                <header>
+                    <button name="action_test_connection" string="测试连接" type="object" class="btn btn-secondary"/>
+                    <button name="action_save" string="保存" type="object" class="btn btn-primary"/>
+                </header>
+                <sheet>
+                    <group string="视觉模型">
+                        <group>
+                            <field name="vision_provider"/>
+                            <field name="vision_api_url" invisible="vision_provider in ('disabled', 'openclaw')"/>
+                            <field name="vision_model" invisible="vision_provider == 'disabled'"/>
+                            <field name="vision_gateway_url" invisible="vision_provider != 'openclaw'"/>
+                            <field name="vision_agent_id" invisible="vision_provider != 'openclaw'"/>
+                            <field name="vision_session_mode" invisible="vision_provider != 'openclaw'"/>
+                        </group>
+                        <group>
+                            <field name="vision_api_key" password="True" invisible="vision_provider in ('disabled', 'openclaw')"/>
+                            <field name="vision_gateway_token" password="True" invisible="vision_provider != 'openclaw'"/>
+                        </group>
+                    </group>
+                    <group string="结构化模型">
+                        <group>
+                            <field name="struct_provider"/>
+                            <field name="struct_api_url" invisible="struct_provider in ('disabled', 'openclaw')"/>
+                            <field name="struct_model" invisible="struct_provider == 'disabled'"/>
+                            <field name="struct_gateway_url" invisible="struct_provider != 'openclaw'"/>
+                            <field name="struct_agent_id" invisible="struct_provider != 'openclaw'"/>
+                            <field name="struct_session_mode" invisible="struct_provider != 'openclaw'"/>
+                        </group>
+                        <group>
+                            <field name="struct_api_key" password="True" invisible="struct_provider in ('disabled', 'openclaw')"/>
+                            <field name="struct_gateway_token" password="True" invisible="struct_provider != 'openclaw'"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="extraction_note" nolabel="1" readonly="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_save" string="保存" type="object" class="btn btn-primary"/>
+                    <button string="放弃" class="btn btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_diecut_ai_settings_wizard" model="ir.actions.act_window">
+        <field name="name">AI/TDS 设置</field>
+        <field name="res_model">diecut.ai.settings.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

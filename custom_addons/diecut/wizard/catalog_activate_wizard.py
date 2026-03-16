@@ -48,7 +48,7 @@ class CatalogActivateWizard(models.TransientModel):
         item = self.env["diecut.catalog.item"].browse(catalog_item_id)
         brand_name = item.brand_id.name or ""
         variant_code = item.code or ""
-        base_material = item.variant_base_material or ""
+        base_material = item.base_material_id.name if item.base_material_id else ""
         series_short = item.series_text or ""
 
         res["product_name"] = f"{brand_name} {variant_code} {base_material}{series_short}".strip()
@@ -57,7 +57,7 @@ class CatalogActivateWizard(models.TransientModel):
         res["brand_id"] = item.brand_id.id if item.brand_id else False
         res["material_type"] = base_material
 
-        thickness_val = item.variant_thickness_std or item.variant_thickness
+        thickness_val = item.thickness_std or item.thickness
         res["thickness"] = self._parse_thickness(thickness_val)
         return res
 
@@ -124,10 +124,10 @@ class CatalogActivateWizard(models.TransientModel):
             "tear_strength": False,
             "temp_resistance_min": False,
             "temp_resistance_max": False,
-            "is_rohs": item.variant_is_rohs,
-            "is_reach": item.variant_is_reach,
-            "is_halogen_free": item.variant_is_halogen_free,
-            "fire_rating": item.variant_fire_rating,
+            "is_rohs": item.is_rohs,
+            "is_reach": item.is_reach,
+            "is_halogen_free": item.is_halogen_free,
+            "fire_rating": item.fire_rating,
             "datasheet": False,
             "datasheet_filename": False,
             "application": "",
@@ -135,11 +135,8 @@ class CatalogActivateWizard(models.TransientModel):
             "main_vendor_id": self.main_vendor_id.id if self.main_vendor_id else False,
         }
 
-        if item.variant_color:
-            color = self.env["diecut.color"].search([("name", "ilike", item.variant_color.strip())], limit=1)
-            if not color:
-                color = self.env["diecut.color"].create({"name": item.variant_color.strip()})
-            new_product_vals["color_id"] = color.id
+        if item.color_id:
+            new_product_vals["color_id"] = item.color_id.id
 
         new_product = self.env["product.template"].create(new_product_vals)
         item.with_context(skip_shadow_sync=True).write(

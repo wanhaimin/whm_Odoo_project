@@ -1,0 +1,28 @@
+{
+  "task_instructions": [
+    "3M TDS files often follow the pattern: product description, product construction, physical properties matrix, then typical results pages.",
+    "Watch for 3M series and code patterns such as GT, VHB, DC, BT, and CBT."
+  ],
+  "brand_or_domain_conventions": [
+    "3M documents commonly use General Description, Product Construction, Physical Properties, and Typical Results as major sections.",
+    "Method graphics and adjacent narrative usually belong in method_html and method_image, not in item core fields."
+  ],
+  "table_patterns": [
+    "3M item matrices often appear in the Physical Properties section.",
+    "Chart titles often directly contain the test name and the comparison target."
+  ],
+  "method_patterns": [
+    "Typical Results",
+    "Pluck Testing",
+    "Torque Testing",
+    "Static Shear"
+  ],
+  "negative_rules": [
+    "Do not misread competitor chart lines as additional product codes.",
+    "Do not map marketing claims directly into parameter values without a dictionary fit."
+  ],
+  "few_shot_examples": [
+    "For DC2000, Pluck, Torque, and Static Shear should become method cards plus related values.",
+    "For GT7100, the thickness-code matrix should primarily become items."
+  ]
+}

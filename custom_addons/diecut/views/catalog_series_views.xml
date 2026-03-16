@@ -4,10 +4,11 @@
         <field name="name">diecut.catalog.series.tree</field>
         <field name="model">diecut.catalog.series</field>
         <field name="arch" type="xml">
-            <list string="系列模板" default_order="brand_id, sequence, name, id">
+            <list string="系列字典" default_order="brand_id, sequence, name, id">
                 <field name="brand_id"/>
                 <field name="name"/>
                 <field name="sequence" optional="hide"/>
+                <field name="linked_item_count" optional="show"/>
                 <field name="active"/>
             </list>
         </field>
@@ -17,7 +18,7 @@
         <field name="name">diecut.catalog.series.form</field>
         <field name="model">diecut.catalog.series</field>
         <field name="arch" type="xml">
-            <form string="系列模板">
+            <form string="系列字典">
                 <sheet>
                     <group>
                         <group>
@@ -26,10 +27,11 @@
                         </group>
                         <group>
                             <field name="sequence"/>
+                            <field name="linked_item_count" readonly="1"/>
                             <field name="active"/>
                         </group>
                     </group>
-                    <group string="系列模板内容">
+                    <group string="系列字典内容">
                         <group>
                             <field name="product_features"/>
                         </group>
@@ -49,7 +51,7 @@
         <field name="name">diecut.catalog.series.search</field>
         <field name="model">diecut.catalog.series</field>
         <field name="arch" type="xml">
-            <search string="系列模板搜索">
+            <search string="系列字典搜索">
                 <field name="brand_id"/>
                 <field name="name"/>
                 <filter name="group_brand" string="按品牌分组" context="{'group_by': 'brand_id'}"/>
@@ -58,7 +60,7 @@
     </record>
 
     <record id="action_diecut_catalog_series" model="ir.actions.act_window">
-        <field name="name">系列模板管理</field>
+        <field name="name">系列字典</field>
         <field name="res_model">diecut.catalog.series</field>
         <field name="view_mode">list,form</field>
         <field name="view_id" ref="view_diecut_catalog_series_tree"/>

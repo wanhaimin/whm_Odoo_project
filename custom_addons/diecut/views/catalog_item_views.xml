@@ -8,17 +8,14 @@
                 <field name="name" optional="hide"/>
                 <field name="code" string="型号"/>
                 <field name="series_id" string="系列" optional="show"/>
-                <field name="variant_thickness" string="厚度"/>
-                <field name="variant_adhesive_thickness" string="胶厚" optional="hide"/>
-                <field name="variant_color" string="颜色"/>
-                <field name="variant_adhesive_type" string="胶系"/>
-                <field name="variant_base_material" string="基材"/>
+                <field name="thickness" string="厚度"/>
+                <field name="adhesive_thickness" string="胶厚" optional="hide"/>
+                <field name="color_id" string="颜色"/>
+                <field name="adhesive_type_id" string="胶系"/>
+                <field name="base_material_id" string="基材"/>
                 <field name="spec_line_count" string="参数条数" optional="show"/>
                 <field name="brand_id" string="品牌" optional="hide"/>
-                <field name="variant_thickness_std" string="厚度(标准)" optional="hide"/>
-                <field name="variant_color_std" string="颜色(标准)" optional="hide"/>
-                <field name="variant_adhesive_std" string="胶系(标准)" optional="hide"/>
-                <field name="variant_base_material_std" string="基材(标准)" optional="hide"/>
+                <field name="thickness_std" string="厚度(标准)" optional="hide"/>
                 <field name="is_duplicate_key" string="编码重复" optional="hide"/>
                 <field name="catalog_status" string="状态" decoration-success="catalog_status == 'published'" decoration-info="catalog_status == 'review'" decoration-warning="catalog_status == 'draft'" decoration-danger="catalog_status == 'deprecated'" optional="show"/>
                 <field name="erp_enabled" string="已启用ERP" widget="boolean_toggle" optional="show" readonly="1"/>
@@ -44,7 +41,7 @@
                         <group>
                             <field name="brand_id"/>
                             <field name="categ_id"/>
-                            <field name="spec_def_domain_ids" invisible="1"/>
+                            <field name="param_domain_ids" invisible="1"/>
                             <field name="catalog_status"/>
                         </group>
                         <group>
@@ -69,39 +66,43 @@
                     </group>
                     <group string="基础属性">
                         <group>
-                            <field name="variant_thickness"/>
-                            <field name="variant_adhesive_thickness"/>
-                            <field name="variant_color"/>
-                            <field name="variant_adhesive_type"/>
-                            <field name="variant_base_material"/>
-                            <field name="variant_ref_price"/>
+                            <field name="thickness"/>
+                            <field name="adhesive_thickness"/>
+                            <field name="color_id"/>
+                            <field name="adhesive_type_id"/>
+                            <field name="base_material_id"/>
+                            <field name="ref_price"/>
                         </group>
                         <group>
-                            <field name="variant_thickness_std"/>
-                            <field name="variant_is_rohs"/>
-                            <field name="variant_is_reach"/>
-                            <field name="variant_is_halogen_free"/>
-                            <field name="variant_fire_rating"/>
+                            <field name="thickness_std"/>
+                            <field name="is_rohs"/>
+                            <field name="is_reach"/>
+                            <field name="is_halogen_free"/>
+                            <field name="fire_rating"/>
                         </group>
                     </group>
                     <group string="技术参数">
                         <field name="spec_line_ids" nolabel="1" colspan="2">
                             <list editable="bottom" default_order="sequence, id">
                                 <field name="sequence" optional="hide"/>
-                                <field name="spec_def_id" domain="[('id', 'in', parent.spec_def_domain_ids)]"/>
+                                <field name="param_id" domain="[('id', 'in', parent.param_domain_ids)]"/>
                                 <field name="value_type" readonly="1" optional="hide"/>
                                 <field name="value_text" string="值" widget="diecut_spec_value_widget"/>
                                 <field name="unit"/>
+                                <field name="normalized_unit" optional="hide"/>
                                 <field name="test_method"/>
                                 <field name="test_condition"/>
                                 <field name="remark"/>
+                                <field name="source_document_id" optional="hide"/>
+                                <field name="confidence" optional="hide"/>
+                                <field name="review_status" optional="hide"/>
                                 <field name="param_key" column_invisible="True"/>
                                 <field name="param_name" column_invisible="True"/>
                             </list>
                             <form string="技术参数">
                                 <group>
                                     <group>
-                                        <field name="spec_def_id" domain="[('id', 'in', parent.spec_def_domain_ids)]"/>
+                                        <field name="param_id" domain="[('id', 'in', parent.param_domain_ids)]"/>
                                         <field name="value_type" readonly="1"/>
                                         <field name="value_char" string="文本值" invisible="value_type != 'char'"/>
                                         <field name="value_float" string="数值" invisible="value_type != 'float'"/>
@@ -109,19 +110,28 @@
                                         <field name="value_selection" string="枚举值" invisible="value_type != 'selection'"/>
                                         <field name="display_value" string="显示值" readonly="1"/>
                                         <field name="unit"/>
+                                        <field name="normalized_unit"/>
                                     </group>
                                     <group>
                                         <field name="test_method"/>
                                         <field name="test_condition"/>
                                         <field name="remark"/>
+                                        <field name="source_document_id"/>
+                                        <field name="source_excerpt"/>
+                                        <field name="confidence"/>
+                                        <field name="is_ai_generated"/>
+                                        <field name="review_status"/>
                                     </group>
+                                </group>
+                                <group string="标准测试方法">
+                                    <field name="method_html" nolabel="1" widget="html" readonly="1"/>
                                 </group>
                             </form>
                         </field>
                     </group>
                     <group string="文档与附件">
                         <group>
-                            <field name="variant_catalog_structure_image" widget="image"/>
+                            <field name="catalog_structure_image" widget="image"/>
                         </group>
                         <group string="TDS技术数据表" colspan="2">
                             <field name="tds_content" widget="html" nolabel="1"/>
@@ -151,10 +161,10 @@
                 <field name="brand_id" string="品牌"/>
                 <field name="series_id" string="系列"/>
                 <field name="code" string="型号编码"/>
-                <field name="variant_thickness_std" string="厚度(标准)"/>
-                <field name="variant_color_std" string="颜色(标准)"/>
-                <field name="variant_adhesive_std" string="胶系(标准)"/>
-                <field name="variant_base_material_std" string="基材(标准)"/>
+                <field name="thickness_std" string="厚度(标准)"/>
+                <field name="color_id" string="颜色"/>
+                <field name="adhesive_type_id" string="胶系"/>
+                <field name="base_material_id" string="基材"/>
                 <field name="catalog_status" string="状态"/>
                 <filter name="filter_status_published" string="已发布" domain="[('catalog_status', '=', 'published')]"/>
                 <filter name="filter_status_review" string="评审中" domain="[('catalog_status', '=', 'review')]"/>
@@ -162,16 +172,16 @@
                 <separator/>
                 <filter name="filter_erp_enabled" string="已启用ERP" domain="[('erp_enabled', '=', True)]"/>
                 <filter name="filter_erp_not_enabled" string="未启用ERP" domain="[('erp_enabled', '=', False)]"/>
-                <filter name="filter_rohs" string="ROHS" domain="[('variant_is_rohs', '=', True)]"/>
-                <filter name="filter_reach" string="REACH" domain="[('variant_is_reach', '=', True)]"/>
+                <filter name="filter_rohs" string="ROHS" domain="[('is_rohs', '=', True)]"/>
+                <filter name="filter_reach" string="REACH" domain="[('is_reach', '=', True)]"/>
                 <separator/>
                 <filter name="group_name" string="按名称分组" context="{'group_by': 'name'}"/>
                 <filter name="group_brand" string="按品牌分组" context="{'group_by': 'brand_id'}"/>
                 <filter name="group_series_id" string="按系列分组" context="{'group_by': 'series_id'}"/>
-                <filter name="group_thickness" string="按厚度分组" context="{'group_by': 'variant_thickness_std'}"/>
-                <filter name="group_color" string="按颜色分组" context="{'group_by': 'variant_color_std'}"/>
-                <filter name="group_adhesive" string="按胶系分组" context="{'group_by': 'variant_adhesive_std'}"/>
-                <filter name="group_base_material" string="按基材分组" context="{'group_by': 'variant_base_material_std'}"/>
+                <filter name="group_thickness" string="按厚度分组" context="{'group_by': 'thickness_std'}"/>
+                <filter name="group_color" string="按颜色分组" context="{'group_by': 'color_id'}"/>
+                <filter name="group_adhesive" string="按胶系分组" context="{'group_by': 'adhesive_type_id'}"/>
+                <filter name="group_base_material" string="按基材分组" context="{'group_by': 'base_material_id'}"/>
                 <searchpanel>
                     <field name="categ_id" string="材料分类" hierarchize="1" enable_counters="1"/>
                     <field name="brand_id" string="品牌" select="multi" enable_counters="1"/>
@@ -182,6 +192,26 @@
 
     <record id="view_diecut_catalog_item_split_tree" model="ir.ui.view">
         <field name="active" eval="False"/>
+        <field name="name">diecut.catalog.item.split.tree</field>
+        <field name="model">diecut.catalog.item</field>
+        <field name="arch" type="xml">
+            <list string="材料型号清单" default_order="brand_id, code, id" js_class="diecut_split_list">
+                <field name="name" optional="hide"/>
+                <field name="code" string="型号"/>
+                <field name="series_id" string="系列" optional="show"/>
+                <field name="thickness" string="厚度"/>
+                <field name="adhesive_thickness" string="胶厚" optional="hide"/>
+                <field name="color_id" string="颜色"/>
+                <field name="adhesive_type_id" string="胶系"/>
+                <field name="base_material_id" string="基材"/>
+                <field name="spec_line_count" string="参数条数" optional="show"/>
+                <field name="brand_id" string="品牌" optional="hide"/>
+                <field name="thickness_std" string="厚度(标准)" optional="hide"/>
+                <field name="is_duplicate_key" string="编码重复" optional="hide"/>
+                <field name="catalog_status" string="状态" decoration-success="catalog_status == 'published'" decoration-info="catalog_status == 'review'" decoration-warning="catalog_status == 'draft'" decoration-danger="catalog_status == 'deprecated'" optional="show"/>
+                <field name="erp_enabled" string="已启用ERP" widget="boolean_toggle" optional="show" readonly="1"/>
+            </list>
+        </field>
     </record>
 
     <record id="view_diecut_catalog_item_split_tree_standalone" model="ir.ui.view">
@@ -192,17 +222,14 @@
                 <field name="name" optional="hide"/>
                 <field name="code" string="型号"/>
                 <field name="series_id" string="系列" optional="show"/>
-                <field name="variant_thickness" string="厚度"/>
-                <field name="variant_adhesive_thickness" string="胶厚" optional="hide"/>
-                <field name="variant_color" string="颜色"/>
-                <field name="variant_adhesive_type" string="胶系"/>
-                <field name="variant_base_material" string="基材"/>
+                <field name="thickness" string="厚度"/>
+                <field name="adhesive_thickness" string="胶厚" optional="hide"/>
+                <field name="color_id" string="颜色"/>
+                <field name="adhesive_type_id" string="胶系"/>
+                <field name="base_material_id" string="基材"/>
                 <field name="spec_line_count" string="参数条数" optional="show"/>
                 <field name="brand_id" string="品牌" optional="hide"/>
-                <field name="variant_thickness_std" string="厚度(标准)" optional="hide"/>
-                <field name="variant_color_std" string="颜色(标准)" optional="hide"/>
-                <field name="variant_adhesive_std" string="胶系(标准)" optional="hide"/>
-                <field name="variant_base_material_std" string="基材(标准)" optional="hide"/>
+                <field name="thickness_std" string="厚度(标准)" optional="hide"/>
                 <field name="is_duplicate_key" string="编码重复" optional="hide"/>
                 <field name="catalog_status" string="状态" decoration-success="catalog_status == 'published'" decoration-info="catalog_status == 'review'" decoration-warning="catalog_status == 'draft'" decoration-danger="catalog_status == 'deprecated'" optional="show"/>
                 <field name="erp_enabled" string="已启用ERP" widget="boolean_toggle" optional="show" readonly="1"/>
@@ -212,6 +239,45 @@
 
     <record id="view_diecut_catalog_item_split_form" model="ir.ui.view">
         <field name="active" eval="False"/>
+        <field name="name">diecut.catalog.item.split.form</field>
+        <field name="model">diecut.catalog.item</field>
+        <field name="arch" type="xml">
+            <form string="材料选型目录">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="brand_id"/>
+                            <field name="categ_id"/>
+                            <field name="param_domain_ids" invisible="1"/>
+                            <field name="catalog_status"/>
+                        </group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="series_id" options="{'no_quick_create': True}" context="{'default_brand_id': brand_id}"/>
+                            <field name="series_text" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="基础属性">
+                        <group>
+                            <field name="thickness"/>
+                            <field name="adhesive_thickness"/>
+                            <field name="color_id"/>
+                            <field name="adhesive_type_id"/>
+                            <field name="base_material_id"/>
+                            <field name="ref_price"/>
+                        </group>
+                        <group>
+                            <field name="thickness_std"/>
+                            <field name="is_rohs"/>
+                            <field name="is_reach"/>
+                            <field name="is_halogen_free"/>
+                            <field name="fire_rating"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
     </record>
 
     <record id="view_diecut_catalog_item_split_form_standalone" model="ir.ui.view">
@@ -229,7 +295,7 @@
                         <group>
                             <field name="brand_id"/>
                             <field name="categ_id"/>
-                            <field name="spec_def_domain_ids" invisible="1"/>
+                            <field name="param_domain_ids" invisible="1"/>
                             <field name="catalog_status"/>
                         </group>
                         <group>
@@ -254,32 +320,36 @@
                     </group>
                     <group string="基础属性">
                         <group>
-                            <field name="variant_thickness"/>
-                            <field name="variant_adhesive_thickness"/>
-                            <field name="variant_color"/>
-                            <field name="variant_adhesive_type"/>
-                            <field name="variant_base_material"/>
-                            <field name="variant_ref_price"/>
+                            <field name="thickness"/>
+                            <field name="adhesive_thickness"/>
+                            <field name="color_id"/>
+                            <field name="adhesive_type_id"/>
+                            <field name="base_material_id"/>
+                            <field name="ref_price"/>
                         </group>
                         <group>
-                            <field name="variant_thickness_std"/>
-                            <field name="variant_is_rohs"/>
-                            <field name="variant_is_reach"/>
-                            <field name="variant_is_halogen_free"/>
-                            <field name="variant_fire_rating"/>
+                            <field name="thickness_std"/>
+                            <field name="is_rohs"/>
+                            <field name="is_reach"/>
+                            <field name="is_halogen_free"/>
+                            <field name="fire_rating"/>
                         </group>
                     </group>
                     <group string="技术参数">
                         <field name="spec_line_ids" nolabel="1" colspan="2">
                             <list editable="bottom" default_order="sequence, id">
                                 <field name="sequence" optional="hide"/>
-                                <field name="spec_def_id" domain="[('id', 'in', parent.spec_def_domain_ids)]"/>
+                                <field name="param_id" domain="[('id', 'in', parent.param_domain_ids)]"/>
                                 <field name="value_type" readonly="1" optional="hide"/>
                                 <field name="value_text" string="值" widget="diecut_spec_value_widget"/>
                                 <field name="unit"/>
+                                <field name="normalized_unit" optional="hide"/>
                                 <field name="test_method"/>
                                 <field name="test_condition"/>
                                 <field name="remark"/>
+                                <field name="source_document_id" optional="hide"/>
+                                <field name="confidence" optional="hide"/>
+                                <field name="review_status" optional="hide"/>
                                 <field name="param_key" column_invisible="True"/>
                                 <field name="param_name" column_invisible="True"/>
                             </list>
