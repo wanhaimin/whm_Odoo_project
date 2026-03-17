@@ -11,6 +11,7 @@ class DiecutCatalogTaxonomyMixin(models.AbstractModel):
     _description = "Catalog Taxonomy Mixin"
 
     name = fields.Char(string="名称", required=True, index=True)
+    alias_text = fields.Text(string="别名/同义词", help="用于统一厂商原词，可按行或逗号分隔多个别名。")
     active = fields.Boolean(string="启用", default=True)
     sequence = fields.Integer(string="排序", default=10)
     note = fields.Text(string="备注")
@@ -24,17 +25,50 @@ class DiecutCatalogTaxonomyMixin(models.AbstractModel):
         text = re.sub(r"\s+", " ", str(value).strip())
         return text or False
 
+    @classmethod
+    def _normalize_alias_text(cls, value):
+        if not value:
+            return False
+        parts = re.split(r"[\n,;，；]+", str(value))
+        normalized = []
+        seen = set()
+        for part in parts:
+            alias = cls._normalize_name(part)
+            if alias and alias.casefold() not in seen:
+                seen.add(alias.casefold())
+                normalized.append(alias)
+        return "\n".join(normalized) if normalized else False
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
             if "name" in vals:
                 vals["name"] = self._normalize_name(vals.get("name"))
+            if "alias_text" in vals:
+                vals["alias_text"] = self._normalize_alias_text(vals.get("alias_text"))
         return super().create(vals_list)
 
     def write(self, vals):
         if "name" in vals:
             vals["name"] = self._normalize_name(vals.get("name"))
+        if "alias_text" in vals:
+            vals["alias_text"] = self._normalize_alias_text(vals.get("alias_text"))
         return super().write(vals)
+
+    @api.model
+    def _name_search(self, name="", args=None, operator="ilike", limit=100, name_get_uid=None):
+        args = list(args or [])
+        if name:
+            args += ["|", ("name", operator, name), ("alias_text", operator, name)]
+        model = self.with_user(name_get_uid) if name_get_uid else self
+        return model._search(args, limit=limit)
+
+    @api.model
+    def name_search(self, name="", args=None, operator="ilike", limit=100):
+        if not name:
+            return super().name_search(name=name, args=args, operator=operator, limit=limit)
+        records = self.search(["|", ("name", operator, name), ("alias_text", operator, name)] + list(args or []), limit=limit)
+        return [(record.id, record.display_name) for record in records]
 
     @api.constrains("name")
     def _check_name_not_empty(self):
@@ -239,3 +273,64 @@ class DiecutColor(models.Model):
         if "name" in vals:
             vals["name"] = DiecutCatalogTaxonomyMixin._normalize_name(vals.get("name"))
         return super().write(vals)
+
+
+class ProductTag(models.Model):
+    _inherit = "product.tag"
+    _order = "sequence, name, id"
+
+    active = fields.Boolean(string="启用", default=True)
+    sequence = fields.Integer(string="排序", default=10)
+    alias_text = fields.Text(string="别名/同义词", help="用于统一不同厂商或业务表达，可按行或逗号分隔多个别名。")
+    note = fields.Text(string="备注")
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if "name" in vals:
+                vals["name"] = DiecutCatalogTaxonomyMixin._normalize_name(vals.get("name"))
+            if "alias_text" in vals:
+                vals["alias_text"] = DiecutCatalogTaxonomyMixin._normalize_alias_text(vals.get("alias_text"))
+        return super().create(vals_list)
+
+    def write(self, vals):
+        if "name" in vals:
+            vals["name"] = DiecutCatalogTaxonomyMixin._normalize_name(vals.get("name"))
+        if "alias_text" in vals:
+            vals["alias_text"] = DiecutCatalogTaxonomyMixin._normalize_alias_text(vals.get("alias_text"))
+        return super().write(vals)
+
+    @api.constrains("name")
+    def _check_name_not_empty(self):
+        for record in self:
+            if not record.name:
+                raise ValidationError("名称不能为空。")
+
+    @api.model
+    def _name_search(self, name="", args=None, operator="ilike", limit=100, name_get_uid=None):
+        args = list(args or [])
+        if name:
+            args += ["|", ("name", operator, name), ("alias_text", operator, name)]
+        model = self.with_user(name_get_uid) if name_get_uid else self
+        return model._search(args, limit=limit)
+
+    @api.model
+    def name_search(self, name="", args=None, operator="ilike", limit=100):
+        if not name:
+            return super().name_search(name=name, args=args, operator=operator, limit=limit)
+        records = self.search(["|", ("name", operator, name), ("alias_text", operator, name)] + list(args or []), limit=limit)
+        return [(record.id, record.display_name) for record in records]
+
+
+class DiecutCatalogApplicationTag(models.Model):
+    _name = "diecut.catalog.application.tag"
+    _description = "应用标签"
+    _inherit = "diecut.catalog.taxonomy.mixin"
+    _order = "sequence, name, id"
+
+
+class DiecutCatalogFeatureTag(models.Model):
+    _name = "diecut.catalog.feature.tag"
+    _description = "特性标签"
+    _inherit = "diecut.catalog.taxonomy.mixin"
+    _order = "sequence, name, id"

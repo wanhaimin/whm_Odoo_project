@@ -41,6 +41,15 @@
                         <group colspan="2">
                             <field name="main_applications" widget="html"/>
                         </group>
+                        <group colspan="2" string="默认选型标签">
+                            <group>
+                                <field name="default_function_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                <field name="default_application_tag_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="default_feature_tag_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
                     </group>
                 </sheet>
             </form>

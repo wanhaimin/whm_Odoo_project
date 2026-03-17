@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="partner_ai_qa" model="res.partner">
+        <field name="name">AI问答</field>
+        <field name="company_type">person</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="partner_ai_refine" model="res.partner">
+        <field name="name">AI修订</field>
+        <field name="company_type">person</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="user_ai_qa" model="res.users">
+        <field name="name">AI问答</field>
+        <field name="login">diecut.ai.qa.bot</field>
+        <field name="partner_id" ref="partner_ai_qa"/>
+        <field name="group_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+        <field name="active">True</field>
+    </record>
+
+    <record id="user_ai_refine" model="res.users">
+        <field name="name">AI修订</field>
+        <field name="login">diecut.ai.refine.bot</field>
+        <field name="partner_id" ref="partner_ai_refine"/>
+        <field name="group_ids" eval="[(6, 0, [ref('base.group_user')])]"/>
+        <field name="active">True</field>
+    </record>
+
+    <record id="config_ai_mode_auto_enabled" model="ir.config_parameter">
+        <field name="key">diecut.ai_mode_auto_enabled</field>
+        <field name="value">true</field>
+    </record>
+
+    <record id="config_ai_mode_qa_partner_xmlid" model="ir.config_parameter">
+        <field name="key">diecut.ai_mode_qa_partner_xmlid</field>
+        <field name="value">diecut.partner_ai_qa</field>
+    </record>
+
+    <record id="config_ai_mode_refine_partner_xmlid" model="ir.config_parameter">
+        <field name="key">diecut.ai_mode_refine_partner_xmlid</field>
+        <field name="value">diecut.partner_ai_refine</field>
+    </record>
+
+    <record id="config_ai_qa_reply_lang" model="ir.config_parameter">
+        <field name="key">diecut.ai_qa_reply_lang</field>
+        <field name="value">zh</field>
+    </record>
+
+    <record id="config_ai_qa_aliases" model="ir.config_parameter">
+        <field name="key">diecut.ai_qa_aliases</field>
+        <field name="value">@AI问答,@AI回答</field>
+    </record>
+</odoo>

@@ -11,12 +11,8 @@ JSON_OUTPUT = os.path.join(DATA_DIR, 'catalog_materials.json')
 
 
 def read_csv_safe(filepath):
-    try:
-        with open(filepath, 'r', encoding='utf-8-sig', newline='') as f:
-            rows = list(csv.reader(f))
-    except UnicodeDecodeError:
-        with open(filepath, 'r', encoding='gbk', newline='') as f:
-            rows = list(csv.reader(f))
+    with open(filepath, 'r', encoding='utf-8-sig', newline='') as f:
+        rows = list(csv.reader(f))
     return [[col.replace('\r', '') for col in row] for row in rows]
 
 

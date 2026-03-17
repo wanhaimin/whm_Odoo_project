@@ -1,0 +1,827 @@
+{
+  "document_meta": {
+    "title": "4982",
+    "brand": "tesa",
+    "category": null,
+    "document_type": "TDS/product information",
+    "language": "zh-CN",
+    "pages": 2,
+    "source_date": "2024-11-13",
+    "series_or_product_name": "tesa 4982",
+    "document_scope": "single item product sheet",
+    "confidence": 0.98
+  },
+  "sections": [
+    {
+      "section_name": "product_overview",
+      "source_page": 1,
+      "source_text": "100um透明薄膜双面胶带，多用于LCD背光板、面板和金属外框粘接固定，也可用于电池组固定。",
+      "normalized_summary": "100 μm transparent double-sided film tape for LCD backlight, panel, metal frame, and battery pack fixing.",
+      "confidence": 0.97
+    },
+    {
+      "section_name": "product_description",
+      "source_page": 1,
+      "source_text": "tesa 4982是以PET为基材，使用改性丙烯酸胶系的透明双面胶带。",
+      "normalized_summary": "Transparent double-sided PET film tape with modified acrylic adhesive.",
+      "confidence": 0.99
+    },
+    {
+      "section_name": "features",
+      "source_page": 1,
+      "source_text": "•有限胶带厚度，可达到出色的剥离强度 •对多数普通平滑的表面都有良好的粘接强度 •高温下依然提供可靠的粘接力",
+      "normalized_summary": "Thin tape with strong peel adhesion, good bonding to many smooth surfaces, reliable adhesion at high temperature.",
+      "confidence": 0.96
+    },
+    {
+      "section_name": "applications",
+      "source_page": 1,
+      "source_text": "•固定LCD的背光板 •固定LCD面板与金属外框 •电池组固定",
+      "normalized_summary": "Applications include LCD backlight fixing, LCD panel to metal frame fixing, and battery pack fixing.",
+      "confidence": 0.98
+    },
+    {
+      "section_name": "construction",
+      "source_page": 1,
+      "source_text": "•基材 PET（聚酯）薄膜 •胶粘剂类型 改性丙烯酸•总厚度 100 µm •颜色 透明",
+      "normalized_summary": "Construction states PET film backing, modified acrylic adhesive, total thickness 100 μm, transparent color.",
+      "confidence": 0.99
+    },
+    {
+      "section_name": "technical_properties",
+      "source_page": 1,
+      "source_text": "•断裂延展率 50 % •抗张强度 20 N/cm •23°C静态抗剪切力 非常好 •40°C静态抗剪切力 非常好 •初粘力 好•抗增塑剂 好 •抗老化（UV） 好 •短期耐高温性 200 °C •长期耐高温性 100 °C •防潮 非常好",
+      "normalized_summary": "Includes elongation, tensile strength, static shear performance at 23°C and 40°C, tack, plasticizer resistance, UV aging resistance, short-term and long-term temperature resistance, and moisture resistance.",
+      "confidence": 0.97
+    },
+    {
+      "section_name": "adhesion_performance",
+      "source_page": 2,
+      "source_text": "粘接至 •ABS表面粘接强度（初始） 7.6 N/cm •ABS表面粘接强度（14天后） 9.6 N/cm •铝表面粘接强度（初始） 7.9 N/cm •铝表面粘接强度（14天后） 10.6 N/cm •PC表面粘接强度（初始） 9.2 N/cm •PC表面粘接强度（14天后） 11 N/cm •PE表面粘接强度（初始） 4.6 N/cm •PE表面粘接强度（14天后） 5.1 N/cm •PET表面粘接强度（初始） 7 N/cm•PET表面粘接强度（14天后） 8.4 N/cm •PP表面粘接强度（初始） 4.4 N/cm •PP表面粘接强度（14天后） 6.2 N/cm •PS表面粘接强度（初始） 8.3 N/cm •PS表面粘接强度（14天后） 9.2 N/cm •PVC表面粘接强度（初始） 7 N/cm •PVC表面粘接强度（14天后） 10 N/cm •钢表面粘接强度（初始） 11 N/cm •钢表面粘接强度（14天后） 11.7 N/cm",
+      "normalized_summary": "Peel adhesion strengths are reported by substrate and aging state (initial vs after 14 days).",
+      "confidence": 0.99
+    },
+    {
+      "section_name": "disclaimer",
+      "source_page": 1,
+      "source_text": "这里的数据仅应被视为参考值和典型值，不应被视为技术规范.",
+      "normalized_summary": "Values are reference/typical only, not guaranteed specification limits.",
+      "confidence": 0.99
+    },
+    {
+      "section_name": "legal_disclaimer",
+      "source_page": 2,
+      "source_text": "免责声明德莎产品定期经受严格的检验...这些技术参数应被看作平均值，而不可用于规范目的...",
+      "normalized_summary": "Standard legal disclaimer; not business master data.",
+      "confidence": 0.99
+    }
+  ],
+  "tables": [
+    {
+      "table_name": "construction_block",
+      "source_page": 1,
+      "table_type": "key_value_list",
+      "scope": "item",
+      "columns": [
+        "attribute",
+        "value"
+      ],
+      "rows": [
+        [
+          "基材",
+          "PET（聚酯）薄膜"
+        ],
+        [
+          "胶粘剂类型",
+          "改性丙烯酸"
+        ],
+        [
+          "总厚度",
+          "100 µm"
+        ],
+        [
+          "颜色",
+          "透明"
+        ]
+      ],
+      "confidence": 0.98
+    },
+    {
+      "table_name": "properties_block",
+      "source_page": 1,
+      "table_type": "key_value_list",
+      "scope": "item",
+      "columns": [
+        "property",
+        "value"
+      ],
+      "rows": [
+        [
+          "断裂延展率",
+          "50 %"
+        ],
+        [
+          "抗张强度",
+          "20 N/cm"
+        ],
+        [
+          "23°C静态抗剪切力",
+          "非常好"
+        ],
+        [
+          "40°C静态抗剪切力",
+          "非常好"
+        ],
+        [
+          "初粘力",
+          "好"
+        ],
+        [
+          "抗增塑剂",
+          "好"
+        ],
+        [
+          "抗老化（UV）",
+          "好"
+        ],
+        [
+          "短期耐高温性",
+          "200 °C"
+        ],
+        [
+          "长期耐高温性",
+          "100 °C"
+        ],
+        [
+          "防潮",
+          "非常好"
+        ]
+      ],
+      "confidence": 0.97
+    },
+    {
+      "table_name": "adhesion_matrix",
+      "source_page": 2,
+      "table_type": "condition_matrix",
+      "scope": "item",
+      "columns": [
+        "substrate",
+        "state",
+        "value",
+        "unit"
+      ],
+      "rows": [
+        [
+          "ABS",
+          "初始",
+          "7.6",
+          "N/cm"
+        ],
+        [
+          "ABS",
+          "14天后",
+          "9.6",
+          "N/cm"
+        ],
+        [
+          "铝",
+          "初始",
+          "7.9",
+          "N/cm"
+        ],
+        [
+          "铝",
+          "14天后",
+          "10.6",
+          "N/cm"
+        ],
+        [
+          "PC",
+          "初始",
+          "9.2",
+          "N/cm"
+        ],
+        [
+          "PC",
+          "14天后",
+          "11",
+          "N/cm"
+        ],
+        [
+          "PE",
+          "初始",
+          "4.6",
+          "N/cm"
+        ],
+        [
+          "PE",
+          "14天后",
+          "5.1",
+          "N/cm"
+        ],
+        [
+          "PET",
+          "初始",
+          "7",
+          "N/cm"
+        ],
+        [
+          "PET",
+          "14天后",
+          "8.4",
+          "N/cm"
+        ],
+        [
+          "PP",
+          "初始",
+          "4.4",
+          "N/cm"
+        ],
+        [
+          "PP",
+          "14天后",
+          "6.2",
+          "N/cm"
+        ],
+        [
+          "PS",
+          "初始",
+          "8.3",
+          "N/cm"
+        ],
+        [
+          "PS",
+          "14天后",
+          "9.2",
+          "N/cm"
+        ],
+        [
+          "PVC",
+          "初始",
+          "7",
+          "N/cm"
+        ],
+        [
+          "PVC",
+          "14天后",
+          "10",
+          "N/cm"
+        ],
+        [
+          "钢",
+          "初始",
+          "11",
+          "N/cm"
+        ],
+        [
+          "钢",
+          "14天后",
+          "11.7",
+          "N/cm"
+        ]
+      ],
+      "confidence": 0.99
+    }
+  ],
+  "candidate_items": [
+    {
+      "item_code": "4982",
+      "name": "tesa 4982",
+      "series_name": "tesa 4982",
+      "brand_name": "tesa",
+      "item_scope": "single_item",
+      "main_fields": {
+        "thickness": {
+          "value": 100,
+          "unit": "μm",
+          "normalized_value": 0.1,
+          "normalized_unit": "mm",
+          "source_page": 1,
+          "source_text": "总厚度 100 µm",
+          "confidence": 0.99
+        },
+        "color_name": {
+          "value": "透明",
+          "source_page": 1,
+          "source_text": "颜色 透明",
+          "confidence": 0.99
+        },
+        "adhesive_type_name": {
+          "value": "改性丙烯酸",
+          "source_page": 1,
+          "source_text": "胶粘剂类型 改性丙烯酸",
+          "confidence": 0.99
+        },
+        "base_material_name": {
+          "value": "PET（聚酯）薄膜",
+          "source_page": 1,
+          "source_text": "基材 PET（聚酯）薄膜",
+          "confidence": 0.99
+        }
+      },
+      "item_features": [
+        {
+          "text": "100um透明薄膜双面胶带",
+          "source_page": 1,
+          "source_text": "100um透明薄膜双面胶带",
+          "confidence": 0.96
+        }
+      ],
+      "confidence": 0.98
+    }
+  ],
+  "candidate_facts": [
+    {
+      "fact_type": "main_field",
+      "param_key": "thickness",
+      "value": "100",
+      "unit": "μm",
+      "normalized_value": 0.1,
+      "normalized_unit": "mm",
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 1,
+      "source_text": "总厚度 100 µm",
+      "mapping_reason": "Explicit total thickness; thickness is in main field whitelist and dictionary snapshot marks thickness as main field.",
+      "confidence": 0.99
+    },
+    {
+      "fact_type": "main_field",
+      "param_key": "color",
+      "value": "透明",
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 1,
+      "source_text": "颜色 透明",
+      "mapping_reason": "Explicit product color in construction block; color is a main searchable field.",
+      "confidence": 0.99
+    },
+    {
+      "fact_type": "main_field",
+      "param_key": "adhesive_type",
+      "value": "改性丙烯酸",
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 1,
+      "source_text": "胶粘剂类型 改性丙烯酸",
+      "mapping_reason": "Explicit adhesive type; matches adhesive_type alias and dictionary main field.",
+      "confidence": 0.99
+    },
+    {
+      "fact_type": "main_field",
+      "param_key": "base_material",
+      "value": "PET（聚酯）薄膜",
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 1,
+      "source_text": "基材 PET（聚酯）薄膜",
+      "mapping_reason": "Explicit backing/carrier material; matches base_material alias and dictionary main field.",
+      "confidence": 0.99
+    },
+    {
+      "fact_type": "spec_value",
+      "param_key": "elongation_at_break",
+      "value": "50",
+      "unit": "%",
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 1,
+      "source_text": "断裂延展率 50 %",
+      "mapping_reason": "Measurable technical property; not a main field; candidate param not present in provided dictionary snapshot.",
+      "confidence": 0.95
+    },
+    {
+      "fact_type": "spec_value",
+      "param_key": "tensile_strength",
+      "value": "20",
+      "unit": "N/cm",
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 1,
+      "source_text": "抗张强度 20 N/cm",
+      "mapping_reason": "Measurable technical property; not a main field.",
+      "confidence": 0.95
+    },
+    {
+      "fact_type": "spec_value",
+      "param_key": "static_shear_23c",
+      "value": "非常好",
+      "unit": null,
+      "conditions": {
+        "temperature": "23°C"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 1,
+      "source_text": "23°C静态抗剪切力 非常好",
+      "mapping_reason": "Condition-aware performance fact with temperature condition; qualitative rather than numeric.",
+      "confidence": 0.93
+    },
+    {
+      "fact_type": "spec_value",
+      "param_key": "initial_tack",
+      "value": "好",
+      "unit": null,
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 1,
+      "source_text": "初粘力 好",
+      "mapping_reason": "Performance property; not a main field.",
+      "confidence": 0.91
+    },
+    {
+      "fact_type": "spec_value",
+      "param_key": "short_term_temperature_resistance",
+      "value": "200",
+      "unit": "°C",
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 1,
+      "source_text": "短期耐高温性 200 °C",
+      "mapping_reason": "Measurable thermal performance; not a main field.",
+      "confidence": 0.96
+    },
+    {
+      "fact_type": "spec_value",
+      "param_key": "long_term_temperature_resistance",
+      "value": "100",
+      "unit": "°C",
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 1,
+      "source_text": "长期耐高温性 100 °C",
+      "mapping_reason": "Measurable thermal performance; not a main field.",
+      "confidence": 0.96
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "7.6",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "ABS",
+        "state": "初始"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "ABS表面粘接强度（初始） 7.6 N/cm",
+      "mapping_reason": "Condition-aware peel/adhesion performance by substrate and state; aligns semantically with peel strength though test geometry is not explicitly stated as 180 peel.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "9.6",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "ABS",
+        "state": "14天后"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "ABS表面粘接强度（14天后） 9.6 N/cm",
+      "mapping_reason": "Condition-aware peel/adhesion performance by substrate and aging state; semantically close to peel strength.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "7.9",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "铝",
+        "state": "初始"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "铝表面粘接强度（初始） 7.9 N/cm",
+      "mapping_reason": "Condition-aware adhesion performance by substrate and state.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "10.6",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "铝",
+        "state": "14天后"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "铝表面粘接强度（14天后） 10.6 N/cm",
+      "mapping_reason": "Condition-aware adhesion performance by substrate and state.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "9.2",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "PC",
+        "state": "初始"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "PC表面粘接强度（初始） 9.2 N/cm",
+      "mapping_reason": "Condition-aware adhesion performance by substrate and state.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "11",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "PC",
+        "state": "14天后"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "PC表面粘接强度（14天后） 11 N/cm",
+      "mapping_reason": "Condition-aware adhesion performance by substrate and state.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "4.6",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "PE",
+        "state": "初始"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "PE表面粘接强度（初始） 4.6 N/cm",
+      "mapping_reason": "Condition-aware adhesion performance by substrate and state.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "5.1",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "PE",
+        "state": "14天后"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "PE表面粘接强度（14天后） 5.1 N/cm",
+      "mapping_reason": "Condition-aware adhesion performance by substrate and state.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "7",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "PET",
+        "state": "初始"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "PET表面粘接强度（初始） 7 N/cm",
+      "mapping_reason": "Condition-aware adhesion performance by substrate and state.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "8.4",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "PET",
+        "state": "14天后"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "PET表面粘接强度（14天后） 8.4 N/cm",
+      "mapping_reason": "Condition-aware adhesion performance by substrate and state.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "4.4",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "PP",
+        "state": "初始"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "PP表面粘接强度（初始） 4.4 N/cm",
+      "mapping_reason": "Condition-aware adhesion performance by substrate and state.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "6.2",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "PP",
+        "state": "14天后"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "PP表面粘接强度（14天后） 6.2 N/cm",
+      "mapping_reason": "Condition-aware adhesion performance by substrate and state.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "8.3",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "PS",
+        "state": "初始"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "PS表面粘接强度（初始） 8.3 N/cm",
+      "mapping_reason": "Condition-aware adhesion performance by substrate and state.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "10",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "PVC",
+        "state": "14天后"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "PVC表面粘接强度（14天后） 10 N/cm",
+      "mapping_reason": "Condition-aware adhesion performance by substrate and state.",
+      "confidence": 0.92
+    },
+    {
+      "fact_type": "performance_peel",
+      "param_key": "foil_peel_strength",
+      "value": "11.7",
+      "unit": "N/cm",
+      "conditions": {
+        "substrate": "钢",
+        "state": "14天后"
+      },
+      "applies_to": "item",
+      "item_code": "4982",
+      "source_page": 2,
+      "source_text": "钢表面粘接强度（14天后） 11.7 N/cm",
+      "mapping_reason": "Condition-aware adhesion performance by substrate and state.",
+      "confidence": 0.92
+    }
+  ],
+  "candidate_content": [
+    {
+      "content_type": "product_description",
+      "applies_to": "series",
+      "item_code": null,
+      "text": "100um透明薄膜双面胶带，多用于LCD背光板、面板和金属外框粘接固定，也可用于电池组固定。tesa 4982是以PET为基材，使用改性丙烯酸胶系的透明双面胶带。",
+      "source_page": 1,
+      "source_text": "100um透明薄膜双面胶带，多用于LCD背光板、面板和金属外框粘接固定，也可用于电池组固定。 产品描述tesa 4982是以PET为基材，使用改性丙烯酸胶系的透明双面胶带。",
+      "mapping_reason": "Narrative overview and core product description fit series.product_description.",
+      "confidence": 0.98
+    },
+    {
+      "content_type": "product_features",
+      "applies_to": "series",
+      "item_code": null,
+      "text": [
+        "有限胶带厚度，可达到出色的剥离强度",
+        "对多数普通平滑的表面都有良好的粘接强度",
+        "高温下依然提供可靠的粘接力"
+      ],
+      "source_page": 1,
+      "source_text": "特点 •有限胶带厚度，可达到出色的剥离强度 •对多数普通平滑的表面都有良好的粘接强度 •高温下依然提供可靠的粘接力",
+      "mapping_reason": "Feature bullets are non-numeric selling/usage points and belong in series.product_features.",
+      "confidence": 0.98
+    },
+    {
+      "content_type": "main_applications",
+      "applies_to": "series",
+      "item_code": null,
+      "text": [
+        "固定LCD的背光板",
+        "固定LCD面板与金属外框",
+        "电池组固定"
+      ],
+      "source_page": 1,
+      "source_text": "应用 •固定LCD的背光板 •固定LCD面板与金属外框 •电池组固定",
+      "mapping_reason": "Application bullets belong in series.main_applications.",
+      "confidence": 0.99
+    },
+    {
+      "content_type": "construction_note",
+      "applies_to": "item",
+      "item_code": "4982",
+      "text": "产品结构：基材为PET（聚酯）薄膜，胶粘剂类型为改性丙烯酸，颜色透明，总厚度100 µm。",
+      "source_page": 1,
+      "source_text": "产品结构 •基材 PET（聚酯）薄膜 •胶粘剂类型 改性丙烯酸•总厚度 100 µm •颜色 透明",
+      "mapping_reason": "Construction summary is descriptive and may be retained as content in addition to extracted facts.",
+      "confidence": 0.96
+    },
+    {
+      "content_type": "performance_note",
+      "applies_to": "item",
+      "item_code": "4982",
+      "text": "技术参数页面声明数据仅为参考值和典型值，不应视为技术规范。",
+      "source_page": 1,
+      "source_text": "这里的数据仅应被视为参考值和典型值，不应被视为技术规范.",
+      "mapping_reason": "Important interpretation note for performance data; not a legal disclaimer mapping to business fields.",
+      "confidence": 0.97
+    }
+  ],
+  "methods": [
+    {
+      "method_name": "adhesion_to_substrate_test",
+      "method_type": "inferred",
+      "description": "Document reports adhesion strength by substrate and time state (initial, after 14 days), unit N/cm. Exact standard/test geometry is not specified.",
+      "source_page": 2,
+      "source_text": "ABS表面粘接强度（初始） 7.6 N/cm ... 钢表面粘接强度（14天后） 11.7 N/cm",
+      "confidence": 0.78
+    },
+    {
+      "method_name": "static_shear_test",
+      "method_type": "inferred",
+      "description": "Static shear reported qualitatively at 23°C and 40°C; no load, dwell, or failure criteria provided.",
+      "source_page": 1,
+      "source_text": "23°C静态抗剪切力 非常好 •40°C静态抗剪切力 非常好",
+      "confidence": 0.8
+    },
+    {
+      "method_name": "typical_values_notice",
+      "method_type": "explicit",
+      "description": "All technical data are average/reference/typical values and should not be treated as guaranteed specifications.",
+      "source_page": 1,
+      "source_text": "这里的数据仅应被视为参考值和典型值，不应被视为技术规范.",
+      "confidence": 0.99
+    }
+  ],
+  "unresolved": [
+    {
+      "issue_type": "series_identification",
+      "reason": "Document title only shows single product code/name 'tesa 4982'; unclear whether Odoo should create a broader series separate from item or use the same code as both series and item.",
+      "source_page": 1,
+      "source_text": "tesa 4982双面胶带产品 信息",
+      "confidence": 0.72
+    },
+    {
+      "issue_type": "peel_test_method_specificity",
+      "reason": "Adhesion values are likely peel/adhesion strength, but document does not state 180°/90° geometry or exact test method. Mapping to specific peel param variants should remain cautious.",
+      "source_page": 2,
+      "source_text": "表面粘接强度（初始）...（14天后）... N/cm",
+      "confidence": 0.86
+    },
+    {
+      "issue_type": "qualitative_property_dictionary_mapping",
+      "reason": "Properties such as 初粘力/抗增塑剂/抗老化（UV）/防潮/静态抗剪切力 are qualitative ('好','非常好') and no exact param keys are provided in the dictionary snapshot.",
+      "source_page": 1,
+      "source_text": "23°C静态抗剪切力 非常好 •40°C静态抗剪切力 非常好 •初粘力 好•抗增塑剂 好 •抗老化（UV） 好 •防潮 非常好",
+      "confidence": 0.9
+    },
+    {
+      "issue_type": "liner_material_absent",
+      "reason": "No liner material or release liner option is explicitly stated in the provided excerpt.",
+      "source_page": 1,
+      "source_text": "产品结构 •基材 PET（聚酯）薄膜 •胶粘剂类型 改性丙烯酸•总厚度 100 µm •颜色 透明",
+      "confidence": 0.98
+    },
+    {
+      "issue_type": "thickness_std_absent",
+      "reason": "Only total thickness 100 µm is stated; no tolerance/standardized thickness expression is provided.",
+      "source_page": 1,
+      "source_text": "总厚度 100 µm",
+      "confidence": 0.98
+    },
+    {
+      "issue_type": "brand_field_not_explicit_in_task_profile",
+      "reason": "Task profile brand is blank, but document branding strongly indicates tesa.",
+      "source_page": 1,
+      "source_text": "tesa 4982双面胶带产品 信息",
+      "confidence": 0.99
+    }
+  ]
+}

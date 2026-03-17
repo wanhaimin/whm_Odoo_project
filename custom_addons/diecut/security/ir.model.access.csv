@@ -47,4 +47,8 @@ access_diecut_catalog_adhesive_type_user,diecut.catalog.adhesive.type.user,model
 access_diecut_catalog_adhesive_type_manager,diecut.catalog.adhesive.type.manager,model_diecut_catalog_adhesive_type,base.group_system,1,1,1,1
 access_diecut_catalog_base_material_user,diecut.catalog.base.material.user,model_diecut_catalog_base_material,base.group_user,1,1,1,0
 access_diecut_catalog_base_material_manager,diecut.catalog.base.material.manager,model_diecut_catalog_base_material,base.group_system,1,1,1,1
+access_diecut_catalog_application_tag_user,diecut.catalog.application.tag.user,model_diecut_catalog_application_tag,base.group_user,1,1,1,0
+access_diecut_catalog_application_tag_manager,diecut.catalog.application.tag.manager,model_diecut_catalog_application_tag,base.group_system,1,1,1,1
+access_diecut_catalog_feature_tag_user,diecut.catalog.feature.tag.user,model_diecut_catalog_feature_tag,base.group_user,1,1,1,0
+access_diecut_catalog_feature_tag_manager,diecut.catalog.feature.tag.manager,model_diecut_catalog_feature_tag,base.group_system,1,1,1,1
 access_diecut_catalog_spec_bulk_add_wizard,diecut.catalog.spec.bulk.add.wizard,model_diecut_catalog_spec_bulk_add_wizard,base.group_user,1,1,1,1

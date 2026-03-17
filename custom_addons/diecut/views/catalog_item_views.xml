@@ -51,17 +51,24 @@
                             <field name="series_text" invisible="1"/>
                         </group>
                     </group>
-                    <group string="系列信息与应用">
-                        <group colspan="2" col="1">
-                            <field name="product_features" readonly="1"/>
-                            <field name="product_description" readonly="1"/>
-                            <field name="main_applications" widget="html" readonly="1"/>
+                    <group string="选型信息">
+                        <group colspan="2" string="标签与理由">
+                            <group>
+                                <field name="function_tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                <field name="application_tag_ids" widget="many2many_tags"/>
+                                <field name="equivalent_type"/>
+                            </group>
+                            <group>
+                                <field name="feature_tag_ids" widget="many2many_tags"/>
+                                <field name="special_applications" widget="html"/>
+                            </group>
                         </group>
-                        <group colspan="2">
-                            <field name="special_applications" widget="html"/>
-                        </group>
-                        <group colspan="2">
-                            <field name="equivalent_type"/>
+                        <group colspan="2" string="系列参考（只读）">
+                            <group colspan="2" col="1">
+                                <field name="product_features" readonly="1"/>
+                                <field name="product_description" readonly="1"/>
+                                <field name="main_applications" widget="html" readonly="1"/>
+                            </group>
                         </group>
                     </group>
                     <group string="基础属性">
@@ -182,9 +189,16 @@
                 <filter name="group_color" string="按颜色分组" context="{'group_by': 'color_id'}"/>
                 <filter name="group_adhesive" string="按胶系分组" context="{'group_by': 'adhesive_type_id'}"/>
                 <filter name="group_base_material" string="按基材分组" context="{'group_by': 'base_material_id'}"/>
+                <field name="selection_search_text" string="特性/应用/功能"/>
+                <field name="function_tag_ids" string="功能标签"/>
+                <field name="application_tag_ids" string="应用标签"/>
+                <field name="feature_tag_ids" string="特性标签"/>
                 <searchpanel>
                     <field name="categ_id" string="材料分类" hierarchize="1" enable_counters="1"/>
                     <field name="brand_id" string="品牌" select="multi" enable_counters="1"/>
+                    <field name="function_tag_ids" string="功能标签" select="multi" enable_counters="1"/>
+                    <field name="application_tag_ids" string="应用标签" select="multi" enable_counters="1"/>
+                    <field name="feature_tag_ids" string="特性标签" select="multi" enable_counters="1"/>
                 </searchpanel>
             </search>
         </field>
@@ -305,17 +319,19 @@
                             <field name="series_text" invisible="1"/>
                         </group>
                     </group>
-                    <group string="系列信息与应用">
-                        <group colspan="2" col="1">
-                            <field name="product_features" readonly="1"/>
-                            <field name="product_description" readonly="1"/>
-                            <field name="main_applications" widget="html" readonly="1"/>
+                    <group string="选型信息">
+                        <group colspan="2" string="标签与补充说明">
+                            <group colspan="2" col="1">
+                                <field name="equivalent_type"/>
+                                <field name="special_applications" widget="html"/>
+                            </group>
                         </group>
-                        <group colspan="2">
-                            <field name="special_applications" widget="html"/>
-                        </group>
-                        <group colspan="2">
-                            <field name="equivalent_type"/>
+                        <group colspan="2" string="系列参考（只读）">
+                            <group colspan="2" col="1">
+                                <field name="product_features" readonly="1"/>
+                                <field name="product_description" readonly="1"/>
+                                <field name="main_applications" widget="html" readonly="1"/>
+                            </group>
                         </group>
                     </group>
                     <group string="基础属性">

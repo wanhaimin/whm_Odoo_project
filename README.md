@@ -13,11 +13,12 @@
 
 *   **`Start_Odoo.bat`** (双击运行，默认推荐)
     *   启动 Odoo 服务和数据库（**FAST 模式**）。
-    *   特点：无 `--dev`，页面更快，适合日常使用与演示。
+    *   特点：默认 `workers=2` + Nginx 反向代理（/websocket -> 8072），支持 chatter 实时消息推送，适合日常使用与演示。
     *   访问地址: [http://localhost:8070](http://localhost:8070)
 *   **`Start_Odoo_Dev.bat`** (双击运行)
     *   启动 Odoo **DEV 热重载模式**。
     *   特点：`--dev=all,reload`，适合前端/视图调试。
+    *   注意：该模式优先热重载，chatter 实时推送可能不稳定。
     *   自动打开日志窗口，方便查看报错。
     *   访问地址: [http://localhost:8070](http://localhost:8070)
 *   **`Start_Odoo_Fast_W3.bat`** (双击运行)
@@ -42,7 +43,7 @@ cd .devcontainer
 docker compose -p my_odoo_project_devcontainer -f docker-compose.fast.yml up -d
 
 # 启动服务 (DEV 热重载)
-docker compose -p my_odoo_project_devcontainer -f docker-compose.yml up -d
+docker compose -p my_odoo_project_devcontainer -f docker-compose.yml -f docker-compose.dev.yml up -d
 
 # 启动服务 (FAST W3, workers=3)
 docker compose -p my_odoo_project_devcontainer -f docker-compose.yml -f docker-compose.fast.w3.yml up -d
@@ -66,7 +67,7 @@ docker compose -p my_odoo_project_devcontainer -f docker-compose.fast.yml logs -
 ### 重启服务
 FAST 模式下不会自动热重载，如果遇到代码改动未生效（如修改了 `__manifest__.py` 或安全性文件）：
 ```powershell
-docker compose -p my_odoo_project_devcontainer -f docker-compose.yml restart web
+docker compose -p my_odoo_project_devcontainer -f docker-compose.fast.yml restart web
 ```
 
 ### 模块升级（FAST/DEV 都通用）

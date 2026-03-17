@@ -1,0 +1,108 @@
+﻿source_document,brand,category,item_code,source_page,source_label,content,reason,candidate_param_key,candidate_name,decision,final_param_key,final_target_bucket,review_note
+54,3M,False,DC2005,,,,"Layer stack is partially legible, but DL-1 and DL-2 cannot be normalized with high confidence to specific existing param_key entries beyond main adhesive/base material fields.",,,,,,
+54,3M,False,DC2005,,,,Cannot reliably assign each density value to each item code with high confidence from the provided excerpt.,,,,,,
+54,3M,False,DC2005,,,,"Useful processing note, but no matching param_key in the provided dictionary snapshot.",,,,,,
+54,3M,False,DC2005,,,,"Directly reflected from OCR text, but likely OCR uncertainty versus the surrounding tolerance pattern; kept in item field for completeness and flagged here as uncertain.",,,,,,
+56,False,False,GT7102,,,Tabbing: An extended liner tab is recommended.,Application/process guidance with no confident target field or existing param_key.,,,,,,
+56,False,False,GT7102,,,"Heat-Bond Tabbing for Non-Silicone Coated Liners: 3M Tabbing Tape 5081 or 5082 (EMEA, Americas); 3M Tabbing Tape AM012 (Asia). PSA Tabbing for Non-Silicone Coated Liners: 3M Tabbing Tape 5300 (Global); 3M Tabbing Tape AM926J, AM926JN, 4240, 4240N (Asia).","Accessory and process recommendation, not a direct material master parameter in current dictionary.",,,,,,
+56,False,False,GT7102,,,Liner thickness is not included.,Important note but no confident mapped field in current schema.,,,,,,
+56,False,False,GT7102,,,180° Peel Adhesion test method: Tape size 25 mm width; tape backing 25 um PET film; rolling pressure 5 kg roller one-way; peel speed 50 mm/min.,Method metadata has no dedicated target field in required output buckets.,,,,,,
+56,False,False,GT7102,,,"Condition definitions: Immediate State = 23°C, 20 minutes; Normal State = 23°C, 24 hours; High Temperature = 23°C, 24 hours -> 80°C; Heat-aging = 23°C, 24 hours -> 80°C, 336 hours -> 23°C, 24 hours; Warm Water Immersion = 23°C, 24 hours -> 40°C water, 336 hours -> 23°C, 24 hours; Gasoline Immersion = 23°C, 24 hours -> Gasoline, 1 hour -> 23°C, 24 hours; Wax-remover immersion = 23°C, 24 hours -> Wax-remover, 1 hour -> 23°C, 24 hours.",Detailed test-condition definitions are useful but have no confident structured field in this schema.,,,,,,
+56,False,False,GT7102,,,"PVC panel 180° peel adhesion values and additional shear strength values under Immediate State, Normal State, Warm Water Immersion, Gasoline Immersion, and Wax-remover immersion.",Present in source but omitted in FAST MODE to prioritize core item fields and highest-confidence subset of spec values.,,,,,,
+56,False,False,GT7102,,,"Painted panel note: white colored painted panel with advanced paint, used on a vehicle. PVC panel note: 3M Adhesion Promoter N-210NT is applied on the PVC panel.","Test footnotes/method context, not direct product master data.",,,,,,
+56,False,False,GT7102,,,Regulatory Information including IMDS access and email contact.,Regulatory/contact content should not be mapped into business material data.,,,,,,
+56,False,False,GT7102,,,"Contact information, technical information, warranty, disclaimer, limitation of liability, addresses, phone numbers, website, trademark, and copyright statements.","Legal, marketing footer, and contact content excluded by routing rules.",,,,,,
+58,False,False,GT7102,,Shear Strength,,"Shear Strength values are reported in MPa across multiple conditions and do not match the available dictionary key static_shear_70c, which expects holding time at 70 C in hours.",,,,,,
+58,False,False,GT7102,,Conditions/Test Parameter Definitions,,Condition definitions are useful as test context but no dedicated dictionary key is provided in the snapshot for storing them as business master data.,,,,,,
+58,False,False,GT7102,,Tabbing Method and Liner Types,,Tabbing tape recommendations are accessory/process guidance and not confirmed core material parameters for GT7100 items.,,,,,,
+58,False,False,GT7102,,Regulatory Information / Contact Information / Technical Information / Warranty / Limitation of Liability,,"Regulatory, contact, warranty, disclaimer, and liability sections are legal or support content and should not be imported as business material data.",,,,,,
+58,False,False,GT7102,,Shear Strength,,"Shear Strength values are reported in MPa across multiple conditions and do not match the available dictionary key static_shear_70c, which expects holding time at 70 C in hours.",,,,,,
+58,False,False,GT7102,,Conditions/Test Parameter Definitions,,Condition definitions are useful as test context but no dedicated dictionary key is provided in the snapshot for storing them as business master data.,,,,,,
+58,False,False,GT7102,,Tabbing Method and Liner Types,,Tabbing tape recommendations are accessory/process guidance and not confirmed core material parameters for GT7100 items.,,,,,,
+58,False,False,GT7102,,Regulatory Information / Contact Information / Technical Information / Warranty / Limitation of Liability,,"Regulatory, contact, warranty, disclaimer, and liability sections are legal or support content and should not be imported as business material data.",,,,,,
+56,False,False,GT7102,1,candidate_content,3M Acrylic Foam Tape GT7100 Series offers very good adhesion performance and high flexibility. These tapes are specifically designed for the attachment of automotive exterior and interior trim applications.,"Series-level overview text is narrative product description, not a measurable parameter.",,,,,,
+56,False,False,GT7102,,unresolved,,These schemas conflict. This output follows the explicit document-understanding schema and keeps Odoo-routing intent inside candidate_facts and candidate_content.,,,,,,
+56,False,False,GT7102,,unresolved,,"Main-field keyword hit includes color, but document likely refers to foam core color, not necessarily customer-visible product color. Use with review before populating item color_name.",,,,,,
+56,False,False,GT7102,,unresolved,,Polyethylene liner is not the same as explicit PET liner option. Do not force map to liner_option_pet without confirming material equivalence.,,,,,,
+56,False,False,GT7102,,unresolved,,"Document gives construction wording, but internal dictionary may distinguish carrier/core/base film types. Preserve raw wording for review.",,,,,,
+56,False,False,GT7102,,unresolved,,"Dictionary snapshot has adhesive_type as char, but canonical controlled vocabulary is not shown. Keep raw value 'Acrylic pressure sensitive' for reviewable normalization.",,,,,,
+56,False,False,GT7102,,unresolved,,Substrate- and condition-bound values should likely remain spec lines under a more specific peel parameter rather than be forced into foil_peel_strength.,,,,,,
+56,False,False,GT7102,,unresolved,,"static_shear_70c implies time/hour at 70 C, but table provides strength in MPa across multiple conditions. Requires new or broader parameter mapping.",,,,,,
+56,False,False,GT7102,,unresolved,,Negative rule forbids treating Typical Results as guaranteed specification limits. Any downstream import should mark as typical/reference-only.,,,,,,
+56,False,False,GT7102,,unresolved,,"Useful content, but not material core fields or measured specs for the tape series.",,,,,,
+56,False,False,GT7102,,unresolved,,Could become unmatched descriptive compliance note unless an approved parameter exists.,,,,,,
+56,False,False,GT7102,1,candidate_content,3M Acrylic Foam Tape GT7100 Series offers very good adhesion performance and high flexibility. These tapes are specifically designed for the attachment of automotive exterior and interior trim applications.,"Series-level overview text is narrative product description, not a measurable parameter.",,,,,,
+56,False,False,GT7102,,unresolved,,These schemas conflict. This output follows the explicit document-understanding schema and keeps Odoo-routing intent inside candidate_facts and candidate_content.,,,,,,
+56,False,False,GT7102,,unresolved,,"Main-field keyword hit includes color, but document likely refers to foam core color, not necessarily customer-visible product color. Use with review before populating item color_name.",,,,,,
+56,False,False,GT7102,,unresolved,,Polyethylene liner is not the same as explicit PET liner option. Do not force map to liner_option_pet without confirming material equivalence.,,,,,,
+56,False,False,GT7102,,unresolved,,"Document gives construction wording, but internal dictionary may distinguish carrier/core/base film types. Preserve raw wording for review.",,,,,,
+56,False,False,GT7102,,unresolved,,"Dictionary snapshot has adhesive_type as char, but canonical controlled vocabulary is not shown. Keep raw value 'Acrylic pressure sensitive' for reviewable normalization.",,,,,,
+56,False,False,GT7102,,unresolved,,Substrate- and condition-bound values should likely remain spec lines under a more specific peel parameter rather than be forced into foil_peel_strength.,,,,,,
+56,False,False,GT7102,,unresolved,,"static_shear_70c implies time/hour at 70 C, but table provides strength in MPa across multiple conditions. Requires new or broader parameter mapping.",,,,,,
+56,False,False,GT7102,,unresolved,,Negative rule forbids treating Typical Results as guaranteed specification limits. Any downstream import should mark as typical/reference-only.,,,,,,
+56,False,False,GT7102,,unresolved,,"Useful content, but not material core fields or measured specs for the tape series.",,,,,,
+56,False,False,GT7102,,unresolved,,Could become unmatched descriptive compliance note unless an approved parameter exists.,,,,,,
+59,False,False,GT7102,ambiguous_mapping,1,item_features,Gray acrylic foam core items within GT7100 series.,Grouped item-specific differentiator from matrix; not a measured performance metric.,,,,,,
+60,False,False,GT7102,ambiguous_mapping,1,item_features,"Group appears to share gray acrylic foam core, translucent red polyethylene liner, and acrylic pressure sensitive adhesive, differing primarily by thickness from 0.2 mm to 2.5 mm.",Grouped matrix indicates shared item-family characteristics.,,,,,,
+58,False,False,GT7102,ambiguous_mapping,1,item_features,Gray-core variants covering 0.2 mm to 2.5 mm thicknesses in the GT7100 series matrix.,Group-level descriptive distinction among model variants fits item_features.,,,,,,
+58,False,False,GT7102,ambiguous_mapping,1,item_features,Gray-core variants covering 0.2 mm to 2.5 mm thicknesses in the GT7100 series matrix.,Group-level descriptive distinction among model variants fits item_features.,,,,,,
+61,False,False,BT3005,ambiguous_mapping,1,item_features,"Light blue color for visibility
+Very good adhesion performance
+High flexibility
+Excellent conformability",These are item-level descriptive differentiators extracted from overview/features and can support item-specific notes if the series currently has only one item.,,,,,,
+61,False,False,BT3005,ambiguous_mapping,1,item_features,"Light blue color for visibility
+Very good adhesion performance
+High flexibility
+Excellent conformability",These are item-level descriptive differentiators extracted from overview/features and can support item-specific notes if the series currently has only one item.,,,,,,
+61,False,False,BT3005,ambiguous_mapping,1,item_features,"Light blue color for visibility
+High flexibility
+Excellent conformability
+Strong adhesion on rough or irregular surfaces",Model-specific descriptive characteristics can be retained as item_features because the TDS is single-item and these notes directly describe BT3005.,,,,,,
+61,False,False,BT3005,ambiguous_mapping,1,item_features,"Light blue color for visibility
+High flexibility
+Excellent conformability
+Strong adhesion on rough or irregular surfaces",Model-specific descriptive characteristics can be retained as item_features because the TDS is single-item and these notes directly describe BT3005.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,product_description,具有背衬纸的双面胶带。tesa 4961由天然橡胶粘合剂和特殊背衬纸组成。,Narrative overview of product identity and composition belongs to product_description.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,product_features,"“硬”胶体系具有良好的抗剪切性能
+可做到移除不残胶",Non-numeric selling/performance bullets belong to product_features.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,construction_note,产品结构包括平板纸基材、天然橡胶胶粘剂、玻璃纤维纸离型纸，产品颜色为白色，离型纸颜色为棕色。,Structure summary is descriptive content that complements measurable fields.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,performance_note,技术参数为平均值和典型值，仅供参考，不应视为技术规范。,This is a technical/performance note attached to the data section and not a legal disclaimer mapping.,,,,,,
+61,False,False,BT3005,ambiguous_mapping,1,item_features,"Light blue color for visibility
+High flexibility
+Excellent conformability
+Strong adhesion on rough or irregular surfaces",Model-specific descriptive characteristics can be retained as item_features because the TDS is single-item and these notes directly describe BT3005.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,product_description,具有背衬纸的双面胶带。tesa 4961由天然橡胶粘合剂和特殊背衬纸组成。,Narrative overview of product identity and composition belongs to product_description.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,product_features,"“硬”胶体系具有良好的抗剪切性能
+可做到移除不残胶",Non-numeric selling/performance bullets belong to product_features.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,construction_note,产品结构包括平板纸基材、天然橡胶胶粘剂、玻璃纤维纸离型纸，产品颜色为白色，离型纸颜色为棕色。,Structure summary is descriptive content that complements measurable fields.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,performance_note,技术参数为平均值和典型值，仅供参考，不应视为技术规范。,This is a technical/performance note attached to the data section and not a legal disclaimer mapping.,,,,,,
+61,False,False,BT3005,ambiguous_mapping,1,item_features,"Light blue color for visibility
+High flexibility
+Excellent conformability
+Strong adhesion on rough or irregular surfaces",Model-specific descriptive characteristics can be retained as item_features because the TDS is single-item and these notes directly describe BT3005.,,,,,,
+61,False,False,BT3005,ambiguous_mapping,1,item_features,"Light blue color for visibility
+High flexibility
+Excellent conformability
+Strong adhesion on rough or irregular surfaces",Model-specific descriptive characteristics can be retained as item_features because the TDS is single-item and these notes directly describe BT3005.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,product_description,具有背衬纸的双面胶带。tesa 4961由天然橡胶粘合剂和特殊背衬纸组成。,Narrative overview of product identity and composition belongs to product_description.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,product_features,"“硬”胶体系具有良好的抗剪切性能
+可做到移除不残胶",Non-numeric selling/performance bullets belong to product_features.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,construction_note,产品结构包括平板纸基材、天然橡胶胶粘剂、玻璃纤维纸离型纸，产品颜色为白色，离型纸颜色为棕色。,Structure summary is descriptive content that complements measurable fields.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,performance_note,技术参数为平均值和典型值，仅供参考，不应视为技术规范。,This is a technical/performance note attached to the data section and not a legal disclaimer mapping.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,product_description,具有背衬纸的双面胶带。tesa 4961由天然橡胶粘合剂和特殊背衬纸组成。,Narrative overview of product identity and composition belongs to product_description.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,product_features,"“硬”胶体系具有良好的抗剪切性能
+可做到移除不残胶",Non-numeric selling/performance bullets belong to product_features.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,construction_note,产品结构包括平板纸基材、天然橡胶胶粘剂、玻璃纤维纸离型纸，产品颜色为白色，离型纸颜色为棕色。,Structure summary is descriptive content that complements measurable fields.,,,,,,
+62,False,False,4961,ambiguous_mapping,1,performance_note,技术参数为平均值和典型值，仅供参考，不应视为技术规范。,This is a technical/performance note attached to the data section and not a legal disclaimer mapping.,,,,,,
+67,3M,False,LSE060,ambiguous_mapping,2,item_features,特别针对低表面能表面设计，对聚丙烯（PP）、热塑性弹性体（TPE）以及热塑性聚烯烃（TPO）具有较好的粘接性能。,系列差异化描述，适合作为item/series feature。,,,,,,
+67,3M,False,LSE060,ambiguous_mapping,2,item_features,具有显著的低VOC和低气味特点；对高/中/低表面能材料具有良好粘接力，贴附性良好，耐高温性能好，FDA认证。,系列差异化描述，适合作为item_features。,,,,,,
+67,3M,False,LSE060,ambiguous_mapping,2,item_features,泡棉贴服性好，具有出色的粘接强度，满足多种高、中高表面的粘接，耐增塑剂，UL746C。,系列特征描述。,,,,,,
+67,3M,False,LSE060,ambiguous_mapping,2,item_features,泡棉较柔软，贴服性好，对高/中高表面能材料具有良好粘接力，尤其适合多种喷涂表面的粘接，UL746C。,系列特征描述。,,,,,,
+67,3M,False,LSE060,ambiguous_mapping,2,item_features,透明，用于有透明粘接需求的应用场景。,典型item/series feature。,,,,,,
+67,3M,False,LSE060,ambiguous_mapping,2,item_features,良好的粘接强度、耐候性和耐温性，适合多种中高表面能材料的粘接。,系列特征描述。,,,,,,
+67,3M,False,LSE060,ambiguous_mapping,2,item_features,泡棉贴服性能良好，可粘接多种基材，包括金属、塑料和涂层；耐高温性能较好，通常适用于粉末喷涂的预贴合或使用温度较高的应用，UL746C。,系列特征描述。,,,,,,
+67,3M,False,LSE060,ambiguous_mapping,2,item_features,适合多种高/中高表面能材料，包括金属、玻璃和各种易于粘接的涂料和塑料表面，粘接强度高，UL746C。,系列特征描述。,,,,,,
+67,3M,False,LSE060,ambiguous_mapping,2,item_features,泡棉较柔软，贴服性好，适用于多种中高表面能材料，同时具有良好的初粘性能和低温（5℃）操作性，UL746C。,系列特征描述。,,,,,,
+67,3M,False,LSE060,ambiguous_mapping,2,item_features,对于高表面能材料如金属材料及中高表面能材料具有较高的粘接力，耐温性良好，高性价比，照明产品粘接固定常用推荐。,系列特征描述。,,,,,,
+67,3M,False,LSE060,ambiguous_mapping,5,main_applications,柔性LED灯条背胶；对多种泡棉有极佳粘附性；可重工；棉纸不易撕裂；初粘性优异。,与具体产品56215/56415强关联的应用/特征内容。,,,,,,
+67,3M,False,LSE060,ambiguous_mapping,5,main_applications,推荐应用包括LED灯箱模组背胶、标志/铭牌、显示面板、塑料挂钩/支架、电线电缆盒、家电/展示柜、电子设备装饰件。,明确的应用清单，适合main_applications。,,,,,,

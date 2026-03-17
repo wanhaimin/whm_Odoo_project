@@ -1,0 +1,44 @@
+[
+  {
+    "item_code": false,
+    "param_key": "adhesive_type",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': 'GT7100 Series', 'scope': None, 'param_key': 'adhesive_type', 'param_name': 'adhesive_type', 'value': 'Acrylic pressure sensitive', 'raw_value': '', 'unit': None, 'c",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "base_material",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': 'GT7100 Series', 'scope': None, 'param_key': 'base_material', 'param_name': 'base_material', 'value': 'Acrylic Foam Core', 'raw_value': '', 'unit': None, 'condition'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "color",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': 'GT7100 Series', 'scope': None, 'param_key': 'color', 'param_name': 'color', 'value': 'Gray', 'raw_value': '', 'unit': None, 'condition': None, 'test_method': None, ",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "color",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': 'GT7100 Series', 'scope': None, 'param_key': 'color', 'param_name': 'color', 'value': 'White', 'raw_value': '', 'unit': None, 'condition': None, 'test_method': None,",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "unknown",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': 'GT7100 Series', 'scope': None, 'param_key': 'unknown', 'param_name': '', 'value': 'Polyethylene liner', 'raw_value': '', 'unit': None, 'condition': None, 'test_meth",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "shelf_life_storage",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': 'GT7100 Series', 'scope': 'series', 'param_key': 'shelf_life_storage', 'param_name': 'shelf_life_storage', 'value': 'Three years from date of manufacture when stored",
+    "fallback_attempted": false
+  }
+]

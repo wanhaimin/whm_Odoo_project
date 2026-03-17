@@ -22,6 +22,9 @@ from . import catalog_ai_openclaw_vision_runtime
 from . import catalog_ai_worker_runtime
 from . import catalog_ai_generate_override
 from . import catalog_spec
+from . import catalog_param_ai_meta
 from . import catalog_category_param
 from . import catalog_series
 from . import catalog_item
+from . import catalog_ai_apply_fix
+from . import catalog_ai_chatter_refine

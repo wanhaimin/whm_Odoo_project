@@ -1,0 +1,989 @@
+{
+  "understanding_payload": {
+    "document_meta": {
+      "title": "4961",
+      "brand": "tesa",
+      "category": null,
+      "attachment": null,
+      "document_type": "product_information_tds",
+      "language": "zh-CN",
+      "pages": 2,
+      "primary_scope": "item",
+      "source_page": [
+        1,
+        2
+      ],
+      "source_text": "tesa 4961产品信息",
+      "confidence": 0.99
+    },
+    "sections": [
+      {
+        "section_name": "product_description",
+        "section_type": "narrative",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "具有背衬纸的双面胶带 产品描述 tesa 4961由天然橡胶粘合剂和特殊背衬纸组成。",
+        "summary": "tesa 4961 is a double-sided tape with natural rubber adhesive and a special paper backing.",
+        "confidence": 0.97
+      },
+      {
+        "section_name": "features",
+        "section_type": "narrative",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "特点 ·“硬”胶体系具有良好的抗剪切性能并能做到移除不残胶",
+        "summary": "Hard adhesive system with good shear resistance and removable without residue.",
+        "confidence": 0.95
+      },
+      {
+        "section_name": "applications",
+        "section_type": "narrative",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "应用 ·可用于纸张和薄膜拼接 ·可粘接粗糙表面如磨砂盘 ·普通光滑表面粘接固定",
+        "summary": "Used for paper and film splicing, bonding rough surfaces such as abrasive discs, and fixing on normal smooth surfaces.",
+        "confidence": 0.96
+      },
+      {
+        "section_name": "technical_data_notice",
+        "section_type": "note",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "技术参数（平均值） 这里的数据仅应被视为参考值和典型值，不应被视为技术规范.",
+        "summary": "Technical data are average/reference values, not specification limits.",
+        "confidence": 0.92
+      },
+      {
+        "section_name": "product_structure",
+        "section_type": "mixed",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "产品结构 ·基材 平板纸 ·胶粘剂类型 天然橡胶 ·离型纸类型 玻璃纤维纸 ·总厚度 205 µm ·颜色 白色 ·离型纸颜色 棕色",
+        "summary": "Construction lists backing/base material, adhesive type, liner material, total thickness, tape color, and liner color.",
+        "confidence": 0.98
+      },
+      {
+        "section_name": "properties_performance",
+        "section_type": "measurable_and_qualitative",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "属性/性能值 ·断裂延展率 3 % ·抗张强度 48 N/cm ·40°C静态抗剪切力 非常好 ·初粘力 好 ·抗增塑剂 普通 ·抗老化（UV） 普通 ·短期耐高温性 110 °C ·耐化学品 普通 ·长期耐高温性 40 °C ·防潮 普通",
+        "summary": "Contains elongation, tensile strength, static shear at 40°C, tack, chemical/aging resistance, and short/long-term temperature resistance.",
+        "confidence": 0.97
+      },
+      {
+        "section_name": "adhesion_to_substrates",
+        "section_type": "measurable_matrix",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "粘接至 ·ABS表面粘接强度（初始） 4.5 N/cm ·ABS表面粘接强度（14天后） 5.1 N/cm ·铝表面粘接强度（初始） 4.2 N/cm ·铝表面粘接强度（14天后） 4.5 N/cm ·PC表面粘接强度（初始） 5.2 N/cm ·PC表面粘接强度（14天后） 5.1 N/cm ·PE表面粘接强度（初始） 3.4 N/cm ·PE表面粘接强度（14天后） 3.3 N/cm ·PET表面粘接强度（初始） 4.3 N/cm ·PET表面粘接强度（14天后） 4.5 N/cm ·PP表面粘接强度（初始） 4.6 N/cm ·PP表面粘接强度（14天后） 5 N/cm ·PS表面粘接强度（初始） 4.7 N/cm ·PS表面粘接强度（14天后） 5.5 N/cm ·PVC表面粘接强度（初始） 3.8 N/cm ·PVC表面粘接强度（14天后） 4.5 N/cm ·钢表面粘接强度（初始） 5.2 N/cm ·钢表面粘接强度（14天后） 5.3 N/cm",
+        "summary": "Adhesion values are listed by substrate and state (initial / after 14 days).",
+        "confidence": 0.99
+      },
+      {
+        "section_name": "disclaimer",
+        "section_type": "legal",
+        "scope": "document",
+        "source_page": 2,
+        "source_text": "免责声明德莎产品定期经受严格的检验...",
+        "summary": "Legal disclaimer; not business data.",
+        "confidence": 0.99
+      }
+    ],
+    "tables": [
+      {
+        "table_name": "product_structure_list",
+        "table_type": "key_value_list",
+        "scope": "item",
+        "source_page": 1,
+        "headers": [
+          "attribute",
+          "value"
+        ],
+        "rows": [
+          {
+            "attribute": "基材",
+            "value": "平板纸"
+          },
+          {
+            "attribute": "胶粘剂类型",
+            "value": "天然橡胶"
+          },
+          {
+            "attribute": "离型纸类型",
+            "value": "玻璃纤维纸"
+          },
+          {
+            "attribute": "总厚度",
+            "value": "205 µm"
+          },
+          {
+            "attribute": "颜色",
+            "value": "白色"
+          },
+          {
+            "attribute": "离型纸颜色",
+            "value": "棕色"
+          }
+        ],
+        "matrix_interpretation": "single item structure table",
+        "confidence": 0.97
+      },
+      {
+        "table_name": "properties_performance_list",
+        "table_type": "key_value_list",
+        "scope": "item",
+        "source_page": 1,
+        "headers": [
+          "attribute",
+          "value"
+        ],
+        "rows": [
+          {
+            "attribute": "断裂延展率",
+            "value": "3 %"
+          },
+          {
+            "attribute": "抗张强度",
+            "value": "48 N/cm"
+          },
+          {
+            "attribute": "40°C静态抗剪切力",
+            "value": "非常好"
+          },
+          {
+            "attribute": "初粘力",
+            "value": "好"
+          },
+          {
+            "attribute": "抗增塑剂",
+            "value": "普通"
+          },
+          {
+            "attribute": "抗老化（UV）",
+            "value": "普通"
+          },
+          {
+            "attribute": "短期耐高温性",
+            "value": "110 °C"
+          },
+          {
+            "attribute": "耐化学品",
+            "value": "普通"
+          },
+          {
+            "attribute": "长期耐高温性",
+            "value": "40 °C"
+          },
+          {
+            "attribute": "防潮",
+            "value": "普通"
+          }
+        ],
+        "matrix_interpretation": "single item performance table",
+        "confidence": 0.96
+      },
+      {
+        "table_name": "adhesion_to_substrates_matrix",
+        "table_type": "performance_matrix",
+        "scope": "item",
+        "source_page": 1,
+        "headers": [
+          "substrate",
+          "state",
+          "value",
+          "unit"
+        ],
+        "rows": [
+          {
+            "substrate": "ABS",
+            "state": "初始",
+            "value": "4.5",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "ABS",
+            "state": "14天后",
+            "value": "5.1",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "铝",
+            "state": "初始",
+            "value": "4.2",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "铝",
+            "state": "14天后",
+            "value": "4.5",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "PC",
+            "state": "初始",
+            "value": "5.2",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "PC",
+            "state": "14天后",
+            "value": "5.1",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "PE",
+            "state": "初始",
+            "value": "3.4",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "PE",
+            "state": "14天后",
+            "value": "3.3",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "PET",
+            "state": "初始",
+            "value": "4.3",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "PET",
+            "state": "14天后",
+            "value": "4.5",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "PP",
+            "state": "初始",
+            "value": "4.6",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "PP",
+            "state": "14天后",
+            "value": "5",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "PS",
+            "state": "初始",
+            "value": "4.7",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "PS",
+            "state": "14天后",
+            "value": "5.5",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "PVC",
+            "state": "初始",
+            "value": "3.8",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "PVC",
+            "state": "14天后",
+            "value": "4.5",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "钢",
+            "state": "初始",
+            "value": "5.2",
+            "unit": "N/cm"
+          },
+          {
+            "substrate": "钢",
+            "state": "14天后",
+            "value": "5.3",
+            "unit": "N/cm"
+          }
+        ],
+        "matrix_interpretation": "single item substrate/state adhesion matrix",
+        "confidence": 0.99
+      }
+    ],
+    "candidate_items": [
+      {
+        "scope": "item",
+        "brand_name": "tesa",
+        "series_name": null,
+        "code": "4961",
+        "name": "tesa 4961",
+        "source_page": 1,
+        "source_text": "tesa 4961产品信息",
+        "confidence": 0.99
+      },
+      {
+        "scope": "item",
+        "brand_name": "tesa",
+        "series_name": null,
+        "code": "4961",
+        "name": "具有背衬纸的双面胶带",
+        "source_page": 1,
+        "source_text": "具有背衬纸的双面胶带",
+        "confidence": 0.72
+      }
+    ],
+    "candidate_facts": [
+      {
+        "fact_type": "main_field",
+        "param_key": "thickness",
+        "main_field_name": "thickness",
+        "value": "205",
+        "unit": "µm",
+        "normalized_value": "0.205",
+        "normalized_unit": "mm",
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "总厚度 205 µm",
+        "confidence": 0.99,
+        "mapping_reason": "Explicit total thickness matches thickness alias and is a whitelisted main item field."
+      },
+      {
+        "fact_type": "main_field",
+        "param_key": "base_material",
+        "main_field_name": "base_material_id",
+        "value": "平板纸",
+        "unit": null,
+        "normalized_value": "平板纸",
+        "normalized_unit": null,
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "基材 平板纸",
+        "confidence": 0.96,
+        "mapping_reason": "Explicit 基材 field maps directly to base_material main searchable field."
+      },
+      {
+        "fact_type": "main_field",
+        "param_key": "adhesive_type",
+        "main_field_name": "adhesive_type_id",
+        "value": "天然橡胶",
+        "unit": null,
+        "normalized_value": "天然橡胶",
+        "normalized_unit": null,
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "胶粘剂类型 天然橡胶",
+        "confidence": 0.98,
+        "mapping_reason": "Explicit adhesive type in structure section maps directly to adhesive_type main field."
+      },
+      {
+        "fact_type": "main_field",
+        "param_key": "color",
+        "main_field_name": "color_id",
+        "value": "白色",
+        "unit": null,
+        "normalized_value": "白色",
+        "normalized_unit": null,
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "颜色 白色",
+        "confidence": 0.97,
+        "mapping_reason": "Explicit product color in structure section maps directly to color main field."
+      },
+      {
+        "fact_type": "param",
+        "param_key": "liner_material",
+        "main_field_name": null,
+        "value": "玻璃纤维纸",
+        "unit": null,
+        "normalized_value": "玻璃纤维纸",
+        "normalized_unit": null,
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "离型纸类型 玻璃纤维纸",
+        "confidence": 0.93,
+        "mapping_reason": "Explicit liner/release paper type maps to known dictionary key liner_material."
+      },
+      {
+        "fact_type": "param",
+        "param_key": "structure",
+        "main_field_name": null,
+        "value": "天然橡胶粘合剂和特殊背衬纸组成",
+        "unit": null,
+        "normalized_value": "天然橡胶粘合剂和特殊背衬纸组成",
+        "normalized_unit": null,
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "tesa 4961由天然橡胶粘合剂和特殊背衬纸组成。",
+        "confidence": 0.75,
+        "mapping_reason": "Narrative construction summary can map to structure description when preserved as a non-measurable structural fact."
+      },
+      {
+        "fact_type": "spec_value",
+        "param_key": "elongation_at_break",
+        "main_field_name": null,
+        "value": "3",
+        "unit": "%",
+        "normalized_value": "3",
+        "normalized_unit": "%",
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "断裂延展率 3 %",
+        "confidence": 0.94,
+        "mapping_reason": "Explicit measurable performance property, but no exact matching dictionary key was provided in snapshot."
+      },
+      {
+        "fact_type": "spec_value",
+        "param_key": "tensile_strength",
+        "main_field_name": null,
+        "value": "48",
+        "unit": "N/cm",
+        "normalized_value": "48",
+        "normalized_unit": "N/cm",
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "抗张强度 48 N/cm",
+        "confidence": 0.94,
+        "mapping_reason": "Explicit measurable performance property for the item."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "static_shear",
+        "main_field_name": null,
+        "value": "非常好",
+        "unit": null,
+        "normalized_value": "非常好",
+        "normalized_unit": null,
+        "condition": {
+          "temperature": "40 °C"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "40°C静态抗剪切力 非常好",
+        "confidence": 0.92,
+        "mapping_reason": "Condition-aware shear performance with explicit temperature context should be captured as a conditioned performance fact."
+      },
+      {
+        "fact_type": "spec_value",
+        "param_key": "initial_tack",
+        "main_field_name": null,
+        "value": "好",
+        "unit": null,
+        "normalized_value": "好",
+        "normalized_unit": null,
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "初粘力 好",
+        "confidence": 0.89,
+        "mapping_reason": "Technical performance descriptor, not narrative content."
+      },
+      {
+        "fact_type": "spec_value",
+        "param_key": "plasticizer_resistance",
+        "main_field_name": null,
+        "value": "普通",
+        "unit": null,
+        "normalized_value": "普通",
+        "normalized_unit": null,
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "抗增塑剂 普通",
+        "confidence": 0.88,
+        "mapping_reason": "Technical resistance property stated as a qualitative value."
+      },
+      {
+        "fact_type": "spec_value",
+        "param_key": "short_term_temperature_resistance",
+        "main_field_name": null,
+        "value": "110",
+        "unit": "°C",
+        "normalized_value": "110",
+        "normalized_unit": "°C",
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "短期耐高温性 110 °C",
+        "confidence": 0.95,
+        "mapping_reason": "Explicit temperature resistance performance value."
+      },
+      {
+        "fact_type": "spec_value",
+        "param_key": "long_term_temperature_resistance",
+        "main_field_name": null,
+        "value": "40",
+        "unit": "°C",
+        "normalized_value": "40",
+        "normalized_unit": "°C",
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "长期耐高温性 40 °C",
+        "confidence": 0.95,
+        "mapping_reason": "Explicit long-term temperature resistance performance value."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "4.5",
+        "unit": "N/cm",
+        "normalized_value": "4.5",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "ABS",
+          "state": "初始"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "ABS表面粘接强度（初始） 4.5 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "5.1",
+        "unit": "N/cm",
+        "normalized_value": "5.1",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "ABS",
+          "state": "14天后"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "ABS表面粘接强度（14天后） 5.1 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "4.2",
+        "unit": "N/cm",
+        "normalized_value": "4.2",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "铝",
+          "state": "初始"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "铝表面粘接强度（初始） 4.2 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "4.5",
+        "unit": "N/cm",
+        "normalized_value": "4.5",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "铝",
+          "state": "14天后"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "铝表面粘接强度（14天后） 4.5 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "5.2",
+        "unit": "N/cm",
+        "normalized_value": "5.2",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "PC",
+          "state": "初始"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "PC表面粘接强度（初始） 5.2 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "5.1",
+        "unit": "N/cm",
+        "normalized_value": "5.1",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "PC",
+          "state": "14天后"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "PC表面粘接强度（14天后） 5.1 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "3.4",
+        "unit": "N/cm",
+        "normalized_value": "3.4",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "PE",
+          "state": "初始"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "PE表面粘接强度（初始） 3.4 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "3.3",
+        "unit": "N/cm",
+        "normalized_value": "3.3",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "PE",
+          "state": "14天后"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "PE表面粘接强度（14天后） 3.3 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "4.3",
+        "unit": "N/cm",
+        "normalized_value": "4.3",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "PET",
+          "state": "初始"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "PET表面粘接强度（初始） 4.3 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "4.5",
+        "unit": "N/cm",
+        "normalized_value": "4.5",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "PET",
+          "state": "14天后"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "PET表面粘接强度（14天后） 4.5 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "4.6",
+        "unit": "N/cm",
+        "normalized_value": "4.6",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "PP",
+          "state": "初始"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "PP表面粘接强度（初始） 4.6 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "5",
+        "unit": "N/cm",
+        "normalized_value": "5",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "PP",
+          "state": "14天后"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "PP表面粘接强度（14天后） 5 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "4.7",
+        "unit": "N/cm",
+        "normalized_value": "4.7",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "PS",
+          "state": "初始"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "PS表面粘接强度（初始） 4.7 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "5.5",
+        "unit": "N/cm",
+        "normalized_value": "5.5",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "PS",
+          "state": "14天后"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "PS表面粘接强度（14天后） 5.5 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "3.8",
+        "unit": "N/cm",
+        "normalized_value": "3.8",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "PVC",
+          "state": "初始"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "PVC表面粘接强度（初始） 3.8 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "4.5",
+        "unit": "N/cm",
+        "normalized_value": "4.5",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "PVC",
+          "state": "14天后"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "PVC表面粘接强度（14天后） 4.5 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "5.2",
+        "unit": "N/cm",
+        "normalized_value": "5.2",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "钢",
+          "state": "初始"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "钢表面粘接强度（初始） 5.2 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      },
+      {
+        "fact_type": "spec_value_conditioned",
+        "param_key": "peel_adhesion",
+        "main_field_name": null,
+        "value": "5.3",
+        "unit": "N/cm",
+        "normalized_value": "5.3",
+        "normalized_unit": "N/cm",
+        "condition": {
+          "substrate": "钢",
+          "state": "14天后"
+        },
+        "applies_to": "4961",
+        "source_page": 1,
+        "source_text": "钢表面粘接强度（14天后） 5.3 N/cm",
+        "confidence": 0.99,
+        "mapping_reason": "Condition-aware adhesion strength with explicit substrate and state."
+      }
+    ],
+    "candidate_content": [
+      {
+        "content_type": "product_description",
+        "scope": "item",
+        "applies_to": "4961",
+        "value": "具有背衬纸的双面胶带。tesa 4961由天然橡胶粘合剂和特殊背衬纸组成。",
+        "source_page": 1,
+        "source_text": "具有背衬纸的双面胶带 产品描述 tesa 4961由天然橡胶粘合剂和特殊背衬纸组成。",
+        "confidence": 0.97,
+        "mapping_reason": "Narrative overview of product identity and composition belongs to product_description."
+      },
+      {
+        "content_type": "product_features",
+        "scope": "item",
+        "applies_to": "4961",
+        "value": [
+          "“硬”胶体系具有良好的抗剪切性能",
+          "可做到移除不残胶"
+        ],
+        "source_page": 1,
+        "source_text": "特点 ·“硬”胶体系具有良好的抗剪切性能并能做到移除不残胶",
+        "confidence": 0.95,
+        "mapping_reason": "Non-numeric selling/performance bullets belong to product_features."
+      },
+      {
+        "content_type": "main_applications",
+        "scope": "item",
+        "applies_to": "4961",
+        "value": [
+          "可用于纸张和薄膜拼接",
+          "可粘接粗糙表面如磨砂盘",
+          "普通光滑表面粘接固定"
+        ],
+        "source_page": 1,
+        "source_text": "应用 ·可用于纸张和薄膜拼接 ·可粘接粗糙表面如磨砂盘 ·普通光滑表面粘接固定",
+        "confidence": 0.96,
+        "mapping_reason": "Application bullets belong to main_applications."
+      },
+      {
+        "content_type": "construction_note",
+        "scope": "item",
+        "applies_to": "4961",
+        "value": "产品结构包括平板纸基材、天然橡胶胶粘剂、玻璃纤维纸离型纸，产品颜色为白色，离型纸颜色为棕色。",
+        "source_page": 1,
+        "source_text": "产品结构 ·基材 平板纸 ·胶粘剂类型 天然橡胶 ·离型纸类型 玻璃纤维纸 ·总厚度 205 µm ·颜色 白色 ·离型纸颜色 棕色",
+        "confidence": 0.95,
+        "mapping_reason": "Structure summary is descriptive content that complements measurable fields."
+      },
+      {
+        "content_type": "performance_note",
+        "scope": "item",
+        "applies_to": "4961",
+        "value": "技术参数为平均值和典型值，仅供参考，不应视为技术规范。",
+        "source_page": 1,
+        "source_text": "技术参数（平均值） 这里的数据仅应被视为参考值和典型值，不应被视为技术规范.",
+        "confidence": 0.92,
+        "mapping_reason": "This is a technical/performance note attached to the data section and not a legal disclaimer mapping."
+      }
+    ],
+    "methods": [
+      {
+        "method_name": "static_shear_evaluation",
+        "method_type": "conditioned_performance",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "40°C静态抗剪切力 非常好",
+        "description": "Static shear performance is stated under a 40°C condition.",
+        "confidence": 0.93
+      },
+      {
+        "method_name": "adhesion_state_comparison",
+        "method_type": "conditioned_performance_matrix",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "表面粘接强度（初始）...（14天后）",
+        "description": "Adhesion is reported by substrate under two states: initial and after 14 days.",
+        "confidence": 0.92
+      }
+    ],
+    "unresolved": [
+      {
+        "type": "normalization_uncertain",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "平板纸",
+        "candidate": "base_material",
+        "reason": "Explicit base material is present, but exact normalization to an existing controlled vocabulary value is unknown.",
+        "confidence": 0.79
+      },
+      {
+        "type": "normalization_uncertain",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "玻璃纤维纸",
+        "candidate": "liner_material",
+        "reason": "Explicit liner material is present, but exact dictionary normalization is uncertain due to OCR/terminology ambiguity.",
+        "confidence": 0.71
+      },
+      {
+        "type": "ocr_or_term_uncertain",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "具有背衬纸的双面胶带",
+        "candidate": "product_family_name",
+        "reason": "The phrase appears to describe product family/type, but OCR/noisy extraction makes the standardized wording uncertain.",
+        "confidence": 0.64
+      },
+      {
+        "type": "missing_field",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "tesa 4961产品信息",
+        "candidate": "series_name",
+        "reason": "No separate series name distinct from item code 4961 is explicitly provided in the excerpt.",
+        "confidence": 0.97
+      },
+      {
+        "type": "dictionary_gap",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "断裂延展率 / 抗张强度 / 初粘力 / 抗增塑剂 / 抗老化（UV） / 耐化学品 / 防潮 / 短期耐高温性 / 长期耐高温性 / 表面粘接强度",
+        "candidate": "exact_param_key_mapping",
+        "reason": "These technical properties are clearly present, but corresponding approved dictionary keys were not provided in the snapshot, so exact downstream mapping remains uncertain.",
+        "confidence": 0.94
+      },
+      {
+        "type": "semantic_uncertain",
+        "scope": "item",
+        "source_page": 1,
+        "source_text": "表面粘接强度",
+        "candidate": "peel_adhesion",
+        "reason": "Mapped as peel/bond adhesion by domain convention, but the excerpt does not state a formal test standard or peel angle.",
+        "confidence": 0.83
+      },
+      {
+        "type": "excluded_content",
+        "scope": "document",
+        "source_page": 2,
+        "source_text": "免责声明德莎产品定期经受严格的检验...",
+        "candidate": "legal_disclaimer",
+        "reason": "Excluded from business data per negative rules.",
+        "confidence": 0.99
+      }
+    ]
+  }
+}

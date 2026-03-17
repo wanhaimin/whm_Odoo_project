@@ -1,0 +1,210 @@
+{
+  "counts": {
+    "series": 1,
+    "main_items": 12,
+    "params": 9,
+    "category_params": 1,
+    "param_definitions": 18
+  },
+  "spec_summary": [
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "adhesive_type",
+      "target": "main_or_series",
+      "value": "Acrylic pressure sensitive",
+      "unit": "",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "base_material",
+      "target": "main_or_series",
+      "value": "Acrylic Foam Core",
+      "unit": "",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "liner_option_pet",
+      "target": "param_definition",
+      "value": "Not found",
+      "unit": "",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 2
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "shelf_life_storage",
+      "target": "param_definition",
+      "value": "Three years from date of manufacture when stored at 23°C +/- 2°C and 50% +/- 4% RH; avoid extended storage beyond recommended conditions.",
+      "unit": "",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 3
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "thickness",
+      "target": "main_or_series",
+      "value": 0.2,
+      "unit": "mm",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "color",
+      "target": "main_or_series",
+      "value": "Gray",
+      "unit": "",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "thickness",
+      "target": "main_or_series",
+      "value": 0.4,
+      "unit": "mm",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "thickness",
+      "target": "main_or_series",
+      "value": 0.6,
+      "unit": "mm",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "thickness",
+      "target": "main_or_series",
+      "value": 0.8,
+      "unit": "mm",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "thickness",
+      "target": "main_or_series",
+      "value": 1.0,
+      "unit": "mm",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "thickness",
+      "target": "main_or_series",
+      "value": 1.2,
+      "unit": "mm",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "thickness",
+      "target": "main_or_series",
+      "value": 1.6,
+      "unit": "mm",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "thickness",
+      "target": "main_or_series",
+      "value": 2.0,
+      "unit": "mm",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "thickness",
+      "target": "main_or_series",
+      "value": 2.5,
+      "unit": "mm",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "thickness",
+      "target": "main_or_series",
+      "value": 3.0,
+      "unit": "mm",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "color",
+      "target": "main_or_series",
+      "value": "White",
+      "unit": "",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "thickness",
+      "target": "main_or_series",
+      "value": 3.5,
+      "unit": "mm",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    },
+    {
+      "item_code": "",
+      "series_name": "GT7100 Series",
+      "param_key": "thickness",
+      "target": "main_or_series",
+      "value": 4.0,
+      "unit": "mm",
+      "test_method": "",
+      "test_condition": null,
+      "source_page": 1
+    }
+  ],
+  "unresolved": []
+}

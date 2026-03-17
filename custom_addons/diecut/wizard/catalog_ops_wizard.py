@@ -41,21 +41,52 @@ class CatalogOpsWizard(models.TransientModel):
     _name = "diecut.catalog.ops.wizard"
     _description = "数据运维向导"
 
-    _CSV_READ_ENCODINGS = ("utf-8-sig", "utf-8", "gb18030")
+    _CSV_READ_ENCODINGS = ("utf-8-sig", "utf-8")
 
     _MAIN_CSV_FILENAME = "catalog_items.csv"
     _SPEC_CSV_FILENAME = "catalog_item_specs.csv"
     _PARAM_CSV_FILENAME = "catalog_params.csv"
     _CATEGORY_PARAM_CSV_FILENAME = "catalog_category_params.csv"
     _SERIES_CSV_FILENAME = "catalog_series.csv"
+    _MAIN_FIELD_PARAM_KEYS = {
+        "thickness",
+        "thickness_std",
+        "adhesive_thickness",
+        "color",
+        "adhesive_type",
+        "base_material",
+        "ref_price",
+        "is_rohs",
+        "is_reach",
+        "is_halogen_free",
+        "fire_rating",
+    }
+    _SPEC_ONLY_PARAM_KEYS = {
+        "density",
+        "hardness",
+        "compression_set",
+        "rebound_rate",
+        "peel_strength_180",
+        "peel_strength",
+        "foil_peel_strength",
+        "initial_tack",
+        "holding_power",
+        "static_shear_70c",
+        "thermal_conductivity_xy",
+        "thermal_conductivity_z",
+        "surface_resistance",
+        "shielding_effectiveness",
+        "breakdown_voltage",
+        "dielectric_strength",
+    }
 
     _FIELD_MANUAL_MODEL_FIELDS = {
         "diecut.catalog.item": (
-            "active", "sequence", "brand_id", "categ_id", "code", "name", "series_id", "series_text",
-            "catalog_status", "product_features", "product_description", "main_applications",
-            "special_applications", "tds_content", "msds_content", "datasheet_content",
-            "diecut_properties", "override_product_features", "override_product_description",
-            "override_main_applications", "equivalent_type", "erp_enabled", "erp_product_tmpl_id",
+            "active", "sequence", "brand_id", "categ_id", "code", "name", "series_id",
+            "catalog_status", "function_tag_ids", "application_tag_ids", "feature_tag_ids",
+            "selection_search_text", "special_applications",
+            "tds_content", "msds_content", "datasheet_content",
+            "diecut_properties", "equivalent_type", "erp_enabled", "erp_product_tmpl_id",
             "thickness", "adhesive_thickness", "color_id",
             "adhesive_type_id", "base_material_id", "thickness_std",
             "ref_price", "is_rohs", "is_reach", "is_halogen_free",
@@ -70,15 +101,15 @@ class CatalogOpsWizard(models.TransientModel):
         "diecut.catalog.param": (
             "name", "param_key", "spec_category_id", "canonical_name_zh", "canonical_name_en", "aliases_text",
             "value_type", "description", "unit", "preferred_unit", "common_units", "selection_options",
-            "is_main_field", "main_field_name", "parse_hint", "sequence", "active",
+            "is_main_field", "main_field_name", "parse_hint",
+            "target_bucket", "target_field", "scope_hint", "section_hints",
+            "extraction_priority", "llm_enabled", "is_note_field", "is_method_field",
+            "is_numeric_preferred", "allow_series_fallback", "confidence_rule",
+            "sequence", "active",
             "category_config_count", "line_count",
         ),
         "diecut.catalog.param.category": (
             "name", "code", "parent_id", "description", "sequence", "active", "param_count",
-        ),
-        "diecut.catalog.spec.def": (
-            "categ_id", "param_id", "param_key", "name", "value_type", "unit", "unit_override",
-            "selection_options", "sequence", "required", "active", "show_in_form", "allow_import", "line_count",
         ),
         "diecut.catalog.series": (
             "name", "brand_id", "active", "sequence", "product_features", "product_description", "main_applications",
@@ -323,6 +354,17 @@ class CatalogOpsWizard(models.TransientModel):
                 "is_main_field": self._to_bool(row.get("is_main_field")),
                 "main_field_name": self._norm(row.get("main_field_name")) or False,
                 "parse_hint": self._norm(row.get("parse_hint")) or False,
+                "target_bucket": self._norm(row.get("target_bucket")) or "spec_values",
+                "target_field": self._norm(row.get("target_field")) or False,
+                "scope_hint": self._norm(row.get("scope_hint")) or "item",
+                "section_hints": self._norm(row.get("section_hints")) or False,
+                "extraction_priority": int(self._to_float(row.get("extraction_priority"), default=50)),
+                "llm_enabled": self._to_bool(row.get("llm_enabled"), default=True),
+                "is_note_field": self._to_bool(row.get("is_note_field")),
+                "is_method_field": self._to_bool(row.get("is_method_field")),
+                "is_numeric_preferred": self._to_bool(row.get("is_numeric_preferred")),
+                "allow_series_fallback": self._to_bool(row.get("allow_series_fallback")),
+                "confidence_rule": self._norm(row.get("confidence_rule")) or False,
                 "sequence": int(self._to_float(row.get("sequence"), default=10)),
                 "active": self._to_bool(row.get("active"), default=True),
             }
@@ -350,7 +392,11 @@ class CatalogOpsWizard(models.TransientModel):
         param_headers = [
             "param_key", "name", "spec_category", "canonical_name_zh", "canonical_name_en", "aliases_text",
             "value_type", "description", "unit", "preferred_unit", "common_units",
-            "selection_options", "is_main_field", "main_field_name", "parse_hint", "sequence", "active"
+            "selection_options", "is_main_field", "main_field_name", "parse_hint",
+            "target_bucket", "target_field", "scope_hint", "section_hints",
+            "extraction_priority", "llm_enabled", "is_note_field", "is_method_field",
+            "is_numeric_preferred", "allow_series_fallback", "confidence_rule",
+            "sequence", "active"
         ]
         category_param_headers = [
             "categ_id_xml", "param_key", "param_name", "unit_override", "sequence", "required",
@@ -432,6 +478,17 @@ class CatalogOpsWizard(models.TransientModel):
                     "is_main_field": "1" if param.is_main_field else "0",
                     "main_field_name": param.main_field_name or "",
                     "parse_hint": param.parse_hint or "",
+                    "target_bucket": param.target_bucket or "",
+                    "target_field": param.target_field or "",
+                    "scope_hint": param.scope_hint or "",
+                    "section_hints": param.section_hints or "",
+                    "extraction_priority": str(param.extraction_priority or 0),
+                    "llm_enabled": "1" if param.llm_enabled else "0",
+                    "is_note_field": "1" if param.is_note_field else "0",
+                    "is_method_field": "1" if param.is_method_field else "0",
+                    "is_numeric_preferred": "1" if param.is_numeric_preferred else "0",
+                    "allow_series_fallback": "1" if param.allow_series_fallback else "0",
+                    "confidence_rule": param.confidence_rule or "",
                     "sequence": str(param.sequence or 10),
                     "active": "1" if param.active else "0",
                 }
@@ -586,6 +643,17 @@ class CatalogOpsWizard(models.TransientModel):
                 "is_main_field": self._to_bool(row.get("is_main_field")),
                 "main_field_name": self._norm(row.get("main_field_name")) or False,
                 "parse_hint": self._norm(row.get("parse_hint")) or False,
+                "target_bucket": self._norm(row.get("target_bucket")) or "spec_values",
+                "target_field": self._norm(row.get("target_field")) or False,
+                "scope_hint": self._norm(row.get("scope_hint")) or "item",
+                "section_hints": self._norm(row.get("section_hints")) or False,
+                "extraction_priority": int(self._to_float(row.get("extraction_priority"), default=50)),
+                "llm_enabled": self._to_bool(row.get("llm_enabled"), default=True),
+                "is_note_field": self._to_bool(row.get("is_note_field")),
+                "is_method_field": self._to_bool(row.get("is_method_field")),
+                "is_numeric_preferred": self._to_bool(row.get("is_numeric_preferred")),
+                "allow_series_fallback": self._to_bool(row.get("allow_series_fallback")),
+                "confidence_rule": self._norm(row.get("confidence_rule")) or False,
                 "sequence": int(self._to_float(row.get("sequence"), default=10)),
                 "active": self._to_bool(row.get("active"), default=True),
             }

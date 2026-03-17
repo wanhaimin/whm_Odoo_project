@@ -26,6 +26,11 @@ class DiecutCatalogItem(models.Model):
     }
 
     _SERIES_TEMPLATE_FIELDS = ("product_features", "product_description", "main_applications")
+    _SERIES_DEFAULT_TAG_FIELDS = (
+        ("function_tag_ids", "default_function_tag_ids"),
+        ("application_tag_ids", "default_application_tag_ids"),
+        ("feature_tag_ids", "default_feature_tag_ids"),
+    )
 
     name = fields.Char(string="名称", required=True)
     active = fields.Boolean(string="启用", default=True)
@@ -35,7 +40,7 @@ class DiecutCatalogItem(models.Model):
     categ_id = fields.Many2one("product.category", string="材料分类", index=True)
 
     code = fields.Char(string="型号编码", index=True)
-    series_text = fields.Char(string="系列", help="迁移兼容字段，不再作为主入口。")
+    series_text = fields.Char(string="系列(兼容)", help="迁移兼容字段，仅用于旧数据与导入兼容，不再作为主入口。")
     series_id = fields.Many2one(
         "diecut.catalog.series",
         string="系列",
@@ -50,13 +55,39 @@ class DiecutCatalogItem(models.Model):
         definition="categ_id.diecut_properties_definition",
         copy=True,
     )
-    product_features = fields.Text(string="产品特点")
-    product_description = fields.Text(string="产品描述")
-    main_applications = fields.Html(string="主要应用")
-    special_applications = fields.Html(string="型号特性")
-    override_product_features = fields.Boolean(string="覆盖产品特点", default=False)
-    override_product_description = fields.Boolean(string="覆盖产品描述", default=False)
-    override_main_applications = fields.Boolean(string="覆盖主要应用", default=False)
+    product_features = fields.Text(string="系列共性特性", help="来自系列模板的共性特性，主要用于继承和导入兼容。")
+    product_description = fields.Text(string="系列说明", help="来自系列模板的系列级说明，主要用于继承和导入兼容。")
+    main_applications = fields.Html(string="系列主要应用", help="来自系列模板的主要应用说明。")
+    special_applications = fields.Html(string="型号补充说明", help="用于记录当前型号相对系列模板的补充说明、差异点或应用备注。")
+    function_tag_ids = fields.Many2many(
+        "product.tag",
+        "diecut_catalog_item_function_tag_rel",
+        "catalog_item_id",
+        "tag_id",
+        string="功能标签",
+    )
+    application_tag_ids = fields.Many2many(
+        "diecut.catalog.application.tag",
+        "diecut_catalog_item_application_tag_rel",
+        "catalog_item_id",
+        "tag_id",
+        string="应用标签",
+    )
+    feature_tag_ids = fields.Many2many(
+        "diecut.catalog.feature.tag",
+        "diecut_catalog_item_feature_tag_rel",
+        "catalog_item_id",
+        "tag_id",
+        string="特性标签",
+    )
+    selection_search_text = fields.Text(
+        string="选型检索文本",
+        compute="_compute_selection_search_text",
+        store=True,
+    )
+    override_product_features = fields.Boolean(string="单独维护系列共性特性", default=False)
+    override_product_description = fields.Boolean(string="单独维护系列说明", default=False)
+    override_main_applications = fields.Boolean(string="单独维护系列主要应用", default=False)
     equivalent_type = fields.Text(string="相当品（替代类型）")
 
     catalog_status = fields.Selection(
@@ -161,6 +192,18 @@ class DiecutCatalogItem(models.Model):
         "adhesive_type_id": "diecut.catalog.adhesive.type",
         "base_material_id": "diecut.catalog.base.material",
     }
+    _SELECTION_SEARCH_DOMAIN_FIELDS = (
+        "name",
+        "code",
+        "series_id.name",
+        "selection_search_text",
+        "function_tag_ids.name",
+        "function_tag_ids.alias_text",
+        "application_tag_ids.name",
+        "application_tag_ids.alias_text",
+        "feature_tag_ids.name",
+        "feature_tag_ids.alias_text",
+    )
 
     @api.model
     def _selection_main_field_name(self):
@@ -208,6 +251,158 @@ class DiecutCatalogItem(models.Model):
     def _compute_spec_line_count(self):
         for record in self:
             record.spec_line_count = len(record.spec_line_ids)
+
+    @api.depends(
+        "name",
+        "code",
+        "series_text",
+        "series_id.name",
+        "product_features",
+        "product_description",
+        "main_applications",
+        "special_applications",
+        "equivalent_type",
+        "function_tag_ids.name",
+        "function_tag_ids.alias_text",
+        "application_tag_ids.name",
+        "application_tag_ids.alias_text",
+        "feature_tag_ids.name",
+        "feature_tag_ids.alias_text",
+    )
+    def _compute_selection_search_text(self):
+        for record in self:
+            tokens = [
+                record.name,
+                record.code,
+                record.series_text,
+                record.series_id.name,
+                record.product_features,
+                record.product_description,
+                record.main_applications,
+                record.special_applications,
+                record.equivalent_type,
+                " ".join(record.function_tag_ids.mapped("name")),
+                " ".join(filter(None, record.function_tag_ids.mapped("alias_text"))),
+                " ".join(record.application_tag_ids.mapped("name")),
+                " ".join(filter(None, record.application_tag_ids.mapped("alias_text"))),
+                " ".join(record.feature_tag_ids.mapped("name")),
+                " ".join(filter(None, record.feature_tag_ids.mapped("alias_text"))),
+            ]
+            record.selection_search_text = "\n".join(str(token).strip() for token in tokens if token)
+
+    @api.model
+    def _extract_selection_terms_from_domain(self, domain):
+        terms = []
+
+        def visit(node):
+            if isinstance(node, (list, tuple)):
+                if len(node) == 3 and isinstance(node[0], str):
+                    field_name, operator, value = node
+                    if (
+                        field_name in set(self._SELECTION_SEARCH_DOMAIN_FIELDS)
+                        and operator in {"ilike", "like", "=ilike", "="}
+                        and isinstance(value, str)
+                        and value.strip()
+                    ):
+                        terms.append(value.strip())
+                    return
+                for item in node:
+                    visit(item)
+
+        visit(domain or [])
+        deduped = []
+        seen = set()
+        for term in terms:
+            key = term.casefold()
+            if key not in seen:
+                seen.add(key)
+                deduped.append(term)
+        return deduped
+
+    @staticmethod
+    def _normalize_selection_token(value):
+        return (value or "").strip().casefold()
+
+    @classmethod
+    def _split_selection_aliases(cls, values):
+        tokens = []
+        seen = set()
+        for value in values:
+            for token in re.split(r"[\n,;，；]+", value or ""):
+                normalized = cls._normalize_selection_token(token)
+                if normalized and normalized not in seen:
+                    seen.add(normalized)
+                    tokens.append(normalized)
+        return tokens
+
+    def _selection_relevance_score(self, terms):
+        self.ensure_one()
+        if not terms:
+            return 0
+
+        code = self._normalize_selection_token(self.code)
+        name = self._normalize_selection_token(self.name)
+        series_name = self._normalize_selection_token(self.series_id.name)
+        search_text = self._normalize_selection_token(self.selection_search_text)
+        function_names = [self._normalize_selection_token(name) for name in self.function_tag_ids.mapped("name")]
+        function_aliases = self._split_selection_aliases(self.function_tag_ids.mapped("alias_text"))
+        application_names = [self._normalize_selection_token(name) for name in self.application_tag_ids.mapped("name")]
+        application_aliases = self._split_selection_aliases(self.application_tag_ids.mapped("alias_text"))
+        feature_names = [self._normalize_selection_token(name) for name in self.feature_tag_ids.mapped("name")]
+        feature_aliases = self._split_selection_aliases(self.feature_tag_ids.mapped("alias_text"))
+
+        score = 0
+        for raw_term in terms:
+            term = self._normalize_selection_token(raw_term)
+            if not term:
+                continue
+            if code and code == term:
+                score += 1200
+            elif code and code.startswith(term):
+                score += 900
+            elif code and term in code:
+                score += 700
+
+            if name and name == term:
+                score += 1000
+            elif name and term in name:
+                score += 500
+
+            if series_name and series_name == term:
+                score += 650
+            elif series_name and term in series_name:
+                score += 320
+
+            if any(tag == term for tag in function_names):
+                score += 600
+            elif any(term in tag for tag in function_names):
+                score += 300
+            elif any(tag == term for tag in function_aliases):
+                score += 360
+            elif any(term in tag for tag in function_aliases):
+                score += 180
+
+            if any(tag == term for tag in application_names):
+                score += 560
+            elif any(term in tag for tag in application_names):
+                score += 280
+            elif any(tag == term for tag in application_aliases):
+                score += 340
+            elif any(term in tag for tag in application_aliases):
+                score += 170
+
+            if any(tag == term for tag in feature_names):
+                score += 520
+            elif any(term in tag for tag in feature_names):
+                score += 260
+            elif any(tag == term for tag in feature_aliases):
+                score += 320
+            elif any(term in tag for tag in feature_aliases):
+                score += 160
+
+            if search_text and term in search_text:
+                score += 120
+        return score
 
     @api.depends("categ_id")
     def _compute_param_domain_ids(self):
@@ -346,6 +541,17 @@ class DiecutCatalogItem(models.Model):
             "main_applications": series.main_applications or False,
         }
 
+    def _series_default_tag_vals(self):
+        self.ensure_one()
+        if not self.series_id:
+            return {}
+        values = {}
+        for item_field, series_field in self._SERIES_DEFAULT_TAG_FIELDS:
+            tag_ids = self.series_id[series_field].ids
+            if tag_ids:
+                values[item_field] = [Command.set(tag_ids)]
+        return values
+
     def _apply_series_template(self, mode="overwrite"):
         for record in self:
             updates = {}
@@ -357,6 +563,20 @@ class DiecutCatalogItem(models.Model):
                     updates[field_name] = False
                 updates["series_text"] = False
             record.with_context(skip_series_sync=True).write(updates)
+
+    def _apply_series_default_tags(self):
+        for record in self:
+            if not record.series_id:
+                continue
+            updates = {}
+            for item_field, series_field in self._SERIES_DEFAULT_TAG_FIELDS:
+                if record[item_field]:
+                    continue
+                default_tags = record.series_id[series_field]
+                if default_tags:
+                    updates[item_field] = [Command.set(default_tags.ids)]
+            if updates:
+                record.with_context(skip_series_sync=True).write(updates)
 
     def action_open_series_apply_wizard(self):
         self.ensure_one()
@@ -400,6 +620,9 @@ class DiecutCatalogItem(models.Model):
             template_vals = record._series_template_vals()
             for field_name in self._SERIES_TEMPLATE_FIELDS:
                 record[field_name] = template_vals.get(field_name)
+            for item_field, series_field in self._SERIES_DEFAULT_TAG_FIELDS:
+                if not record[item_field] and record.series_id[series_field]:
+                    record[item_field] = record.series_id[series_field]
 
     @api.model
     def _get_category_chain_ids(self, categ_id):
@@ -712,6 +935,7 @@ class DiecutCatalogItem(models.Model):
             if auto_vals:
                 record.write(auto_vals)
             record._apply_series_template("overwrite")
+            record._apply_series_default_tags()
             if record.series_id:
                 touched_series_ids.add(record.series_id.id)
         records._refresh_taxonomy_usage_counts_from_map(records._collect_taxonomy_usage_ids())
@@ -754,6 +978,8 @@ class DiecutCatalogItem(models.Model):
         if "series_id" in vals or set(self._SERIES_TEMPLATE_FIELDS).intersection(vals.keys()):
             for record in self:
                 record._apply_series_template("overwrite")
+                if "series_id" in vals:
+                    record._apply_series_default_tags()
         if "categ_id" in vals and vals.get("categ_id") and "spec_line_ids" not in vals and not self.env.context.get("skip_spec_autofill"):
             for record in self.filtered(lambda item: not item.spec_line_ids):
                 commands = record._build_default_spec_line_commands(record.categ_id.id)
@@ -794,6 +1020,49 @@ class DiecutCatalogItem(models.Model):
         for record in self:
             if record.series_id and record.brand_id and record.series_id.brand_id != record.brand_id:
                 raise ValidationError("所选系列不属于当前品牌。")
+
+    @api.model
+    def _name_search(self, name="", args=None, operator="ilike", limit=100, name_get_uid=None):
+        args = list(args or [])
+        if name:
+            search_parts = [(field_name, operator, name) for field_name in self._SELECTION_SEARCH_DOMAIN_FIELDS]
+            search_domain = ["|"] * (len(search_parts) - 1) + search_parts
+            args += search_domain
+        model = self.with_user(name_get_uid) if name_get_uid else self
+        return model._search(args, limit=limit)
+
+    @api.model
+    def search_fetch(self, domain, field_names=None, offset=0, limit=None, order=None):
+        terms = self._extract_selection_terms_from_domain(domain)
+        if not terms or order:
+            return super().search_fetch(domain, field_names=field_names, offset=offset, limit=limit, order=order)
+
+        ranking_fields = {
+            "name",
+            "code",
+            "series_id",
+            "selection_search_text",
+            "function_tag_ids",
+            "application_tag_ids",
+            "feature_tag_ids",
+            "brand_id",
+            "sequence",
+        }
+        fetch_fields = list(dict.fromkeys(list(field_names or []) + list(ranking_fields)))
+        fetch_limit = None if limit is None else max(limit * 5, 200)
+        records = super().search_fetch(domain, field_names=fetch_fields, offset=0, limit=fetch_limit, order=self._order)
+        original_order = {record.id: index for index, record in enumerate(records)}
+        ranked = records.sorted(
+            key=lambda record: (
+                -record._selection_relevance_score(terms),
+                original_order.get(record.id, 0),
+            )
+        )
+        if offset:
+            ranked = ranked[offset:]
+        if limit is not None:
+            ranked = ranked[:limit]
+        return ranked
 
     @staticmethod
     def _column_exists(cr, table_name, column_name):
@@ -842,6 +1111,19 @@ class DiecutCatalogItem(models.Model):
 
     def init(self):
         super().init()
+        self.env.cr.execute(
+            """
+            ALTER TABLE diecut_catalog_item
+                DROP COLUMN IF EXISTS selection_reason_summary
+            """
+        )
+        self.env.cr.execute(
+            """
+            DELETE FROM ir_model_fields
+             WHERE model = 'diecut.catalog.item'
+               AND name = 'selection_reason_summary'
+            """
+        )
         self.env.cr.execute(
             """
             CREATE UNIQUE INDEX IF NOT EXISTS diecut_catalog_item_model_brand_code_uidx

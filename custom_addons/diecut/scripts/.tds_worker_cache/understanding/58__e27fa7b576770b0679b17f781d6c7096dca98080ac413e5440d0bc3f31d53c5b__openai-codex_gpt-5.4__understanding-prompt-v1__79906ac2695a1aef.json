@@ -1,0 +1,1341 @@
+{
+  "understanding_payload": {
+    "document_meta": {
+      "title": "3M Acrylic Foam Tape GT7100 Series Technical Data Sheet",
+      "document_date": "2025-12",
+      "supersedes": "2025-04",
+      "brand": "3M",
+      "series_name": "GT7100 Series",
+      "document_type": "Technical Data Sheet",
+      "language": "en",
+      "page_count_estimate": 3,
+      "source_text": "December 2025 Supersedes version dated April 2025 3M Acrylic Foam Tape GT7100 Series Technical Data Sheet",
+      "confidence": 0.99
+    },
+    "sections": [
+      {
+        "section_name": "general_description",
+        "section_type": "narrative",
+        "scope": "series",
+        "source_page": 1,
+        "source_text": "3M Acrylic Foam Tape GT7100 Series offers very good adhesion performance and high flexibility. These tapes are specifically designed for the attachment of automotive exterior and interior trim applications.",
+        "summary": "Acrylic foam tape series for automotive exterior/interior trim attachment with good adhesion and flexibility.",
+        "confidence": 0.98
+      },
+      {
+        "section_name": "features",
+        "section_type": "narrative",
+        "scope": "series",
+        "source_page": 1,
+        "source_text": "Provides final adhesion and holding power to automotive paints and substrates; Meets a number of OEM specifications; Follows shrinkage and elongation of plastic parts caused by temperature change and has good stress relaxation properties; viscoelastic core conforms to complex geometries and delivers excellent wet out; excellent adhesive performance at various temperature conditions; weather, solvent and high temperature resistance.",
+        "summary": [
+          "Final adhesion and holding power to automotive paints and substrates",
+          "Meets multiple OEM specifications",
+          "Accommodates shrinkage/elongation of plastic parts under temperature change",
+          "Good stress relaxation and conformability to complex geometries",
+          "Good wet-out",
+          "Performance across temperature conditions",
+          "Weather, solvent, and high temperature resistance"
+        ],
+        "confidence": 0.97
+      },
+      {
+        "section_name": "product_construction",
+        "section_type": "mixed",
+        "scope": "series",
+        "source_page": 1,
+        "source_text": "Product Construction Polyethylene Red liner / Acrylic Pressure Sensitive Adhesive / Acrylic Foam / Acrylic Pressure Sensitive Adhesive",
+        "summary": "Likely layered construction: red polyethylene liner + acrylic PSA + acrylic foam core + acrylic PSA.",
+        "confidence": 0.93
+      },
+      {
+        "section_name": "physical_properties",
+        "section_type": "table_intro",
+        "scope": "mixed",
+        "source_page": 1,
+        "source_text": "Physical Properties Product Core Core Color Thickness * Liner Adhesive",
+        "summary": "Matrix of item codes with core type/color, thickness, liner, and adhesive.",
+        "confidence": 0.96
+      },
+      {
+        "section_name": "tabbing",
+        "section_type": "mixed",
+        "scope": "series",
+        "source_page": 2,
+        "source_text": "Tabbing An extended liner tab is recommended. Tabbing Method and Liner Types ...",
+        "summary": "Series-level converting/application guidance for tabbing tapes and regional availability.",
+        "confidence": 0.9
+      },
+      {
+        "section_name": "performance_properties",
+        "section_type": "narrative",
+        "scope": "series",
+        "source_page": 2,
+        "source_text": "Typical performance of 3M Acrylic Foam Tape Series GT7100 is shown below. Peel and shear values depend on substrate characteristics and/or paint composition. These values are for reference only, and not to be used for specification purposes. For specification values please see the certificate of analysis.",
+        "summary": "Peel and shear tables are typical reference performance, not guaranteed specification limits.",
+        "confidence": 0.99
+      },
+      {
+        "section_name": "test_conditions",
+        "section_type": "methods",
+        "scope": "series",
+        "source_page": 2,
+        "source_text": "Immediate State = 23°C, 20 minutes; Normal State = 23°C, 24 hours; High Temperature = 23°C, 24 hours -> 80°C; Heat-aging = 23°C, 24 hours -> 80°C, 336 hours -> 23°C, 24 hours; Warm Water Immersion = 23°C, 24 hours -> 40°C water, 336 hours -> 23°C, 24 hours; Gasoline Immersion = 23°C, 24 hours -> Gasoline, 1 hour -> 23°C, 24 hours; Wax-remover immersion = 23°C, 24 hours -> Wax-remover, 1 hour -> 23°C, 24 hours",
+        "summary": "Defines named test conditions used in peel/shear tables.",
+        "confidence": 0.99
+      },
+      {
+        "section_name": "shelf_life_storage",
+        "section_type": "narrative",
+        "scope": "series",
+        "source_page": 3,
+        "source_text": "Shelf Life Three years from date of manufacture when stored at recommended storage condition 23°C +/-2°C and 50% +/-4% relative humidity. ... should be stored in typical storage conditions for pressure-sensitive adhesives used within the automotive industry.",
+        "summary": "Shelf life and storage recommendation at 23°C ±2°C and 50% ±4% RH.",
+        "confidence": 0.98
+      },
+      {
+        "section_name": "regulatory_information",
+        "section_type": "narrative",
+        "scope": "series",
+        "source_page": 3,
+        "source_text": "The product is published as a material entry and is available for access on www.mdsystem.com. For product IMDS I.D. number, email requests to 3M-IMDSrequest@mmm.com.",
+        "summary": "IMDS availability note.",
+        "confidence": 0.91
+      },
+      {
+        "section_name": "legal_disclaimer",
+        "section_type": "legal",
+        "scope": "document",
+        "source_page": 3,
+        "source_text": "Technical Information... Warranty, Limited Remedy, and Disclaimer... Limitation of Liability...",
+        "summary": "Legal disclaimer; not business data.",
+        "confidence": 0.99
+      }
+    ],
+    "tables": [
+      {
+        "table_name": "physical_properties_item_matrix",
+        "source_page": 1,
+        "scope": "items",
+        "structure_type": "item_matrix",
+        "headers": [
+          "code",
+          "core",
+          "core_color",
+          "thickness",
+          "liner",
+          "adhesive"
+        ],
+        "row_key": "code",
+        "source_text": "Physical Properties Product Core Core Color Thickness * Liner Adhesive GT7102 Acrylic Foam Core Gray 0.2 mm Translucent, red, polyethylene liner Acrylic pressure sensitive ... GT7140 4.0 mm *Liner thickness is not included",
+        "rows": [
+          {
+            "code": "GT7102",
+            "core": "Acrylic Foam Core",
+            "core_color": "Gray",
+            "thickness": "0.2 mm",
+            "liner": "Translucent, red, polyethylene liner",
+            "adhesive": "Acrylic pressure sensitive"
+          },
+          {
+            "code": "GT7104",
+            "core": "Acrylic Foam Core",
+            "core_color": "Gray",
+            "thickness": "0.4 mm",
+            "liner": "Translucent, red, polyethylene liner",
+            "adhesive": "Acrylic pressure sensitive"
+          },
+          {
+            "code": "GT7106",
+            "core": "Acrylic Foam Core",
+            "core_color": "Gray",
+            "thickness": "0.6 mm",
+            "liner": "Translucent, red, polyethylene liner",
+            "adhesive": "Acrylic pressure sensitive"
+          },
+          {
+            "code": "GT7108",
+            "core": "Acrylic Foam Core",
+            "core_color": "Gray",
+            "thickness": "0.8 mm",
+            "liner": "Translucent, red, polyethylene liner",
+            "adhesive": "Acrylic pressure sensitive"
+          },
+          {
+            "code": "GT7110",
+            "core": "Acrylic Foam Core",
+            "core_color": "Gray",
+            "thickness": "1.0 mm",
+            "liner": "Translucent, red, polyethylene liner",
+            "adhesive": "Acrylic pressure sensitive"
+          },
+          {
+            "code": "GT7112",
+            "core": "Acrylic Foam Core",
+            "core_color": "Gray",
+            "thickness": "1.2 mm",
+            "liner": "Translucent, red, polyethylene liner",
+            "adhesive": "Acrylic pressure sensitive"
+          },
+          {
+            "code": "GT7116",
+            "core": "Acrylic Foam Core",
+            "core_color": "Gray",
+            "thickness": "1.6 mm",
+            "liner": "Translucent, red, polyethylene liner",
+            "adhesive": "Acrylic pressure sensitive"
+          },
+          {
+            "code": "GT7120",
+            "core": "Acrylic Foam Core",
+            "core_color": "Gray",
+            "thickness": "2.0 mm",
+            "liner": "Translucent, red, polyethylene liner",
+            "adhesive": "Acrylic pressure sensitive"
+          },
+          {
+            "code": "GT7125",
+            "core": "Acrylic Foam Core",
+            "core_color": "Gray",
+            "thickness": "2.5 mm",
+            "liner": "Translucent, red, polyethylene liner",
+            "adhesive": "Acrylic pressure sensitive"
+          },
+          {
+            "code": "GT7130",
+            "core": "Acrylic Foam Core",
+            "core_color": "White",
+            "thickness": "3.0 mm",
+            "liner": "Translucent, red, polyethylene liner",
+            "adhesive": "Acrylic pressure sensitive"
+          },
+          {
+            "code": "GT7135",
+            "core": "Acrylic Foam Core",
+            "core_color": "White",
+            "thickness": "3.5 mm",
+            "liner": "Translucent, red, polyethylene liner",
+            "adhesive": "Acrylic pressure sensitive"
+          },
+          {
+            "code": "GT7140",
+            "core": "Acrylic Foam Core",
+            "core_color": "White",
+            "thickness": "4.0 mm",
+            "liner": "Translucent, red, polyethylene liner",
+            "adhesive": "Acrylic pressure sensitive"
+          }
+        ],
+        "confidence": 0.95
+      },
+      {
+        "table_name": "tabbing_method_liner_types",
+        "source_page": 2,
+        "scope": "series",
+        "structure_type": "reference_table",
+        "headers": [
+          "tabbing_method",
+          "tabbing_tape",
+          "regional_availability"
+        ],
+        "source_text": "Tabbing Method and Liner Types Tabbing Tape Regional Availability Heat-Bond Tabbing for Non-Silicone Coated Liners / 3M Tabbing Tape 5081 or 5082 / EMEA, Americas; 3M Tabbing Tape AM012 / Asia; PSA Tabbing for Non-Silicone Coated Liners / 3M Tabbing Tape 5300 / Global; 3M Tabbing Tape AM926J, AM926JN or 4240, 4240N / Asia",
+        "confidence": 0.9
+      },
+      {
+        "table_name": "180_peel_adhesion_to_painted_panel",
+        "source_page": 2,
+        "scope": "mixed",
+        "structure_type": "performance_matrix",
+        "headers": [
+          "substrate",
+          "condition",
+          "unit",
+          "GT7102",
+          "GT7104",
+          "GT7106",
+          "GT7108",
+          "GT7110",
+          "GT7112",
+          "GT7116",
+          "GT7120",
+          "GT7125",
+          "GT7130",
+          "GT7135",
+          "GT7140"
+        ],
+        "unit": "N/cm",
+        "source_text": "180° Peel Adhesion to Painted Panel ... Typical Performance Value (N/cm) ... Painted panel ... PVC panel ...",
+        "subtables": [
+          {
+            "substrate": "Painted panel",
+            "rows": [
+              {
+                "condition": "Immediate State",
+                "values": {
+                  "GT7102": 6.9,
+                  "GT7104": 8.5,
+                  "GT7106": 9.4,
+                  "GT7108": 10.2,
+                  "GT7110": 10.8,
+                  "GT7112": 11.4,
+                  "GT7116": 12.4,
+                  "GT7120": 12.7,
+                  "GT7125": 13.4,
+                  "GT7130": 13.8,
+                  "GT7135": 14.8,
+                  "GT7140": 15.3
+                }
+              },
+              {
+                "condition": "Normal State",
+                "values": {
+                  "GT7102": 8.2,
+                  "GT7104": 11.0,
+                  "GT7106": 11.5,
+                  "GT7108": 12.6,
+                  "GT7110": 13.7,
+                  "GT7112": 14.9,
+                  "GT7116": 16.1,
+                  "GT7120": 17.4,
+                  "GT7125": 19.2,
+                  "GT7130": 21.2,
+                  "GT7135": 23.5,
+                  "GT7140": 25.3
+                }
+              },
+              {
+                "condition": "High Temperature",
+                "values": {
+                  "GT7102": 5.2,
+                  "GT7104": 6.1,
+                  "GT7106": 7.0,
+                  "GT7108": 7.5,
+                  "GT7110": 7.7,
+                  "GT7112": 8.1,
+                  "GT7116": 8.4,
+                  "GT7120": 8.6,
+                  "GT7125": 9.0,
+                  "GT7130": 9.4,
+                  "GT7135": 9.4,
+                  "GT7140": 9.6
+                }
+              },
+              {
+                "condition": "Heat-aging",
+                "values": {
+                  "GT7102": 12.7,
+                  "GT7104": 14.2,
+                  "GT7106": 15.8,
+                  "GT7108": 17.4,
+                  "GT7110": 18.2,
+                  "GT7112": 19.7,
+                  "GT7116": 22.2,
+                  "GT7120": 24.5,
+                  "GT7125": 26.8,
+                  "GT7130": 29.6,
+                  "GT7135": 31.4,
+                  "GT7140": 32.1
+                }
+              },
+              {
+                "condition": "Warm Water Immersion",
+                "values": {
+                  "GT7102": 9.9,
+                  "GT7104": 12.1,
+                  "GT7106": 13.5,
+                  "GT7108": 15.3,
+                  "GT7110": 15.9,
+                  "GT7112": 16.5,
+                  "GT7116": 19.3,
+                  "GT7120": 21.2,
+                  "GT7125": 23.5,
+                  "GT7130": 25.7,
+                  "GT7135": 27.2,
+                  "GT7140": 28.9
+                }
+              }
+            ]
+          },
+          {
+            "substrate": "PVC panel",
+            "rows": [
+              {
+                "condition": "Immediate State",
+                "values": {
+                  "GT7102": 10.5,
+                  "GT7104": 12.0,
+                  "GT7106": 13.0,
+                  "GT7108": 14.2,
+                  "GT7110": 15.5,
+                  "GT7112": 16.9,
+                  "GT7116": 19.2,
+                  "GT7120": 20.9,
+                  "GT7125": 23.5,
+                  "GT7130": 24.3,
+                  "GT7135": 24.6,
+                  "GT7140": 25.8
+                }
+              },
+              {
+                "condition": "Normal State",
+                "values": {
+                  "GT7102": 11.8,
+                  "GT7104": 12.8,
+                  "GT7106": 13.8,
+                  "GT7108": 14.7,
+                  "GT7110": 16.0,
+                  "GT7112": 17.0,
+                  "GT7116": 19.2,
+                  "GT7120": 21.0,
+                  "GT7125": 23.3,
+                  "GT7130": 24.5,
+                  "GT7135": 25.1,
+                  "GT7140": 25.9
+                }
+              },
+              {
+                "condition": "High Temperature",
+                "values": {
+                  "GT7102": 5.5,
+                  "GT7104": 6.2,
+                  "GT7106": 7.2,
+                  "GT7108": 8.1,
+                  "GT7110": 8.3,
+                  "GT7112": 8.5,
+                  "GT7116": 9.3,
+                  "GT7120": 9.5,
+                  "GT7125": 9.7,
+                  "GT7130": 10.2,
+                  "GT7135": 10.5,
+                  "GT7140": 10.5
+                }
+              },
+              {
+                "condition": "Heat-aging",
+                "values": {
+                  "GT7102": 4.0,
+                  "GT7104": 8.0,
+                  "GT7106": 10.9,
+                  "GT7108": 13.4,
+                  "GT7110": 15.0,
+                  "GT7112": 16.2,
+                  "GT7116": 18.6,
+                  "GT7120": 20.5,
+                  "GT7125": 23.2,
+                  "GT7130": 26.0,
+                  "GT7135": 29.0,
+                  "GT7140": 31.1
+                }
+              },
+              {
+                "condition": "Warm Water Immersion",
+                "values": {
+                  "GT7102": 9.1,
+                  "GT7104": 10.8,
+                  "GT7106": 12.5,
+                  "GT7108": 14.0,
+                  "GT7110": 15.0,
+                  "GT7112": 16.2,
+                  "GT7116": 18.6,
+                  "GT7120": 20.3,
+                  "GT7125": 22.1,
+                  "GT7130": 24.8,
+                  "GT7135": 27.0,
+                  "GT7140": 28.7
+                }
+              }
+            ]
+          }
+        ],
+        "confidence": 0.98
+      },
+      {
+        "table_name": "shear_strength",
+        "source_page": 3,
+        "scope": "mixed",
+        "structure_type": "performance_matrix",
+        "headers": [
+          "substrate",
+          "condition",
+          "unit",
+          "GT7102",
+          "GT7104",
+          "GT7106",
+          "GT7108",
+          "GT7110",
+          "GT7112",
+          "GT7116",
+          "GT7120",
+          "GT7125",
+          "GT7130",
+          "GT7135",
+          "GT7140"
+        ],
+        "unit": "MPa",
+        "source_text": "Shear Strength ... Typical Performance Value (MPa) ... Painted panel and PVC panel ...",
+        "subtables": [
+          {
+            "substrate": "Painted panel and PVC panel",
+            "rows": [
+              {
+                "condition": "Immediate State",
+                "values": {
+                  "GT7102": 0.84,
+                  "GT7104": 0.75,
+                  "GT7106": 0.73,
+                  "GT7108": 0.7,
+                  "GT7110": 0.66,
+                  "GT7112": 0.61,
+                  "GT7116": 0.56,
+                  "GT7120": 0.52,
+                  "GT7125": 0.48,
+                  "GT7130": 0.47,
+                  "GT7135": 0.45,
+                  "GT7140": 0.45
+                }
+              },
+              {
+                "condition": "Normal State",
+                "values": {
+                  "GT7102": 0.86,
+                  "GT7104": 0.79,
+                  "GT7106": 0.75,
+                  "GT7108": 0.71,
+                  "GT7110": 0.65,
+                  "GT7112": 0.61,
+                  "GT7116": 0.56,
+                  "GT7120": 0.52,
+                  "GT7125": 0.49,
+                  "GT7130": 0.47,
+                  "GT7135": 0.45,
+                  "GT7140": 0.45
+                }
+              },
+              {
+                "condition": "High Temperature",
+                "values": {
+                  "GT7102": 0.28,
+                  "GT7104": 0.24,
+                  "GT7106": 0.23,
+                  "GT7108": 0.22,
+                  "GT7110": 0.21,
+                  "GT7112": 0.2,
+                  "GT7116": 0.19,
+                  "GT7120": 0.18,
+                  "GT7125": 0.17,
+                  "GT7130": 0.16,
+                  "GT7135": 0.15,
+                  "GT7140": 0.15
+                }
+              },
+              {
+                "condition": "Warm Water Immersion",
+                "values": {
+                  "GT7102": 0.84,
+                  "GT7104": 0.75,
+                  "GT7106": 0.71,
+                  "GT7108": 0.67,
+                  "GT7110": 0.63,
+                  "GT7112": 0.58,
+                  "GT7116": 0.53,
+                  "GT7120": 0.49,
+                  "GT7125": 0.47,
+                  "GT7130": 0.46,
+                  "GT7135": 0.44,
+                  "GT7140": 0.42
+                }
+              },
+              {
+                "condition": "Gasoline Immersion",
+                "values": {
+                  "GT7102": 0.83,
+                  "GT7104": 0.75,
+                  "GT7106": 0.72,
+                  "GT7108": 0.69,
+                  "GT7110": 0.63,
+                  "GT7112": 0.6,
+                  "GT7116": 0.52,
+                  "GT7120": 0.48,
+                  "GT7125": 0.47,
+                  "GT7130": 0.45,
+                  "GT7135": 0.44,
+                  "GT7140": 0.44
+                }
+              },
+              {
+                "condition": "Wax-remover immersion",
+                "values": {
+                  "GT7102": 0.75,
+                  "GT7104": 0.69,
+                  "GT7106": 0.64,
+                  "GT7108": 0.61,
+                  "GT7110": 0.58,
+                  "GT7112": 0.53,
+                  "GT7116": 0.47,
+                  "GT7120": 0.43,
+                  "GT7125": 0.4,
+                  "GT7130": 0.4,
+                  "GT7135": 0.39,
+                  "GT7140": 0.38
+                }
+              }
+            ]
+          }
+        ],
+        "confidence": 0.97
+      }
+    ],
+    "candidate_items": [
+      {
+        "code": "GT7102",
+        "series_name": "GT7100 Series",
+        "brand_name": "3M",
+        "name": "3M Acrylic Foam Tape GT7102",
+        "thickness": {
+          "value": 0.2,
+          "unit": "mm"
+        },
+        "color_name": "Gray",
+        "adhesive_type_name": "Acrylic pressure sensitive",
+        "base_material_name": "Acrylic Foam Core",
+        "source_page": 1,
+        "source_text": "GT7102 Acrylic Foam Core Gray 0.2 mm ... Acrylic pressure sensitive",
+        "confidence": 0.98
+      },
+      {
+        "code": "GT7104",
+        "series_name": "GT7100 Series",
+        "brand_name": "3M",
+        "name": "3M Acrylic Foam Tape GT7104",
+        "thickness": {
+          "value": 0.4,
+          "unit": "mm"
+        },
+        "color_name": "Gray",
+        "adhesive_type_name": "Acrylic pressure sensitive",
+        "base_material_name": "Acrylic Foam Core",
+        "source_page": 1,
+        "source_text": "GT7104 0.4 mm",
+        "confidence": 0.97
+      },
+      {
+        "code": "GT7106",
+        "series_name": "GT7100 Series",
+        "brand_name": "3M",
+        "name": "3M Acrylic Foam Tape GT7106",
+        "thickness": {
+          "value": 0.6,
+          "unit": "mm"
+        },
+        "color_name": "Gray",
+        "adhesive_type_name": "Acrylic pressure sensitive",
+        "base_material_name": "Acrylic Foam Core",
+        "source_page": 1,
+        "source_text": "GT7106 0.6 mm",
+        "confidence": 0.97
+      },
+      {
+        "code": "GT7108",
+        "series_name": "GT7100 Series",
+        "brand_name": "3M",
+        "name": "3M Acrylic Foam Tape GT7108",
+        "thickness": {
+          "value": 0.8,
+          "unit": "mm"
+        },
+        "color_name": "Gray",
+        "adhesive_type_name": "Acrylic pressure sensitive",
+        "base_material_name": "Acrylic Foam Core",
+        "source_page": 1,
+        "source_text": "GT7108 0.8 mm",
+        "confidence": 0.97
+      },
+      {
+        "code": "GT7110",
+        "series_name": "GT7100 Series",
+        "brand_name": "3M",
+        "name": "3M Acrylic Foam Tape GT7110",
+        "thickness": {
+          "value": 1.0,
+          "unit": "mm"
+        },
+        "color_name": "Gray",
+        "adhesive_type_name": "Acrylic pressure sensitive",
+        "base_material_name": "Acrylic Foam Core",
+        "source_page": 1,
+        "source_text": "GT7110 1.0 mm",
+        "confidence": 0.97
+      },
+      {
+        "code": "GT7112",
+        "series_name": "GT7100 Series",
+        "brand_name": "3M",
+        "name": "3M Acrylic Foam Tape GT7112",
+        "thickness": {
+          "value": 1.2,
+          "unit": "mm"
+        },
+        "color_name": "Gray",
+        "adhesive_type_name": "Acrylic pressure sensitive",
+        "base_material_name": "Acrylic Foam Core",
+        "source_page": 1,
+        "source_text": "GT7112 1.2 mm",
+        "confidence": 0.97
+      },
+      {
+        "code": "GT7116",
+        "series_name": "GT7100 Series",
+        "brand_name": "3M",
+        "name": "3M Acrylic Foam Tape GT7116",
+        "thickness": {
+          "value": 1.6,
+          "unit": "mm"
+        },
+        "color_name": "Gray",
+        "adhesive_type_name": "Acrylic pressure sensitive",
+        "base_material_name": "Acrylic Foam Core",
+        "source_page": 1,
+        "source_text": "GT7116 1.6 mm",
+        "confidence": 0.97
+      },
+      {
+        "code": "GT7120",
+        "series_name": "GT7100 Series",
+        "brand_name": "3M",
+        "name": "3M Acrylic Foam Tape GT7120",
+        "thickness": {
+          "value": 2.0,
+          "unit": "mm"
+        },
+        "color_name": "Gray",
+        "adhesive_type_name": "Acrylic pressure sensitive",
+        "base_material_name": "Acrylic Foam Core",
+        "source_page": 1,
+        "source_text": "GT7120 2.0 mm",
+        "confidence": 0.97
+      },
+      {
+        "code": "GT7125",
+        "series_name": "GT7100 Series",
+        "brand_name": "3M",
+        "name": "3M Acrylic Foam Tape GT7125",
+        "thickness": {
+          "value": 2.5,
+          "unit": "mm"
+        },
+        "color_name": "Gray",
+        "adhesive_type_name": "Acrylic pressure sensitive",
+        "base_material_name": "Acrylic Foam Core",
+        "source_page": 1,
+        "source_text": "GT7125 2.5 mm",
+        "confidence": 0.97
+      },
+      {
+        "code": "GT7130",
+        "series_name": "GT7100 Series",
+        "brand_name": "3M",
+        "name": "3M Acrylic Foam Tape GT7130",
+        "thickness": {
+          "value": 3.0,
+          "unit": "mm"
+        },
+        "color_name": "White",
+        "adhesive_type_name": "Acrylic pressure sensitive",
+        "base_material_name": "Acrylic Foam Core",
+        "source_page": 1,
+        "source_text": "GT7130 Acrylic Foam Core White 3.0 mm",
+        "confidence": 0.98
+      },
+      {
+        "code": "GT7135",
+        "series_name": "GT7100 Series",
+        "brand_name": "3M",
+        "name": "3M Acrylic Foam Tape GT7135",
+        "thickness": {
+          "value": 3.5,
+          "unit": "mm"
+        },
+        "color_name": "White",
+        "adhesive_type_name": "Acrylic pressure sensitive",
+        "base_material_name": "Acrylic Foam Core",
+        "source_page": 1,
+        "source_text": "GT7135 3.5 mm",
+        "confidence": 0.97
+      },
+      {
+        "code": "GT7140",
+        "series_name": "GT7100 Series",
+        "brand_name": "3M",
+        "name": "3M Acrylic Foam Tape GT7140",
+        "thickness": {
+          "value": 4.0,
+          "unit": "mm"
+        },
+        "color_name": "White",
+        "adhesive_type_name": "Acrylic pressure sensitive",
+        "base_material_name": "Acrylic Foam Core",
+        "source_page": 1,
+        "source_text": "GT7140 4.0 mm",
+        "confidence": 0.97
+      }
+    ],
+    "candidate_facts": [
+      {
+        "fact_type": "series_main_field",
+        "scope": "series",
+        "param_key": "base_material",
+        "value": "Acrylic Foam Core",
+        "unit": null,
+        "source_page": 1,
+        "source_text": "Product Core ... Acrylic Foam Core",
+        "mapping_reason": "Explicit construction/core wording matches dictionary alias carrier/backing/base material; high-frequency searchable field.",
+        "confidence": 0.91
+      },
+      {
+        "fact_type": "series_main_field",
+        "scope": "series",
+        "param_key": "adhesive_type",
+        "value": "Acrylic pressure sensitive",
+        "unit": null,
+        "source_page": 1,
+        "source_text": "Acrylic Pressure Sensitive Adhesive ... Adhesive Acrylic pressure sensitive",
+        "mapping_reason": "Explicit adhesive wording matches adhesive_type alias and dictionary main field.",
+        "confidence": 0.97
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item",
+        "item_code": "GT7102",
+        "param_key": "thickness",
+        "value": "0.2",
+        "unit": "mm",
+        "source_page": 1,
+        "source_text": "GT7102 ... 0.2 mm",
+        "mapping_reason": "Explicit thickness in item matrix; thickness is main field whitelist and dictionary main field.",
+        "confidence": 0.99
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item",
+        "item_code": "GT7104",
+        "param_key": "thickness",
+        "value": "0.4",
+        "unit": "mm",
+        "source_page": 1,
+        "source_text": "GT7104 0.4 mm",
+        "mapping_reason": "Explicit thickness in item matrix; thickness is main field whitelist and dictionary main field.",
+        "confidence": 0.99
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item",
+        "item_code": "GT7106",
+        "param_key": "thickness",
+        "value": "0.6",
+        "unit": "mm",
+        "source_page": 1,
+        "source_text": "GT7106 0.6 mm",
+        "mapping_reason": "Explicit thickness in item matrix; thickness is main field whitelist and dictionary main field.",
+        "confidence": 0.99
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item",
+        "item_code": "GT7108",
+        "param_key": "thickness",
+        "value": "0.8",
+        "unit": "mm",
+        "source_page": 1,
+        "source_text": "GT7108 0.8 mm",
+        "mapping_reason": "Explicit thickness in item matrix; thickness is main field whitelist and dictionary main field.",
+        "confidence": 0.99
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item",
+        "item_code": "GT7110",
+        "param_key": "thickness",
+        "value": "1.0",
+        "unit": "mm",
+        "source_page": 1,
+        "source_text": "GT7110 1.0 mm",
+        "mapping_reason": "Explicit thickness in item matrix; thickness is main field whitelist and dictionary main field.",
+        "confidence": 0.99
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item",
+        "item_code": "GT7112",
+        "param_key": "thickness",
+        "value": "1.2",
+        "unit": "mm",
+        "source_page": 1,
+        "source_text": "GT7112 1.2 mm",
+        "mapping_reason": "Explicit thickness in item matrix; thickness is main field whitelist and dictionary main field.",
+        "confidence": 0.99
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item",
+        "item_code": "GT7116",
+        "param_key": "thickness",
+        "value": "1.6",
+        "unit": "mm",
+        "source_page": 1,
+        "source_text": "GT7116 1.6 mm",
+        "mapping_reason": "Explicit thickness in item matrix; thickness is main field whitelist and dictionary main field.",
+        "confidence": 0.99
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item",
+        "item_code": "GT7120",
+        "param_key": "thickness",
+        "value": "2.0",
+        "unit": "mm",
+        "source_page": 1,
+        "source_text": "GT7120 2.0 mm",
+        "mapping_reason": "Explicit thickness in item matrix; thickness is main field whitelist and dictionary main field.",
+        "confidence": 0.99
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item",
+        "item_code": "GT7125",
+        "param_key": "thickness",
+        "value": "2.5",
+        "unit": "mm",
+        "source_page": 1,
+        "source_text": "GT7125 2.5 mm",
+        "mapping_reason": "Explicit thickness in item matrix; thickness is main field whitelist and dictionary main field.",
+        "confidence": 0.99
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item",
+        "item_code": "GT7130",
+        "param_key": "thickness",
+        "value": "3.0",
+        "unit": "mm",
+        "source_page": 1,
+        "source_text": "GT7130 ... 3.0 mm",
+        "mapping_reason": "Explicit thickness in item matrix; thickness is main field whitelist and dictionary main field.",
+        "confidence": 0.99
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item",
+        "item_code": "GT7135",
+        "param_key": "thickness",
+        "value": "3.5",
+        "unit": "mm",
+        "source_page": 1,
+        "source_text": "GT7135 3.5 mm",
+        "mapping_reason": "Explicit thickness in item matrix; thickness is main field whitelist and dictionary main field.",
+        "confidence": 0.99
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item",
+        "item_code": "GT7140",
+        "param_key": "thickness",
+        "value": "4.0",
+        "unit": "mm",
+        "source_page": 1,
+        "source_text": "GT7140 4.0 mm",
+        "mapping_reason": "Explicit thickness in item matrix; thickness is main field whitelist and dictionary main field.",
+        "confidence": 0.99
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item_range",
+        "item_codes": [
+          "GT7102",
+          "GT7104",
+          "GT7106",
+          "GT7108",
+          "GT7110",
+          "GT7112",
+          "GT7116",
+          "GT7120",
+          "GT7125"
+        ],
+        "param_key": "color",
+        "value": "Gray",
+        "unit": null,
+        "source_page": 1,
+        "source_text": "GT7102 Acrylic Foam Core Gray ... GT7125 ... GT7130 Acrylic Foam Core White 3.0 mm",
+        "mapping_reason": "Core color shown in item matrix; color is main field dictionary entry and searchable field. Range inferred from matrix break before GT7130.",
+        "confidence": 0.9
+      },
+      {
+        "fact_type": "item_main_field",
+        "scope": "item_range",
+        "item_codes": [
+          "GT7130",
+          "GT7135",
+          "GT7140"
+        ],
+        "param_key": "color",
+        "value": "White",
+        "unit": null,
+        "source_page": 1,
+        "source_text": "GT7130 Acrylic Foam Core White 3.0 mm GT7135 3.5 mm GT7140 4.0 mm",
+        "mapping_reason": "Core color shown in item matrix; color is main field dictionary entry and searchable field. White grouping explicit beginning at GT7130.",
+        "confidence": 0.95
+      },
+      {
+        "fact_type": "series_param",
+        "scope": "series",
+        "param_key": "shelf_life_storage",
+        "value": "Three years from date of manufacture when stored at 23°C +/-2°C and 50% +/-4% relative humidity; store in typical pressure-sensitive adhesive storage conditions.",
+        "unit": null,
+        "source_page": 3,
+        "source_text": "Shelf Life Three years from date of manufacture when stored at recommended storage condition 23°C +/-2°C and 50% +/-4% relative humidity.",
+        "mapping_reason": "Direct match to dictionary key shelf_life_storage; series-level storage guidance rather than item-specific measurement.",
+        "confidence": 0.98
+      },
+      {
+        "fact_type": "spec_value_candidate",
+        "scope": "item_matrix",
+        "param_key": "foil_peel_strength",
+        "value_type": "matrix",
+        "unit": "N/cm",
+        "source_page": 2,
+        "source_text": "180° Peel Adhesion to Painted Panel ... Typical Performance Value (N/cm)",
+        "mapping_reason": "Peel adhesion values are measurable technical metrics; dictionary snapshot has foil_peel_strength as closest approved peel-type key, but substrate-specific/context-bound matrix should stay as spec-level candidate with review.",
+        "confidence": 0.71
+      },
+      {
+        "fact_type": "spec_value_candidate",
+        "scope": "item_matrix",
+        "param_key": "static_shear_70c",
+        "value_type": "matrix",
+        "unit": "MPa",
+        "source_page": 3,
+        "source_text": "Shear Strength ... Typical Performance Value (MPa) ... High Temperature",
+        "mapping_reason": "Keyword hit on shear/static_shear exists, but table is shear strength in MPa across multiple conditions, not explicit static shear at 70°C in hours. Only tentative proximity to dictionary alias; requires review.",
+        "confidence": 0.28
+      }
+    ],
+    "candidate_content": [
+      {
+        "content_type": "series.product_description",
+        "scope": "series",
+        "value": "3M Acrylic Foam Tape GT7100 Series offers very good adhesion performance and high flexibility. These tapes are specifically designed for the attachment of automotive exterior and interior trim applications.",
+        "source_page": 1,
+        "source_text": "3M Acrylic Foam Tape GT7100 Series offers very good adhesion performance and high flexibility. These tapes are specifically designed for the attachment of automotive exterior and interior trim applications.",
+        "mapping_reason": "Direct narrative overview suitable for series.product_description under content routing guidance.",
+        "confidence": 0.99
+      },
+      {
+        "content_type": "series.product_features",
+        "scope": "series",
+        "value": [
+          "Provides final adhesion and holding power to automotive paints and substrates",
+          "Meets a number of OEM specifications",
+          "Follows shrinkage and elongation of the plastic part caused by temperature change and has good stress relaxation properties",
+          "Viscoelastic core allows conformity to complex geometries and excellent wet out",
+          "Excellent adhesive performance at various temperature conditions",
+          "Excels in a variety of weather conditions and offers solvent and high temperature resistance"
+        ],
+        "source_page": 1,
+        "source_text": "3M Tape GT7100 Series offers the following key features: ...",
+        "mapping_reason": "Bullet-style non-numeric selling/technical points belong in series.product_features, not parameter values.",
+        "confidence": 0.98
+      },
+      {
+        "content_type": "series.main_applications",
+        "scope": "series",
+        "value": [
+          "Attachment of automotive exterior trim applications",
+          "Attachment of automotive interior trim applications"
+        ],
+        "source_page": 1,
+        "source_text": "These tapes are specifically designed for the attachment of automotive exterior and interior trim applications.",
+        "mapping_reason": "Explicit recommended-use/application wording belongs in series.main_applications.",
+        "confidence": 0.96
+      },
+      {
+        "content_type": "items.item_features",
+        "scope": "item_group",
+        "item_codes": [
+          "GT7102",
+          "GT7104",
+          "GT7106",
+          "GT7108",
+          "GT7110",
+          "GT7112",
+          "GT7116",
+          "GT7120",
+          "GT7125"
+        ],
+        "value": "Gray acrylic foam core variants in the GT7100 thickness matrix.",
+        "source_page": 1,
+        "source_text": "GT7102 Acrylic Foam Core Gray ... GT7125 2.5 mm",
+        "mapping_reason": "Item-group descriptive difference in matrix can be kept as item_features if needed alongside color main field.",
+        "confidence": 0.84
+      }
+    ],
+    "methods": [
+      {
+        "method_name": "Immediate State",
+        "source_page": 2,
+        "source_text": "Immediate State = 23°C, 20 minutes",
+        "conditions": {
+          "temperature_c": 23,
+          "dwell_time": "20 minutes"
+        },
+        "related_tables": [
+          "180_peel_adhesion_to_painted_panel",
+          "shear_strength"
+        ],
+        "confidence": 0.99
+      },
+      {
+        "method_name": "Normal State",
+        "source_page": 2,
+        "source_text": "Normal State = 23°C, 24 hours",
+        "conditions": {
+          "temperature_c": 23,
+          "dwell_time": "24 hours"
+        },
+        "related_tables": [
+          "180_peel_adhesion_to_painted_panel",
+          "shear_strength"
+        ],
+        "confidence": 0.99
+      },
+      {
+        "method_name": "High Temperature",
+        "source_page": 2,
+        "source_text": "High Temperature = 23°C, 24 hours -> 80°C",
+        "conditions": {
+          "sequence": [
+            "23°C for 24 hours",
+            "80°C exposure"
+          ]
+        },
+        "related_tables": [
+          "180_peel_adhesion_to_painted_panel",
+          "shear_strength"
+        ],
+        "confidence": 0.96
+      },
+      {
+        "method_name": "Heat-aging",
+        "source_page": 2,
+        "source_text": "Heat-aging = 23°C, 24 hours -> 80°C, 336 hours -> 23°C, 24 hours",
+        "conditions": {
+          "sequence": [
+            "23°C for 24 hours",
+            "80°C for 336 hours",
+            "23°C for 24 hours"
+          ]
+        },
+        "related_tables": [
+          "180_peel_adhesion_to_painted_panel"
+        ],
+        "confidence": 0.99
+      },
+      {
+        "method_name": "Warm Water Immersion",
+        "source_page": 2,
+        "source_text": "Warm Water Immersion = 23°C, 24 hours -> 40°C water, 336 hours -> 23°C, 24 hours",
+        "conditions": {
+          "sequence": [
+            "23°C for 24 hours",
+            "40°C water for 336 hours",
+            "23°C for 24 hours"
+          ]
+        },
+        "related_tables": [
+          "180_peel_adhesion_to_painted_panel",
+          "shear_strength"
+        ],
+        "confidence": 0.99
+      },
+      {
+        "method_name": "Gasoline Immersion",
+        "source_page": 2,
+        "source_text": "Gasoline Immersion = 23°C, 24 hours -> Gasoline, 1 hour -> 23°C, 24 hours",
+        "conditions": {
+          "sequence": [
+            "23°C for 24 hours",
+            "gasoline immersion for 1 hour",
+            "23°C for 24 hours"
+          ]
+        },
+        "related_tables": [
+          "shear_strength"
+        ],
+        "confidence": 0.98
+      },
+      {
+        "method_name": "Wax-remover immersion",
+        "source_page": 2,
+        "source_text": "Wax-remover immersion = 23°C, 24 hours -> Wax-remover, 1 hour -> 23°C, 24 hours",
+        "conditions": {
+          "sequence": [
+            "23°C for 24 hours",
+            "wax-remover immersion for 1 hour",
+            "23°C for 24 hours"
+          ]
+        },
+        "related_tables": [
+          "shear_strength"
+        ],
+        "confidence": 0.98
+      },
+      {
+        "method_name": "180° Peel Adhesion to Painted Panel test setup",
+        "source_page": 2,
+        "source_text": "Tape Size: 25 mm width; Tape backing: 25 um PET film; Rolling Pressure: 5 kg roller one-way; Peel Speed: 50 mm/min.",
+        "conditions": {
+          "tape_width_mm": 25,
+          "tape_backing": "25 um PET film",
+          "rolling_pressure": "5 kg roller one-way",
+          "peel_speed": "50 mm/min"
+        },
+        "related_tables": [
+          "180_peel_adhesion_to_painted_panel"
+        ],
+        "confidence": 0.98
+      },
+      {
+        "method_name": "Shear Strength test setup",
+        "source_page": 3,
+        "source_text": "Tape Size: 25 mm x 25 mm; Rolling Pressure: 5 kg roller one-way; Tensile Speed: 50 mm/min. Test measures liner side adhesion to painted panel and non-liner side adhesion to PVC panel.",
+        "conditions": {
+          "tape_size_mm": "25 x 25",
+          "rolling_pressure": "5 kg roller one-way",
+          "tensile_speed": "50 mm/min",
+          "bonding_faces": "liner side to painted panel; non-liner side to PVC panel"
+        },
+        "related_tables": [
+          "shear_strength"
+        ],
+        "confidence": 0.98
+      },
+      {
+        "method_name": "substrate_note_painted_panel",
+        "source_page": 2,
+        "source_text": "Painted panel: White colored painted panel with advanced paint, used on a vehicle",
+        "conditions": {
+          "substrate": "painted panel",
+          "note": "white colored painted panel with advanced paint, used on a vehicle"
+        },
+        "related_tables": [
+          "180_peel_adhesion_to_painted_panel"
+        ],
+        "confidence": 0.95
+      },
+      {
+        "method_name": "substrate_note_pvc_panel",
+        "source_page": 2,
+        "source_text": "PVC panel: 3M Adhesion Promoter N-210NT is applied on the PVC panel",
+        "conditions": {
+          "substrate": "PVC panel",
+          "pretreatment": "3M Adhesion Promoter N-210NT applied"
+        },
+        "related_tables": [
+          "180_peel_adhesion_to_painted_panel",
+          "shear_strength"
+        ],
+        "confidence": 0.96
+      }
+    ],
+    "unresolved": [
+      {
+        "type": "schema_instruction_conflict",
+        "reason": "User message requested top-level keys document_meta/sections/tables/candidate_items/candidate_facts/candidate_content/methods/unresolved, while embedded task instructions later referenced six Odoo draft buckets. Returned document-understanding schema per primary instruction.",
+        "confidence": 0.99
+      },
+      {
+        "type": "color_semantics",
+        "reason": "Matrix column says Core Color. MAIN ITEM FIELD keyword hit is color, but it is not explicit whether business main field should store core color as product color. Mapped as candidate main field with review.",
+        "source_page": 1,
+        "source_text": "Core Color ... Gray ... White",
+        "confidence": 0.76
+      },
+      {
+        "type": "base_material_semantics",
+        "reason": "Acrylic Foam Core likely maps to base_material, but could also be modeled more specifically as foam core/carrier type. Needs review against internal dictionary conventions.",
+        "source_page": 1,
+        "source_text": "Acrylic Foam Core",
+        "confidence": 0.72
+      },
+      {
+        "type": "adhesive_granularity",
+        "reason": "Document states Acrylic Pressure Sensitive Adhesive, but internal dictionary may distinguish adhesive chemistry vs backing/PSA subclass. Keep as adhesive_type candidate, review exact controlled vocabulary.",
+        "source_page": 1,
+        "source_text": "Acrylic Pressure Sensitive Adhesive",
+        "confidence": 0.78
+      },
+      {
+        "type": "liner_mapping",
+        "reason": "Document gives translucent red polyethylene liner and tabbing guidance, but dictionary snapshot only contains liner_option_pet and liner_option_sc2. It is unclear whether liner should map to PET option, general liner note, or unmatched liner config.",
+        "source_page": 1,
+        "source_text": "Polyethylene Red liner ... Translucent, red, polyethylene liner",
+        "confidence": 0.63
+      },
+      {
+        "type": "liner_thickness_missing",
+        "reason": "Document explicitly states liner thickness is not included in stated tape thickness, but does not provide liner thickness value.",
+        "source_page": 1,
+        "source_text": "*Liner thickness is not included",
+        "confidence": 0.97
+      },
+      {
+        "type": "peel_param_mapping_ambiguity",
+        "reason": "180° Peel Adhesion values are substrate- and condition-specific typical results. Dictionary snapshot only shows generic foil_peel_strength, which may not be the right param_key for painted-panel/PVC peel adhesion. Should go to unmatched/review or require new approved parameter keys.",
+        "source_page": 2,
+        "source_text": "180° Peel Adhesion to Painted Panel ... Typical Performance Value (N/cm)",
+        "confidence": 0.9
+      },
+      {
+        "type": "shear_param_mapping_ambiguity",
+        "reason": "Shear Strength table is in MPa and not explicit static shear at 70°C in hours. It should not be force-mapped to static_shear_70c.",
+        "source_page": 3,
+        "source_text": "Shear Strength ... Typical Performance Value (MPa)",
+        "confidence": 0.98
+      },
+      {
+        "type": "typical_results_not_spec_limits",
+        "reason": "Peel and shear tables are explicitly typical reference values and not guaranteed specification purposes. Import workflow should preserve this status and avoid treating them as guaranteed limits.",
+        "source_page": 2,
+        "source_text": "These values are for reference only, and not to be used for specification purposes.",
+        "confidence": 0.99
+      },
+      {
+        "type": "brand_name_not_explicit_field_row",
+        "reason": "Brand 3M is clear at document level, but physical property matrix rows do not repeat brand. Safe as document/series metadata, item-level propagation may be done downstream.",
+        "source_page": 1,
+        "source_text": "3M Acrylic Foam Tape GT7100 Series",
+        "confidence": 0.96
+      },
+      {
+        "type": "equivalent_notes_absent",
+        "reason": "No explicit equivalent/substitute/competitor references found in excerpt.",
+        "confidence": 0.99
+      },
+      {
+        "type": "category_absent",
+        "reason": "No explicit internal category field provided in document excerpt beyond acrylic foam tape / automotive trim attachment.",
+        "confidence": 0.91
+      },
+      {
+        "type": "structure_image_absent",
+        "reason": "Construction is text-only in excerpt; no actual structure diagram/image available for extraction.",
+        "confidence": 0.99
+      },
+      {
+        "type": "regulatory_mapping_unclear",
+        "reason": "IMDS availability is present, but no approved field or parameter key snapshot for IMDS ID or regulatory content was provided.",
+        "source_page": 3,
+        "source_text": "The product is published as a material entry and is available for access on www.mdsystem.com. For product IMDS I.D. number, email requests ...",
+        "confidence": 0.82
+      }
+    ]
+  }
+}

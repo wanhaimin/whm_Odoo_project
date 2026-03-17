@@ -30,4 +30,7 @@
     <record id="base.open_module_tree" model="ir.actions.act_window">
         <field name="context">{'search_default_app': 1, 'search_default_installed': 1}</field>
     </record>
+    <menuitem id="menu_material_catalog_function_tag" name="功能标签" parent="menu_material_catalog_dictionary" action="action_diecut_function_tag" sequence="15"/>
+    <menuitem id="menu_material_catalog_application_tag" name="应用标签" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_application_tag" sequence="16"/>
+    <menuitem id="menu_material_catalog_feature_tag" name="特性标签" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_feature_tag" sequence="17"/>
 </odoo>

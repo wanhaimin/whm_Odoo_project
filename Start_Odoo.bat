@@ -9,6 +9,9 @@ cd /d "%~dp0.devcontainer"
 :: 启动容器 (后台运行) - FAST 模式
 docker compose -p my_odoo_project_devcontainer -f docker-compose.fast.yml up -d
 
+:: Ensure worker dependencies for schema validation are available in container
+docker exec my_odoo_project_devcontainer-web-1 python3 -m pip install --break-system-packages --ignore-installed "typing_extensions>=4.14.1" "pydantic>=2,<3" >nul 2>&1
+
 echo.
 echo [成功] Odoo 服务已在后台启动!
 echo.

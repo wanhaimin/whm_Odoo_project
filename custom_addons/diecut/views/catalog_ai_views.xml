@@ -116,8 +116,8 @@
                     </group>
                     <notebook>
                         <page string="结构化预览">
-                            <group>
-                                <field name="draft_summary" readonly="1"/>
+                            <group col="1">
+                                <field name="draft_summary" readonly="1" nolabel="1"/>
                                 <field name="draft_preview_html" nolabel="1" widget="html" readonly="1"/>
                             </group>
                         </page>

@@ -21,6 +21,28 @@ class DiecutCatalogSeries(models.Model):
     product_description = fields.Text(string="产品描述模板")
     main_applications = fields.Html(string="主要应用模板")
 
+    default_function_tag_ids = fields.Many2many(
+        "product.tag",
+        "diecut_catalog_series_function_tag_rel",
+        "series_id",
+        "tag_id",
+        string="默认功能标签",
+    )
+    default_application_tag_ids = fields.Many2many(
+        "diecut.catalog.application.tag",
+        "diecut_catalog_series_application_tag_rel",
+        "series_id",
+        "tag_id",
+        string="默认应用标签",
+    )
+    default_feature_tag_ids = fields.Many2many(
+        "diecut.catalog.feature.tag",
+        "diecut_catalog_series_feature_tag_rel",
+        "series_id",
+        "tag_id",
+        string="默认特性标签",
+    )
+
     _sql_constraints = [
         ("diecut_catalog_series_brand_name_uniq", "unique(brand_id, name)", "同一品牌下系列名称不能重复。"),
     ]

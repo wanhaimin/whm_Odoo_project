@@ -1,0 +1,5 @@
+name: my_odoo_project_devcontainer
+
+services:
+  web:
+    command: odoo -d odoo -u diecut --dev=all,reload

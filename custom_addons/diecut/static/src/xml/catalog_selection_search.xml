@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="diecut.SearchBarPlaceholder" t-inherit="web.SearchBar" t-inherit-mode="extension">
+        <xpath expr="//input[hasclass('o_searchview_input')]" position="attributes">
+            <attribute name="t-att-placeholder">this.getSearchPlaceholder ? this.getSearchPlaceholder() : 'Search...'</attribute>
+            <attribute name="t-on-keydown">this.onSearchKeydown</attribute>
+        </xpath>
+    </t>
+
+    <t t-name="diecut.SearchBarQuickSearchItem" t-inherit="web.SearchBar.QuickSearchItems" t-inherit-mode="extension">
+        <xpath expr="//a[@href='#' and @t-att-title='item.title']" position="replace">
+            <a href="#" t-on-click.prevent="" t-att-class="{'ps-3 pe-2 text-truncate': item.isFieldProperty }" t-att-title="item.title">
+                <t t-if="item.isDiecutUnifiedSearch">
+                    <span class="text-action">智能选型</span>
+                    <span>:</span>
+                    <b class="fst-italic text-primary" t-esc="item.label"/>
+                </t>
+                <t t-else="">
+                    <t t-if="item.isAddCustomFilterButton"><span class="text-action">Custom Filter...</span></t>
+                    <t t-elif="item.loadMore"><span class="text-action"><t t-esc="item.label"/></span></t>
+                    <t t-elif="item.isChild">
+                        <t t-esc="item.label"/>
+                    </t>
+                    <t t-elif="!item.isFieldProperty" > Search </t> <b t-esc="item.searchItemDescription"/> <t t-if="item.preposition"> <t t-esc="item.preposition"/>: <b class="fst-italic text-primary" t-esc="item.label"/> </t>
+                </t>
+            </a>
+        </xpath>
+    </t>
+</templates>

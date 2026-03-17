@@ -1,0 +1,205 @@
+[
+  {
+    "item_code": false,
+    "param_key": "thickness",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'thickness', 'param_name': 'thickness', 'value': '80 µm', 'raw_value': '', 'unit': 'µm', 'condition': None, 'test_method': None, ",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "base_material",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'base_material', 'param_name': 'base_material', 'value': 'PET（聚酯）薄膜', 'raw_value': '', 'unit': None, 'condition': None, 'test_met",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "adhesive_type",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'adhesive_type', 'param_name': 'adhesive_type', 'value': '改性丙烯酸', 'raw_value': '', 'unit': None, 'condition': None, 'test_method'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "color",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'color', 'param_name': 'color', 'value': '透明', 'raw_value': '', 'unit': None, 'condition': None, 'test_method': None, 'test_condi",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "elongation_at_break",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'elongation_at_break', 'param_name': 'elongation_at_break', 'value': '50', 'raw_value': '', 'unit': '%', 'condition': None, 'test",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "tensile_strength",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'tensile_strength', 'param_name': 'tensile_strength', 'value': '20', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_me",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "static_shear",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'static_shear', 'param_name': 'static_shear', 'value': '好', 'raw_value': '', 'unit': None, 'condition': None, 'test_method': None",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "static_shear",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'static_shear', 'param_name': 'static_shear', 'value': '普通', 'raw_value': '', 'unit': None, 'condition': None, 'test_method': Non",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "uv_aging_resistance",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'uv_aging_resistance', 'param_name': 'uv_aging_resistance', 'value': '非常好', 'raw_value': '', 'unit': None, 'condition': None, 'te",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "temperature_resistance_short_term",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'temperature_resistance_short_term', 'param_name': 'temperature_resistance_short_term', 'value': '200', 'raw_value': '', 'unit': ",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "temperature_resistance_long_term",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'temperature_resistance_long_term', 'param_name': 'temperature_resistance_long_term', 'value': '100', 'raw_value': '', 'unit': '°",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '6.5', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '8', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method': ",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '6.3', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '8.5', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '7.7', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '9.4', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '4', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method': ",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '4.6', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '6.2', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '3.4', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '6.1', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '7', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method': ",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '6.8', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '10.7', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '8.6', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "peel_adhesion",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'peel_adhesion', 'param_name': 'peel_adhesion', 'value': '9.7', 'raw_value': '', 'unit': 'N/cm', 'condition': None, 'test_method'",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "liner_material",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'liner_material', 'param_name': 'liner_material', 'value': '带tesa logo的格拉辛纸', 'raw_value': '', 'unit': None, 'condition': None, '",
+    "fallback_attempted": false
+  },
+  {
+    "item_code": false,
+    "param_key": "liner_option_pv20",
+    "reason": "参数值无法落库：未匹配到型号或参数字典",
+    "source_excerpt": "{'item_code': None, 'series_name': '4980', 'scope': None, 'param_key': 'liner_option_pv20', 'param_name': 'liner_option_pv20', 'value': 'PV20', 'raw_value': '', 'unit': None, 'condition': None, 'test_",
+    "fallback_attempted": false
+  }
+]

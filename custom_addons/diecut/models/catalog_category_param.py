@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
 
@@ -36,11 +36,13 @@ class ProductCategoryCatalogParam(models.Model):
 
     def action_open_category_param_overview(self):
         self.ensure_one()
-        action = self.env.ref("diecut.action_diecut_catalog_spec_def").read()[0]
-        action["domain"] = [("categ_id", "=", self.id)]
+        action = self.env.ref("diecut.action_product_category_catalog_param").read()[0]
+        action["domain"] = [("id", "=", self.id)]
         action["context"] = {
-            "default_categ_id": self.id,
-            "search_default_group_categ": 0,
+            "default_category_type": "raw",
+            "active_id": self.id,
+            "active_ids": [self.id],
+            "active_model": "product.category",
         }
         return action
 
