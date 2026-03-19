@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import re
 from collections import Counter, defaultdict
@@ -204,6 +204,25 @@ class DiecutCatalogItem(models.Model):
         "feature_tag_ids.name",
         "feature_tag_ids.alias_text",
     )
+    _RETIRED_SELECTION_FRONT_FIELDS = {
+        "brand_platform_id",
+        "scene_ids",
+        "substrate_tag_ids",
+        "structure_tag_ids",
+        "environment_tag_ids",
+        "process_tag_ids",
+    }
+
+    @api.model
+    def fields_get(self, allfields=None, attributes=None):
+        result = super().fields_get(allfields=allfields, attributes=attributes)
+        for field_name in self._RETIRED_SELECTION_FRONT_FIELDS:
+            if field_name not in result:
+                continue
+            result[field_name]["groupable"] = False
+            result[field_name]["searchable"] = False
+            result[field_name]["sortable"] = False
+        return result
 
     @api.model
     def _selection_main_field_name(self):
@@ -768,6 +787,7 @@ class DiecutCatalogItem(models.Model):
         confidence=None,
         is_ai_generated=False,
         review_status="confirmed",
+        conditions=None,
     ):
         self.ensure_one()
         if not param:
@@ -783,6 +803,8 @@ class DiecutCatalogItem(models.Model):
         category_param = False
         if self.categ_id:
             category_param = self._get_effective_category_param_map(self.categ_id.id).get(param.id)
+        spec_line_model = self.env["diecut.catalog.item.spec.line"]
+        value_payload = spec_line_model._normalize_value_payload(param, raw_value)
         line_vals = {
             "catalog_item_id": self.id,
             "param_id": param.id,
@@ -795,23 +817,38 @@ class DiecutCatalogItem(models.Model):
             "test_method": test_method or False,
             "test_condition": test_condition or False,
             "remark": remark or False,
-            "raw_value_text": False if raw_value in (False, None) else str(raw_value),
+            "value_raw": value_payload.get("value_raw"),
+            "value_number": value_payload.get("value_number") if value_payload.get("value_number") not in (False, None, "") else False,
+            "value_kind": value_payload.get("value_kind") or "text",
             "source_document_id": source_document.id if source_document else False,
             "source_excerpt": source_excerpt or False,
             "confidence": float(confidence) if confidence not in (False, None, "") else 0.0,
             "is_ai_generated": bool(is_ai_generated),
             "review_status": review_status or "confirmed",
         }
-        if param.value_type == "float":
-            line_vals["value_float"] = float(raw_value) if raw_value not in (False, None, "") else 0.0
-        elif param.value_type == "boolean":
-            line_vals["value_boolean"] = str(raw_value).strip().lower() in ("1", "true", "yes", "y", "是")
-        elif param.value_type == "selection":
-            line_vals["value_selection"] = False if raw_value in (False, None, "") else str(raw_value).strip()
-        else:
-            line_vals["value_char"] = False if raw_value in (False, None, "") else str(raw_value).strip()
 
-        line = self.spec_line_ids.filtered(lambda spec_line: spec_line.param_id == param)[:1]
+        conditions = conditions or []
+        condition_commands = []
+        condition_signature = ()
+        if hasattr(spec_line_model, "_normalize_condition_commands"):
+            condition_commands = spec_line_model._normalize_condition_commands(conditions)
+        if hasattr(spec_line_model, "_condition_signature"):
+            condition_signature = spec_line_model._condition_signature(conditions)
+        if condition_commands:
+            line_vals["condition_ids"] = [Command.clear()] + condition_commands
+
+        line = self.spec_line_ids.filtered(lambda spec_line: spec_line.param_id == param)
+        if condition_signature:
+            line = line.filtered(lambda spec_line: spec_line_model._condition_signature([
+                {
+                    "condition_key": condition.condition_key,
+                    "condition_value": condition.condition_value,
+                }
+                for condition in spec_line.condition_ids
+            ]) == condition_signature)
+        else:
+            line = line.filtered(lambda spec_line: not spec_line.condition_ids)
+        line = line[:1]
         if line:
             line.write(line_vals)
         else:

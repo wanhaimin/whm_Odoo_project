@@ -1,0 +1,252 @@
+{
+  "series": [
+    {
+      "series_name": "tesa 6928",
+      "brand_name": "Tesa",
+      "category_name": "PET双面胶带",
+      "name": "tesa 6928",
+      "product_description": "tesa® 6928 是透明的双面自粘胶带，由 PET 基材和改性丙烯酸胶粘剂组成，采用便于移除的助剥设计离型纸。",
+      "product_features": "优异的静态剪切力和剥离力性能平衡\n轻型包装的安全封闭性能\n高温下对不同泡棉及橡胶等严苛表面具有强大粘接性能\n高初粘力，立即固定于被粘表面",
+      "main_applications": "轻型信封和纸箱的封闭\n汽车行业中 ABS 塑料部件的固定\n家具行业中装饰型材和装饰线条的固定",
+      "special_applications": "总厚度 125 µm；透明；PET 基材；改性丙烯酸胶粘剂；纸离型纸。技术参数为平均值，仅供参考，不作为技术规范。",
+      "source_page": 1,
+      "source_text": "tesa® 6928 产品信息",
+      "source_label": "manual_tds_import"
+    }
+  ],
+  "items": [
+    {
+      "code": "6928",
+      "name": "125μm双面透明薄膜胶带",
+      "brand_name": "Tesa",
+      "series_name": "tesa 6928",
+      "category_name": "PET双面胶带",
+      "catalog_status": "published",
+      "active": true,
+      "sequence": 10,
+      "thickness": 125,
+      "color_name": "透明",
+      "adhesive_type_name": "改性丙烯酸",
+      "base_material_name": "PET（聚酯）薄膜",
+      "product_features": "优异的静态剪切力和剥离力性能平衡\n轻型包装的安全封闭性能\n高温下对不同泡棉及橡胶等严苛表面具有强大粘接性能\n高初粘力，立即固定于被粘表面",
+      "product_description": "tesa® 6928 是透明的双面自粘胶带，由 PET 基材和改性丙烯酸胶粘剂组成，采用便于移除的助剥设计离型纸。",
+      "main_applications": "轻型信封和纸箱的封闭\n汽车行业中 ABS 塑料部件的固定\n家具行业中装饰型材和装饰线条的固定",
+      "special_applications": "纸离型纸；离型纸厚度 69 µm；离型纸重量 80 g/m²；离型纸颜色 棕色。",
+      "source_page": 1,
+      "source_text": "tesa® 6928 125μm双面透明薄膜胶带",
+      "source_label": "manual_tds_import"
+    }
+  ],
+  "params": [
+    {
+      "param_key": "liner_description",
+      "name": "离型材料",
+      "spec_category_name": "结构与离型",
+      "value_type": "char",
+      "preferred_unit": false,
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "liner_thickness",
+      "name": "离型纸厚度",
+      "spec_category_name": "结构与离型",
+      "value_type": "float",
+      "preferred_unit": "μm",
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "liner_weight",
+      "name": "离型纸重量",
+      "spec_category_name": "结构与离型",
+      "value_type": "float",
+      "preferred_unit": "g/m²",
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "liner_color",
+      "name": "离型纸颜色",
+      "spec_category_name": "结构与离型",
+      "value_type": "char",
+      "preferred_unit": false,
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "elongation_at_break",
+      "name": "断裂延展率",
+      "spec_category_name": "物理性能",
+      "value_type": "float",
+      "preferred_unit": "%",
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "tensile_strength",
+      "name": "抗张强度",
+      "spec_category_name": "物理性能",
+      "value_type": "float",
+      "preferred_unit": "N/cm",
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "static_shear_23c",
+      "name": "23°C静态抗剪切力",
+      "spec_category_name": "粘接性能",
+      "value_type": "char",
+      "preferred_unit": false,
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "static_shear_40c",
+      "name": "40°C静态抗剪切力",
+      "spec_category_name": "粘接性能",
+      "value_type": "char",
+      "preferred_unit": false,
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "initial_tack",
+      "name": "初粘力",
+      "spec_category_name": "粘接性能",
+      "value_type": "char",
+      "preferred_unit": false,
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "plasticizer_resistance",
+      "name": "抗增塑剂",
+      "spec_category_name": "耐久性",
+      "value_type": "char",
+      "preferred_unit": false,
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "uv_aging_resistance",
+      "name": "抗老化（UV）",
+      "spec_category_name": "耐久性",
+      "value_type": "char",
+      "preferred_unit": false,
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "min_service_temp_c",
+      "name": "最低耐受温度",
+      "spec_category_name": "耐温性能",
+      "value_type": "float",
+      "preferred_unit": "°C",
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "short_term_heat_resistance",
+      "name": "短期耐高温性",
+      "spec_category_name": "耐温性能",
+      "value_type": "float",
+      "preferred_unit": "°C",
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "long_term_heat_resistance",
+      "name": "长期耐高温性",
+      "spec_category_name": "耐温性能",
+      "value_type": "float",
+      "preferred_unit": "°C",
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "chemical_resistance",
+      "name": "耐化学品",
+      "spec_category_name": "耐久性",
+      "value_type": "char",
+      "preferred_unit": false,
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "moisture_resistance",
+      "name": "防潮",
+      "spec_category_name": "耐久性",
+      "value_type": "char",
+      "preferred_unit": false,
+      "is_main_field": false,
+      "main_field_name": false
+    },
+    {
+      "param_key": "peel_strength_180",
+      "name": "180°剥离力",
+      "spec_category_name": "粘接性能",
+      "value_type": "float",
+      "preferred_unit": "N/cm",
+      "is_main_field": false,
+      "main_field_name": false
+    }
+  ],
+  "category_params": [
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "liner_description", "name": "离型材料", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "liner_thickness", "name": "离型纸厚度", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "liner_weight", "name": "离型纸重量", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "liner_color", "name": "离型纸颜色", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "elongation_at_break", "name": "断裂延展率", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "tensile_strength", "name": "抗张强度", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "static_shear_23c", "name": "23°C静态抗剪切力", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "static_shear_40c", "name": "40°C静态抗剪切力", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "initial_tack", "name": "初粘力", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "plasticizer_resistance", "name": "抗增塑剂", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "uv_aging_resistance", "name": "抗老化（UV）", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "min_service_temp_c", "name": "最低耐受温度", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "short_term_heat_resistance", "name": "短期耐高温性", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "long_term_heat_resistance", "name": "长期耐高温性", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "chemical_resistance", "name": "耐化学品", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "moisture_resistance", "name": "防潮", "required": false, "show_in_form": true, "allow_import": true},
+    {"category_name": "PET双面胶带", "categ_name": "PET双面胶带", "param_key": "peel_strength_180", "name": "180°剥离力", "required": false, "show_in_form": true, "allow_import": true}
+  ],
+  "spec_values": [
+    {"item_code": "6928", "param_key": "liner_description", "value": "纸", "source_page": 1, "source_text": "离型纸类型 纸", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "liner_thickness", "value": 69, "unit": "μm", "source_page": 1, "source_text": "离型纸厚度 69 µm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "liner_weight", "value": 80, "unit": "g/m²", "source_page": 1, "source_text": "离型纸重量 80 g/m²", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "liner_color", "value": "棕色", "source_page": 1, "source_text": "离型纸颜色 棕色", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "elongation_at_break", "value": 50, "unit": "%", "source_page": 1, "source_text": "断裂延展率 50 %", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "tensile_strength", "value": 20, "unit": "N/cm", "source_page": 1, "source_text": "抗张强度 20 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "static_shear_23c", "value": "好", "source_page": 1, "source_text": "23°C静态抗剪切力 好", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "static_shear_40c", "value": "好", "source_page": 1, "source_text": "40°C静态抗剪切力 好", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "initial_tack", "value": "非常好", "source_page": 1, "source_text": "初粘力 非常好", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "plasticizer_resistance", "value": "好", "source_page": 1, "source_text": "抗增塑剂 好", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "uv_aging_resistance", "value": "非常好", "source_page": 1, "source_text": "抗老化（UV） 非常好", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "min_service_temp_c", "value": -40, "unit": "°C", "source_page": 1, "source_text": "最低耐受温度 -40 °C", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "short_term_heat_resistance", "value": 200, "unit": "°C", "source_page": 1, "source_text": "短期耐高温性 200 °C", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "long_term_heat_resistance", "value": 100, "unit": "°C", "source_page": 1, "source_text": "长期耐高温性 100 °C", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "chemical_resistance", "value": "好", "source_page": 1, "source_text": "耐化学品 好", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "moisture_resistance", "value": "非常好", "source_page": 1, "source_text": "防潮 非常好", "source_label": "manual_tds_import", "review_status": "pending"},
+
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 8.2, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "ABS"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "初始"}], "source_page": 2, "source_text": "ABS表面粘接强度（初始） 8.2 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 9.7, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "ABS"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "14天后"}], "source_page": 2, "source_text": "ABS表面粘接强度（14天后） 9.7 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 8.1, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "铝"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "初始"}], "source_page": 2, "source_text": "铝表面粘接强度（初始） 8.1 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 11.1, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "铝"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "14天后"}], "source_page": 2, "source_text": "铝表面粘接强度（14天后） 11.1 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 10.3, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "PC"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "初始"}], "source_page": 2, "source_text": "PC表面粘接强度（初始） 10.3 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 11.5, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "PC"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "14天后"}], "source_page": 2, "source_text": "PC表面粘接强度（14天后） 11.5 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 4.9, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "PE"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "初始"}], "source_page": 2, "source_text": "PE表面粘接强度（初始） 4.9 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 5.4, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "PE"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "14天后"}], "source_page": 2, "source_text": "PE表面粘接强度（14天后） 5.4 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 7.4, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "PET"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "初始"}], "source_page": 2, "source_text": "PET表面粘接强度（初始） 7.4 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 8.7, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "PET"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "14天后"}], "source_page": 2, "source_text": "PET表面粘接强度（14天后） 8.7 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 4.8, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "PP"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "初始"}], "source_page": 2, "source_text": "PP表面粘接强度（初始） 4.8 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 6.4, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "PP"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "14天后"}], "source_page": 2, "source_text": "PP表面粘接强度（14天后） 6.4 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 8.8, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "PS"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "初始"}], "source_page": 2, "source_text": "PS表面粘接强度（初始） 8.8 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 9.4, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "PS"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "14天后"}], "source_page": 2, "source_text": "PS表面粘接强度（14天后） 9.4 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 7.2, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "PVC"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "初始"}], "source_page": 2, "source_text": "PVC表面粘接强度（初始） 7.2 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 10.1, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "PVC"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "14天后"}], "source_page": 2, "source_text": "PVC表面粘接强度（14天后） 10.1 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 9.6, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "钢"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "初始"}], "source_page": 2, "source_text": "钢表面粘接强度（初始） 9.6 N/cm", "source_label": "manual_tds_import", "review_status": "pending"},
+    {"item_code": "6928", "param_key": "peel_strength_180", "value": 12.0, "unit": "N/cm", "test_condition": "180°剥离力", "conditions": [{"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "钢"}, {"condition_key": "state", "condition_label": "状态", "condition_value": "14天后"}], "source_page": 2, "source_text": "钢表面粘接强度（14天后） 12 N/cm", "source_label": "manual_tds_import", "review_status": "pending"}
+  ],
+  "unmatched": []
+}

@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import json
 import re
@@ -110,9 +110,10 @@ class DiecutCatalogSourceDocumentApplyFix(models.Model):
             record._run_encoding_precheck(payload)
             original_unmatched = payload.get("unmatched") if isinstance(payload.get("unmatched"), list) else []
             apply_stats = record._apply_payload(payload)
-            skipped = int((apply_stats or {}).get("spec_values_skipped") or 0)
-            fallback_applied = int((apply_stats or {}).get("spec_values_applied_by_fallback") or 0)
-            failed_rows = (apply_stats or {}).get("apply_failed_rows") or []
+            actual_stats = record._summarize_applied_payload(payload, apply_stats)
+            skipped = int((actual_stats or {}).get("spec_values_skipped") or 0)
+            fallback_applied = int((actual_stats or {}).get("spec_values_applied_by_fallback") or 0)
+            failed_rows = (actual_stats or {}).get("apply_failed_rows") or []
             failed_report_file = record._write_apply_failed_rows_report(failed_rows)
 
             semantic_unmatched = []
@@ -124,8 +125,8 @@ class DiecutCatalogSourceDocumentApplyFix(models.Model):
 
             message = (
                 "AI/TDS 草稿已入库。 "
-                f"spec_values_total={int((apply_stats or {}).get('spec_values_total') or 0)}; "
-                f"applied={int((apply_stats or {}).get('spec_values_applied') or 0)}; "
+                f"spec_values_total={int((actual_stats or {}).get('spec_values_total') or 0)}; "
+                f"applied={int((actual_stats or {}).get('spec_values_applied') or 0)}; "
                 f"applied_by_fallback={fallback_applied}; skipped={skipped}; "
                 f"apply_failed={len(failed_rows)}"
             )
@@ -149,6 +150,72 @@ class DiecutCatalogSourceDocumentApplyFix(models.Model):
                 }
             )
         return True
+
+    def _summarize_applied_payload(self, payload, apply_stats=None):
+        self.ensure_one()
+        summary = dict(apply_stats or {})
+        failed_rows = list(summary.get("apply_failed_rows") or [])
+        spec_rows = payload.get("spec_values") or []
+        summary["spec_values_total"] = len(spec_rows)
+
+        item_model = self.env["diecut.catalog.item"].sudo()
+        param_model = self.env["diecut.catalog.param"].sudo()
+        spec_line_model = self.env["diecut.catalog.item.spec.line"].sudo()
+
+        applied = 0
+        verified_failed_rows = []
+        for row in spec_rows:
+            code = (row.get("item_code") or row.get("code") or "").strip()
+            param_key = (row.get("param_key") or "").strip().lower()
+            if not (code and param_key):
+                applied += 0
+                continue
+            brand = self._resolve_brand(row.get("brand_name")) or self.brand_id
+            item_domain = [("code", "=", code)]
+            if brand:
+                item_domain.append(("brand_id", "=", brand.id))
+            item = item_model.search(item_domain, limit=1)
+            param = param_model.search([("param_key", "=", param_key)], limit=1)
+            if not (item and param):
+                continue
+            lines = spec_line_model.search([
+                ("catalog_item_id", "=", item.id),
+                ("param_id", "=", param.id),
+            ])
+            if not lines:
+                continue
+            conditions = row.get("conditions") or []
+            if conditions and hasattr(spec_line_model, "_condition_signature"):
+                target_signature = spec_line_model._condition_signature(conditions)
+                lines = lines.filtered(lambda line: spec_line_model._condition_signature([
+                    {
+                        "condition_key": condition.condition_key,
+                        "condition_value": condition.condition_value,
+                    }
+                    for condition in line.condition_ids
+                ]) == target_signature)
+            elif conditions:
+                lines = lines.filtered(lambda line: line.condition_ids)
+            matched = bool(lines[:1])
+            if matched:
+                applied += 1
+            else:
+                verified_failed_rows.append(
+                    {
+                        "item_code": code or False,
+                        "param_key": param_key or False,
+                        "reason": "参数值未找到对应已落库记录",
+                        "source_excerpt": row.get("source_excerpt") or str(row)[:200],
+                        "fallback_attempted": False,
+                    }
+                )
+
+        if applied:
+            failed_rows = verified_failed_rows
+        summary["spec_values_applied"] = applied
+        summary["spec_values_skipped"] = max(summary["spec_values_total"] - applied, 0)
+        summary["apply_failed_rows"] = failed_rows
+        return summary
 
     def _apply_payload(self, payload):
         self.ensure_one()
@@ -352,6 +419,7 @@ class DiecutCatalogSourceDocumentApplyFix(models.Model):
                     confidence=row.get("confidence"),
                     is_ai_generated=True,
                     review_status=row.get("review_status") or "pending",
+                    conditions=row.get("conditions") or [],
                 )
                 apply_stats["spec_values_applied"] += 1
                 if fallback_used:
