@@ -11,6 +11,46 @@ from odoo import api, models
 class DiecutCatalogSourceDocumentApplyFix(models.Model):
     _inherit = "diecut.catalog.source.document"
 
+    _CANONICAL_MAIN_FIELD_ROUTE_MAP = {
+        "thickness": "thickness",
+        "thickness_std": "thickness_std",
+        "adhesive_thickness": "adhesive_thickness",
+        "color": "color_id",
+        "adhesive_type": "adhesive_type_id",
+        "base_material": "base_material_id",
+    }
+
+    @api.model
+    def _canonical_main_field_route(self, param_key):
+        key = (param_key or "").strip().lower()
+        main_field_name = self._CANONICAL_MAIN_FIELD_ROUTE_MAP.get(key)
+        if not main_field_name:
+            return False, False
+        return True, main_field_name
+
+    @api.model
+    def _merge_spec_condition_text(self, *values):
+        normalize = self.env["diecut.catalog.param"]._normalize_optional_text
+        parts = []
+        seen = set()
+        for value in values:
+            text = normalize(value)
+            if not text:
+                continue
+            lowered = text.lower()
+            if lowered in seen:
+                continue
+            seen.add(lowered)
+            parts.append(text)
+        return " | ".join(parts) if parts else False
+
+    @api.model
+    def _spec_line_identity_key(self, *, spec_line_model, conditions=None, test_condition=None):
+        conditions = conditions or []
+        if conditions and hasattr(spec_line_model, "_condition_signature"):
+            return ("conditions", spec_line_model._condition_signature(conditions))
+        return ("text", spec_line_model._clean_placeholder_text(test_condition) or False)
+
     @api.model
     def _infer_brand_from_text_candidates(self, *values):
         """Infer brand from free-text candidates like 'tesa 4980'."""
@@ -185,6 +225,10 @@ class DiecutCatalogSourceDocumentApplyFix(models.Model):
             if not lines:
                 continue
             conditions = row.get("conditions") or []
+            merged_test_condition = self._merge_spec_condition_text(
+                row.get("test_condition"),
+                row.get("condition_summary"),
+            )
             if conditions and hasattr(spec_line_model, "_condition_signature"):
                 target_signature = spec_line_model._condition_signature(conditions)
                 lines = lines.filtered(lambda line: spec_line_model._condition_signature([
@@ -196,6 +240,14 @@ class DiecutCatalogSourceDocumentApplyFix(models.Model):
                 ]) == target_signature)
             elif conditions:
                 lines = lines.filtered(lambda line: line.condition_ids)
+            elif merged_test_condition:
+                lines = lines.filtered(
+                    lambda line: spec_line_model._clean_placeholder_text(line.test_condition) == merged_test_condition
+                )
+            else:
+                lines = lines.filtered(
+                    lambda line: not spec_line_model._clean_placeholder_text(line.test_condition)
+                )
             matched = bool(lines[:1])
             if matched:
                 applied += 1
@@ -245,6 +297,7 @@ class DiecutCatalogSourceDocumentApplyFix(models.Model):
             if not param_key:
                 continue
             normalize_optional = param_model._normalize_optional_text
+            canonical_is_main, canonical_main_field_name = self._canonical_main_field_route(param_key)
             method_html = row.get("method_html") or False
             description = normalize_optional(row.get("description"))
             if not description and method_html:
@@ -262,8 +315,8 @@ class DiecutCatalogSourceDocumentApplyFix(models.Model):
                 "canonical_name_en": normalize_optional(row.get("canonical_name_en")),
                 "aliases_text": normalize_optional(row.get("aliases_text")),
                 "parse_hint": normalize_optional(row.get("parse_hint")),
-                "is_main_field": bool(row.get("is_main_field")),
-                "main_field_name": row.get("main_field_name") or False,
+                "is_main_field": canonical_is_main if canonical_is_main else bool(row.get("is_main_field")),
+                "main_field_name": canonical_main_field_name or row.get("main_field_name") or False,
             }
             if row.get("spec_category_name"):
                 spec_category = category_model.search([("name", "=", str(row["spec_category_name"]).strip())], limit=1)
@@ -294,9 +347,15 @@ class DiecutCatalogSourceDocumentApplyFix(models.Model):
             vals = {
                 "brand_id": brand.id,
                 "name": series_name,
-                "product_features": row.get("product_features") or False,
-                "product_description": row.get("product_description") or False,
-                "main_applications": row.get("main_applications") or False,
+                "product_features": self._normalize_series_text_field(
+                    self._pick_first_non_empty(row.get("product_features"), row.get("features"))
+                ),
+                "product_description": self._normalize_series_text_field(
+                    self._pick_first_non_empty(row.get("product_description"), row.get("description"))
+                ),
+                "main_applications": self._normalize_series_applications_field(
+                    self._pick_first_non_empty(row.get("main_applications"), row.get("applications"))
+                ),
             }
             if series:
                 series.write(vals)
@@ -358,7 +417,6 @@ class DiecutCatalogSourceDocumentApplyFix(models.Model):
                 "name": row.get("name") or code,
                 "categ_id": categ.id if categ else False,
                 "series_id": series.id if series else False,
-                "series_text": series.name if series else series_name or False,
                 "catalog_status": row.get("catalog_status") or "draft",
             }
             item = item_model.search([("brand_id", "=", brand.id), ("code", "=", code)], limit=1)
@@ -374,6 +432,7 @@ class DiecutCatalogSourceDocumentApplyFix(models.Model):
         for (_brand_id, code), item in item_map.items():
             fallback_code_map.setdefault(code, []).append(item)
 
+        expected_spec_identities = {}
         for row in payload.get("spec_values") or []:
             apply_stats["spec_values_total"] += 1
             item, fallback_used, code = self._resolve_spec_target_item(row, item_map, fallback_code_map)
@@ -407,12 +466,22 @@ class DiecutCatalogSourceDocumentApplyFix(models.Model):
                 continue
 
             try:
+                merged_test_condition = self._merge_spec_condition_text(
+                    row.get("test_condition"),
+                    row.get("condition_summary"),
+                )
+                identity_key = self._spec_line_identity_key(
+                    spec_line_model=self.env["diecut.catalog.item.spec.line"],
+                    conditions=row.get("conditions") or [],
+                    test_condition=merged_test_condition,
+                )
+                expected_spec_identities.setdefault((item.id, param.id), set()).add(identity_key)
                 item.apply_param_payload(
                     param=param,
                     raw_value=normalized_value,
                     unit=row.get("unit"),
                     test_method=row.get("test_method"),
-                    test_condition=row.get("test_condition"),
+                    test_condition=merged_test_condition,
                     remark=row.get("remark"),
                     source_document=self,
                     source_excerpt=row.get("source_excerpt"),
@@ -435,6 +504,32 @@ class DiecutCatalogSourceDocumentApplyFix(models.Model):
                         "fallback_attempted": bool(fallback_used),
                     }
                 )
+
+        spec_line_model = self.env["diecut.catalog.item.spec.line"].sudo()
+        for (item_id, param_id), expected_keys in expected_spec_identities.items():
+            stale_lines = spec_line_model.search(
+                [
+                    ("catalog_item_id", "=", item_id),
+                    ("param_id", "=", param_id),
+                    ("source_document_id", "=", self.id),
+                    ("is_ai_generated", "=", True),
+                ]
+            ).filtered(
+                lambda line: self._spec_line_identity_key(
+                    spec_line_model=spec_line_model,
+                    conditions=[
+                        {
+                            "condition_key": condition.condition_key,
+                            "condition_value": condition.condition_value,
+                        }
+                        for condition in line.condition_ids
+                    ],
+                    test_condition=line.test_condition,
+                )
+                not in expected_keys
+            )
+            if stale_lines:
+                stale_lines.unlink()
 
         if hasattr(self, "_extract_and_apply_method_images"):
             self._extract_and_apply_method_images(param_keys=set(param_map.keys()))

@@ -266,6 +266,311 @@
     border-top: 0;
 }
 
+.o_form_view .o_diecut_primary_section,
+.o_form_view .o_diecut_selection_section,
+.o_form_view .o_diecut_primary_section > .o_inner_group,
+.o_form_view .o_diecut_primary_section_body,
+.o_form_view .o_diecut_selection_section > .o_inner_group,
+.o_form_view .o_diecut_selection_section_body {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+
+.o_form_view .o_diecut_primary_section > .o_inner_group,
+.o_form_view .o_diecut_primary_section_body,
+.o_form_view .o_diecut_selection_section > .o_inner_group,
+.o_form_view .o_diecut_selection_section_body {
+    margin-left: 36px;
+    padding: 2px 0 2px 18px;
+    border-left: 3px solid #c7d7f2;
+    background: linear-gradient(90deg, rgba(239, 244, 255, 0.75) 0%, rgba(239, 244, 255, 0) 78%);
+    border-radius: 4px 0 0 4px;
+    font-size: 13px;
+    line-height: 1.25;
+}
+
+.o_form_view .o_diecut_primary_section > .o_horizontal_separator,
+.o_form_view .o_diecut_selection_section > .o_horizontal_separator {
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.o_form_view .o_diecut_primary_section > .o_inner_group > .o_group,
+.o_form_view .o_diecut_primary_section_body > .o_group,
+.o_form_view .o_diecut_selection_section > .o_inner_group > .o_group,
+.o_form_view .o_diecut_selection_section_body > .o_group {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 3px;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_group .o_wrap_label,
+.o_form_view .o_diecut_primary_section_body .o_group .o_cell,
+.o_form_view .o_diecut_selection_section_body .o_group .o_wrap_label,
+.o_form_view .o_diecut_selection_section_body .o_group .o_cell {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 13px;
+    line-height: 1.25;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_group .o_wrap_label,
+.o_form_view .o_diecut_selection_section_body .o_group .o_wrap_label {
+    min-height: 22px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    line-height: 1.25;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_group .o_field_widget,
+.o_form_view .o_diecut_primary_section_body .o_group .o_input,
+.o_form_view .o_diecut_primary_section_body .o_group .o_input_dropdown,
+.o_form_view .o_diecut_selection_section_body .o_group .o_field_widget,
+.o_form_view .o_diecut_selection_section_body .o_group .o_input,
+.o_form_view .o_diecut_selection_section_body .o_group .o_input_dropdown {
+    min-height: 22px;
+    font-size: 13px;
+    line-height: 1.25;
+}
+
+.o_form_view .o_diecut_primary_section_body > .o_group > .o_horizontal_separator,
+.o_form_view .o_diecut_selection_section_body > .o_group > .o_horizontal_separator {
+    margin-bottom: 6px;
+    font-size: 13px;
+    line-height: 1.25;
+}
+
+.o_form_view .o_diecut_primary_section_body > .o_group:not(:last-child),
+.o_form_view .o_diecut_selection_section_body > .o_group:not(:last-child) {
+    padding-bottom: 2px;
+    margin-bottom: 6px;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_tag_stack,
+.o_form_view .o_diecut_selection_section_body .o_diecut_tag_stack {
+    width: 100%;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_tag_stack > .o_group,
+.o_form_view .o_diecut_selection_section_body .o_diecut_tag_stack > .o_group {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+    margin-bottom: 4px;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_tag_stack > .o_group:last-child,
+.o_form_view .o_diecut_selection_section_body .o_diecut_tag_stack > .o_group:last-child {
+    margin-bottom: 0;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_tag_stack .o_wrap_field,
+.o_form_view .o_diecut_selection_section_body .o_diecut_tag_stack .o_wrap_field,
+.o_form_view .o_diecut_primary_section_body .o_diecut_tag_stack .o_field_widget,
+.o_form_view .o_diecut_selection_section_body .o_diecut_tag_stack .o_field_widget {
+    width: 100%;
+    max-width: 100%;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_tag_stack .o_field_many2many_tags,
+.o_form_view .o_diecut_selection_section_body .o_diecut_tag_stack .o_field_many2many_tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 0;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_tag_stack .badge,
+.o_form_view .o_diecut_primary_section_body .o_diecut_tag_stack .o_tag,
+.o_form_view .o_diecut_selection_section_body .o_diecut_tag_stack .badge,
+.o_form_view .o_diecut_selection_section_body .o_diecut_tag_stack .o_tag {
+    max-width: 100%;
+    white-space: normal;
+    font-size: 13px;
+    line-height: 1.25;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_reference_stack .o_wrap_label,
+.o_form_view .o_diecut_selection_section_body .o_diecut_reference_stack .o_wrap_label {
+    display: flex !important;
+    align-items: flex-start;
+    align-self: flex-start;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    min-height: 0;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_reference_stack > .o_group,
+.o_form_view .o_diecut_selection_section_body .o_diecut_reference_stack > .o_group {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+    margin-bottom: 6px;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_reference_stack > .o_group:last-child,
+.o_form_view .o_diecut_selection_section_body .o_diecut_reference_stack > .o_group:last-child {
+    margin-bottom: 0;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_reference_stack .o_cell,
+.o_form_view .o_diecut_selection_section_body .o_diecut_reference_stack .o_cell {
+    display: flex !important;
+    align-items: flex-start !important;
+    align-self: flex-start !important;
+    padding-top: 0 !important;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_reference_stack .o_field_widget,
+.o_form_view .o_diecut_selection_section_body .o_diecut_reference_stack .o_field_widget,
+.o_form_view .o_diecut_primary_section_body .o_diecut_reference_stack .o_readonly_modifier,
+.o_form_view .o_diecut_selection_section_body .o_diecut_reference_stack .o_readonly_modifier {
+    min-height: 0;
+    align-self: flex-start !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_reference_stack .o_field_html,
+.o_form_view .o_diecut_selection_section_body .o_diecut_reference_stack .o_field_html,
+.o_form_view .o_diecut_primary_section_body .o_diecut_reference_stack .o_field_widget[name="main_applications"],
+.o_form_view .o_diecut_selection_section_body .o_diecut_reference_stack .o_field_widget[name="main_applications"] {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    align-self: flex-start !important;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_reference_stack ul,
+.o_form_view .o_diecut_selection_section_body .o_diecut_reference_stack ul {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+.o_form_view .o_diecut_primary_section_body .o_diecut_reference_stack p,
+.o_form_view .o_diecut_selection_section_body .o_diecut_reference_stack p,
+.o_form_view .o_diecut_primary_section_body .o_diecut_reference_stack div,
+.o_form_view .o_diecut_selection_section_body .o_diecut_reference_stack div {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    align-self: flex-start !important;
+}
+
+.o_form_view .o_diecut_reference_rows {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+}
+
+.o_form_view .o_diecut_reference_row {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    column-gap: 16px;
+    align-items: start !important;
+    width: 100%;
+}
+
+.o_form_view .o_diecut_reference_label {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.25 !important;
+    align-self: start !important;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.o_form_view .o_diecut_reference_value,
+.o_form_view .o_diecut_reference_value .o_field_widget,
+.o_form_view .o_diecut_reference_value .o_readonly_modifier,
+.o_form_view .o_diecut_reference_value .o_field_html {
+    margin: 0 !important;
+    padding: 0 !important;
+    min-width: 0;
+    align-self: start !important;
+    line-height: 1.25 !important;
+    vertical-align: top !important;
+    font-size: 13px;
+}
+
+.o_form_view .o_diecut_reference_value ul,
+.o_form_view .o_diecut_reference_value p,
+.o_form_view .o_diecut_reference_value div {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    vertical-align: top !important;
+}
+
+.o_form_view .o_diecut_reference_value .o_field_html *,
+.o_form_view .o_diecut_reference_value .o_readonly_modifier *,
+.o_form_view .o_diecut_reference_value .o_field_widget * {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    vertical-align: top !important;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.o_form_view .o_diecut_reference_value ul {
+    padding-left: 18px !important;
+}
+
+.o_form_view .o_diecut_primary_section > .o_inner_group > .o_group:last-child,
+.o_form_view .o_diecut_primary_section_body > .o_group:last-child,
+.o_form_view .o_diecut_selection_section > .o_inner_group > .o_group:last-child,
+.o_form_view .o_diecut_selection_section_body > .o_group:last-child {
+    margin-bottom: 0;
+}
+
+.o_form_view .o_diecut_primary_section_technical > .o_inner_group,
+.o_form_view .o_diecut_primary_section_body_technical {
+    margin-left: 0;
+    padding: 6px 0 0 0;
+    border-left: 0;
+    background: transparent;
+    border-radius: 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+.o_form_view .o_diecut_primary_section_body_technical .o_wrap_field,
+.o_form_view .o_diecut_primary_section_body_technical .o_field_x2many {
+    width: 100% !important;
+    max-width: 100%;
+    flex: 0 0 100%;
+}
+
+.o_form_view .o_diecut_primary_section_body_technical .o_field_widget,
+.o_form_view .o_diecut_primary_section_body_technical .o_field_x2many .o_list_renderer,
+.o_form_view .o_diecut_primary_section_body_technical .o_field_x2many .table-responsive,
+.o_form_view .o_diecut_primary_section_body_technical .o_field_x2many .o_x2many_list,
+.o_form_view .o_diecut_primary_section_body_technical .o_field_x2many .o_list_table {
+    width: 100% !important;
+    max-width: 100%;
+}
+
+.o_form_view .o_diecut_primary_section_body_technical > .o_group {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    max-width: 100%;
+}
+
+.o_form_view .o_diecut_primary_section_body_technical,
+.o_form_view .o_diecut_primary_section_body_technical .o_field_widget,
+.o_form_view .o_diecut_primary_section_body_technical .o_readonly_modifier,
+.o_form_view .o_diecut_primary_section_body_technical .o_list_table,
+.o_form_view .o_diecut_primary_section_body_technical .o_list_table th,
+.o_form_view .o_diecut_primary_section_body_technical .o_list_table td {
+    font-size: 13px;
+    line-height: 1.25;
+}
+
 @media (max-width: 1199px) {
     .o_diecut_split_renderer {
         grid-template-columns: 1fr !important;
@@ -275,5 +580,35 @@
     .o_diecut_split_panel {
         border-left: 0;
         border-top: 1px solid #d7dde5;
+    }
+
+    .o_form_view .o_diecut_primary_section > .o_inner_group,
+    .o_form_view .o_diecut_primary_section_body,
+    .o_form_view .o_diecut_selection_section > .o_inner_group,
+    .o_form_view .o_diecut_selection_section_body {
+        margin-left: 14px;
+        padding: 6px 0 6px 14px;
+    }
+
+    .o_form_view .o_diecut_primary_section_technical > .o_inner_group,
+    .o_form_view .o_diecut_primary_section_body_technical {
+        margin-left: 0;
+        padding-left: 0;
+    }
+
+    .o_form_view .o_diecut_primary_section_body > .o_group > .o_horizontal_separator,
+    .o_form_view .o_diecut_selection_section_body > .o_group > .o_horizontal_separator {
+        margin-bottom: 10px;
+    }
+
+    .o_form_view .o_diecut_primary_section_body > .o_group:not(:last-child),
+    .o_form_view .o_diecut_selection_section_body > .o_group:not(:last-child) {
+        padding-bottom: 6px;
+        margin-bottom: 10px;
+    }
+
+    .o_form_view .o_diecut_primary_section > .o_horizontal_separator,
+    .o_form_view .o_diecut_selection_section > .o_horizontal_separator {
+        margin-bottom: 10px;
     }
 }

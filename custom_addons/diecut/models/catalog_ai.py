@@ -1,15 +1,12 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
-import base64
 import html
 import json
 import mimetypes
-import os
 import re
-from io import BytesIO
 
 from odoo import api, fields, models
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import ValidationError
 
 from ..tools import (
     find_suspicious_text_entries,
@@ -61,6 +58,7 @@ class DiecutCatalogSourceDocument(models.Model):
     _order = "create_date desc, id desc"
 
     _DRAFT_BUCKETS = ("series", "items", "params", "category_params", "spec_values", "unmatched")
+    _PLACEHOLDER_TEXTS = {"false", "none", "null", "nil", "n/a", "na"}
 
     name = fields.Char(string="标题", required=True, tracking=True)
     active = fields.Boolean(string="启用", default=True)
@@ -78,7 +76,7 @@ class DiecutCatalogSourceDocument(models.Model):
     )
     source_url = fields.Char(string="来源 URL")
     source_file = fields.Binary(string="兼容文件入口", attachment=True)
-    source_filename = fields.Char(string="文件名")
+    source_filename = fields.Char(string="源文件名")
     primary_attachment_id = fields.Many2one(
         "ir.attachment",
         string="主解析附件",
@@ -91,8 +89,8 @@ class DiecutCatalogSourceDocument(models.Model):
     categ_id = fields.Many2one("product.category", string="建议分类", index=True)
     skill_profile = fields.Char(string="Skill 配置", default="generic_tds_v1+diecut_domain_v1", tracking=True)
     brand_skill_name = fields.Char(string="品牌 Skill", tracking=True)
-    context_used = fields.Text(string="上下文快照", readonly=True)
-    raw_text = fields.Text(string="原始文本")
+    context_used = fields.Text(string="Copilot 上下文", readonly=True)
+    raw_text = fields.Text(string="原文文本")
     parse_version = fields.Char(string="解析版本", default="draft-v1")
     import_status = fields.Selection(
         [
@@ -100,7 +98,7 @@ class DiecutCatalogSourceDocument(models.Model):
             ("extracted", "已提取"),
             ("generated", "已生成"),
             ("validated", "已校验"),
-            ("review", "待确认"),
+            ("review", "待复核"),
             ("applied", "已入库"),
             ("rejected", "已驳回"),
         ],
@@ -109,9 +107,9 @@ class DiecutCatalogSourceDocument(models.Model):
         tracking=True,
     )
     extracted_image = fields.Binary(string="提取图片", attachment=True)
-    extracted_image_filename = fields.Char(string="图片文件名")
+    extracted_image_filename = fields.Char(string="提取图片文件名")
     draft_payload = fields.Text(
-        string="结构化草稿",
+        string="结构化草稿JSON",
         help="JSON 结构：series/items/params/category_params/spec_values/unmatched",
     )
     result_message = fields.Text(string="处理结果")
@@ -119,6 +117,243 @@ class DiecutCatalogSourceDocument(models.Model):
     draft_summary = fields.Text(string="草稿摘要", compute="_compute_draft_preview")
     draft_preview_html = fields.Html(string="结构化预览", compute="_compute_draft_preview", sanitize=False)
     line_count = fields.Integer(string="关联参数值数", compute="_compute_line_count")
+
+    _RETIRED_CHATTER_AI_COLUMNS = (
+        "draft_prev_payload",
+        "draft_revision_count",
+        "last_revision_instruction",
+        "ai_refine_in_progress",
+    )
+    _RETIRED_CHATTER_AI_CONFIG_KEYS = (
+        "diecut.ai_mode_auto_enabled",
+        "diecut.ai_mode_qa_partner_xmlid",
+        "diecut.ai_mode_refine_partner_xmlid",
+        "diecut.ai_qa_reply_lang",
+        "diecut.ai_qa_aliases",
+        "diecut.ai_refine_aliases",
+    )
+    _RETIRED_CHATTER_AI_XMLIDS = (
+        "partner_ai_qa",
+        "partner_ai_refine",
+        "user_ai_qa",
+        "user_ai_refine",
+        "config_ai_mode_auto_enabled",
+        "config_ai_mode_qa_partner_xmlid",
+        "config_ai_mode_refine_partner_xmlid",
+        "config_ai_qa_reply_lang",
+        "config_ai_qa_aliases",
+    )
+    _RETIRED_CHATTER_AI_MESSAGE_PATTERNS = (
+        "@AI",
+        "@AI闂瓟",
+        "@AI淇",
+        "@Copilot",
+        "@TDS鍔╂墜",
+    )
+    _RETIRED_LEGACY_AI_COLUMNS = (
+        "vision_payload",
+        "worker_run_id",
+        "worker_id",
+        "queued_at",
+        "processing_started_at",
+        "parsed_at",
+        "failed_at",
+        "worker_attempt_count",
+        "worker_last_error_code",
+        "worker_last_error_message",
+        "worker_debug_payload",
+    )
+    _RETIRED_LEGACY_AI_XMLIDS = (
+        "menu_material_catalog_ai_settings",
+        "action_diecut_ai_settings_wizard",
+        "view_diecut_ai_settings_wizard_form",
+        "access_diecut_ai_settings_wizard",
+    )
+
+    @api.model
+    def _table_exists(self, table_name):
+        self.env.cr.execute(
+            """
+            SELECT 1
+              FROM information_schema.tables
+             WHERE table_name = %s
+            """,
+            (table_name,),
+        )
+        return bool(self.env.cr.fetchone())
+
+    @api.model
+    def _column_exists(self, table_name, column_name):
+        self.env.cr.execute(
+            """
+            SELECT 1
+              FROM information_schema.columns
+             WHERE table_name = %s
+               AND column_name = %s
+            """,
+            (table_name, column_name),
+        )
+        return bool(self.env.cr.fetchone())
+
+    @api.model
+    def _cleanup_retired_chatter_ai_artifacts(self):
+        cr = self.env.cr
+
+        cr.execute(
+            """
+            DELETE FROM ir_config_parameter
+             WHERE key = ANY(%s)
+            """,
+            (list(self._RETIRED_CHATTER_AI_CONFIG_KEYS),),
+        )
+        cr.execute(
+            """
+            DELETE FROM ir_model_fields
+             WHERE model = %s
+               AND name = ANY(%s)
+            """,
+            (self._name, list(self._RETIRED_CHATTER_AI_COLUMNS)),
+        )
+
+        partner_ids = []
+        user_ids = []
+        cr.execute(
+            """
+            SELECT model, res_id
+              FROM ir_model_data
+             WHERE module = %s
+               AND name = ANY(%s)
+            """,
+            ("diecut", list(self._RETIRED_CHATTER_AI_XMLIDS)),
+        )
+        for model_name, res_id in cr.fetchall():
+            if model_name == "res.partner":
+                partner_ids.append(res_id)
+            elif model_name == "res.users":
+                user_ids.append(res_id)
+
+        message_domain = [
+            "|",
+            ("author_id", "in", partner_ids or [0]),
+            "&",
+            ("model", "in", ["diecut.catalog.source.document", "discuss.channel"]),
+            "|",
+            "|",
+            "|",
+            "|",
+            ("body", "ilike", self._RETIRED_CHATTER_AI_MESSAGE_PATTERNS[0]),
+            ("body", "ilike", self._RETIRED_CHATTER_AI_MESSAGE_PATTERNS[1]),
+            ("body", "ilike", self._RETIRED_CHATTER_AI_MESSAGE_PATTERNS[2]),
+            ("body", "ilike", self._RETIRED_CHATTER_AI_MESSAGE_PATTERNS[3]),
+            ("body", "ilike", self._RETIRED_CHATTER_AI_MESSAGE_PATTERNS[4]),
+        ]
+        retired_messages = self.env["mail.message"].sudo().with_context(tracking_disable=True).search(message_domain)
+        if retired_messages:
+            retired_messages.unlink()
+
+        if partner_ids and self._table_exists("discuss_channel_member"):
+            cr.execute(
+                """
+                SELECT DISTINCT channel_id
+                  FROM discuss_channel_member
+                 WHERE partner_id = ANY(%s)
+                """,
+                (partner_ids,),
+            )
+            channel_ids = [row[0] for row in cr.fetchall() if row and row[0]]
+            if channel_ids:
+                cr.execute(
+                    """
+                    DELETE FROM discuss_channel_member
+                     WHERE channel_id = ANY(%s)
+                    """,
+                    (channel_ids,),
+                )
+                if self._table_exists("discuss_channel"):
+                    cr.execute(
+                        """
+                        DELETE FROM discuss_channel
+                         WHERE id = ANY(%s)
+                        """,
+                        (channel_ids,),
+                    )
+
+        if user_ids:
+            cr.execute(
+                """
+                UPDATE res_users
+                   SET active = FALSE
+                 WHERE id = ANY(%s)
+                """,
+                (user_ids,),
+            )
+        if partner_ids:
+            cr.execute(
+                """
+                UPDATE res_partner
+                   SET active = FALSE
+                 WHERE id = ANY(%s)
+                """,
+                (partner_ids,),
+            )
+
+        cr.execute(
+            """
+            DELETE FROM ir_model_data
+             WHERE module = %s
+               AND name = ANY(%s)
+            """,
+            ("diecut", list(self._RETIRED_CHATTER_AI_XMLIDS)),
+        )
+
+    @api.model
+    def _cleanup_retired_legacy_ai_artifacts(self):
+        cr = self.env.cr
+        cr.execute(
+            """
+            DELETE FROM ir_config_parameter
+             WHERE key = %s
+                OR key LIKE %s
+            """,
+            ("diecut.tds_copilot_api_token", "diecut.ai_tds_%"),
+        )
+        if self._table_exists("ir_model_data"):
+            self.env.cr.execute(
+                """
+                SELECT model, res_id
+                  FROM ir_model_data
+                 WHERE module = %s
+                   AND name = ANY(%s)
+                """,
+                ("diecut", list(self._RETIRED_LEGACY_AI_XMLIDS)),
+            )
+            for model_name, res_id in cr.fetchall():
+                if not model_name or not res_id:
+                    continue
+                self.env[model_name].sudo().browse(res_id).exists().unlink()
+            cr.execute(
+                """
+                DELETE FROM ir_model_data
+                 WHERE module = %s
+                   AND name = ANY(%s)
+                """,
+                ("diecut", list(self._RETIRED_LEGACY_AI_XMLIDS)),
+            )
+
+    def init(self):
+        super().init()
+        self._cleanup_retired_chatter_ai_artifacts()
+        self._cleanup_retired_legacy_ai_artifacts()
+        for column_name in self._RETIRED_CHATTER_AI_COLUMNS:
+            if self._column_exists(self._table, column_name):
+                self.env.cr.execute(
+                    f'ALTER TABLE {self._table} DROP COLUMN IF EXISTS "{column_name}"'
+                )
+        for column_name in self._RETIRED_LEGACY_AI_COLUMNS:
+            if self._column_exists(self._table, column_name):
+                self.env.cr.execute(
+                    f'ALTER TABLE {self._table} DROP COLUMN IF EXISTS "{column_name}"'
+                )
 
     @api.depends("message_ids", "primary_attachment_id")
     def _compute_attachment_info(self):
@@ -153,6 +388,7 @@ class DiecutCatalogSourceDocument(models.Model):
     @api.model
     def _main_field_whitelist(self):
         return [
+            "manufacturer_id",
             "thickness",
             "thickness_std",
             "adhesive_thickness",
@@ -194,6 +430,14 @@ class DiecutCatalogSourceDocument(models.Model):
         brand_skill = self._resolve_brand_skill_name()
         skill_profile = (self.skill_profile or "generic_tds_v1+diecut_domain_v1").strip()
         skill_bundle = load_skill_bundle(skill_profile, brand_skill)
+        heuristic_snapshot = False
+        if base_payload:
+            enrichment_builder = getattr(type(self), "_build_ai_enrichment_context", None)
+            if enrichment_builder:
+                try:
+                    heuristic_snapshot = enrichment_builder(self, base_payload)
+                except Exception:
+                    heuristic_snapshot = False
         return {
             "skill_profile": skill_profile,
             "brand_skill": brand_skill or False,
@@ -209,7 +453,7 @@ class DiecutCatalogSourceDocument(models.Model):
             "main_field_whitelist": self._main_field_whitelist(),
             "category_param_snapshot": self._build_category_param_snapshot(),
             "param_dictionary_snapshot": self._build_param_context() if hasattr(self, "_build_param_context") else [],
-            "heuristic_snapshot": self._build_ai_enrichment_context(base_payload) if base_payload else False,
+            "heuristic_snapshot": heuristic_snapshot,
         }
 
     @api.depends("message_ids")
@@ -268,7 +512,7 @@ class DiecutCatalogSourceDocument(models.Model):
             rows = payload.get(bucket) or []
             html_parts.append(f"<h3 style='margin:16px 0 8px 0;'>{label}</h3>")
             if not rows:
-                html_parts.append("<div style='color:#999;margin-bottom:12px;'>无</div>")
+                html_parts.append("<div style='color:#999;margin-bottom:12px;'>鏃?/div>")
                 continue
             if bucket == "unmatched":
                 html_parts.append("<ul style='margin:0 0 16px 18px;padding:0;'>")
@@ -277,7 +521,7 @@ class DiecutCatalogSourceDocument(models.Model):
                     html_parts.append(f"<li style='margin-bottom:6px;white-space:pre-wrap;'>{excerpt}</li>")
                 html_parts.append("</ul>")
                 if len(rows) > 20:
-                    html_parts.append(f"<div style='color:#999;'>其余 {len(rows) - 20} 条请查看原始 JSON。</div>")
+                    html_parts.append(f"<div style='color:#999;'>鍏朵綑 {len(rows) - 20} 鏉¤鏌ョ湅鍘熷 JSON銆?/div>")
                 continue
 
             columns = []
@@ -311,7 +555,7 @@ class DiecutCatalogSourceDocument(models.Model):
                 html_parts.append("</tr>")
             html_parts.append("</tbody></table>")
             if len(rows) > 20:
-                html_parts.append(f"<div style='color:#999;margin-bottom:12px;'>其余 {len(rows) - 20} 条请查看原始 JSON。</div>")
+                html_parts.append(f"<div style='color:#999;margin-bottom:12px;'>鍏朵綑 {len(rows) - 20} 鏉¤鏌ョ湅鍘熷 JSON銆?/div>")
         return "".join(html_parts)
 
     @api.depends("draft_payload", "unmatched_payload")
@@ -326,7 +570,7 @@ class DiecutCatalogSourceDocument(models.Model):
             counts = {bucket: len(payload.get(bucket) or []) for bucket in self._DRAFT_BUCKETS}
             record.draft_summary = (
                 f"系列 {counts['series']} 条，型号 {counts['items']} 条，参数 {counts['params']} 条，"
-                f"分类参数 {counts['category_params']} 条，参数值 {counts['spec_values']} 条，未识别 {counts['unmatched']} 条。"
+                f"分类参数 {counts['category_params']} 条，参数值 {counts['spec_values']} 条，未识别 {counts['unmatched']} 条"
             )
             record.draft_preview_html = record._build_draft_preview_html(payload)
 
@@ -349,14 +593,15 @@ class DiecutCatalogSourceDocument(models.Model):
                 ("brand_name", "品牌"),
                 ("series_name", "系列"),
                 ("name", "系列标题"),
-                ("product_description", "产品描述"),
-                ("main_applications", "主要应用"),
+                ("series_description", "产品描述"),
+                ("series_features", "产品特性"),
+                ("series_applications", "主要应用"),
             ],
             "items": [
                 ("brand_name", "品牌"),
                 ("code", "型号"),
                 ("name", "名称"),
-                ("catalog_status", "状态"),
+                ("catalog_status", "目录状态"),
                 ("thickness", "厚度"),
                 ("color_name", "颜色"),
                 ("adhesive_type_name", "胶系"),
@@ -368,6 +613,7 @@ class DiecutCatalogSourceDocument(models.Model):
                 ("spec_category_name", "参数分类"),
                 ("value_type", "值类型"),
                 ("preferred_unit", "单位"),
+                ("dictionary_status", "参数状态"),
                 ("route_label", "写入位置"),
                 ("method_summary", "方法摘要"),
             ],
@@ -390,7 +636,7 @@ class DiecutCatalogSourceDocument(models.Model):
                 ("remark", "备注"),
             ],
             "unmatched": [
-                ("excerpt", "未识别内容"),
+                ("excerpt", "原文片段"),
                 ("reason", "原因"),
                 ("candidate_param_key", "候选参数键"),
             ],
@@ -402,11 +648,19 @@ class DiecutCatalogSourceDocument(models.Model):
         if not isinstance(row, dict):
             return row or ""
         boolean_columns = {"required", "show_in_form", "allow_import", "is_main_field", "active", "candidate_new"}
+        if bucket == "series" and column == "series_description":
+            return self._series_description_text(row)
+        if bucket == "series" and column == "series_features":
+            return self._series_features_text(row)
+        if bucket == "series" and column == "series_applications":
+            return self._series_applications_text(row)
+        if bucket == "params" and column == "dictionary_status":
+            return self._preview_param_dictionary_status(row)
         if bucket == "params" and column == "route_label":
             if row.get("is_main_field"):
                 field_name = row.get("main_field_name") or ""
-                return f"主表字段 / {field_name}" if field_name else "主表字段"
-            return "参数值表"
+                return f"涓昏〃瀛楁 / {field_name}" if field_name else "涓昏〃瀛楁"
+            return "鍙傛暟鍊艰〃"
         if bucket == "params" and column == "method_summary":
             return self._strip_html_markup(row.get("method_html"))[:120]
         if bucket == "params" and column == "spec_category_name":
@@ -425,21 +679,21 @@ class DiecutCatalogSourceDocument(models.Model):
             direct = row.get("display_value")
             if direct not in (False, None, ""):
                 return direct
-            for key in ("value", "value_text", "raw_value_text", "value_char", "value_float", "value_selection"):
+            for key in ("value", "value_display", "value_raw", "value_text", "raw_value_text", "value_char", "value_float", "value_selection"):
                 candidate = row.get(key)
                 if candidate not in (False, None, ""):
                     return candidate
             if row.get("value_boolean") is True:
-                return "是"
+                return "?"
             if row.get("value_boolean") is False and "value_boolean" in row:
-                return "否"
+                return "?"
             return ""
         if column == "excerpt":
             return row.get("excerpt") or row.get("text") or row.get("raw") or ""
         value = row.get(column)
         if isinstance(value, bool):
             if column in boolean_columns:
-                return "是" if value else "否"
+                return "?" if value else "?"
             return ""
         if isinstance(value, (list, tuple)):
             return ", ".join(str(item) for item in value if item not in (False, None, ""))
@@ -470,7 +724,7 @@ class DiecutCatalogSourceDocument(models.Model):
             html_parts.append("</tr>")
         html_parts.append("</tbody></table>")
         if len(rows) > 20:
-            html_parts.append(f"<div style='color:#999;margin-bottom:12px;'>其余 {len(rows) - 20} 条请查看原始 JSON。</div>")
+            html_parts.append(f"<div style='color:#999;margin-bottom:12px;'>另有 {len(rows) - 20} 条记录未展示，请查看原始 JSON。</div>")
         return "".join(html_parts)
 
     def _build_draft_preview_html(self, payload):
@@ -496,8 +750,8 @@ class DiecutCatalogSourceDocument(models.Model):
             (
                 "<div style='margin-bottom:12px;padding:10px 12px;background:#f8fbff;border:1px solid #d8e8ff;"
                 "border-radius:8px;color:#36506b;'>"
-                "这里展示的是人工校验视图，已按业务结构拆成可读表格。默认只显示前 20 条记录；"
-                "如果需要完整结构，请再查看“原始 JSON”。"
+                "这里显示的是人工校验视图，已按业务结构拆成可读表格。默认只显示前 20 条记录，"
+                "如需完整结构，请查看“原始 JSON”。"
                 "</div>"
             ),
         ]
@@ -546,235 +800,12 @@ class DiecutCatalogSourceDocument(models.Model):
         text = text.replace("\x00", "")
         text = re.sub(r"[ \t]+", " ", text)
         text = re.sub(r"\n{3,}", "\n\n", text)
-        return text.strip() or False
-
-    @staticmethod
-    def _decode_binary_field(binary_value):
-        if not binary_value:
-            return b""
-        if isinstance(binary_value, bytes):
-            return base64.b64decode(binary_value)
-        return base64.b64decode(binary_value.encode())
-
-    def _read_attachment_bytes(self, attachment):
-        self.ensure_one()
-        if not attachment:
-            return b""
-        if attachment.datas:
-            return self._decode_binary_field(attachment.datas)
-        if attachment.store_fname:
-            return attachment._file_read(attachment.store_fname)
-        return b""
-
-    def _extract_text_from_pdf(self, payload_bytes):
-        text_parts = []
-        try:
-            import pdfplumber
-        except ImportError:
-            pdfplumber = None
-        if pdfplumber:
-            with pdfplumber.open(BytesIO(payload_bytes)) as pdf:
-                for page in pdf.pages:
-                    page_text = self._clean_text(page.extract_text() or "")
-                    if page_text:
-                        text_parts.append(page_text)
-        else:
-            try:
-                from PyPDF2 import PdfReader
-            except ImportError as exc:
-                raise UserError("当前环境未安装 pdfplumber 或 PyPDF2，无法提取 PDF 文本。") from exc
-            reader = PdfReader(BytesIO(payload_bytes))
-            for page in reader.pages:
-                page_text = self._clean_text(page.extract_text() or "")
-                if page_text:
-                    text_parts.append(page_text)
-        return self._clean_text("\n\n".join(text_parts))
-
-    def _extract_pdf_preview_image(self, payload_bytes, filename):
-        try:
-            import pypdfium2 as pdfium
-        except ImportError:
-            return False, False
-        pdf = pdfium.PdfDocument(payload_bytes)
-        try:
-            if len(pdf) < 1:
-                return False, False
-            page = pdf[0]
-            bitmap = page.render(scale=2)
-            image = bitmap.to_pil()
-            buffer = BytesIO()
-            image.save(buffer, format="JPEG", quality=90)
-            encoded = base64.b64encode(buffer.getvalue())
-            base_name = os.path.splitext(filename or "source")[0]
-            return encoded, f"{base_name}_preview.jpg"
-        finally:
-            pdf.close()
-
-    def _extract_text_from_image(self, payload_bytes, filename):
-        try:
-            from PIL import Image
-        except ImportError as exc:
-            raise UserError("当前环境未安装 Pillow，无法处理图片。") from exc
-
-        try:
-            import pytesseract
-        except ImportError:
-            pytesseract = None
-
-        if pytesseract:
-            image = Image.open(BytesIO(payload_bytes))
-            text = pytesseract.image_to_string(image, lang="eng+chi_sim")
-            return self._clean_text(text)
-        if self._has_openai_config():
-            return self._extract_text_from_image_via_openai(payload_bytes, filename)
-        raise UserError("当前环境未安装 pytesseract，且未配置 OpenAI，无法识别图片文本。")
-
-    def _extract_text_from_image_via_openai(self, payload_bytes, filename):
-        mime = mimetypes.guess_type(filename or "")[0] or "image/png"
-        data_url = "data:%s;base64,%s" % (mime, base64.b64encode(payload_bytes).decode())
-        response = self._openai_request(
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": "请只输出图片中的可读文本，不要解释，不要翻译。"},
-                        {"type": "image_url", "image_url": {"url": data_url}},
-                    ],
-                }
-            ],
-            max_tokens=2000,
-        )
-        return self._clean_text(response)
-
-    def _extract_text_from_url(self, url):
-        try:
-            import requests
-            from bs4 import BeautifulSoup
-        except ImportError as exc:
-            raise UserError("当前环境缺少 requests 或 beautifulsoup4，无法抓取网页。") from exc
-
-        resp = requests.get(url, timeout=30, headers={"User-Agent": "Mozilla/5.0"})
-        resp.raise_for_status()
-        soup = BeautifulSoup(resp.text, "html.parser")
-        for tag in soup(["script", "style", "noscript"]):
-            tag.decompose()
-        text = soup.get_text("\n", strip=True)
-        return self._clean_text(text)
-
-    def _guess_source_type_from_attachment(self, attachment):
-        mimetype = attachment.mimetype or mimetypes.guess_type(attachment.name or "")[0] or ""
-        if mimetype == "application/pdf" or (attachment.name or "").lower().endswith(".pdf"):
-            return "pdf"
-        if mimetype.startswith("image/"):
-            return "ocr"
-        return "manual"
-
-    def _extract_source_payload(self):
-        self.ensure_one()
-        attachment = self._get_effective_primary_attachment()
-        if attachment:
-            payload_bytes = self._read_attachment_bytes(attachment)
-            source_type = self._guess_source_type_from_attachment(attachment)
-            if source_type == "pdf":
-                text = self._extract_text_from_pdf(payload_bytes)
-                preview, preview_name = self._extract_pdf_preview_image(payload_bytes, attachment.name)
-            elif source_type == "ocr":
-                text = self._extract_text_from_image(payload_bytes, attachment.name)
-                preview = base64.b64encode(payload_bytes)
-                preview_name = attachment.name
-            else:
-                text = False
-                preview = False
-                preview_name = False
-            return {
-                "source_type": source_type,
-                "source_filename": attachment.name,
-                "primary_attachment_id": attachment.id,
-                "raw_text": text,
-                "extracted_image": preview,
-                "extracted_image_filename": preview_name,
-                "result_message": "原文提取完成。",
-                "parse_version": "extract-v1",
-                "import_status": "extracted",
-            }
-
-        if self.source_file:
-            payload_bytes = self._decode_binary_field(self.source_file)
-            filename = self.source_filename or self.name
-            if (filename or "").lower().endswith(".pdf"):
-                text = self._extract_text_from_pdf(payload_bytes)
-                preview, preview_name = self._extract_pdf_preview_image(payload_bytes, filename)
-                source_type = "pdf"
-            else:
-                text = self._extract_text_from_image(payload_bytes, filename)
-                preview = base64.b64encode(payload_bytes)
-                preview_name = filename
-                source_type = "ocr"
-            return {
-                "source_type": source_type,
-                "raw_text": text,
-                "extracted_image": preview,
-                "extracted_image_filename": preview_name,
-                "result_message": "原文提取完成。",
-                "parse_version": "extract-v1",
-                "import_status": "extracted",
-            }
-
-        if self.source_url:
-            return {
-                "source_type": "url",
-                "raw_text": self._extract_text_from_url(self.source_url),
-                "result_message": "网页正文提取完成。",
-                "parse_version": "extract-v1",
-                "import_status": "extracted",
-            }
-
-        if self.raw_text:
-            return {
-                "raw_text": self._clean_text(self.raw_text),
-                "result_message": "已使用现有原文内容。",
-                "parse_version": "extract-v1",
-                "import_status": "extracted",
-            }
-        raise UserError("未找到可解析的来源。请先在 chatter 上传 PDF/图片，或填写来源 URL / 原始文本。")
-
-    def _has_openai_config(self):
-        return bool(os.getenv("OPENAI_API_KEY"))
-
-    def _openai_request(self, messages, max_tokens=4000):
-        try:
-            import requests
-        except ImportError as exc:
-            raise UserError("当前环境未安装 requests，无法调用 OpenAI。") from exc
-
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            raise UserError("未配置 OPENAI_API_KEY。")
-        api_url = os.getenv("OPENAI_API_URL") or "https://api.openai.com/v1/chat/completions"
-        model = os.getenv("OPENAI_MODEL") or "gpt-4.1-mini"
-        payload = {
-            "model": model,
-            "messages": messages,
-            "temperature": 0.1,
-            "max_tokens": max_tokens,
-        }
-        resp = requests.post(
-            api_url,
-            timeout=90,
-            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-            json=payload,
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        return data["choices"][0]["message"]["content"]
-
-    @api.model
-    def _strip_json_fence(self, content):
-        text = (content or "").strip()
-        if text.startswith("```"):
-            text = re.sub(r"^```(?:json)?\s*", "", text)
-            text = re.sub(r"\s*```$", "", text)
-        return text.strip()
+        normalized = text.strip()
+        if not normalized:
+            return False
+        if normalized.casefold() in DiecutCatalogSourceDocument._PLACEHOLDER_TEXTS:
+            return False
+        return normalized
 
     def _build_param_context(self):
         params = self.env["diecut.catalog.param"].sudo().search([("active", "=", True)], order="sequence, id")
@@ -796,161 +827,6 @@ class DiecutCatalogSourceDocument(models.Model):
                 }
             )
         return rows
-
-    def _generate_draft_with_openai(self):
-        self.ensure_one()
-        text = self._clean_text(self.raw_text)
-        if not text:
-            raise UserError("请先提取原文，再生成 AI 草稿。")
-        prompt = (
-            "你是 Odoo 材料系统的 TDS 解析器。"
-            "请根据给定原文、品牌、建议分类、参数字典和主字段路由规则，"
-            "输出严格 JSON，对齐为 keys: series/items/params/category_params/spec_values/unmatched。"
-            "只允许使用已存在的 param_key；如果遇到未知参数，请放到 unmatched，"
-            "或放到 params 并标记 candidate_new=true。"
-            "如果原文包含标准测试方法、图例说明、测试步骤或判读口径，可写入 params[*].method_html。"
-            "不要输出解释文字。"
-        )
-        content = self._openai_request(
-            messages=[
-                {"role": "system", "content": prompt},
-                {
-                    "role": "user",
-                    "content": json.dumps(
-                        {
-                            "title": self.name,
-                            "brand_name": self.brand_id.name if self.brand_id else False,
-                            "category_name": self.categ_id.name if self.categ_id else False,
-                            "text": text,
-                            "param_dictionary": self._build_param_context(),
-                        },
-                        ensure_ascii=False,
-                    ),
-                },
-            ],
-            max_tokens=5000,
-        )
-        payload = json.loads(self._strip_json_fence(content))
-        return self._normalize_generated_payload(payload), "ai-v1"
-
-    @api.model
-    def _guess_series_name(self, title, text):
-        candidates = []
-        if title:
-            candidates.extend(re.findall(r"\b[A-Z]{1,5}\d{3,5}(?:[A-Z0-9-]*)\b", title.upper()))
-        if text:
-            candidates.extend(re.findall(r"\b[A-Z]{1,5}\d{3,5}(?:[A-Z0-9-]*)\b", text.upper()))
-        seen = []
-        for candidate in candidates:
-            if candidate not in seen:
-                seen.append(candidate)
-        return seen[0] if seen else (title or "未命名来源")
-
-    @api.model
-    def _find_distinct_codes(self, text):
-        if not text:
-            return []
-        matches = re.findall(r"\b[A-Z]{1,5}\d{3,5}(?:[-/#][A-Z0-9]+)?\b", text.upper())
-        codes = []
-        for match in matches:
-            if match not in codes:
-                codes.append(match)
-        return codes[:50]
-
-    @api.model
-    def _guess_global_specs(self, text):
-        lowered = (text or "").lower()
-        guessed = {}
-        if any(token in lowered for token in ("black", "黑色")):
-            guessed["color_name"] = "黑色"
-        elif any(token in lowered for token in ("white", "白色")):
-            guessed["color_name"] = "白色"
-        if any(token in lowered for token in ("acrylic foam", "丙烯酸泡棉")):
-            guessed["base_material_name"] = "丙烯酸泡棉"
-        if any(token in lowered for token in ("acrylic adhesive", "丙烯酸胶")):
-            guessed["adhesive_type_name"] = "丙烯酸胶"
-        return guessed
-
-    @api.model
-    def _extract_thickness_for_code(self, code, text):
-        if not text:
-            return False, False
-        line = next((raw_line for raw_line in text.splitlines() if code in raw_line.upper()), "")
-        mm_match = re.search(r"(\d+(?:\.\d+)?)\s*(?:mm|MM)\b", line)
-        um_match = re.search(r"(\d+(?:\.\d+)?)\s*(?:μm|um|UM)\b", line)
-        if mm_match:
-            thickness = mm_match.group(1)
-            return thickness, f"{int(round(float(thickness) * 1000))}μm"
-        if um_match:
-            um_value = float(um_match.group(1))
-            return str(round(um_value / 1000, 4)), f"{int(round(um_value))}μm"
-        return False, False
-
-    def _generate_draft_heuristic(self):
-        self.ensure_one()
-        text = self._clean_text(self.raw_text)
-        series_name = self._guess_series_name(self.name, text)
-        codes = self._find_distinct_codes(text)
-        guessed = self._guess_global_specs(text)
-        payload = {bucket: [] for bucket in self._DRAFT_BUCKETS}
-
-        payload["series"].append(
-            {
-                "brand_name": self.brand_id.name if self.brand_id else False,
-                "name": series_name,
-                "product_description": (text[:500] if text else False),
-            }
-        )
-
-        known_params = {param.param_key: param for param in self.env["diecut.catalog.param"].sudo().search([])}
-        defaults = {
-            "thickness": ("厚度", "float", "mm", True, "thickness"),
-            "thickness_std": ("厚度(标准)", "char", "μm", True, "thickness_std"),
-            "color": ("颜色", "char", False, True, "color_id"),
-            "adhesive_type": ("胶系", "char", False, True, "adhesive_type_id"),
-            "base_material": ("基材", "char", False, True, "base_material_id"),
-        }
-        for param_key, (name, value_type, unit, is_main, main_field_name) in defaults.items():
-            if param_key not in known_params:
-                payload["params"].append(
-                    {
-                        "param_key": param_key,
-                        "name": name,
-                        "value_type": value_type,
-                        "unit": unit,
-                        "is_main_field": is_main,
-                        "main_field_name": main_field_name,
-                        "candidate_new": True,
-                    }
-                )
-
-        for code in codes:
-            thickness, thickness_std = self._extract_thickness_for_code(code, text)
-            payload["items"].append(
-                {
-                    "brand_name": self.brand_id.name if self.brand_id else False,
-                    "series_name": series_name,
-                    "category_name": self.categ_id.name if self.categ_id else False,
-                    "code": code,
-                    "name": code,
-                    "catalog_status": "draft",
-                }
-            )
-            if thickness:
-                payload["spec_values"].append({"brand_name": self.brand_id.name if self.brand_id else False, "item_code": code, "param_key": "thickness", "value": thickness, "unit": "mm", "review_status": "pending"})
-            if thickness_std:
-                payload["spec_values"].append({"brand_name": self.brand_id.name if self.brand_id else False, "item_code": code, "param_key": "thickness_std", "value": thickness_std, "unit": "μm", "review_status": "pending"})
-            if guessed.get("color_name"):
-                payload["spec_values"].append({"brand_name": self.brand_id.name if self.brand_id else False, "item_code": code, "param_key": "color", "value": guessed["color_name"], "review_status": "pending"})
-            if guessed.get("adhesive_type_name"):
-                payload["spec_values"].append({"brand_name": self.brand_id.name if self.brand_id else False, "item_code": code, "param_key": "adhesive_type", "value": guessed["adhesive_type_name"], "review_status": "pending"})
-            if guessed.get("base_material_name"):
-                payload["spec_values"].append({"brand_name": self.brand_id.name if self.brand_id else False, "item_code": code, "param_key": "base_material", "value": guessed["base_material_name"], "review_status": "pending"})
-
-        for line in (text or "").splitlines()[:40]:
-            if line and len(line) > 10:
-                payload["unmatched"].append({"excerpt": line[:300]})
-        return self._normalize_generated_payload(payload), "heuristic-v1"
 
     @api.model
     def _normalize_generated_payload(self, payload):
@@ -988,359 +864,6 @@ class DiecutCatalogSourceDocument(models.Model):
             )
             raise ValidationError("检测到疑似乱码或编码异常内容，请先修正后再继续。\n" + detail)
 
-    def action_extract_source(self):
-        for record in self:
-            payload = record._extract_source_payload()
-            brand_skill = record._resolve_brand_skill_name()
-            payload.update(
-                {
-                    "skill_profile": record.skill_profile or "generic_tds_v1+diecut_domain_v1",
-                    "brand_skill_name": brand_skill,
-                    "context_used": json.dumps(record._build_copilot_context(), ensure_ascii=False, indent=2),
-                }
-            )
-            record.write(payload)
-        return True
-
-    def action_generate_draft(self):
-        for record in self:
-            if not record.raw_text:
-                record.action_extract_source()
-            if not record.raw_text:
-                raise UserError("未提取到原文，无法生成草稿。")
-            if record._has_openai_config():
-                payload, parse_version = record._generate_draft_with_openai()
-                message = "AI 草稿已生成。"
-            else:
-                payload, parse_version = record._generate_draft_heuristic()
-                message = "未检测到 OpenAI 配置，已使用本地启发式规则生成草稿，请人工复核。"
-            record._run_encoding_precheck(payload)
-            record.write(
-                {
-                    "draft_payload": json.dumps(payload, ensure_ascii=False, indent=2),
-                    "unmatched_payload": json.dumps(payload.get("unmatched") or [], ensure_ascii=False, indent=2),
-                    "parse_version": parse_version,
-                    "import_status": "generated",
-                    "result_message": message,
-                }
-            )
-        return True
-
-    @api.model
-    def _preview_value(self, bucket, row, column):
-        if not isinstance(row, dict):
-            return row or ""
-        boolean_columns = {"required", "show_in_form", "allow_import", "is_main_field", "active", "candidate_new"}
-        if bucket == "params" and column == "route_label":
-            if row.get("is_main_field"):
-                field_name = row.get("main_field_name") or ""
-                return f"主表字段 / {field_name}" if field_name else "主表字段"
-            return "参数值表"
-        if bucket == "params" and column == "method_summary":
-            return self._strip_html_markup(row.get("method_html"))[:120]
-        if bucket == "params" and column == "spec_category_name":
-            return row.get("spec_category_name") or row.get("spec_category") or ""
-        if bucket == "items" and column == "color_name":
-            return row.get("color_name") or row.get("color") or row.get("color_id") or ""
-        if bucket == "items" and column == "adhesive_type_name":
-            return row.get("adhesive_type_name") or row.get("adhesive_type") or row.get("adhesive_type_id") or ""
-        if bucket == "items" and column == "base_material_name":
-            return row.get("base_material_name") or row.get("base_material") or row.get("base_material_id") or ""
-        if bucket == "category_params" and column == "name":
-            param_name = row.get("param_name") or row.get("name")
-            if not param_name and row.get("param_key"):
-                param = self.env["diecut.catalog.param"].sudo().search([("param_key", "=", row.get("param_key"))], limit=1)
-                param_name = param.name if param else False
-            return param_name or row.get("param_key") or ""
-        if bucket == "spec_values" and column == "item_code":
-            return row.get("item_code") or row.get("code") or row.get("item_name") or ""
-        if bucket == "spec_values" and column == "param_name":
-            param_name = row.get("param_name") or row.get("name")
-            if not param_name and row.get("param_key"):
-                param = self.env["diecut.catalog.param"].sudo().search([("param_key", "=", row.get("param_key"))], limit=1)
-                param_name = param.name if param else False
-            return param_name or row.get("param_key") or ""
-        if bucket == "spec_values" and column == "display_value":
-            direct = row.get("display_value")
-            if direct not in (False, None, ""):
-                return direct
-            for key in ("value", "value_text", "raw_value_text", "value_char", "value_float", "value_selection"):
-                candidate = row.get(key)
-                if candidate not in (False, None, ""):
-                    return candidate
-            if row.get("value_boolean") is True:
-                return "是"
-            if row.get("value_boolean") is False and "value_boolean" in row:
-                return "否"
-            return ""
-        if column == "excerpt":
-            return row.get("excerpt") or row.get("text") or row.get("raw") or ""
-        value = row.get(column)
-        if isinstance(value, bool):
-            if column in boolean_columns:
-                return "是" if value else "否"
-            return ""
-        if isinstance(value, (list, tuple)):
-            return ", ".join(str(item) for item in value if item not in (False, None, ""))
-        if isinstance(value, dict):
-            return json.dumps(value, ensure_ascii=False)
-        return value or ""
-
-    def _render_preview_table(self, bucket, rows):
-        columns = self._preview_columns_for_bucket(bucket)
-        if not columns:
-            return ""
-        header_cells = "".join(
-            f"<th style='text-align:left;border-bottom:1px solid #ddd;padding:6px 8px;background:#f7f7f7;'>{html.escape(label)}</th>"
-            for _column, label in columns
-        )
-        html_parts = [
-            "<table style='width:100%;border-collapse:collapse;margin-bottom:16px;'>",
-            f"<thead><tr>{header_cells}</tr></thead><tbody>",
-        ]
-        for row in rows[:20]:
-            html_parts.append("<tr>")
-            for column, _label in columns:
-                value = self._preview_value(bucket, row, column)
-                if isinstance(value, str):
-                    text_value = value.strip()
-                else:
-                    text_value = "" if value in (False, None) else str(value)
-                if text_value.lower() in {"false", "none", "null"}:
-                    text_value = ""
-                if bucket == "spec_values" and column in {"unit", "test_condition"} and text_value == "否":
-                    text_value = ""
-                rendered = html.escape(text_value)
-                html_parts.append(
-                    f"<td style='vertical-align:top;border-bottom:1px solid #eee;padding:6px 8px;white-space:pre-wrap;'>{rendered}</td>"
-                )
-            html_parts.append("</tr>")
-        html_parts.append("</tbody></table>")
-        if len(rows) > 20:
-            html_parts.append(f"<div style='color:#999;margin-bottom:12px;'>其余 {len(rows) - 20} 条请查看原始 JSON。</div>")
-        return "".join(html_parts)
-
-    @api.model
-    def _get_ai_runtime_config(self):
-        icp = self.env["ir.config_parameter"].sudo()
-        provider_defaults = {
-            "disabled": {
-                "api_url": "",
-                "model": "",
-            },
-            "openai": {
-                "api_url": "https://api.openai.com/v1/chat/completions",
-                "model": "gpt-4.1-mini",
-            },
-            "deepseek": {
-                "api_url": "https://api.deepseek.com/chat/completions",
-                "model": "deepseek-chat",
-            },
-            "qwen": {
-                "api_url": "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-                "model": "qwen-vl-max-latest",
-            },
-        }
-        provider = (
-            self.env.context.get("diecut_ai_provider")
-            or icp.get_param("diecut.ai_tds_provider")
-            or ("openai" if (icp.get_param("diecut.ai_tds_openai_api_key") or os.getenv("OPENAI_API_KEY")) else "disabled")
-        )
-        defaults = provider_defaults.get(provider or "disabled", provider_defaults["disabled"])
-        return {
-            "provider": provider or "disabled",
-            "api_key": self.env.context.get("diecut_ai_api_key")
-            or icp.get_param("diecut.ai_tds_openai_api_key")
-            or os.getenv("OPENAI_API_KEY"),
-            "api_url": self.env.context.get("diecut_ai_api_url")
-            or icp.get_param("diecut.ai_tds_openai_api_url")
-            or os.getenv("OPENAI_API_URL")
-            or defaults["api_url"],
-            "model": self.env.context.get("diecut_ai_model")
-            or icp.get_param("diecut.ai_tds_openai_model")
-            or os.getenv("OPENAI_MODEL")
-            or defaults["model"],
-        }
-
-    def _has_openai_config(self):
-        config = self._get_ai_runtime_config()
-        return config["provider"] in {"openai", "deepseek", "qwen"} and bool(config["api_key"])
-
-    def _openai_request(self, messages, max_tokens=4000):
-        try:
-            import requests
-        except ImportError as exc:
-            raise UserError("当前环境未安装 requests，无法调用 AI 接口。") from exc
-
-        config = self._get_ai_runtime_config()
-        if config["provider"] not in {"openai", "deepseek", "qwen"} or not config["api_key"]:
-            raise UserError("当前未配置可用的 AI 兼容接口。")
-
-        payload = {
-            "model": config["model"],
-            "messages": messages,
-            "temperature": 0.1,
-            "max_tokens": max_tokens,
-        }
-        response = requests.post(
-            config["api_url"],
-            timeout=90,
-            headers={
-                "Authorization": f"Bearer {config['api_key']}",
-                "Content-Type": "application/json",
-            },
-            json=payload,
-        )
-        response.raise_for_status()
-        data = response.json()
-        return data["choices"][0]["message"]["content"]
-
-    @api.model
-    def _get_ai_provider_label(self, provider):
-        return {
-            "disabled": "本地增强规则",
-            "openai": "OpenAI",
-            "deepseek": "DeepSeek",
-            "qwen": "通义千问(Qwen)",
-        }.get(provider or "disabled", provider or "AI")
-
-    def action_generate_draft(self):
-        for record in self:
-            if not record.raw_text:
-                record.action_extract_source()
-            if not record.raw_text:
-                raise UserError("未提取到原文，无法生成草稿。")
-            if record._has_openai_config():
-                payload, parse_version = record._generate_draft_with_openai()
-                config = record._get_ai_runtime_config()
-                provider_label = record._get_ai_provider_label(config["provider"])
-                message = f"AI 草稿已生成。当前引擎：{provider_label} / {config['model']}"
-            else:
-                payload, parse_version = record._generate_draft_heuristic()
-                message = "未检测到 AI 配置，已使用本地增强规则生成草稿，请人工复核。"
-            record._run_encoding_precheck(payload)
-            record.write(
-                {
-                    "draft_payload": json.dumps(payload, ensure_ascii=False, indent=2),
-                    "unmatched_payload": json.dumps(payload.get("unmatched") or [], ensure_ascii=False, indent=2),
-                    "parse_version": parse_version,
-                    "import_status": "generated",
-                    "result_message": message,
-                }
-            )
-        return True
-
-    @api.model
-    def _get_ai_runtime_config(self):
-        icp = self.env["ir.config_parameter"].sudo()
-        provider_defaults = {
-            "disabled": {
-                "api_url": "",
-                "model": "",
-            },
-            "openai": {
-                "api_url": "https://api.openai.com/v1/chat/completions",
-                "model": "gpt-4.1-mini",
-            },
-            "deepseek": {
-                "api_url": "https://api.deepseek.com/chat/completions",
-                "model": "deepseek-chat",
-            },
-            "qwen": {
-                "api_url": "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
-                "model": "qwen-vl-max-latest",
-            },
-        }
-        provider = (
-            self.env.context.get("diecut_ai_provider")
-            or icp.get_param("diecut.ai_tds_provider")
-            or ("openai" if (icp.get_param("diecut.ai_tds_openai_api_key") or os.getenv("OPENAI_API_KEY")) else "disabled")
-        )
-        defaults = provider_defaults.get(provider or "disabled", provider_defaults["disabled"])
-        return {
-            "provider": provider or "disabled",
-            "api_key": self.env.context.get("diecut_ai_api_key")
-            or icp.get_param("diecut.ai_tds_openai_api_key")
-            or os.getenv("OPENAI_API_KEY"),
-            "api_url": self.env.context.get("diecut_ai_api_url")
-            or icp.get_param("diecut.ai_tds_openai_api_url")
-            or os.getenv("OPENAI_API_URL")
-            or defaults["api_url"],
-            "model": self.env.context.get("diecut_ai_model")
-            or icp.get_param("diecut.ai_tds_openai_model")
-            or os.getenv("OPENAI_MODEL")
-            or defaults["model"],
-        }
-
-    def _has_openai_config(self):
-        config = self._get_ai_runtime_config()
-        return config["provider"] in {"openai", "deepseek", "qwen"} and bool(config["api_key"])
-
-    def _openai_request(self, messages, max_tokens=4000):
-        try:
-            import requests
-        except ImportError as exc:
-            raise UserError("当前环境未安装 requests，无法调用 AI 接口。") from exc
-
-        config = self._get_ai_runtime_config()
-        if config["provider"] not in {"openai", "deepseek", "qwen"} or not config["api_key"]:
-            raise UserError("当前未配置可用的 AI 兼容接口。")
-
-        payload = {
-            "model": config["model"],
-            "messages": messages,
-            "temperature": 0.1,
-            "max_tokens": max_tokens,
-        }
-        resp = requests.post(
-            config["api_url"],
-            timeout=90,
-            headers={
-                "Authorization": f"Bearer {config['api_key']}",
-                "Content-Type": "application/json",
-            },
-            json=payload,
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        return data["choices"][0]["message"]["content"]
-
-    @api.model
-    def _get_ai_provider_label(self, provider):
-        labels = {
-            "disabled": "本地增强规则",
-            "openai": "OpenAI",
-            "deepseek": "DeepSeek",
-            "qwen": "通义千问(Qwen)",
-        }
-        return labels.get(provider or "disabled", provider or "AI")
-
-    def action_generate_draft(self):
-        for record in self:
-            if not record.raw_text:
-                record.action_extract_source()
-            if not record.raw_text:
-                raise UserError("未提取到原文，无法生成草稿。")
-            if record._has_openai_config():
-                payload, parse_version = record._generate_draft_with_openai()
-                config = record._get_ai_runtime_config()
-                provider_label = record._get_ai_provider_label(config["provider"])
-                message = f"AI 草稿已生成。当前引擎：{provider_label} / {config['model']}"
-            else:
-                payload, parse_version = record._generate_draft_heuristic()
-                message = "未检测到 AI 配置，已使用本地增强规则生成草稿，请人工复核。"
-            record._run_encoding_precheck(payload)
-            record.write(
-                {
-                    "draft_payload": json.dumps(payload, ensure_ascii=False, indent=2),
-                    "unmatched_payload": json.dumps(payload.get("unmatched") or [], ensure_ascii=False, indent=2),
-                    "parse_version": parse_version,
-                    "import_status": "generated",
-                    "result_message": message,
-                }
-            )
-        return True
-
     def action_validate_draft(self):
         for record in self:
             payload = record._load_draft_payload()
@@ -1357,16 +880,41 @@ class DiecutCatalogSourceDocument(models.Model):
                 {
                     "import_status": "review" if bucket_sizes["unmatched"] else "validated",
                     "result_message": (
-                        "草稿校验通过。\n"
-                        f"系列:{bucket_sizes['series']} 型号:{bucket_sizes['items']} 参数:{bucket_sizes['params']} "
-                        f"分类参数:{bucket_sizes['category_params']} 参数值:{bucket_sizes['spec_values']} "
-                        f"未识别:{bucket_sizes['unmatched']}"
+                        "鑽夌鏍￠獙閫氳繃銆俓n"
+                        f"绯诲垪:{bucket_sizes['series']} 鍨嬪彿:{bucket_sizes['items']} 鍙傛暟:{bucket_sizes['params']} "
+                        f"鍒嗙被鍙傛暟:{bucket_sizes['category_params']} 鍙傛暟鍊?{bucket_sizes['spec_values']} "
+                        f"鏈瘑鍒?{bucket_sizes['unmatched']}"
                     ),
                     "unmatched_payload": json.dumps(payload.get("unmatched") or [], ensure_ascii=False, indent=2),
                     "context_used": json.dumps(record._build_copilot_context(payload), ensure_ascii=False, indent=2),
                 }
             )
         return True
+
+    def _run_document_action_via_chatter_ai(self, document_action, prompt_text):
+        run_model = self.env.get("chatter.ai.run")
+        if not run_model:
+            raise ValidationError("chatter_ai_assistant is required for document AI actions.")
+        for record in self:
+            run_model.create_document_run(
+                record,
+                document_action=document_action,
+                prompt_text=prompt_text,
+                requesting_user=self.env.user,
+            )
+        return True
+
+    def action_extract_source(self):
+        return self._run_document_action_via_chatter_ai(
+            "extract_source",
+            "提取原文，并尽量导出文档里的图片附件。",
+        )
+
+    def action_generate_draft(self):
+        return self._run_document_action_via_chatter_ai(
+            "parse",
+            "AI生成草稿。",
+        )
 
     def action_apply_draft(self):
         for record in self:
@@ -1376,7 +924,7 @@ class DiecutCatalogSourceDocument(models.Model):
             skipped = int((apply_stats or {}).get("spec_values_skipped") or 0)
             message = "AI/TDS 草稿已入库。"
             if skipped:
-                message = f"{message} 技术参数有 {skipped} 条因类型/映射问题被跳过，已记录到未识别项。"
+                message = f"{message} 跳过 {skipped} 条无法写入参数值的记录。"
             record.write(
                 {
                     "import_status": "applied",
@@ -1393,6 +941,34 @@ class DiecutCatalogSourceDocument(models.Model):
             return False
         return self.env["diecut.brand"].search([("name", "=", str(raw_value).strip())], limit=1) or False
 
+    def _resolve_manufacturer(self, raw_value):
+        if not raw_value:
+            return False
+        raw_text = str(raw_value).strip()
+        if not raw_text:
+            return False
+        partner_model = self.env["res.partner"].sudo().with_context(active_test=False)
+        exact = partner_model.search(
+            [
+                ("is_company", "=", True),
+                "|",
+                ("short_name", "=", raw_text),
+                ("name", "=", raw_text),
+            ],
+            limit=1,
+        )
+        if exact:
+            return exact
+        return partner_model.search(
+            [
+                ("is_company", "=", True),
+                "|",
+                ("short_name", "ilike", raw_text),
+                ("name", "ilike", raw_text),
+            ],
+            limit=1,
+        ) or False
+
     def _resolve_category(self, raw_value):
         if not raw_value:
             return False
@@ -1404,11 +980,78 @@ class DiecutCatalogSourceDocument(models.Model):
             if candidate not in (False, None, ""):
                 if isinstance(candidate, str):
                     text = candidate.strip()
-                    if text:
+                    if text and text.lower() not in {"false", "none", "null"}:
                         return text
                 else:
                     return candidate
         return False
+
+    @api.model
+    def _preview_text_from_rich_value(self, value):
+        if value in (False, None, ""):
+            return ""
+        if isinstance(value, (list, tuple)):
+            return "\n".join(str(item).strip() for item in value if str(item).strip())
+        if isinstance(value, dict):
+            return json.dumps(value, ensure_ascii=False)
+        text = str(value).strip()
+        if not text or text.lower() in {"false", "none", "null"}:
+            return ""
+        if "<" in text and ">" in text:
+            return self._strip_html_markup(text)
+        return text
+
+    @api.model
+    def _preview_param_dictionary_status(self, row):
+        if not isinstance(row, dict):
+            return ""
+        if row.get("candidate_new") is True:
+            return "建议新建"
+        param_key = (row.get("param_key") or "").strip().lower()
+        if not param_key:
+            return ""
+        param = self.env["diecut.catalog.param"].sudo().search([("param_key", "=", param_key)], limit=1)
+        return "复用现有" if param else "待确认"
+
+    @api.model
+    def _series_features_text(self, row):
+        return self._preview_text_from_rich_value(
+            self._pick_first_non_empty(row.get("product_features"), row.get("features"))
+        )
+
+    @api.model
+    def _series_applications_text(self, row):
+        return self._preview_text_from_rich_value(
+            self._pick_first_non_empty(row.get("main_applications"), row.get("applications"))
+        )
+
+    @api.model
+    def _series_description_text(self, row):
+        return self._preview_text_from_rich_value(
+            self._pick_first_non_empty(row.get("product_description"), row.get("description"))
+        )
+
+    @api.model
+    def _normalize_series_text_field(self, value):
+        text = self._preview_text_from_rich_value(value)
+        return text or False
+
+    @api.model
+    def _normalize_series_applications_field(self, value):
+        if value in (False, None, ""):
+            return False
+        if isinstance(value, str):
+            text = value.strip()
+            if not text or text.lower() in {"false", "none", "null"}:
+                return False
+            if "<" in text and ">" in text:
+                return text
+            lines = [line.strip("•").strip() for line in re.split(r"[\r\n]+", text) if line.strip()]
+            return self._html_bullets(lines) if len(lines) > 1 else text
+        if isinstance(value, (list, tuple)):
+            lines = [str(item).strip() for item in value if str(item).strip()]
+            return self._html_bullets(lines)
+        return str(value)
 
     @api.model
     def _safe_float_or_false(self, value):
@@ -1431,6 +1074,8 @@ class DiecutCatalogSourceDocument(models.Model):
         value_type = (param.value_type or "char").strip()
         raw_value = self._pick_first_non_empty(
             row.get("value"),
+            row.get("value_display"),
+            row.get("value_raw"),
             row.get("value_text"),
             row.get("raw_value_text"),
             row.get("display_value"),
@@ -1440,28 +1085,28 @@ class DiecutCatalogSourceDocument(models.Model):
             row.get("value_boolean"),
         )
         if raw_value is False:
-            return False, False, "参数值为空"
+            return False, False, "缺少值"
 
         if value_type == "float":
             number = self._safe_float_or_false(raw_value)
             if number is False:
-                return False, False, "数值型参数无法解析为数字"
+                return False, False, "浮点值无法解析"
             return True, number, False
 
         if value_type == "boolean":
             if isinstance(raw_value, bool):
                 return True, raw_value, False
             normalized = str(raw_value).strip().lower()
-            if normalized in ("1", "true", "yes", "y", "是", "有", "通过"):
+            if normalized in ("1", "true", "yes", "y", "是", "对", "真"):
                 return True, True, False
-            if normalized in ("0", "false", "no", "n", "否", "无", "不通过"):
+            if normalized in ("0", "false", "no", "n", "否", "错", "假"):
                 return True, False, False
-            return False, False, "布尔型参数无法识别为是/否"
+            return False, False, "布尔值无法解析"
 
         if value_type == "selection":
             text = str(raw_value).strip()
             if not text:
-                return False, False, "枚举参数值为空"
+                return False, False, "选项值为空"
             options = param.get_selection_options_list()
             if options:
                 if text in options:
@@ -1470,7 +1115,7 @@ class DiecutCatalogSourceDocument(models.Model):
                 mapped = option_map.get(text.lower())
                 if mapped:
                     return True, mapped, False
-                return False, False, "枚举值不在参数字典选项范围内"
+                return False, False, "选项值不在允许范围内"
             return True, text, False
 
         return True, str(raw_value).strip(), False
@@ -1542,9 +1187,15 @@ class DiecutCatalogSourceDocument(models.Model):
             vals = {
                 "brand_id": brand.id,
                 "name": series_name,
-                "product_features": row.get("product_features") or False,
-                "product_description": row.get("product_description") or False,
-                "main_applications": row.get("main_applications") or False,
+                "product_features": self._normalize_series_text_field(
+                    self._pick_first_non_empty(row.get("product_features"), row.get("features"))
+                ),
+                "product_description": self._normalize_series_text_field(
+                    self._pick_first_non_empty(row.get("product_description"), row.get("description"))
+                ),
+                "main_applications": self._normalize_series_applications_field(
+                    self._pick_first_non_empty(row.get("main_applications"), row.get("applications"))
+                ),
             }
             if series:
                 series.write(vals)
@@ -1590,13 +1241,18 @@ class DiecutCatalogSourceDocument(models.Model):
             if not series and series_name:
                 series = series_model.search([("brand_id", "=", brand.id), ("name", "=", series_name)], limit=1)
             categ = self._resolve_category(row.get("category_name")) or self.categ_id
+            manufacturer = self._resolve_manufacturer(
+                row.get("manufacturer_name")
+                or row.get("manufacturer")
+                or row.get("maker_name")
+            )
             vals = {
                 "brand_id": brand.id,
+                "manufacturer_id": manufacturer.id if manufacturer else False,
                 "code": code,
                 "name": row.get("name") or code,
                 "categ_id": categ.id if categ else False,
                 "series_id": series.id if series else False,
-                "series_text": series.name if series else series_name or False,
                 "catalog_status": row.get("catalog_status") or "draft",
             }
             item = item_model.search([("brand_id", "=", brand.id), ("code", "=", code)], limit=1)
@@ -1620,7 +1276,7 @@ class DiecutCatalogSourceDocument(models.Model):
                 unmatched.append(
                     {
                         "excerpt": row.get("source_excerpt") or str(row)[:200],
-                        "reason": "参数值无法落库：未匹配到型号或参数字典",
+                        "reason": "未找到匹配的型号或参数字典",
                         "candidate_param_key": param_key or False,
                     }
                 )
@@ -1637,7 +1293,7 @@ class DiecutCatalogSourceDocument(models.Model):
                 )
                 continue
             try:
-                item.apply_param_payload(
+                applied = item.apply_param_payload(
                     param=param,
                     raw_value=normalized_value,
                     unit=row.get("unit"),
@@ -1649,14 +1305,18 @@ class DiecutCatalogSourceDocument(models.Model):
                     confidence=row.get("confidence"),
                     is_ai_generated=True,
                     review_status=row.get("review_status") or "pending",
+                    conditions=row.get("conditions") or [],
                 )
+                if not applied:
+                    apply_stats["spec_values_skipped"] += 1
+                    continue
                 apply_stats["spec_values_applied"] += 1
-            except Exception as exc:  # 防止单条异常阻断整批入库
+            except Exception as exc:  # 闃叉鍗曟潯寮傚父闃绘柇鏁存壒鍏ュ簱
                 apply_stats["spec_values_skipped"] += 1
                 unmatched.append(
                     {
                         "excerpt": row.get("source_excerpt") or str(row)[:200],
-                        "reason": f"参数值入库失败：{str(exc)[:120]}",
+                        "reason": f"鍙傛暟鍊煎叆搴撳け璐ワ細{str(exc)[:120]}",
                         "candidate_param_key": param.param_key,
                     }
                 )
@@ -1665,71 +1325,15 @@ class DiecutCatalogSourceDocument(models.Model):
         return apply_stats
 
     @api.model
-    def _get_ai_runtime_config(self):
-        icp = self.env["ir.config_parameter"].sudo()
-        provider = (
-            self.env.context.get("diecut_ai_provider")
-            or icp.get_param("diecut.ai_tds_provider")
-            or ("openai" if (icp.get_param("diecut.ai_tds_openai_api_key") or os.getenv("OPENAI_API_KEY")) else "disabled")
-        )
-        return {
-            "provider": provider or "disabled",
-            "api_key": self.env.context.get("diecut_ai_api_key")
-            or icp.get_param("diecut.ai_tds_openai_api_key")
-            or os.getenv("OPENAI_API_KEY"),
-            "api_url": self.env.context.get("diecut_ai_api_url")
-            or icp.get_param("diecut.ai_tds_openai_api_url")
-            or os.getenv("OPENAI_API_URL")
-            or "https://api.openai.com/v1/chat/completions",
-            "model": self.env.context.get("diecut_ai_model")
-            or icp.get_param("diecut.ai_tds_openai_model")
-            or os.getenv("OPENAI_MODEL")
-            or "gpt-4.1-mini",
-        }
-
-    def _has_openai_config(self):
-        config = self._get_ai_runtime_config()
-        return config["provider"] in {"openai", "deepseek", "qwen"} and bool(config["api_key"])
-
-    def _openai_request(self, messages, max_tokens=4000):
-        try:
-            import requests
-        except ImportError as exc:
-            raise UserError("当前环境未安装 requests，无法调用 AI 接口。") from exc
-
-        config = self._get_ai_runtime_config()
-        if config["provider"] not in {"openai", "deepseek", "qwen"} or not config["api_key"]:
-            raise UserError("当前未配置可用的 OpenAI 兼容接口。")
-
-        payload = {
-            "model": config["model"],
-            "messages": messages,
-            "temperature": 0.1,
-            "max_tokens": max_tokens,
-        }
-        resp = requests.post(
-            config["api_url"],
-            timeout=90,
-            headers={
-                "Authorization": f"Bearer {config['api_key']}",
-                "Content-Type": "application/json",
-            },
-            json=payload,
-        )
-        resp.raise_for_status()
-        data = resp.json()
-        return data["choices"][0]["message"]["content"]
-
-    @api.model
     def _clean_text(self, value):
         text = super()._clean_text(value) if hasattr(super(), "_clean_text") else None
         text = text or (str(value).replace("\r\n", "\n").replace("\r", "\n").replace("\x00", "") if value else "")
         if not text:
             return False
         replacements = {
-            "™": " ",
-            "®": " ",
-            "μm": "um",
+            "?": " ",
+            "庐": " ",
+            "渭m": "um",
             "GT71 00": "GT7100",
             "GT71 02": "GT7102",
             "GT71 04": "GT7104",
@@ -1777,7 +1381,7 @@ class DiecutCatalogSourceDocument(models.Model):
             joinable = (
                 buffer[-1] not in ".:;!?"
                 and (line[:1].islower() or buffer.endswith((",", "-", "->")) or len(buffer) < 48)
-                and not re.match(r"^(?:[A-Z][A-Za-z ]{2,40}|[A-Z]{1,5}\d{4,5}\b|[•.-])$", line)
+                and not re.match(r"^(?:[A-Z][A-Za-z ]{2,40}|[A-Z]{1,5}\d{4,5}\b|[鈥?-])$", line)
             )
             if joinable:
                 sep = "" if buffer[-1].isalnum() and line[:1].isalnum() and len(line.split()) <= 2 else " "
@@ -1789,7 +1393,12 @@ class DiecutCatalogSourceDocument(models.Model):
             merged.append(buffer.strip())
         text = "\n".join(merged)
         text = re.sub(r"\n{3,}", "\n\n", text)
-        return text.strip() or False
+        normalized = text.strip()
+        if not normalized:
+            return False
+        if normalized.casefold() in self._PLACEHOLDER_TEXTS:
+            return False
+        return normalized
 
     @api.model
     def _guess_global_specs(self, text):
@@ -1799,9 +1408,9 @@ class DiecutCatalogSourceDocument(models.Model):
             guessed["color_name"] = "黑色"
         elif any(token in lowered for token in ("white", "白色")):
             guessed["color_name"] = "白色"
-        if any(token in lowered for token in ("acrylic foam", "亚克力泡棉", "丙烯酸泡棉")):
-            guessed["base_material_name"] = "丙烯酸泡棉"
-        if any(token in lowered for token in ("pressure sensitive adhesive", "acrylic adhesive", "压敏胶", "丙烯酸胶")):
+        if any(token in lowered for token in ("acrylic foam", "亚克力泡棉", "泡棉基材")):
+            guessed["base_material_name"] = "亚克力泡棉"
+        if any(token in lowered for token in ("pressure sensitive adhesive", "acrylic adhesive", "压敏胶", "亚克力胶")):
             guessed["adhesive_type_name"] = "丙烯酸胶"
         return guessed
 
@@ -1849,22 +1458,22 @@ class DiecutCatalogSourceDocument(models.Model):
         current_color = guessed.get("color_name")
         explicit_color_by_code = {}
         for explicit_match in re.finditer(
-            r"\b([A-Z]{1,5}\d{4})\b.{0,40}?Acrylic Foam Core\s+(Gray|Grey|White|黑色|白色)",
+            r"\b([A-Z]{1,5}\d{4})\b.{0,40}?Acrylic Foam Core\s+(Gray|Grey|White|榛戣壊|鐧借壊)",
             section,
             flags=re.I,
         ):
             token = (explicit_match.group(2) or "").lower()
             if token in ("gray", "grey"):
-                explicit_color_by_code[explicit_match.group(1).upper()] = "灰色"
+                explicit_color_by_code[explicit_match.group(1).upper()] = "鐏拌壊"
             elif token == "white":
-                explicit_color_by_code[explicit_match.group(1).upper()] = "白色"
-            elif token == "黑色":
-                explicit_color_by_code[explicit_match.group(1).upper()] = "黑色"
-            elif token == "白色":
-                explicit_color_by_code[explicit_match.group(1).upper()] = "白色"
+                explicit_color_by_code[explicit_match.group(1).upper()] = "鐧借壊"
+            elif token == "榛戣壊":
+                explicit_color_by_code[explicit_match.group(1).upper()] = "榛戣壊"
+            elif token == "鐧借壊":
+                explicit_color_by_code[explicit_match.group(1).upper()] = "鐧借壊"
         pattern = re.compile(
             r"\b([A-Z]{1,5}\d{4})\b(?:(?!\b[A-Z]{1,5}\d{4}\b).){0,120}?"
-            r"(Gray|Grey|White|黑色|白色)?(?:(?!\b[A-Z]{1,5}\d{4}\b).){0,40}?"
+            r"(Gray|Grey|White|榛戣壊|鐧借壊)?(?:(?!\b[A-Z]{1,5}\d{4}\b).){0,40}?"
             r"(\d+(?:\.\d+)?)\s*mm",
             re.I,
         )
@@ -1878,9 +1487,9 @@ class DiecutCatalogSourceDocument(models.Model):
                 current_color = explicit_color_by_code[code]
             color_token = (match.group(2) or "").lower()
             if color_token in ("gray", "grey"):
-                current_color = "灰色"
+                current_color = "鐏拌壊"
             elif color_token == "white":
-                current_color = "白色"
+                current_color = "鐧借壊"
             thickness = match.group(3)
             seen.add(code)
             rows.append(
@@ -1983,249 +1592,3 @@ class DiecutCatalogSourceDocument(models.Model):
             parts.append("<ul>%s</ul>" % "".join(f"<li>{html.escape(line)}</li>" for line in lines[:8]))
         return "".join(parts)
 
-    def _generate_draft_with_openai(self):
-        self.ensure_one()
-        text = self._clean_text(self.raw_text)
-        if not text:
-            raise UserError("请先提取原文，再生成 AI 草稿。")
-        config = self._get_ai_runtime_config()
-        prompt = (
-            "你是 Odoo 材料系统的 TDS 解析器。"
-            "请根据给定原文、品牌、建议分类、参数字典和主字段路由规则，"
-            "输出严格 JSON，顶层 keys 必须是 series/items/params/category_params/spec_values/unmatched。"
-            "已知参数优先复用 param_key；未知参数请放入 unmatched，或放入 params 并标记 candidate_new=true。"
-            "如果原文包含标准测试方法、图例说明、测试步骤或判读口径，可写入 params[*].method_html。"
-            "不要输出任何 JSON 之外的解释。"
-        )
-        content = self._openai_request(
-            messages=[
-                {"role": "system", "content": prompt},
-                {
-                    "role": "user",
-                    "content": json.dumps(
-                        {
-                            "title": self.name,
-                            "brand_name": self.brand_id.name if self.brand_id else False,
-                            "category_name": self.categ_id.name if self.categ_id else False,
-                            "text": text,
-                            "param_dictionary": self._build_param_context(),
-                        },
-                        ensure_ascii=False,
-                    ),
-                },
-            ],
-            max_tokens=5000,
-        )
-        payload = json.loads(self._strip_json_fence(content))
-        return self._normalize_generated_payload(payload), f"ai-v1:{config['model']}"
-
-    def _generate_draft_heuristic(self):
-        self.ensure_one()
-        text = self._clean_text(self.raw_text)
-        compact_text = self._compact_parse_text(text)
-        payload = {bucket: [] for bucket in self._DRAFT_BUCKETS}
-        known_params = {param.param_key: param for param in self.env["diecut.catalog.param"].sudo().search([])}
-
-        guessed = self._guess_global_specs(compact_text)
-        series_name = self._guess_series_name(self.name, compact_text)
-
-        description_section = self._extract_section_text(
-            compact_text,
-            ["General Description"],
-            ["Product Construction", "Physical Properties", "Tabbing", "Performance Properties"],
-        )
-        features_section = self._extract_section_text(
-            compact_text,
-            ["offers the following key features:", "key features:"],
-            ["Some typical applications", "Product Construction", "Physical Properties"],
-        )
-        applications_section = self._extract_section_text(
-            compact_text,
-            ["Some typical applications", "applications include:"],
-            ["Product Construction", "Physical Properties", "Tabbing", "Performance Properties"],
-        )
-        feature_parts = [part.strip(" .") for part in re.split(r"\.\s+", features_section) if len(part.strip(" .")) > 8]
-        application_parts = [part.strip(" .") for part in re.split(r"\.\s+", applications_section) if len(part.strip(" .")) > 8]
-
-        payload["series"].append(
-            {
-                "brand_name": self.brand_id.name if self.brand_id else False,
-                "series_name": series_name,
-                "name": series_name,
-                "product_description": description_section[:1200] or False,
-                "product_features": "\n".join(feature_parts[:8]) or False,
-                "main_applications": self._html_bullets(application_parts[:8]),
-            }
-        )
-
-        self._ensure_candidate_param(payload, known_params, "thickness", "厚度", "float", "mm", is_main_field=True, main_field_name="thickness", spec_category_name="尺寸厚度")
-        self._ensure_candidate_param(payload, known_params, "thickness_std", "厚度(标准)", "char", "um", is_main_field=True, main_field_name="thickness_std", spec_category_name="尺寸厚度")
-        self._ensure_candidate_param(payload, known_params, "color", "颜色", "char", False, is_main_field=True, main_field_name="color_id", spec_category_name="基础规格")
-        self._ensure_candidate_param(payload, known_params, "adhesive_type", "胶系", "char", False, is_main_field=True, main_field_name="adhesive_type_id", spec_category_name="基础规格")
-        self._ensure_candidate_param(payload, known_params, "base_material", "基材", "char", False, is_main_field=True, main_field_name="base_material_id", spec_category_name="基础规格")
-
-        item_rows = self._extract_item_rows_from_physical_properties(compact_text, series_name, guessed)
-        if not item_rows:
-            codes = [code for code in self._find_distinct_codes(compact_text) if code != series_name]
-            for code in codes:
-                thickness, thickness_std = self._extract_thickness_for_code(code, compact_text)
-                item_rows.append(
-                    {
-                        "code": code,
-                        "name": code,
-                        "thickness": thickness or False,
-                        "thickness_std": thickness_std or False,
-                        "color_name": guessed.get("color_name"),
-                        "adhesive_type_name": guessed.get("adhesive_type_name"),
-                        "base_material_name": guessed.get("base_material_name"),
-                    }
-                )
-
-        codes = [row["code"] for row in item_rows]
-        for row in item_rows:
-            payload["items"].append(
-                {
-                    "brand_name": self.brand_id.name if self.brand_id else False,
-                    "series_name": series_name,
-                    "category_name": self.categ_id.name if self.categ_id else False,
-                    "code": row["code"],
-                    "name": row["name"],
-                    "catalog_status": "draft",
-                    "thickness": row.get("thickness"),
-                    "color_name": row.get("color_name"),
-                    "adhesive_type_name": row.get("adhesive_type_name"),
-                    "base_material_name": row.get("base_material_name"),
-                }
-            )
-            if row.get("thickness"):
-                payload["spec_values"].append({"item_code": row["code"], "param_key": "thickness", "value": row["thickness"], "unit": "mm", "review_status": "pending"})
-            if row.get("thickness_std"):
-                payload["spec_values"].append({"item_code": row["code"], "param_key": "thickness_std", "value": row["thickness_std"], "unit": "um", "review_status": "pending"})
-            if row.get("color_name"):
-                payload["spec_values"].append({"item_code": row["code"], "param_key": "color", "value": row["color_name"], "review_status": "pending"})
-            if row.get("adhesive_type_name"):
-                payload["spec_values"].append({"item_code": row["code"], "param_key": "adhesive_type", "value": row["adhesive_type_name"], "review_status": "pending"})
-            if row.get("base_material_name"):
-                payload["spec_values"].append({"item_code": row["code"], "param_key": "base_material", "value": row["base_material_name"], "review_status": "pending"})
-
-        peel_section = self._extract_section_text(compact_text, ["180° Peel Adhesion to Painted Panel", "180 Peel Adhesion to Painted Panel"], ["Shear Strength", "Shelf Life", "Pluck Testing", "Torque Testing"])
-        if peel_section and len(codes) >= 4:
-            painted_section = self._extract_section_text(peel_section, ["Painted panel Immediate State"], ["PVC panel Immediate State"])
-            pvc_section = self._extract_section_text(peel_section, ["PVC panel Immediate State"], ["Painted panel:", "PVC panel :", "Shear Strength", "Shelf Life"])
-            peel_maps = [
-                (painted_section or peel_section, "Immediate State", "peel_180_painted_immediate", "涂装板-即时状态-180度剥离力"),
-                (painted_section or peel_section, "Normal State", "peel_180_painted_normal", "涂装板-常温状态-180度剥离力"),
-                (painted_section or peel_section, "High Temperature", "peel_180_painted_high_temp", "涂装板-高温状态-180度剥离力"),
-                (painted_section or peel_section, "Heat-aging", "peel_180_painted_heat_aging", "涂装板-热老化后-180度剥离力"),
-                (painted_section or peel_section, "Warm Water Immersion", "peel_180_painted_warm_water", "涂装板-温水浸泡后-180度剥离力"),
-                (pvc_section or peel_section, "Immediate State", "peel_180_pvc_immediate", "PVC板-即时状态-180度剥离力"),
-                (pvc_section or peel_section, "Normal State", "peel_180_pvc_normal", "PVC板-常温状态-180度剥离力"),
-                (pvc_section or peel_section, "High Temperature", "peel_180_pvc_high_temp", "PVC板-高温状态-180度剥离力"),
-                (pvc_section or peel_section, "Heat-aging", "peel_180_pvc_heat_aging", "PVC板-热老化后-180度剥离力"),
-                (pvc_section or peel_section, "Warm Water Immersion", "peel_180_pvc_warm_water", "PVC板-温水浸泡后-180度剥离力"),
-            ]
-            for section_text, label, param_key, name in peel_maps:
-                values = self._extract_numeric_row_after_label(section_text, label, len(codes))
-                if values:
-                    self._ensure_candidate_param(payload, known_params, param_key, name, "float", "N/cm", spec_category_name="粘接性能")
-                    self._append_spec_value_rows(payload, codes, param_key, values, "N/cm", "180° Peel Adhesion", label, label)
-
-        shear_section = self._extract_section_text(compact_text, ["Shear Strength"], ["Shelf Life", "Pluck Testing", "Torque Testing", "Static Shear"])
-        if shear_section and len(codes) >= 4:
-            shear_maps = [
-                ("Immediate State", "shear_painted_pvc_immediate", "涂装板/PVC板-即时状态-剪切强度"),
-                ("Normal State", "shear_painted_pvc_normal", "涂装板/PVC板-常温状态-剪切强度"),
-                ("High Temperature", "shear_painted_pvc_high_temp", "涂装板/PVC板-高温状态-剪切强度"),
-                ("Warm Water Immersion", "shear_painted_pvc_warm_water", "涂装板/PVC板-温水浸泡后-剪切强度"),
-                ("Gasoline Immersion", "shear_painted_pvc_gasoline", "涂装板/PVC板-汽油浸泡后-剪切强度"),
-                ("Wax-remover immersion", "shear_painted_pvc_wax_remover", "涂装板/PVC板-除蜡剂浸泡后-剪切强度"),
-            ]
-            for label, param_key, name in shear_maps:
-                values = self._extract_numeric_row_after_label(shear_section, label, len(codes))
-                if values:
-                    self._ensure_candidate_param(payload, known_params, param_key, name, "float", "MPa", spec_category_name="粘接性能")
-                    self._append_spec_value_rows(payload, codes, param_key, values, "MPa", "Shear Strength", label, label)
-
-        shelf_section = self._extract_section_text(compact_text, ["Shelf Life"], ["Pluck Testing", "Torque Testing", "Static Shear", "Technical Data Sheet"])
-        if shelf_section:
-            summary = self._extract_summary_sentence(shelf_section)
-            self._ensure_candidate_param(payload, known_params, "shelf_life_storage", "保质期与储存", "char", False, spec_category_name="包装与储存")
-            self._append_series_wide_rows(payload, codes, "shelf_life_storage", summary, False, "Shelf Life", False, summary[:200])
-
-        section_params = [
-            ("Pluck Testing", "Torque Testing", "pluck_testing", "拔脱测试", "测试验证"),
-            ("Torque Testing", "Static Shear", "torque_testing", "扭矩测试", "测试验证"),
-            ("Static Shear", "Technical Data Sheet", "static_shear_70c", "70度静态剪切", "可靠性"),
-        ]
-        for start, stop, param_key, name, category_name in section_params:
-            section_text = self._extract_section_text(compact_text, [start], [stop])
-            if not section_text:
-                continue
-            summary = self._extract_summary_sentence(section_text)
-            method_html = self._build_method_html(name, section_text, summary)
-            self._ensure_candidate_param(
-                payload,
-                known_params,
-                param_key,
-                name,
-                "char" if param_key == "static_shear_70c" else "char",
-                "hour" if param_key == "static_shear_70c" else False,
-                spec_category_name=category_name,
-                method_html=method_html,
-            )
-            self._append_series_wide_rows(payload, codes, param_key, summary, "hour" if param_key == "static_shear_70c" else False, name, False, summary[:200])
-
-        extracted_param_keys = {row.get("param_key") for row in payload["spec_values"] if row.get("param_key")}
-        if self.categ_id:
-            for param_key in sorted(extracted_param_keys):
-                param = known_params.get(param_key)
-                if not param and not any(row.get("param_key") == param_key for row in payload["params"]):
-                    continue
-                payload["category_params"].append(
-                    {
-                        "category_name": self.categ_id.name,
-                        "param_key": param_key,
-                        "name": (param.name if param else next((row.get("name") for row in payload["params"] if row.get("param_key") == param_key), param_key)),
-                        "required": False,
-                        "show_in_form": True,
-                        "allow_import": True,
-                    }
-                )
-
-        if len(payload["items"]) < 1:
-            for line in (text or "").splitlines()[:20]:
-                if line and len(line) > 10:
-                    payload["unmatched"].append({"excerpt": line[:300], "reason": "未能可靠识别为已知结构"})
-        elif len(payload["spec_values"]) < max(len(codes) * 3, 6):
-            for line in (text or "").splitlines():
-                if line and len(line) > 12 and any(keyword in line for keyword in ("Testing", "Immersion", "Adhesion", "Shear", "Shelf Life")):
-                    payload["unmatched"].append({"excerpt": line[:300], "reason": "识别到性能段落但未完全结构化"})
-                    if len(payload["unmatched"]) >= 8:
-                        break
-
-        return self._normalize_generated_payload(payload), "heuristic-v2"
-
-    def action_generate_draft(self):
-        for record in self:
-            if not record.raw_text:
-                record.action_extract_source()
-            if not record.raw_text:
-                raise UserError("未提取到原文，无法生成草稿。")
-            if record._has_openai_config():
-                payload, parse_version = record._generate_draft_with_openai()
-                config = record._get_ai_runtime_config()
-                message = f"AI 草稿已生成。当前引擎：OpenAI / {config['model']}"
-            else:
-                payload, parse_version = record._generate_draft_heuristic()
-                message = "未检测到 AI 配置，已使用本地增强规则生成草稿，请人工复核。"
-            record._run_encoding_precheck(payload)
-            record.write(
-                {
-                    "draft_payload": json.dumps(payload, ensure_ascii=False, indent=2),
-                    "unmatched_payload": json.dumps(payload.get("unmatched") or [], ensure_ascii=False, indent=2),
-                    "parse_version": parse_version,
-                    "import_status": "generated",
-                    "result_message": message,
-                }
-            )
-        return True

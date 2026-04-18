@@ -28,7 +28,7 @@
 
 - 目录标识：`brand_id`、`code`（唯一键）
 - 品牌与分类：`brand_id`、`categ_id`
-- 编码与名称：`code`、`name`、`series_text`
+- 编码与名称：`code`、`name`、`series_id`（导入列使用 `series_name`）
 - 状态与发布：`catalog_status`
 - ERP 映射：`erp_enabled`、`erp_product_tmpl_id`
 - 追溯关系：已下线 `legacy_*` 字段，不再作为切换门槛

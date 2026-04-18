@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="view_diecut_color_list" model="ir.ui.view">
         <field name="name">diecut.color.list</field>
@@ -7,6 +7,7 @@
             <list string="颜色字典" default_order="sequence, name, id">
                 <field name="sequence" optional="hide"/>
                 <field name="name"/>
+                
                 <field name="usage_count_total" string="总使用量"/>
                 <field name="usage_count_catalog_item" string="目录条目数量" optional="show"/>
                 <field name="usage_count_product_template" string="产品模板数量" optional="show"/>
@@ -26,6 +27,7 @@
                     <group>
                         <group>
                             <field name="name"/>
+                            
                             <field name="sequence"/>
                             <field name="active"/>
                             <field name="note"/>
@@ -74,6 +76,7 @@
             <list string="胶系字典" default_order="sequence, name, id">
                 <field name="sequence" optional="hide"/>
                 <field name="name"/>
+                <field name="alias_text" optional="hide"/>
                 <field name="usage_count_total" string="总使用量"/>
                 <field name="usage_count_catalog_item" string="目录条目数量" optional="show"/>
                 <field name="usage_count_product_template" string="产品模板数量" optional="show"/>
@@ -93,6 +96,7 @@
                     <group>
                         <group>
                             <field name="name"/>
+                            <field name="alias_text" placeholder="同义词、简称、旧写法，可按换行或逗号维护"/>
                             <field name="sequence"/>
                             <field name="active"/>
                             <field name="note"/>
@@ -141,6 +145,7 @@
             <list string="基材字典" default_order="sequence, name, id">
                 <field name="sequence" optional="hide"/>
                 <field name="name"/>
+                <field name="alias_text" optional="hide"/>
                 <field name="usage_count_total" string="总使用量"/>
                 <field name="usage_count_catalog_item" string="目录条目数量" optional="show"/>
                 <field name="usage_count_product_template" string="产品模板数量" optional="show"/>
@@ -160,6 +165,7 @@
                     <group>
                         <group>
                             <field name="name"/>
+                            <field name="alias_text" placeholder="同义词、简称、旧写法，可按换行或逗号维护"/>
                             <field name="sequence"/>
                             <field name="active"/>
                             <field name="note"/>
@@ -364,4 +370,213 @@
         <field name="view_id" ref="view_diecut_catalog_feature_tag_list"/>
         <field name="search_view_id" ref="view_diecut_catalog_feature_tag_search"/>
     </record>
+
+    <record id="view_diecut_catalog_substrate_tag_list" model="ir.ui.view">
+        <field name="name">diecut.catalog.substrate.tag.list</field>
+        <field name="model">diecut.catalog.substrate.tag</field>
+        <field name="arch" type="xml">
+            <list string="被粘物标签" default_order="sequence, name, id">
+                <field name="sequence" optional="hide"/>
+                <field name="name"/>
+                <field name="surface_energy_class" optional="show"/>
+                <field name="alias_text" optional="hide"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_substrate_tag_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.substrate.tag.form</field>
+        <field name="model">diecut.catalog.substrate.tag</field>
+        <field name="arch" type="xml">
+            <form string="被粘物标签">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="surface_energy_class"/>
+                        <field name="alias_text" placeholder="同义词、材质简称、厂商说法，建议按换行维护"/>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_substrate_tag_search" model="ir.ui.view">
+        <field name="name">diecut.catalog.substrate.tag.search</field>
+        <field name="model">diecut.catalog.substrate.tag</field>
+        <field name="arch" type="xml">
+            <search string="搜索被粘物标签">
+                <field name="name"/>
+                <field name="alias_text"/>
+                <field name="surface_energy_class"/>
+                <filter name="active_only" string="启用" domain="[('active', '=', True)]"/>
+                <filter name="group_surface_energy" string="按表面能分组" context="{'group_by': 'surface_energy_class'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_catalog_substrate_tag" model="ir.actions.act_window">
+        <field name="name">被粘物标签</field>
+        <field name="res_model">diecut.catalog.substrate.tag</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_diecut_catalog_substrate_tag_list"/>
+        <field name="search_view_id" ref="view_diecut_catalog_substrate_tag_search"/>
+    </record>
+
+    <record id="view_diecut_catalog_structure_tag_list" model="ir.ui.view">
+        <field name="name">diecut.catalog.structure.tag.list</field>
+        <field name="model">diecut.catalog.structure.tag</field>
+        <field name="arch" type="xml">
+            <list string="结构标签" default_order="sequence, name, id">
+                <field name="sequence" optional="hide"/>
+                <field name="name"/>
+                <field name="alias_text" optional="hide"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_structure_tag_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.structure.tag.form</field>
+        <field name="model">diecut.catalog.structure.tag</field>
+        <field name="arch" type="xml">
+            <form string="结构标签">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="alias_text" placeholder="同义词、结构叫法、行业常用词，建议按换行维护"/>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_structure_tag_search" model="ir.ui.view">
+        <field name="name">diecut.catalog.structure.tag.search</field>
+        <field name="model">diecut.catalog.structure.tag</field>
+        <field name="arch" type="xml">
+            <search string="搜索结构标签">
+                <field name="name"/>
+                <field name="alias_text"/>
+                <filter name="active_only" string="启用" domain="[('active', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_catalog_structure_tag" model="ir.actions.act_window">
+        <field name="name">结构标签</field>
+        <field name="res_model">diecut.catalog.structure.tag</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_diecut_catalog_structure_tag_list"/>
+        <field name="search_view_id" ref="view_diecut_catalog_structure_tag_search"/>
+    </record>
+
+    <record id="view_diecut_catalog_environment_tag_list" model="ir.ui.view">
+        <field name="name">diecut.catalog.environment.tag.list</field>
+        <field name="model">diecut.catalog.environment.tag</field>
+        <field name="arch" type="xml">
+            <list string="环境标签" default_order="sequence, name, id">
+                <field name="sequence" optional="hide"/>
+                <field name="name"/>
+                <field name="alias_text" optional="hide"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_environment_tag_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.environment.tag.form</field>
+        <field name="model">diecut.catalog.environment.tag</field>
+        <field name="arch" type="xml">
+            <form string="环境标签">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="alias_text" placeholder="同义词、环境等级、行业简称，建议按换行维护"/>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_environment_tag_search" model="ir.ui.view">
+        <field name="name">diecut.catalog.environment.tag.search</field>
+        <field name="model">diecut.catalog.environment.tag</field>
+        <field name="arch" type="xml">
+            <search string="搜索环境标签">
+                <field name="name"/>
+                <field name="alias_text"/>
+                <filter name="active_only" string="启用" domain="[('active', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_catalog_environment_tag" model="ir.actions.act_window">
+        <field name="name">环境标签</field>
+        <field name="res_model">diecut.catalog.environment.tag</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_diecut_catalog_environment_tag_list"/>
+        <field name="search_view_id" ref="view_diecut_catalog_environment_tag_search"/>
+    </record>
+
+    <record id="view_diecut_catalog_process_tag_list" model="ir.ui.view">
+        <field name="name">diecut.catalog.process.tag.list</field>
+        <field name="model">diecut.catalog.process.tag</field>
+        <field name="arch" type="xml">
+            <list string="工艺标签" default_order="sequence, name, id">
+                <field name="sequence" optional="hide"/>
+                <field name="name"/>
+                <field name="alias_text" optional="hide"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_process_tag_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.process.tag.form</field>
+        <field name="model">diecut.catalog.process.tag</field>
+        <field name="arch" type="xml">
+            <form string="工艺标签">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="alias_text" placeholder="同义词、工艺词、厂商用语，建议按换行维护"/>
+                        <field name="sequence"/>
+                        <field name="active"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_process_tag_search" model="ir.ui.view">
+        <field name="name">diecut.catalog.process.tag.search</field>
+        <field name="model">diecut.catalog.process.tag</field>
+        <field name="arch" type="xml">
+            <search string="搜索工艺标签">
+                <field name="name"/>
+                <field name="alias_text"/>
+                <filter name="active_only" string="启用" domain="[('active', '=', True)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_catalog_process_tag" model="ir.actions.act_window">
+        <field name="name">工艺标签</field>
+        <field name="res_model">diecut.catalog.process.tag</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_diecut_catalog_process_tag_list"/>
+        <field name="search_view_id" ref="view_diecut_catalog_process_tag_search"/>
+    </record>
 </odoo>
+

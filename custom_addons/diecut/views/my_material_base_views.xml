@@ -32,6 +32,7 @@
                         </group>
                         <group string="物理特性">
                             <field name="brand_id" />
+                            <field name="manufacturer_id" context="{'show_short_name': True}" domain="[('is_company', '=', True)]" />
                             <field name="origin" />
                             <field name="density" />
                             <field name="material_transparency" />
@@ -104,6 +105,7 @@
                 <field name="name" />
                 <field name="default_code" optional="show" />
                 <field name="brand_id" optional="show" />
+                <field name="manufacturer_id" string="制造商(简称)" optional="hide" domain="[('is_company', '=', True)]" context="{'show_short_name': True, 'default_is_company': True}" />
                 <field name="thickness" optional="show" />
                 <field name="width" optional="show" />
                 <field name="length_smart" class="text-end" />

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_diecut_catalog_source_document_form_draft_editor_upgrade" model="ir.ui.view">
+        <field name="name">diecut.catalog.source.document.form.draft.editor.upgrade</field>
+        <field name="model">diecut.catalog.source.document</field>
+        <field name="priority">200</field>
+        <field name="inherit_id" ref="diecut.view_diecut_catalog_source_document_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[.//field[@name='draft_editor_note']]/group[.//field[@name='draft_thickness'] and .//field[@name='draft_fire_rating']]" position="replace">
+                <group string="基础属性" col="2">
+                    <group>
+                        <field name="brand_id"/>
+                        <field name="categ_id"/>
+                        <field name="draft_item_name"/>
+                        <field name="draft_item_code"/>
+                        <field name="draft_series_name"/>
+                        <field name="draft_catalog_status"/>
+                        <field name="draft_manufacturer_id"/>
+                        <field name="draft_manufacturer_name" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="draft_thickness"/>
+                        <field name="draft_thickness_std"/>
+                        <field name="draft_adhesive_thickness"/>
+                        <field name="draft_color_id"/>
+                        <field name="draft_color_name" invisible="1"/>
+                        <field name="draft_adhesive_type_id"/>
+                        <field name="draft_adhesive_type_name" invisible="1"/>
+                        <field name="draft_base_material_id"/>
+                        <field name="draft_base_material_name" invisible="1"/>
+                        <field name="draft_ref_price"/>
+                        <field name="draft_is_rohs"/>
+                        <field name="draft_is_reach"/>
+                        <field name="draft_is_halogen_free"/>
+                        <field name="draft_fire_rating"/>
+                    </group>
+                </group>
+            </xpath>
+
+            <xpath expr="//page[.//field[@name='draft_editor_note']]/group[.//field[@name='draft_product_features'] and .//field[@name='draft_product_description']]" position="replace">
+                <group string="选型信息" col="2">
+                    <group string="系列标签">
+                        <field name="draft_series_function_tags" readonly="1"/>
+                        <field name="draft_series_application_tags" readonly="1"/>
+                        <field name="draft_series_feature_tags" readonly="1"/>
+                    </group>
+                    <group string="系列参考(只读)">
+                        <field name="draft_product_features"/>
+                        <field name="draft_product_description"/>
+                        <field name="draft_main_applications" widget="html"/>
+                    </group>
+                    <group string="型号追加信息">
+                        <field name="draft_equivalent_type"/>
+                    </group>
+                    <group string="型号补充说明">
+                        <field name="draft_special_applications" widget="html"/>
+                    </group>
+                </group>
+            </xpath>
+
+            <xpath expr="//page[.//field[@name='draft_editor_note']]/group[.//field[@name='draft_line_ids']]" position="replace">
+                <group string="技术参数" col="1">
+                    <field name="draft_line_ids" nolabel="1">
+                        <list editable="bottom" default_order="sequence, id">
+                            <field name="sequence" optional="hide"/>
+                            <field name="item_code" string="型号" optional="show"/>
+                            <field name="param_id" string="参数字典"/>
+                            <field name="param_name" string="参数名称" optional="show"/>
+                            <field name="param_key" string="参数键" optional="show"/>
+                            <field name="dictionary_status" string="参数状态"/>
+                            <field name="value_display" string="值"/>
+                            <field name="unit" string="单位"/>
+                            <field name="test_method" string="测试方法"/>
+                            <field name="test_condition" string="测试条件"/>
+                            <field name="remark" string="备注"/>
+                            <field name="spec_category_name" string="参数分类" optional="show"/>
+                            <field name="route_label" string="写入位置" optional="show" readonly="1"/>
+                            <field name="source_label" string="来源" optional="show" readonly="1"/>
+                            <field name="preferred_unit" optional="hide"/>
+                            <field name="source_key" optional="hide"/>
+                            <field name="candidate_new" optional="hide"/>
+                            <field name="is_main_field" optional="hide"/>
+                            <field name="main_field_name" optional="hide"/>
+                            <field name="value_type" optional="hide"/>
+                        </list>
+                        <form string="草稿参数编辑">
+                            <group>
+                                <group>
+                                    <field name="item_code"/>
+                                    <field name="param_id"/>
+                                    <field name="param_key"/>
+                                    <field name="param_name"/>
+                                    <field name="spec_category_name"/>
+                                    <field name="dictionary_status"/>
+                                    <field name="route_label" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="value_display"/>
+                                    <field name="unit"/>
+                                    <field name="preferred_unit"/>
+                                    <field name="test_method"/>
+                                    <field name="test_condition"/>
+                                    <field name="source_label" readonly="1"/>
+                                </group>
+                            </group>
+                            <group>
+                                <field name="remark"/>
+                                <field name="method_html" widget="html" readonly="1"/>
+                            </group>
+                        </form>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

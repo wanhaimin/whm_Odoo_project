@@ -43,7 +43,6 @@ class CatalogItemBatchUpdateWizard(models.TransientModel):
     def _allowed_field_names(self):
         return [
             "series_id",
-            "series_text",
             "categ_id",
             "product_features",
             "product_description",

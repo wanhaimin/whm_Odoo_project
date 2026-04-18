@@ -125,7 +125,7 @@
                                 </t>
                             </t>
                         </div>
-                        <View t-key="effectiveSelectedResId" t-props="formViewProps"/>
+                        <View t-key="state.formResId" t-props="formViewProps"/>
                     </div>
                 </t>
                 <t t-else="">

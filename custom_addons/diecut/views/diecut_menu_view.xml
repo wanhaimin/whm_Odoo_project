@@ -4,21 +4,24 @@
 
     <menuitem id="menu_diecut_quote_backend" name="成本计算器" parent="menu_diecut_root" action="action_diecut_quote" sequence="10"/>
 
-    <menuitem id="menu_material_catalog" name="材料型号库" parent="menu_diecut_root" action="action_diecut_catalog_item_gray" sequence="15"/>
+    <menuitem id="menu_material_catalog" name="材料选型大全" parent="menu_diecut_root" action="action_diecut_catalog_item_gray" sequence="15"/>
+    <menuitem id="menu_material_selection_workbench" name="选型工作台" parent="menu_material_catalog" action="action_diecut_selection_workbench" sequence="18"/>
     <menuitem id="menu_material_catalog_variant_unified" name="材料型号清单" parent="menu_material_catalog" action="action_diecut_catalog_item_gray" sequence="20"/>
     <menuitem id="menu_material_catalog_spec_def" name="分类参数配置" parent="menu_material_catalog" action="action_product_category_catalog_param" sequence="24"/>
     <menuitem id="menu_material_catalog_ops" name="数据运维" parent="menu_material_catalog" action="action_catalog_ops_wizard" sequence="25"/>
     <menuitem id="menu_material_catalog_ops_log" name="运维日志" parent="menu_material_catalog" action="action_catalog_ops_log" sequence="26"/>
     <menuitem id="menu_material_catalog_source_document" name="AI/TDS 草稿" parent="menu_material_catalog" action="action_diecut_catalog_source_document" sequence="27"/>
-    <menuitem id="menu_material_catalog_ai_settings" name="AI/TDS 设置" parent="menu_material_catalog" action="action_diecut_ai_settings_wizard" sequence="28" groups="base.group_system"/>
     <menuitem id="menu_material_catalog_dictionary" name="字典管理" parent="menu_material_catalog" sequence="90"/>
     <menuitem id="menu_material_catalog_brand" name="品牌字典" parent="menu_material_catalog_dictionary" action="action_diecut_brand" sequence="10"/>
     <menuitem id="menu_material_catalog_color" name="颜色字典" parent="menu_material_catalog_dictionary" action="action_diecut_color" sequence="11"/>
     <menuitem id="menu_material_catalog_adhesive_type" name="胶系字典" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_adhesive_type" sequence="12"/>
     <menuitem id="menu_material_catalog_base_material" name="基材字典" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_base_material" sequence="13"/>
-    <menuitem id="menu_material_catalog_series" name="系列字典" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_series" sequence="14"/>
-    <menuitem id="menu_material_catalog_param_category" name="参数分类" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_param_category" sequence="15"/>
-    <menuitem id="menu_material_catalog_param" name="参数字典" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_param" sequence="16"/>
+    <menuitem id="menu_material_catalog_series" name="系列字典" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_series" sequence="15"/>
+    <menuitem id="menu_material_catalog_function_tag" name="功能标签" parent="menu_material_catalog_dictionary" action="action_diecut_function_tag" sequence="20"/>
+    <menuitem id="menu_material_catalog_application_tag" name="应用标签" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_application_tag" sequence="21"/>
+    <menuitem id="menu_material_catalog_feature_tag" name="特性标签" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_feature_tag" sequence="22"/>
+    <menuitem id="menu_material_catalog_param_category" name="参数分类" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_param_category" sequence="30"/>
+    <menuitem id="menu_material_catalog_param" name="参数字典" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_param" sequence="31"/>
 
     <menuitem id="menu_diecut_raw_material_list" name="原材料" parent="menu_diecut_root" action="action_diecut_raw_material" sequence="20"/>
     <menuitem id="menu_diecut_customer" name="客户管理" parent="menu_diecut_root" action="action_diecut_customer" sequence="30"/>
@@ -30,7 +33,4 @@
     <record id="base.open_module_tree" model="ir.actions.act_window">
         <field name="context">{'search_default_app': 1, 'search_default_installed': 1}</field>
     </record>
-    <menuitem id="menu_material_catalog_function_tag" name="功能标签" parent="menu_material_catalog_dictionary" action="action_diecut_function_tag" sequence="15"/>
-    <menuitem id="menu_material_catalog_application_tag" name="应用标签" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_application_tag" sequence="16"/>
-    <menuitem id="menu_material_catalog_feature_tag" name="特性标签" parent="menu_material_catalog_dictionary" action="action_diecut_catalog_feature_tag" sequence="17"/>
 </odoo>

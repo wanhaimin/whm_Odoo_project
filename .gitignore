@@ -4,3 +4,9 @@ venv/
 *.pyc
 __pycache__/
 .env
+
+# Odoo diecut generated artifacts
+custom_addons/diecut/scripts/.tds_worker_cache/
+custom_addons/diecut/scripts/tds_import_drafts/
+custom_addons/diecut/scripts/tds_batch_reports/
+custom_addons/diecut/scripts/tesa_tds_pdfs/rendered_*/

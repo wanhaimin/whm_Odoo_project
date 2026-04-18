@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import re
-from collections import Counter, defaultdict
 
 from odoo import Command, api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from odoo.osv import expression
 
 
 class DiecutCatalogItem(models.Model):
@@ -13,19 +13,8 @@ class DiecutCatalogItem(models.Model):
     _description = "材料选型目录"
     _order = "brand_id, sequence, id"
 
-    _LEGACY_SPEC_FIELD_MAP = {
-        "variant_peel_strength": ("peel_strength", "剥离力"),
-        "variant_structure": ("structure", "结构描述"),
-        "variant_sus_peel": ("sus_peel", "SUS剥离力"),
-        "variant_pe_peel": ("pe_peel", "PE剥离力"),
-        "variant_dupont": ("dupont", "DuPont冲击"),
-        "variant_push_force": ("push_force", "推出力"),
-        "variant_removability": ("removability", "可移除性"),
-        "variant_tumbler": ("tumbler", "Tumbler滚球"),
-        "variant_holding_power": ("holding_power", "保持力"),
-    }
-
     _SERIES_TEMPLATE_FIELDS = ("product_features", "product_description", "main_applications")
+    _PLACEHOLDER_TEXTS = {"false", "none", "null"}
     _SERIES_DEFAULT_TAG_FIELDS = (
         ("function_tag_ids", "default_function_tag_ids"),
         ("application_tag_ids", "default_application_tag_ids"),
@@ -37,10 +26,14 @@ class DiecutCatalogItem(models.Model):
     sequence = fields.Integer(string="排序", default=10)
 
     brand_id = fields.Many2one("diecut.brand", string="品牌", required=True, index=True)
+    manufacturer_id = fields.Many2one(
+        "res.partner",
+        string="制造商",
+        domain="[('is_company', '=', True)]",
+    )
     categ_id = fields.Many2one("product.category", string="材料分类", index=True)
 
-    code = fields.Char(string="型号编码", index=True)
-    series_text = fields.Char(string="系列(兼容)", help="迁移兼容字段，仅用于旧数据与导入兼容，不再作为主入口。")
+    code = fields.Char(string="型号", index=True)
     series_id = fields.Many2one(
         "diecut.catalog.series",
         string="系列",
@@ -55,7 +48,7 @@ class DiecutCatalogItem(models.Model):
         definition="categ_id.diecut_properties_definition",
         copy=True,
     )
-    product_features = fields.Text(string="系列共性特性", help="来自系列模板的共性特性，主要用于继承和导入兼容。")
+    product_features = fields.Text(string="系列特性", help="来自系列模板的共性特性，主要用于继承和导入兼容。")
     product_description = fields.Text(string="系列说明", help="来自系列模板的系列级说明，主要用于继承和导入兼容。")
     main_applications = fields.Html(string="系列主要应用", help="来自系列模板的主要应用说明。")
     special_applications = fields.Html(string="型号补充说明", help="用于记录当前型号相对系列模板的补充说明、差异点或应用备注。")
@@ -79,6 +72,66 @@ class DiecutCatalogItem(models.Model):
         "catalog_item_id",
         "tag_id",
         string="特性标签",
+    )
+    extra_function_tag_ids = fields.Many2many(
+        "product.tag",
+        string="型号追加功能标签",
+        compute="_compute_item_tag_aliases",
+        inverse="_inverse_item_tag_aliases",
+    )
+    extra_application_tag_ids = fields.Many2many(
+        "diecut.catalog.application.tag",
+        string="型号追加应用标签",
+        compute="_compute_item_tag_aliases",
+        inverse="_inverse_item_tag_aliases",
+    )
+    extra_feature_tag_ids = fields.Many2many(
+        "diecut.catalog.feature.tag",
+        string="型号追加特性标签",
+        compute="_compute_item_tag_aliases",
+        inverse="_inverse_item_tag_aliases",
+    )
+    series_function_tag_ids = fields.Many2many(
+        "product.tag",
+        string="系列功能标签",
+        compute="_compute_series_tag_views",
+    )
+    series_application_tag_ids = fields.Many2many(
+        "diecut.catalog.application.tag",
+        string="系列应用标签",
+        compute="_compute_series_tag_views",
+    )
+    series_feature_tag_ids = fields.Many2many(
+        "diecut.catalog.feature.tag",
+        string="系列特性标签",
+        compute="_compute_series_tag_views",
+    )
+    effective_function_tag_ids = fields.Many2many(
+        "product.tag",
+        "diecut_catalog_item_effective_function_tag_rel",
+        "catalog_item_id",
+        "tag_id",
+        string="有效功能标签",
+        compute="_compute_effective_tag_ids",
+        store=True,
+    )
+    effective_application_tag_ids = fields.Many2many(
+        "diecut.catalog.application.tag",
+        "diecut_catalog_item_effective_application_tag_rel",
+        "catalog_item_id",
+        "tag_id",
+        string="有效应用标签",
+        compute="_compute_effective_tag_ids",
+        store=True,
+    )
+    effective_feature_tag_ids = fields.Many2many(
+        "diecut.catalog.feature.tag",
+        "diecut_catalog_item_effective_feature_tag_rel",
+        "catalog_item_id",
+        "tag_id",
+        string="有效特性标签",
+        compute="_compute_effective_tag_ids",
+        store=True,
     )
     selection_search_text = fields.Text(
         string="选型检索文本",
@@ -128,41 +181,12 @@ class DiecutCatalogItem(models.Model):
         default="none",
     )
 
-    variant_thickness = fields.Char(string="厚度(兼容)", help="兼容旧字段，请使用 thickness。")
-    variant_adhesive_thickness = fields.Char(string="胶层厚(兼容)", help="兼容旧字段，请使用 adhesive_thickness。")
-    variant_color = fields.Many2one("diecut.color", string="颜色(兼容)", index=True, help="兼容旧字段，请使用 color_id。")
-    variant_peel_strength = fields.Char(string="剥离力", help="遗留字段，仅用于迁移。")
-    variant_structure = fields.Char(string="结构描述", help="遗留字段，仅用于迁移。")
-    variant_adhesive_type = fields.Many2one("diecut.catalog.adhesive.type", string="胶系(兼容)", index=True, help="兼容旧字段，请使用 adhesive_type_id。")
-    variant_base_material = fields.Many2one("diecut.catalog.base.material", string="基材(兼容)", index=True, help="兼容旧字段，请使用 base_material_id。")
-    variant_sus_peel = fields.Char(string="SUS面剥离力", help="遗留字段，仅用于迁移。")
-    variant_pe_peel = fields.Char(string="PE面剥离力", help="遗留字段，仅用于迁移。")
-    variant_dupont = fields.Char(string="DuPont冲击", help="遗留字段，仅用于迁移。")
-    variant_push_force = fields.Char(string="推出力", help="遗留字段，仅用于迁移。")
-    variant_removability = fields.Char(string="可移除性", help="遗留字段，仅用于迁移。")
-    variant_tumbler = fields.Char(string="Tumbler滚球", help="遗留字段，仅用于迁移。")
-    variant_holding_power = fields.Char(string="保持力", help="遗留字段，仅用于迁移。")
-
-    variant_thickness_std = fields.Char(string="厚度(标准)(兼容)", help="兼容旧字段，请使用 thickness_std。")
-    variant_ref_price = fields.Float(string="参考单价(兼容)", digits=(16, 4), help="兼容旧字段，请使用 ref_price。")
-    variant_is_rohs = fields.Boolean(string="ROHS(兼容)", default=False, help="兼容旧字段，请使用 is_rohs。")
-    variant_is_reach = fields.Boolean(string="REACH(兼容)", default=False, help="兼容旧字段，请使用 is_reach。")
-    variant_is_halogen_free = fields.Boolean(string="无卤(兼容)", default=False, help="兼容旧字段，请使用 is_halogen_free。")
-    variant_catalog_structure_image = fields.Binary(string="产品结构图(兼容)", help="兼容旧字段，请使用 catalog_structure_image。")
-    variant_fire_rating = fields.Selection(
-        [
-            ("ul94_v0", "UL94 V-0"),
-            ("ul94_v1", "UL94 V-1"),
-            ("ul94_v2", "UL94 V-2"),
-            ("ul94_hb", "UL94 HB"),
-            ("none", "无"),
-        ],
-        string="防火等级(兼容)",
-        default="none",
-        help="兼容旧字段，请使用 fire_rating。",
-    )
-
     spec_line_ids = fields.One2many("diecut.catalog.item.spec.line", "catalog_item_id", string="技术参数", copy=True)
+    visible_spec_line_ids = fields.One2many(
+        "diecut.catalog.item.spec.line",
+        compute="_compute_visible_spec_line_ids",
+        string="有效技术参数",
+    )
     spec_line_count = fields.Integer(string="参数条数", compute="_compute_spec_line_count")
     param_domain_ids = fields.Many2many(
         "diecut.catalog.param",
@@ -171,22 +195,8 @@ class DiecutCatalogItem(models.Model):
     )
     is_duplicate_key = fields.Boolean(string="编码重复", compute="_compute_is_duplicate_key", search="_search_is_duplicate_key")
 
-    _FIELD_COMPATIBILITY_MAP = {
-        "thickness": "variant_thickness",
-        "adhesive_thickness": "variant_adhesive_thickness",
-        "color_id": "variant_color",
-        "adhesive_type_id": "variant_adhesive_type",
-        "base_material_id": "variant_base_material",
-        "thickness_std": "variant_thickness_std",
-        "ref_price": "variant_ref_price",
-        "is_rohs": "variant_is_rohs",
-        "is_reach": "variant_is_reach",
-        "is_halogen_free": "variant_is_halogen_free",
-        "catalog_structure_image": "variant_catalog_structure_image",
-        "fire_rating": "variant_fire_rating",
-    }
-    _STD_RAW_KEYS = {"thickness", "variant_thickness"}
-    _STD_KEYS = {"thickness_std", "variant_thickness_std"}
+    _STD_RAW_KEYS = {"thickness"}
+    _STD_KEYS = {"thickness_std"}
     _TAXONOMY_MODEL_BY_FIELD = {
         "color_id": "diecut.color",
         "adhesive_type_id": "diecut.catalog.adhesive.type",
@@ -197,12 +207,12 @@ class DiecutCatalogItem(models.Model):
         "code",
         "series_id.name",
         "selection_search_text",
-        "function_tag_ids.name",
-        "function_tag_ids.alias_text",
-        "application_tag_ids.name",
-        "application_tag_ids.alias_text",
-        "feature_tag_ids.name",
-        "feature_tag_ids.alias_text",
+        "effective_function_tag_ids.name",
+        "effective_function_tag_ids.alias_text",
+        "effective_application_tag_ids.name",
+        "effective_application_tag_ids.alias_text",
+        "effective_feature_tag_ids.name",
+        "effective_feature_tag_ids.alias_text",
     )
     _RETIRED_SELECTION_FRONT_FIELDS = {
         "brand_platform_id",
@@ -211,6 +221,14 @@ class DiecutCatalogItem(models.Model):
         "structure_tag_ids",
         "environment_tag_ids",
         "process_tag_ids",
+        "function_tag_ids",
+        "application_tag_ids",
+        "feature_tag_ids",
+    }
+    _ITEM_TAG_ALIAS_MAP = {
+        "extra_function_tag_ids": "function_tag_ids",
+        "extra_application_tag_ids": "application_tag_ids",
+        "extra_feature_tag_ids": "feature_tag_ids",
     }
 
     @api.model
@@ -223,6 +241,61 @@ class DiecutCatalogItem(models.Model):
             result[field_name]["searchable"] = False
             result[field_name]["sortable"] = False
         return result
+
+    @api.depends("function_tag_ids", "application_tag_ids", "feature_tag_ids")
+    def _compute_item_tag_aliases(self):
+        for record in self:
+            record.extra_function_tag_ids = record.function_tag_ids
+            record.extra_application_tag_ids = record.application_tag_ids
+            record.extra_feature_tag_ids = record.feature_tag_ids
+
+    def _inverse_item_tag_aliases(self):
+        for record in self:
+            record.function_tag_ids = record.extra_function_tag_ids
+            record.application_tag_ids = record.extra_application_tag_ids
+            record.feature_tag_ids = record.extra_feature_tag_ids
+
+    def action_open_param_mass_edit_wizard(self):
+        active_ids = self.env.context.get("active_ids") or self.ids
+        param_id = self.env.context.get("current_param_id")
+        if not active_ids:
+            raise UserError("\u8bf7\u5148\u5728\u5217\u8868\u4e2d\u52fe\u9009\u8981\u5904\u7406\u7684\u578b\u53f7\u3002")
+        if not param_id:
+            raise UserError(
+                "\u8bf7\u5148\u4ece\u53c2\u6570\u5b57\u5178\u7684\u201c\u5f15\u7528\u578b\u53f7\u201d\u5165\u53e3\u8fdb\u5165\uff0c\u518d\u6267\u884c\u6279\u91cf\u5904\u7406\u3002"
+            )
+        return (
+            self.env["diecut.catalog.param.mass.edit.wizard"]
+            .with_context(active_ids=active_ids, current_param_id=param_id)
+            .action_open_from_context()
+        )
+
+    @api.depends(
+        "series_id",
+        "series_id.default_function_tag_ids",
+        "series_id.default_application_tag_ids",
+        "series_id.default_feature_tag_ids",
+    )
+    def _compute_series_tag_views(self):
+        for record in self:
+            record.series_function_tag_ids = record.series_id.function_tag_ids
+            record.series_application_tag_ids = record.series_id.application_tag_ids
+            record.series_feature_tag_ids = record.series_id.feature_tag_ids
+
+    @api.depends(
+        "series_id",
+        "series_id.default_function_tag_ids",
+        "series_id.default_application_tag_ids",
+        "series_id.default_feature_tag_ids",
+        "function_tag_ids",
+        "application_tag_ids",
+        "feature_tag_ids",
+    )
+    def _compute_effective_tag_ids(self):
+        for record in self:
+            record.effective_function_tag_ids = record.series_id.function_tag_ids | record.function_tag_ids
+            record.effective_application_tag_ids = record.series_id.application_tag_ids | record.application_tag_ids
+            record.effective_feature_tag_ids = record.series_id.feature_tag_ids | record.feature_tag_ids
 
     @api.model
     def _selection_main_field_name(self):
@@ -243,12 +316,31 @@ class DiecutCatalogItem(models.Model):
     @classmethod
     def _normalize_compatibility_vals(cls, vals):
         normalized = dict(vals or {})
-        for new_name, old_name in cls._FIELD_COMPATIBILITY_MAP.items():
-            if new_name in normalized and old_name not in normalized:
-                normalized[old_name] = normalized[new_name]
-            elif old_name in normalized and new_name not in normalized:
-                normalized[new_name] = normalized[old_name]
+        for alias_field, storage_field in cls._ITEM_TAG_ALIAS_MAP.items():
+            if alias_field in normalized and storage_field not in normalized:
+                normalized[storage_field] = normalized.pop(alias_field)
+        for field_name, value in list(normalized.items()):
+            if cls._is_placeholder_text(value):
+                field = cls._fields.get(field_name)
+                if field and field.type != "boolean":
+                    normalized[field_name] = False
         return normalized
+
+    @classmethod
+    def _is_placeholder_text(cls, value):
+        if value in (False, None):
+            return True
+        if isinstance(value, str):
+            return value.strip().casefold() in cls._PLACEHOLDER_TEXTS
+        return False
+
+    @classmethod
+    def _clean_placeholder_text(cls, value):
+        if cls._is_placeholder_text(value):
+            return False
+        if isinstance(value, str):
+            value = value.strip()
+        return value or False
 
     def _collect_taxonomy_usage_ids(self):
         usage_ids = {model_name: set() for model_name in self._TAXONOMY_MODEL_BY_FIELD.values()}
@@ -266,46 +358,71 @@ class DiecutCatalogItem(models.Model):
                 self.env[model_name].sudo().browse(list(ids))._refresh_usage_counts()
         return True
 
-    @api.depends("spec_line_ids")
+    @api.depends(
+        "spec_line_ids",
+        "spec_line_ids.value_kind",
+        "spec_line_ids.value_raw",
+        "spec_line_ids.value_display",
+        "spec_line_ids.unit",
+    )
     def _compute_spec_line_count(self):
         for record in self:
-            record.spec_line_count = len(record.spec_line_ids)
+            record.spec_line_count = len(
+                record.spec_line_ids.filtered(
+                    lambda line: line.value_kind == "boolean"
+                    or bool((line.value_display or "").strip())
+                    or bool((line.value_raw or "").strip())
+                )
+            )
+
+    @api.depends(
+        "spec_line_ids",
+        "spec_line_ids.value_kind",
+        "spec_line_ids.value_raw",
+        "spec_line_ids.value_display",
+        "spec_line_ids.unit",
+    )
+    def _compute_visible_spec_line_ids(self):
+        for record in self:
+            record.visible_spec_line_ids = record.spec_line_ids.filtered(
+                lambda line: line.value_kind == "boolean"
+                or bool((line.value_display or "").strip())
+                or bool((line.value_raw or "").strip())
+            )
 
     @api.depends(
         "name",
         "code",
-        "series_text",
         "series_id.name",
         "product_features",
         "product_description",
         "main_applications",
         "special_applications",
         "equivalent_type",
-        "function_tag_ids.name",
-        "function_tag_ids.alias_text",
-        "application_tag_ids.name",
-        "application_tag_ids.alias_text",
-        "feature_tag_ids.name",
-        "feature_tag_ids.alias_text",
+        "effective_function_tag_ids.name",
+        "effective_function_tag_ids.alias_text",
+        "effective_application_tag_ids.name",
+        "effective_application_tag_ids.alias_text",
+        "effective_feature_tag_ids.name",
+        "effective_feature_tag_ids.alias_text",
     )
     def _compute_selection_search_text(self):
         for record in self:
             tokens = [
                 record.name,
                 record.code,
-                record.series_text,
                 record.series_id.name,
                 record.product_features,
                 record.product_description,
                 record.main_applications,
                 record.special_applications,
                 record.equivalent_type,
-                " ".join(record.function_tag_ids.mapped("name")),
-                " ".join(filter(None, record.function_tag_ids.mapped("alias_text"))),
-                " ".join(record.application_tag_ids.mapped("name")),
-                " ".join(filter(None, record.application_tag_ids.mapped("alias_text"))),
-                " ".join(record.feature_tag_ids.mapped("name")),
-                " ".join(filter(None, record.feature_tag_ids.mapped("alias_text"))),
+                " ".join(record.effective_function_tag_ids.mapped("name")),
+                " ".join(filter(None, record.effective_function_tag_ids.mapped("alias_text"))),
+                " ".join(record.effective_application_tag_ids.mapped("name")),
+                " ".join(filter(None, record.effective_application_tag_ids.mapped("alias_text"))),
+                " ".join(record.effective_feature_tag_ids.mapped("name")),
+                " ".join(filter(None, record.effective_feature_tag_ids.mapped("alias_text"))),
             ]
             record.selection_search_text = "\n".join(str(token).strip() for token in tokens if token)
 
@@ -363,12 +480,12 @@ class DiecutCatalogItem(models.Model):
         name = self._normalize_selection_token(self.name)
         series_name = self._normalize_selection_token(self.series_id.name)
         search_text = self._normalize_selection_token(self.selection_search_text)
-        function_names = [self._normalize_selection_token(name) for name in self.function_tag_ids.mapped("name")]
-        function_aliases = self._split_selection_aliases(self.function_tag_ids.mapped("alias_text"))
-        application_names = [self._normalize_selection_token(name) for name in self.application_tag_ids.mapped("name")]
-        application_aliases = self._split_selection_aliases(self.application_tag_ids.mapped("alias_text"))
-        feature_names = [self._normalize_selection_token(name) for name in self.feature_tag_ids.mapped("name")]
-        feature_aliases = self._split_selection_aliases(self.feature_tag_ids.mapped("alias_text"))
+        function_names = [self._normalize_selection_token(name) for name in self.effective_function_tag_ids.mapped("name")]
+        function_aliases = self._split_selection_aliases(self.effective_function_tag_ids.mapped("alias_text"))
+        application_names = [self._normalize_selection_token(name) for name in self.effective_application_tag_ids.mapped("name")]
+        application_aliases = self._split_selection_aliases(self.effective_application_tag_ids.mapped("alias_text"))
+        feature_names = [self._normalize_selection_token(name) for name in self.effective_feature_tag_ids.mapped("name")]
+        feature_aliases = self._split_selection_aliases(self.effective_feature_tag_ids.mapped("alias_text"))
 
         score = 0
         for raw_term in terms:
@@ -471,10 +588,14 @@ class DiecutCatalogItem(models.Model):
 
     @staticmethod
     def _normalize_taxonomy_name(value):
-        if not value:
+        if value in (None, False):
             return False
         normalized = re.sub(r"\s+", " ", str(value).strip())
-        return normalized or False
+        if not normalized:
+            return False
+        if normalized.casefold() in DiecutCatalogItem._PLACEHOLDER_TAXONOMY_NAMES:
+            return False
+        return normalized
 
     @api.model
     def _resolve_or_create_taxonomy_id(self, model_name, value):
@@ -527,17 +648,16 @@ class DiecutCatalogItem(models.Model):
         return f"{int(rounded)}μm" if rounded.is_integer() else f"{rounded:g}μm"
 
     @classmethod
-    def _build_variant_std_vals_from_raw(cls, vals):
+    def _build_thickness_std_vals_from_raw(cls, vals):
         std_vals = {}
-        thickness_value = vals.get("thickness") if "thickness" in vals else vals.get("variant_thickness")
-        if "thickness" in vals or "variant_thickness" in vals:
+        thickness_value = vals.get("thickness")
+        if "thickness" in vals:
             std_vals["thickness_std"] = cls._normalize_thickness_std(thickness_value)
-            std_vals["variant_thickness_std"] = std_vals["thickness_std"]
         return std_vals
 
-    def _build_variant_std_vals(self):
+    def _build_thickness_std_vals(self):
         self.ensure_one()
-        return self._build_variant_std_vals_from_raw(
+        return self._build_thickness_std_vals_from_raw(
             {
                 "thickness": self.thickness,
             }
@@ -561,41 +681,20 @@ class DiecutCatalogItem(models.Model):
         }
 
     def _series_default_tag_vals(self):
-        self.ensure_one()
-        if not self.series_id:
-            return {}
-        values = {}
-        for item_field, series_field in self._SERIES_DEFAULT_TAG_FIELDS:
-            tag_ids = self.series_id[series_field].ids
-            if tag_ids:
-                values[item_field] = [Command.set(tag_ids)]
-        return values
+        return {}
 
     def _apply_series_template(self, mode="overwrite"):
         for record in self:
             updates = {}
             if record.series_id:
                 updates.update(record._series_template_vals())
-                updates["series_text"] = record.series_id.name
             else:
                 for field_name in self._SERIES_TEMPLATE_FIELDS:
                     updates[field_name] = False
-                updates["series_text"] = False
             record.with_context(skip_series_sync=True).write(updates)
 
     def _apply_series_default_tags(self):
-        for record in self:
-            if not record.series_id:
-                continue
-            updates = {}
-            for item_field, series_field in self._SERIES_DEFAULT_TAG_FIELDS:
-                if record[item_field]:
-                    continue
-                default_tags = record.series_id[series_field]
-                if default_tags:
-                    updates[item_field] = [Command.set(default_tags.ids)]
-            if updates:
-                record.with_context(skip_series_sync=True).write(updates)
+        return True
 
     def action_open_series_apply_wizard(self):
         self.ensure_one()
@@ -624,24 +723,18 @@ class DiecutCatalogItem(models.Model):
         for record in self:
             if record.series_id and record.series_id.brand_id != record.brand_id:
                 record.series_id = False
-                record.series_text = False
 
     @api.onchange("series_id")
     def _onchange_series_id_sync_text_and_defaults(self):
         for record in self:
             if not record.series_id:
-                record.series_text = False
                 record.product_features = False
                 record.product_description = False
                 record.main_applications = False
                 continue
-            record.series_text = record.series_id.name
             template_vals = record._series_template_vals()
             for field_name in self._SERIES_TEMPLATE_FIELDS:
                 record[field_name] = template_vals.get(field_name)
-            for item_field, series_field in self._SERIES_DEFAULT_TAG_FIELDS:
-                if not record[item_field] and record.series_id[series_field]:
-                    record[item_field] = record.series_id[series_field]
 
     @api.model
     def _get_category_chain_ids(self, categ_id):
@@ -678,7 +771,7 @@ class DiecutCatalogItem(models.Model):
         )
 
     @api.model
-    def _get_active_spec_defs(self, categ_id):
+    def _get_active_importable_category_params(self, categ_id):
         return self._get_active_category_params(categ_id)
 
     @api.model
@@ -691,9 +784,9 @@ class DiecutCatalogItem(models.Model):
         return category_params.mapped("param_id")
 
     @api.model
-    def _get_effective_importable_spec_def_map(self, categ_id):
-        spec_defs = self._get_active_category_params(categ_id).filtered("allow_import")
-        return {record.param_key: record for record in spec_defs}
+    def _get_effective_importable_category_param_map(self, categ_id):
+        category_params = self._get_active_category_params(categ_id).filtered("allow_import")
+        return {record.param_key: record for record in category_params}
 
     def _build_default_spec_line_commands(self, categ_id, existing_param_ids=None, existing_param_keys=None):
         existing_ids = set(existing_param_ids or [])
@@ -730,7 +823,7 @@ class DiecutCatalogItem(models.Model):
         if not self.spec_line_ids:
             return True
         for line in self.spec_line_ids:
-            if (line.value_text or "").strip():
+            if (line.value_display or "").strip():
                 return False
             if (line.test_method or "").strip():
                 return False
@@ -758,20 +851,21 @@ class DiecutCatalogItem(models.Model):
         field = self._fields.get(field_name)
         if not field:
             raise ValidationError(f"未知主字段：{field_name}")
-        if raw_value in (False, None, ""):
+        cleaned_raw = self._clean_placeholder_text(raw_value)
+        if cleaned_raw in (False, None, ""):
             return False
         if field.type == "many2one":
             if isinstance(raw_value, models.BaseModel):
                 return raw_value.id
-            if isinstance(raw_value, int):
-                return raw_value
+            if isinstance(cleaned_raw, int):
+                return cleaned_raw
             model_name = getattr(field, "comodel_name", False)
-            return self._resolve_or_create_taxonomy_id(model_name, raw_value) if model_name else False
+            return self._resolve_or_create_taxonomy_id(model_name, cleaned_raw) if model_name else False
         if field.type == "boolean":
             return str(raw_value).strip().lower() in ("1", "true", "yes", "y", "是")
         if field.type == "float":
-            return float(raw_value)
-        return str(raw_value).strip()
+            return float(cleaned_raw)
+        return str(cleaned_raw).strip()
 
     def apply_param_payload(
         self,
@@ -804,7 +898,10 @@ class DiecutCatalogItem(models.Model):
         if self.categ_id:
             category_param = self._get_effective_category_param_map(self.categ_id.id).get(param.id)
         spec_line_model = self.env["diecut.catalog.item.spec.line"]
+        normalized_test_condition = spec_line_model._clean_placeholder_text(test_condition)
         value_payload = spec_line_model._normalize_value_payload(param, raw_value)
+        if value_payload.get("value_kind") != "boolean" and value_payload.get("value_raw") in (False, None, ""):
+            return False
         line_vals = {
             "catalog_item_id": self.id,
             "param_id": param.id,
@@ -812,11 +909,11 @@ class DiecutCatalogItem(models.Model):
             "sequence": category_param.sequence if category_param else param.sequence,
             "param_key": param.param_key,
             "param_name": param.name,
-            "unit": unit or (category_param.unit_override if category_param else False) or param.unit or False,
-            "normalized_unit": param.preferred_unit or unit or param.unit or False,
-            "test_method": test_method or False,
-            "test_condition": test_condition or False,
-            "remark": remark or False,
+            "unit": spec_line_model._clean_placeholder_text(unit) or spec_line_model._clean_placeholder_text(category_param.unit_override if category_param else False) or spec_line_model._clean_placeholder_text(param.unit),
+            "normalized_unit": spec_line_model._clean_placeholder_text(param.preferred_unit) or spec_line_model._clean_placeholder_text(unit) or spec_line_model._clean_placeholder_text(param.unit),
+            "test_method": spec_line_model._clean_placeholder_text(test_method),
+            "test_condition": normalized_test_condition,
+            "remark": spec_line_model._clean_placeholder_text(remark),
             "value_raw": value_payload.get("value_raw"),
             "value_number": value_payload.get("value_number") if value_payload.get("value_number") not in (False, None, "") else False,
             "value_kind": value_payload.get("value_kind") or "text",
@@ -847,7 +944,20 @@ class DiecutCatalogItem(models.Model):
                 for condition in spec_line.condition_ids
             ]) == condition_signature)
         else:
-            line = line.filtered(lambda spec_line: not spec_line.condition_ids)
+            if normalized_test_condition:
+                line = line.filtered(
+                    lambda spec_line: (
+                        not spec_line.condition_ids
+                        and spec_line_model._clean_placeholder_text(spec_line.test_condition) == normalized_test_condition
+                    )
+                )
+            else:
+                line = line.filtered(
+                    lambda spec_line: (
+                        not spec_line.condition_ids
+                        and not spec_line_model._clean_placeholder_text(spec_line.test_condition)
+                    )
+                )
         line = line[:1]
         if line:
             line.write(line_vals)
@@ -918,6 +1028,20 @@ class DiecutCatalogItem(models.Model):
             "context": {**self.env.context, "form_view_initial_mode": "edit"},
         }
 
+    @api.model
+    def action_open_selection_results(self, payload=None):
+        payload = payload or {}
+        action = self.env.ref("diecut.action_diecut_catalog_item_gray").read()[0]
+        action["domain"] = self._build_selection_results_domain(payload)
+        action["context"] = {
+            **(action.get("context") or {}),
+            "split_form_view_id": self.env.ref("diecut.view_diecut_catalog_item_split_form_standalone").id,
+            "split_form_view_ref": "diecut.view_diecut_catalog_item_split_form_standalone",
+            "edit": True,
+            "create": True,
+        }
+        return action
+
     def action_open_batch_update_wizard(self):
         active_ids = self.env.context.get("active_ids") or self.ids
         if not active_ids:
@@ -945,21 +1069,13 @@ class DiecutCatalogItem(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        series_model = self.env["diecut.catalog.series"]
         touched_series_ids = set()
         for vals in vals_list:
             vals.update(self._normalize_compatibility_vals(vals))
             vals.update(self._prepare_taxonomy_many2one_vals(vals))
             if vals.get("code"):
                 vals["code"] = vals["code"].strip()
-            if vals.get("series_text"):
-                vals["series_text"] = vals["series_text"].strip()
-            if vals.get("series_id") and not vals.get("series_text"):
-                series = series_model.browse(vals["series_id"])
-                if series.exists():
-                    vals["series_text"] = series.name
-                    touched_series_ids.add(series.id)
-            elif vals.get("series_id"):
+            if vals.get("series_id"):
                 touched_series_ids.add(vals["series_id"])
             if vals.get("categ_id") and "spec_line_ids" not in vals and not self.env.context.get("skip_spec_autofill"):
                 vals["spec_line_ids"] = self._build_default_spec_line_commands(vals["categ_id"])
@@ -968,7 +1084,7 @@ class DiecutCatalogItem(models.Model):
             incoming = vals_list[idx] if idx < len(vals_list) else {}
             if self._STD_KEYS.intersection(incoming.keys()):
                 continue
-            auto_vals = self._build_variant_std_vals_from_raw(incoming)
+            auto_vals = self._build_thickness_std_vals_from_raw(incoming)
             if auto_vals:
                 record.write(auto_vals)
             record._apply_series_template("overwrite")
@@ -990,12 +1106,6 @@ class DiecutCatalogItem(models.Model):
         vals.update(self._prepare_taxonomy_many2one_vals(vals))
         if vals.get("code"):
             vals["code"] = vals["code"].strip()
-        if vals.get("series_text"):
-            vals["series_text"] = vals["series_text"].strip()
-        if vals.get("series_id"):
-            series = self.env["diecut.catalog.series"].browse(vals["series_id"])
-            if series.exists():
-                vals["series_text"] = series.name
         if "brand_id" in vals and "series_id" not in vals:
             brand = self.env["diecut.brand"].browse(vals["brand_id"]) if vals.get("brand_id") else False
             for record in self:
@@ -1009,7 +1119,7 @@ class DiecutCatalogItem(models.Model):
         result = super().write(vals)
         if self._STD_RAW_KEYS.intersection(vals.keys()) and not self._STD_KEYS.intersection(vals.keys()):
             for record in self:
-                auto_vals = record._build_variant_std_vals()
+                auto_vals = record._build_thickness_std_vals()
                 if auto_vals:
                     record.write(auto_vals)
         if "series_id" in vals or set(self._SERIES_TEMPLATE_FIELDS).intersection(vals.keys()):
@@ -1079,9 +1189,9 @@ class DiecutCatalogItem(models.Model):
             "code",
             "series_id",
             "selection_search_text",
-            "function_tag_ids",
-            "application_tag_ids",
-            "feature_tag_ids",
+            "effective_function_tag_ids",
+            "effective_application_tag_ids",
+            "effective_feature_tag_ids",
             "brand_id",
             "sequence",
         }
@@ -1100,6 +1210,418 @@ class DiecutCatalogItem(models.Model):
         if limit is not None:
             ranked = ranked[:limit]
         return ranked
+
+    @api.model
+    def _selection_term_split_regex(self):
+        return r"[\s,;，；/]+"
+
+    @api.model
+    def _split_workbench_terms(self, values):
+        terms = []
+        seen = set()
+        for value in values:
+            for token in re.split(self._selection_term_split_regex(), value or ""):
+                normalized = self._normalize_selection_token(token)
+                if normalized and normalized not in seen:
+                    seen.add(normalized)
+                    terms.append(token.strip())
+        return terms
+
+    @api.model
+    def _get_scene_keyword_terms(self, scene_ids):
+        scenes = self.env["diecut.catalog.selection.scene"].browse(scene_ids or []).exists()
+        if not scenes:
+            return []
+        return self._split_workbench_terms(
+            scenes.mapped("name") + scenes.mapped("alias_text") + scenes.mapped("selection_tip")
+        )
+
+    @api.model
+    def _build_keyword_domain_from_terms(self, terms):
+        normalized_terms = [term for term in (terms or []) if str(term or "").strip()]
+        if not normalized_terms:
+            return []
+        domain = []
+        for term in normalized_terms:
+            search_parts = [(field_name, "ilike", term) for field_name in self._SELECTION_SEARCH_DOMAIN_FIELDS]
+            term_domain = expression.OR([[part] for part in search_parts])
+            domain = expression.AND([domain, term_domain]) if domain else term_domain
+        return domain
+
+    @api.model
+    def _build_selection_results_domain(self, payload=None):
+        payload = dict(payload or {})
+        domain = []
+        brand_id = int(payload.get("brand_id") or 0)
+        categ_id = int(payload.get("categ_id") or 0)
+        platform_id = int(payload.get("brand_platform_id") or 0)
+        scene_ids = [int(scene_id) for scene_id in (payload.get("scene_ids") or []) if scene_id]
+        keyword = str(payload.get("keyword") or "").strip()
+        if brand_id:
+            domain.append(("brand_id", "=", brand_id))
+        if categ_id:
+            domain.append(("categ_id", "=", categ_id))
+        if platform_id:
+            domain.append(("series_id.brand_platform_id", "=", platform_id))
+        if scene_ids:
+            domain.append(("series_id.default_scene_ids", "in", scene_ids))
+        terms = self._split_workbench_terms([keyword]) + self._get_scene_keyword_terms(scene_ids)
+        keyword_domain = self._build_keyword_domain_from_terms(terms)
+        if keyword_domain:
+            domain = expression.AND([domain, keyword_domain]) if domain else keyword_domain
+        return domain
+
+    @api.model
+    def _get_workbench_filter_params(self, categ_id=False):
+        param_model = self.env["diecut.catalog.param"].with_context(active_test=False)
+        params = param_model.search(
+            [
+                ("active", "=", True),
+                "|",
+                ("is_primary_filter", "=", True),
+                ("selection_role", "in", ["filter", "compare"]),
+            ],
+            order="sequence, id",
+        )
+        if not categ_id:
+            return params
+        allowed_ids = set(self._get_active_params(categ_id).ids)
+        return params.filtered(lambda param: param.id in allowed_ids)
+
+    @api.model
+    def _get_workbench_param_category_map(self, param_ids=None):
+        config_model = self.env["diecut.catalog.spec.def"].with_context(active_test=False)
+        domain = [("active", "=", True), ("show_in_form", "=", True)]
+        if param_ids:
+            domain.append(("param_id", "in", list(param_ids)))
+        configs = config_model.search(domain, order="categ_id, sequence, id")
+        mapping = {}
+        for config in configs:
+            mapping.setdefault(config.param_id.id, set()).add(config.categ_id.id)
+        return mapping
+
+    @api.model
+    def _serialize_workbench_param(self, param, category_ids_map):
+        operators_by_type = {
+            "float": ["eq", "gte", "lte", "between"],
+            "boolean": ["eq"],
+            "selection": ["eq", "in"],
+            "char": ["contains"],
+        }
+        return {
+            "id": param.id,
+            "name": param.name,
+            "param_key": param.param_key,
+            "value_type": param.value_type,
+            "selection_role": param.selection_role,
+            "display_group": param.display_group,
+            "is_primary_filter": bool(param.is_primary_filter),
+            "filter_widget": param.filter_widget,
+            "preferred_unit": param.preferred_unit or param.unit or "",
+            "selection_options": param.get_selection_options_list() if param.value_type == "selection" else [],
+            "allowed_operators": operators_by_type.get(param.value_type or "char", ["contains"]),
+            "allowed_category_ids": sorted(category_ids_map.get(param.id, set())),
+        }
+
+    @api.model
+    def _serialize_workbench_scene(self, scene):
+        return {
+            "id": scene.id,
+            "name": scene.name,
+            "complete_name": scene.complete_name,
+            "selection_tip": scene.selection_tip or "",
+        }
+
+    @api.model
+    def get_selection_workbench_bootstrap(self, categ_id=False):
+        categ_id = int(categ_id or 0)
+        brands = self.search([("brand_id", "!=", False)]).mapped("brand_id").sorted(lambda brand: brand.name or "")
+        categories = self.search([("categ_id", "!=", False)]).mapped("categ_id").sorted(
+            lambda categ: (categ.complete_name or categ.name or "")
+        )
+        brand_count_map = {brand.id: self.search_count([("brand_id", "=", brand.id)]) for brand in brands}
+        categ_count_map = {categ.id: self.search_count([("categ_id", "=", categ.id)]) for categ in categories}
+        platforms = self.env["diecut.catalog.brand.platform"].search([("active", "=", True)], order="brand_id, sequence, name")
+        scenes = self.env["diecut.catalog.selection.scene"].search(
+            [("active", "=", True), ("is_leaf", "=", True)], order="sequence, name"
+        )
+        params = self._get_workbench_filter_params(categ_id)
+        category_ids_map = self._get_workbench_param_category_map(params.ids)
+        compare_defaults = params.filtered(lambda param: param.selection_role == "compare")[:6]
+        return {
+            "counts": {
+                "items": self.search_count([]),
+                "brands": len(brands),
+                "categories": len(categories),
+                "scenes": len(scenes),
+                "platforms": len(platforms),
+                "params": len(params),
+            },
+            "brands": [{"id": brand.id, "name": brand.name, "count": brand_count_map.get(brand.id, 0)} for brand in brands],
+            "categories": [
+                {"id": categ.id, "name": categ.complete_name or categ.name, "count": categ_count_map.get(categ.id, 0)}
+                for categ in categories
+            ],
+            "platforms": [
+                {
+                    "id": platform.id,
+                    "name": platform.name,
+                    "brand_id": [platform.brand_id.id, platform.brand_id.name] if platform.brand_id else False,
+                }
+                for platform in platforms
+            ],
+            "scenes": [self._serialize_workbench_scene(scene) for scene in scenes],
+            "featured_scenes": [self._serialize_workbench_scene(scene) for scene in scenes[:8]],
+            "params": [self._serialize_workbench_param(param, category_ids_map) for param in params],
+            "default_compare_param_ids": compare_defaults.ids,
+        }
+
+    @api.model
+    def _normalize_workbench_condition(self, condition):
+        condition = dict(condition or {})
+        param_id = int(condition.get("param_id") or 0)
+        if not param_id:
+            return False
+        param = self.env["diecut.catalog.param"].browse(param_id).exists()
+        if not param or not param.active:
+            return False
+        operator = str(condition.get("operator") or "").strip() or {
+            "float": "gte",
+            "boolean": "eq",
+            "selection": "eq",
+            "char": "contains",
+        }.get(param.value_type or "char", "contains")
+        normalized = {
+            "param_id": param.id,
+            "param_name": param.name,
+            "param_key": param.param_key,
+            "value_type": param.value_type,
+            "operator": operator,
+            "unit": param.preferred_unit or param.unit or "",
+        }
+        if param.value_type == "float":
+            if condition.get("value") not in (None, "", False):
+                normalized["value"] = float(condition.get("value"))
+            if condition.get("value_to") not in (None, "", False):
+                normalized["value_to"] = float(condition.get("value_to"))
+        elif param.value_type == "boolean":
+            value = condition.get("value")
+            normalized["value"] = str(value).strip().lower() in {"1", "true", "yes", "y", "是"}
+        elif param.value_type == "selection":
+            values = condition.get("values") or []
+            if isinstance(values, str):
+                values = [values]
+            cleaned_values = [str(value).strip() for value in values if str(value or "").strip()]
+            if cleaned_values:
+                normalized["values"] = cleaned_values
+            if condition.get("value") not in (None, "", False):
+                normalized["value"] = str(condition.get("value")).strip()
+        else:
+            normalized["value"] = str(condition.get("value") or "").strip()
+        return normalized
+
+    @api.model
+    def _get_workbench_default_compare_params(self, categ_id=False):
+        params = self._get_workbench_filter_params(categ_id)
+        return params.filtered(lambda param: param.selection_role == "compare")[:6]
+
+    def _workbench_line_matches_condition(self, line, condition):
+        self.ensure_one()
+        operator = condition.get("operator")
+        value_type = condition.get("value_type")
+        if value_type == "float":
+            number = line.value_number
+            if number in (False, None):
+                return False
+            if operator == "eq":
+                return number == condition.get("value")
+            if operator == "gte":
+                return number >= condition.get("value", 0.0)
+            if operator == "lte":
+                return number <= condition.get("value", 0.0)
+            if operator == "between":
+                lower = condition.get("value")
+                upper = condition.get("value_to")
+                if lower is None or upper is None:
+                    return False
+                return lower <= number <= upper
+            return False
+        if value_type == "boolean":
+            lowered = str(line.value_raw or "").strip().lower()
+            if lowered not in {"true", "false", "1", "0"}:
+                return False
+            truthy = lowered in {"true", "1"}
+            return truthy is bool(condition.get("value"))
+        if value_type == "selection":
+            raw_value = str(line.value_raw or "").strip()
+            if not raw_value:
+                return False
+            if operator == "in":
+                return raw_value in set(condition.get("values") or [])
+            return raw_value == str(condition.get("value") or "").strip()
+        raw_text = self._normalize_selection_token(line.value_raw)
+        expected = self._normalize_selection_token(condition.get("value"))
+        if not raw_text or not expected:
+            return False
+        return expected in raw_text
+
+    @api.model
+    def _format_workbench_condition_label(self, condition):
+        operator_labels = {
+            "eq": "=",
+            "gte": ">=",
+            "lte": "<=",
+            "between": "区间",
+            "contains": "包含",
+            "in": "任选",
+        }
+        operator = operator_labels.get(condition.get("operator"), condition.get("operator"))
+        if condition.get("value_type") == "float":
+            if condition.get("operator") == "between":
+                value_label = f"{condition.get('value')} ~ {condition.get('value_to')}"
+            else:
+                value_label = f"{condition.get('value')}"
+        elif condition.get("value_type") == "selection" and condition.get("operator") == "in":
+            value_label = " / ".join(condition.get("values") or [])
+        else:
+            value_label = "是" if condition.get("value") is True else "否" if condition.get("value") is False else str(condition.get("value") or "")
+        unit = condition.get("unit") or ""
+        return f"{condition.get('param_name')} {operator} {value_label}{(' ' + unit) if unit and condition.get('value_type') == 'float' else ''}".strip()
+
+    def _match_workbench_conditions(self, conditions):
+        self.ensure_one()
+        matched_details = []
+        for condition in conditions:
+            lines = self.spec_line_ids.filtered(lambda line: line.param_id.id == condition["param_id"])
+            matched_line = False
+            for line in lines:
+                if self._workbench_line_matches_condition(line, condition):
+                    matched_line = line
+                    break
+            if not matched_line:
+                return {"matched": False, "details": []}
+            matched_details.append(
+                {
+                    "param_id": condition["param_id"],
+                    "param_name": condition["param_name"],
+                    "condition_label": self._format_workbench_condition_label(condition),
+                    "matched_value": matched_line.value_display or matched_line.value_raw or "",
+                    "condition_summary": matched_line.condition_summary or "",
+                }
+            )
+        return {"matched": True, "details": matched_details, "score_boost": len(matched_details) * 1000}
+
+    def _serialize_workbench_spec_value(self, line):
+        self.ensure_one()
+        return {
+            "display": line.value_display or line.value_raw or "",
+            "raw": line.value_raw or "",
+            "number": line.value_number if line.value_kind == "number" else False,
+            "unit": line.unit or "",
+            "condition_summary": line.condition_summary or "",
+        }
+
+    def _get_workbench_value_map(self, param_ids):
+        self.ensure_one()
+        param_id_set = set(param_ids or [])
+        value_map = {}
+        relevant_lines = self.spec_line_ids.filtered(lambda line: line.param_id.id in param_id_set)
+        for line in relevant_lines.sorted(lambda record: (record.sequence, record.id)):
+            key = str(line.param_id.id)
+            if key not in value_map:
+                value_map[key] = self._serialize_workbench_spec_value(line)
+        return value_map
+
+    @api.model
+    def _sort_workbench_results(self, results, sort):
+        if sort == "brand":
+            return sorted(results, key=lambda item: ((item.get("brand_name") or ""), -(item.get("score") or 0), item.get("code") or ""))
+        if sort == "series":
+            return sorted(results, key=lambda item: ((item.get("series_name") or ""), -(item.get("score") or 0), item.get("code") or ""))
+        if sort == "thickness":
+            return sorted(results, key=lambda item: (item.get("thickness_sort") is None, item.get("thickness_sort") or 0.0, item.get("code") or ""))
+        return sorted(results, key=lambda item: (-(item.get("score") or 0), item.get("code") or ""))
+
+    @api.model
+    def get_selection_workbench_results(self, payload=None):
+        payload = dict(payload or {})
+        limit = max(1, min(int(payload.get("limit") or 24), 80))
+        sort = str(payload.get("sort") or "relevance")
+        domain = self._build_selection_results_domain(payload)
+        terms = self._split_workbench_terms([str(payload.get("keyword") or "").strip()]) + self._get_scene_keyword_terms(
+            payload.get("scene_ids") or []
+        )
+        conditions = [
+            normalized
+            for normalized in (self._normalize_workbench_condition(condition) for condition in (payload.get("conditions") or []))
+            if normalized
+        ]
+        compare_param_ids = [int(param_id) for param_id in (payload.get("compare_param_ids") or []) if param_id]
+        categ_id = int(payload.get("categ_id") or 0)
+        if not compare_param_ids:
+            compare_param_ids = self._get_workbench_default_compare_params(categ_id).ids
+        relevant_param_ids = list(dict.fromkeys([condition["param_id"] for condition in conditions] + compare_param_ids))
+        search_fields = [
+            "name",
+            "code",
+            "brand_id",
+            "series_id",
+            "categ_id",
+            "thickness_std",
+            "thickness",
+            "color_id",
+            "adhesive_type_id",
+            "base_material_id",
+            "selection_search_text",
+        ]
+        fetch_limit = max(limit * 6, 120)
+        records = self.search_fetch(domain, field_names=search_fields, limit=fetch_limit)
+        results = []
+        for record in records:
+            matched = record._match_workbench_conditions(conditions)
+            if not matched["matched"]:
+                continue
+            score = matched.get("score_boost", 0)
+            if terms:
+                score += record._selection_relevance_score(terms)
+            compare_values = record._get_workbench_value_map(relevant_param_ids)
+            keyword_reasons = []
+            if terms:
+                keyword_reasons.append(f"命中关键词：{' / '.join(terms[:4])}")
+            if payload.get("scene_ids"):
+                scene_names = self.env["diecut.catalog.selection.scene"].browse(payload.get("scene_ids") or []).mapped("name")
+                if scene_names:
+                    keyword_reasons.append(f"贴合场景：{' / '.join(scene_names[:3])}")
+            thickness_match = re.search(r"(\d+(?:\.\d+)?)", record.thickness_std or "")
+            results.append(
+                {
+                    "id": record.id,
+                    "name": record.name,
+                    "code": record.code,
+                    "brand_name": record.brand_id.name if record.brand_id else "",
+                    "series_name": record.series_id.name if record.series_id else "",
+                    "category_name": record.categ_id.complete_name if record.categ_id else "",
+                    "thickness": record.thickness or "",
+                    "thickness_std": record.thickness_std or "",
+                    "thickness_sort": float(thickness_match.group(1)) if thickness_match else None,
+                    "color_name": record.color_id.name if record.color_id else "",
+                    "adhesive_type_name": record.adhesive_type_id.name if record.adhesive_type_id else "",
+                    "base_material_name": record.base_material_id.name if record.base_material_id else "",
+                    "matched_reasons": [detail["condition_label"] for detail in matched["details"]] + keyword_reasons,
+                    "matched_specs": matched["details"],
+                    "compare_values": compare_values,
+                    "score": score,
+                }
+            )
+        results = self._sort_workbench_results(results, sort)[:limit]
+        compare_params = self.env["diecut.catalog.param"].browse(relevant_param_ids).exists()
+        category_ids_map = self._get_workbench_param_category_map(compare_params.ids)
+        return {
+            "results": results,
+            "compare_params": [self._serialize_workbench_param(param, category_ids_map) for param in compare_params],
+            "total": len(results),
+            "sort": sort,
+        }
 
     @staticmethod
     def _column_exists(cr, table_name, column_name):
@@ -1128,24 +1650,6 @@ class DiecutCatalogItem(models.Model):
         row = cr.fetchone()
         return row[0] if row else None
 
-    def _auto_init(self):
-        table_name = self._table
-        legacy_columns = {
-            "variant_color": "variant_color_legacy_text",
-            "variant_adhesive_type": "variant_adhesive_type_legacy_text",
-            "variant_base_material": "variant_base_material_legacy_text",
-        }
-        for column_name, legacy_column in legacy_columns.items():
-            if not self._column_exists(self.env.cr, table_name, column_name):
-                continue
-            if self._column_exists(self.env.cr, table_name, legacy_column):
-                continue
-            data_type = self._column_data_type(self.env.cr, table_name, column_name)
-            if data_type not in ("character varying", "text"):
-                continue
-            self.env.cr.execute(f'ALTER TABLE {table_name} RENAME COLUMN "{column_name}" TO "{legacy_column}"')
-        return super()._auto_init()
-
     def init(self):
         super().init()
         self.env.cr.execute(
@@ -1168,71 +1672,6 @@ class DiecutCatalogItem(models.Model):
             WHERE code IS NOT NULL AND trim(code) <> ''
             """
         )
-        self._migrate_variant_taxonomy_many2one()
-        self._migrate_core_field_compatibility()
-        self.env["diecut.color"].sudo()._refresh_all_usage_counts()
-        self.env["diecut.catalog.adhesive.type"].sudo()._refresh_all_usage_counts()
-        self.env["diecut.catalog.base.material"].sudo()._refresh_all_usage_counts()
-        self.env["diecut.catalog.series"].sudo()._refresh_all_usage_counts()
-
-    @api.model
-    def _migrate_core_field_compatibility(self):
-        for new_name, old_name in self._FIELD_COMPATIBILITY_MAP.items():
-            if not self._column_exists(self.env.cr, self._table, new_name):
-                continue
-            if not self._column_exists(self.env.cr, self._table, old_name):
-                continue
-            self.env.cr.execute(
-                f"""
-                UPDATE {self._table}
-                   SET "{new_name}" = COALESCE("{new_name}", "{old_name}"),
-                       "{old_name}" = COALESCE("{old_name}", "{new_name}")
-                """
-            )
-        return True
-
-    @api.model
-    def _migrate_legacy_spec_fields_to_lines(self):
-        spec_def_model = self.env["diecut.catalog.spec.def"].sudo()
-        line_model = self.env["diecut.catalog.item.spec.line"].sudo()
-        legacy_field_order = list(self._LEGACY_SPEC_FIELD_MAP.keys())
-        for item in self.sudo().search([]):
-            if not item.categ_id:
-                continue
-            for field_name, (param_key, param_name) in self._LEGACY_SPEC_FIELD_MAP.items():
-                legacy_value = item[field_name]
-                if legacy_value in (False, None, ""):
-                    continue
-                spec_def = spec_def_model.search([("categ_id", "=", item.categ_id.id), ("param_key", "=", param_key)], limit=1)
-                if not spec_def:
-                    spec_def = spec_def_model.create(
-                        {
-                            "name": param_name,
-                            "param_key": param_key,
-                            "categ_id": item.categ_id.id,
-                            "value_type": "char",
-                            "sequence": 1000 + legacy_field_order.index(field_name),
-                            "required": False,
-                            "active": True,
-                            "show_in_form": True,
-                            "allow_import": True,
-                        }
-                    )
-                line = line_model.search([("catalog_item_id", "=", item.id), ("param_id", "=", spec_def.param_id.id)], limit=1)
-                if not line:
-                    line_model.create(
-                        {
-                            "catalog_item_id": item.id,
-                            "param_id": spec_def.param_id.id,
-                            "category_param_id": spec_def.id,
-                            "sequence": spec_def.sequence,
-                            "param_key": spec_def.param_key,
-                            "param_name": spec_def.name,
-                            "value_char": legacy_value,
-                            "unit": spec_def.unit_override or spec_def.unit,
-                        }
-                    )
-        return True
 
     @api.model
     def _migrate_product_info_fields(self):
@@ -1289,97 +1728,4 @@ class DiecutCatalogItem(models.Model):
             """
         )
         return True
-
-    @api.model
-    def _migrate_variant_taxonomy_many2one(self):
-        column_map = {
-            "color_id": "variant_color_legacy_text",
-            "adhesive_type_id": "variant_adhesive_type_legacy_text",
-            "base_material_id": "variant_base_material_legacy_text",
-        }
-
-        self.env.cr.execute(
-            """
-            SELECT column_name
-              FROM information_schema.columns
-             WHERE table_name = 'diecut_catalog_item'
-            """
-        )
-        existing_columns = {row[0] for row in self.env.cr.fetchall()}
-        legacy_columns = [column for column in column_map.values() if column in existing_columns]
-
-        if legacy_columns:
-            select_sql = ", ".join(["id"] + legacy_columns)
-            self.env.cr.execute(f"SELECT {select_sql} FROM diecut_catalog_item")
-            for row in self.env.cr.dictfetchall():
-                record = self.sudo().browse(row["id"])
-                if not record.exists():
-                    continue
-                vals = {}
-                for field_name, legacy_column in column_map.items():
-                    legacy_value = row.get(legacy_column)
-                    if legacy_value in (False, None, ""):
-                        continue
-                    if record[field_name]:
-                        continue
-                    vals[field_name] = self._resolve_or_create_taxonomy_id(
-                        self._TAXONOMY_MODEL_BY_FIELD[field_name], legacy_value
-                    )
-                if vals:
-                    record.with_context(skip_series_sync=True, skip_spec_autofill=True).write(vals)
-
-        for column_name in legacy_columns + ["variant_color_std", "variant_adhesive_std", "variant_base_material_std"]:
-            if column_name in existing_columns:
-                self.env.cr.execute(f'ALTER TABLE diecut_catalog_item DROP COLUMN IF EXISTS "{column_name}"')
-
-        self.env.cr.execute(
-            """
-            DELETE FROM ir_model_fields
-             WHERE model = 'diecut.catalog.item'
-               AND name IN (
-                   'variant_color_std',
-                   'variant_adhesive_std',
-                   'variant_base_material_std',
-                   'variant_color_legacy_text',
-                   'variant_adhesive_type_legacy_text',
-                   'variant_base_material_legacy_text'
-               )
-            """
-        )
-        return True
-
-    @api.model
-    def _migrate_series_to_master(self):
-        series_model = self.env["diecut.catalog.series"].sudo()
-        items = self.sudo().search([("brand_id", "!=", False), ("series_text", "!=", False)])
-        grouped = defaultdict(list)
-        for item in items:
-            key = (item.brand_id.id, (item.series_text or "").strip())
-            if not key[1]:
-                continue
-            grouped[key].append(item)
-
-        for (brand_id, series_name), records in grouped.items():
-            series = series_model.search([("brand_id", "=", brand_id), ("name", "=", series_name)], limit=1)
-            if not series:
-                series = series_model.create({"brand_id": brand_id, "name": series_name})
-
-            template_vals = {}
-            for field_name in self._SERIES_TEMPLATE_FIELDS:
-                values = [getattr(rec, field_name) for rec in records if getattr(rec, field_name)]
-                if not values:
-                    template_vals[field_name] = False
-                    continue
-                winner = Counter(values).most_common(1)[0][0]
-                template_vals[field_name] = winner
-            series.write(template_vals)
-
-            for rec in records:
-                write_vals = {"series_id": series.id}
-                rec.with_context(skip_spec_autofill=True).write(write_vals)
-
-        # 系列文本兜底同步
-        for rec in self.sudo().search([("series_id", "!=", False)]):
-            if rec.series_text != rec.series_id.name:
-                rec.series_text = rec.series_id.name
-        return True
+    _PLACEHOLDER_TAXONOMY_NAMES = {"false", "none", "null", "nil", "n/a", "na"}

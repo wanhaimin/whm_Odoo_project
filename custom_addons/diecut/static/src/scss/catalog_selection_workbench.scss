@@ -1,0 +1,277 @@
+body.o_web_client.o_diecut_selection_workbench_active .o_action_manager {
+    overflow: auto !important;
+    overflow-y: auto !important;
+}
+
+.o_diecut_selection_workbench {
+    --diecut-workbench-ink: #18324a;
+    --diecut-workbench-soft: #f4f7fa;
+    --diecut-workbench-line: rgba(24, 50, 74, 0.08);
+    --diecut-workbench-accent: #0f766e;
+    --diecut-workbench-accent-2: #d97706;
+    --diecut-workbench-card: #ffffff;
+
+    color: var(--diecut-workbench-ink);
+    padding-bottom: 18rem;
+
+    .o_diecut_filter_sidebar {
+        position: sticky;
+        top: 1rem;
+    }
+
+    .o_diecut_filter_heading {
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--diecut-workbench-line);
+    }
+
+    .o_diecut_selection_eyebrow {
+        display: inline-block;
+        margin-bottom: 0.75rem;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--diecut-workbench-accent);
+    }
+
+    .o_diecut_selection_title {
+        font-size: clamp(1.8rem, 2.8vw, 3rem);
+        line-height: 1.08;
+        font-weight: 800;
+    }
+
+    .o_diecut_selection_intro {
+        max-width: 54rem;
+        color: rgba(24, 50, 74, 0.78);
+    }
+
+    .o_diecut_result_workspace {
+        background:
+            radial-gradient(circle at top right, rgba(217, 119, 6, 0.1), transparent 20%),
+            linear-gradient(180deg, #ffffff, #f7fafc);
+    }
+
+    .o_diecut_metric_box {
+        height: 100%;
+        padding: 1rem 1.1rem;
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.92);
+        border: 1px solid var(--diecut-workbench-line);
+        box-shadow: 0 12px 28px rgba(24, 50, 74, 0.06);
+    }
+
+    .o_diecut_metric_value {
+        font-size: 1.55rem;
+        font-weight: 800;
+    }
+
+    .o_diecut_metric_label {
+        color: rgba(24, 50, 74, 0.66);
+        font-size: 0.86rem;
+    }
+
+    .o_diecut_scene_panel {
+        padding: 1rem 1.1rem;
+        border-radius: 1rem;
+        background: rgba(255, 255, 255, 0.75);
+        border: 1px solid var(--diecut-workbench-line);
+    }
+
+    .o_diecut_chip_row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .o_diecut_chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        border-radius: 999px;
+        border: 1px solid rgba(15, 118, 110, 0.16);
+        background: rgba(15, 118, 110, 0.08);
+    }
+
+    .o_diecut_chip_close {
+        font-size: 1rem;
+        line-height: 1;
+    }
+
+    .o_diecut_filter_panel {
+        background: linear-gradient(180deg, #fff, #f9fbfd);
+    }
+
+    .o_diecut_condition_list {
+        display: grid;
+        gap: 0.9rem;
+    }
+
+    .o_diecut_filter_condition {
+        margin-bottom: 0;
+    }
+
+    .o_diecut_result_toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--diecut-workbench-line);
+    }
+
+    .o_diecut_result_toolbar_actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .o_diecut_view_switch .btn {
+        min-width: 4.5rem;
+    }
+
+    .o_diecut_empty_filter,
+    .o_diecut_empty_state,
+    .o_diecut_loading_state {
+        padding: 1rem 1.1rem;
+        border-radius: 1rem;
+        background: var(--diecut-workbench-soft);
+        color: rgba(24, 50, 74, 0.7);
+    }
+
+    .o_diecut_filter_card {
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 1rem;
+        background: var(--diecut-workbench-card);
+        border: 1px solid var(--diecut-workbench-line);
+        box-shadow: 0 10px 20px rgba(24, 50, 74, 0.05);
+    }
+
+    .o_diecut_sort_select {
+        min-width: 9rem;
+    }
+
+    .o_diecut_result_card {
+        background:
+            linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(247, 250, 252, 0.94)),
+            var(--diecut-workbench-card);
+        box-shadow: 0 18px 36px rgba(24, 50, 74, 0.08);
+        border-radius: 1.2rem;
+    }
+
+    .o_diecut_result_code {
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--diecut-workbench-accent);
+        font-weight: 800;
+        margin-bottom: 0.35rem;
+    }
+
+    .o_diecut_result_meta {
+        display: grid;
+        gap: 0.2rem;
+    }
+
+    .o_diecut_result_table {
+        margin-bottom: 0;
+
+        th {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: rgba(24, 50, 74, 0.74);
+            background: rgba(24, 50, 74, 0.03);
+            white-space: nowrap;
+        }
+
+        td {
+            min-width: 10rem;
+        }
+    }
+
+    .o_diecut_reason_block {
+        padding: 0.85rem 0.9rem;
+        border-radius: 0.9rem;
+        background: rgba(24, 50, 74, 0.04);
+    }
+
+    .o_diecut_spec_row {
+        display: flex;
+        justify-content: space-between;
+        gap: 0.75rem;
+        font-size: 0.9rem;
+        padding: 0.25rem 0;
+    }
+
+    .o_diecut_spec_name {
+        color: rgba(24, 50, 74, 0.72);
+    }
+
+    .o_diecut_spec_value {
+        font-weight: 700;
+        text-align: right;
+    }
+
+    .o_diecut_compare_drawer {
+        position: fixed;
+        left: 1.5rem;
+        right: 1.5rem;
+        bottom: 1rem;
+        z-index: 20;
+        border-radius: 1.25rem;
+        background: rgba(255, 255, 255, 0.98);
+        border: 1px solid rgba(24, 50, 74, 0.08);
+        backdrop-filter: blur(10px);
+    }
+
+    .o_diecut_compare_header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 1.2rem;
+    }
+
+    .o_diecut_compare_body {
+        padding: 0 1.2rem 1.2rem;
+        max-height: 44vh;
+        overflow: auto;
+    }
+
+    .o_diecut_compare_table th,
+    .o_diecut_compare_table td {
+        white-space: nowrap;
+        vertical-align: top;
+    }
+
+    @media (max-width: 1199.98px) {
+        .o_diecut_filter_sidebar {
+            position: static;
+        }
+
+        .o_diecut_result_toolbar {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .o_diecut_result_toolbar_actions {
+            justify-content: flex-start;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        padding-bottom: 24rem;
+
+        .o_diecut_compare_drawer {
+            left: 0.75rem;
+            right: 0.75rem;
+            bottom: 0.75rem;
+        }
+
+        .o_diecut_selection_title {
+            font-size: 1.85rem;
+        }
+    }
+}

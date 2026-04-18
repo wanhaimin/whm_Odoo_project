@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 
 import base64
 import csv
@@ -42,6 +42,7 @@ class CatalogOpsWizard(models.TransientModel):
     _description = "数据运维向导"
 
     _CSV_READ_ENCODINGS = ("utf-8-sig", "utf-8")
+    _PLACEHOLDER_TEXTS = {"false", "none", "null", "nil", "n/a", "na"}
 
     _MAIN_CSV_FILENAME = "catalog_items.csv"
     _SPEC_CSV_FILENAME = "catalog_item_specs.csv"
@@ -83,7 +84,8 @@ class CatalogOpsWizard(models.TransientModel):
     _FIELD_MANUAL_MODEL_FIELDS = {
         "diecut.catalog.item": (
             "active", "sequence", "brand_id", "categ_id", "code", "name", "series_id",
-            "catalog_status", "function_tag_ids", "application_tag_ids", "feature_tag_ids",
+            "catalog_status", "extra_function_tag_ids", "extra_application_tag_ids", "extra_feature_tag_ids",
+            "effective_function_tag_ids", "effective_application_tag_ids", "effective_feature_tag_ids",
             "selection_search_text", "special_applications",
             "tds_content", "msds_content", "datasheet_content",
             "diecut_properties", "equivalent_type", "erp_enabled", "erp_product_tmpl_id",
@@ -94,9 +96,9 @@ class CatalogOpsWizard(models.TransientModel):
         ),
         "diecut.catalog.item.spec.line": (
             "catalog_item_id", "param_id", "category_param_id", "categ_id", "sequence", "param_key",
-            "param_name", "value_type", "value_char", "value_float", "value_boolean",
-            "value_selection", "value_text", "unit", "normalized_unit", "test_method", "test_condition", "remark",
-            "raw_value_text", "source_document_id", "source_excerpt", "confidence", "is_ai_generated", "review_status",
+            "param_name", "value_type", "value_kind", "value_raw", "value_number", "value_display",
+            "condition_summary", "unit", "normalized_unit", "test_method", "test_condition", "remark",
+            "source_document_id", "source_excerpt", "confidence", "is_ai_generated", "review_status",
         ),
         "diecut.catalog.param": (
             "name", "param_key", "spec_category_id", "canonical_name_zh", "canonical_name_en", "aliases_text",
@@ -112,7 +114,8 @@ class CatalogOpsWizard(models.TransientModel):
             "name", "code", "parent_id", "description", "sequence", "active", "param_count",
         ),
         "diecut.catalog.series": (
-            "name", "brand_id", "active", "sequence", "product_features", "product_description", "main_applications",
+            "name", "brand_id", "active", "sequence", "function_tag_ids", "application_tag_ids", "feature_tag_ids",
+            "product_features", "product_description", "main_applications",
             "item_count",
         ),
         "diecut.catalog.source.document": (
@@ -227,10 +230,13 @@ class CatalogOpsWizard(models.TransientModel):
 
     @staticmethod
     def _norm(value):
-        if value is None:
+        if value in (None, False):
             return ""
         text = repair_mojibake_text(str(value))
-        return text.replace("\r", "").strip()
+        normalized = text.replace("\r", "").strip()
+        if normalized.casefold() in CatalogOpsWizard._PLACEHOLDER_TEXTS:
+            return ""
+        return normalized
 
     def _row_get(self, row, *keys):
         for key in keys:
@@ -297,7 +303,7 @@ class CatalogOpsWizard(models.TransientModel):
             return False
 
     def _resolve_or_create_series(self, brand, row):
-        name = self._norm(row.get("series_name")) or self._norm(row.get("series_text"))
+        name = self._norm(row.get("series_name"))
         if not brand or not name:
             return False
         series = self.env["diecut.catalog.series"].search([("brand_id", "=", brand.id), ("name", "=", name)], limit=1)
@@ -387,7 +393,7 @@ class CatalogOpsWizard(models.TransientModel):
         ]
         spec_headers = [
             "brand_id_xml", "brand_name", "categ_id_xml", "item_code", "param_key", "param_name", "value",
-            "unit", "test_method", "test_condition", "remark", "sequence",
+            "unit", "condition_summary", "test_method", "test_condition", "remark", "sequence",
         ]
         param_headers = [
             "param_key", "name", "spec_category", "canonical_name_zh", "canonical_name_en", "aliases_text",
@@ -451,8 +457,9 @@ class CatalogOpsWizard(models.TransientModel):
                         "item_code": item.code or "",
                         "param_key": line.param_key or "",
                         "param_name": line.param_name or "",
-                        "value": line.value_text or "",
+                        "value": line.value_display or line.value_raw or "",
                         "unit": line.unit or "",
+                        "condition_summary": line.condition_summary or "",
                         "test_method": line.test_method or "",
                         "test_condition": line.test_condition or "",
                         "remark": line.remark or "",
@@ -571,8 +578,8 @@ class CatalogOpsWizard(models.TransientModel):
             brand = self._resolve_brand_from_row(row)
             if not brand:
                 errors.append(f"[{self._MAIN_CSV_FILENAME} 行{line_no}] 品牌不存在（brand_id_xml/brand_name）。")
-            if not (self._norm(row.get("series_name")) or self._norm(row.get("series_text"))):
-                errors.append(f"[{self._MAIN_CSV_FILENAME} 行{line_no}] series_name/series_text 不能为空。")
+            if not self._norm(row.get("series_name")):
+                errors.append(f"[{self._MAIN_CSV_FILENAME} 行{line_no}] series_name 不能为空。")
             if not self._norm(row.get("code")):
                 errors.append(f"[{self._MAIN_CSV_FILENAME} 行{line_no}] code 不能为空。")
 
@@ -735,16 +742,15 @@ class CatalogOpsWizard(models.TransientModel):
                 continue
             series = self._resolve_or_create_series(brand, row)
             categ = self._resolve_categ(row.get("categ_id_xml"))
-            color = self._resolve_or_create_named_record("diecut.color", self._row_get(row, "color_id", "variant_color"))
-            adhesive = self._resolve_or_create_named_record("diecut.catalog.adhesive.type", self._row_get(row, "adhesive_type_id", "variant_adhesive_type"))
-            base_material = self._resolve_or_create_named_record("diecut.catalog.base.material", self._row_get(row, "base_material_id", "variant_base_material"))
+            color = self._resolve_or_create_named_record("diecut.color", self._row_get(row, "color_id"))
+            adhesive = self._resolve_or_create_named_record("diecut.catalog.adhesive.type", self._row_get(row, "adhesive_type_id"))
+            base_material = self._resolve_or_create_named_record("diecut.catalog.base.material", self._row_get(row, "base_material_id"))
             resolved_items[self._db_key(brand.id, code)] = {
                 "brand_id": brand.id,
                 "code": code,
                 "name": self._norm(row.get("name")) or code,
                 "categ_id": categ.id if categ else False,
                 "series_id": series.id if series else False,
-                "series_text": series.name if series else (self._norm(row.get("series_name")) or False),
                 "catalog_status": self._norm(row.get("catalog_status")) or "draft",
                 "active": self._to_bool(row.get("active"), default=True),
                 "sequence": int(self._to_float(row.get("sequence"), default=10)),
@@ -753,16 +759,16 @@ class CatalogOpsWizard(models.TransientModel):
                 "product_description": self._norm(row.get("product_description")) or False,
                 "main_applications": self._norm(row.get("main_applications")) or False,
                 "special_applications": self._norm(row.get("special_applications")) or False,
-                "thickness": self._norm(self._row_get(row, "thickness", "variant_thickness")) or False,
-                "adhesive_thickness": self._norm(self._row_get(row, "adhesive_thickness", "variant_adhesive_thickness")) or False,
+                "thickness": self._norm(self._row_get(row, "thickness")) or False,
+                "adhesive_thickness": self._norm(self._row_get(row, "adhesive_thickness")) or False,
                 "color_id": color.id if color else False,
                 "adhesive_type_id": adhesive.id if adhesive else False,
                 "base_material_id": base_material.id if base_material else False,
-                "ref_price": self._to_float(self._row_get(row, "ref_price", "variant_ref_price"), default=0.0),
-                "is_rohs": self._to_bool(self._row_get(row, "is_rohs", "variant_is_rohs")),
-                "is_reach": self._to_bool(self._row_get(row, "is_reach", "variant_is_reach")),
-                "is_halogen_free": self._to_bool(self._row_get(row, "is_halogen_free", "variant_is_halogen_free")),
-                "fire_rating": self._norm(self._row_get(row, "fire_rating", "variant_fire_rating")) or "none",
+                "ref_price": self._to_float(self._row_get(row, "ref_price"), default=0.0),
+                "is_rohs": self._to_bool(self._row_get(row, "is_rohs")),
+                "is_reach": self._to_bool(self._row_get(row, "is_reach")),
+                "is_halogen_free": self._to_bool(self._row_get(row, "is_halogen_free")),
+                "fire_rating": self._norm(self._row_get(row, "fire_rating")) or "none",
             }
 
         if self.dry_run:
@@ -793,7 +799,7 @@ class CatalogOpsWizard(models.TransientModel):
 
         for key, item in item_map.items():
             commands = [Command.clear()]
-            effective_map = item._get_effective_importable_spec_def_map(item.categ_id.id) if item.categ_id else {}
+            effective_map = item._get_effective_importable_category_param_map(item.categ_id.id) if item.categ_id else {}
             for row in grouped_specs.get(key, []):
                 param_key = self._norm(row.get("param_key"))
                 param = self.env["diecut.catalog.param"].search([("param_key", "=", param_key)], limit=1)
@@ -820,10 +826,14 @@ class CatalogOpsWizard(models.TransientModel):
                             "sequence": int(self._to_float(row.get("sequence"), default=category_param.sequence or 10)),
                             "param_key": category_param.param_key,
                             "param_name": category_param.name,
-                            "value_char": raw_value if category_param.value_type == "char" else False,
-                            "value_float": self._to_float(raw_value) if category_param.value_type == "float" and raw_value else False,
-                            "value_boolean": self._to_bool(raw_value) if category_param.value_type == "boolean" and raw_value else False,
-                            "value_selection": raw_value if category_param.value_type == "selection" else False,
+                            "value_kind": (
+                                "number" if category_param.value_type == "float"
+                                else "boolean" if category_param.value_type == "boolean"
+                                else "selection" if category_param.value_type == "selection"
+                                else "text"
+                            ),
+                            "value_raw": raw_value or False,
+                            "value_number": self._to_float(raw_value) if category_param.value_type == "float" and raw_value else False,
                             "unit": self._norm(row.get("unit")) or category_param.unit_override or category_param.unit,
                             "test_method": self._norm(row.get("test_method")) or False,
                             "test_condition": self._norm(row.get("test_condition")) or False,
@@ -846,7 +856,7 @@ class CatalogOpsWizard(models.TransientModel):
         model_domain = [("code", "!=", False)]
         total_models = catalog_model.search_count(model_domain)
         duplicate_ids = catalog_model._get_duplicate_model_ids()
-        missing_series_text = catalog_model.search_count([("code", "!=", False), ("series_text", "=", False)])
+        missing_series_id = catalog_model.search_count([("code", "!=", False), ("series_id", "=", False)])
         sampled_models = catalog_model.search_count([("id", "in", catalog_model.search(model_domain, limit=limit).ids)]) if limit and limit > 0 else total_models
         return {
             "read_mode": "new_gray",
@@ -854,7 +864,7 @@ class CatalogOpsWizard(models.TransientModel):
                 "total": total_models,
                 "sampled": sampled_models,
                 "duplicate_code_count": len(duplicate_ids),
-                "series_text_missing_count": missing_series_text,
+                "series_id_missing_count": missing_series_id,
             },
         }
 
@@ -923,20 +933,13 @@ class CatalogOpsWizard(models.TransientModel):
         self.ensure_one()
         return self.env.ref("diecut.action_diecut_catalog_source_document").read()[0]
 
-    def _legacy_spec_field_names(self):
-        model = self.env["diecut.catalog.item"]
-        return set(getattr(model, "_LEGACY_SPEC_FIELD_MAP", {}).keys())
-
     def _collect_field_entries(self):
         entries = []
-        legacy_spec_fields = self._legacy_spec_field_names()
         for model_name, field_names in self._FIELD_MANUAL_MODEL_FIELDS.items():
             model = self.env[model_name]
             for field_name in field_names:
                 field = model._fields.get(field_name)
                 if not field:
-                    continue
-                if model_name == "diecut.catalog.item" and field_name in legacy_spec_fields:
                     continue
                 entries.append(
                     {
@@ -992,13 +995,13 @@ class CatalogOpsWizard(models.TransientModel):
                     f"型号总数: {catalog_info['total']}\n"
                     f"抽样条数: {catalog_info['sampled']}\n"
                     f"重复编码数: {catalog_info['duplicate_code_count']}\n"
-                    f"series_text 缺失数: {catalog_info['series_text_missing_count']}"
+                    f"series_id 缺失数: {catalog_info['series_id_missing_count']}"
                 )
                 log_extra = {
                     "read_mode": payload["read_mode"],
                     "shadow_model_count": catalog_info["total"],
                     "duplicate_brand_code_count": catalog_info["duplicate_code_count"],
-                    "orphan_model_count": catalog_info["series_text_missing_count"],
+                    "orphan_model_count": catalog_info["series_id_missing_count"],
                     "baseline_payload": str(payload),
                 }
             elif self.operation == "view_fields_manual":
@@ -1027,3 +1030,4 @@ class CatalogOpsWizard(models.TransientModel):
             "view_mode": "form",
             "target": "new",
         }
+

@@ -4,19 +4,24 @@
         <field name="name">diecut.catalog.param.tree</field>
         <field name="model">diecut.catalog.param</field>
         <field name="arch" type="xml">
-            <list string="参数字典" default_order="sequence, id">
-                <field name="sequence" optional="hide"/>
-                <field name="name"/>
-                <field name="param_key"/>
-                <field name="spec_category_id" optional="show"/>
-                <field name="value_type"/>
-                <field name="preferred_unit" optional="show"/>
-                <field name="is_main_field" optional="show"/>
-                <field name="main_field_name" optional="show"/>
-                <field name="description" optional="hide"/>
-                <field name="category_config_count" optional="show"/>
-                <field name="line_count" optional="show"/>
-                <field name="active"/>
+            <list string="参数字典" default_order="sequence, id" editable="top">
+                <field name="sequence" optional="hide" />
+                <field name="name" />
+                <field name="param_key" />
+                <field name="aliases_text" optional="hide" />
+                <field name="spec_category_id" optional="show" />
+                <field name="value_type" />
+                <field name="selection_role" optional="show" />
+                <field name="display_group" optional="show" />
+                <field name="is_primary_filter" optional="show" />
+                <field name="preferred_unit" optional="show" />
+                <field name="is_main_field" optional="show" />
+                <field name="main_field_name" optional="show" />
+                <field name="description" optional="hide" />
+                <field name="category_config_count" optional="show" />
+                <field name="line_count" optional="show" />
+                <field name="active" />
+                <button name="action_open_param_form" type="object" icon="fa-external-link" />
             </list>
         </field>
     </record>
@@ -27,42 +32,51 @@
         <field name="arch" type="xml">
             <form string="参数字典">
                 <sheet>
+                    <div name="button_box" class="oe_button_box">
+                        <button name="action_view_linked_items" type="object" class="oe_stat_button" icon="fa-list" invisible="is_main_field">
+                            <field name="line_count" string="引用型号" widget="statinfo" />
+                        </button>
+                    </div>
                     <group>
                         <group>
-                            <field name="name"/>
-                            <field name="param_key"/>
-                            <field name="spec_category_id"/>
-                            <field name="value_type"/>
-                            <field name="description" placeholder="填写该参数的业务含义、口径或维护说明"/>
-                            <field name="parse_hint" placeholder="填写给 AI/TDS 映射使用的解析提示"/>
+                            <field name="name" />
+                            <field name="param_key" />
+                            <field name="spec_category_id" />
+                            <field name="value_type" />
+                            <field name="selection_role" />
+                            <field name="display_group" />
+                            <field name="is_primary_filter" />
+                            <field name="filter_widget" />
+                            <field name="description" placeholder="填写该参数的业务含义、口径或维护说明" />
+                            <field name="parse_hint" placeholder="填写给 AI/TDS 映射使用的解析提示" />
                         </group>
                         <group>
-                            <field name="sequence"/>
-                            <field name="active"/>
-                            <field name="canonical_name_zh"/>
-                            <field name="canonical_name_en"/>
-                            <field name="category_config_count" readonly="1"/>
-                            <field name="line_count" readonly="1"/>
+                            <field name="sequence" />
+                            <field name="active" />
+                            <field name="canonical_name_zh" />
+                            <field name="canonical_name_en" />
+                            <field name="category_config_count" readonly="1" />
+                            <field name="line_count" readonly="1" />
                         </group>
                     </group>
                     <group string="AI/TDS 标准化">
                         <group>
-                            <field name="aliases_text" placeholder="同义词、缩写、英文别名，建议按换行维护"/>
-                            <field name="unit"/>
-                            <field name="preferred_unit"/>
-                            <field name="common_units"/>
+                            <field name="aliases_text" placeholder="同义词、缩写、英文别名，建议按换行维护" />
+                            <field name="unit" />
+                            <field name="preferred_unit" />
+                            <field name="common_units" />
                         </group>
                         <group>
-                            <field name="is_main_field"/>
-                            <field name="main_field_name" invisible="not is_main_field"/>
-                            <field name="selection_options" invisible="value_type != 'selection'" placeholder="枚举类型可按英文逗号或换行维护选项"/>
+                            <field name="is_main_field" />
+                            <field name="main_field_name" invisible="not is_main_field" />
+                            <field name="selection_options" invisible="value_type != 'selection'" placeholder="枚举类型可按英文逗号或换行维护选项" />
                         </group>
                     </group>
                     <group string="标准测试方法">
-                        <field name="method_html" nolabel="1" widget="html" placeholder="可维护标准测试方法、图例说明、判读口径和引用条件。"/>
+                        <field name="method_html" nolabel="1" widget="html" placeholder="可维护标准测试方法、图例说明、判读口径和引用条件。" />
                         <group>
-                            <field name="method_image" widget="image" filename="method_image_filename" options="{'size': [0, 800]}"/>
-                            <field name="method_image_filename" invisible="1"/>
+                            <field name="method_image" widget="image" filename="method_image_filename" options="{'size': [0, 800]}" />
+                            <field name="method_image_filename" invisible="1" />
                         </group>
                     </group>
                 </sheet>
@@ -75,27 +89,41 @@
         <field name="model">diecut.catalog.param</field>
         <field name="arch" type="xml">
             <search string="参数字典搜索">
-                <field name="name"/>
-                <field name="param_key"/>
-                <field name="spec_category_id"/>
-                <field name="description"/>
-                <field name="canonical_name_en"/>
-                <filter name="filter_active" string="启用" domain="[('active', '=', True)]"/>
-                <filter name="filter_main" string="主字段" domain="[('is_main_field', '=', True)]"/>
-                <separator/>
-                <filter name="group_type" string="按值类型分组" context="{'group_by': 'value_type'}"/>
-                <filter name="group_spec_category" string="按参数分类分组" context="{'group_by': 'spec_category_id'}"/>
+                <field name="name" />
+                <field name="param_key" />
+                <field name="spec_category_id" />
+                <field name="selection_role" />
+                <field name="display_group" />
+                <field name="description" />
+                <field name="aliases_text" />
+                <field name="canonical_name_en" />
+                <filter name="filter_active" string="启用" domain="[('active', '=', True)]" />
+                <filter name="filter_main" string="主字段" domain="[('is_main_field', '=', True)]" />
+                <filter name="filter_primary" string="工作台主筛选" domain="[('is_primary_filter', '=', True)]" />
+                <separator />
+                <filter name="group_type" string="按值类型分组" context="{'group_by': 'value_type'}" />
+                <filter name="group_spec_category" string="按参数分类分组" context="{'group_by': 'spec_category_id'}" />
+                <filter name="group_selection_role" string="按选型角色分组" context="{'group_by': 'selection_role'}" />
+                <filter name="group_display_group" string="按展示分组" context="{'group_by': 'display_group'}" />
             </search>
         </field>
+    </record>
+
+    <record id="action_diecut_catalog_param_grouped" model="ir.actions.act_window">
+        <field name="name">参数字典</field>
+        <field name="res_model">diecut.catalog.param</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'group_by': 'spec_category_id'}</field>
     </record>
 
     <record id="action_diecut_catalog_param" model="ir.actions.act_window">
         <field name="name">参数字典</field>
         <field name="res_model">diecut.catalog.param</field>
         <field name="view_mode">list,form</field>
-        <field name="search_view_id" ref="view_diecut_catalog_param_search"/>
+        <field name="search_view_id" ref="view_diecut_catalog_param_search" />
+        <field name="context">{'search_default_group_spec_category': 1}</field>
         <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'list', 'view_id': ref('view_diecut_catalog_param_tree')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('view_diecut_catalog_param_form')})]"/>
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_diecut_catalog_param_form')})]" />
     </record>
 </odoo>

@@ -9,6 +9,7 @@ from odoo.exceptions import ValidationError
 class DiecutCatalogTaxonomyMixin(models.AbstractModel):
     _name = "diecut.catalog.taxonomy.mixin"
     _description = "Catalog Taxonomy Mixin"
+    _PLACEHOLDER_NAMES = {"false", "none", "null", "nil", "n/a", "na"}
 
     name = fields.Char(string="名称", required=True, index=True)
     alias_text = fields.Text(string="别名/同义词", help="用于统一厂商原词，可按行或逗号分隔多个别名。")
@@ -23,7 +24,11 @@ class DiecutCatalogTaxonomyMixin(models.AbstractModel):
         if not value:
             return False
         text = re.sub(r"\s+", " ", str(value).strip())
-        return text or False
+        if not text:
+            return False
+        if text.casefold() in DiecutCatalogTaxonomyMixin._PLACEHOLDER_NAMES:
+            return False
+        return text
 
     @classmethod
     def _normalize_alias_text(cls, value):
@@ -64,10 +69,13 @@ class DiecutCatalogTaxonomyMixin(models.AbstractModel):
         return model._search(args, limit=limit)
 
     @api.model
-    def name_search(self, name="", args=None, operator="ilike", limit=100):
+    def name_search(self, name="", domain=None, operator="ilike", limit=100):
         if not name:
-            return super().name_search(name=name, args=args, operator=operator, limit=limit)
-        records = self.search(["|", ("name", operator, name), ("alias_text", operator, name)] + list(args or []), limit=limit)
+            return super().name_search(name=name, domain=domain, operator=operator, limit=limit)
+        records = self.search(
+            ["|", ("name", operator, name), ("alias_text", operator, name)] + list(domain or []),
+            limit=limit,
+        )
         return [(record.id, record.display_name) for record in records]
 
     @api.constrains("name")
@@ -213,6 +221,8 @@ class DiecutCatalogTaxonomyUsageMixin(models.AbstractModel):
         return [("usage_count_total", normalized_operator, int(value or 0))]
 
     def unlink(self):
+        if self.env.context.get("skip_merge_unlink_guard"):
+            return super().unlink()
         self._refresh_usage_counts()
         for record in self:
             if record.usage_count_total > 0:
@@ -225,7 +235,7 @@ class DiecutCatalogTaxonomyUsageMixin(models.AbstractModel):
 class DiecutCatalogAdhesiveType(models.Model):
     _name = "diecut.catalog.adhesive.type"
     _description = "胶系字典"
-    _inherit = ["diecut.catalog.taxonomy.mixin", "diecut.catalog.taxonomy.usage.mixin"]
+    _inherit = ["diecut.catalog.taxonomy.mixin", "diecut.catalog.taxonomy.usage.mixin", "diecut.catalog.merge.mixin"]
     _order = "sequence, name, id"
 
     @api.model
@@ -236,7 +246,7 @@ class DiecutCatalogAdhesiveType(models.Model):
 class DiecutCatalogBaseMaterial(models.Model):
     _name = "diecut.catalog.base.material"
     _description = "基材字典"
-    _inherit = ["diecut.catalog.taxonomy.mixin", "diecut.catalog.taxonomy.usage.mixin"]
+    _inherit = ["diecut.catalog.taxonomy.mixin", "diecut.catalog.taxonomy.usage.mixin", "diecut.catalog.merge.mixin"]
     _order = "sequence, name, id"
 
     @api.model
@@ -246,12 +256,13 @@ class DiecutCatalogBaseMaterial(models.Model):
 
 class DiecutColor(models.Model):
     _name = "diecut.color"
-    _inherit = ["diecut.color", "diecut.catalog.taxonomy.usage.mixin"]
+    _inherit = ["diecut.color", "diecut.catalog.taxonomy.usage.mixin", "diecut.catalog.merge.mixin"]
     _description = "颜色字典"
     _order = "sequence, name, id"
 
     active = fields.Boolean(string="启用", default=True)
     sequence = fields.Integer(string="排序", default=10)
+    alias_text = fields.Text(string="别名/同义词", help="用于统一厂商原词，可按行或逗号分隔多个别名。")
     note = fields.Text(string="备注")
     _name_unique = models.Constraint("UNIQUE(name)", "名称不能重复。")
 
@@ -267,16 +278,41 @@ class DiecutColor(models.Model):
         for vals in vals_list:
             if "name" in vals:
                 vals["name"] = DiecutCatalogTaxonomyMixin._normalize_name(vals.get("name"))
+            if "alias_text" in vals:
+                vals["alias_text"] = DiecutCatalogTaxonomyMixin._normalize_alias_text(vals.get("alias_text"))
         return super().create(vals_list)
 
     def write(self, vals):
         if "name" in vals:
             vals["name"] = DiecutCatalogTaxonomyMixin._normalize_name(vals.get("name"))
+        if "alias_text" in vals:
+            vals["alias_text"] = DiecutCatalogTaxonomyMixin._normalize_alias_text(vals.get("alias_text"))
         return super().write(vals)
+
+    @api.constrains("name")
+    def _check_name_not_empty(self):
+        for record in self:
+            if not record.name:
+                raise ValidationError("名称不能为空。")
+
+    @api.model
+    def _name_search(self, name="", args=None, operator="ilike", limit=100, name_get_uid=None):
+        args = list(args or [])
+        if name:
+            args += ["|", ("name", operator, name), ("alias_text", operator, name)]
+        model = self.with_user(name_get_uid) if name_get_uid else self
+        return model._search(args, limit=limit)
+
+    @api.model
+    def name_search(self, name="", domain=None, operator="ilike", limit=100):
+        if not name:
+            return super().name_search(name=name, domain=domain, operator=operator, limit=limit)
+        records = self.search(["|", ("name", operator, name), ("alias_text", operator, name)] + list(domain or []), limit=limit)
+        return [(record.id, record.display_name) for record in records]
 
 
 class ProductTag(models.Model):
-    _inherit = "product.tag"
+    _inherit = ["product.tag", "diecut.catalog.merge.mixin"]
     _order = "sequence, name, id"
 
     active = fields.Boolean(string="启用", default=True)
@@ -315,22 +351,64 @@ class ProductTag(models.Model):
         return model._search(args, limit=limit)
 
     @api.model
-    def name_search(self, name="", args=None, operator="ilike", limit=100):
+    def name_search(self, name="", domain=None, operator="ilike", limit=100):
         if not name:
-            return super().name_search(name=name, args=args, operator=operator, limit=limit)
-        records = self.search(["|", ("name", operator, name), ("alias_text", operator, name)] + list(args or []), limit=limit)
+            return super().name_search(name=name, domain=domain, operator=operator, limit=limit)
+        records = self.search(
+            ["|", ("name", operator, name), ("alias_text", operator, name)] + list(domain or []),
+            limit=limit,
+        )
         return [(record.id, record.display_name) for record in records]
 
 
 class DiecutCatalogApplicationTag(models.Model):
     _name = "diecut.catalog.application.tag"
     _description = "应用标签"
-    _inherit = "diecut.catalog.taxonomy.mixin"
+    _inherit = ["diecut.catalog.taxonomy.mixin", "diecut.catalog.merge.mixin"]
     _order = "sequence, name, id"
 
 
 class DiecutCatalogFeatureTag(models.Model):
     _name = "diecut.catalog.feature.tag"
     _description = "特性标签"
-    _inherit = "diecut.catalog.taxonomy.mixin"
+    _inherit = ["diecut.catalog.taxonomy.mixin", "diecut.catalog.merge.mixin"]
+    _order = "sequence, name, id"
+
+
+class DiecutCatalogSubstrateTag(models.Model):
+    _name = "diecut.catalog.substrate.tag"
+    _description = "被粘物标签"
+    _inherit = ["diecut.catalog.taxonomy.mixin", "diecut.catalog.merge.mixin"]
+    _order = "sequence, name, id"
+
+    surface_energy_class = fields.Selection(
+        [
+            ("unknown", "未区分"),
+            ("hse", "高表面能"),
+            ("lse", "低表面能"),
+            ("mixed", "混合/复合"),
+        ],
+        string="表面能分组",
+        default="unknown",
+    )
+
+
+class DiecutCatalogStructureTag(models.Model):
+    _name = "diecut.catalog.structure.tag"
+    _description = "结构标签"
+    _inherit = ["diecut.catalog.taxonomy.mixin", "diecut.catalog.merge.mixin"]
+    _order = "sequence, name, id"
+
+
+class DiecutCatalogEnvironmentTag(models.Model):
+    _name = "diecut.catalog.environment.tag"
+    _description = "环境标签"
+    _inherit = ["diecut.catalog.taxonomy.mixin", "diecut.catalog.merge.mixin"]
+    _order = "sequence, name, id"
+
+
+class DiecutCatalogProcessTag(models.Model):
+    _name = "diecut.catalog.process.tag"
+    _description = "工艺标签"
+    _inherit = ["diecut.catalog.taxonomy.mixin", "diecut.catalog.merge.mixin"]
     _order = "sequence, name, id"

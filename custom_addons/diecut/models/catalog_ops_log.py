@@ -28,7 +28,7 @@ class CatalogOpsLog(models.Model):
     shadow_model_count = fields.Integer(string="新模型型号数", readonly=True)
     missing_shadow_count = fields.Integer(string="缺失影子", readonly=True)
     duplicate_brand_code_count = fields.Integer(string="重复品牌+编码组", readonly=True)
-    orphan_model_count = fields.Integer(string="series_text缺失数", readonly=True)
+    orphan_model_count = fields.Integer(string="series_id缺失数", readonly=True)
     mapped_all_match = fields.Boolean(string="字段一致", readonly=True)
     mapped_mismatch_field_count = fields.Integer(string="字段异常数", readonly=True)
     mapped_sample_rows = fields.Integer(string="字段异常记录数", readonly=True)

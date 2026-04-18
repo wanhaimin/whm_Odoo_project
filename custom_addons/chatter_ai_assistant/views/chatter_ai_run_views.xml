@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_chatter_ai_run_tree" model="ir.ui.view">
+        <field name="name">chatter.ai.run.tree</field>
+        <field name="model">chatter.ai.run</field>
+        <field name="arch" type="xml">
+            <list string="AI Runs">
+                <field name="create_date"/>
+                <field name="conversation_type"/>
+                <field name="task_type"/>
+                <field name="document_action"/>
+                <field name="run_id"/>
+                <field name="state"/>
+                <field name="model"/>
+                <field name="record_display_name"/>
+                <field name="requesting_partner_id"/>
+                <field name="started_at"/>
+                <field name="finished_at"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_chatter_ai_run_form" model="ir.ui.view">
+        <field name="name">chatter.ai.run.form</field>
+        <field name="model">chatter.ai.run</field>
+        <field name="arch" type="xml">
+            <form string="AI Run">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="queued,running,succeeded,failed,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="run_id" readonly="1"/>
+                            <field name="conversation_type" readonly="1"/>
+                            <field name="task_type" readonly="1"/>
+                            <field name="document_action" readonly="1" invisible="task_type != 'document'"/>
+                            <field name="source_kind" readonly="1" invisible="task_type != 'document'"/>
+                            <field name="model" readonly="1"/>
+                            <field name="res_id" readonly="1"/>
+                            <field name="channel_id" readonly="1" invisible="conversation_type != 'private_chat'"/>
+                            <field name="record_display_name" readonly="1"/>
+                            <field name="requesting_partner_id" readonly="1"/>
+                            <field name="requesting_user_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="trigger_message_id" readonly="1"/>
+                            <field name="status_message_id" readonly="1"/>
+                            <field name="started_at" readonly="1"/>
+                            <field name="finished_at" readonly="1"/>
+                            <field name="trace_path" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Prompt">
+                            <field name="prompt_text" readonly="1"/>
+                            <field name="prompt_html" readonly="1" widget="html"/>
+                        </page>
+                        <page string="Result">
+                            <field name="reply_text" readonly="1" widget="html"/>
+                            <field name="result_summary" readonly="1"/>
+                            <field name="error_message" readonly="1"/>
+                        </page>
+                        <page string="Attachments">
+                            <field name="source_attachment_ids" readonly="1" widget="many2many_binary"/>
+                            <field name="generated_attachment_ids" readonly="1" widget="many2many_binary"/>
+                        </page>
+                        <page string="Context">
+                            <field name="context_payload" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_chatter_ai_run" model="ir.actions.act_window">
+        <field name="name">AI Runs</field>
+        <field name="res_model">chatter.ai.run</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_chatter_ai_root" name="Chatter AI" parent="base.menu_administration" sequence="88"/>
+    <menuitem id="menu_chatter_ai_runs" name="Run Records" parent="menu_chatter_ai_root" action="action_chatter_ai_run" sequence="10"/>
+</odoo>

@@ -2,7 +2,7 @@
 
 ## 1. 建议落点
 
-- 品牌：`3m`
+- 品牌：`3M`
 - 材料分类：`原材料 / 胶带类 / 泡棉胶带`
 - 分类 XMLID：`diecut.category_tape_foam`
 - 适用对象：3M 汽车内外饰固定用丙烯酸泡棉胶带
@@ -11,15 +11,15 @@
 
 ### 2.1 系列字典 `diecut.catalog.series`
 
-建议新增 1 条系列：
+建议新增 1 条系列记录：
 
 - 系列名称：`3M GT7100 系列`
-- 品牌：`3m`
+- 品牌：`3M`
 - 产品特点：
   - 对汽车漆面与基材具有优异的最终粘接力和保持力
   - 满足多项 OEM 规范要求
-  - 能跟随塑料件因温度变化产生的收缩与伸长
-  - 粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
+  - 可跟随塑料件因温度变化产生的收缩与伸长
+  - 粘弹性泡棉芯材具有良好的应力释放与复杂曲面贴服能力
   - 在不同温度条件下保持良好粘接性能
   - 具备耐候、耐溶剂与耐高温能力
 - 产品描述：
@@ -49,10 +49,10 @@
 
 - `series_name`：`3M GT7100 系列`
 - `catalog_status`：`published`
-- `variant_thickness`：对应厚度值
-- `variant_color`：`灰色` / `白色`
-- `variant_adhesive_type`：`丙烯酸压敏胶`
-- `variant_base_material`：`亚克力泡棉`
+- `thickness`：对应厚度值
+- `color_name`：`灰色` / `白色`
+- `adhesive_type_name`：`丙烯酸压敏胶`
+- `base_material_name`：`亚克力泡棉`
 - `special_applications`：
   - `红色半透明聚乙烯离型膜；离型膜厚度不计入总厚度。`
 

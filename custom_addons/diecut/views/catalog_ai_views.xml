@@ -85,6 +85,8 @@
                 <header>
                     <button name="action_extract_source" string="提取原文" type="object" class="btn btn-secondary" invisible="import_status in ('applied', 'validated')"/>
                     <button name="action_generate_draft" string="AI生成草稿" type="object" class="oe_highlight" invisible="import_status == 'applied'"/>
+                    <button name="action_refresh_draft_editor" string="刷新草稿编辑器" type="object" class="btn btn-secondary" invisible="not draft_payload"/>
+                    <button name="action_save_draft_editor" string="保存草稿编辑" type="object" class="btn btn-secondary" invisible="not draft_payload"/>
                     <button name="action_validate_draft" string="校验草稿" type="object" class="btn btn-secondary" invisible="import_status == 'applied'"/>
                     <button name="action_apply_draft" string="入库草稿" type="object" class="btn btn-primary" invisible="import_status == 'applied'"/>
                 </header>
@@ -115,22 +117,101 @@
                         </group>
                     </group>
                     <notebook>
-                        <page string="结构化预览">
+                        <page string="操作指南">
                             <group col="1">
-                                <field name="draft_summary" readonly="1" nolabel="1"/>
-                                <field name="draft_preview_html" nolabel="1" widget="html" readonly="1"/>
+                                <div class="o_form_label">1. 上传 PDF、图片或网页来源，并确认主解析附件。</div>
+                                <div class="o_form_label">2. 点击“提取原文”，走 OpenClaw agent/cli 链路提取正文和图片附件。</div>
+                                <div class="o_form_label">3. 点击“AI生成草稿”，由 OpenClaw 直接生成结构化草稿。</div>
+                                <div class="o_form_label">4. 在“草稿编辑”页核对主表字段、系列信息和技术参数，必要时手动修订。</div>
+                                <div class="o_form_label">5. 点击“校验草稿”，确认无误后再人工执行“入库草稿”。</div>
                             </group>
                         </page>
-                        <page string="视觉中间结果">
-                            <group>
-                                <field name="vision_summary" readonly="1"/>
-                                <field name="vision_payload" nolabel="1" widget="text" readonly="1" placeholder='{"sections": [], "tables": [], "charts": [], "methods": [], "candidate_items": []}'/>
+                        <page string="草稿编辑">
+                            <group col="1">
+                                <field name="draft_editor_note" nolabel="1" readonly="1"/>
                             </group>
-                        </page>
-                        <page string="原始内容">
-                            <group>
-                                <div class="o_form_label">优先使用 chatter 附件上传 PDF/图片；如果未选择主解析附件，系统将自动取最新可解析附件。</div>
-                                <field name="raw_text" nolabel="1" placeholder="可粘贴 OCR 文本或网页正文，也可以先上传附件后点“提取原文”。"/>
+                            <group string="基础属性" col="2">
+                                <group>
+                                    <field name="brand_id"/>
+                                    <field name="categ_id"/>
+                                    <field name="draft_item_name"/>
+                                    <field name="draft_item_code"/>
+                                    <field name="draft_series_name"/>
+                                    <field name="draft_catalog_status"/>
+                                    <field name="draft_manufacturer_name"/>
+                                </group>
+                                <group>
+                                    <field name="draft_thickness"/>
+                                    <field name="draft_thickness_std"/>
+                                    <field name="draft_adhesive_thickness"/>
+                                    <field name="draft_color_name"/>
+                                    <field name="draft_adhesive_type_name"/>
+                                    <field name="draft_base_material_name"/>
+                                    <field name="draft_ref_price"/>
+                                    <field name="draft_is_rohs"/>
+                                    <field name="draft_is_reach"/>
+                                    <field name="draft_is_halogen_free"/>
+                                    <field name="draft_fire_rating"/>
+                                </group>
+                            </group>
+                            <group string="选型信息" col="2">
+                                <group>
+                                    <field name="draft_product_features"/>
+                                    <field name="draft_product_description"/>
+                                </group>
+                                <group>
+                                    <field name="draft_main_applications" widget="html"/>
+                                </group>
+                            </group>
+                            <group string="技术参数" col="1">
+                                <field name="draft_line_ids" nolabel="1">
+                                    <list editable="bottom" default_order="sequence, id">
+                                        <field name="sequence" optional="hide"/>
+                                        <field name="item_code" optional="show"/>
+                                        <field name="param_key"/>
+                                        <field name="param_name"/>
+                                        <field name="spec_category_name" optional="show"/>
+                                        <field name="dictionary_status"/>
+                                        <field name="route_label" optional="show" readonly="1"/>
+                                        <field name="value_display"/>
+                                        <field name="unit"/>
+                                        <field name="condition_summary" optional="show"/>
+                                        <field name="test_method" optional="show"/>
+                                        <field name="test_condition" optional="show"/>
+                                        <field name="remark" optional="show"/>
+                                        <field name="source_label" optional="show" readonly="1"/>
+                                        <field name="preferred_unit" optional="hide"/>
+                                        <field name="source_key" optional="hide"/>
+                                        <field name="candidate_new" optional="hide"/>
+                                        <field name="is_main_field" optional="hide"/>
+                                        <field name="main_field_name" optional="hide"/>
+                                        <field name="value_type" optional="hide"/>
+                                    </list>
+                                    <form string="草稿参数编辑">
+                                        <group>
+                                            <group>
+                                                <field name="item_code"/>
+                                                <field name="param_key"/>
+                                                <field name="param_name"/>
+                                                <field name="spec_category_name"/>
+                                                <field name="dictionary_status"/>
+                                                <field name="route_label" readonly="1"/>
+                                            </group>
+                                            <group>
+                                                <field name="value_display"/>
+                                                <field name="unit"/>
+                                                <field name="condition_summary"/>
+                                                <field name="test_method"/>
+                                                <field name="test_condition"/>
+                                                <field name="source_label" readonly="1"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="remark"/>
+                                            <field name="method_html" widget="html" readonly="1"/>
+                                        </group>
+                                    </form>
+                                </field>
                             </group>
                         </page>
                         <page string="原始 JSON">

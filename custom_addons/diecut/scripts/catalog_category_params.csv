@@ -1,62 +1,48 @@
 ﻿categ_id_xml,param_key,param_name,unit_override,sequence,required,active,show_in_form,allow_import
-category_raw_material,liner_material,Liner Material,,220,0,1,1,1
-category_raw_material,shelf_life,Shelf Life,,220,0,1,1,1
-category_raw_material,peel_180_headliner_immediate,180 Peel Headliner Immediate,N/cm,220,0,1,1,1
-category_raw_material,peel_180_headliner_initial,180 Peel Headliner Initial,N/cm,220,0,1,1,1
-category_raw_material,peel_180_headliner_normal,180 Peel Headliner Normal,N/cm,220,0,1,1,1
-category_raw_material,peel_180_headliner_high_temp,180 Peel Headliner High Temp,N/cm,220,0,1,1,1
-category_raw_material,peel_180_headliner_heat_aging,180 Peel Headliner Heat Aging,N/cm,220,0,1,1,1
-category_raw_material,peel_180_headliner_humidity_aging,180 Peel Headliner Humidity Aging,N/cm,220,0,1,1,1
-category_raw_material,peel_180_painted_panel_initial,180 Peel Painted Panel Initial,N/cm,220,0,1,1,1
-category_raw_material,peel_180_painted_panel_normal,180 Peel Painted Panel Normal,N/cm,220,0,1,1,1
-category_raw_material,peel_180_pp_initial,180 Peel PP Initial,N/cm,220,0,1,1,1
-category_raw_material,peel_180_pp_normal,180 Peel PP Normal,N/cm,220,0,1,1,1
-category_tape,sus_adhesive,对SUS粘性,N/cm,10,0,1,1,1
+category_raw_material,liner_description,离型材料,false,220,0,1,1,1
+category_raw_material,shelf_life_storage,保质期与储存,false,220,0,1,1,1
 category_foam,density,密度,kg/m3,10,1,1,1,1
 category_foam,hardness,硬度,Shore C,20,0,1,1,1
 category_foam,compression_set,压缩永久变形,%,30,0,1,1,1
-category_foam,rebound_rate,回弹率,%,40,0,1,1,1
-category_foam,temperature_range,耐温范围,℃,50,0,1,1,1
-category_foam,adhesive_backing,背胶类型,false,60,0,1,1,1
 category_tape_pet_single,total_thickness,总厚度,μm,10,1,1,1,1
-category_tape_pet_single,substrate_thickness,基材厚度,μm,20,0,1,1,1
-category_tape_pet_single,adhesive_system,胶系,false,30,0,1,1,1
 category_tape_pet_single,peel_strength_180,剥离力,N/25mm,40,0,1,1,1
-category_tape_pet_single,temperature_grade,耐温等级,℃,50,0,1,1,1
 category_tape_pet_single,peel_strength,剥离力,false,1000,0,1,1,1
 category_tape_pet_single,structure,结构描述,false,1001,0,1,1,1
-category_release_film,base_film_type,基膜类型,false,10,1,1,1,1
 category_release_film,total_thickness,总厚度,μm,20,0,1,1,1
-category_release_film,release_force,离型力,gf/in,30,0,1,1,1
-category_release_film,surface_treatment,表面处理,false,40,0,1,1,1
-category_release_film,color_tone,颜色,false,50,0,1,1,1
 category_tape_pet_double,total_thickness,总厚度,μm,10,1,1,1,1
-category_tape_pet_double,short_term_heat_resistance,短期耐温,,10,0,1,1,1
-category_tape_pet_double,long_term_heat_resistance,长期耐温,,10,0,1,1,1
+category_tape_pet_double,initial_tack,初粘力,,10,0,1,1,1
+category_tape_pet_double,peel_strength,剥离力,,10,0,1,1,1
+category_tape_pet_double,short_term_heat_resistance,短期耐高温性,,10,0,1,1,1
+category_tape_pet_double,long_term_heat_resistance,长期耐高温性,,10,0,1,1,1
 category_tape_pet_double,solvent_resistance_level,耐溶剂性等级,,10,0,1,1,1
 category_tape_pet_double,adhesion_hse_level,高表面能粘接等级,,10,0,1,1,1
 category_tape_pet_double,adhesion_lse_level,低表面能粘接等级,,10,0,1,1,1
 category_tape_pet_double,liner_description,离型材料,,10,0,1,1,1
-category_tape_pet_double,carrier_thickness,载体厚度,μm,20,0,1,1,1
-category_tape_pet_double,adhesive_system,胶系,false,30,0,1,1,1
-category_tape_pet_double,initial_tack,初粘力,false,40,0,1,1,1
+category_tape_pet_double,peel_strength_180,180°剥离力,,10,0,1,1,1
+category_tape_pet_double,liner_thickness,离型纸厚度,,10,0,1,1,1
+category_tape_pet_double,liner_weight,离型纸重量,,10,0,1,1,1
+category_tape_pet_double,liner_color,离型纸颜色,,10,0,1,1,1
+category_tape_pet_double,elongation_at_break,断裂延展率,,10,0,1,1,1
+category_tape_pet_double,tensile_strength,抗张强度,,10,0,1,1,1
+category_tape_pet_double,plasticizer_resistance,抗增塑剂,,10,0,1,1,1
+category_tape_pet_double,uv_aging_resistance,抗老化（UV）,,10,0,1,1,1
+category_tape_pet_double,min_service_temp_c,最低耐受温度,,10,0,1,1,1
+category_tape_pet_double,chemical_resistance,耐化学品,,10,0,1,1,1
+category_tape_pet_double,moisture_resistance,防潮,,10,0,1,1,1
+category_tape_pet_double,static_shear,静态剪切,,10,0,1,1,1
 category_tape_pet_double,holding_power,持粘力,h,50,0,1,1,1
-category_tape_pet_double,peel_strength,剥离力,false,1000,0,1,1,1
 category_tape_pet_double,structure,结构描述,false,1001,0,1,1,1
-category_protection_film,base_material_type,基材类型,false,10,1,1,1,1
 category_protection_film,total_thickness,总厚度,μm,20,0,1,1,1
-category_protection_film,adhesion_force,粘着力,gf/25mm,30,0,1,1,1
-category_protection_film,temperature_grade,耐温等级,℃,40,0,1,1,1
-category_protection_film,application_surface,适用表面,false,50,0,1,1,1
 category_protection_film,peel_strength,剥离力,false,1000,0,1,1,1
 category_protection_film,structure,结构描述,false,1001,0,1,1,1
+category_tape_no_substrate,peel_strength,剥离力,,10,0,1,1,1
 category_tape_no_substrate,short_term_heat_resistance,短期耐温,,10,0,1,1,1
 category_tape_no_substrate,long_term_heat_resistance,长期耐温,,10,0,1,1,1
 category_tape_no_substrate,solvent_resistance_level,耐溶剂性等级,,10,0,1,1,1
 category_tape_no_substrate,adhesion_hse_level,高表面能粘接等级,,10,0,1,1,1
 category_tape_no_substrate,adhesion_lse_level,低表面能粘接等级,,10,0,1,1,1
 category_tape_no_substrate,liner_description,离型材料,,10,0,1,1,1
-category_tape_no_substrate,peel_strength,剥离力,false,1000,0,1,1,1
+category_tape_no_substrate,peel_strength_180,180°剥离力,,10,0,1,1,1
 category_tape_no_substrate,structure,结构描述,false,1001,0,1,1,1
 category_tape_tissue,short_term_heat_resistance,短期耐温,,10,0,1,1,1
 category_tape_tissue,long_term_heat_resistance,长期耐温,,10,0,1,1,1
@@ -68,67 +54,39 @@ category_tape_tissue,peel_strength,剥离力,false,1000,0,1,1,1
 category_tape_tissue,structure,结构描述,false,1001,0,1,1,1
 category_metal_foil,surface_resistance,表面电阻,ohm/sq,10,1,1,1,1
 category_metal_foil,shielding_effectiveness,屏蔽效能,dB,20,0,1,1,1
-category_metal_foil,conductive_direction,导电方向,false,30,0,1,1,1
-category_metal_foil,foil_peel_strength,剥离力,N/25mm,40,0,1,1,1
-category_metal_foil,temperature_resistance,耐温,℃,50,0,1,1,1
-category_metal_foil,conductive_adhesive_type,导电胶类型,false,60,0,1,1,1
 category_graphite,thermal_conductivity_xy,面内导热系数,W/mK,10,1,1,1,1
 category_graphite,thermal_conductivity_z,厚向导热系数,W/mK,20,0,1,1,1
 category_graphite,total_thickness,总厚度,μm,30,0,1,1,1
 category_graphite,surface_resistance,表面电阻,Ω/sq,40,0,1,1,1
 category_graphite,shielding_effectiveness,屏蔽效能,dB,50,0,1,1,1
-category_paper,paper_base_type,纸基类型,false,10,1,1,1,1
 category_paper,total_thickness,总厚度,mm,20,0,1,1,1
 category_paper,breakdown_voltage,击穿电压,kV,30,0,1,1,1
-category_paper,temperature_class,耐温等级,false,40,0,1,1,1
 category_paper,density,密度,g/cm3,50,0,1,1,1
-category_conductive_cloth,cloth_base_type,布基类型,false,10,1,1,1,1
 category_conductive_cloth,total_thickness,总厚度,mm,20,0,1,1,1
 category_conductive_cloth,surface_resistance,表面电阻,Ω/sq,30,0,1,1,1
 category_conductive_cloth,shielding_effectiveness,屏蔽效能,dB,40,0,1,1,1
-category_conductive_cloth,adhesive_backing,背胶类型,false,50,0,1,1,1
 ,structure,结构描述,,1001,0,1,1,1
-category_tape_foam,peel_180_painted_immediate,涂装板-即时状态-180度剥离力,N/cm,10,0,1,1,1
-category_tape_foam,short_term_heat_resistance,短期耐温,,10,0,1,1,1
-category_tape_foam,long_term_heat_resistance,长期耐温,,10,0,1,1,1
+category_tape_foam,short_term_heat_resistance,短期耐温,℃,10,0,1,1,1
+category_tape_foam,long_term_heat_resistance,长期耐温,℃,10,0,1,1,1
 category_tape_foam,solvent_resistance_level,耐溶剂性等级,,10,0,1,1,1
 category_tape_foam,adhesion_hse_level,高表面能粘接等级,,10,0,1,1,1
 category_tape_foam,adhesion_lse_level,低表面能粘接等级,,10,0,1,1,1
 category_tape_foam,liner_description,离型材料,,10,0,1,1,1
-category_tape_foam,peel_180_painted_normal,涂装板-常温状态-180度剥离力,N/cm,20,0,1,1,1
 category_tape_foam,density,密度,kg/m3,20,0,1,1,1
-category_tape_foam,peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,N/cm,30,0,1,1,1
 category_tape_foam,processing_compatibility,加工兼容性,,30,0,1,1,1
-category_tape_foam,peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,N/cm,40,0,1,1,1
-category_tape_foam,static_shear_70c,70度静态剪切,hour,40,0,1,1,1
-category_tape_foam,peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,N/cm,50,0,1,1,1
+category_tape_foam,static_shear,静态剪切,,40,0,1,1,1
 category_tape_foam,shelf_life_storage,保质期与储存,,50,0,1,1,1
-category_tape_foam,peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,N/cm,60,0,1,1,1
-category_tape_foam,liner_option_sc2,离型膜选项-SC2,,60,0,1,1,1
-category_tape_foam,peel_180_pvc_normal,PVC板-常温状态-180度剥离力,N/cm,70,0,1,1,1
-category_tape_foam,liner_option_pet,离型膜选项-PET,,70,0,1,1,1
-category_tape_foam,peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,N/cm,80,0,1,1,1
 category_tape_foam,pluck_testing,拔脱测试,,80,0,1,1,1
-category_tape_foam,peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,N/cm,90,0,1,1,1
 category_tape_foam,torque_testing,扭矩测试,,90,0,1,1,1
-category_tape_foam,peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,N/cm,100,0,1,1,1
-category_tape_foam,shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,MPa,110,0,1,1,1
-category_tape_foam,shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,MPa,120,0,1,1,1
-category_tape_foam,shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,MPa,130,0,1,1,1
-category_tape_foam,shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,MPa,140,0,1,1,1
-category_tape_foam,shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,MPa,150,0,1,1,1
-category_tape_foam,shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,MPa,160,0,1,1,1
+category_tape_foam,shear_strength,剪切强度,MPa,110,0,1,1,1
 category_tape_foam,peel_strength,剥离力,false,1000,0,1,1,1
 category_tape_foam,structure,结构描述,false,1001,0,1,1,1
-category_tape_insulation,base_material_type,基材类型,false,10,1,1,1,1
 category_tape_insulation,breakdown_voltage,击穿电压,kV,20,0,1,1,1
 category_tape_insulation,dielectric_strength,介电强度,kV/mm,30,0,1,1,1
-category_tape_insulation,temperature_class,耐温等级,false,40,0,1,1,1
-category_tape_insulation,flame_class,阻燃等级,false,50,0,1,1,1
 category_other_auxiliary,liner_description,离型材料,,10,0,1,1,1
 category_other_auxiliary,solvent_name,溶剂,,10,0,1,1,1
 category_other_auxiliary,effective_ingredient,有效成分,,10,0,1,1,1
-category_other_auxiliary,density_g_per_l,密度,,10,0,1,1,1
+category_other_auxiliary,density,密度,g/cm3,10,0,1,1,1
 category_other_auxiliary,flash_point_c,闪点,,10,0,1,1,1
 category_other_auxiliary,coverage_rate_m2_per_l,覆盖率,,10,0,1,1,1
 category_other_auxiliary,supported_printing_methods,适用印刷方式,,10,0,1,1,1

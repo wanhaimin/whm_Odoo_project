@@ -1,148 +1,56 @@
 ﻿param_key,name,spec_category,canonical_name_zh,canonical_name_en,aliases_text,value_type,description,unit,preferred_unit,common_units,selection_options,is_main_field,main_field_name,parse_hint,target_bucket,target_field,scope_hint,section_hints,extraction_priority,llm_enabled,is_note_field,is_method_field,is_numeric_preferred,allow_series_fallback,confidence_rule,sequence,active
-base_material_type,基材类型,,基材类型,,,selection,false,false,,,PE PET PP PVC,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-thermal_conductivity_xy,面内导热系数,,面内导热系数,,,float,false,W/mK,W/mK,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-base_film_type,基膜类型,,基膜类型,,,selection,false,false,,,PET PE PP 复合膜,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-cloth_base_type,布基类型,,布基类型,,,selection,false,false,,,聚酯纤维 尼龙纤维 混纺纤维,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-paper_base_type,纸基类型,,纸基类型,,,selection,false,false,,,青壳纸 红钢纸 快巴纸 Nomex 复合绝缘纸,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-sus_adhesive,对SUS粘性,,对SUS粘性,,,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_painted_immediate,涂装板-即时状态-180度剥离力,,涂装板-即时状态-180度剥离力,,,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-thickness,thickness,尺寸厚度,thickness,,,char,,,,,,1,thickness,,spec_values,,item,,50,1,0,0,0,0,,10,1
-color,color,基础规格,color,,,char,,,,,,1,color_id,,spec_values,,item,,50,1,0,0,0,0,,10,1
-adhesive_type,adhesive_type,基础规格,adhesive_type,,,char,,,,,,1,adhesive_type_id,,spec_values,,item,,50,1,0,0,0,0,,10,1
-base_material,base_material,基础规格,base_material,,,char,,,,,,1,base_material_id,,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_painted_initial,涂装板-初始状态-180度剥离力,,涂装板-初始状态-180度剥离力,180 Peel Adhesion to Painted Panel - Initial State,,float,,,N/cm,,,0,,Painted panel initial state 180 peel adhesion,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_painted_humidity_aging,涂装板-湿热老化后-180度剥离力,,涂装板-湿热老化后-180度剥离力,180 Peel Adhesion to Painted Panel - Humidity Aging,,float,,,N/cm,,,0,,Painted panel humidity aging 180 peel adhesion,spec_values,,item,,50,1,0,0,0,0,,10,1
-elongation_at_break,elongation_at_break,,elongation_at_break,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-tensile_strength,tensile_strength,,tensile_strength,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-static_shear_23c,static_shear_23c,,static_shear_23c,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-short_term_temperature_resistance,short_term_temperature_resistance,,short_term_temperature_resistance,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-long_term_temperature_resistance,long_term_temperature_resistance,,long_term_temperature_resistance,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-adhesion_to_substrate_test,adhesion_to_substrate_test,,adhesion_to_substrate_test,,,char,ABS表面粘接强度（初始） 7.6 N/cm ... 钢表面粘接强度（14天后） 11.7 N/cm,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-static_shear_test,static_shear_test,,static_shear_test,,,char,23°C静态抗剪切力 非常好 •40°C静态抗剪切力 非常好,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-typical_values_notice,typical_values_notice,,typical_values_notice,,,char,这里的数据仅应被视为参考值和典型值，不应被视为技术规范.,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-unknown,静态抗剪切力测试,,静态抗剪切力测试,,,char,23°C静态抗剪切力 好；40°C静态抗剪切力 普通ABS/铝/PC/PE/PET/PP/PS/PVC/钢表面粘接强度（初始/14天后）,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-180_peel_adhesion_non_liner_side,180_peel_adhesion_non_liner_side,,180_peel_adhesion_non_liner_side,,,char,"180° Peel Adhesion Non-Liner Side Adhesive to Headliner, Painted Panel and Polypropylene (PP) Substrate",,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-construction_diagram,construction_diagram,,construction_diagram,,,char,Paper liner / Acrylic pressure sensitive adhesive / Non-woven cloth / Acrylic pressure sensitive adhesive,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-static_performance_claim,static_performance_claim,,static_performance_claim,,,char,Excellent initial adhesion and static performance on uneven substrates,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-static_shear,static_shear,,static_shear,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-plasticizer_resistance,plasticizer_resistance,,plasticizer_resistance,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_abs_unknown,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_abs_14,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_unknown_unknown,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_unknown_14,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_pc_unknown,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_pc_14,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_pe_unknown,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_pe_14,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_pet_unknown,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_pet_14,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_pp_unknown,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_pp_14,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_ps_unknown,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_ps_14,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_pvc_unknown,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_180_pvc_14,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,auto expanded from condition-aware performance fact,spec_values,,item,,50,1,0,0,0,0,,10,1
-static_shear_evaluation,static_shear_evaluation,,static_shear_evaluation,,,char,40°C静态抗剪切力 非常好,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-adhesion_state_comparison,adhesion_state_comparison,,adhesion_state_comparison,,,char,表面粘接强度（初始）...（14天后）,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-condition_definitions,Condition Definitions,,Condition Definitions,,,char,Conditions/Test Parameter Definitions: ...,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-180_peel_adhesion_test,180_peel_adhesion_test,,180_peel_adhesion_test,,,char,180° Peel Adhesion to Painted Panel Tape Size: 25 mm width; Tape backing: 25 um PET film; Rolling Pressure: 5 kg roller one-way; Peel Speed: 50 mm/min.,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-shear_strength_test,shear_strength_test,,shear_strength_test,,,char,Shear Strength Tape Size: 25 mm x 25 mm; Rolling Pressure: 5 kg roller one-way; Tensile Speed: 50 mm/min. Test measures liner side adhesion to painted panel and non-liner side adhesion to PVC panel.,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-180_peel_adhesion_to_painted_panel,180 Peel Adhesion to Painted Panel,,180 Peel Adhesion to Painted Panel,,,char,180° Peel Adhesion to Painted Panel Tape Size: 25 mm width; Tape backing: 25 um PET film; Rolling Pressure: 5 kg roller one-way; Peel Speed: 50 mm/min.,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-shear_strength,Shear Strength,,Shear Strength,,,char,Shear Strength Tape Size: 25 mm x 25 mm; Rolling Pressure: 5 kg roller one-way; Tensile Speed: 50 mm/min. Test measures liner side adhesion to painted panel and non-liner side adhesion to PVC panel.,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-immediate_state,Immediate State,,Immediate State,,,char,"Immediate State = 23°C, 20 minutes",,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-normal_state,Normal State,,Normal State,,,char,"Normal State = 23°C, 24 hours",,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-high_temperature,High Temperature,,High Temperature,,,char,"High Temperature = 23°C, 24 hours -> 80°C",,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-heat_aging,Heat-aging,,Heat-aging,,,char,"Heat-aging = 23°C, 24 hours -> 80°C, 336 hours -> 23°C, 24 hours",,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-warm_water_immersion,Warm Water Immersion,,Warm Water Immersion,,,char,"Warm Water Immersion = 23°C, 24 hours -> 40°C water, 336 hours -> 23°C, 24 hours",,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-gasoline_immersion,Gasoline Immersion,,Gasoline Immersion,,,char,"Gasoline Immersion = 23°C, 24 hours -> Gasoline, 1 hour -> 23°C, 24 hours",,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-wax_remover_immersion,Wax-remover immersion,,Wax-remover immersion,,,char,"Wax-remover immersion = 23°C, 24 hours -> Wax-remover, 1 hour -> 23°C, 24 hours",,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-180_peel_adhesion_test_setup,180 peel adhesion test setup,,180 peel adhesion test setup,,,char,Tape Size: 25 mm width; Tape backing: 25 um PET film; Rolling Pressure: 5 kg roller one-way; Peel Speed: 50 mm/min.,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-shear_strength_test_setup,shear strength test setup,,shear strength test setup,,,char,Tape Size: 25 mm x 25 mm; Rolling Pressure: 5 kg roller one-way; Tensile Speed: 50 mm/min. Test measures liner side adhesion to painted panel and non-liner side adhesion to PVC panel.,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-painted_panel_definition,painted_panel_definition,,painted_panel_definition,,,char,"Painted panel: White colored painted panel with advanced paint, used on a vehicle",,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-pvc_panel_definition,pvc_panel_definition,,pvc_panel_definition,,,char,PVC panel: 3M Adhesion Promoter N-210NT is applied on the PVC panel,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-uv_aging_resistance,uv_aging_resistance,,uv_aging_resistance,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-temperature_resistance_short_term,temperature_resistance_short_term,,temperature_resistance_short_term,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-temperature_resistance_long_term,temperature_resistance_long_term,,temperature_resistance_long_term,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-peel_adhesion,peel_adhesion,,peel_adhesion,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-liner_option_pv20,liner_option_pv20,,liner_option_pv20,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-short_term_heat_resistance,短期耐温,,短期耐温,,,float,false,false,°C,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-long_term_heat_resistance,长期耐温,,长期耐温,,,float,false,false,°C,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-solvent_resistance_level,耐溶剂性等级,,耐溶剂性等级,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-adhesion_hse_level,高表面能粘接等级,,高表面能粘接等级,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-adhesion_lse_level,低表面能粘接等级,,低表面能粘接等级,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-liner_description,离型材料,,离型材料,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-solvent_name,溶剂,,溶剂,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-effective_ingredient,有效成分,,有效成分,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-density_g_per_l,密度,,密度,,,float,false,false,g/L,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-flash_point_c,闪点,,闪点,,,float,false,false,°C,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-coverage_rate_m2_per_l,覆盖率,,覆盖率,,,float,false,false,m²/L,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-supported_printing_methods,适用印刷方式,,适用印刷方式,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-max_service_temp_c,最高工作温度,,最高工作温度,,,float,false,false,°C,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-min_service_temp_c,最低工作温度,,最低工作温度,,,float,false,false,°C,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-construction_thickness_mil,结构厚度,,结构厚度,,,char,false,false,mil,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
-hardness,硬度,,硬度,,,float,false,Shore C,Shore C,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,20,1
-substrate_thickness,基材厚度,,基材厚度,,,float,false,μm,μm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,20,1
-carrier_thickness,载体厚度,,载体厚度,,,float,false,μm,μm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,20,1
-thermal_conductivity_z,厚向导热系数,,厚向导热系数,,,float,false,W/mK,W/mK,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,20,1
-peel_180_painted_normal,涂装板-常温状态-180度剥离力,,涂装板-常温状态-180度剥离力,,,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,20,1
-total_thickness,总厚度,,总厚度,,,float,false,μm,μm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,30,1
-breakdown_voltage,击穿电压,,击穿电压,,,float,false,kV,kV,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,30,1
+thermal_conductivity_xy,面内导热系数,导热性能,面内导热系数,In-plane Thermal Conductivity,,float,false,W/mK,W/mK,W/mK,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+initial_tack,初粘力,粘接性能,初粘力,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+thickness,厚度,基础规格,厚度,,,char,千分尺测量。,,,,,1,thickness,,spec_values,,item,,50,1,0,0,0,0,,10,1
+color,颜色,基础规格,颜色,,,char,,,,,,1,color_id,,spec_values,,item,,50,1,0,0,0,0,,10,1
+adhesive_type,胶系,基础规格,胶系,,,char,,,,,,1,adhesive_type_id,,spec_values,,item,,50,1,0,0,0,0,,10,1
+base_material,基材,基础规格,基材,,,char,,,,,,1,base_material_id,,spec_values,,item,,50,1,0,0,0,0,,10,1
+elongation_at_break,断裂延展率,力学性能,断裂延展率,,,float,false,false,%,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+tensile_strength,抗张强度,力学性能,抗张强度,,,float,false,false,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+unknown,静态抗剪切力测试,力学性能,静态抗剪切力测试,,,float,23°C静态抗剪切力 好；40°C静态抗剪切力 普通ABS/铝/PC/PE/PET/PP/PS/PVC/钢表面粘接强度（初始/14天后）,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+plasticizer_resistance,抗增塑剂,耐候性/老化性能  （Weatherability/Aging Resistance  ）,抗增塑剂,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+uv_aging_resistance,抗老化（UV）,耐候性/老化性能  （Weatherability/Aging Resistance  ）,抗老化（UV）,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+temperature_resistance_long_term,temperature_resistance_long_term,耐热性能（Heat Resistance）,temperature_resistance_long_term,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+liner_option_pv20,liner_option_pv20,结构描述,liner_option_pv20,,,char,,,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+short_term_heat_resistance,短期耐温,耐热性能（Heat Resistance）,短期耐温,,,float,false,false,℃,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+long_term_heat_resistance,长期耐温,耐热性能（Heat Resistance）,长期耐温,,,float,false,false,℃,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+solvent_resistance_level,耐溶剂性等级,化学性能,耐溶剂性等级,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+adhesion_hse_level,高表面能粘接等级,粘接性能,高表面能粘接等级,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+adhesion_lse_level,低表面能粘接等级,粘接性能,低表面能粘接等级,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+solvent_name,溶剂,化学性能,溶剂,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+effective_ingredient,有效成分,油墨印刷性能,有效成分,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+flash_point_c,闪点,化学性能,闪点,,,float,false,false,°C,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+coverage_rate_m2_per_l,覆盖率,油墨印刷性能,覆盖率,,,float,false,false,m²/L,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+supported_printing_methods,适用印刷方式,油墨印刷性能,适用印刷方式,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+max_service_temp_c,最高工作温度,耐热性能（Heat Resistance）,最高工作温度,,,float,false,false,°C,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+min_service_temp_c,最低耐受温度,耐热性能（Heat Resistance）,最低耐受温度,,,float,false,false,°C,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+construction_thickness_mil,结构厚度,结构描述,结构厚度,,,char,false,false,mil,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+liner_thickness,离型纸厚度,结构描述,离型纸厚度,,,float,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+liner_weight,离型纸重量,结构描述,离型纸重量,,,float,false,false,g/m²,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+liner_color,离型纸颜色,结构描述,离型纸颜色,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+chemical_resistance,耐化学品,化学性能,耐化学品,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+moisture_resistance,防潮,油墨印刷性能,防潮,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+thermal_conductivity_total,导热系数（总）,导热性能,导热系数（总）,Thermal Conductivity,,float,材料整体导热能力,W/mK,W/mK,W/mK,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+ul746c,UL746C,耐候性/老化性能  （Weatherability/Aging Resistance  ）,,,,char,"UL746C 是由 美国保险商实验室（Underwriters Laboratories, UL） 制定的一项重要安全标准，全称为： UL 746C: Standard for Polymeric Materials – Use in Electrical Equipment Evaluations 中文名称通常为： 《用于电气设备的聚合物材料评估标准》 一、标准定位与目的 UL746C 的核心目标是： ✅ 评估塑料等聚合物材料在电气设备中长期使用时的可靠性与安全性，尤其是在热、电、机械和环境应力下的性能保持能力。 它不是测试材料“能不能用”，而是回答： “这种材料在高温、潮湿、电场等条件下，能安全可靠地工作多久？” 因此，UL746C 被广泛视为 电子电气产品中塑料部件的“寿命评估指南”。 二、适用范围 适用于几乎所有含绝缘或结构塑料件的电子产品，包括但不限于： 家电外壳、开关、插座 电源适配器、充电器内部支架 PCB 基板、连接器、端子台 电动工具手柄、电池仓 户外照明灯具外壳 工业控制设备绝缘部件 只要该塑料部件需长期承受温度、电压、湿度或机械应力，就应参考 UL746C 进行评估。 三、核心技术指标 1. 相对温度指数（RTI, Relative Temperature Index） 表示材料在长期使用中，关键性能（如拉伸强度、绝缘电阻）不劣化到失效阈值的最高连续使用温度。 RTI 分为三类： RTI Electrical：电气性能（如绝缘电阻 ≥70%） RTI Mechanical Impact：抗冲击性能（如冲击强度 ≥50%） RTI Mechanical Strength：拉伸/弯曲强度（如强度 ≥50%） 例如：某材料 RTI (Electrical) = 130℃，表示在 130℃ 下连续使用多年，其绝缘性能仍满足安全要求。 2. 温度指数（TI, Temperature Index） 通过加速热老化实验，推算材料在指定性能保留率下可使用 20,000 小时（约 2.3 年）的最高温度。 TI 是 RTI 的基础数据之一。 3. 多应力环境测试 UL746C 不仅看耐热，还要求材料在复合环境下稳定： 耐湿性：90% RH 高湿环境下的性能保持 耐化学性：接触清洁剂、油脂后的性能变化 耐紫外线（UV）：户外使用需通过 UV 曝光测试 浸水/冷热循环：模拟极端气候 四、测试方法原理 采用 加速老化 + 性能外推 策略，基于 阿累尼乌斯（Arrhenius）方程： 将材料置于多个高温点（如 100℃、120℃、150℃）进行老化 定期测试关键性能（拉伸强度、介电强度等） 绘制“性能-时间-温度”曲线 外推至常温或实际使用温度下的寿命 例如：在 150℃ 下老化 1000 小时 ≈ 在 85℃ 下使用 10 年。 五、为什么企业必须关注 UL746C？ 表格 价值 说明 🔑 北美市场准入 未通过 UL746C 认证的材料，可能导致整机无法获得 UL 标志，被拒入境 🛡️ 降低产品召回风险 材料老化是电子火灾、短路的主要诱因之一 💡 优化产品设计 基于 RTI 数据，合理设定安全工作温度余量（如材料 TI=120℃，产品设计 ≤85℃） 🏆 提升品牌溢价 可宣传“采用 UL746C 认证材料，寿命超 10 年” ⚠️ 案例：某小家电因内部塑料支架未达 UL746C 要求，在高温下变形导致短路，被 CPSC 强制召回。 六、如何合规？ 优先选用 UL Yellow Card 材料 查询 UL Prospector，选择已认证材料（如 Lexan、FR530 等）。 若使用定制材料 委托第三方实验室（如 SGS、TÜV、讯科标准）按 UL746C 测试 获取 RTI/TI 报告 向 UL 提交材料认证申请（费用约数千美元，周期 8–12 周） 设计阶段预留安全余量 实际工作温度 ≤ RTI − 20~35℃ 七、与其他标准的关系 表格 标准 作用 UL 746A 聚合物材料短期性能（如阻燃性、CTI） UL 746B 聚合物材料长期性能（热老化、蠕变）→ UL746C 的基础 UL 746C 聚焦电气设备中的实际应用场景（综合热、电、环境） UL 746D 成型零件的可追溯性与性能验证 UL746C 是 UL 746 系列中最贴近终端产品安全的标准。 ✅ 总结 UL746C = 电子电气产品中塑料材料的“长期可靠性身份证”。 它通过科学量化材料在热、电、湿等应力下的寿命，确保产品在整个生命周期内安全可靠。 对于出口北美、追求高可靠性的企业，UL746C 不是可选项，而是必选项。 如需具体材料选型或测试服务，可联系 UL 认可实验室（如深圳市讯科标准技术服务有限公司等）",,,,,0,,,spec_values,,item,,50,1,0,0,0,0,,10,1
+hardness,硬度,力学性能,硬度,,,float,false,Shore C,Shore C,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,20,1
+thermal_conductivity_z,厚向导热系数,导热性能,厚向导热系数,Thermal Conductivity (z-direction),,float,false,W/mK,W/mK,W/mK,false,0,,,spec_values,,item,,50,1,0,0,0,0,,20,1
+total_thickness,总厚度,基础规格,总厚度,,,float,false,μm,μm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,30,1
+breakdown_voltage,击穿电压,电性能(导电/绝缘特性）,击穿电压,,,float,false,kV,kV,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,30,1
 compression_set,压缩永久变形,,压缩永久变形,,,float,false,%,%,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,30,1
-conductive_direction,导电方向,,导电方向,,,selection,false,false,,,X Y Z XY XYZ,0,,,spec_values,,item,,50,1,0,0,0,0,,30,1
-adhesive_system,胶系,,胶系,,,selection,false,false,,,丙烯酸 改性丙烯酸 硅胶 橡胶,0,,,spec_values,,item,,50,1,0,0,0,0,,30,1
-dielectric_strength,介电强度,,介电强度,,,float,false,kV/mm,kV/mm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,30,1
-release_force,离型力,,离型力,,,float,false,gf/in,gf/in,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,30,1
-adhesion_force,粘着力,,粘着力,,,float,false,gf/25mm,gf/25mm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,30,1
-peel_180_painted_high_temp,涂装板-高温状态-180度剥离力,,涂装板-高温状态-180度剥离力,,,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,30,1
+dielectric_strength,介电强度,电性能(导电/绝缘特性）,介电强度,,,float,false,kV/mm,kV/mm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,30,1
 processing_compatibility,加工兼容性,加工性能,Processing Compatibility,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,30,1
-surface_resistance,表面电阻,,表面电阻,,,char,false,Ω/sq,Ω/sq,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,40,1
-rebound_rate,回弹率,,回弹率,,,float,false,%,%,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,40,1
-foil_peel_strength,剥离力,,foil_peel_strength,,,float,false,N/25mm,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,40,1
-peel_strength_180,剥离力,,剥离力,,,float,false,N/25mm,N/25mm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,40,1
-initial_tack,初粘力,,initial_tack,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,40,1
-temperature_class,耐温等级,,耐温等级,,,selection,false,false,,,105℃ 130℃ 155℃ 180℃ 220℃,0,,,spec_values,,item,,50,1,0,0,0,0,,40,1
-surface_treatment,表面处理,,表面处理,,,selection,false,false,,,单面硅油 双面硅油 防静电 哑面,0,,,spec_values,,item,,50,1,0,0,0,0,,40,1
-peel_180_painted_heat_aging,涂装板-热老化后-180度剥离力,,涂装板-热老化后-180度剥离力,,,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,40,1
-static_shear_70c,70度静态剪切,可靠性,static_shear_70c,,,char,false,hour,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,40,1
-density,密度,物理性能,密度,Density,,float,false,g/cm3,kg/m3,"kg/m3,lb/ft3",false,0,,优先存标称 kg/m3 数值，公差写备注。,spec_values,,item,,50,1,0,0,0,0,,50,1
-shielding_effectiveness,屏蔽效能,,屏蔽效能,,,float,false,dB,dB,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,50,1
-temperature_grade,耐温等级,,耐温等级,,,char,false,℃,℃,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,50,1
-temperature_range,耐温范围,,耐温范围,,,char,false,℃,℃,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,50,1
-temperature_resistance,耐温,,耐温,,,char,false,℃,℃,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,50,1
-holding_power,持粘力,,持粘力,,,char,false,h,h,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,50,1
-flame_class,阻燃等级,,阻燃等级,,,selection,false,false,,,UL94 V-0 UL94 V-1 UL94 HB 无,0,,,spec_values,,item,,50,1,0,0,0,0,,50,1
-color_tone,颜色,,颜色,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,50,1
-application_surface,适用表面,,适用表面,,,selection,false,false,,,玻璃 塑胶 金属 涂层面,0,,,spec_values,,item,,50,1,0,0,0,0,,50,1
-peel_180_painted_warm_water,涂装板-温水浸泡后-180度剥离力,,涂装板-温水浸泡后-180度剥离力,,,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,50,1
-shelf_life_storage,保质期与储存,包装与储存,shelf_life_storage,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,50,1
-adhesive_backing,背胶类型,,背胶类型,,,selection,false,false,,,无背胶 单面背胶 双面背胶,0,,,spec_values,,item,,50,1,0,0,0,0,,60,1
-conductive_adhesive_type,导电胶类型,,导电胶类型,,,selection,false,false,,,无胶 单面导电胶 双面导电胶,0,,,spec_values,,item,,50,1,0,0,0,0,,60,1
-peel_180_pvc_immediate,PVC板-即时状态-180度剥离力,,PVC板-即时状态-180度剥离力,,,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,60,1
-liner_option_sc2,离型膜选项-SC2,离型配置,离型膜选项-SC2,Liner Option SC2,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,60,1
-peel_180_pvc_normal,PVC板-常温状态-180度剥离力,,PVC板-常温状态-180度剥离力,,,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,70,1
-liner_option_pet,离型膜选项-PET,离型配置,liner_option_pet,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,70,1
-peel_180_pvc_high_temp,PVC板-高温状态-180度剥离力,,PVC板-高温状态-180度剥离力,,,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,80,1
-pluck_testing,拔脱测试,测试验证,拔脱测试,Pluck Testing,Pluck Testing,char,false,false,,,false,0,,"Pluck Testing, pluck adhesion, typical results",spec_values,,item,,50,1,0,0,0,0,,80,1
-peel_180_pvc_heat_aging,PVC板-热老化后-180度剥离力,,PVC板-热老化后-180度剥离力,,,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,90,1
-torque_testing,扭矩测试,测试验证,扭矩测试,Torque Testing,Torque Testing,char,false,false,,,false,0,,"Torque Testing, twist resistance, typical results",spec_values,,item,,50,1,0,0,0,0,,90,1
-peel_180_pvc_warm_water,PVC板-温水浸泡后-180度剥离力,,PVC板-温水浸泡后-180度剥离力,,,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,100,1
-shear_painted_pvc_immediate,涂装板/PVC板-即时状态-剪切强度,,涂装板/PVC板-即时状态-剪切强度,,,float,false,MPa,MPa,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,110,1
-shear_painted_pvc_normal,涂装板/PVC板-常温状态-剪切强度,,涂装板/PVC板-常温状态-剪切强度,,,float,false,MPa,MPa,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,120,1
-shear_painted_pvc_high_temp,涂装板/PVC板-高温状态-剪切强度,,涂装板/PVC板-高温状态-剪切强度,,,float,false,MPa,MPa,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,130,1
-shear_painted_pvc_warm_water,涂装板/PVC板-温水浸泡后-剪切强度,,涂装板/PVC板-温水浸泡后-剪切强度,,,float,false,MPa,MPa,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,140,1
-shear_painted_pvc_gasoline,涂装板/PVC板-汽油浸泡后-剪切强度,,涂装板/PVC板-汽油浸泡后-剪切强度,,,float,false,MPa,MPa,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,150,1
-shear_painted_pvc_wax_remover,涂装板/PVC板-除蜡剂浸泡后-剪切强度,,涂装板/PVC板-除蜡剂浸泡后-剪切强度,,,float,false,MPa,MPa,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,160,1
-liner_material,Liner Material,,liner_material,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
-shelf_life,Shelf Life,,保质期,Shelf Life,Shelf Life 保质期 Shelf Life,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
-peel_180_headliner_immediate,180 Peel Headliner Immediate,,180°剥离-顶棚-即刻,180 Peel Headliner Immediate,180°- - 180 Peel Headliner Immediate 180°剥离-顶棚-即刻 180 Peel Headliner Immediate,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
-peel_180_headliner_initial,180 Peel Headliner Initial,,180°剥离-顶棚-初始,180 Peel Headliner Initial,180°- - 180 Peel Headliner Initial 180°剥离-顶棚-初始 180 Peel Headliner Initial,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
-peel_180_headliner_normal,180 Peel Headliner Normal,,180°剥离-顶棚-常态,180 Peel Headliner Normal,180°- - 180 Peel Headliner Normal 180°剥离-顶棚-常态 180 Peel Headliner Normal,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
-peel_180_headliner_high_temp,180 Peel Headliner High Temp,,180°剥离-顶棚-高温,180 Peel Headliner High Temp,180°- - 180 Peel Headliner High Temp 180°剥离-顶棚-高温 180 Peel Headliner High Temp,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
-peel_180_headliner_heat_aging,180 Peel Headliner Heat Aging,,180°剥离-顶棚-热老化,180 Peel Headliner Heat Aging,180°- - 180 Peel Headliner Heat Aging 180°剥离-顶棚-热老化 180 Peel Headliner Heat Aging,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
-peel_180_headliner_humidity_aging,180 Peel Headliner Humidity Aging,,180°剥离-顶棚-湿热老化,180 Peel Headliner Humidity Aging,180°- - 180 Peel Headliner Humidity Aging 180°剥离-顶棚-湿热老化 180 Peel Headliner Humidity Aging,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
-peel_180_painted_panel_initial,180 Peel Painted Panel Initial,,180°剥离-喷涂板-初始,180 Peel Painted Panel Initial,180°- - 180 Peel Painted Panel Initial 180°剥离-喷涂板-初始 180 Peel Painted Panel Initial,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
-peel_180_painted_panel_normal,180 Peel Painted Panel Normal,,180°剥离-喷涂板-常态,180 Peel Painted Panel Normal,180°- - 180 Peel Painted Panel Normal 180°剥离-喷涂板-常态 180 Peel Painted Panel Normal,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
-peel_180_pp_initial,180 Peel PP Initial,,180°剥离-PP-初始,180 Peel PP Initial,180°-PP- 180 Peel PP Initial 180°剥离-PP-初始 180 Peel PP Initial,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
-peel_180_pp_normal,180 Peel PP Normal,,180°剥离-PP-常态,180 Peel PP Normal,180°-PP- 180 Peel PP Normal 180°剥离-PP-常态 180 Peel PP Normal,float,false,N/cm,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
-peel_strength,剥离力,,剥离力,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,1000,1
-structure,结构描述,,structure,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,1001,1
+surface_resistance,表面电阻,电性能(导电/绝缘特性）,表面电阻,,,char,false,Ω/sq,Ω/sq,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,40,1
+peel_strength_180,剥离力,粘接性能,剥离力,,,float,false,N/25mm,N/25mm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,40,1
+static_shear,静态剪切,力学性能,静态剪切,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,40,1
+thermal_diffusivity,热扩散率,导热性能,热扩散率,Thermal Diffusivity,,float,反映温度变化传播速度,mm^2/s,mm^2/s,mm^2/s,,0,,,spec_values,,item,,50,1,0,0,0,0,,40,1
+density,密度,物理性能,密度,Density,density_g_per_l,float,false,g/cm3,kg/m3,"kg/m3,lb/ft3",false,0,,优先存标称 kg/m3 数值，公差写备注。,spec_values,,item,,50,1,0,0,0,0,,50,1
+shielding_effectiveness,屏蔽效能,油墨印刷性能,屏蔽效能,,,float,false,dB,dB,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,50,1
+holding_power,持粘力,粘接性能,持粘力,,,char,false,h,h,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,50,1
+cte,热膨胀系数,导热性能,热膨胀系数,Coefficient of Thermal Expansion (CTE),,float,温度变化引起的尺寸变化,ppm/°C,ppm/°C,ppm/°C,,0,,,spec_values,,item,,50,1,0,0,0,0,,50,1
+pluck_testing,拔脱测试,粘接性能,拔脱测试,Pluck Testing,Pluck Testing,char,false,false,,,false,0,,"Pluck Testing, pluck adhesion, typical results",spec_values,,item,,50,1,0,0,0,0,,80,1
+torque_testing,扭矩测试,粘接性能,扭矩测试,Torque Testing,Torque Testing,char,false,false,,,false,0,,"Torque Testing, twist resistance, typical results",spec_values,,item,,50,1,0,0,0,0,,90,1
+shear_strength,剪切强度,力学性能,,,,float,false,MPa,MPa,MPa,false,0,,,spec_values,,item,,50,1,0,0,0,0,,110,1
+shelf_life_storage,保质期与储存,包装与储存,shelf_life_storage,Shelf Life,Shelf Life Shelf Life 保质期 Shelf Life shelf_life 保质期,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
+liner_description,离型材料,结构描述,离型材料类型,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,220,1
+peel_strength,剥离力,粘接性能,剥离力,,,char,false,false,N/cm,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,1000,1
+structure,结构描述,结构描述,structure,,,char,false,false,,,false,0,,,spec_values,,item,,50,1,0,0,0,0,,1001,1

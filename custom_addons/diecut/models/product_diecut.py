@@ -145,10 +145,6 @@ class ProductTemplate(models.Model):
     length_mm = fields.Float(string='长度 (mm)', compute='_compute_length_mm', inverse='_inverse_length_mm', digits=(16, 0))
     length_smart = fields.Char(string='长度', compute='_compute_length_smart', inverse='_inverse_length_smart', store=True, readonly=False)
 
-    # Temporary fix for migration error: invalid input syntax for type integer: "黑色"
-    # This prevents Odoo from trying to convert the existing Char column (containing "黑色") to Integer.
-    color = fields.Char(string='Color Fix')
-
     rs_type = fields.Selection([
         ('R', '卷料'),
         ('S', '片料'),
@@ -185,9 +181,18 @@ class ProductTemplate(models.Model):
     # --- 物理特征 ---
     color_id = fields.Many2one('diecut.color', string='颜色')
     material_color = fields.Char('颜色备份(原字符字段)', help='历史数据备份')
+    adhesive_type_id = fields.Many2one('diecut.catalog.adhesive.type', string='胶系')
+    base_material_id = fields.Many2one('diecut.catalog.base.material', string='基材')
+    adhesive_thickness = fields.Char(string='胶厚')
+    thickness_std = fields.Char(string='标准厚度')
     weight_gram = fields.Float(string='克重 (g)', digits=(16, 2))
     material_type = fields.Char(string='材质/牌号')
     brand_id = fields.Many2one('diecut.brand', string='品牌')
+    manufacturer_id = fields.Many2one(
+        'res.partner',
+        string='制造商',
+        domain="[('is_company', '=', True)]",
+    )
     brand = fields.Char('品牌备份(原字符字段)', help='历史数据备份')
     origin = fields.Char('产地')
     density = fields.Float('密度(g/cm³)', digits=(10, 3))
@@ -213,6 +218,8 @@ class ProductTemplate(models.Model):
         ('ul94_hb', 'UL94 HB'),
         ('none', '无'),
     ], string='防火等级', default='none')
+    ref_price = fields.Float(string='参考单价', digits=(16, 4))
+    catalog_structure_image = fields.Binary(string='产品结构图')
 
     # --- 价格信息 ---
     raw_material_currency_id = fields.Many2one('res.currency', string="成本币种", default=lambda self: self.env.company.currency_id, compute='_compute_main_vendor_costs', store=True, readonly=False)
@@ -543,149 +550,4 @@ class ProductSupplierinfo(models.Model):
         if self.product_tmpl_id:
             self.product_tmpl_id.main_vendor_id = self.partner_id.id
         return {'type': 'ir.actions.client', 'tag': 'reload'}
-
-class ProductProduct(models.Model):
-    """产品变体扩展 - 选型目录的变体级技术参数"""
-    _inherit = 'product.product'
-    _variant_std_sync_ctx_key = 'skip_variant_std_sync'
-    catalog_categ_id = fields.Many2one(
-        'product.category', related='product_tmpl_id.categ_id', store=True, string='分类'
-    )
-    catalog_brand_id = fields.Many2one(
-        'diecut.brand', related='product_tmpl_id.brand_id', store=True, string='目录品牌'
-    )
-
-    # ==================== 变体级技术参数（选型目录专用）====================
-    # 使用 Char 类型保留原厂数据完整性（公差、条件、双面差异等）
-    variant_thickness = fields.Char(string='厚度(原始)', help='如：35±5 μm、100±10 μm')
-    variant_adhesive_thickness = fields.Char(string='胶厚', help='如：13/13、35/40（双面胶厚）')
-    variant_color = fields.Char(string='颜色(原始)', help='如：透明、黑色、75蓝')
-    variant_peel_strength = fields.Char(string='剥离力', help='如：>800 gf/inch、A>1000 B>800')
-    variant_structure = fields.Char(string='结构描述', help='如：胶+PET+胶+白色LXZ')
-    variant_adhesive_type = fields.Char(string='胶系(变体)', help='可覆盖模板级胶系')
-    variant_base_material = fields.Char(string='基材(变体)', help='可覆盖模板级基材')
-    variant_sus_peel = fields.Char(string='SUS面剥离力', help='如：13.0/13.0 N/cm')
-    variant_pe_peel = fields.Char(string='PE面剥离力', help='如：7.0/7.0 N/cm')
-    variant_dupont = fields.Char(string='DuPont冲击', help='如：0.7/0.1、1.3/1.0 [A×cM]')
-    variant_push_force = fields.Char(string='推出力', help='如：229 N')
-    variant_removability = fields.Char(string='可移除性', help='如：*、**、***（与同品类比较）')
-    variant_tumbler = fields.Char(string='Tumbler滚球', help='如：Upon request、40.0')
-    variant_holding_power = fields.Char(string='保持力', help='如：4.0 N/cm')
-    variant_note = fields.Text(string='型号备注')
-    variant_ref_price = fields.Float(string='型号参考单价', digits=(16, 4), help='该型号的参考单价')
-    # 标准化字段：用于销售/工程筛选，不替代原厂原文字段
-    variant_thickness_std = fields.Char(
-        string='标准厚度', help='标准化厚度，如 100um'
-    )
-    variant_color_std = fields.Char(
-        string='标准颜色', help='标准化颜色，如 透明/黑色'
-    )
-    variant_adhesive_std = fields.Char(
-        string='标准胶系', help='标准化胶系'
-    )
-    variant_base_material_std = fields.Char(
-        string='标准基材', help='标准化基材'
-    )
-
-    # ==================== 变体独立：认证与合规、替代建议、附件与资料 ====================
-    variant_is_rohs = fields.Boolean(string='ROHS(型号)', default=False, help='该型号是否通过ROHS认证')
-    variant_is_reach = fields.Boolean(string='REACH(型号)', default=False, help='该型号是否通过REACH认证')
-    variant_is_halogen_free = fields.Boolean(string='无卤(型号)', default=False, help='该型号是否为无卤材料')
-    variant_fire_rating = fields.Selection([
-        ('ul94_v0', 'UL94 V-0'),
-        ('ul94_v1', 'UL94 V-1'),
-        ('ul94_v2', 'UL94 V-2'),
-        ('ul94_hb', 'UL94 HB'),
-        ('none', '无'),
-    ], string='防火等级(型号)', default='none')
-    variant_tds_file = fields.Binary(string='TDS技术数据表')
-    variant_tds_filename = fields.Char(string='型号TDS文件名')
-    variant_msds_file = fields.Binary(string='MSDS安全数据表')
-    variant_msds_filename = fields.Char(string='型号MSDS文件名')
-    variant_datasheet = fields.Binary(string='型号规格书')
-    variant_datasheet_filename = fields.Char(string='型号规格书文件名')
-    variant_catalog_structure_image = fields.Binary(string='型号结构图')
-
-    @staticmethod
-    def _normalize_text_std(value):
-        if not value:
-            return False
-        normalized = re.sub(r'\s+', ' ', value).strip()
-        return normalized or False
-
-    @staticmethod
-    def _normalize_thickness_std(thickness_text):
-        """将原始厚度文本归一为标准厚度（默认统一到 um）。"""
-        if not thickness_text:
-            return False
-        s = thickness_text.lower().replace('μm', 'um').replace('µm', 'um').replace(' ', '')
-        match = re.search(r'(\d+(?:\.\d+)?)', s)
-        if not match:
-            return False
-
-        val = float(match.group(1))
-        is_um = 'um' in s
-        is_mm = 'mm' in s and not is_um
-
-        if is_um:
-            um_val = val
-        elif is_mm:
-            um_val = val * 1000.0
-        else:
-            # 无单位时沿用既有口径：>10 视作 um，否则视作 mm
-            um_val = val if val > 10 else (val * 1000.0)
-
-        rounded = round(um_val, 1)
-        if rounded.is_integer():
-            return f"{int(rounded)}μm"
-        return f"{rounded:g}μm"
-
-    @classmethod
-    def _build_variant_std_vals_from_raw(cls, vals):
-        std_vals = {}
-        if 'variant_thickness' in vals:
-            std_vals['variant_thickness_std'] = cls._normalize_thickness_std(vals.get('variant_thickness'))
-        if 'variant_color' in vals:
-            std_vals['variant_color_std'] = cls._normalize_text_std(vals.get('variant_color'))
-        if 'variant_adhesive_type' in vals:
-            std_vals['variant_adhesive_std'] = cls._normalize_text_std(vals.get('variant_adhesive_type'))
-        if 'variant_base_material' in vals:
-            std_vals['variant_base_material_std'] = cls._normalize_text_std(vals.get('variant_base_material'))
-        return std_vals
-
-    def _build_variant_std_vals(self):
-        self.ensure_one()
-        return self._build_variant_std_vals_from_raw({
-            'variant_thickness': self.variant_thickness,
-            'variant_color': self.variant_color,
-            'variant_adhesive_type': self.variant_adhesive_type,
-            'variant_base_material': self.variant_base_material,
-        })
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        records = super().create(vals_list)
-        std_keys = {'variant_thickness_std', 'variant_color_std', 'variant_adhesive_std', 'variant_base_material_std'}
-        for idx, record in enumerate(records):
-            incoming = vals_list[idx] if idx < len(vals_list) else {}
-            if std_keys.intersection(incoming.keys()):
-                continue
-            auto_vals = record._build_variant_std_vals()
-            record.with_context(**{self._variant_std_sync_ctx_key: True}).write(auto_vals)
-        return records
-
-    def write(self, vals):
-        res = super().write(vals)
-        if self.env.context.get(self._variant_std_sync_ctx_key):
-            return res
-
-        raw_keys = {'variant_thickness', 'variant_color', 'variant_adhesive_type', 'variant_base_material'}
-        std_keys = {'variant_thickness_std', 'variant_color_std', 'variant_adhesive_std', 'variant_base_material_std'}
-        
-        # 1. 自动计算归一化字段
-        if raw_keys.intersection(vals.keys()) and not std_keys.intersection(vals.keys()):
-            for record in self:
-                auto_vals = record._build_variant_std_vals()
-                record.with_context(**{self._variant_std_sync_ctx_key: True}).write(auto_vals)
-        return res
 

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit_chatter_ai" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.chatter.ai</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='general_settings']" position="inside">
+                <block title="Chatter AI Assistant">
+                    <setting string="Bot Name">
+                        <field name="chatter_ai_bot_name"/>
+                    </setting>
+                    <setting string="Mention Aliases">
+                        <field name="chatter_ai_mention_aliases"/>
+                    </setting>
+                    <setting string="Enable OdooBot Private Chat AI">
+                        <field name="chatter_ai_private_chat_enabled"/>
+                    </setting>
+                    <setting string="Enabled Models">
+                        <field name="chatter_ai_enabled_model_allowlist"/>
+                    </setting>
+                    <setting string="Allowed Groups">
+                        <field name="chatter_ai_allowed_group_xmlids"/>
+                    </setting>
+                    <setting string="OpenClaw CLI Command">
+                        <field name="chatter_ai_openclaw_cli_command"/>
+                    </setting>
+                    <setting string="Node Bin Directory">
+                        <field name="chatter_ai_openclaw_node_bin_path"/>
+                    </setting>
+                    <setting string="General Agent ID">
+                        <field name="chatter_ai_openclaw_general_agent_id"/>
+                    </setting>
+                    <setting string="TDS Agent ID">
+                        <field name="chatter_ai_openclaw_tds_agent_id"/>
+                    </setting>
+                    <setting string="Thinking Level">
+                        <field name="chatter_ai_openclaw_thinking"/>
+                    </setting>
+                    <setting string="Job Timeout (seconds)">
+                        <field name="chatter_ai_job_timeout_seconds"/>
+                    </setting>
+                    <setting string="Max Attachment Size (MB)">
+                        <field name="chatter_ai_max_attachment_size_mb"/>
+                    </setting>
+                    <setting string="Context Message Limit">
+                        <field name="chatter_ai_max_context_messages"/>
+                    </setting>
+                    <setting string="Worker Shared Secret">
+                        <field name="chatter_ai_worker_shared_secret" password="True"/>
+                    </setting>
+                    <setting string="Worker Stale Timeout (seconds)">
+                        <field name="chatter_ai_worker_stale_seconds"/>
+                    </setting>
+                    <setting string="Worker Poll Interval (seconds)">
+                        <field name="chatter_ai_worker_poll_seconds"/>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>

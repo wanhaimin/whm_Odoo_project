@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <delete model="ir.ui.view" search="[('name', 'in', ['chatter.ai.handbook.batch.list', 'chatter.ai.handbook.batch.form', 'chatter.ai.handbook.batch.search', 'chatter.ai.handbook.issue.list', 'chatter.ai.handbook.issue.form', 'diecut.catalog.source.document.form.handbook.fields', 'diecut.catalog.source.document.tree.handbook.fields'])]"/>
+    <delete model="ir.actions.act_window" search="[('name', 'in', ['Handbook Import Batches', 'Handbook Issues'])]"/>
+    <delete model="ir.ui.menu" search="[('name', 'in', ['Handbook Batches', 'Handbook Issues'])]"/>
+    <delete model="ir.model.access" search="[('name', 'in', ['chatter.ai.handbook.batch user', 'chatter.ai.handbook.batch system', 'chatter.ai.handbook.issue user', 'chatter.ai.handbook.issue system'])]"/>
+</odoo>

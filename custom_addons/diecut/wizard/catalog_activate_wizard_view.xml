@@ -13,6 +13,7 @@
                     <field name="default_code" />
                     <field name="categ_id" />
                     <field name="brand_id" />
+                    <field name="manufacturer_id" context="{'show_short_name': True, 'default_is_company': True}" domain="[('is_company', '=', True)]" />
                     <field name="material_type" />
                     <field name="thickness" />
                 </group>

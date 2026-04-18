@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_chatter_ai_run_user,chatter.ai.run user,model_chatter_ai_run,base.group_user,1,0,0,0
+access_chatter_ai_run_system,chatter.ai.run system,model_chatter_ai_run,base.group_system,1,1,1,1
+access_chatter_ai_handbook_review_user,chatter.ai.handbook.review user,model_chatter_ai_handbook_review,base.group_user,1,0,0,0
+access_chatter_ai_handbook_review_system,chatter.ai.handbook.review system,model_chatter_ai_handbook_review,base.group_system,1,1,1,1
+access_chatter_ai_handbook_review_series_user,chatter.ai.handbook.review.series user,model_chatter_ai_handbook_review_series,base.group_user,1,0,0,0
+access_chatter_ai_handbook_review_series_system,chatter.ai.handbook.review.series system,model_chatter_ai_handbook_review_series,base.group_system,1,1,1,1
+access_chatter_ai_handbook_review_model_user,chatter.ai.handbook.review.model user,model_chatter_ai_handbook_review_model,base.group_user,1,0,0,0
+access_chatter_ai_handbook_review_model_system,chatter.ai.handbook.review.model system,model_chatter_ai_handbook_review_model,base.group_system,1,1,1,1

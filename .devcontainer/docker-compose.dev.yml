@@ -2,4 +2,9 @@ name: my_odoo_project_devcontainer
 
 services:
   web:
-    command: odoo -d odoo -u diecut --dev=all,reload
+    entrypoint:
+      - /usr/local/bin/start_odoo_with_worker.sh
+    command: >
+      -d odoo
+      -u diecut
+      --dev=all,reload

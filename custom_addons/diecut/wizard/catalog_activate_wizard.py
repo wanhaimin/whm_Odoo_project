@@ -37,6 +37,11 @@ class CatalogActivateWizard(models.TransientModel):
         string="主要供应商",
         domain="[('supplier_rank', '>', 0)]",
     )
+    manufacturer_id = fields.Many2one(
+        "res.partner",
+        string="制造商",
+        domain="[('is_company', '=', True)]",
+    )
 
     @api.model
     def default_get(self, fields_list):
@@ -49,12 +54,13 @@ class CatalogActivateWizard(models.TransientModel):
         brand_name = item.brand_id.name or ""
         variant_code = item.code or ""
         base_material = item.base_material_id.name if item.base_material_id else ""
-        series_short = item.series_text or ""
+        series_short = item.series_id.name or "" if item.series_id else ""
 
         res["product_name"] = f"{brand_name} {variant_code} {base_material}{series_short}".strip()
         res["default_code"] = variant_code
         res["categ_id"] = item.categ_id.id if item.categ_id else False
         res["brand_id"] = item.brand_id.id if item.brand_id else False
+        res["manufacturer_id"] = item.manufacturer_id.id if item.manufacturer_id else False
         res["material_type"] = base_material
 
         thickness_val = item.thickness_std or item.thickness
@@ -116,6 +122,7 @@ class CatalogActivateWizard(models.TransientModel):
             "length": self.length,
             "rs_type": self.rs_type,
             "brand_id": self.brand_id.id if self.brand_id else False,
+            "manufacturer_id": self.manufacturer_id.id if self.manufacturer_id else False,
             "material_type": self.material_type,
             "density": False,
             "adhesion": False,

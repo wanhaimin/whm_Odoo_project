@@ -26,11 +26,15 @@ access_diecut_catalog_ops_log,Diecut Catalog Ops Log,model_diecut_catalog_ops_lo
 access_diecut_catalog_field_info,Diecut Catalog Field Info,model_diecut_catalog_field_info,base.group_user,1,1,1,1
 access_diecut_catalog_item_batch_update_wizard,Diecut Catalog Item Batch Update Wizard,model_diecut_catalog_item_batch_update_wizard,base.group_user,1,1,1,1
 access_diecut_catalog_item_batch_update_line,Diecut Catalog Item Batch Update Line,model_diecut_catalog_item_batch_update_line,base.group_user,1,1,1,1
+access_diecut_catalog_param_mass_edit_wizard,Diecut Catalog Param Mass Edit Wizard,model_diecut_catalog_param_mass_edit_wizard,base.group_user,1,1,1,1
+access_diecut_catalog_merge_wizard,Diecut Catalog Merge Wizard,model_diecut_catalog_merge_wizard,base.group_system,1,1,1,1
+access_diecut_catalog_merge_wizard_line,Diecut Catalog Merge Wizard Line,model_diecut_catalog_merge_wizard_line,base.group_system,1,1,1,1
 access_diecut_catalog_param_category_user,diecut.catalog.param.category.user,model_diecut_catalog_param_category,base.group_user,1,1,1,0
 access_diecut_catalog_param_category_manager,diecut.catalog.param.category.manager,model_diecut_catalog_param_category,base.group_system,1,1,1,1
 access_diecut_catalog_source_document_user,diecut.catalog.source.document.user,model_diecut_catalog_source_document,base.group_user,1,1,1,0
 access_diecut_catalog_source_document_manager,diecut.catalog.source.document.manager,model_diecut_catalog_source_document,base.group_system,1,1,1,1
-access_diecut_ai_settings_wizard,diecut.ai.settings.wizard,model_diecut_ai_settings_wizard,base.group_system,1,1,1,1
+access_diecut_catalog_source_document_draft_line_user,diecut.catalog.source.document.draft.line.user,model_diecut_catalog_source_document_draft_line,base.group_user,1,1,1,0
+access_diecut_catalog_source_document_draft_line_manager,diecut.catalog.source.document.draft.line.manager,model_diecut_catalog_source_document_draft_line,base.group_system,1,1,1,1
 access_product_product_internal_edit,product.product.internal.edit,product.model_product_product,base.group_user,1,1,1,0
 access_diecut_catalog_item_user,diecut.catalog.item.user,model_diecut_catalog_item,base.group_user,1,1,1,0
 access_diecut_catalog_item_manager,diecut.catalog.item.manager,model_diecut_catalog_item,base.group_system,1,1,1,1
@@ -40,8 +44,14 @@ access_diecut_catalog_spec_def_user,diecut.catalog.spec.def.user,model_diecut_ca
 access_diecut_catalog_spec_def_manager,diecut.catalog.spec.def.manager,model_diecut_catalog_spec_def,base.group_system,1,1,1,1
 access_diecut_catalog_item_spec_line_user,diecut.catalog.item.spec.line.user,model_diecut_catalog_item_spec_line,base.group_user,1,1,1,0
 access_diecut_catalog_item_spec_line_manager,diecut.catalog.item.spec.line.manager,model_diecut_catalog_item_spec_line,base.group_system,1,1,1,1
+access_diecut_catalog_item_spec_condition_user,diecut.catalog.item.spec.condition.user,model_diecut_catalog_item_spec_condition,base.group_user,1,1,1,0
+access_diecut_catalog_item_spec_condition_manager,diecut.catalog.item.spec.condition.manager,model_diecut_catalog_item_spec_condition,base.group_system,1,1,1,1
 access_diecut_catalog_series_user,diecut.catalog.series.user,model_diecut_catalog_series,base.group_user,1,1,1,0
 access_diecut_catalog_series_manager,diecut.catalog.series.manager,model_diecut_catalog_series,base.group_system,1,1,1,1
+access_diecut_catalog_brand_platform_user,diecut.catalog.brand.platform.user,model_diecut_catalog_brand_platform,base.group_user,1,1,1,0
+access_diecut_catalog_brand_platform_manager,diecut.catalog.brand.platform.manager,model_diecut_catalog_brand_platform,base.group_system,1,1,1,1
+access_diecut_catalog_selection_scene_user,diecut.catalog.selection.scene.user,model_diecut_catalog_selection_scene,base.group_user,1,1,1,0
+access_diecut_catalog_selection_scene_manager,diecut.catalog.selection.scene.manager,model_diecut_catalog_selection_scene,base.group_system,1,1,1,1
 access_diecut_catalog_series_apply_wizard,diecut.catalog.series.apply.wizard,model_diecut_catalog_series_apply_wizard,base.group_user,1,1,1,1
 access_diecut_catalog_adhesive_type_user,diecut.catalog.adhesive.type.user,model_diecut_catalog_adhesive_type,base.group_user,1,1,1,0
 access_diecut_catalog_adhesive_type_manager,diecut.catalog.adhesive.type.manager,model_diecut_catalog_adhesive_type,base.group_system,1,1,1,1
@@ -51,4 +61,12 @@ access_diecut_catalog_application_tag_user,diecut.catalog.application.tag.user,m
 access_diecut_catalog_application_tag_manager,diecut.catalog.application.tag.manager,model_diecut_catalog_application_tag,base.group_system,1,1,1,1
 access_diecut_catalog_feature_tag_user,diecut.catalog.feature.tag.user,model_diecut_catalog_feature_tag,base.group_user,1,1,1,0
 access_diecut_catalog_feature_tag_manager,diecut.catalog.feature.tag.manager,model_diecut_catalog_feature_tag,base.group_system,1,1,1,1
+access_diecut_catalog_substrate_tag_user,diecut.catalog.substrate.tag.user,model_diecut_catalog_substrate_tag,base.group_user,1,1,1,0
+access_diecut_catalog_substrate_tag_manager,diecut.catalog.substrate.tag.manager,model_diecut_catalog_substrate_tag,base.group_system,1,1,1,1
+access_diecut_catalog_structure_tag_user,diecut.catalog.structure.tag.user,model_diecut_catalog_structure_tag,base.group_user,1,1,1,0
+access_diecut_catalog_structure_tag_manager,diecut.catalog.structure.tag.manager,model_diecut_catalog_structure_tag,base.group_system,1,1,1,1
+access_diecut_catalog_environment_tag_user,diecut.catalog.environment.tag.user,model_diecut_catalog_environment_tag,base.group_user,1,1,1,0
+access_diecut_catalog_environment_tag_manager,diecut.catalog.environment.tag.manager,model_diecut_catalog_environment_tag,base.group_system,1,1,1,1
+access_diecut_catalog_process_tag_user,diecut.catalog.process.tag.user,model_diecut_catalog_process_tag,base.group_user,1,1,1,0
+access_diecut_catalog_process_tag_manager,diecut.catalog.process.tag.manager,model_diecut_catalog_process_tag,base.group_system,1,1,1,1
 access_diecut_catalog_spec_bulk_add_wizard,diecut.catalog.spec.bulk.add.wizard,model_diecut_catalog_spec_bulk_add_wizard,base.group_user,1,1,1,1

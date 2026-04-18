@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_diecut_catalog_merge_wizard_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.merge.wizard.form</field>
+        <field name="model">diecut.catalog.merge.wizard</field>
+        <field name="arch" type="xml">
+            <form string="合并到主记录">
+                <sheet>
+                    <group>
+                        <field name="model_label" readonly="1"/>
+                        <field name="record_count" readonly="1"/>
+                        <field name="master_line_id" options="{'no_create': True, 'no_open': True}" placeholder="请选择要保留的主记录" required="1"/>
+                    </group>
+                    <div class="alert alert-info" role="alert">
+                        请明确选择一条“保留记录（主记录）”。系统会保留该记录，并把其他记录的所有引用迁移过来。
+                    </div>
+                    <group string="待合并记录">
+                        <field name="line_ids" nolabel="1" readonly="1">
+                            <list create="0" delete="0" edit="0">
+                                <field name="record_label"/>
+                                <field name="action_result"/>
+                                <field name="usage_summary"/>
+                            </list>
+                        </field>
+                    </group>
+                    <div class="alert alert-warning" role="alert">
+                        系统会将所有源记录的引用改写到主记录，然后永久删除源记录。该操作不可自动撤销。
+                    </div>
+                    <group invisible="not result_message">
+                        <field name="result_message" readonly="1" nolabel="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_execute" type="object" string="确认合并" class="btn-primary"/>
+                    <button string="取消" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_server_diecut_color_merge" model="ir.actions.server">
+        <field name="name">合并到主记录</field>
+        <field name="model_id" ref="model_diecut_color"/>
+        <field name="binding_model_id" ref="model_diecut_color"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_merge_wizard()</field>
+    </record>
+
+    <record id="action_server_diecut_catalog_adhesive_type_merge" model="ir.actions.server">
+        <field name="name">合并到主记录</field>
+        <field name="model_id" ref="model_diecut_catalog_adhesive_type"/>
+        <field name="binding_model_id" ref="model_diecut_catalog_adhesive_type"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_merge_wizard()</field>
+    </record>
+
+    <record id="action_server_diecut_catalog_base_material_merge" model="ir.actions.server">
+        <field name="name">合并到主记录</field>
+        <field name="model_id" ref="model_diecut_catalog_base_material"/>
+        <field name="binding_model_id" ref="model_diecut_catalog_base_material"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_merge_wizard()</field>
+    </record>
+
+    <record id="action_server_product_tag_merge" model="ir.actions.server">
+        <field name="name">合并到主记录</field>
+        <field name="model_id" ref="product.model_product_tag"/>
+        <field name="binding_model_id" ref="product.model_product_tag"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_merge_wizard()</field>
+    </record>
+
+    <record id="action_server_diecut_catalog_application_tag_merge" model="ir.actions.server">
+        <field name="name">合并到主记录</field>
+        <field name="model_id" ref="model_diecut_catalog_application_tag"/>
+        <field name="binding_model_id" ref="model_diecut_catalog_application_tag"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_merge_wizard()</field>
+    </record>
+
+    <record id="action_server_diecut_catalog_feature_tag_merge" model="ir.actions.server">
+        <field name="name">合并到主记录</field>
+        <field name="model_id" ref="model_diecut_catalog_feature_tag"/>
+        <field name="binding_model_id" ref="model_diecut_catalog_feature_tag"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_merge_wizard()</field>
+    </record>
+
+    <record id="action_server_diecut_catalog_substrate_tag_merge" model="ir.actions.server">
+        <field name="name">合并到主记录</field>
+        <field name="model_id" ref="model_diecut_catalog_substrate_tag"/>
+        <field name="binding_model_id" ref="model_diecut_catalog_substrate_tag"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_merge_wizard()</field>
+    </record>
+
+    <record id="action_server_diecut_catalog_structure_tag_merge" model="ir.actions.server">
+        <field name="name">合并到主记录</field>
+        <field name="model_id" ref="model_diecut_catalog_structure_tag"/>
+        <field name="binding_model_id" ref="model_diecut_catalog_structure_tag"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_merge_wizard()</field>
+    </record>
+
+    <record id="action_server_diecut_catalog_environment_tag_merge" model="ir.actions.server">
+        <field name="name">合并到主记录</field>
+        <field name="model_id" ref="model_diecut_catalog_environment_tag"/>
+        <field name="binding_model_id" ref="model_diecut_catalog_environment_tag"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_merge_wizard()</field>
+    </record>
+
+    <record id="action_server_diecut_catalog_process_tag_merge" model="ir.actions.server">
+        <field name="name">合并到主记录</field>
+        <field name="model_id" ref="model_diecut_catalog_process_tag"/>
+        <field name="binding_model_id" ref="model_diecut_catalog_process_tag"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_merge_wizard()</field>
+    </record>
+
+    <record id="action_server_diecut_catalog_param_merge" model="ir.actions.server">
+        <field name="name">合并到主记录</field>
+        <field name="model_id" ref="model_diecut_catalog_param"/>
+        <field name="binding_model_id" ref="model_diecut_catalog_param"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_open_merge_wizard()</field>
+    </record>
+</odoo>

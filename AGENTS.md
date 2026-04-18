@@ -140,6 +140,14 @@ def some_model_method(self):
 - Use Bootstrap 5 classes for enhanced UI (cards, grid)
 - Avoid direct DOM manipulation - use Odoo Owl VDOM patterns
 
+#### Frontend List Column Width Memory
+
+- For Odoo list/one2many column width memory, use render-before column definition injection: patch `ListRenderer.getActiveColumns()` and set saved widths on `column.attrs.width` for the targeted model/view.
+- Save widths only after user column drag ends by wrapping `this.columnWidths.onStartResize`, then read current `thead th[data-name]` widths and persist them to `window.localStorage`.
+- Do not restore column widths by writing `th`/`td` widths from `onMounted`/`onPatched`; it fights Odoo `useMagicColumnWidths`, causing input jitter or default-width rebound.
+- Scope the behavior to explicit models/views. Never make browser-local width memory global unless the requirement explicitly asks for global behavior.
+- Reference implementation: `custom_addons/diecut/static/src/js/diecut_quote_column_width_memory.js`.
+
 ```xml
 <!-- Example: Bootstrap card structure -->
 <div class="row g-3">

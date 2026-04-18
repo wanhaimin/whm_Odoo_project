@@ -1,76 +1,116 @@
-# Phase 4 字段映射表（初稿）
+# Phase 4 字段映射说明（当前主线）
 
-本文档给出当前已实现的新旧模型字段映射，作为切换准备基线。
+本文档用于说明 `AI/TDS`、目录导入和后台维护在当前版本中的字段落点。  
+本文件只保留当前主线结构，不再继续维护旧参数定义 CSV、旧系列文本字段或旧型号兼容字段口径。
 
-## 1. 模型关系
+## 1. 当前主线模型
 
-- 新模型：`diecut.catalog.item`
-- 旧模型：`product.template`（系列） + `product.product`（型号）
-- 当前新结构不再保留 `legacy_*` 追溯字段。
+- 系列模型：`diecut.catalog.series`
+- 型号模型：`diecut.catalog.item`
+- 参数定义：`diecut.catalog.param`
+- 分类参数：`diecut.catalog.category.param`
+- 参数值：`diecut.catalog.item.spec.line`
 
-## 2. 已落地映射（代码已实现）
+## 2. 当前主字段落点
 
-| 业务含义 | 新模型字段 | 旧模型字段 | 同步方向 | 当前主源 | 备注 |
-|---|---|---|---|---|---|
-| 名称 | `name` | `product.product.name` | 双向（导入期） | 新 | 单层模型不再区分系列/型号记录 |
-| 品牌 | `brand_id` | `product.product.catalog_brand_id` | 双向（导入期） | 新 | |
-| 分类 | `categ_id` | `product.product.catalog_categ_id` | 双向（导入期） | 新 | |
-| 状态 | `catalog_status` | `product.product.catalog_status` | 双向（导入期） | 新 | |
-| 型号编码 | `code` | `product.product.default_code` | 双向（导入期） | 新 | 品牌+编码唯一在新模型强约束 |
-| ERP启用 | `erp_enabled` | `product.product.is_activated` | 双向（影子回填 + 双写） | 旧 | |
-| ERP产品映射 | `erp_product_tmpl_id` | `product.product.activated_product_tmpl_id` | 双向（影子回填 + 双写） | 旧 | |
-| 型号所属系列文本 | `series_text` | `product.template.series_name`（展示口径） | 旧->新（导入期） | 新 | 仅展示维度，不再维护层级关系 |
-| TDS附件 | `variant_tds_file` / `variant_tds_filename` | `product.product.variant_tds_file` / `variant_tds_filename` | 双向（影子回填 + 双写） | 旧 | 附件一致性按“是否有文件 + 文件名”比对 |
-| MSDS附件 | `variant_msds_file` / `variant_msds_filename` | `product.product.variant_msds_file` / `variant_msds_filename` | 双向（影子回填 + 双写） | 旧 | 同上 |
-| 规格书附件 | `variant_datasheet` / `variant_datasheet_filename` | `product.product.variant_datasheet` / `variant_datasheet_filename` | 双向（影子回填 + 双写） | 旧 | 同上 |
-| 结构图附件 | `variant_catalog_structure_image` | `product.product.variant_catalog_structure_image` | 双向（影子回填 + 双写） | 旧 | 按是否有图片比对 |
-| 胶厚 | `variant_adhesive_thickness` | `product.product.variant_adhesive_thickness` | 双向（影子回填 + 双写） | 旧 | |
-| 剥离力 | `variant_peel_strength` | `product.product.variant_peel_strength` | 双向（影子回填 + 双写） | 旧 | |
-| 结构描述 | `variant_structure` | `product.product.variant_structure` | 双向（影子回填 + 双写） | 旧 | |
-| SUS面剥离力 | `variant_sus_peel` | `product.product.variant_sus_peel` | 双向（影子回填 + 双写） | 旧 | |
-| PE面剥离力 | `variant_pe_peel` | `product.product.variant_pe_peel` | 双向（影子回填 + 双写） | 旧 | |
-| DuPont冲击 | `variant_dupont` | `product.product.variant_dupont` | 双向（影子回填 + 双写） | 旧 | |
-| 推出力 | `variant_push_force` | `product.product.variant_push_force` | 双向（影子回填 + 双写） | 旧 | |
-| 可移除性 | `variant_removability` | `product.product.variant_removability` | 双向（影子回填 + 双写） | 旧 | |
-| Tumbler滚球 | `variant_tumbler` | `product.product.variant_tumbler` | 双向（影子回填 + 双写） | 旧 | |
-| 保持力 | `variant_holding_power` | `product.product.variant_holding_power` | 双向（影子回填 + 双写） | 旧 | |
+### 2.1 系列级字段
 
-## 3. 运行时切换策略（当前）
+| 业务含义 | 当前字段 |
+|---|---|
+| 系列名称 | `series_name` |
+| 品牌 | `brand_id` / `brand_name` |
+| 分类 | `categ_id` / `category_name` |
+| 产品描述 | `product_description` |
+| 产品特点 | `product_features` |
+| 主要应用 | `main_applications` |
+| 特殊应用 | `special_applications` |
 
-- 参数：`diecut.catalog.read_model`
-- 可选值：
-  - `legacy_split`（默认）：统一入口指向 `product.product`
-  - `new_gray`：统一入口指向 `diecut.catalog.item`
-- 控制服务：`diecut.catalog.runtime.service`
+### 2.2 型号级主字段
 
-## 4. 已对齐的扩展字段（Phase 4 已完成）
+| 业务含义 | 当前字段 |
+|---|---|
+| 型号编码 | `code` |
+| 型号名称 | `name` |
+| 归属系列 | `series_id` / `series_name` |
+| 厚度 | `thickness` |
+| 胶厚 | `adhesive_thickness` |
+| 颜色 | `color_id` / `color_name` |
+| 胶系 | `adhesive_type_id` / `adhesive_type_name` |
+| 基材 | `base_material_id` / `base_material_name` |
+| 厚度标准值 | `thickness_std` |
+| 参考价 | `ref_price` |
+| ROHS | `is_rohs` |
+| REACH | `is_reach` |
+| 无卤 | `is_halogen_free` |
+| 防火等级 | `fire_rating` |
+| 结构图 | `catalog_structure_image` |
 
-以下 `product.product` 业务扩展字段已在新模型 `diecut.catalog.item` 中落地并参与双向同步：
+## 3. 技术参数统一落点
 
-- 技术参数字段：厚度、胶厚、颜色、剥离力、结构描述、胶系、基材、SUS/PE 剥离力、DuPont 冲击、推出力、可移除性、Tumbler 滚球、保持力等
-- 合规字段：ROHS、REACH、无卤、防火等级
-- 文档字段：TDS/MSDS/规格书文件及文件名、产品结构图
-- 参考价：variant_ref_price
+以下内容不再直接塞进 `diecut.catalog.item` 主表，而是统一落在参数字典与参数值链路：
 
-后续重点：切换窗口演练与主源切换规则。
+- 剥离力
+- 剪切强度
+- 保持力
+- 结构说明
+- 储存条件
+- 工艺兼容性
+- 其他长尾技术指标
 
-每个字段需补充：
+对应结构：
 
-- 新模型是否建字段
-- 是否需要双写
-- 是否保留旧模型只读镜像
-- 切换后唯一主源
+- 参数定义：`diecut.catalog.param`
+- 分类参数：`diecut.catalog.category.param`
+- 参数值：`diecut.catalog.item.spec.line`
 
-## 5. 切换门槛建议
+## 4. AI/TDS 六桶到五表映射
 
-- 对账指标持续为 0（缺失/重复/孤儿）
-- 已迁移字段抽样一致率 >= 99%
-- 管理员灰度运行 >= 1 周
-- 回滚演练通过
+| 草稿 bucket | 目标结构 |
+|---|---|
+| `series` | `diecut.catalog.series` |
+| `items` | `diecut.catalog.item` |
+| `params` | `diecut.catalog.param` |
+| `category_params` | `diecut.catalog.category.param` |
+| `spec_values` | `diecut.catalog.item.spec.line` |
+| `unmatched` | 审核产物，不直接入业务主表 |
 
-## 6. 一键校验入口
+## 5. 导入与同步原则
 
-- 运维向导操作：`新旧字段一致性检查`
-- 运维向导操作：`新旧附件一致性检查`
-- 脚本入口（容器内 Odoo shell）：
-  - `/mnt/extra-addons/diecut/scripts/check_shadow_field_parity.py`
+### 5.1 只认当前主线字段
+
+当前导入、校验、同步、预演统一只接受：
+
+- 系列主字段
+- 型号主字段
+- 参数定义
+- 分类参数
+- 参数值明细
+
+不再接受以下旧口径：
+
+- 旧参数定义 CSV
+- 旧系列文本字段
+- 旧型号兼容字段
+
+### 5.2 系列主入口
+
+- 运行时主入口：`series_id`
+- 导入与展示口径：`series_name`
+
+### 5.3 长尾参数入口
+
+所有长尾技术参数均通过：
+
+- `param_key`
+- `value`
+- `unit`
+- `test_method`
+- `test_condition`
+- `remark`
+
+写入 `diecut.catalog.item.spec.line`
+
+## 6. 历史说明
+
+旧 `product.template / product.product` 影子双写、旧型号兼容字段、旧分裂式目录架构仅保留在迁移脚本或历史设计文档中，不再作为当前后台主线设计。  
+若后续需要清理更早期的 ERP 影子字段，应另开独立迁移工作包处理。

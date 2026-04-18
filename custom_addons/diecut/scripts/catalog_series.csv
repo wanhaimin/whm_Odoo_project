@@ -23,7 +23,7 @@ brand_ui_皇冠_4,皇冠（huangguan）,无基材双面胶带,无基材,,,1,10
 brand_ui_皇冠_4,皇冠（huangguan）,透明PP双面胶带（对标TESA）,PP基材,,,1,10
 brand_ui_皇冠_4,皇冠（huangguan）,DS15BH黑色棉纸双面胶带,黑色,,"<div data-oe-version=""2.0""><font>用于电视机喇叭网的粘贴。</font></div>",1,10
 brand_ui_皇冠_4,皇冠（huangguan）,排废保护膜；0.06,制程排废用,,"<div data-oe-version=""2.0"">制程排废</div>",1,10
-brand_tesa,Tesa,496xx,天然橡胶双面胶带,适用于通用双面贴合和粗糙表面固定。,<p>泡棉辅料贴合</p><p>一般工业固定</p>,1,10
+brand_tesa,Tesa,496xx,天然橡胶双面胶带,适用于通用双面贴合和粗糙表面固定。,"<p data-oe-version=""2.0"">泡棉辅料贴合</p><p>一般工业固定.</p>",1,10
 brand_tesa,Tesa,498xx,高粘双面PET胶带,适用于薄型双面贴合与结构固定。,<p>铭牌固定</p><p>塑胶件双面贴合</p>,1,10
 brand_tesa,Tesa,519xx,,,,1,10
 brand_tesa,Tesa,522xx,,,,1,10
@@ -57,14 +57,64 @@ brand_tesa,Tesa,885xx,,,,1,10
 brand_tesa,Tesa,886xx,,,,1,10
 brand_tesa,Tesa,921xx,,,,1,10
 brand_tesa,Tesa,320xx,,,,1,10
-,3M,3M VHB,,,,1,10
+brand_tesa,Tesa,tesa 6928,"优异的静态剪切力和剥离力性能平衡
+轻型包装的安全封闭性能
+高温下对不同泡棉及橡胶等严苛表面具有强大粘接性能
+高初粘力，立即固定于被粘表面",tesa® 6928 是透明的双面自粘胶带，由 PET 基材和改性丙烯酸胶粘剂组成，采用便于移除的助剥设计离型纸。,"<p>轻型信封和纸箱的封闭
+汽车行业中 ABS 塑料部件的固定
+家具行业中装饰型材和装饰线条的固定</p>",1,10
+brand_tesa,Tesa,CATALOG_TESA_609XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_772XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_471X,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_704XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_757XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_666XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_6264X,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_522XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_886XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_760XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_778XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_688XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_320XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_669XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_583XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_706XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_686XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_692XX,,,,1,10
+brand_tesa,Tesa,471x,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_649XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_758XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_618XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_660XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_668XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_610XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_661XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_769XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_751XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_761XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_498XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_613XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_619XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_473X,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_612XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_628XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_496XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_519XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_759XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_885XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_921XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_754XX,,,,1,10
+brand_tesa,Tesa,CATALOG_TESA_6262X,,,,1,10
+brand_tesa,Tesa,8854,,,,1,10
+brand_tesa,Tesa,tesa® 58375,满足UL94 VTM-0级别阻燃等级；针对不平整表面有优异的服帖性；优异的长期耐久性和抗老化性能；符合RoHS、REACH环保标准；不含卤素。,130µm无纺布基材阻燃双面胶带。tesa® 58375是一款半透明PET无纺布基材的阻燃双面胶带，厚度130µm，服帖性优异。本产品专为动力电池装配中严苛的贴合固定应用开发，阻燃性能可满足新能源汽车动力电池应用需求。,<p>动力电池系统中的各类有阻燃需求的零部件贴合固定（如加热片固定等）。</p>,1,10
+brand_tesa,Tesa,tesa® 4961,“硬”胶体系具有良好的抗剪切性能并能做到移除不残胶。,具有背衬纸的双面胶带。tesa® 4961由天然橡胶粘合剂和特殊背衬纸组成。,<p>可用于纸张和薄膜拼接；可粘接粗糙表面如磨砂盘；普通光滑表面粘接固定。</p>,1,10
 ,3M,3M GT7100 系列,"对汽车漆面与基材具有优异的最终粘接力和保持力
 满足多项 OEM 规范要求
 能够跟随塑料件因温度变化产生的收缩与伸长
 粘弹性泡棉芯具备良好应力释放与复杂曲面贴服能力
 在不同温度条件下保持良好粘接性能
 具备耐候、耐溶剂与耐高温能力",3M GT7100 系列为面向汽车内外饰件固定应用设计的亚克力泡棉胶带，采用丙烯酸压敏胶体系，兼具高柔顺性、耐环境性与优异的长期粘接表现。,"<div data-oe-version=""2.0""><ul><li>汽车外饰条固定</li><li>汽车内饰件固定</li></ul></div><div><img class=""img-fluid"" data-file-name=""image.png"" src=""/web/image/1093-c1845dba/image.png?access_token=a73784b7-d6fb-4b71-8279-69e8d8a23443"" data-original-id=""1093"" data-original-src=""/web/image/1093-c1845dba/image.png"" data-mimetype-before-conversion=""image/png"" style=""width: 50%;""></div><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""6472a798-6121-484a-b09f-f97d12c4ee37"",""checksum"":""a2304a6d49b7be9400d2ba8ca43ed2d9503b75f9"",""extension"":""pdf"",""filename"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""id"":1094,""mimetype"":""application/pdf"",""name"":""3m-acrylic-foam-tape-gt7100-series-technical-data-sheet.pdf"",""type"":""binary"",""url"":""""}}'></span></div>",1,10
-,3M,DC2000,"1. 对油漆面和镀铬表面具有良好粘接力。
+,3M,3M Die-Cuttable Tape DC2000,"1. 对油漆面和镀铬表面具有良好粘接力。
 2. 泡棉芯材较硬，抗扭转能力强，适合字母徽标类贴合。
 3. 低温冲击表现较好。
 4. 适用于高速旋转模切、平刀模切和激光模切。
@@ -82,7 +132,7 @@ Sealing support for various exterior part attachments
 Bonding support for various interior part attachments
 Bonding support for various exterior part attachments
 Fixing wire harnesses to the headliner</p>",1,10
-,3M,GT7100 Series,"Provides final adhesion and holding power to automotive paints and substrates
+,3M,3M GT7100 Series,"Provides final adhesion and holding power to automotive paints and substrates
 Meets a number of OEM specifications
 Follows shrinkage and elongation of plastic parts caused by temperature change and has good stress relaxation properties
 Viscoelastic core conforms well to complex geometries and delivers excellent wet out
@@ -117,7 +167,7 @@ Attachment of automotive interior trim</p>",1,10
 易于模切，适合多种照明结构件设计",泡棉更柔软、贴服性佳，适合高中高表面能及多种喷涂表面的粘接，并通过UL746C。,"<div data-oe-version=""2.0""><ul><li>硅胶灯带背胶</li><li>户外灯饰背胶</li><li>LED灯带结构粘接</li><li>小夜灯固定</li><li>LED扩散板粘接</li><li>植物灯结构粘接</li></ul></div>",1,10
 ,3M,3M VHB 4910系列,"100%丙烯酸胶粘剂构成
 100%闭孔泡棉结构
-独特的结构设计，兼顾强度与贴服性
+ 独特的结构设计，兼顾强度与贴服性
 优异耐老化与耐候性
 防水密封可达IPX7
 易于模切，适合多种照明结构件设计",透明VHB胶带，适用于有透明粘接需求的照明与结构固定场景。,"<div data-oe-version=""2.0""><ul><li>硅胶灯带背胶</li><li>户外灯饰背胶</li><li>LED灯带结构粘接</li><li>小夜灯固定</li><li>LED扩散板粘接</li><li>植物灯结构粘接</li></ul><div><span data-embedded=""file"" class=""o_file_box o-contenteditable-false"" data-embedded-props='{""fileData"":{""access_token"":""2af4d788-9b0e-4929-a03f-6e4edb0a0bcd"",""checksum"":""d2fe9de7c7d89028a40252b8d0d59e595f047640"",""extension"":""pdf"",""filename"":""iatd-lighting-applications-brochure（照明手册）.pdf"",""id"":1324,""mimetype"":""application/pdf"",""name"":""iatd-lighting-applications-brochure（照明手册）.pdf"",""type"":""binary"",""url"":""""}}'></span></div></div>",1,10
@@ -155,7 +205,32 @@ Attachment of automotive interior trim</p>",1,10
 ,3M,3M 转移胶膜系列,适合模切与薄型结构固定。,具有很强粘性和优异物理、化学稳定性，可起到密封作用，并兼具抗溶剂、抗紫外和抗温度急变特性。,"<div data-oe-version=""2.0""><ul><li>柔性LED灯条背胶</li><li>铭板粘贴</li><li>显示面板固定</li><li>泡棉与塑料件贴合</li></ul></div>",1,10
 ,3M,3M PET双面胶系列,适合模切与薄型结构固定。,模切性能优异，适合低表面能材料及轻微油污表面的粘接。,"<div data-oe-version=""2.0""><ul><li>柔性LED灯条背胶</li><li>铭板粘贴</li><li>显示面板固定</li><li>泡棉与塑料件贴合</li></ul></div>",1,10
 ,3M,3M 棉纸双面胶系列,适合模切与薄型结构固定。,模切性能优异，适合多数表面，耐高温，耐剪切强度表现优异。,"<div data-oe-version=""2.0""><ul><li>柔性LED灯条背胶</li><li>铭板粘贴</li><li>显示面板固定</li><li>泡棉与塑料件贴合</li></ul></div>",1,10
-,3M,3M PE泡棉胶带系列,高初粘、轻量、适合小部件粘接且易模切。,面向LED照明模组背胶应用的PE泡棉胶带。,"<div data-oe-version=""2.0""><ul><li>LED灯箱模组背胶</li><li>标志、铭牌</li><li>显示面板</li><li>塑料挂钩、支架</li><li>电线电缆固定</li><li>家电与展示柜部件</li><li>电子设备装饰件</li></ul></div>",1,10
+,3M,3M PE泡棉胶带系列,高初粘、轻量、适合小部件粘接且易模切。,面向LED照明模组背胶应用的PE泡棉胶带。,"<div data-oe-version=""2.0""><ul><li>LED灯箱模组背胶</li><li>标志、铭牌</li><li>显示面板</li><li>塑料挂钩、支架</li><li>电线电缆固定</li><li>家电与展示柜部件</li><li>电子设备装饰件</li></ul><div><img class=""img-fluid p-1"" data-file-name=""image.png"" src=""/web/image/1436-d7c91d91/image.png?access_token=8870a797-37cb-4e64-81f5-db9af1b60ef8"" data-original-id=""1436"" data-original-src=""/web/image/1436-d7c91d91/image.png"" data-mimetype-before-conversion=""image/png""></div><figure><img class=""img-fluid p-1"" data-file-name=""image.png"" src=""/web/image/1435-ef008cdc/image.png?access_token=b9a9bef1-f047-40d2-b231-38da41297b07""><figcaption></figcaption></figure></div>",1,10
 ,3M,3M 防篡改标签系列,揭除即破坏，适合防伪与防拆封。,面向照明变压器、电源及关键部件的防篡改标签材料。,"<div data-oe-version=""2.0""><ul><li>照明变压器标签</li><li>电源标签</li><li>防篡改封签</li></ul></div>",1,10
 ,3M,3M 耐久性标签系列,支持多种印刷方式，适合长期识别。,面向照明变压器、电源及部件铭牌的耐久性标签材料。,"<div data-oe-version=""2.0""><ul><li>照明变压器标签</li><li>电源铭牌</li><li>耐久性标识</li></ul></div>",1,10
 ,3M,3M 底涂剂系列,适合难粘接材料预处理，可提升金属、塑料、玻璃等表面的附着力。,用于难粘接基材表面处理、提升胶带系统附着力的底涂剂与表面处理辅料。,"<div data-oe-version=""2.0""><ul><li>胶带粘接前表面处理</li><li>金属与塑料基材附着力提升</li><li>玻璃基材底涂</li></ul></div>",1,10
+,3M,3M 300LSE系列,"高初始粘合强度
+高抗剪强度
+优异的抗起翘性能
+双面胶带方便模切、加工以及应用
+无需底漆剂
+无溶剂技术
+适合低表面能塑料与轻微油污表面",3M 300LSE系列高强度丙烯酸胶带具有超强粘接力，对绝大多数材料表面具有很高的粘接强度，包括多数低表面能塑胶材料，例如聚丙烯，粉末涂层等。该系列胶带也对轻微油污表面有优异的粘接强度，使设计更轻松。,"<div data-oe-version=""2.0""><ul><li>难粘材料粘接</li><li>汽车内饰粘接</li><li>电子部件固定</li><li>家电部件粘接</li></ul></div>",1,10
+,3M,3M 加工商解决方案样本册,,3M加工商市场产品选型指南/样本册，涵盖压敏胶结构、双面胶带、VHB胶带、耐久性标签材料、单面胶带、柔版印刷安装系统、导电和导热胶带等。,<p>用于加工商选型、胶粘剂系列比较、产品号检索及应用案例参考。</p>,1,10
+,3M,100MP,,高性能丙烯酸胶粘剂系列，强调耐高温、耐化学性、耐溶剂性和抗紫外线性能。,,1,10
+,3M,3M™ 100MP 高性能丙烯酸胶粘剂,,,,1,10
+,3M,200MP,,用于金属和高表面能塑料的高性能丙烯酸胶带/胶粘剂转印胶带及相关薄膜开关隔片产品。,,1,10
+,3M,3M™ 200MP 系列丙烯酸双面胶带,,,,1,10
+,3M,300LSE,,针对低表面能材料和难粘表面的高强度丙烯酸胶带系列。,,1,10
+,3M,3M™ 300LSE 系列高强度丙烯酸胶带,,,,1,10
+,3M,300MP,,适用于粗糙表面的高强度丙烯酸双面胶带/纯胶膜/无纺布胶带系列。,,1,10
+,3M,3M™ 300MP 系列高强度丙烯酸双面胶带,,,,1,10
+,3M,VHB,,,,1,10
+,3M,3M™ VHB™ 胶带,,,,1,10
+,3M,100HT,,,,1,10
+,3M,300FR,,,,1,10
+,3M,300SF,,,,1,10
+,3M,2000MP,,,,1,10
+,3M,1000系列,,,,1,10
+,3M,900R,,,,1,10
+,3M,320AF,,,,1,10

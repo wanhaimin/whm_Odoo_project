@@ -12,8 +12,8 @@
                 <field name="project_sn" />
                 <field name="internal_sn" />
                 <field name="quote_date" />
-                <field name="final_unit_price" widget="monetary" options="{'currency_field': 'currency_id'}" decoration-bf="1" />
-                <field name="profit_rate" widget="percentage" decoration-success="is_high_profit" decoration-danger="is_low_profit" />
+                <field name="final_unit_price" digits="[16,4]" decoration-bf="1" />
+                <field name="profit_rate" widget="percentage" digits="[16,0]" decoration-success="is_high_profit" decoration-danger="is_low_profit" />
                 <field name="is_high_profit" column_invisible="True" />
                 <field name="is_low_profit" column_invisible="True" />
                 <field name="is_profitable" column_invisible="True" />
@@ -57,11 +57,12 @@
                             <field name="user_id" string="制单人" widget="many2one_avatar_user" />
                         </group>
                     </group>
-                    <notebook>
-                        <page name="material_cost" string="材料成本">
+                    <div class="o_diecut_quote_spreadsheet_page">
+                        <separator string="二、材料成本" />
+                        <div name="material_cost" class="mb-3">
                             <div class="d-flex justify-content-between mb-2">
                                 <div class="d-flex gap-1">
-                                    <button name="action_open_material_filter" string="🔍 筛选材料" type="object" class="btn-sm btn-primary" icon="fa-search" help="按分类、功能、认证等条件筛选材料" />
+                                    <button name="action_open_material_filter" string="🔍 筛选材料" type="object" class="btn-sm btn-outline-secondary" icon="fa-search" help="按分类、功能、认证等条件筛选材料" />
                                     <span class="border-start mx-1" />
                                     <button name="action_check_all_lines" string="全选" type="object" class="btn-sm btn-outline-secondary" icon="fa-check-square-o" />
                                     <button name="action_uncheck_all_lines" string="取消" type="object" class="btn-sm btn-outline-secondary" icon="fa-square-o" />
@@ -81,7 +82,7 @@
                                     <field name="material_id" width="160px" options="{'no_open': False}" />
                                     <field name="raw_width" string="原材宽" optional="show" />
                                     <field name="raw_length" string="原材长" optional="show" />
-                                    <field name="price_unit_tax_inc" string="含税单价" optional="show" />
+                                    <field name="price_unit_tax_inc" string="含税单价" optional="show" digits="[16,4]" />
                                     <field name="slitting_rolls" optional="show" />
                                     <field name="qty_per_roll" optional="show" />
                                     <field name="slitting_width" string="分切宽" optional="show" />
@@ -89,32 +90,34 @@
                                     <field name="cavity" string="模穴数" optional="show" />
                                     <field name="unit_usage" optional="show" digits="[12,6]" />
                                     <field name="yield_rate" widget="percentage" optional="show" />
-                                    <field name="unit_consumable_cost" sum="Total" decoration-bf="1" optional="show" />
+                                    <field name="unit_consumable_cost" sum="Total" decoration-bf="1" optional="show" digits="[16,4]" />
                                 </list>
                             </field>
                             <group class="oe_subtotal_footer oe_right">
                                 <field name="material_cost_ratio" widget="percentage" />
-                                <field name="total_material_cost" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                <field name="total_material_cost" digits="[16,4]" />
                             </group>
-                        </page>
-                        <page name="manufacturing_cost" string="制造成本">
+                        </div>
+                        <separator string="三、制造成本" />
+                        <div name="manufacturing_cost" class="mb-3">
                             <field name="manufacturing_line_ids" mode="list">
                                 <list editable="bottom" class="o_diecut_quote_list">
-                                    <field name="step_1" width="150px" />
-                                    <field name="step_2" width="200px" />
-                                    <field name="mfg_fee" string="工费/H" />
+                                    <field name="step_1" string="工序" width="150px" />
+                                    <field name="step_2" width="200px" optional="hide" />
+                                    <field name="mfg_fee" string="工费/H" digits="[16,4]" />
                                     <field name="workstation_qty" string="人数" />
                                     <field name="capacity" />
                                     <field name="yield_rate" widget="percentage" />
-                                    <field name="cost_per_pcs" sum="Total" decoration-bf="1" />
+                                    <field name="cost_per_pcs" sum="Total" decoration-bf="1" digits="[16,4]" />
                                 </list>
                             </field>
                             <group class="oe_subtotal_footer oe_right">
-                                <field name="total_manufacturing_cost_nosetax" widget="monetary" options="{'currency_field': 'currency_id'}" />
-                                <field name="total_manufacturing_cost" string="制造成本(含税)" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                                <field name="total_manufacturing_cost_nosetax" digits="[16,4]" />
+                                <field name="total_manufacturing_cost" string="制造成本(含税)" digits="[16,4]" />
                             </group>
-                        </page>
-                        <page name="overhead_cost" string="管销与其他">
+                        </div>
+                        <separator string="四、管销与其它" />
+                        <div name="overhead_cost" class="mb-3">
                             <div class="row">
                                 <div class="col-md-6">
                                     <group string="管销费率摊销">
@@ -123,41 +126,39 @@
                                         <field name="utility_rate" widget="percentage" />
                                         <field name="packaging_rate" widget="percentage" />
                                         <field name="depreciation_rate" widget="percentage" />
-                                        <field name="total_marketing_cost" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_subtotal_footer_separator" />
+                                        <field name="marketing_cost_ratio" widget="percentage" readonly="1" />
+                                        <field name="total_marketing_cost" digits="[16,4]" class="oe_subtotal_footer_separator" />
                                     </group>
                                 </div>
                                 <div class="col-md-6">
                                     <group string="其它费用摊销">
-                                        <field name="mold_fee" widget="monetary" options="{'currency_field': 'currency_id'}" />
-                                        <label string="分摊数量" for="punch_qty" />
+                                        <field name="sample_cost_input" digits="[16,0]" />
+                                        <label string="分摊数量/总量" for="punch_qty" />
                                         <div class="o_row">
                                             <field name="punch_qty" />
                                             <span>
-                                                ->
-                                                <field name="mold_cost" widget="monetary" nolabel="1" />
+                                                件
                                             </span>
                                         </div>
-                                        <field name="sample_cost_input" widget="monetary" options="{'currency_field': 'currency_id'}" />
-                                        <field name="total_other_cost" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_subtotal_footer_separator" />
+                                        <field name="sample_unit_cost" digits="[16,4]" readonly="1" />
+                                        <field name="mold_fee" digits="[16,0]" />
+                                        <field name="mold_cost" digits="[16,4]" readonly="1" />
+                                        <field name="other_cost_ratio" widget="percentage" readonly="1" />
+                                        <field name="total_other_cost" digits="[16,4]" class="oe_subtotal_footer_separator" />
                                     </group>
                                 </div>
                             </div>
-                        </page>
-                    </notebook>
-                    <group class="oe_subtotal_footer oe_right">
-                        <field name="subtotal_cost" widget="monetary" options="{'currency_field': 'currency_id'}" />
-                        <label for="profit_rate" />
-                        <div class="o_row">
-                            <field name="profit_rate" class="oe_inline" />
-                            <span>
-                                ->
-                                <field name="profit_amount" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_inline" />
-                            </span>
                         </div>
+                    </div>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="subtotal_cost" digits="[16,4]" />
+                        <field name="profit_rate" widget="percentage" digits="[16,0]" />
+                        <field name="profit_amount" digits="[16,4]" />
+                        <field name="profit_cost_ratio" widget="percentage" readonly="1" />
                         <div class="oe_subtotal_footer_separator oe_inline">
                             <label for="final_unit_price" />
                         </div>
-                        <field name="final_unit_price" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}" style="font-size: 1.5em;" />
+                        <field name="final_unit_price" nolabel="1" class="oe_subtotal_footer_separator" digits="[16,4]" style="font-size: 1.5em;" />
                     </group>
                 </sheet>
                 <chatter />

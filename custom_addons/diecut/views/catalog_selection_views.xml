@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_diecut_catalog_brand_platform_tree" model="ir.ui.view">
+        <field name="name">diecut.catalog.brand.platform.tree</field>
+        <field name="model">diecut.catalog.brand.platform</field>
+        <field name="arch" type="xml">
+            <list string="品牌平台" default_order="brand_id, sequence, name, id">
+                <field name="brand_id"/>
+                <field name="name"/>
+                <field name="code" optional="show"/>
+                <field name="sequence" optional="hide"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_brand_platform_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.brand.platform.form</field>
+        <field name="model">diecut.catalog.brand.platform</field>
+        <field name="arch" type="xml">
+            <form string="品牌平台">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="brand_id"/>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="alias_text" placeholder="同义词、旧叫法、营销术语，建议按换行维护"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                    <group string="平台说明">
+                        <group>
+                            <field name="feature_summary" placeholder="平台级特点、典型被粘物、核心卖点"/>
+                        </group>
+                        <group>
+                            <field name="application_summary" placeholder="平台级典型应用、行业场景"/>
+                        </group>
+                        <group colspan="2">
+                            <field name="description" placeholder="补充说明、选择口径或品牌内部定位"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_brand_platform_search" model="ir.ui.view">
+        <field name="name">diecut.catalog.brand.platform.search</field>
+        <field name="model">diecut.catalog.brand.platform</field>
+        <field name="arch" type="xml">
+            <search string="搜索品牌平台">
+                <field name="brand_id"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="alias_text"/>
+                <filter name="active_only" string="启用" domain="[('active', '=', True)]"/>
+                <filter name="inactive_only" string="停用" domain="[('active', '=', False)]"/>
+                <filter name="group_brand" string="按品牌分组" context="{'group_by': 'brand_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_catalog_brand_platform" model="ir.actions.act_window">
+        <field name="name">品牌平台</field>
+        <field name="res_model">diecut.catalog.brand.platform</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_diecut_catalog_brand_platform_tree"/>
+        <field name="search_view_id" ref="view_diecut_catalog_brand_platform_search"/>
+    </record>
+
+    <record id="view_diecut_catalog_selection_scene_tree" model="ir.ui.view">
+        <field name="name">diecut.catalog.selection.scene.tree</field>
+        <field name="model">diecut.catalog.selection.scene</field>
+        <field name="arch" type="xml">
+            <list string="选型场景" default_order="parent_path, sequence, name, id">
+                <field name="complete_name"/>
+                <field name="parent_id" optional="show"/>
+                <field name="sequence" optional="hide"/>
+                <field name="is_leaf" optional="show"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_selection_scene_form" model="ir.ui.view">
+        <field name="name">diecut.catalog.selection.scene.form</field>
+        <field name="model">diecut.catalog.selection.scene</field>
+        <field name="arch" type="xml">
+            <form string="选型场景">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="parent_id"/>
+                            <field name="name"/>
+                            <field name="complete_name" readonly="1"/>
+                            <field name="alias_text" placeholder="同义词、部门叫法、厂商场景名，建议按换行维护"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="is_leaf" readonly="1"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                    <group string="场景说明">
+                        <group>
+                            <field name="selection_tip" placeholder="该场景下优先关注的选型因素"/>
+                        </group>
+                        <group>
+                            <field name="description" placeholder="典型部件、失效模式、推荐的材料方向"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_catalog_selection_scene_search" model="ir.ui.view">
+        <field name="name">diecut.catalog.selection.scene.search</field>
+        <field name="model">diecut.catalog.selection.scene</field>
+        <field name="arch" type="xml">
+            <search string="搜索选型场景">
+                <field name="name"/>
+                <field name="complete_name"/>
+                <field name="alias_text"/>
+                <field name="parent_id"/>
+                <filter name="leaf_only" string="叶子场景" domain="[('is_leaf', '=', True)]"/>
+                <filter name="active_only" string="启用" domain="[('active', '=', True)]"/>
+                <filter name="group_parent" string="按上级场景分组" context="{'group_by': 'parent_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_catalog_selection_scene" model="ir.actions.act_window">
+        <field name="name">场景字典</field>
+        <field name="res_model">diecut.catalog.selection.scene</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_diecut_catalog_selection_scene_tree"/>
+        <field name="search_view_id" ref="view_diecut_catalog_selection_scene_search"/>
+    </record>
+
+    <record id="action_diecut_selection_workbench" model="ir.actions.client">
+        <field name="name">材料选型工作台</field>
+        <field name="tag">diecut_selection_workbench</field>
+    </record>
+</odoo>

@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="diecut.SelectionWorkbench">
+        <div class="o_diecut_selection_workbench container-fluid py-4 px-3 px-xl-4">
+            <div class="row g-4 align-items-start">
+                <div class="col-12 col-xl-4 col-xxl-3">
+                    <aside class="o_diecut_filter_sidebar">
+                        <section class="card border-0 shadow-sm o_diecut_filter_panel mb-4">
+                            <div class="card-body p-4">
+                                <div class="o_diecut_filter_heading mb-4">
+                                    <div class="o_diecut_selection_eyebrow mb-2">专业材料选型工作台</div>
+                                    <h1 class="h2 fw-bold mb-2">左侧收敛条件，右侧快速看结果。</h1>
+                                    <p class="text-muted mb-0">基础条件、场景快捷入口和参数字典统一放在一侧，筛选过程更专注。</p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">品牌</label>
+                                    <select class="form-select" t-att-value="state.brandId" t-on-change="(ev) => this.updateField('brandId', ev)">
+                                        <option value="">全部品牌</option>
+                                        <t t-foreach="state.brands" t-as="brand" t-key="brand.id">
+                                            <option t-att-value="brand.id"><t t-esc="brand.name"/> (<t t-esc="brand.count"/>)</option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">材料分类</label>
+                                    <select class="form-select" t-att-value="state.categId" t-on-change="(ev) => this.updateCategory(ev)">
+                                        <option value="">全部分类</option>
+                                        <t t-foreach="state.categories" t-as="category" t-key="category.id">
+                                            <option t-att-value="category.id"><t t-esc="category.name"/> (<t t-esc="category.count"/>)</option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">品牌平台</label>
+                                    <select class="form-select" t-att-value="state.platformId" t-on-change="(ev) => this.updateField('platformId', ev)">
+                                        <option value="">全部平台</option>
+                                        <t t-foreach="state.platforms" t-as="platform" t-key="platform.id">
+                                            <option t-att-value="platform.id">
+                                                <t t-esc="platform.brand_id ? platform.brand_id[1] + ' / ' + platform.name : platform.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold">关键词</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        t-att-value="state.keyword"
+                                        placeholder="例如：LED 灯条背胶、耐温 150、PET 黑色、495 系列"
+                                        t-on-input="(ev) => this.updateField('keyword', ev)"
+                                    />
+                                </div>
+
+                                <div class="d-grid gap-2 d-sm-flex mb-4">
+                                    <button class="btn btn-primary flex-grow-1" t-on-click="() => this.search()" t-att-disabled="state.searching">
+                                        <t t-esc="state.searching ? '查询中...' : '应用筛选'"/>
+                                    </button>
+                                    <button class="btn btn-outline-secondary" t-on-click="() => this.resetFilters()">重置</button>
+                                </div>
+
+                                <div class="o_diecut_scene_panel mb-4">
+                                    <div class="small fw-semibold mb-2">场景快捷入口</div>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <t t-foreach="state.featuredScenes" t-as="scene" t-key="scene.id">
+                                            <button
+                                                class="btn btn-sm"
+                                                t-att-class="state.sceneIds.includes(scene.id) ? 'btn-primary' : 'btn-outline-primary'"
+                                                t-on-click="() => this.toggleScene(scene.id)"
+                                            >
+                                                <t t-esc="scene.name"/>
+                                            </button>
+                                        </t>
+                                    </div>
+                                    <div class="text-muted small mt-2">场景仅作为推荐入口，仍可继续叠加参数条件。</div>
+                                </div>
+
+                                <div class="o_diecut_filter_card mb-0">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h2 class="h6 mb-0">参数条件</h2>
+                                        <span class="badge text-bg-light" t-esc="state.conditions.length"/>
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <select class="form-select" t-att-value="state.pendingParamId" t-on-change="(ev) => this.updateField('pendingParamId', ev)">
+                                            <option value="">选择参数后添加</option>
+                                            <t t-foreach="availableParams" t-as="param" t-key="param.id">
+                                                <option t-att-value="param.id"><t t-esc="param.name"/></option>
+                                            </t>
+                                        </select>
+                                        <button class="btn btn-outline-primary" t-on-click="() => this.addCondition()">添加</button>
+                                    </div>
+
+                                    <div t-if="!state.conditions.length" class="o_diecut_empty_filter">
+                                        先从参数字典里添加筛选条件，例如剥离力、耐温、阻燃等级。
+                                    </div>
+
+                                    <div class="o_diecut_condition_list" t-if="state.conditions.length">
+                                        <t t-foreach="state.conditions" t-as="condition" t-key="condition.uid">
+                                            <div class="o_diecut_filter_card o_diecut_filter_condition">
+                                                <div class="row g-2">
+                                                    <div class="col-12">
+                                                        <label class="form-label small fw-semibold">参数</label>
+                                                        <select class="form-select form-select-sm" t-att-value="condition.paramId" t-on-change="(ev) => this.changeConditionParam(condition.uid, ev)">
+                                                            <t t-foreach="availableParams" t-as="param" t-key="param.id">
+                                                                <option t-att-value="param.id"><t t-esc="param.name"/></option>
+                                                            </t>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <label class="form-label small fw-semibold">运算</label>
+                                                        <select class="form-select form-select-sm" t-att-value="condition.operator" t-on-change="(ev) => this.changeConditionOperator(condition.uid, ev)">
+                                                            <t t-foreach="getOperatorOptions(condition)" t-as="operator" t-key="operator.value">
+                                                                <option t-att-value="operator.value"><t t-esc="operator.label"/></option>
+                                                            </t>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-7" t-if="getParam(condition.paramId) and getParam(condition.paramId).value_type === 'float' and condition.operator !== 'between'">
+                                                        <label class="form-label small fw-semibold">值</label>
+                                                        <input type="number" class="form-control form-control-sm" t-att-value="condition.value" t-on-input="(ev) => this.changeConditionValue(condition.uid, ev)"/>
+                                                    </div>
+                                                    <t t-if="getParam(condition.paramId) and getParam(condition.paramId).value_type === 'float' and condition.operator === 'between'">
+                                                        <div class="col-6">
+                                                            <label class="form-label small fw-semibold">起始</label>
+                                                            <input type="number" class="form-control form-control-sm" t-att-value="condition.value" t-on-input="(ev) => this.changeConditionValue(condition.uid, ev)"/>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label class="form-label small fw-semibold">结束</label>
+                                                            <input type="number" class="form-control form-control-sm" t-att-value="condition.valueTo" t-on-input="(ev) => this.changeConditionValueTo(condition.uid, ev)"/>
+                                                        </div>
+                                                    </t>
+                                                    <div class="col-7" t-if="getParam(condition.paramId) and getParam(condition.paramId).value_type === 'selection' and condition.operator !== 'in'">
+                                                        <label class="form-label small fw-semibold">值</label>
+                                                        <select class="form-select form-select-sm" t-att-value="condition.value" t-on-change="(ev) => this.changeConditionValue(condition.uid, ev)">
+                                                            <option value="">请选择</option>
+                                                            <t t-foreach="(getParam(condition.paramId) and getParam(condition.paramId).selection_options) or []" t-as="option" t-key="option">
+                                                                <option t-att-value="option"><t t-esc="option"/></option>
+                                                            </t>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12" t-if="getParam(condition.paramId) and getParam(condition.paramId).value_type === 'selection' and condition.operator === 'in'">
+                                                        <label class="form-label small fw-semibold">可选值</label>
+                                                        <select class="form-select form-select-sm" multiple="multiple" t-on-change="(ev) => this.changeConditionValues(condition.uid, ev)">
+                                                            <t t-foreach="(getParam(condition.paramId) and getParam(condition.paramId).selection_options) or []" t-as="option" t-key="option">
+                                                                <option t-att-value="option" t-att-selected="condition.values.includes(option)"><t t-esc="option"/></option>
+                                                            </t>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-7" t-if="getParam(condition.paramId) and getParam(condition.paramId).value_type === 'boolean'">
+                                                        <label class="form-label small fw-semibold">值</label>
+                                                        <select class="form-select form-select-sm" t-att-value="condition.value" t-on-change="(ev) => this.changeConditionValue(condition.uid, ev)">
+                                                            <option value="">请选择</option>
+                                                            <option value="true">是</option>
+                                                            <option value="false">否</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-7" t-if="getParam(condition.paramId) and getParam(condition.paramId).value_type === 'char'">
+                                                        <label class="form-label small fw-semibold">关键词</label>
+                                                        <input type="text" class="form-control form-control-sm" t-att-value="condition.value" t-on-input="(ev) => this.changeConditionValue(condition.uid, ev)"/>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <div class="small text-muted" t-esc="getConditionSummary(condition)"/>
+                                                            <button class="btn btn-sm btn-link text-danger p-0" t-on-click="() => this.removeCondition(condition.uid)">移除</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </aside>
+                </div>
+
+                <div class="col-12 col-xl-8 col-xxl-9">
+                    <section class="card border-0 shadow-sm o_diecut_result_workspace">
+                        <div class="card-body p-4 p-xl-4">
+                            <div class="row g-3 mb-4">
+                                <div class="col-sm-6 col-lg-3">
+                                    <div class="o_diecut_metric_box">
+                                        <div class="o_diecut_metric_value" t-esc="state.counts.items"/>
+                                        <div class="o_diecut_metric_label">型号</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-3">
+                                    <div class="o_diecut_metric_box">
+                                        <div class="o_diecut_metric_value" t-esc="state.resultCount"/>
+                                        <div class="o_diecut_metric_label">候选结果</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-3">
+                                    <div class="o_diecut_metric_box">
+                                        <div class="o_diecut_metric_value" t-esc="state.counts.params"/>
+                                        <div class="o_diecut_metric_label">筛选参数</div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-3">
+                                    <div class="o_diecut_metric_box">
+                                        <div class="o_diecut_metric_value" t-esc="state.counts.scenes"/>
+                                        <div class="o_diecut_metric_label">场景</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="o_diecut_result_toolbar mb-3">
+                                <div>
+                                    <h2 class="h4 mb-1">候选材料</h2>
+                                    <div class="text-muted small" t-esc="summaryText"/>
+                                </div>
+                                <div class="o_diecut_result_toolbar_actions">
+                                    <div class="o_diecut_view_switch btn-group" role="group" aria-label="结果视图切换">
+                                        <t t-foreach="viewModeOptions" t-as="option" t-key="option.value">
+                                            <button
+                                                class="btn btn-sm"
+                                                t-att-class="state.viewMode === option.value ? 'btn-primary' : 'btn-outline-secondary'"
+                                                t-on-click="() => this.setViewMode(option.value)"
+                                            >
+                                                <t t-esc="option.label"/>
+                                            </button>
+                                        </t>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <label class="small text-muted mb-0">排序</label>
+                                        <select class="form-select form-select-sm o_diecut_sort_select" t-att-value="state.sort" t-on-change="(ev) => this.updateSort(ev)">
+                                            <t t-foreach="sortOptions" t-as="option" t-key="option.value">
+                                                <option t-att-value="option.value"><t t-esc="option.label"/></option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="o_diecut_chip_row mb-3" t-if="activeFilterChips.length">
+                                <t t-foreach="activeFilterChips" t-as="chip" t-key="chip.key">
+                                    <button class="btn btn-sm btn-light o_diecut_chip" t-on-click="() => this.clearChip(chip)">
+                                        <span t-esc="chip.label"/>
+                                        <span class="o_diecut_chip_close">×</span>
+                                    </button>
+                                </t>
+                            </div>
+
+                            <div class="alert alert-danger" t-if="state.errorMessage" t-esc="state.errorMessage"/>
+                            <div class="o_diecut_loading_state" t-if="state.loading or state.searching">正在整理候选材料...</div>
+
+                            <div t-if="!state.loading and !state.searching and !state.results.length" class="o_diecut_empty_state">
+                                <h3 class="h6">没有找到满足当前条件的材料</h3>
+                                <p class="mb-0 text-muted">建议先减少参数条件、取消部分场景，或者换一个更宽泛的关键词。</p>
+                            </div>
+
+                            <div class="row g-3" t-if="!state.loading and !state.searching and state.results.length and state.viewMode === 'kanban'">
+                                <t t-foreach="state.results" t-as="item" t-key="item.id">
+                                    <div class="col-md-6 col-xxl-4">
+                                        <article class="o_diecut_result_card card h-100 border-0">
+                                            <div class="card-body d-flex flex-column">
+                                                <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                                                    <div>
+                                                        <div class="o_diecut_result_code" t-esc="item.code"/>
+                                                        <h3 class="h6 mb-1" t-esc="item.name"/>
+                                                        <div class="text-muted small">
+                                                            <span t-esc="item.brand_name"/>
+                                                            <t t-if="item.series_name">
+                                                                <span> / </span>
+                                                                <span t-esc="item.series_name"/>
+                                                            </t>
+                                                        </div>
+                                                    </div>
+                                                    <span class="badge text-bg-light">Top</span>
+                                                </div>
+
+                                                <div class="o_diecut_result_meta small mb-3">
+                                                    <div t-if="item.thickness_std"><strong>厚度：</strong><span t-esc="item.thickness_std"/></div>
+                                                    <div t-if="item.color_name"><strong>颜色：</strong><span t-esc="item.color_name"/></div>
+                                                    <div t-if="item.adhesive_type_name"><strong>胶系：</strong><span t-esc="item.adhesive_type_name"/></div>
+                                                    <div t-if="item.base_material_name"><strong>基材：</strong><span t-esc="item.base_material_name"/></div>
+                                                </div>
+
+                                                <div class="o_diecut_reason_block mb-3">
+                                                    <div class="small fw-semibold mb-2">命中原因</div>
+                                                    <div class="d-flex flex-wrap gap-2">
+                                                        <t t-foreach="item.matched_reasons" t-as="reason" t-key="reason">
+                                                            <span class="badge rounded-pill text-bg-light" t-esc="reason"/>
+                                                        </t>
+                                                    </div>
+                                                </div>
+
+                                                <div class="o_diecut_reason_block mb-3" t-if="item.matched_specs.length">
+                                                    <div class="small fw-semibold mb-2">关键参数</div>
+                                                    <t t-foreach="item.matched_specs" t-as="spec" t-key="spec.param_id">
+                                                        <div class="o_diecut_spec_row">
+                                                            <span class="o_diecut_spec_name" t-esc="spec.param_name"/>
+                                                            <span class="o_diecut_spec_value" t-esc="spec.matched_value"/>
+                                                        </div>
+                                                    </t>
+                                                </div>
+
+                                                <div class="mt-auto d-flex gap-2">
+                                                    <button class="btn btn-sm btn-primary flex-grow-1" t-on-click="() => this.openRecord(item.id)">查看详情</button>
+                                                    <button
+                                                        class="btn btn-sm flex-grow-1"
+                                                        t-att-class="this.isInCompare(item.id) ? 'btn-success' : 'btn-outline-secondary'"
+                                                        t-on-click="() => this.toggleCompare(item.id)"
+                                                    >
+                                                        <t t-esc="this.isInCompare(item.id) ? '已加入对比' : '加入对比'"/>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </t>
+                            </div>
+
+                            <div class="table-responsive" t-if="!state.loading and !state.searching and state.results.length and state.viewMode === 'list'">
+                                <table class="table table-hover align-middle o_diecut_result_table">
+                                    <thead>
+                                        <tr>
+                                            <th>型号</th>
+                                            <th>材料名称</th>
+                                            <th>品牌 / 系列</th>
+                                            <th>基础属性</th>
+                                            <th>命中原因</th>
+                                            <th>关键参数</th>
+                                            <th class="text-end">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="state.results" t-as="item" t-key="item.id">
+                                            <td class="fw-semibold text-nowrap" t-esc="item.code"/>
+                                            <td>
+                                                <div class="fw-semibold" t-esc="item.name"/>
+                                            </td>
+                                            <td>
+                                                <div t-esc="item.brand_name"/>
+                                                <div class="small text-muted" t-if="item.series_name" t-esc="item.series_name"/>
+                                            </td>
+                                            <td>
+                                                <div class="small" t-if="item.thickness_std">厚度：<t t-esc="item.thickness_std"/></div>
+                                                <div class="small" t-if="item.color_name">颜色：<t t-esc="item.color_name"/></div>
+                                                <div class="small" t-if="item.adhesive_type_name">胶系：<t t-esc="item.adhesive_type_name"/></div>
+                                                <div class="small" t-if="item.base_material_name">基材：<t t-esc="item.base_material_name"/></div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex flex-wrap gap-1">
+                                                    <t t-foreach="item.matched_reasons" t-as="reason" t-key="reason">
+                                                        <span class="badge rounded-pill text-bg-light" t-esc="reason"/>
+                                                    </t>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="small" t-if="!item.matched_specs.length">-</div>
+                                                <t t-foreach="item.matched_specs" t-as="spec" t-key="spec.param_id">
+                                                    <div class="small">
+                                                        <span class="text-muted" t-esc="spec.param_name"/>：
+                                                        <span class="fw-semibold" t-esc="spec.matched_value"/>
+                                                    </div>
+                                                </t>
+                                            </td>
+                                            <td class="text-end">
+                                                <div class="d-inline-flex gap-2">
+                                                    <button class="btn btn-sm btn-primary" t-on-click="() => this.openRecord(item.id)">查看详情</button>
+                                                    <button
+                                                        class="btn btn-sm"
+                                                        t-att-class="this.isInCompare(item.id) ? 'btn-success' : 'btn-outline-secondary'"
+                                                        t-on-click="() => this.toggleCompare(item.id)"
+                                                    >
+                                                        <t t-esc="this.isInCompare(item.id) ? '已对比' : '加入对比'"/>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <section class="o_diecut_compare_drawer shadow-lg" t-if="state.compareIds.length" t-att-class="state.compareDrawerOpen ? 'is-open' : ''">
+                <div class="o_diecut_compare_header">
+                    <div>
+                        <div class="fw-semibold">候选对比</div>
+                        <div class="small text-muted">选择 2 到 4 个材料后，可以快速比较关键参数。</div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-sm btn-outline-secondary" t-on-click="() => this.toggleCompareDrawer()">
+                            <t t-esc="state.compareDrawerOpen ? '收起' : '展开'"/>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="o_diecut_compare_body" t-if="state.compareDrawerOpen">
+                    <div class="alert alert-warning mb-3" t-if="!canCompare">至少选择 2 个材料后，对比表才更有参考价值。</div>
+                    <div class="table-responsive" t-if="compareItems.length">
+                        <table class="table table-sm align-middle o_diecut_compare_table">
+                            <thead>
+                                <tr>
+                                    <th>参数</th>
+                                    <t t-foreach="compareItems" t-as="item" t-key="item.id">
+                                        <th>
+                                            <div class="fw-semibold" t-esc="item.code"/>
+                                            <div class="small text-muted" t-esc="item.brand_name"/>
+                                        </th>
+                                    </t>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>基础信息</td>
+                                    <t t-foreach="compareItems" t-as="item" t-key="'meta-' + item.id">
+                                        <td>
+                                            <div t-if="item.series_name" t-esc="item.series_name"/>
+                                            <div class="small text-muted" t-if="item.thickness_std" t-esc="item.thickness_std"/>
+                                        </td>
+                                    </t>
+                                </tr>
+                                <t t-foreach="state.compareParams" t-as="param" t-key="param.id">
+                                    <tr>
+                                        <td t-esc="param.name"/>
+                                        <t t-foreach="compareItems" t-as="item" t-key="param.id + '-' + item.id">
+                                            <td>
+                                                <t t-set="compareValue" t-value="item.compare_values['' + param.id]"/>
+                                                <span t-if="compareValue" t-esc="compareValue.display"/>
+                                                <span t-if="!compareValue" class="text-muted">-</span>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </t>
+</templates>

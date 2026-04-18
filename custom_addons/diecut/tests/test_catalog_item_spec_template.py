@@ -52,7 +52,7 @@ class TestCatalogItemSpecTemplate(TransactionCase):
                 "code": "TMP-SWITCH-002",
             }
         )
-        item.spec_line_ids[0].value_text = "123"
+        item.spec_line_ids[0].write({"value_raw": "123", "value_kind": "text"})
 
         with self.assertRaises(ValidationError):
             item.write({"categ_id": self.category_tape_pet_double.id})
@@ -61,3 +61,38 @@ class TestCatalogItemSpecTemplate(TransactionCase):
             item.spec_line_ids.mapped("param_key"),
             self.env["diecut.catalog.item"]._get_active_category_params(self.category_foam.id).mapped("param_key"),
         )
+
+    def test_same_param_allows_multiple_conditioned_spec_lines(self):
+        item = self.env["diecut.catalog.item"].create(
+            {
+                "brand_id": self.brand.id,
+                "categ_id": self.category_foam.id,
+                "name": "条件参数测试",
+                "code": "TMP-COND-001",
+            }
+        )
+        spec_def = self.env["diecut.catalog.item"]._get_active_category_params(self.category_foam.id)[:1]
+        self.assertTrue(spec_def)
+
+        item.apply_param_payload(
+            param=spec_def.param_id,
+            raw_value="12.6",
+            unit="N/cm",
+            test_condition="180°剥离力",
+            conditions=[
+                {"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "不锈钢"},
+            ],
+        )
+        item.apply_param_payload(
+            param=spec_def.param_id,
+            raw_value="9.7",
+            unit="N/cm",
+            test_condition="180°剥离力",
+            conditions=[
+                {"condition_key": "substrate", "condition_label": "被贴合物", "condition_value": "ABS"},
+            ],
+        )
+
+        lines = item.spec_line_ids.filtered(lambda line: line.param_id == spec_def.param_id)
+        self.assertEqual(len(lines), 2)
+        self.assertSetEqual(set(lines.mapped("condition_summary")), {"不锈钢", "ABS"})

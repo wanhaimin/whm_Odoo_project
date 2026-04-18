@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="diecut_selection_scene_auto" model="diecut.catalog.selection.scene">
+        <field name="name">汽车</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="diecut_selection_scene_auto_interior" model="diecut.catalog.selection.scene">
+        <field name="name">内饰</field>
+        <field name="parent_id" ref="diecut_selection_scene_auto"/>
+        <field name="sequence">10</field>
+    </record>
+    <record id="diecut_selection_scene_auto_interior_bonding" model="diecut.catalog.selection.scene">
+        <field name="name">汽车内饰粘接</field>
+        <field name="parent_id" ref="diecut_selection_scene_auto_interior"/>
+        <field name="alias_text">内饰件固定, 低VOC 内饰粘接</field>
+        <field name="selection_tip">优先关注低 VOC、表面能适配、厚度窗口和耐温要求。</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="diecut_selection_scene_auto_exterior" model="diecut.catalog.selection.scene">
+        <field name="name">外饰</field>
+        <field name="parent_id" ref="diecut_selection_scene_auto"/>
+        <field name="sequence">20</field>
+    </record>
+    <record id="diecut_selection_scene_auto_exterior_trim" model="diecut.catalog.selection.scene">
+        <field name="name">铭牌与装饰条粘接</field>
+        <field name="parent_id" ref="diecut_selection_scene_auto_exterior"/>
+        <field name="alias_text">汽车铭牌, 装饰条, 外饰标牌</field>
+        <field name="selection_tip">优先关注耐候、抗起翘、曲面适配和长期粘接稳定性。</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="diecut_selection_scene_electronics" model="diecut.catalog.selection.scene">
+        <field name="name">电子</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="diecut_selection_scene_electronics_display" model="diecut.catalog.selection.scene">
+        <field name="name">显示模组</field>
+        <field name="parent_id" ref="diecut_selection_scene_electronics"/>
+        <field name="sequence">10</field>
+    </record>
+    <record id="diecut_selection_scene_electronics_display_panel" model="diecut.catalog.selection.scene">
+        <field name="name">显示面板固定</field>
+        <field name="parent_id" ref="diecut_selection_scene_electronics_display"/>
+        <field name="alias_text">显示屏固定, 面板贴合</field>
+        <field name="selection_tip">优先关注薄型、尺寸稳定性、模切适配与粘接强度。</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="diecut_selection_scene_electronics_structural" model="diecut.catalog.selection.scene">
+        <field name="name">电子结构固定</field>
+        <field name="parent_id" ref="diecut_selection_scene_electronics"/>
+        <field name="sequence">20</field>
+    </record>
+    <record id="diecut_selection_scene_electronics_structural_component" model="diecut.catalog.selection.scene">
+        <field name="name">电子部件固定</field>
+        <field name="parent_id" ref="diecut_selection_scene_electronics_structural"/>
+        <field name="alias_text">结构件固定, 电子组件固定</field>
+        <field name="selection_tip">优先关注初粘、可模切性、耐温和长期可靠性。</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="diecut_selection_scene_lighting" model="diecut.catalog.selection.scene">
+        <field name="name">照明</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="diecut_selection_scene_lighting_led" model="diecut.catalog.selection.scene">
+        <field name="name">LED 结构</field>
+        <field name="parent_id" ref="diecut_selection_scene_lighting"/>
+        <field name="sequence">10</field>
+    </record>
+    <record id="diecut_selection_scene_lighting_led_strip" model="diecut.catalog.selection.scene">
+        <field name="name">LED灯条与扩散板粘接</field>
+        <field name="parent_id" ref="diecut_selection_scene_lighting_led"/>
+        <field name="alias_text">LED 灯条背胶, 扩散板粘接, LED 结构粘接</field>
+        <field name="selection_tip">优先关注耐候、防水密封、模切适配与结构粘接稳定性。</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="diecut_selection_scene_label" model="diecut.catalog.selection.scene">
+        <field name="name">标签与标识</field>
+        <field name="sequence">40</field>
+    </record>
+    <record id="diecut_selection_scene_label_durable" model="diecut.catalog.selection.scene">
+        <field name="name">耐久标签</field>
+        <field name="parent_id" ref="diecut_selection_scene_label"/>
+        <field name="sequence">10</field>
+    </record>
+    <record id="diecut_selection_scene_label_durable_tamper" model="diecut.catalog.selection.scene">
+        <field name="name">防拆与耐久标签</field>
+        <field name="parent_id" ref="diecut_selection_scene_label_durable"/>
+        <field name="alias_text">防拆封签, 变压器标签, 电源标签</field>
+        <field name="selection_tip">优先关注防篡改、耐久标识、印刷适配和基材稳定性。</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="diecut_selection_scene_process" model="diecut.catalog.selection.scene">
+        <field name="name">制程</field>
+        <field name="sequence">50</field>
+    </record>
+    <record id="diecut_selection_scene_process_surface" model="diecut.catalog.selection.scene">
+        <field name="name">表面处理</field>
+        <field name="parent_id" ref="diecut_selection_scene_process"/>
+        <field name="sequence">10</field>
+    </record>
+    <record id="diecut_selection_scene_process_surface_primer" model="diecut.catalog.selection.scene">
+        <field name="name">底涂与预处理</field>
+        <field name="parent_id" ref="diecut_selection_scene_process_surface"/>
+        <field name="alias_text">表面预处理, 底涂剂</field>
+        <field name="selection_tip">优先关注附着力提升目标、适配基材和后续贴合工艺。</field>
+        <field name="sequence">10</field>
+    </record>
+</odoo>

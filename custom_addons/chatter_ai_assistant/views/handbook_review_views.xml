@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_chatter_ai_handbook_review_form" model="ir.ui.view">
+        <field name="name">chatter.ai.handbook.review.form</field>
+        <field name="model">chatter.ai.handbook.review</field>
+        <field name="arch" type="xml">
+            <form string="Handbook Review">
+                <header>
+                    <button name="action_open_source_document" string="打开来源文档" type="object" class="btn btn-secondary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="source_document_id" readonly="1"/>
+                            <field name="state" readonly="1"/>
+                            <field name="family_name" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="trace_id" readonly="1"/>
+                            <field name="confidence" readonly="1"/>
+                            <field name="series_count" readonly="1"/>
+                            <field name="model_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="param_total" readonly="1"/>
+                            <field name="reused_param_count" readonly="1"/>
+                            <field name="pending_param_count" readonly="1"/>
+                            <field name="issue_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="summary" readonly="1" nolabel="1"/>
+                    </group>
+                    <group>
+                        <field name="document_outline" readonly="1" nolabel="1"/>
+                    </group>
+                    <notebook>
+                        <page string="系列总览">
+                            <field name="series_ids" nolabel="1">
+                                <list default_order="sequence, id">
+                                    <field name="sequence" optional="hide"/>
+                                    <field name="series_long_name"/>
+                                    <field name="page_range"/>
+                                    <field name="model_count"/>
+                                    <field name="param_total"/>
+                                    <field name="reused_param_count"/>
+                                    <field name="pending_param_count"/>
+                                    <field name="issue_count"/>
+                                    <field name="confidence"/>
+                                </list>
+                                <form string="Handbook Series">
+                                    <header>
+                                        <button name="action_open_models" string="查看型号明细" type="object" class="btn btn-secondary"/>
+                                    </header>
+                                    <sheet>
+                                        <group>
+                                            <group>
+                                                <field name="series_display_name" readonly="1"/>
+                                                <field name="series_long_name" readonly="1"/>
+                                                <field name="page_range" readonly="1"/>
+                                                <field name="confidence" readonly="1"/>
+                                            </group>
+                                            <group>
+                                                <field name="model_count" readonly="1"/>
+                                                <field name="param_total" readonly="1"/>
+                                                <field name="reused_param_count" readonly="1"/>
+                                                <field name="pending_param_count" readonly="1"/>
+                                                <field name="issue_count" readonly="1"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="series_description" readonly="1"/>
+                                            <field name="series_features" readonly="1"/>
+                                            <field name="series_applications" readonly="1"/>
+                                            <field name="evidence" readonly="1"/>
+                                        </group>
+                                        <group string="型号明细">
+                                            <field name="model_ids" nolabel="1">
+                                                <list default_order="sequence, id">
+                                                    <field name="sequence" optional="hide"/>
+                                                    <field name="material_code"/>
+                                                    <field name="display_name"/>
+                                                    <field name="page_range"/>
+                                                    <field name="main_field_hits"/>
+                                                    <field name="param_total"/>
+                                                    <field name="reused_param_count"/>
+                                                    <field name="pending_param_count"/>
+                                                    <field name="issue_count"/>
+                                                    <field name="confidence"/>
+                                                    <field name="status"/>
+                                                </list>
+                                            </field>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_chatter_ai_handbook_review_model_list" model="ir.ui.view">
+        <field name="name">chatter.ai.handbook.review.model.list</field>
+        <field name="model">chatter.ai.handbook.review.model</field>
+        <field name="arch" type="xml">
+            <list string="Handbook Models" default_order="sequence, id">
+                <field name="material_code"/>
+                <field name="display_name"/>
+                <field name="page_range"/>
+                <field name="main_field_hits"/>
+                <field name="param_total"/>
+                <field name="reused_param_count"/>
+                <field name="pending_param_count"/>
+                <field name="issue_count"/>
+                <field name="confidence"/>
+                <field name="status"/>
+            </list>
+        </field>
+    </record>
+</odoo>

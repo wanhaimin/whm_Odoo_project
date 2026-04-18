@@ -36,56 +36,51 @@ class DiecutQuote(models.Model):
     material_cost_ratio = fields.Float(string="材料占比", compute='_compute_ratios')
 
     # 2. Manufacturing
-    manufacturing_line_ids = fields.One2many('diecut.quote.manufacturing.line', 'quote_id', string="制造成本明细")
-    # Note: total_manufacturing_cost_nosetax and total_manufacturing_cost in XML
-    # Note: total_manufacturing_cost_nosetax and total_manufacturing_cost in XML
+    manufacturing_line_ids = fields.One2many(
+        'diecut.quote.manufacturing.line',
+        'quote_id',
+        string="制造成本明细",
+        default=lambda self: self._default_manufacturing_lines(),
+    )
     total_manufacturing_cost_nosetax = fields.Float(string="制造成本 (不含税)", compute='_compute_total_manufacturing_cost', store=True, digits=(16, 4))
     total_manufacturing_cost = fields.Float(string="制造成本 (含税 1.13)", compute='_compute_total_manufacturing_cost', store=True, digits=(16, 4))
     manufacturing_cost_ratio = fields.Float(string="制造成本占比", compute='_compute_ratios')
 
     # 3. Marketing / Overhead
-    transport_rate = fields.Float(string="运输成本率", default=1.0)
+    transport_rate = fields.Float(string="运输成本率", default=0.01)
     transport_cost = fields.Float(string="运输成本", compute='_compute_overhead_costs', store=True, digits=(16, 4))
     
-    management_rate = fields.Float(string="管理费用率", default=5.0)
+    management_rate = fields.Float(string="管理费用率", default=0.03)
     management_cost = fields.Float(string="管理费用", compute='_compute_overhead_costs', store=True, digits=(16, 4))
     
-    utility_rate = fields.Float(string="厂租水电率", default=2.0)
+    utility_rate = fields.Float(string="厂租水电率", default=0.01)
     utility_cost = fields.Float(string="厂租水电", compute='_compute_overhead_costs', store=True, digits=(16, 4))
     
-    packaging_rate = fields.Float(string="包材成本率", default=1.0)
+    packaging_rate = fields.Float(string="包材成本率", default=0.01)
     packaging_cost = fields.Float(string="包材成本", compute='_compute_overhead_costs', store=True, digits=(16, 4))
     
-    depreciation_rate = fields.Float(string="机器折旧率", default=2.0)
+    depreciation_rate = fields.Float(string="机器折旧率", default=0.01)
     depreciation_cost = fields.Float(string="机器折旧", compute='_compute_overhead_costs', store=True, digits=(16, 4))
 
-    def read(self, fields=None, load='_classic_read'):
-        """每次读取报价单时，自动将所有材料行的勾选状态重置为 False"""
-        res = super().read(fields, load)
-        if self:
-            # 清除当前记录关联的所有材料行的勾选状态
-            # 使用 sudo() 防止权限问题，使用 search 避免加载所有记录减慢速度
-            self.env['diecut.quote.material.line'].sudo().search([
-                ('quote_id', 'in', self.ids),
-                ('is_checked', '=', True)
-            ]).write({'is_checked': False})
-        return res
-    
     total_marketing_cost = fields.Float(string="管销成本总计", compute='_compute_overhead_costs', store=True, digits=(16, 4))
+    marketing_cost_ratio = fields.Float(string="管销成本占比", compute='_compute_ratios')
 
     # 4. Other Costs
-    sample_cost_input = fields.Float(string="样品成本")
-    mold_fee = fields.Float(string="模具总费用", digits=(16, 4))
-    punch_qty = fields.Integer(string="预计冲压总数", default=100000)
+    sample_cost_input = fields.Float(string="样品总成本", digits=(16, 0))
+    sample_unit_cost = fields.Float(string="单位样品成本", compute='_compute_other_costs', store=True, digits=(16, 4))
+    mold_fee = fields.Float(string="模具总费用", digits=(16, 0))
+    punch_qty = fields.Integer(string="分摊数量/总量", default=100000)
     mold_cost = fields.Float(string="单位模具成本", compute='_compute_other_costs', store=True, digits=(16, 4))
     
     total_other_cost = fields.Float(string="其它成本总计", compute='_compute_other_costs', store=True, digits=(16, 4))
+    other_cost_ratio = fields.Float(string="其它成本占比", compute='_compute_ratios')
 
     # Summary
     subtotal_cost = fields.Float(string="成本总和", compute='_compute_final_price', store=True, digits=(16, 4))
-    profit_rate = fields.Float(string="利润率", default=15.0)
-    profit_amount = fields.Float(string="利润金额", compute='_compute_final_price', store=True, digits=(16, 4))
+    profit_rate = fields.Float(string="利润率", default=0.15)
+    profit_amount = fields.Float(string="利润", compute='_compute_final_price', store=True, digits=(16, 4))
     final_unit_price = fields.Float(string="合计建议报价 (RMB/PCS)", compute='_compute_final_price', store=True, digits=(16, 4))
+    profit_cost_ratio = fields.Float(string="利润占比", compute='_compute_ratios')
     
     is_high_profit = fields.Boolean(compute='_compute_profit_flags')
     is_low_profit = fields.Boolean(compute='_compute_profit_flags')
@@ -94,11 +89,33 @@ class DiecutQuote(models.Model):
     @api.depends('profit_rate')
     def _compute_profit_flags(self):
         for rec in self:
-            rec.is_high_profit = rec.profit_rate > 15.0 # XML previously checked > 0.15, but default is 15.0
-            rec.is_low_profit = rec.profit_rate < 5.0   # XML previously checked < 0.05
-            rec.is_profitable = rec.profit_rate > 20.0  # XML previously checked > 0.2
+            profit_ratio = rec._rate_as_ratio(rec.profit_rate)
+            rec.is_high_profit = profit_ratio > 0.15
+            rec.is_low_profit = profit_ratio < 0.05
+            rec.is_profitable = profit_ratio > 0.20
 
     # --- Computes ---
+    @api.model
+    def _rate_as_ratio(self, rate):
+        """Support legacy percent values (1.0 = 1%) and ratio values (0.01 = 1%)."""
+        rate = rate or 0.0
+        if abs(rate) >= 1.0:
+            return rate / 100.0
+        return rate
+
+    @api.model
+    def _default_manufacturing_lines(self):
+        return [
+            (0, 0, {"step_1": "分条", "mfg_fee": 25.0, "workstation_qty": 0, "capacity": 1000000, "yield_rate": 1.0}),
+            (0, 0, {"step_1": "贴合", "mfg_fee": 25.0, "workstation_qty": 0, "capacity": 1000000, "yield_rate": 1.0}),
+            (0, 0, {"step_1": "模切", "mfg_fee": 35.0, "workstation_qty": 1, "capacity": 100000, "yield_rate": 0.97}),
+            (0, 0, {"step_1": "排废", "mfg_fee": 25.0, "workstation_qty": 0, "capacity": 8000, "yield_rate": 1.0}),
+            (0, 0, {"step_1": "对贴", "mfg_fee": 30.0, "workstation_qty": 0, "capacity": 5000, "yield_rate": 1.0}),
+            (0, 0, {"step_1": "折弯", "mfg_fee": 25.0, "workstation_qty": 0, "capacity": 50, "yield_rate": 1.0}),
+            (0, 0, {"step_1": "品检", "mfg_fee": 25.0, "workstation_qty": 0, "capacity": 1000000, "yield_rate": 0.98}),
+            (0, 0, {"step_1": "包装", "mfg_fee": 25.0, "workstation_qty": 0, "capacity": 1000000, "yield_rate": 1.0}),
+        ]
+
     @api.depends('material_line_ids.unit_consumable_cost')
     def _compute_total_material_cost(self):
         for record in self:
@@ -111,19 +128,15 @@ class DiecutQuote(models.Model):
             record.total_manufacturing_cost_nosetax = nosetax
             record.total_manufacturing_cost = nosetax * 1.13 # Simple assumption based on XML label
 
-    @api.depends('subtotal_cost', 'transport_rate', 'management_rate', 'utility_rate', 'packaging_rate', 'depreciation_rate')
+    @api.depends('total_material_cost', 'total_manufacturing_cost', 'transport_rate', 'management_rate', 'utility_rate', 'packaging_rate', 'depreciation_rate')
     def _compute_overhead_costs(self):
         for record in self:
-            # Usually overhead is based on Material + Mfg costs? Or Sales Price?
-            # Assuming based on (Material + Mfg) for now or similar base. 
-            # Or maybe just rates? If rate is %, need a base. 
-            # Let's assume the rate is percentage of 'Cost Base' (Material + Mfg)
             base_cost = record.total_material_cost + record.total_manufacturing_cost
-            record.transport_cost = base_cost * (record.transport_rate / 100.0)
-            record.management_cost = base_cost * (record.management_rate / 100.0)
-            record.utility_cost = base_cost * (record.utility_rate / 100.0)
-            record.packaging_cost = base_cost * (record.packaging_rate / 100.0)
-            record.depreciation_cost = base_cost * (record.depreciation_rate / 100.0)
+            record.transport_cost = base_cost * record._rate_as_ratio(record.transport_rate)
+            record.management_cost = base_cost * record._rate_as_ratio(record.management_rate)
+            record.utility_cost = base_cost * record._rate_as_ratio(record.utility_rate)
+            record.packaging_cost = base_cost * record._rate_as_ratio(record.packaging_rate)
+            record.depreciation_cost = base_cost * record._rate_as_ratio(record.depreciation_rate)
             
             record.total_marketing_cost = (record.transport_cost + record.management_cost + 
                                          record.utility_cost + record.packaging_cost + 
@@ -132,11 +145,14 @@ class DiecutQuote(models.Model):
     @api.depends('sample_cost_input', 'mold_fee', 'punch_qty')
     def _compute_other_costs(self):
         for record in self:
+            sample_unit_cost = 0.0
             mold_unit_cost = 0.0
             if record.punch_qty > 0:
+                sample_unit_cost = record.sample_cost_input / record.punch_qty
                 mold_unit_cost = record.mold_fee / record.punch_qty
+            record.sample_unit_cost = sample_unit_cost
             record.mold_cost = mold_unit_cost
-            record.total_other_cost = mold_unit_cost + record.sample_cost_input # Just simple sum? Sample cost per unit?
+            record.total_other_cost = sample_unit_cost + mold_unit_cost
 
     @api.depends('total_material_cost', 'total_manufacturing_cost', 'total_marketing_cost', 'total_other_cost', 'profit_rate')
     def _compute_final_price(self):
@@ -144,21 +160,27 @@ class DiecutQuote(models.Model):
             subtotal = record.total_material_cost + record.total_manufacturing_cost + record.total_marketing_cost + record.total_other_cost
             record.subtotal_cost = subtotal
             
-            margin = subtotal * (record.profit_rate / 100.0)
+            margin = subtotal * record._rate_as_ratio(record.profit_rate)
             record.profit_amount = margin
-            record.final_unit_price = subtotal + margin
+            record.final_unit_price = round(subtotal + margin, 4)
 
-    @api.depends('total_material_cost', 'total_manufacturing_cost', 'subtotal_cost')
+    @api.depends('total_material_cost', 'total_manufacturing_cost', 'total_marketing_cost', 'total_other_cost', 'profit_amount', 'final_unit_price')
     def _compute_ratios(self):
         for record in self:
-            if record.subtotal_cost > 0:
-                record.material_cost_ratio = record.total_material_cost / record.subtotal_cost
-                record.manufacturing_cost_ratio = record.total_manufacturing_cost / record.subtotal_cost
+            if record.final_unit_price > 0:
+                record.material_cost_ratio = record.total_material_cost / record.final_unit_price
+                record.manufacturing_cost_ratio = record.total_manufacturing_cost / record.final_unit_price
+                record.marketing_cost_ratio = record.total_marketing_cost / record.final_unit_price
+                record.other_cost_ratio = record.total_other_cost / record.final_unit_price
+                record.profit_cost_ratio = record.profit_amount / record.final_unit_price
             else:
                 record.material_cost_ratio = 0.0
                 record.manufacturing_cost_ratio = 0.0
+                record.marketing_cost_ratio = 0.0
+                record.other_cost_ratio = 0.0
+                record.profit_cost_ratio = 0.0
 
-    @api.onchange('material_line_ids')
+    @api.onchange('material_line_ids.material_id')
     def _onchange_material_line_ids(self):
         """新增行时，默认带入第一行的参数"""
         if not self.material_line_ids or len(self.material_line_ids) < 2:
@@ -275,6 +297,7 @@ class DiecutQuote(models.Model):
             val = record.material_line_ids[0].yield_rate
             for line in record.material_line_ids[1:]:
                 line.yield_rate = val
+            return record._get_action_reload()
 
 
 
@@ -327,17 +350,9 @@ class DiecutQuote(models.Model):
             },
         }
 
-    # 定义报价form视图为弹窗
     def _get_action_reload(self):
         self.ensure_one()
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'diecut.quote',
-            'res_id': self.id,
-            'view_mode': 'form',
-            'target': 'new',
-            'context': {'form_view_initial_mode': 'edit', 'dialog_size': 'extra-large'},  # Ensure it stays editable
-        }
+        return {'type': 'ir.actions.client', 'tag': 'reload'}
 
 
     def action_save_and_stay(self):
@@ -434,7 +449,7 @@ class DiecutQuoteManufacturingLine(models.Model):
     quote_id = fields.Many2one('diecut.quote', string="报价单", ondelete='cascade')
     currency_id = fields.Many2one(related='quote_id.currency_id')
 
-    step_1 = fields.Char(string="工位") # process step
+    step_1 = fields.Char(string="工序")
     step_2 = fields.Char(string="说明")
     
     mfg_fee = fields.Float(string="人均制造费/小时", default=30.0)

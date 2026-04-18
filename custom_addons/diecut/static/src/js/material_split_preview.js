@@ -96,6 +96,7 @@ export class DiecutSplitListRenderer extends ListRenderer {
             viewportWidth: window.innerWidth,
             resizing: false,
             selectedResId: null,
+            formResId: null,
             refreshTick: 0,
             kbBreadcrumbs: [],
             kbBreadcrumbsLoading: false,
@@ -104,6 +105,7 @@ export class DiecutSplitListRenderer extends ListRenderer {
         this._liveSplitRatio = this.props.splitRatio || 45;
         this._rafResizeTick = null;
         this._lastPointerEvent = null;
+        this._formLoadTimeout = null;
 
         onMounted(() => {
             this._onWindowResize = this.onWindowResize.bind(this);
@@ -195,8 +197,21 @@ export class DiecutSplitListRenderer extends ListRenderer {
             return super.onCellClicked(record, column, ev, newWindow);
         }
         const resId = this._getRecordResId(record);
+        if (this.state.selectedResId === resId) {
+            return;
+        }
+
+        // 立即高亮左侧行状态，不阻塞 UI
         this.state.selectedResId = resId;
-        this._loadKnowledgeBreadcrumbs(resId);
+
+        // 延迟渲染右侧繁重卡片，给浏览器渲染列表切换动画及响应用户的喘息期
+        if (this._formLoadTimeout) {
+            clearTimeout(this._formLoadTimeout);
+        }
+        this._formLoadTimeout = setTimeout(() => {
+            this.state.formResId = resId;
+            this._loadKnowledgeBreadcrumbs(resId);
+        }, 50);
     }
 
     onButtonCellClicked(record, column, ev) {
@@ -245,7 +260,7 @@ export class DiecutSplitListRenderer extends ListRenderer {
     }
     
     openFullForm() {
-        const resId = this.effectiveSelectedResId;
+        const resId = this.state.selectedResId;
         if (!resId) return;
         const resModel = this.props.list.resModel || this.props.resModel;
         this.actionService.doAction({
@@ -323,7 +338,7 @@ export class DiecutSplitListRenderer extends ListRenderer {
     }
 
     get formViewProps() {
-        const resId = this.effectiveSelectedResId;
+        const resId = this.state.formResId;
         if (!resId) {
             return null;
         }
@@ -366,6 +381,7 @@ export class DiecutSplitListRenderer extends ListRenderer {
 
     async onFormSaved(record) {
         this.state.selectedResId = record.resId;
+        this.state.formResId = record.resId;
         this._loadKnowledgeBreadcrumbs(record.resId);
         await this.props.list.model.root.load();
     }
