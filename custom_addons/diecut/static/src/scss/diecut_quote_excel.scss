@@ -1,0 +1,259 @@
+.o_diecut_quote_excel_shell {
+    .o_diecut_quote_spreadsheet_page {
+        min-width: 0;
+    }
+
+    .o_diecut_formula_toolbar {
+        display: flex;
+        justify-content: flex-end;
+        margin: 0 0 10px;
+    }
+
+    .o_diecut_formula_open {
+        border-radius: 6px;
+    }
+
+    .o_diecut_quote_list {
+        border: 1px solid #c8d0dc;
+        background: #ffffff;
+
+        thead {
+            position: sticky;
+            top: 0;
+            z-index: 3;
+        }
+
+        thead tr th:not(.o_list_record_selector) {
+            padding: 6px 8px !important;
+            border-right: 1px solid #c8d0dc !important;
+            background: #eaf2f8 !important;
+            color: #1f2937 !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+        tbody td {
+            padding: 5px 8px !important;
+            border-right: 1px solid #e1e6ee;
+            border-bottom: 1px solid #e8edf3;
+            vertical-align: middle;
+        }
+
+        tbody tr:hover td {
+            background: #f8fbff;
+        }
+
+        td[name="raw_width"],
+        td[name="raw_length"],
+        td[name="price_unit_tax_inc"],
+        td[name="slitting_width"],
+        td[name="pitch"],
+        td[name="cavity"],
+        td[name="mfg_fee"],
+        td[name="workstation_qty"],
+        td[name="capacity"],
+        td[name="yield_rate"] {
+            background: #fff8cf;
+        }
+
+        td[name="slitting_rolls"],
+        td[name="qty_per_roll"],
+        td[name="unit_usage"],
+        td[name="unit_consumable_cost"],
+        td[name="cost_per_pcs"] {
+            background: #f3f6fa;
+            font-weight: 600;
+        }
+
+        td[name="price_unit_tax_inc"],
+        td[name="unit_usage"],
+        td[name="unit_consumable_cost"],
+        td[name="mfg_fee"],
+        td[name="capacity"],
+        td[name="cost_per_pcs"] {
+            text-align: right;
+        }
+
+        td[name="yield_rate"],
+        td[name="cavity"],
+        td[name="workstation_qty"] {
+            text-align: center;
+        }
+    }
+
+    .oe_subtotal_footer {
+        .o_field_widget {
+            &.o_diecut_formula_target_material,
+            &.o_diecut_formula_target_manufacturing,
+            &.o_diecut_formula_target_marketing,
+            &.o_diecut_formula_target_other,
+            &.o_diecut_formula_target_final {
+                background: #f3f6fa;
+                border: 1px solid #c8d0dc;
+                padding: 3px 8px;
+                min-width: 96px;
+                text-align: right;
+                font-weight: 600;
+            }
+        }
+    }
+    .o_diecut_formula_modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 1080;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+
+        &.o_open {
+            display: flex;
+        }
+    }
+
+    .o_diecut_formula_modal_backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.42);
+    }
+
+    .o_diecut_formula_dialog {
+        position: relative;
+        z-index: 1;
+        width: calc(100vw - 32px);
+        max-width: 980px;
+        max-height: calc(100vh - 32px);
+        display: flex;
+        flex-direction: column;
+        background: #ffffff;
+        border: 1px solid #c8d0dc;
+        border-radius: 8px;
+        box-shadow: 0 24px 70px rgba(15, 23, 42, 0.28);
+        overflow: hidden;
+    }
+
+    .o_diecut_formula_modal_header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border-bottom: 1px solid #d7dee8;
+        background: #f8fafc;
+    }
+
+    .o_diecut_formula_modal_title {
+        font-size: 16px;
+        font-weight: 700;
+        color: #1f2937;
+    }
+
+    .o_diecut_formula_modal_hint {
+        margin-top: 3px;
+        color: #64748b;
+        font-size: 12px;
+    }
+
+    .o_diecut_formula_close {
+        border: 1px solid #d7dee8;
+        border-radius: 6px;
+        line-height: 1;
+    }
+
+    .o_diecut_formula_modal_content {
+        overflow: auto;
+        padding: 12px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .o_diecut_formula_card {
+        display: block;
+        border: 1px solid #d7dee8;
+        background: #f8fafc;
+        padding: 10px;
+        border-radius: 6px;
+
+        &.o_active {
+            border-color: #d7dee8;
+            background: #f8fafc;
+            box-shadow: none;
+        }
+    }
+
+    .o_diecut_formula_card[data-diecut-formula-card="final"] {
+        grid-column: 1 / -1;
+    }
+
+    .o_diecut_formula_card_title {
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: #1f2937;
+    }
+
+    .o_diecut_formula_summary {
+        padding: 8px 10px;
+        margin-bottom: 8px;
+        background: #eaf2f8;
+        border: 1px solid #c8d0dc;
+        border-radius: 6px;
+        font-weight: 600;
+        color: #1f2937;
+    }
+
+    .o_diecut_formula_expr {
+        padding: 6px 8px;
+        border: 1px solid #c8d0dc;
+        background: #fff8cf;
+        font-family: Consolas, "Liberation Mono", monospace;
+        font-size: 12px;
+        line-height: 1.4;
+        word-break: break-word;
+    }
+
+    .o_diecut_formula_values {
+        margin-top: 8px;
+
+        > div {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 3px 0;
+            border-bottom: 1px dashed #d7dee8;
+            font-size: 12px;
+        }
+
+        span {
+            color: #64748b;
+        }
+
+        strong {
+            color: #111827;
+            text-align: right;
+        }
+    }
+
+    .o_diecut_formula_result {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 8px;
+        padding: 7px 8px;
+        background: #eaf2f8;
+        border: 1px solid #c8d0dc;
+        font-weight: 700;
+    }
+}
+
+@media (max-width: 1199px) {
+    .o_diecut_quote_excel_shell {
+        .o_diecut_formula_modal {
+            padding: 12px;
+        }
+
+        .o_diecut_formula_modal_content {
+            grid-template-columns: 1fr;
+        }
+    }
+}

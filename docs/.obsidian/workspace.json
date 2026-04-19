@@ -13,30 +13,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "diecut_cost_management_manual.md",
+                "file": "Projects/Diecut Management System/模切管理模块说明.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "diecut_cost_management_manual"
-            }
-          },
-          {
-            "id": "72cd22f5ee9d8073",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Resources/Diecut/Industry/DIECUT_INDUSTRY_BLUEPRINT.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "DIECUT_INDUSTRY_BLUEPRINT"
+              "title": "模切管理模块说明"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -199,22 +184,31 @@
       "bases:新建数据库": false
     }
   },
-  "active": "72cd22f5ee9d8073",
+  "active": "92b7fc1a5e8c1139",
   "lastOpenFiles": [
-    "Resources/Diecut/Industry/电子辅料行业 - Odoo 产品管理设计指南.md",
-    "Resources/Diecut/Industry/2026-03-30-外贸结构变化解读.md",
     "Projects/Diecut Management System/模切管理模块-问题解决.md",
-    "Archive/Inbox Processed/2026-04-18/_Inbox Review.md",
+    "Projects/Material Database Platform/模切材料数据库平台-项目规划.md",
+    "Projects/Material Database Platform/材料管理平台-使用说明.md",
+    "Projects/_Projects MOC.md",
+    "Attachments/WeChat/7e549331-7734-4191-bfa0-1c198660e9eb.png",
+    "未命名.base",
+    "未命名.canvas",
+    "1，openclaw.canvas",
+    "Resources/Odoo/Views and ORM/04_视图继承优先级.md",
+    "Projects/未命名 1.base",
+    "未命名 2.canvas",
+    "Archive/Completed Notes/材料管理平台-创建完成.md",
     "Archive/Inbox Processed/2026-04-18/微流控热驱动阀结构示意图解读.md",
     "Archive/Inbox Processed/2026-04-18/微流控单向阀.md",
+    "Archive/Inbox Processed/2026-04-18/_Inbox Review.md",
+    "Resources/Diecut/Industry/DIECUT_INDUSTRY_BLUEPRINT.md",
+    "Resources/Diecut/Industry/电子辅料行业 - Odoo 产品管理设计指南.md",
+    "Resources/Diecut/Industry/2026-03-30-外贸结构变化解读.md",
     "Resources/Diecut/Materials/钨制品价格表 - 中钨在线.md",
     "Projects/Material Database Platform/tds-训练数据集设计模板.md",
     "Projects/Material Database Platform/tds-检索专用模型训练路线图.md",
     "Archive/Inbox Processed/2026-04-18",
     "Archive/Inbox Processed",
-    "未命名 2.canvas",
-    "未命名.canvas",
-    "1，openclaw.canvas",
     "1,1目录.base",
     "Resources/_Resources MOC.md",
     "Resources/XML/XML从入门到精通 (The UI Masterclass).md",
@@ -223,7 +217,6 @@
     "Resources/Diecut/Materials/喷手感油.md",
     "Inbox/tds-训练数据集设计模板.md",
     "Inbox/_Inbox Review.md",
-    "Projects/_Projects MOC.md",
     "05_API装饰器详解.md",
     "Attachments/images/Pasted image 20260328165625.png",
     "Attachments/images/Pasted image 20260328165554.png",
@@ -232,21 +225,12 @@
     "Attachments/images/Pasted image 20260208135615.png",
     "Resources/Odoo/Deployment and Data/ENCODING_RULES.md",
     "Projects/Sampling Platform/快速打样平台-功能设计.md",
-    "Archive/Completed Notes/材料管理平台-创建完成.md",
-    "Projects/Material Database Platform/材料管理平台-使用说明.md",
-    "Projects/Material Database Platform/模切材料数据库平台-项目规划.md",
-    "Projects/Diecut Management System/模切管理系统开发指南.md",
-    "Projects/Diecut Management System/模切管理模块说明.md",
-    "Projects/Diecut Management System/plm_integration_and_mobile_scan_plan模切系统扩展规划：PLM 集成 & 移动端扫码.md",
     "Attachments/images",
     "Archive/Completed Notes",
     "Projects/Odoo ERP Architecture",
     "Projects/Sampling Platform",
     "Projects/Material Database Platform",
-    "Projects/Diecut Management System",
-    "Resources/XML",
     "Attachments/WeChat/0c3e9e6c-7d30-4f38-bed9-dee6c731b163.jpg",
-    "Attachments/WeChat/7e549331-7734-4191-bfa0-1c198660e9eb.png",
     "未命名 1.canvas",
     "Attachments/WeChat/microfluidic-valve-20260330-020540.jpg",
     "Attachments/WeChat/钨制品价格表.jpg",

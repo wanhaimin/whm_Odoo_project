@@ -13,6 +13,7 @@
         "data/sequence.xml",
         "data/product_category_data.xml",
         "data/catalog_selection_scene_data.xml",
+        "data/diecut_quote_recompute.xml",
         "security/ir.model.access.csv",
         
         "views/my_material_base_views.xml",
@@ -52,13 +53,14 @@
     ],
     'assets': {
         'web.assets_backend': [
-            'diecut/static/src/scss/custom_font.scss',
+            #'diecut/static/src/scss/custom_font.scss',
             'diecut/static/src/scss/hierarchy_view.scss',
             'diecut/static/src/scss/list_view_hover.scss',
             'diecut/static/src/js/enter_to_next.js',
             'diecut/static/src/js/shift_select.js',
             'diecut/static/src/js/diecut_quote_inline_buttons.js',
             'diecut/static/src/js/diecut_quote_column_width_memory.js',
+            'diecut/static/src/js/diecut_quote_formula_panel.js',
             'diecut/static/src/js/catalog_dynamic_columns.js',
             'diecut/static/src/js/catalog_selection_search.js',
             'diecut/static/src/js/catalog_search_group_cleanup.js',
@@ -67,6 +69,7 @@
             'diecut/static/src/js/spec_value_field.js',
             'diecut/static/src/scss/catalog_selection_workbench.scss',
             'diecut/static/src/scss/quick_entry.scss',
+            'diecut/static/src/scss/diecut_quote_excel.scss',
             'diecut/static/src/scss/material_split_preview.scss',
             'diecut/static/src/xml/search_panel_inherit.xml',
             'diecut/static/src/xml/catalog_selection_search.xml',

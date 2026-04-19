@@ -1,4 +1,6 @@
-from odoo import models, fields, api
+from html import escape
+
+from odoo import models, fields, api, Command
 
 # 这是一个模切成本核算模型
 class DiecutQuote(models.Model):
@@ -33,6 +35,10 @@ class DiecutQuote(models.Model):
     # 1. Material
     material_line_ids = fields.One2many('diecut.quote.material.line', 'quote_id', string="材料成本明细")
     total_material_cost = fields.Float(string="材料成本总计 (RMB/pcs)", compute='_compute_total_material_cost', store=True, digits=(16, 4))
+    vat_rate = fields.Float(string="增值税率", default=0.13)
+    total_material_cost_tax_included = fields.Float(string="材料成本含税", compute='_compute_material_tax_costs', store=True, digits=(16, 4))
+    total_material_cost_excluded = fields.Float(string="材料成本不含税", compute='_compute_material_tax_costs', store=True, digits=(16, 4))
+    material_input_vat = fields.Float(string="材料进项税额", compute='_compute_material_tax_costs', store=True, digits=(16, 4))
     material_cost_ratio = fields.Float(string="材料占比", compute='_compute_ratios')
 
     # 2. Manufacturing
@@ -42,8 +48,8 @@ class DiecutQuote(models.Model):
         string="制造成本明细",
         default=lambda self: self._default_manufacturing_lines(),
     )
-    total_manufacturing_cost_nosetax = fields.Float(string="制造成本 (不含税)", compute='_compute_total_manufacturing_cost', store=True, digits=(16, 4))
-    total_manufacturing_cost = fields.Float(string="制造成本 (含税 1.13)", compute='_compute_total_manufacturing_cost', store=True, digits=(16, 4))
+    total_manufacturing_cost_nosetax = fields.Float(string="制造成本兼容字段", compute='_compute_total_manufacturing_cost', store=True, digits=(16, 4))
+    total_manufacturing_cost = fields.Float(string="制造成本", compute='_compute_total_manufacturing_cost', store=True, digits=(16, 4))
     manufacturing_cost_ratio = fields.Float(string="制造成本占比", compute='_compute_ratios')
 
     # 3. Marketing / Overhead
@@ -76,11 +82,20 @@ class DiecutQuote(models.Model):
     other_cost_ratio = fields.Float(string="其它成本占比", compute='_compute_ratios')
 
     # Summary
-    subtotal_cost = fields.Float(string="成本总和", compute='_compute_final_price', store=True, digits=(16, 4))
-    profit_rate = fields.Float(string="利润率", default=0.15)
+    subtotal_cost = fields.Float(string="不含税成本总和", compute='_compute_final_price', store=True, digits=(16, 4))
+    profit_rate = fields.Float(string="目标利润率（按不含税售价）", default=0.15)
     profit_amount = fields.Float(string="利润", compute='_compute_final_price', store=True, digits=(16, 4))
-    final_unit_price = fields.Float(string="合计建议报价 (RMB/PCS)", compute='_compute_final_price', store=True, digits=(16, 4))
+    quote_price_excluded = fields.Float(string="不含税报价", compute='_compute_final_price', store=True, digits=(16, 4))
+    output_vat = fields.Float(string="销项税额", compute='_compute_final_price', store=True, digits=(16, 4))
+    estimated_vat_payable = fields.Float(string="预计应交增值税", compute='_compute_final_price', store=True, digits=(16, 4))
+    final_unit_price = fields.Float(string="含税建议报价 (RMB/PCS)", compute='_compute_final_price', store=True, digits=(16, 4))
     profit_cost_ratio = fields.Float(string="利润占比", compute='_compute_ratios')
+
+    material_formula_html = fields.Html(string="材料成本公式", compute='_compute_formula_html', sanitize=False)
+    manufacturing_formula_html = fields.Html(string="制造成本公式", compute='_compute_formula_html', sanitize=False)
+    marketing_formula_html = fields.Html(string="管销成本公式", compute='_compute_formula_html', sanitize=False)
+    other_formula_html = fields.Html(string="其它成本公式", compute='_compute_formula_html', sanitize=False)
+    final_formula_html = fields.Html(string="最终报价公式", compute='_compute_formula_html', sanitize=False)
     
     is_high_profit = fields.Boolean(compute='_compute_profit_flags')
     is_low_profit = fields.Boolean(compute='_compute_profit_flags')
@@ -104,6 +119,33 @@ class DiecutQuote(models.Model):
         return rate
 
     @api.model
+    def _fmt_amount(self, value):
+        return f"{value or 0.0:,.4f}"
+
+    @api.model
+    def _fmt_qty(self, value):
+        return f"{value or 0:,}"
+
+    @api.model
+    def _fmt_percent(self, value):
+        return f"{self._rate_as_ratio(value) * 100:.0f}%"
+
+    @api.model
+    def _formula_card(self, summary, formula, rows, result):
+        rows_html = "".join(
+            f"<div><span>{escape(str(label))}</span><strong>{escape(str(value))}</strong></div>"
+            for label, value in rows
+        )
+        return (
+            "<div class=\"o_diecut_formula_body\">"
+            f"<div class=\"o_diecut_formula_summary\">{escape(summary)}</div>"
+            f"<div class=\"o_diecut_formula_expr\">{escape(formula)}</div>"
+            f"<div class=\"o_diecut_formula_values\">{rows_html}</div>"
+            f"<div class=\"o_diecut_formula_result\"><span>当前结果</span><strong>{escape(str(result))}</strong></div>"
+            "</div>"
+        )
+
+    @api.model
     def _default_manufacturing_lines(self):
         return [
             (0, 0, {"step_1": "分条", "mfg_fee": 25.0, "workstation_qty": 0, "capacity": 1000000, "yield_rate": 1.0}),
@@ -121,17 +163,30 @@ class DiecutQuote(models.Model):
         for record in self:
             record.total_material_cost = sum(record.material_line_ids.mapped('unit_consumable_cost'))
 
+    @api.depends('total_material_cost', 'vat_rate')
+    def _compute_material_tax_costs(self):
+        for record in self:
+            material_tax_included = record.total_material_cost
+            vat_ratio = record._rate_as_ratio(record.vat_rate)
+            if vat_ratio > -1.0:
+                material_tax_excluded = material_tax_included / (1.0 + vat_ratio)
+            else:
+                material_tax_excluded = material_tax_included
+            record.total_material_cost_tax_included = material_tax_included
+            record.total_material_cost_excluded = material_tax_excluded
+            record.material_input_vat = material_tax_included - material_tax_excluded
+
     @api.depends('manufacturing_line_ids.cost_per_pcs')
     def _compute_total_manufacturing_cost(self):
         for record in self:
             nosetax = sum(record.manufacturing_line_ids.mapped('cost_per_pcs'))
             record.total_manufacturing_cost_nosetax = nosetax
-            record.total_manufacturing_cost = nosetax * 1.13 # Simple assumption based on XML label
+            record.total_manufacturing_cost = nosetax
 
-    @api.depends('total_material_cost', 'total_manufacturing_cost', 'transport_rate', 'management_rate', 'utility_rate', 'packaging_rate', 'depreciation_rate')
+    @api.depends('total_material_cost_excluded', 'total_manufacturing_cost', 'transport_rate', 'management_rate', 'utility_rate', 'packaging_rate', 'depreciation_rate')
     def _compute_overhead_costs(self):
         for record in self:
-            base_cost = record.total_material_cost + record.total_manufacturing_cost
+            base_cost = record.total_material_cost_excluded + record.total_manufacturing_cost
             record.transport_cost = base_cost * record._rate_as_ratio(record.transport_rate)
             record.management_cost = base_cost * record._rate_as_ratio(record.management_rate)
             record.utility_cost = base_cost * record._rate_as_ratio(record.utility_rate)
@@ -154,31 +209,179 @@ class DiecutQuote(models.Model):
             record.mold_cost = mold_unit_cost
             record.total_other_cost = sample_unit_cost + mold_unit_cost
 
-    @api.depends('total_material_cost', 'total_manufacturing_cost', 'total_marketing_cost', 'total_other_cost', 'profit_rate')
+    @api.depends('total_material_cost_excluded', 'total_manufacturing_cost', 'total_marketing_cost', 'total_other_cost', 'profit_rate', 'vat_rate', 'material_input_vat')
     def _compute_final_price(self):
         for record in self:
-            subtotal = record.total_material_cost + record.total_manufacturing_cost + record.total_marketing_cost + record.total_other_cost
+            subtotal = record.total_material_cost_excluded + record.total_manufacturing_cost + record.total_marketing_cost + record.total_other_cost
             record.subtotal_cost = subtotal
-            
-            margin = subtotal * record._rate_as_ratio(record.profit_rate)
-            record.profit_amount = margin
-            record.final_unit_price = round(subtotal + margin, 4)
 
-    @api.depends('total_material_cost', 'total_manufacturing_cost', 'total_marketing_cost', 'total_other_cost', 'profit_amount', 'final_unit_price')
+            profit_ratio = record._rate_as_ratio(record.profit_rate)
+            vat_ratio = record._rate_as_ratio(record.vat_rate)
+            if profit_ratio >= 1.0:
+                record.quote_price_excluded = 0.0
+                record.profit_amount = 0.0
+                record.output_vat = 0.0
+                record.estimated_vat_payable = -record.material_input_vat
+                record.final_unit_price = 0.0
+                continue
+
+            quote_price_excluded = subtotal / (1.0 - profit_ratio) if profit_ratio < 1.0 else 0.0
+            margin = quote_price_excluded - subtotal
+            output_vat = quote_price_excluded * vat_ratio
+            final_price = quote_price_excluded + output_vat
+            record.quote_price_excluded = quote_price_excluded
+            record.profit_amount = margin
+            record.output_vat = output_vat
+            record.estimated_vat_payable = output_vat - record.material_input_vat
+            record.final_unit_price = round(final_price, 4)
+
+    @api.depends('total_material_cost_excluded', 'total_manufacturing_cost', 'total_marketing_cost', 'total_other_cost', 'profit_amount', 'quote_price_excluded')
     def _compute_ratios(self):
         for record in self:
-            if record.final_unit_price > 0:
-                record.material_cost_ratio = record.total_material_cost / record.final_unit_price
-                record.manufacturing_cost_ratio = record.total_manufacturing_cost / record.final_unit_price
-                record.marketing_cost_ratio = record.total_marketing_cost / record.final_unit_price
-                record.other_cost_ratio = record.total_other_cost / record.final_unit_price
-                record.profit_cost_ratio = record.profit_amount / record.final_unit_price
+            if record.quote_price_excluded > 0:
+                record.material_cost_ratio = record.total_material_cost_excluded / record.quote_price_excluded
+                record.manufacturing_cost_ratio = record.total_manufacturing_cost / record.quote_price_excluded
+                record.marketing_cost_ratio = record.total_marketing_cost / record.quote_price_excluded
+                record.other_cost_ratio = record.total_other_cost / record.quote_price_excluded
+                record.profit_cost_ratio = record.profit_amount / record.quote_price_excluded
             else:
                 record.material_cost_ratio = 0.0
                 record.manufacturing_cost_ratio = 0.0
                 record.marketing_cost_ratio = 0.0
                 record.other_cost_ratio = 0.0
                 record.profit_cost_ratio = 0.0
+
+    @api.model
+    def _recompute_tax_quote_costs(self):
+        quotes = self.search([])
+        if not quotes:
+            return True
+
+        manufacturing_lines = quotes.mapped('manufacturing_line_ids')
+        manufacturing_lines._compute_cost()
+        quotes._compute_total_material_cost()
+        quotes._compute_material_tax_costs()
+        quotes._compute_total_manufacturing_cost()
+        quotes._compute_overhead_costs()
+        quotes._compute_other_costs()
+        quotes._compute_final_price()
+        quotes._compute_ratios()
+        return True
+
+    @api.depends(
+        'material_line_ids.unit_consumable_cost',
+        'manufacturing_line_ids.cost_per_pcs',
+        'total_material_cost',
+        'vat_rate',
+        'total_material_cost_tax_included',
+        'total_material_cost_excluded',
+        'material_input_vat',
+        'total_manufacturing_cost_nosetax',
+        'total_manufacturing_cost',
+        'transport_rate',
+        'management_rate',
+        'utility_rate',
+        'packaging_rate',
+        'depreciation_rate',
+        'transport_cost',
+        'management_cost',
+        'utility_cost',
+        'packaging_cost',
+        'depreciation_cost',
+        'total_marketing_cost',
+        'sample_cost_input',
+        'sample_unit_cost',
+        'mold_fee',
+        'mold_cost',
+        'punch_qty',
+        'total_other_cost',
+        'subtotal_cost',
+        'profit_rate',
+        'profit_amount',
+        'quote_price_excluded',
+        'output_vat',
+        'estimated_vat_payable',
+        'final_unit_price',
+    )
+    def _compute_formula_html(self):
+        for record in self:
+            marketing_base = record.total_material_cost_excluded + record.total_manufacturing_cost
+            profit_ratio = record._rate_as_ratio(record.profit_rate)
+            vat_ratio = record._rate_as_ratio(record.vat_rate)
+            record.material_formula_html = record._formula_card(
+                f"材料成本含税为 {record._fmt_amount(record.total_material_cost_tax_included)}，利润核算时拆为不含税材料成本和材料进项税。",
+                "材料成本不含税 = 材料成本含税 / (1 + 增值税率)",
+                [
+                    ("材料行数", record._fmt_qty(len(record.material_line_ids))),
+                    ("每行单位耗材成本", "含税单价 / 原材料生产总数 * (1 + 损耗率)"),
+                    ("原材料生产总数", "每卷模切数量 * 分切卷数"),
+                    ("材料成本含税", record._fmt_amount(record.total_material_cost_tax_included)),
+                    ("增值税率", record._fmt_percent(record.vat_rate)),
+                    ("材料成本不含税", record._fmt_amount(record.total_material_cost_excluded)),
+                    ("材料进项税额", record._fmt_amount(record.material_input_vat)),
+                ],
+                record._fmt_amount(record.total_material_cost_excluded),
+            )
+            record.manufacturing_formula_html = record._formula_card(
+                f"制造成本当前为 {record._fmt_amount(record.total_manufacturing_cost)}，按不含税人工和制程费用测算，不再加计增值税。",
+                "制造成本 = SUM(工费/H * 人数 / 产能 / 良率)",
+                [
+                    ("工序费用", "工费/H * 人数 / 产能 / 良率"),
+                    ("制造成本", record._fmt_amount(record.total_manufacturing_cost)),
+                ],
+                record._fmt_amount(record.total_manufacturing_cost),
+            )
+            record.marketing_formula_html = record._formula_card(
+                f"管销成本当前为 {record._fmt_amount(record.total_marketing_cost)}，按不含税材料成本加制造成本作为基数摊销。",
+                "管销成本总计 = 管销基数 * (运输率 + 管理率 + 水电率 + 包材率 + 折旧率)",
+                [
+                    ("管销基数", f"{record._fmt_amount(record.total_material_cost_excluded)} + {record._fmt_amount(record.total_manufacturing_cost)} = {record._fmt_amount(marketing_base)}"),
+                    ("运输成本", f"{record._fmt_percent(record.transport_rate)} = {record._fmt_amount(record.transport_cost)}"),
+                    ("管理费用", f"{record._fmt_percent(record.management_rate)} = {record._fmt_amount(record.management_cost)}"),
+                    ("厂租水电", f"{record._fmt_percent(record.utility_rate)} = {record._fmt_amount(record.utility_cost)}"),
+                    ("包材成本", f"{record._fmt_percent(record.packaging_rate)} = {record._fmt_amount(record.packaging_cost)}"),
+                    ("机器折旧", f"{record._fmt_percent(record.depreciation_rate)} = {record._fmt_amount(record.depreciation_cost)}"),
+                ],
+                record._fmt_amount(record.total_marketing_cost),
+            )
+            record.other_formula_html = record._formula_card(
+                f"其它成本当前为 {record._fmt_amount(record.total_other_cost)}，由样品总成本和模具总费用按分摊数量折算。",
+                "其它成本总计 = 样品总成本 / 分摊数量 + 模具总费用 / 分摊数量",
+                [
+                    ("分摊数量/总量", record._fmt_qty(record.punch_qty)),
+                    ("样品单位成本", f"{record._fmt_amount(record.sample_cost_input)} / {record._fmt_qty(record.punch_qty)} = {record._fmt_amount(record.sample_unit_cost)}"),
+                    ("单位模具成本", f"{record._fmt_amount(record.mold_fee)} / {record._fmt_qty(record.punch_qty)} = {record._fmt_amount(record.mold_cost)}"),
+                ],
+                record._fmt_amount(record.total_other_cost),
+            )
+            if profit_ratio >= 1.0:
+                final_summary = "目标利润率大于等于 100%，不含税报价公式分母为 0，当前报价置为 0。"
+                final_formula = "不含税报价 = 不含税成本总和 / (1 - 目标利润率)，目标利润率需小于 100%"
+            else:
+                final_summary = (
+                    f"含税建议报价为 {record._fmt_amount(record.final_unit_price)}，"
+                    "先按不含税售价口径达成目标利润率，再加 13% 销项税。"
+                )
+                final_formula = "不含税报价 = 不含税成本总和 / (1 - 目标利润率)；含税建议报价 = 不含税报价 * (1 + 增值税率)"
+            record.final_formula_html = record._formula_card(
+                final_summary,
+                final_formula,
+                [
+                    ("材料成本不含税", record._fmt_amount(record.total_material_cost_excluded)),
+                    ("制造成本", record._fmt_amount(record.total_manufacturing_cost)),
+                    ("管销成本", record._fmt_amount(record.total_marketing_cost)),
+                    ("其它成本", record._fmt_amount(record.total_other_cost)),
+                    ("不含税成本总和", record._fmt_amount(record.subtotal_cost)),
+                    ("目标利润率（按不含税售价）", record._fmt_percent(record.profit_rate)),
+                    ("不含税报价", record._fmt_amount(record.quote_price_excluded)),
+                    ("利润金额", record._fmt_amount(record.profit_amount)),
+                    ("增值税率", record._fmt_percent(record.vat_rate)),
+                    ("销项税额", f"{record._fmt_amount(record.quote_price_excluded)} * {vat_ratio:.2f} = {record._fmt_amount(record.output_vat)}"),
+                    ("材料进项税额", record._fmt_amount(record.material_input_vat)),
+                    ("预计应交增值税", record._fmt_amount(record.estimated_vat_payable)),
+                ],
+                record._fmt_amount(record.final_unit_price),
+            )
 
     @api.onchange('material_line_ids.material_id')
     def _onchange_material_line_ids(self):
@@ -309,6 +512,38 @@ class DiecutQuote(models.Model):
                 vals['name'] = self.env['ir.sequence'].next_by_code('diecut.quote') or 'New'
         return super().create(vals_list)
 
+    def copy(self, default=None):
+        self.ensure_one()
+        default = dict(default or {})
+        default.setdefault('name', self.env['ir.sequence'].next_by_code('diecut.quote') or 'New')
+        default.setdefault('material_line_ids', [
+            Command.create({
+                'material_id': line.material_id.id,
+                'is_checked': False,
+                'raw_width': line.raw_width,
+                'raw_length': line.raw_length,
+                'price_unit_total': line.price_unit_total,
+                'price_unit_tax_inc': line.price_unit_tax_inc,
+                'slitting_width': line.slitting_width,
+                'pitch': line.pitch,
+                'cavity': line.cavity,
+                'yield_rate': line.yield_rate,
+            })
+            for line in self.material_line_ids
+        ])
+        default.setdefault('manufacturing_line_ids', [
+            Command.create({
+                'step_1': line.step_1,
+                'step_2': line.step_2,
+                'mfg_fee': line.mfg_fee,
+                'workstation_qty': line.workstation_qty,
+                'capacity': line.capacity,
+                'yield_rate': line.yield_rate,
+            })
+            for line in self.manufacturing_line_ids
+        ])
+        return super().copy(default)
+
     def action_open_form(self):
         self.ensure_one()
         return {
@@ -390,6 +625,7 @@ class DiecutQuoteMaterialLine(models.Model):
     yield_rate = fields.Float(string="良率(%)", default=0.98)
     
     unit_consumable_cost = fields.Float(string="单位耗材成本 (RMB/pcs)", compute='_compute_unit_cost', store=True, digits=(16, 4))
+    formula_html = fields.Html(string="材料计算公式", compute='_compute_formula_html', sanitize=False)
 
     # --- Computes ---
 
@@ -441,6 +677,33 @@ class DiecutQuoteMaterialLine(models.Model):
             else:
                 line.unit_consumable_cost = 0.0
 
+    @api.depends(
+        'price_unit_tax_inc',
+        'total_prod_qty',
+        'yield_rate',
+        'slitting_width',
+        'pitch',
+        'cavity',
+        'unit_usage',
+        'unit_consumable_cost',
+    )
+    def _compute_formula_html(self):
+        for line in self:
+            loss_factor = 1.0 + (1.0 - (line.yield_rate or 0.0))
+            line.formula_html = (
+                "<div class=\"o_diecut_formula_body\">"
+                "<div class=\"o_diecut_formula_expr\">单位耗材成本 = 含税单价 / 原材料生产总数 * (1 + (1 - 良率))</div>"
+                "<div class=\"o_diecut_formula_values\">"
+                f"<div><span>单位用量</span><strong>{line.unit_usage or 0.0:.6f}</strong></div>"
+                f"<div><span>含税单价</span><strong>{line.price_unit_tax_inc or 0.0:,.4f}</strong></div>"
+                f"<div><span>原材料生产总数</span><strong>{line.total_prod_qty or 0:,}</strong></div>"
+                f"<div><span>良率</span><strong>{(line.yield_rate or 0.0) * 100:.0f}%</strong></div>"
+                f"<div><span>损耗系数</span><strong>{loss_factor:.4f}</strong></div>"
+                "</div>"
+                f"<div class=\"o_diecut_formula_result\"><span>当前结果</span><strong>{line.unit_consumable_cost or 0.0:,.4f}</strong></div>"
+                "</div>"
+            )
+
 
 class DiecutQuoteManufacturingLine(models.Model):
     _name = 'diecut.quote.manufacturing.line'
@@ -458,6 +721,7 @@ class DiecutQuoteManufacturingLine(models.Model):
     yield_rate = fields.Float(string="良率(%)", default=0.98)
     
     cost_per_pcs = fields.Float(string="费用(RMB/PCS)", compute='_compute_cost', store=True, digits=(16, 4))
+    formula_html = fields.Html(string="制造计算公式", compute='_compute_formula_html', sanitize=False)
 
     @api.depends('mfg_fee', 'workstation_qty', 'capacity', 'yield_rate')
     def _compute_cost(self):
@@ -470,6 +734,22 @@ class DiecutQuoteManufacturingLine(models.Model):
                 line.cost_per_pcs = hourly_cost / effective_capacity
             else:
                 line.cost_per_pcs = 0.0
+
+    @api.depends('mfg_fee', 'workstation_qty', 'capacity', 'yield_rate', 'cost_per_pcs')
+    def _compute_formula_html(self):
+        for line in self:
+            line.formula_html = (
+                "<div class=\"o_diecut_formula_body\">"
+                "<div class=\"o_diecut_formula_expr\">费用/PCS = 工费/H * 人数 / 产能 / 良率</div>"
+                "<div class=\"o_diecut_formula_values\">"
+                f"<div><span>工费/H</span><strong>{line.mfg_fee or 0.0:,.4f}</strong></div>"
+                f"<div><span>人数</span><strong>{line.workstation_qty or 0}</strong></div>"
+                f"<div><span>产能</span><strong>{line.capacity or 0:,}</strong></div>"
+                f"<div><span>良率</span><strong>{(line.yield_rate or 0.0) * 100:.0f}%</strong></div>"
+                "</div>"
+                f"<div class=\"o_diecut_formula_result\"><span>当前结果</span><strong>{line.cost_per_pcs or 0.0:,.4f}</strong></div>"
+                "</div>"
+            )
 
 class DiecutQuoteWizard(models.TransientModel):
     _name = 'diecut.quote.wizard'
