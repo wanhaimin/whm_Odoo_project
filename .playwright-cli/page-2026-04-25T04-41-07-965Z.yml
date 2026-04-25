@@ -1,0 +1,2301 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - button "" [ref=e5] [cursor=pointer]:
+        - generic [ref=e6]: 
+      - menuitem "模切管理系统" [ref=e105] [cursor=pointer]
+      - menu [ref=e8]:
+        - menuitem "成本计算器" [ref=e106] [cursor=pointer]
+        - button "材料选型大全" [ref=e107] [cursor=pointer]:
+          - generic [ref=e108]: 材料选型大全
+        - button "知识库" [ref=e109] [cursor=pointer]:
+          - generic [ref=e110]: 知识库
+        - menuitem "原材料" [ref=e111] [cursor=pointer]
+        - menuitem "客户管理" [ref=e112] [cursor=pointer]
+        - menuitem "刀模管理" [ref=e113] [cursor=pointer]
+        - menuitem "分切管理" [ref=e114] [cursor=pointer]
+        - menuitem "领料申请" [ref=e2706] [cursor=pointer]
+        - menuitem "样品订单" [ref=e2707] [cursor=pointer]
+      - menu [ref=e13]:
+        - button "消息 4" [ref=e15] [cursor=pointer]:
+          - img "消息" [ref=e16]: 
+          - generic [ref=e17]: "4"
+        - button "活动" [ref=e18] [cursor=pointer]:
+          - img "活动" [ref=e19]: 
+        - button "东莞市树志电子有限公司" [disabled] [ref=e2708]:
+          - text: 
+          - generic [ref=e2709]: 东莞市树志电子有限公司
+        - generic: 
+        - button "用户 用户上线" [ref=e24] [cursor=pointer]:
+          - generic [ref=e25]:
+            - img "用户" [ref=e26]
+            - img "用户上线" [ref=e29]: 
+          - text: 
+  - generic [ref=e222]:
+    - generic [ref=e224]:
+      - generic [ref=e225]:
+        - button "新建" [ref=e227] [cursor=pointer]
+        - generic [ref=e228]:
+          - generic [ref=e230]: 原材料
+          - button "操作菜单" [ref=e234] [cursor=pointer]:
+            - generic [ref=e235]: 
+      - search [ref=e237]:
+        - search [ref=e238]:
+          - button "搜索..." [ref=e239] [cursor=pointer]:
+            - img [ref=e240]: 
+          - searchbox "搜索..." [ref=e242]: HN603B
+        - button "" [ref=e243] [cursor=pointer]
+      - generic [ref=e244]:
+        - search [ref=e245]:
+          - navigation "分页" [ref=e246]:
+            - generic [ref=e247]:
+              - generic [ref=e248]: 1-80
+              - text: / 247
+            - generic [ref=e249]:
+              - button "上一页" [ref=e250] [cursor=pointer]:
+                - generic [ref=e251]: 
+              - button "下一页" [ref=e252] [cursor=pointer]:
+                - generic [ref=e253]: 
+        - navigation [ref=e254]:
+          - button "列表 View" [ref=e255] [cursor=pointer]:
+            - generic [ref=e256]: 
+          - button "看板 View" [ref=e257] [cursor=pointer]:
+            - generic [ref=e258]: 
+    - main [ref=e259]:
+      - generic [ref=e260]:
+        - button "" [ref=e261] [cursor=pointer]:
+          - generic [ref=e262]: 
+        - generic [ref=e263]:
+          - generic [ref=e264]:
+            - generic [ref=e265]: 
+            - text: 材质分类
+          - list [ref=e266]:
+            - listitem [ref=e267] [cursor=pointer]:
+              - generic [ref=e269]:
+                - button [ref=e270]
+                - generic [ref=e271]: 全部
+            - listitem [ref=e272] [cursor=pointer]:
+              - generic [ref=e273]:
+                - generic [ref=e274]:
+                  - button "" [ref=e275]:
+                    - generic [ref=e276]: 
+                  - generic [ref=e277]: 原材料
+                - generic [ref=e278]: "247"
+        - generic [ref=e279]:
+          - generic [ref=e280]:
+            - generic [ref=e281]: 
+            - text: 功能类别
+          - list [ref=e282]:
+            - listitem [ref=e283] [cursor=pointer]:
+              - generic [ref=e284]:
+                - checkbox "导电/屏蔽 1" [ref=e285]
+                - generic [ref=e286]:
+                  - generic [ref=e287]: 导电/屏蔽
+                  - generic [ref=e288]: "1"
+            - listitem [ref=e289] [cursor=pointer]:
+              - generic [ref=e290]:
+                - checkbox "散热导热 3" [ref=e291]
+                - generic [ref=e292]:
+                  - generic [ref=e293]: 散热导热
+                  - generic [ref=e294]: "3"
+            - listitem [ref=e295] [cursor=pointer]:
+              - generic [ref=e296]:
+                - checkbox "粘贴+缓冲减震 2" [ref=e297]
+                - generic [ref=e298]:
+                  - generic [ref=e299]: 粘贴+缓冲减震
+                  - generic [ref=e300]: "2"
+            - listitem [ref=e301] [cursor=pointer]:
+              - generic [ref=e302]:
+                - checkbox "粘接固定 2" [ref=e303]
+                - generic [ref=e304]:
+                  - generic [ref=e305]: 粘接固定
+                  - generic [ref=e306]: "2"
+        - generic [ref=e307]:
+          - generic [ref=e308]:
+            - generic [ref=e309]: 
+            - text: 供应商
+          - list [ref=e310]:
+            - listitem [ref=e311] [cursor=pointer]:
+              - generic [ref=e312]:
+                - checkbox "LINTEC 2" [ref=e313]
+                - generic [ref=e314]:
+                  - generic [ref=e315]: LINTEC
+                  - generic [ref=e316]: "2"
+            - listitem [ref=e317] [cursor=pointer]:
+              - generic [ref=e318]:
+                - checkbox "SEK 2" [ref=e319]
+                - generic [ref=e320]:
+                  - generic [ref=e321]: SEK
+                  - generic [ref=e322]: "2"
+            - listitem [ref=e323] [cursor=pointer]:
+              - generic [ref=e324]:
+                - checkbox "上海藤光 2" [ref=e325]
+                - generic [ref=e326]:
+                  - generic [ref=e327]: 上海藤光
+                  - generic [ref=e328]: "2"
+            - listitem [ref=e329] [cursor=pointer]:
+              - generic [ref=e330]:
+                - checkbox "树志 3" [ref=e331]
+                - generic [ref=e332]:
+                  - generic [ref=e333]: 树志
+                  - generic [ref=e334]: "3"
+            - listitem [ref=e335] [cursor=pointer]:
+              - generic [ref=e336]:
+                - checkbox "光陽科技 1" [ref=e337]
+                - generic [ref=e338]:
+                  - generic [ref=e339]: 光陽科技
+                  - generic [ref=e340]: "1"
+            - listitem [ref=e341] [cursor=pointer]:
+              - generic [ref=e342]:
+                - checkbox "北川 9" [ref=e343]
+                - generic [ref=e344]:
+                  - generic [ref=e345]: 北川
+                  - generic [ref=e346]: "9"
+            - listitem [ref=e347] [cursor=pointer]:
+              - generic [ref=e348]:
+                - checkbox "合豊 12" [ref=e349]
+                - generic [ref=e350]:
+                  - generic [ref=e351]: 合豊
+                  - generic [ref=e352]: "12"
+            - listitem [ref=e353] [cursor=pointer]:
+              - generic [ref=e354]:
+                - checkbox "国泰 1" [ref=e355]
+                - generic [ref=e356]:
+                  - generic [ref=e357]: 国泰
+                  - generic [ref=e358]: "1"
+            - listitem [ref=e359] [cursor=pointer]:
+              - generic [ref=e360]:
+                - checkbox "大信兴业 4" [ref=e361]
+                - generic [ref=e362]:
+                  - generic [ref=e363]: 大信兴业
+                  - generic [ref=e364]: "4"
+            - listitem [ref=e365] [cursor=pointer]:
+              - generic [ref=e366]:
+                - checkbox "大西電材 13" [ref=e367]
+                - generic [ref=e368]:
+                  - generic [ref=e369]: 大西電材
+                  - generic [ref=e370]: "13"
+            - listitem [ref=e371] [cursor=pointer]:
+              - generic [ref=e372]:
+                - checkbox "威茂电子 1" [ref=e373]
+                - generic [ref=e374]:
+                  - generic [ref=e375]: 威茂电子
+                  - generic [ref=e376]: "1"
+            - listitem [ref=e377] [cursor=pointer]:
+              - generic [ref=e378]:
+                - checkbox "威荗電子 8" [ref=e379]
+                - generic [ref=e380]:
+                  - generic [ref=e381]: 威荗電子
+                  - generic [ref=e382]: "8"
+            - listitem [ref=e383] [cursor=pointer]:
+              - generic [ref=e384]:
+                - checkbox "安碧克 11" [ref=e385]
+                - generic [ref=e386]:
+                  - generic [ref=e387]: 安碧克
+                  - generic [ref=e388]: "11"
+            - listitem [ref=e389] [cursor=pointer]:
+              - generic [ref=e390]:
+                - checkbox "宝帝来 2" [ref=e391]
+                - generic [ref=e392]:
+                  - generic [ref=e393]: 宝帝来
+                  - generic [ref=e394]: "2"
+            - listitem [ref=e395] [cursor=pointer]:
+              - generic [ref=e396]:
+                - checkbox "宝桦 1" [ref=e397]
+                - generic [ref=e398]:
+                  - generic [ref=e399]: 宝桦
+                  - generic [ref=e400]: "1"
+            - listitem [ref=e401] [cursor=pointer]:
+              - generic [ref=e402]:
+                - checkbox "宝源 8" [ref=e403]
+                - generic [ref=e404]:
+                  - generic [ref=e405]: 宝源
+                  - generic [ref=e406]: "8"
+            - listitem [ref=e407] [cursor=pointer]:
+              - generic [ref=e408]:
+                - checkbox "岩谷 5" [ref=e409]
+                - generic [ref=e410]:
+                  - generic [ref=e411]: 岩谷
+                  - generic [ref=e412]: "5"
+            - listitem [ref=e413] [cursor=pointer]:
+              - generic [ref=e414]:
+                - checkbox "建武 22" [ref=e415]
+                - generic [ref=e416]:
+                  - generic [ref=e417]: 建武
+                  - generic [ref=e418]: "22"
+            - listitem [ref=e419] [cursor=pointer]:
+              - generic [ref=e420]:
+                - checkbox "拓宇 1" [ref=e421]
+                - generic [ref=e422]:
+                  - generic [ref=e423]: 拓宇
+                  - generic [ref=e424]: "1"
+            - listitem [ref=e425] [cursor=pointer]:
+              - generic [ref=e426]:
+                - checkbox "斯迪克(日本） 1" [ref=e427]
+                - generic [ref=e428]:
+                  - generic [ref=e429]: 斯迪克(日本）
+                  - generic [ref=e430]: "1"
+            - listitem [ref=e431] [cursor=pointer]:
+              - generic [ref=e432]:
+                - checkbox "斯迪克新材料（美国）有限公司 1" [ref=e433]
+                - generic [ref=e434]:
+                  - generic [ref=e435]: 斯迪克新材料（美国）有限公司
+                  - generic [ref=e436]: "1"
+            - listitem [ref=e437] [cursor=pointer]:
+              - generic [ref=e438]:
+                - checkbox "新世界 16" [ref=e439]
+                - generic [ref=e440]:
+                  - generic [ref=e441]: 新世界
+                  - generic [ref=e442]: "16"
+            - listitem [ref=e443] [cursor=pointer]:
+              - generic [ref=e444]:
+                - checkbox "新韓 1" [ref=e445]
+                - generic [ref=e446]:
+                  - generic [ref=e447]: 新韓
+                  - generic [ref=e448]: "1"
+            - listitem [ref=e449] [cursor=pointer]:
+              - generic [ref=e450]:
+                - checkbox "正得 2" [ref=e451]
+                - generic [ref=e452]:
+                  - generic [ref=e453]: 正得
+                  - generic [ref=e454]: "2"
+            - listitem [ref=e455] [cursor=pointer]:
+              - generic [ref=e456]:
+                - checkbox "斯迪克（东莞） 1" [ref=e457]
+                - generic [ref=e458]:
+                  - generic [ref=e459]: 斯迪克（东莞）
+                  - generic [ref=e460]: "1"
+            - listitem [ref=e461] [cursor=pointer]:
+              - generic [ref=e462]:
+                - checkbox "温州耀阳 19" [ref=e463]
+                - generic [ref=e464]:
+                  - generic [ref=e465]: 温州耀阳
+                  - generic [ref=e466]: "19"
+            - listitem [ref=e467] [cursor=pointer]:
+              - generic [ref=e468]:
+                - checkbox "现代 1" [ref=e469]
+                - generic [ref=e470]:
+                  - generic [ref=e471]: 现代
+                  - generic [ref=e472]: "1"
+            - listitem [ref=e473] [cursor=pointer]:
+              - generic [ref=e474]:
+                - checkbox "瑞安 2" [ref=e475]
+                - generic [ref=e476]:
+                  - generic [ref=e477]: 瑞安
+                  - generic [ref=e478]: "2"
+            - listitem [ref=e479] [cursor=pointer]:
+              - generic [ref=e480]:
+                - checkbox "瑞恒科技 1" [ref=e481]
+                - generic [ref=e482]:
+                  - generic [ref=e483]: 瑞恒科技
+                  - generic [ref=e484]: "1"
+            - listitem [ref=e485] [cursor=pointer]:
+              - generic [ref=e486]:
+                - checkbox "竹内 15" [ref=e487]
+                - generic [ref=e488]:
+                  - generic [ref=e489]: 竹内
+                  - generic [ref=e490]: "15"
+            - listitem [ref=e491] [cursor=pointer]:
+              - generic [ref=e492]:
+                - checkbox "綜研 1" [ref=e493]
+                - generic [ref=e494]:
+                  - generic [ref=e495]: 綜研
+                  - generic [ref=e496]: "1"
+            - listitem [ref=e497] [cursor=pointer]:
+              - generic [ref=e498]:
+                - checkbox "聯荗商業 2" [ref=e499]
+                - generic [ref=e500]:
+                  - generic [ref=e501]: 聯荗商業
+                  - generic [ref=e502]: "2"
+            - listitem [ref=e503] [cursor=pointer]:
+              - generic [ref=e504]:
+                - checkbox "荣宏 5" [ref=e505]
+                - generic [ref=e506]:
+                  - generic [ref=e507]: 荣宏
+                  - generic [ref=e508]: "5"
+            - listitem [ref=e509] [cursor=pointer]:
+              - generic [ref=e510]:
+                - checkbox "蘭慶 3" [ref=e511]
+                - generic [ref=e512]:
+                  - generic [ref=e513]: 蘭慶
+                  - generic [ref=e514]: "3"
+            - listitem [ref=e515] [cursor=pointer]:
+              - generic [ref=e516]:
+                - checkbox "貝力 7" [ref=e517]
+                - generic [ref=e518]:
+                  - generic [ref=e519]: 貝力
+                  - generic [ref=e520]: "7"
+            - listitem [ref=e521] [cursor=pointer]:
+              - generic [ref=e522]:
+                - checkbox "進佳 3" [ref=e523]
+                - generic [ref=e524]:
+                  - generic [ref=e525]: 進佳
+                  - generic [ref=e526]: "3"
+            - listitem [ref=e527] [cursor=pointer]:
+              - generic [ref=e528]:
+                - checkbox "金利宝 1" [ref=e529]
+                - generic [ref=e530]:
+                  - generic [ref=e531]: 金利宝
+                  - generic [ref=e532]: "1"
+            - listitem [ref=e533] [cursor=pointer]:
+              - generic [ref=e534]:
+                - checkbox "長信 33" [ref=e535]
+                - generic [ref=e536]:
+                  - generic [ref=e537]: 長信
+                  - generic [ref=e538]: "33"
+            - listitem [ref=e539] [cursor=pointer]:
+              - generic [ref=e540]:
+                - checkbox "長瀬 8" [ref=e541]
+                - generic [ref=e542]:
+                  - generic [ref=e543]: 長瀬
+                  - generic [ref=e544]: "8"
+            - listitem [ref=e545] [cursor=pointer]:
+              - generic [ref=e546]:
+                - checkbox "长信 1" [ref=e547]
+                - generic [ref=e548]:
+                  - generic [ref=e549]: 长信
+                  - generic [ref=e550]: "1"
+            - listitem [ref=e551] [cursor=pointer]:
+              - generic [ref=e552]:
+                - checkbox "雄徳 4" [ref=e553]
+                - generic [ref=e554]:
+                  - generic [ref=e555]: 雄徳
+                  - generic [ref=e556]: "4"
+            - listitem [ref=e557] [cursor=pointer]:
+              - generic [ref=e558]:
+                - checkbox "香港藤光 2" [ref=e559]
+                - generic [ref=e560]:
+                  - generic [ref=e561]: 香港藤光
+                  - generic [ref=e562]: "2"
+            - listitem [ref=e563] [cursor=pointer]:
+              - generic [ref=e564]:
+                - checkbox "骏发科技 1" [ref=e565]
+                - generic [ref=e566]:
+                  - generic [ref=e567]: 骏发科技
+                  - generic [ref=e568]: "1"
+            - listitem [ref=e569] [cursor=pointer]:
+              - generic [ref=e570]:
+                - checkbox "鴻明織帯 2" [ref=e571]
+                - generic [ref=e572]:
+                  - generic [ref=e573]: 鴻明織帯
+                  - generic [ref=e574]: "2"
+            - listitem [ref=e575] [cursor=pointer]:
+              - generic [ref=e576]:
+                - checkbox "黒田 5" [ref=e577]
+                - generic [ref=e578]:
+                  - generic [ref=e579]: 黒田
+                  - generic [ref=e580]: "5"
+        - generic [ref=e581]:
+          - generic [ref=e582]:
+            - generic [ref=e583]: 
+            - text: 品牌
+          - list [ref=e584]:
+            - listitem [ref=e585] [cursor=pointer]:
+              - generic [ref=e586]:
+                - checkbox "皇冠（huangguan） 3" [ref=e587]
+                - generic [ref=e588]:
+                  - generic [ref=e589]: 皇冠（huangguan）
+                  - generic [ref=e590]: "3"
+        - generic [ref=e591]:
+          - generic [ref=e592]:
+            - generic [ref=e593]: 
+            - text: 颜色
+          - list [ref=e594]:
+            - listitem [ref=e595] [cursor=pointer]:
+              - generic [ref=e596]:
+                - checkbox "乳白 1" [ref=e597]
+                - generic [ref=e598]:
+                  - generic [ref=e599]: 乳白
+                  - generic [ref=e600]: "1"
+            - listitem [ref=e601] [cursor=pointer]:
+              - generic [ref=e602]:
+                - checkbox "兰色 2" [ref=e603]
+                - generic [ref=e604]:
+                  - generic [ref=e605]: 兰色
+                  - generic [ref=e606]: "2"
+            - listitem [ref=e607] [cursor=pointer]:
+              - generic [ref=e608]:
+                - checkbox "半透明 5" [ref=e609]
+                - generic [ref=e610]:
+                  - generic [ref=e611]: 半透明
+                  - generic [ref=e612]: "5"
+            - listitem [ref=e613] [cursor=pointer]:
+              - generic [ref=e614]:
+                - checkbox "橙色 1" [ref=e615]
+                - generic [ref=e616]:
+                  - generic [ref=e617]: 橙色
+                  - generic [ref=e618]: "1"
+            - listitem [ref=e619] [cursor=pointer]:
+              - generic [ref=e620]:
+                - checkbox "淡灰色 1" [ref=e621]
+                - generic [ref=e622]:
+                  - generic [ref=e623]: 淡灰色
+                  - generic [ref=e624]: "1"
+            - listitem [ref=e625] [cursor=pointer]:
+              - generic [ref=e626]:
+                - checkbox "灰色 19" [ref=e627]
+                - generic [ref=e628]:
+                  - generic [ref=e629]: 灰色
+                  - generic [ref=e630]: "19"
+            - listitem [ref=e631] [cursor=pointer]:
+              - generic [ref=e632]:
+                - checkbox "白色 18" [ref=e633]
+                - generic [ref=e634]:
+                  - generic [ref=e635]: 白色
+                  - generic [ref=e636]: "18"
+            - listitem [ref=e637] [cursor=pointer]:
+              - generic [ref=e638]:
+                - checkbox "白色/黑色 2" [ref=e639]
+                - generic [ref=e640]:
+                  - generic [ref=e641]: 白色/黑色
+                  - generic [ref=e642]: "2"
+            - listitem [ref=e643] [cursor=pointer]:
+              - generic [ref=e644]:
+                - checkbox "紅色 1" [ref=e645]
+                - generic [ref=e646]:
+                  - generic [ref=e647]: 紅色
+                  - generic [ref=e648]: "1"
+            - listitem [ref=e649] [cursor=pointer]:
+              - generic [ref=e650]:
+                - checkbox "红色 1" [ref=e651]
+                - generic [ref=e652]:
+                  - generic [ref=e653]: 红色
+                  - generic [ref=e654]: "1"
+            - listitem [ref=e655] [cursor=pointer]:
+              - generic [ref=e656]:
+                - checkbox "茶色 3" [ref=e657]
+                - generic [ref=e658]:
+                  - generic [ref=e659]: 茶色
+                  - generic [ref=e660]: "3"
+            - listitem [ref=e661] [cursor=pointer]:
+              - generic [ref=e662]:
+                - checkbox "蓝色 2" [ref=e663]
+                - generic [ref=e664]:
+                  - generic [ref=e665]: 蓝色
+                  - generic [ref=e666]: "2"
+            - listitem [ref=e667] [cursor=pointer]:
+              - generic [ref=e668]:
+                - checkbox "藍色 1" [ref=e669]
+                - generic [ref=e670]:
+                  - generic [ref=e671]: 藍色
+                  - generic [ref=e672]: "1"
+            - listitem [ref=e673] [cursor=pointer]:
+              - generic [ref=e674]:
+                - checkbox "蘭色 4" [ref=e675]
+                - generic [ref=e676]:
+                  - generic [ref=e677]: 蘭色
+                  - generic [ref=e678]: "4"
+            - listitem [ref=e679] [cursor=pointer]:
+              - generic [ref=e680]:
+                - checkbox "赤色 1" [ref=e681]
+                - generic [ref=e682]:
+                  - generic [ref=e683]: 赤色
+                  - generic [ref=e684]: "1"
+            - listitem [ref=e685] [cursor=pointer]:
+              - generic [ref=e686]:
+                - checkbox "透明 94" [ref=e687]
+                - generic [ref=e688]:
+                  - generic [ref=e689]: 透明
+                  - generic [ref=e690]: "94"
+            - listitem [ref=e691] [cursor=pointer]:
+              - generic [ref=e692]:
+                - checkbox "金色 2" [ref=e693]
+                - generic [ref=e694]:
+                  - generic [ref=e695]: 金色
+                  - generic [ref=e696]: "2"
+            - listitem [ref=e697] [cursor=pointer]:
+              - generic [ref=e698]:
+                - checkbox "銅色 2" [ref=e699]
+                - generic [ref=e700]:
+                  - generic [ref=e701]: 銅色
+                  - generic [ref=e702]: "2"
+            - listitem [ref=e703] [cursor=pointer]:
+              - generic [ref=e704]:
+                - checkbox "铜色 1" [ref=e705]
+                - generic [ref=e706]:
+                  - generic [ref=e707]: 铜色
+                  - generic [ref=e708]: "1"
+            - listitem [ref=e709] [cursor=pointer]:
+              - generic [ref=e710]:
+                - checkbox "银色 4" [ref=e711]
+                - generic [ref=e712]:
+                  - generic [ref=e713]: 银色
+                  - generic [ref=e714]: "4"
+            - listitem [ref=e715] [cursor=pointer]:
+              - generic [ref=e716]:
+                - checkbox "黄/白/緑 3" [ref=e717]
+                - generic [ref=e718]:
+                  - generic [ref=e719]: 黄/白/緑
+                  - generic [ref=e720]: "3"
+            - listitem [ref=e721] [cursor=pointer]:
+              - generic [ref=e722]:
+                - checkbox "黄色 8" [ref=e723]
+                - generic [ref=e724]:
+                  - generic [ref=e725]: 黄色
+                  - generic [ref=e726]: "8"
+            - listitem [ref=e727] [cursor=pointer]:
+              - generic [ref=e728]:
+                - checkbox "黑色 4" [ref=e729]
+                - generic [ref=e730]:
+                  - generic [ref=e731]: 黑色
+                  - generic [ref=e732]: "4"
+            - listitem [ref=e733] [cursor=pointer]:
+              - generic [ref=e734]:
+                - checkbox "黒 1" [ref=e735]
+                - generic [ref=e736]:
+                  - generic [ref=e737]: 黒
+                  - generic [ref=e738]: "1"
+            - listitem [ref=e739] [cursor=pointer]:
+              - generic [ref=e740]:
+                - checkbox "黒/青/透明 1" [ref=e741]
+                - generic [ref=e742]:
+                  - generic [ref=e743]: 黒/青/透明
+                  - generic [ref=e744]: "1"
+            - listitem [ref=e745] [cursor=pointer]:
+              - generic [ref=e746]:
+                - checkbox "黒/青/透明/白 1" [ref=e747]
+                - generic [ref=e748]:
+                  - generic [ref=e749]: 黒/青/透明/白
+                  - generic [ref=e750]: "1"
+            - listitem [ref=e751] [cursor=pointer]:
+              - generic [ref=e752]:
+                - checkbox "黒色 51" [ref=e753]
+                - generic [ref=e754]:
+                  - generic [ref=e755]: 黒色
+                  - generic [ref=e756]: "51"
+      - table [ref=e759]:
+        - rowgroup [ref=e760]:
+          - row "名称  内部参考号  品牌  厚度 (mm)  宽度 (mm)  长度  形态(R/S)  颜色  价格 (RMB/m²)  规格总价(自动折算)  产品类别  功能标签 供应商(简称)  " [ref=e761]:
+            - columnheader [ref=e762] [cursor=pointer]:
+              - checkbox [ref=e764]
+            - columnheader "名称 " [ref=e765] [cursor=pointer]:
+              - generic [ref=e766]:
+                - generic [ref=e767]: 名称
+                - generic [ref=e768]: 
+            - columnheader "内部参考号 " [ref=e770] [cursor=pointer]:
+              - generic [ref=e771]:
+                - generic [ref=e772]: 内部参考号
+                - generic [ref=e773]: 
+            - columnheader "品牌 " [ref=e775] [cursor=pointer]:
+              - generic [ref=e776]:
+                - generic [ref=e777]: 品牌
+                - generic [ref=e778]: 
+            - columnheader "厚度 (mm) " [ref=e780] [cursor=pointer]:
+              - generic [ref=e781]:
+                - generic [ref=e782]: 厚度 (mm)
+                - generic [ref=e783]: 
+            - columnheader "宽度 (mm) " [ref=e785] [cursor=pointer]:
+              - generic [ref=e786]:
+                - generic [ref=e787]: 宽度 (mm)
+                - generic [ref=e788]: 
+            - columnheader "长度 " [ref=e790] [cursor=pointer]:
+              - generic [ref=e791]:
+                - generic [ref=e792]: 长度
+                - generic [ref=e793]: 
+            - columnheader "形态(R/S) " [ref=e795] [cursor=pointer]:
+              - generic [ref=e796]:
+                - generic [ref=e797]: 形态(R/S)
+                - generic [ref=e798]: 
+            - columnheader "颜色 " [ref=e800] [cursor=pointer]:
+              - generic [ref=e801]:
+                - generic [ref=e802]: 颜色
+                - generic [ref=e803]: 
+            - columnheader "价格 (RMB/m²) " [ref=e805] [cursor=pointer]:
+              - generic [ref=e806]:
+                - generic [ref=e807]: 价格 (RMB/m²)
+                - generic [ref=e808]: 
+            - columnheader "规格总价(自动折算) " [ref=e810] [cursor=pointer]:
+              - generic [ref=e811]:
+                - generic [ref=e812]: 规格总价(自动折算)
+                - generic [ref=e813]: 
+            - columnheader "产品类别 " [ref=e815] [cursor=pointer]:
+              - generic [ref=e816]:
+                - generic [ref=e817]: 产品类别
+                - generic [ref=e818]: 
+            - columnheader "功能标签" [ref=e820]:
+              - generic [ref=e821]:
+                - generic [ref=e822]: 功能标签
+                - text: 
+            - columnheader "供应商(简称) " [ref=e824] [cursor=pointer]:
+              - generic [ref=e825]:
+                - generic [ref=e826]: 供应商(简称)
+                - generic [ref=e827]: 
+            - columnheader [ref=e829]
+            - columnheader "" [ref=e830]:
+              - button "" [ref=e832] [cursor=pointer]:
+                - generic [ref=e833]: 
+        - rowgroup [ref=e834]:
+          - 'row "#512 #512 皇冠（huangguan） 0.130 1,200 100 m 卷料 半透明 0.00 0.00 原材料 / 胶带类 粘贴+缓冲减震 斯迪克(日本） " [ref=e835]':
+            - cell [ref=e836]:
+              - checkbox [ref=e838] [cursor=pointer]
+            - cell "#512" [ref=e839] [cursor=pointer]
+            - cell "#512" [ref=e840] [cursor=pointer]
+            - cell "皇冠（huangguan）" [ref=e841] [cursor=pointer]
+            - cell "0.130" [ref=e842] [cursor=pointer]
+            - cell "1,200" [ref=e843] [cursor=pointer]
+            - cell "100 m" [ref=e844] [cursor=pointer]
+            - cell "卷料" [ref=e845] [cursor=pointer]
+            - cell "半透明" [ref=e846] [cursor=pointer]
+            - cell "0.00" [ref=e847] [cursor=pointer]
+            - cell "0.00" [ref=e848] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e849] [cursor=pointer]
+            - cell "粘贴+缓冲减震" [ref=e850] [cursor=pointer]:
+              - generic "粘贴+缓冲减震" [ref=e853]:
+                - generic [ref=e854]: 粘贴+缓冲减震
+            - cell "斯迪克(日本）" [ref=e855] [cursor=pointer]
+            - cell "" [ref=e856] [cursor=pointer]:
+              - button "" [ref=e858]:
+                - generic [ref=e859]: 
+            - cell [ref=e860]
+          - 'row "#512 #512 皇冠（huangguan） 0.130 1,200 100 m 卷料 半透明 4.00 480.00 原材料 / 胶带类 散热导热 树志 " [ref=e861]':
+            - cell [ref=e862]:
+              - checkbox [ref=e864] [cursor=pointer]
+            - cell "#512" [ref=e865] [cursor=pointer]
+            - cell "#512" [ref=e866] [cursor=pointer]
+            - cell "皇冠（huangguan）" [ref=e867] [cursor=pointer]
+            - cell "0.130" [ref=e868] [cursor=pointer]
+            - cell "1,200" [ref=e869] [cursor=pointer]
+            - cell "100 m" [ref=e870] [cursor=pointer]
+            - cell "卷料" [ref=e871] [cursor=pointer]
+            - cell "半透明" [ref=e872] [cursor=pointer]
+            - cell "4.00" [ref=e873] [cursor=pointer]
+            - cell "480.00" [ref=e874] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e875] [cursor=pointer]
+            - cell "散热导热" [ref=e876] [cursor=pointer]:
+              - generic "散热导热" [ref=e879]:
+                - generic [ref=e880]: 散热导热
+            - cell "树志" [ref=e881] [cursor=pointer]
+            - cell "" [ref=e882] [cursor=pointer]:
+              - button "" [ref=e884]:
+                - generic [ref=e885]: 
+            - cell [ref=e886]
+          - 'row "#512 #512 0.120 1,200 100 m 卷料 半透明 3.50 420.00 原材料 / 胶带类 / PET双面胶带 粘贴+缓冲减震 树志 " [ref=e887]':
+            - cell [ref=e888]:
+              - checkbox [ref=e890] [cursor=pointer]
+            - cell "#512" [ref=e891] [cursor=pointer]
+            - cell "#512" [ref=e892] [cursor=pointer]
+            - cell [ref=e893] [cursor=pointer]
+            - cell "0.120" [ref=e894] [cursor=pointer]
+            - cell "1,200" [ref=e895] [cursor=pointer]
+            - cell "100 m" [ref=e896] [cursor=pointer]
+            - cell "卷料" [ref=e897] [cursor=pointer]
+            - cell "半透明" [ref=e898] [cursor=pointer]
+            - cell "3.50" [ref=e899] [cursor=pointer]
+            - cell "420.00" [ref=e900] [cursor=pointer]
+            - cell "原材料 / 胶带类 / PET双面胶带" [ref=e901] [cursor=pointer]
+            - cell "粘贴+缓冲减震" [ref=e902] [cursor=pointer]:
+              - generic "粘贴+缓冲减震" [ref=e905]:
+                - generic [ref=e906]: 粘贴+缓冲减震
+            - cell "树志" [ref=e907] [cursor=pointer]
+            - cell "" [ref=e908] [cursor=pointer]:
+              - button "" [ref=e910]:
+                - generic [ref=e911]: 
+            - cell [ref=e912]
+          - row "100E 不织布 100E 0.800 1,150 30 m 卷料 黒色 294.42 10,157.49 原材料 / 泡棉类 大西電材 " [ref=e913]:
+            - cell [ref=e914]:
+              - checkbox [ref=e916] [cursor=pointer]
+            - cell "100E 不织布" [ref=e917] [cursor=pointer]
+            - cell "100E" [ref=e918] [cursor=pointer]
+            - cell [ref=e919] [cursor=pointer]
+            - cell "0.800" [ref=e920] [cursor=pointer]
+            - cell "1,150" [ref=e921] [cursor=pointer]
+            - cell "30 m" [ref=e922] [cursor=pointer]
+            - cell "卷料" [ref=e923] [cursor=pointer]
+            - cell "黒色" [ref=e924] [cursor=pointer]
+            - cell "294.42" [ref=e925] [cursor=pointer]
+            - cell "10,157.49" [ref=e926] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e927] [cursor=pointer]
+            - cell [ref=e928] [cursor=pointer]
+            - cell "大西電材" [ref=e930] [cursor=pointer]
+            - cell "" [ref=e931] [cursor=pointer]:
+              - button "" [ref=e933]:
+                - generic [ref=e934]: 
+            - cell [ref=e935]
+          - row "106G-503中高粘(PET硅胶保护膜) 保護フィムル 106G-503中高粘(PET硅胶保护膜) 0.090 1,040 200 m 卷料 透明 23.00 4,784.00 原材料 / 保护膜 長信 " [ref=e936]:
+            - cell [ref=e937]:
+              - checkbox [ref=e939] [cursor=pointer]
+            - cell "106G-503中高粘(PET硅胶保护膜) 保護フィムル" [ref=e940] [cursor=pointer]
+            - cell "106G-503中高粘(PET硅胶保护膜)" [ref=e941] [cursor=pointer]
+            - cell [ref=e942] [cursor=pointer]
+            - cell "0.090" [ref=e943] [cursor=pointer]
+            - cell "1,040" [ref=e944] [cursor=pointer]
+            - cell "200 m" [ref=e945] [cursor=pointer]
+            - cell "卷料" [ref=e946] [cursor=pointer]
+            - cell "透明" [ref=e947] [cursor=pointer]
+            - cell "23.00" [ref=e948] [cursor=pointer]
+            - cell "4,784.00" [ref=e949] [cursor=pointer]
+            - cell "原材料 / 保护膜" [ref=e950] [cursor=pointer]
+            - cell [ref=e951] [cursor=pointer]
+            - cell "長信" [ref=e953] [cursor=pointer]
+            - cell "" [ref=e954] [cursor=pointer]:
+              - button "" [ref=e956]:
+                - generic [ref=e957]: 
+            - cell [ref=e958]
+          - row "3000J 不织布 3000J 0.490 1,360 30 m 卷料 黒色 127.51 5,202.41 原材料 / 泡棉类 大西電材 " [ref=e959]:
+            - cell [ref=e960]:
+              - checkbox [ref=e962] [cursor=pointer]
+            - cell "3000J 不织布" [ref=e963] [cursor=pointer]
+            - cell "3000J" [ref=e964] [cursor=pointer]
+            - cell [ref=e965] [cursor=pointer]
+            - cell "0.490" [ref=e966] [cursor=pointer]
+            - cell "1,360" [ref=e967] [cursor=pointer]
+            - cell "30 m" [ref=e968] [cursor=pointer]
+            - cell "卷料" [ref=e969] [cursor=pointer]
+            - cell "黒色" [ref=e970] [cursor=pointer]
+            - cell "127.51" [ref=e971] [cursor=pointer]
+            - cell "5,202.41" [ref=e972] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e973] [cursor=pointer]
+            - cell [ref=e974] [cursor=pointer]
+            - cell "大西電材" [ref=e976] [cursor=pointer]
+            - cell "" [ref=e977] [cursor=pointer]:
+              - button "" [ref=e979]:
+                - generic [ref=e980]: 
+            - cell [ref=e981]
+          - row "3153S 微粘フィムル 3153S 0.050 1,000 250 m 卷料 透明 15.69 3,922.50 原材料 / 保护膜 宝帝来 " [ref=e982]:
+            - cell [ref=e983]:
+              - checkbox [ref=e985] [cursor=pointer]
+            - cell "3153S 微粘フィムル" [ref=e986] [cursor=pointer]
+            - cell "3153S" [ref=e987] [cursor=pointer]
+            - cell [ref=e988] [cursor=pointer]
+            - cell "0.050" [ref=e989] [cursor=pointer]
+            - cell "1,000" [ref=e990] [cursor=pointer]
+            - cell "250 m" [ref=e991] [cursor=pointer]
+            - cell "卷料" [ref=e992] [cursor=pointer]
+            - cell "透明" [ref=e993] [cursor=pointer]
+            - cell "15.69" [ref=e994] [cursor=pointer]
+            - cell "3,922.50" [ref=e995] [cursor=pointer]
+            - cell "原材料 / 保护膜" [ref=e996] [cursor=pointer]
+            - cell [ref=e997] [cursor=pointer]
+            - cell "宝帝来" [ref=e999] [cursor=pointer]
+            - cell "" [ref=e1000] [cursor=pointer]:
+              - button "" [ref=e1002]:
+                - generic [ref=e1003]: 
+            - cell [ref=e1004]
+          - row "3M CN 4490 両面テープ 3M CN 4490 0.000 500 100 m 卷料 透明 199.85 9,992.50 原材料 / 胶带类 建武 " [ref=e1005]:
+            - cell [ref=e1006]:
+              - checkbox [ref=e1008] [cursor=pointer]
+            - cell "3M CN 4490 両面テープ" [ref=e1009] [cursor=pointer]
+            - cell "3M CN 4490" [ref=e1010] [cursor=pointer]
+            - cell [ref=e1011] [cursor=pointer]
+            - cell "0.000" [ref=e1012] [cursor=pointer]
+            - cell "500" [ref=e1013] [cursor=pointer]
+            - cell "100 m" [ref=e1014] [cursor=pointer]
+            - cell "卷料" [ref=e1015] [cursor=pointer]
+            - cell "透明" [ref=e1016] [cursor=pointer]
+            - cell "199.85" [ref=e1017] [cursor=pointer]
+            - cell "9,992.50" [ref=e1018] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1019] [cursor=pointer]
+            - cell [ref=e1020] [cursor=pointer]
+            - cell "建武" [ref=e1022] [cursor=pointer]
+            - cell "" [ref=e1023] [cursor=pointer]:
+              - button "" [ref=e1025]:
+                - generic [ref=e1026]: 
+            - cell [ref=e1027]
+          - row "3M-#1318BK 片面テープ 3M-#1318BK 0.060 1,200 66 m 卷料 黒色 15.12 1,197.50 原材料 / 胶带类 建武 " [ref=e1028]:
+            - cell [ref=e1029]:
+              - checkbox [ref=e1031] [cursor=pointer]
+            - cell "3M-#1318BK 片面テープ" [ref=e1032] [cursor=pointer]
+            - cell "3M-#1318BK" [ref=e1033] [cursor=pointer]
+            - cell [ref=e1034] [cursor=pointer]
+            - cell "0.060" [ref=e1035] [cursor=pointer]
+            - cell "1,200" [ref=e1036] [cursor=pointer]
+            - cell "66 m" [ref=e1037] [cursor=pointer]
+            - cell "卷料" [ref=e1038] [cursor=pointer]
+            - cell "黒色" [ref=e1039] [cursor=pointer]
+            - cell "15.12" [ref=e1040] [cursor=pointer]
+            - cell "1,197.50" [ref=e1041] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1042] [cursor=pointer]
+            - cell [ref=e1043] [cursor=pointer]
+            - cell "建武" [ref=e1045] [cursor=pointer]
+            - cell "" [ref=e1046] [cursor=pointer]:
+              - button "" [ref=e1048]:
+                - generic [ref=e1049]: 
+            - cell [ref=e1050]
+          - row "3M-#1350F2 片面テープ 3M-#1350F2 0.120 1,219 66 m 卷料 黒色 28.33 2,279.26 原材料 / 胶带类 建武 " [ref=e1051]:
+            - cell [ref=e1052]:
+              - checkbox [ref=e1054] [cursor=pointer]
+            - cell "3M-#1350F2 片面テープ" [ref=e1055] [cursor=pointer]
+            - cell "3M-#1350F2" [ref=e1056] [cursor=pointer]
+            - cell [ref=e1057] [cursor=pointer]
+            - cell "0.120" [ref=e1058] [cursor=pointer]
+            - cell "1,219" [ref=e1059] [cursor=pointer]
+            - cell "66 m" [ref=e1060] [cursor=pointer]
+            - cell "卷料" [ref=e1061] [cursor=pointer]
+            - cell "黒色" [ref=e1062] [cursor=pointer]
+            - cell "28.33" [ref=e1063] [cursor=pointer]
+            - cell "2,279.26" [ref=e1064] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1065] [cursor=pointer]
+            - cell [ref=e1066] [cursor=pointer]
+            - cell "建武" [ref=e1068] [cursor=pointer]
+            - cell "" [ref=e1069] [cursor=pointer]:
+              - button "" [ref=e1071]:
+                - generic [ref=e1072]: 
+            - cell [ref=e1073]
+          - row "3M-#4211L 両面テープ 3M-#4211L 1.200 590 33 m 卷料 赤色 242.06 4,712.91 原材料 / 胶带类 貝力 " [ref=e1074]:
+            - cell [ref=e1075]:
+              - checkbox [ref=e1077] [cursor=pointer]
+            - cell "3M-#4211L 両面テープ" [ref=e1078] [cursor=pointer]
+            - cell "3M-#4211L" [ref=e1079] [cursor=pointer]
+            - cell [ref=e1080] [cursor=pointer]
+            - cell "1.200" [ref=e1081] [cursor=pointer]
+            - cell "590" [ref=e1082] [cursor=pointer]
+            - cell "33 m" [ref=e1083] [cursor=pointer]
+            - cell "卷料" [ref=e1084] [cursor=pointer]
+            - cell "赤色" [ref=e1085] [cursor=pointer]
+            - cell "242.06" [ref=e1086] [cursor=pointer]
+            - cell "4,712.91" [ref=e1087] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1088] [cursor=pointer]
+            - cell [ref=e1089] [cursor=pointer]
+            - cell "貝力" [ref=e1091] [cursor=pointer]
+            - cell "" [ref=e1092] [cursor=pointer]:
+              - button "" [ref=e1094]:
+                - generic [ref=e1095]: 
+            - cell [ref=e1096]
+          - row "3M-#9495LE 両面テープ 3M-#9495LE 0.165 1,219 55 m 卷料 透明 64.05 4,294.23 原材料 / 胶带类 建武 " [ref=e1097]:
+            - cell [ref=e1098]:
+              - checkbox [ref=e1100] [cursor=pointer]
+            - cell "3M-#9495LE 両面テープ" [ref=e1101] [cursor=pointer]
+            - cell "3M-#9495LE" [ref=e1102] [cursor=pointer]
+            - cell [ref=e1103] [cursor=pointer]
+            - cell "0.165" [ref=e1104] [cursor=pointer]
+            - cell "1,219" [ref=e1105] [cursor=pointer]
+            - cell "55 m" [ref=e1106] [cursor=pointer]
+            - cell "卷料" [ref=e1107] [cursor=pointer]
+            - cell "透明" [ref=e1108] [cursor=pointer]
+            - cell "64.05" [ref=e1109] [cursor=pointer]
+            - cell "4,294.23" [ref=e1110] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1111] [cursor=pointer]
+            - cell [ref=e1112] [cursor=pointer]
+            - cell "建武" [ref=e1114] [cursor=pointer]
+            - cell "" [ref=e1115] [cursor=pointer]:
+              - button "" [ref=e1117]:
+                - generic [ref=e1118]: 
+            - cell [ref=e1119]
+          - row "3M-#9495MP 両面テープ 3M-#9495MP 0.140 1,372 55 m 卷料 透明 44.87 3,385.89 原材料 / 胶带类 建武 " [ref=e1120]:
+            - cell [ref=e1121]:
+              - checkbox [ref=e1123] [cursor=pointer]
+            - cell "3M-#9495MP 両面テープ" [ref=e1124] [cursor=pointer]
+            - cell "3M-#9495MP" [ref=e1125] [cursor=pointer]
+            - cell [ref=e1126] [cursor=pointer]
+            - cell "0.140" [ref=e1127] [cursor=pointer]
+            - cell "1,372" [ref=e1128] [cursor=pointer]
+            - cell "55 m" [ref=e1129] [cursor=pointer]
+            - cell "卷料" [ref=e1130] [cursor=pointer]
+            - cell "透明" [ref=e1131] [cursor=pointer]
+            - cell "44.87" [ref=e1132] [cursor=pointer]
+            - cell "3,385.89" [ref=e1133] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1134] [cursor=pointer]
+            - cell [ref=e1135] [cursor=pointer]
+            - cell "建武" [ref=e1137] [cursor=pointer]
+            - cell "" [ref=e1138] [cursor=pointer]:
+              - button "" [ref=e1140]:
+                - generic [ref=e1141]: 
+            - cell [ref=e1142]
+          - row "3M-Y-4914 両面テープ 3M-Y-4914 0.250 610 33 m 卷料 白色 272.81 5,491.67 原材料 / 胶带类 貝力 " [ref=e1143]:
+            - cell [ref=e1144]:
+              - checkbox [ref=e1146] [cursor=pointer]
+            - cell "3M-Y-4914 両面テープ" [ref=e1147] [cursor=pointer]
+            - cell "3M-Y-4914" [ref=e1148] [cursor=pointer]
+            - cell [ref=e1149] [cursor=pointer]
+            - cell "0.250" [ref=e1150] [cursor=pointer]
+            - cell "610" [ref=e1151] [cursor=pointer]
+            - cell "33 m" [ref=e1152] [cursor=pointer]
+            - cell "卷料" [ref=e1153] [cursor=pointer]
+            - cell "白色" [ref=e1154] [cursor=pointer]
+            - cell "272.81" [ref=e1155] [cursor=pointer]
+            - cell "5,491.67" [ref=e1156] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1157] [cursor=pointer]
+            - cell [ref=e1158] [cursor=pointer]
+            - cell "貝力" [ref=e1160] [cursor=pointer]
+            - cell "" [ref=e1161] [cursor=pointer]:
+              - button "" [ref=e1163]:
+                - generic [ref=e1164]: 
+            - cell [ref=e1165]
+          - row "3M-Y-4920 両面テープ 3M-Y-4920 0.400 610 33 m 卷料 白色 237.94 4,789.73 原材料 / 胶带类 貝力 " [ref=e1166]:
+            - cell [ref=e1167]:
+              - checkbox [ref=e1169] [cursor=pointer]
+            - cell "3M-Y-4920 両面テープ" [ref=e1170] [cursor=pointer]
+            - cell "3M-Y-4920" [ref=e1171] [cursor=pointer]
+            - cell [ref=e1172] [cursor=pointer]
+            - cell "0.400" [ref=e1173] [cursor=pointer]
+            - cell "610" [ref=e1174] [cursor=pointer]
+            - cell "33 m" [ref=e1175] [cursor=pointer]
+            - cell "卷料" [ref=e1176] [cursor=pointer]
+            - cell "白色" [ref=e1177] [cursor=pointer]
+            - cell "237.94" [ref=e1178] [cursor=pointer]
+            - cell "4,789.73" [ref=e1179] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1180] [cursor=pointer]
+            - cell [ref=e1181] [cursor=pointer]
+            - cell "貝力" [ref=e1183] [cursor=pointer]
+            - cell "" [ref=e1184] [cursor=pointer]:
+              - button "" [ref=e1186]:
+                - generic [ref=e1187]: 
+            - cell [ref=e1188]
+          - row "3M1350T-3Y テープ 3M1350T-3Y 0.110 1,219 66 m 卷料 黄色 35.41 2,848.88 原材料 / 胶带类 貝力 " [ref=e1189]:
+            - cell [ref=e1190]:
+              - checkbox [ref=e1192] [cursor=pointer]
+            - cell "3M1350T-3Y テープ" [ref=e1193] [cursor=pointer]
+            - cell "3M1350T-3Y" [ref=e1194] [cursor=pointer]
+            - cell [ref=e1195] [cursor=pointer]
+            - cell "0.110" [ref=e1196] [cursor=pointer]
+            - cell "1,219" [ref=e1197] [cursor=pointer]
+            - cell "66 m" [ref=e1198] [cursor=pointer]
+            - cell "卷料" [ref=e1199] [cursor=pointer]
+            - cell "黄色" [ref=e1200] [cursor=pointer]
+            - cell "35.41" [ref=e1201] [cursor=pointer]
+            - cell "2,848.88" [ref=e1202] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1203] [cursor=pointer]
+            - cell [ref=e1204] [cursor=pointer]
+            - cell "貝力" [ref=e1206] [cursor=pointer]
+            - cell "" [ref=e1207] [cursor=pointer]:
+              - button "" [ref=e1209]:
+                - generic [ref=e1210]: 
+            - cell [ref=e1211]
+          - row "3M2245 単面テープ 3M2245 0.100 500 20 m 卷料 銅色 594.58 5,945.80 原材料 / 胶带类 貝力 " [ref=e1212]:
+            - cell [ref=e1213]:
+              - checkbox [ref=e1215] [cursor=pointer]
+            - cell "3M2245 単面テープ" [ref=e1216] [cursor=pointer]
+            - cell "3M2245" [ref=e1217] [cursor=pointer]
+            - cell [ref=e1218] [cursor=pointer]
+            - cell "0.100" [ref=e1219] [cursor=pointer]
+            - cell "500" [ref=e1220] [cursor=pointer]
+            - cell "20 m" [ref=e1221] [cursor=pointer]
+            - cell "卷料" [ref=e1222] [cursor=pointer]
+            - cell "銅色" [ref=e1223] [cursor=pointer]
+            - cell "594.58" [ref=e1224] [cursor=pointer]
+            - cell "5,945.80" [ref=e1225] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1226] [cursor=pointer]
+            - cell [ref=e1227] [cursor=pointer]
+            - cell "貝力" [ref=e1229] [cursor=pointer]
+            - cell "" [ref=e1230] [cursor=pointer]:
+              - button "" [ref=e1232]:
+                - generic [ref=e1233]: 
+            - cell [ref=e1234]
+          - row "3M4929 両面テープ 3M4929 0.640 610 33 m 卷料 透明 426.65 8,588.46 原材料 / 胶带类 建武 " [ref=e1235]:
+            - cell [ref=e1236]:
+              - checkbox [ref=e1238] [cursor=pointer]
+            - cell "3M4929 両面テープ" [ref=e1239] [cursor=pointer]
+            - cell "3M4929" [ref=e1240] [cursor=pointer]
+            - cell [ref=e1241] [cursor=pointer]
+            - cell "0.640" [ref=e1242] [cursor=pointer]
+            - cell "610" [ref=e1243] [cursor=pointer]
+            - cell "33 m" [ref=e1244] [cursor=pointer]
+            - cell "卷料" [ref=e1245] [cursor=pointer]
+            - cell "透明" [ref=e1246] [cursor=pointer]
+            - cell "426.65" [ref=e1247] [cursor=pointer]
+            - cell "8,588.46" [ref=e1248] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1249] [cursor=pointer]
+            - cell [ref=e1250] [cursor=pointer]
+            - cell "建武" [ref=e1252] [cursor=pointer]
+            - cell "" [ref=e1253] [cursor=pointer]:
+              - button "" [ref=e1255]:
+                - generic [ref=e1256]: 
+            - cell [ref=e1257]
+          - row "3M9075 両面テープ 3M9075 0.080 1,200 50 m 卷料 透明 23.40 1,404.00 原材料 / 胶带类 建武 " [ref=e1258]:
+            - cell [ref=e1259]:
+              - checkbox [ref=e1261] [cursor=pointer]
+            - cell "3M9075 両面テープ" [ref=e1262] [cursor=pointer]
+            - cell "3M9075" [ref=e1263] [cursor=pointer]
+            - cell [ref=e1264] [cursor=pointer]
+            - cell "0.080" [ref=e1265] [cursor=pointer]
+            - cell "1,200" [ref=e1266] [cursor=pointer]
+            - cell "50 m" [ref=e1267] [cursor=pointer]
+            - cell "卷料" [ref=e1268] [cursor=pointer]
+            - cell "透明" [ref=e1269] [cursor=pointer]
+            - cell "23.40" [ref=e1270] [cursor=pointer]
+            - cell "1,404.00" [ref=e1271] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1272] [cursor=pointer]
+            - cell [ref=e1273] [cursor=pointer]
+            - cell "建武" [ref=e1275] [cursor=pointer]
+            - cell "" [ref=e1276] [cursor=pointer]:
+              - button "" [ref=e1278]:
+                - generic [ref=e1279]: 
+            - cell [ref=e1280]
+          - row "3M9448 AD 0.160 1,200 100 m 卷料 黑色 0.00 0.00 原材料 / 泡棉类 散热导热 斯迪克新材料（美国）有限公司 " [ref=e1281]:
+            - cell [ref=e1282]:
+              - checkbox [ref=e1284] [cursor=pointer]
+            - cell "3M9448" [ref=e1285] [cursor=pointer]
+            - cell "AD" [ref=e1286] [cursor=pointer]
+            - cell [ref=e1287] [cursor=pointer]
+            - cell "0.160" [ref=e1288] [cursor=pointer]
+            - cell "1,200" [ref=e1289] [cursor=pointer]
+            - cell "100 m" [ref=e1290] [cursor=pointer]
+            - cell "卷料" [ref=e1291] [cursor=pointer]
+            - cell "黑色" [ref=e1292] [cursor=pointer]
+            - cell "0.00" [ref=e1293] [cursor=pointer]
+            - cell "0.00" [ref=e1294] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e1295] [cursor=pointer]
+            - cell "散热导热" [ref=e1296] [cursor=pointer]:
+              - generic "散热导热" [ref=e1299]:
+                - generic [ref=e1300]: 散热导热
+            - cell "斯迪克新材料（美国）有限公司" [ref=e1301] [cursor=pointer]
+            - cell "" [ref=e1302] [cursor=pointer]:
+              - button "" [ref=e1304]:
+                - generic [ref=e1305]: 
+            - cell [ref=e1306]
+          - row "3M9448A 両面テープ 3M9448A 0.150 1,200 50 m 卷料 透明 26.15 1,569.00 原材料 / 胶带类 建武 " [ref=e1307]:
+            - cell [ref=e1308]:
+              - checkbox [ref=e1310] [cursor=pointer]
+            - cell "3M9448A 両面テープ" [ref=e1311] [cursor=pointer]
+            - cell "3M9448A" [ref=e1312] [cursor=pointer]
+            - cell [ref=e1313] [cursor=pointer]
+            - cell "0.150" [ref=e1314] [cursor=pointer]
+            - cell "1,200" [ref=e1315] [cursor=pointer]
+            - cell "50 m" [ref=e1316] [cursor=pointer]
+            - cell "卷料" [ref=e1317] [cursor=pointer]
+            - cell "透明" [ref=e1318] [cursor=pointer]
+            - cell "26.15" [ref=e1319] [cursor=pointer]
+            - cell "1,569.00" [ref=e1320] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1321] [cursor=pointer]
+            - cell [ref=e1322] [cursor=pointer]
+            - cell "建武" [ref=e1324] [cursor=pointer]
+            - cell "" [ref=e1325] [cursor=pointer]:
+              - button "" [ref=e1327]:
+                - generic [ref=e1328]: 
+            - cell [ref=e1329]
+          - row "3M9469PC 両面テープ 3M9469PC 0.125 1,220 55 m 卷料 透明 84.30 5,656.53 原材料 / 胶带类 建武 " [ref=e1330]:
+            - cell [ref=e1331]:
+              - checkbox [ref=e1333] [cursor=pointer]
+            - cell "3M9469PC 両面テープ" [ref=e1334] [cursor=pointer]
+            - cell "3M9469PC" [ref=e1335] [cursor=pointer]
+            - cell [ref=e1336] [cursor=pointer]
+            - cell "0.125" [ref=e1337] [cursor=pointer]
+            - cell "1,220" [ref=e1338] [cursor=pointer]
+            - cell "55 m" [ref=e1339] [cursor=pointer]
+            - cell "卷料" [ref=e1340] [cursor=pointer]
+            - cell "透明" [ref=e1341] [cursor=pointer]
+            - cell "84.30" [ref=e1342] [cursor=pointer]
+            - cell "5,656.53" [ref=e1343] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1344] [cursor=pointer]
+            - cell [ref=e1345] [cursor=pointer]
+            - cell "建武" [ref=e1347] [cursor=pointer]
+            - cell "" [ref=e1348] [cursor=pointer]:
+              - button "" [ref=e1350]:
+                - generic [ref=e1351]: 
+            - cell [ref=e1352]
+          - row "4701-41-20093-04 PORON 4701-41-20093-04 2.360 1,372 68.58 m 卷料 黒色 109.71 10,322.81 原材料 / 泡棉类 新世界 " [ref=e1353]:
+            - cell [ref=e1354]:
+              - checkbox [ref=e1356] [cursor=pointer]
+            - cell "4701-41-20093-04 PORON" [ref=e1357] [cursor=pointer]
+            - cell "4701-41-20093-04" [ref=e1358] [cursor=pointer]
+            - cell [ref=e1359] [cursor=pointer]
+            - cell "2.360" [ref=e1360] [cursor=pointer]
+            - cell "1,372" [ref=e1361] [cursor=pointer]
+            - cell "68.58 m" [ref=e1362] [cursor=pointer]
+            - cell "卷料" [ref=e1363] [cursor=pointer]
+            - cell "黒色" [ref=e1364] [cursor=pointer]
+            - cell "109.71" [ref=e1365] [cursor=pointer]
+            - cell "10,322.81" [ref=e1366] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e1367] [cursor=pointer]
+            - cell [ref=e1368] [cursor=pointer]
+            - cell "新世界" [ref=e1370] [cursor=pointer]
+            - cell "" [ref=e1371] [cursor=pointer]:
+              - button "" [ref=e1373]:
+                - generic [ref=e1374]: 
+            - cell [ref=e1375]
+          - row "500R 不织布 500R 1.200 1,150 30 m 卷料 黒色 384.18 13,254.21 原材料 / 泡棉类 大西電材 " [ref=e1376]:
+            - cell [ref=e1377]:
+              - checkbox [ref=e1379] [cursor=pointer]
+            - cell "500R 不织布" [ref=e1380] [cursor=pointer]
+            - cell "500R" [ref=e1381] [cursor=pointer]
+            - cell [ref=e1382] [cursor=pointer]
+            - cell "1.200" [ref=e1383] [cursor=pointer]
+            - cell "1,150" [ref=e1384] [cursor=pointer]
+            - cell "30 m" [ref=e1385] [cursor=pointer]
+            - cell "卷料" [ref=e1386] [cursor=pointer]
+            - cell "黒色" [ref=e1387] [cursor=pointer]
+            - cell "384.18" [ref=e1388] [cursor=pointer]
+            - cell "13,254.21" [ref=e1389] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e1390] [cursor=pointer]
+            - cell [ref=e1391] [cursor=pointer]
+            - cell "大西電材" [ref=e1393] [cursor=pointer]
+            - cell "" [ref=e1394] [cursor=pointer]:
+              - button "" [ref=e1396]:
+                - generic [ref=e1397]: 
+            - cell [ref=e1398]
+          - row "6100DT 両面テープ 6100DT 0.000 1,020 50 m 卷料 透明 14.50 739.50 原材料 / 胶带类 宝桦 " [ref=e1399]:
+            - cell [ref=e1400]:
+              - checkbox [ref=e1402] [cursor=pointer]
+            - cell "6100DT 両面テープ" [ref=e1403] [cursor=pointer]
+            - cell "6100DT" [ref=e1404] [cursor=pointer]
+            - cell [ref=e1405] [cursor=pointer]
+            - cell "0.000" [ref=e1406] [cursor=pointer]
+            - cell "1,020" [ref=e1407] [cursor=pointer]
+            - cell "50 m" [ref=e1408] [cursor=pointer]
+            - cell "卷料" [ref=e1409] [cursor=pointer]
+            - cell "透明" [ref=e1410] [cursor=pointer]
+            - cell "14.50" [ref=e1411] [cursor=pointer]
+            - cell "739.50" [ref=e1412] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1413] [cursor=pointer]
+            - cell [ref=e1414] [cursor=pointer]
+            - cell "宝桦" [ref=e1416] [cursor=pointer]
+            - cell "" [ref=e1417] [cursor=pointer]:
+              - button "" [ref=e1419]:
+                - generic [ref=e1420]: 
+            - cell [ref=e1421]
+          - row "700W 不织布 700W 0.550 1,150 30 m 卷料 黒色 223.33 7,704.89 原材料 / 泡棉类 大西電材 " [ref=e1422]:
+            - cell [ref=e1423]:
+              - checkbox [ref=e1425] [cursor=pointer]
+            - cell "700W 不织布" [ref=e1426] [cursor=pointer]
+            - cell "700W" [ref=e1427] [cursor=pointer]
+            - cell [ref=e1428] [cursor=pointer]
+            - cell "0.550" [ref=e1429] [cursor=pointer]
+            - cell "1,150" [ref=e1430] [cursor=pointer]
+            - cell "30 m" [ref=e1431] [cursor=pointer]
+            - cell "卷料" [ref=e1432] [cursor=pointer]
+            - cell "黒色" [ref=e1433] [cursor=pointer]
+            - cell "223.33" [ref=e1434] [cursor=pointer]
+            - cell "7,704.89" [ref=e1435] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e1436] [cursor=pointer]
+            - cell [ref=e1437] [cursor=pointer]
+            - cell "大西電材" [ref=e1439] [cursor=pointer]
+            - cell "" [ref=e1440] [cursor=pointer]:
+              - button "" [ref=e1442]:
+                - generic [ref=e1443]: 
+            - cell [ref=e1444]
+          - row "81S11(黒)非難燃 不织布 81S11(黒)非難燃 0.430 1,300 30 m 卷料 黒色 123.11 4,801.29 原材料 / 泡棉类 安碧克 " [ref=e1445]:
+            - cell [ref=e1446]:
+              - checkbox [ref=e1448] [cursor=pointer]
+            - cell "81S11(黒)非難燃 不织布" [ref=e1449] [cursor=pointer]
+            - cell "81S11(黒)非難燃" [ref=e1450] [cursor=pointer]
+            - cell [ref=e1451] [cursor=pointer]
+            - cell "0.430" [ref=e1452] [cursor=pointer]
+            - cell "1,300" [ref=e1453] [cursor=pointer]
+            - cell "30 m" [ref=e1454] [cursor=pointer]
+            - cell "卷料" [ref=e1455] [cursor=pointer]
+            - cell "黒色" [ref=e1456] [cursor=pointer]
+            - cell "123.11" [ref=e1457] [cursor=pointer]
+            - cell "4,801.29" [ref=e1458] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e1459] [cursor=pointer]
+            - cell [ref=e1460] [cursor=pointer]
+            - cell "安碧克" [ref=e1462] [cursor=pointer]
+            - cell "" [ref=e1463] [cursor=pointer]:
+              - button "" [ref=e1465]:
+                - generic [ref=e1466]: 
+            - cell [ref=e1467]
+          - row "8B35 PC 8B35 0.125 914 638 m 卷料 透明 6.42 3,743.71 原材料 / 其他辅料 大信兴业 " [ref=e1468]:
+            - cell [ref=e1469]:
+              - checkbox [ref=e1471] [cursor=pointer]
+            - cell "8B35 PC" [ref=e1472] [cursor=pointer]
+            - cell "8B35" [ref=e1473] [cursor=pointer]
+            - cell [ref=e1474] [cursor=pointer]
+            - cell "0.125" [ref=e1475] [cursor=pointer]
+            - cell "914" [ref=e1476] [cursor=pointer]
+            - cell "638 m" [ref=e1477] [cursor=pointer]
+            - cell "卷料" [ref=e1478] [cursor=pointer]
+            - cell "透明" [ref=e1479] [cursor=pointer]
+            - cell "6.42" [ref=e1480] [cursor=pointer]
+            - cell "3,743.71" [ref=e1481] [cursor=pointer]
+            - cell "原材料 / 其他辅料" [ref=e1482] [cursor=pointer]
+            - cell [ref=e1483] [cursor=pointer]
+            - cell "大信兴业" [ref=e1485] [cursor=pointer]
+            - cell "" [ref=e1486] [cursor=pointer]:
+              - button "" [ref=e1488]:
+                - generic [ref=e1489]: 
+            - cell [ref=e1490]
+          - row "91758W PET 91758W 0.075 670 50 m 卷料 白色 22.19 743.37 原材料 / 其他辅料 宝帝来 " [ref=e1491]:
+            - cell [ref=e1492]:
+              - checkbox [ref=e1494] [cursor=pointer]
+            - cell "91758W PET" [ref=e1495] [cursor=pointer]
+            - cell "91758W" [ref=e1496] [cursor=pointer]
+            - cell [ref=e1497] [cursor=pointer]
+            - cell "0.075" [ref=e1498] [cursor=pointer]
+            - cell "670" [ref=e1499] [cursor=pointer]
+            - cell "50 m" [ref=e1500] [cursor=pointer]
+            - cell "卷料" [ref=e1501] [cursor=pointer]
+            - cell "白色" [ref=e1502] [cursor=pointer]
+            - cell "22.19" [ref=e1503] [cursor=pointer]
+            - cell "743.37" [ref=e1504] [cursor=pointer]
+            - cell "原材料 / 其他辅料" [ref=e1505] [cursor=pointer]
+            - cell [ref=e1506] [cursor=pointer]
+            - cell "宝帝来" [ref=e1508] [cursor=pointer]
+            - cell "" [ref=e1509] [cursor=pointer]:
+              - button "" [ref=e1511]:
+                - generic [ref=e1512]: 
+            - cell [ref=e1513]
+          - row "95G (油纸) セパ 95G (油纸) 0.000 1,040 100 m 卷料 白色 1.86 193.44 原材料 / 离型膜 長信 " [ref=e1514]:
+            - cell [ref=e1515]:
+              - checkbox [ref=e1517] [cursor=pointer]
+            - cell "95G (油纸) セパ" [ref=e1518] [cursor=pointer]
+            - cell "95G (油纸)" [ref=e1519] [cursor=pointer]
+            - cell [ref=e1520] [cursor=pointer]
+            - cell "0.000" [ref=e1521] [cursor=pointer]
+            - cell "1,040" [ref=e1522] [cursor=pointer]
+            - cell "100 m" [ref=e1523] [cursor=pointer]
+            - cell "卷料" [ref=e1524] [cursor=pointer]
+            - cell "白色" [ref=e1525] [cursor=pointer]
+            - cell "1.86" [ref=e1526] [cursor=pointer]
+            - cell "193.44" [ref=e1527] [cursor=pointer]
+            - cell "原材料 / 离型膜" [ref=e1528] [cursor=pointer]
+            - cell [ref=e1529] [cursor=pointer]
+            - cell "長信" [ref=e1531] [cursor=pointer]
+            - cell "" [ref=e1532] [cursor=pointer]:
+              - button "" [ref=e1534]:
+                - generic [ref=e1535]: 
+            - cell [ref=e1536]
+          - row "95G進口FT-1229 セパ 95G進口FT-1229 0.100 1,090 100 m 卷料 黄色 2.85 310.65 原材料 / 离型膜 宝源 " [ref=e1537]:
+            - cell [ref=e1538]:
+              - checkbox [ref=e1540] [cursor=pointer]
+            - cell "95G進口FT-1229 セパ" [ref=e1541] [cursor=pointer]
+            - cell "95G進口FT-1229" [ref=e1542] [cursor=pointer]
+            - cell [ref=e1543] [cursor=pointer]
+            - cell "0.100" [ref=e1544] [cursor=pointer]
+            - cell "1,090" [ref=e1545] [cursor=pointer]
+            - cell "100 m" [ref=e1546] [cursor=pointer]
+            - cell "卷料" [ref=e1547] [cursor=pointer]
+            - cell "黄色" [ref=e1548] [cursor=pointer]
+            - cell "2.85" [ref=e1549] [cursor=pointer]
+            - cell "310.65" [ref=e1550] [cursor=pointer]
+            - cell "原材料 / 离型膜" [ref=e1551] [cursor=pointer]
+            - cell [ref=e1552] [cursor=pointer]
+            - cell "宝源" [ref=e1554] [cursor=pointer]
+            - cell "" [ref=e1555] [cursor=pointer]:
+              - button "" [ref=e1557]:
+                - generic [ref=e1558]: 
+            - cell [ref=e1559]
+          - row "A1#25TPET 离型PET A1#25TPET 0.025 1,000 400 m 卷料 茶色 0.02 8.00 原材料 / 离型膜 温州耀阳 " [ref=e1560]:
+            - cell [ref=e1561]:
+              - checkbox [ref=e1563] [cursor=pointer]
+            - cell "A1#25TPET 离型PET" [ref=e1564] [cursor=pointer]
+            - cell "A1#25TPET" [ref=e1565] [cursor=pointer]
+            - cell [ref=e1566] [cursor=pointer]
+            - cell "0.025" [ref=e1567] [cursor=pointer]
+            - cell "1,000" [ref=e1568] [cursor=pointer]
+            - cell "400 m" [ref=e1569] [cursor=pointer]
+            - cell "卷料" [ref=e1570] [cursor=pointer]
+            - cell "茶色" [ref=e1571] [cursor=pointer]
+            - cell "0.02" [ref=e1572] [cursor=pointer]
+            - cell "8.00" [ref=e1573] [cursor=pointer]
+            - cell "原材料 / 离型膜" [ref=e1574] [cursor=pointer]
+            - cell [ref=e1575] [cursor=pointer]
+            - cell "温州耀阳" [ref=e1577] [cursor=pointer]
+            - cell "" [ref=e1578] [cursor=pointer]:
+              - button "" [ref=e1580]:
+                - generic [ref=e1581]: 
+            - cell [ref=e1582]
+          - row "A1#36PET 离型PET A1#36PET 0.036 1,020 400 m 卷料 透明 0.02 8.16 原材料 / 离型膜 温州耀阳 " [ref=e1583]:
+            - cell [ref=e1584]:
+              - checkbox [ref=e1586] [cursor=pointer]
+            - cell "A1#36PET 离型PET" [ref=e1587] [cursor=pointer]
+            - cell "A1#36PET" [ref=e1588] [cursor=pointer]
+            - cell [ref=e1589] [cursor=pointer]
+            - cell "0.036" [ref=e1590] [cursor=pointer]
+            - cell "1,020" [ref=e1591] [cursor=pointer]
+            - cell "400 m" [ref=e1592] [cursor=pointer]
+            - cell "卷料" [ref=e1593] [cursor=pointer]
+            - cell "透明" [ref=e1594] [cursor=pointer]
+            - cell "0.02" [ref=e1595] [cursor=pointer]
+            - cell "8.16" [ref=e1596] [cursor=pointer]
+            - cell "原材料 / 离型膜" [ref=e1597] [cursor=pointer]
+            - cell [ref=e1598] [cursor=pointer]
+            - cell "温州耀阳" [ref=e1600] [cursor=pointer]
+            - cell "" [ref=e1601] [cursor=pointer]:
+              - button "" [ref=e1603]:
+                - generic [ref=e1604]: 
+            - cell [ref=e1605]
+          - row "A1#36RPET 离型PET A1#36RPET 0.036 1,020 200 m 卷料 透明 0.03 6.12 原材料 / 离型膜 温州耀阳 " [ref=e1606]:
+            - cell [ref=e1607]:
+              - checkbox [ref=e1609] [cursor=pointer]
+            - cell "A1#36RPET 离型PET" [ref=e1610] [cursor=pointer]
+            - cell "A1#36RPET" [ref=e1611] [cursor=pointer]
+            - cell [ref=e1612] [cursor=pointer]
+            - cell "0.036" [ref=e1613] [cursor=pointer]
+            - cell "1,020" [ref=e1614] [cursor=pointer]
+            - cell "200 m" [ref=e1615] [cursor=pointer]
+            - cell "卷料" [ref=e1616] [cursor=pointer]
+            - cell "透明" [ref=e1617] [cursor=pointer]
+            - cell "0.03" [ref=e1618] [cursor=pointer]
+            - cell "6.12" [ref=e1619] [cursor=pointer]
+            - cell "原材料 / 离型膜" [ref=e1620] [cursor=pointer]
+            - cell [ref=e1621] [cursor=pointer]
+            - cell "温州耀阳" [ref=e1623] [cursor=pointer]
+            - cell "" [ref=e1624] [cursor=pointer]:
+              - button "" [ref=e1626]:
+                - generic [ref=e1627]: 
+            - cell [ref=e1628]
+          - row "A1#75PET 离型PET A1#75PET 0.075 1,020 200 m 卷料 透明 0.04 8.16 原材料 / 离型膜 温州耀阳 " [ref=e1629]:
+            - cell [ref=e1630]:
+              - checkbox [ref=e1632] [cursor=pointer]
+            - cell "A1#75PET 离型PET" [ref=e1633] [cursor=pointer]
+            - cell "A1#75PET" [ref=e1634] [cursor=pointer]
+            - cell [ref=e1635] [cursor=pointer]
+            - cell "0.075" [ref=e1636] [cursor=pointer]
+            - cell "1,020" [ref=e1637] [cursor=pointer]
+            - cell "200 m" [ref=e1638] [cursor=pointer]
+            - cell "卷料" [ref=e1639] [cursor=pointer]
+            - cell "透明" [ref=e1640] [cursor=pointer]
+            - cell "0.04" [ref=e1641] [cursor=pointer]
+            - cell "8.16" [ref=e1642] [cursor=pointer]
+            - cell "原材料 / 离型膜" [ref=e1643] [cursor=pointer]
+            - cell [ref=e1644] [cursor=pointer]
+            - cell "温州耀阳" [ref=e1646] [cursor=pointer]
+            - cell "" [ref=e1647] [cursor=pointer]:
+              - button "" [ref=e1649]:
+                - generic [ref=e1650]: 
+            - cell [ref=e1651]
+          - row "ABS白 ABS ABS白 0.500 500 1000 mm 片料 白色 32.00 16.00 原材料 / 其他辅料 長信 " [ref=e1652]:
+            - cell [ref=e1653]:
+              - checkbox [ref=e1655] [cursor=pointer]
+            - cell "ABS白 ABS" [ref=e1656] [cursor=pointer]
+            - cell "ABS白" [ref=e1657] [cursor=pointer]
+            - cell [ref=e1658] [cursor=pointer]
+            - cell "0.500" [ref=e1659] [cursor=pointer]
+            - cell "500" [ref=e1660] [cursor=pointer]
+            - cell "1000 mm" [ref=e1661] [cursor=pointer]
+            - cell "片料" [ref=e1662] [cursor=pointer]
+            - cell "白色" [ref=e1663] [cursor=pointer]
+            - cell "32.00" [ref=e1664] [cursor=pointer]
+            - cell "16.00" [ref=e1665] [cursor=pointer]
+            - cell "原材料 / 其他辅料" [ref=e1666] [cursor=pointer]
+            - cell [ref=e1667] [cursor=pointer]
+            - cell "長信" [ref=e1669] [cursor=pointer]
+            - cell "" [ref=e1670] [cursor=pointer]:
+              - button "" [ref=e1672]:
+                - generic [ref=e1673]: 
+            - cell [ref=e1674]
+          - row "AL0065 アルミ AL0065 0.065 75 50 m 卷料 银色 32.61 122.29 原材料 / 金属箔 建武 " [ref=e1675]:
+            - cell [ref=e1676]:
+              - checkbox [ref=e1678] [cursor=pointer]
+            - cell "AL0065 アルミ" [ref=e1679] [cursor=pointer]
+            - cell "AL0065" [ref=e1680] [cursor=pointer]
+            - cell [ref=e1681] [cursor=pointer]
+            - cell "0.065" [ref=e1682] [cursor=pointer]
+            - cell "75" [ref=e1683] [cursor=pointer]
+            - cell "50 m" [ref=e1684] [cursor=pointer]
+            - cell "卷料" [ref=e1685] [cursor=pointer]
+            - cell "银色" [ref=e1686] [cursor=pointer]
+            - cell "32.61" [ref=e1687] [cursor=pointer]
+            - cell "122.29" [ref=e1688] [cursor=pointer]
+            - cell "原材料 / 金属箔" [ref=e1689] [cursor=pointer]
+            - cell [ref=e1690] [cursor=pointer]
+            - cell "建武" [ref=e1692] [cursor=pointer]
+            - cell "" [ref=e1693] [cursor=pointer]:
+              - button "" [ref=e1695]:
+                - generic [ref=e1696]: 
+            - cell [ref=e1697]
+          - row "AL1050 アルミ AL1050 0.150 1,000 1240 mm 片料 银色 32.97 40.88 原材料 / 金属箔 建武 " [ref=e1698]:
+            - cell [ref=e1699]:
+              - checkbox [ref=e1701] [cursor=pointer]
+            - cell "AL1050 アルミ" [ref=e1702] [cursor=pointer]
+            - cell "AL1050" [ref=e1703] [cursor=pointer]
+            - cell [ref=e1704] [cursor=pointer]
+            - cell "0.150" [ref=e1705] [cursor=pointer]
+            - cell "1,000" [ref=e1706] [cursor=pointer]
+            - cell "1240 mm" [ref=e1707] [cursor=pointer]
+            - cell "片料" [ref=e1708] [cursor=pointer]
+            - cell "银色" [ref=e1709] [cursor=pointer]
+            - cell "32.97" [ref=e1710] [cursor=pointer]
+            - cell "40.88" [ref=e1711] [cursor=pointer]
+            - cell "原材料 / 金属箔" [ref=e1712] [cursor=pointer]
+            - cell [ref=e1713] [cursor=pointer]
+            - cell "建武" [ref=e1715] [cursor=pointer]
+            - cell "" [ref=e1716] [cursor=pointer]:
+              - button "" [ref=e1718]:
+                - generic [ref=e1719]: 
+            - cell [ref=e1720]
+          - row "AR-M3HN-0.8t（片面撥水） PMMA AR-M3HN-0.8t（片面撥水） 0.800 650 460 mm 片料 透明 1,215.23 363.35 原材料 / 其他辅料 長瀬 " [ref=e1721]:
+            - cell [ref=e1722]:
+              - checkbox [ref=e1724] [cursor=pointer]
+            - cell "AR-M3HN-0.8t（片面撥水） PMMA" [ref=e1725] [cursor=pointer]
+            - cell "AR-M3HN-0.8t（片面撥水）" [ref=e1726] [cursor=pointer]
+            - cell [ref=e1727] [cursor=pointer]
+            - cell "0.800" [ref=e1728] [cursor=pointer]
+            - cell "650" [ref=e1729] [cursor=pointer]
+            - cell "460 mm" [ref=e1730] [cursor=pointer]
+            - cell "片料" [ref=e1731] [cursor=pointer]
+            - cell "透明" [ref=e1732] [cursor=pointer]
+            - cell "1,215.23" [ref=e1733] [cursor=pointer]
+            - cell "363.35" [ref=e1734] [cursor=pointer]
+            - cell "原材料 / 其他辅料" [ref=e1735] [cursor=pointer]
+            - cell [ref=e1736] [cursor=pointer]
+            - cell "長瀬" [ref=e1738] [cursor=pointer]
+            - cell "" [ref=e1739] [cursor=pointer]:
+              - button "" [ref=e1741]:
+                - generic [ref=e1742]: 
+            - cell [ref=e1743]
+          - row "AR-M3HX-0.5t（片面撥水） PMMA AR-M3HX-0.5t（片面撥水） 0.500 650 460 mm 片料 透明 1,588.09 474.84 原材料 / 其他辅料 長瀬 " [ref=e1744]:
+            - cell [ref=e1745]:
+              - checkbox [ref=e1747] [cursor=pointer]
+            - cell "AR-M3HX-0.5t（片面撥水） PMMA" [ref=e1748] [cursor=pointer]
+            - cell "AR-M3HX-0.5t（片面撥水）" [ref=e1749] [cursor=pointer]
+            - cell [ref=e1750] [cursor=pointer]
+            - cell "0.500" [ref=e1751] [cursor=pointer]
+            - cell "650" [ref=e1752] [cursor=pointer]
+            - cell "460 mm" [ref=e1753] [cursor=pointer]
+            - cell "片料" [ref=e1754] [cursor=pointer]
+            - cell "透明" [ref=e1755] [cursor=pointer]
+            - cell "1,588.09" [ref=e1756] [cursor=pointer]
+            - cell "474.84" [ref=e1757] [cursor=pointer]
+            - cell "原材料 / 其他辅料" [ref=e1758] [cursor=pointer]
+            - cell [ref=e1759] [cursor=pointer]
+            - cell "長瀬" [ref=e1761] [cursor=pointer]
+            - cell "" [ref=e1762] [cursor=pointer]:
+              - button "" [ref=e1764]:
+                - generic [ref=e1765]: 
+            - cell [ref=e1766]
+          - row "AR-M3HX-0.65t（片面撥水） PMMA AR-M3HX-0.65t（片面撥水） 0.650 650 460 mm 片料 透明 1,795.23 536.77 原材料 / 其他辅料 長瀬 " [ref=e1767]:
+            - cell [ref=e1768]:
+              - checkbox [ref=e1770] [cursor=pointer]
+            - cell "AR-M3HX-0.65t（片面撥水） PMMA" [ref=e1771] [cursor=pointer]
+            - cell "AR-M3HX-0.65t（片面撥水）" [ref=e1772] [cursor=pointer]
+            - cell [ref=e1773] [cursor=pointer]
+            - cell "0.650" [ref=e1774] [cursor=pointer]
+            - cell "650" [ref=e1775] [cursor=pointer]
+            - cell "460 mm" [ref=e1776] [cursor=pointer]
+            - cell "片料" [ref=e1777] [cursor=pointer]
+            - cell "透明" [ref=e1778] [cursor=pointer]
+            - cell "1,795.23" [ref=e1779] [cursor=pointer]
+            - cell "536.77" [ref=e1780] [cursor=pointer]
+            - cell "原材料 / 其他辅料" [ref=e1781] [cursor=pointer]
+            - cell [ref=e1782] [cursor=pointer]
+            - cell "長瀬" [ref=e1784] [cursor=pointer]
+            - cell "" [ref=e1785] [cursor=pointer]:
+              - button "" [ref=e1787]:
+                - generic [ref=e1788]: 
+            - cell [ref=e1789]
+          - row "AR-M3HX-0.8t（片面撥水） PMMA AR-M3HX-0.8t（片面撥水） 0.800 650 460 mm 片料 透明 1,215.23 363.35 原材料 / 其他辅料 長瀬 " [ref=e1790]:
+            - cell [ref=e1791]:
+              - checkbox [ref=e1793] [cursor=pointer]
+            - cell "AR-M3HX-0.8t（片面撥水） PMMA" [ref=e1794] [cursor=pointer]
+            - cell "AR-M3HX-0.8t（片面撥水）" [ref=e1795] [cursor=pointer]
+            - cell [ref=e1796] [cursor=pointer]
+            - cell "0.800" [ref=e1797] [cursor=pointer]
+            - cell "650" [ref=e1798] [cursor=pointer]
+            - cell "460 mm" [ref=e1799] [cursor=pointer]
+            - cell "片料" [ref=e1800] [cursor=pointer]
+            - cell "透明" [ref=e1801] [cursor=pointer]
+            - cell "1,215.23" [ref=e1802] [cursor=pointer]
+            - cell "363.35" [ref=e1803] [cursor=pointer]
+            - cell "原材料 / 其他辅料" [ref=e1804] [cursor=pointer]
+            - cell [ref=e1805] [cursor=pointer]
+            - cell "長瀬" [ref=e1807] [cursor=pointer]
+            - cell "" [ref=e1808] [cursor=pointer]:
+              - button "" [ref=e1810]:
+                - generic [ref=e1811]: 
+            - cell [ref=e1812]
+          - row "AR-M3HX-1.0t（片面撥水） PMMA AR-M3HX-1.0t（片面撥水） 1.000 650 460 mm 片料 透明 1,215.23 363.35 原材料 / 其他辅料 長瀬 " [ref=e1813]:
+            - cell [ref=e1814]:
+              - checkbox [ref=e1816] [cursor=pointer]
+            - cell "AR-M3HX-1.0t（片面撥水） PMMA" [ref=e1817] [cursor=pointer]
+            - cell "AR-M3HX-1.0t（片面撥水）" [ref=e1818] [cursor=pointer]
+            - cell [ref=e1819] [cursor=pointer]
+            - cell "1.000" [ref=e1820] [cursor=pointer]
+            - cell "650" [ref=e1821] [cursor=pointer]
+            - cell "460 mm" [ref=e1822] [cursor=pointer]
+            - cell "片料" [ref=e1823] [cursor=pointer]
+            - cell "透明" [ref=e1824] [cursor=pointer]
+            - cell "1,215.23" [ref=e1825] [cursor=pointer]
+            - cell "363.35" [ref=e1826] [cursor=pointer]
+            - cell "原材料 / 其他辅料" [ref=e1827] [cursor=pointer]
+            - cell [ref=e1828] [cursor=pointer]
+            - cell "長瀬" [ref=e1830] [cursor=pointer]
+            - cell "" [ref=e1831] [cursor=pointer]:
+              - button "" [ref=e1833]:
+                - generic [ref=e1834]: 
+            - cell [ref=e1835]
+          - row "AR-M3HY-1.0t（片面撥水） PMMA AR-M3HY-1.0t（片面撥水） 1.000 650 460 mm 片料 透明 1,706.85 510.35 原材料 / 其他辅料 長瀬 " [ref=e1836]:
+            - cell [ref=e1837]:
+              - checkbox [ref=e1839] [cursor=pointer]
+            - cell "AR-M3HY-1.0t（片面撥水） PMMA" [ref=e1840] [cursor=pointer]
+            - cell "AR-M3HY-1.0t（片面撥水）" [ref=e1841] [cursor=pointer]
+            - cell [ref=e1842] [cursor=pointer]
+            - cell "1.000" [ref=e1843] [cursor=pointer]
+            - cell "650" [ref=e1844] [cursor=pointer]
+            - cell "460 mm" [ref=e1845] [cursor=pointer]
+            - cell "片料" [ref=e1846] [cursor=pointer]
+            - cell "透明" [ref=e1847] [cursor=pointer]
+            - cell "1,706.85" [ref=e1848] [cursor=pointer]
+            - cell "510.35" [ref=e1849] [cursor=pointer]
+            - cell "原材料 / 其他辅料" [ref=e1850] [cursor=pointer]
+            - cell [ref=e1851] [cursor=pointer]
+            - cell "長瀬" [ref=e1853] [cursor=pointer]
+            - cell "" [ref=e1854] [cursor=pointer]:
+              - button "" [ref=e1856]:
+                - generic [ref=e1857]: 
+            - cell [ref=e1858]
+          - row "AR-M3HY-2.0t（片面撥水） PMMA AR-M3HY-2.0t（片面撥水） 2.000 650 460 mm 片料 透明 842.38 251.87 原材料 / 其他辅料 長瀬 " [ref=e1859]:
+            - cell [ref=e1860]:
+              - checkbox [ref=e1862] [cursor=pointer]
+            - cell "AR-M3HY-2.0t（片面撥水） PMMA" [ref=e1863] [cursor=pointer]
+            - cell "AR-M3HY-2.0t（片面撥水）" [ref=e1864] [cursor=pointer]
+            - cell [ref=e1865] [cursor=pointer]
+            - cell "2.000" [ref=e1866] [cursor=pointer]
+            - cell "650" [ref=e1867] [cursor=pointer]
+            - cell "460 mm" [ref=e1868] [cursor=pointer]
+            - cell "片料" [ref=e1869] [cursor=pointer]
+            - cell "透明" [ref=e1870] [cursor=pointer]
+            - cell "842.38" [ref=e1871] [cursor=pointer]
+            - cell "251.87" [ref=e1872] [cursor=pointer]
+            - cell "原材料 / 其他辅料" [ref=e1873] [cursor=pointer]
+            - cell [ref=e1874] [cursor=pointer]
+            - cell "長瀬" [ref=e1876] [cursor=pointer]
+            - cell "" [ref=e1877] [cursor=pointer]:
+              - button "" [ref=e1879]:
+                - generic [ref=e1880]: 
+            - cell [ref=e1881]
+          - row "AR-M3HY-2.5t（片面撥水） PMMA AR-M3HY-2.5t（片面撥水） 2.500 650 460 mm 片料 透明 962.13 287.68 原材料 / 其他辅料 香港藤光 " [ref=e1882]:
+            - cell [ref=e1883]:
+              - checkbox [ref=e1885] [cursor=pointer]
+            - cell "AR-M3HY-2.5t（片面撥水） PMMA" [ref=e1886] [cursor=pointer]
+            - cell "AR-M3HY-2.5t（片面撥水）" [ref=e1887] [cursor=pointer]
+            - cell [ref=e1888] [cursor=pointer]
+            - cell "2.500" [ref=e1889] [cursor=pointer]
+            - cell "650" [ref=e1890] [cursor=pointer]
+            - cell "460 mm" [ref=e1891] [cursor=pointer]
+            - cell "片料" [ref=e1892] [cursor=pointer]
+            - cell "透明" [ref=e1893] [cursor=pointer]
+            - cell "962.13" [ref=e1894] [cursor=pointer]
+            - cell "287.68" [ref=e1895] [cursor=pointer]
+            - cell "原材料 / 其他辅料" [ref=e1896] [cursor=pointer]
+            - cell [ref=e1897] [cursor=pointer]
+            - cell "香港藤光" [ref=e1899] [cursor=pointer]
+            - cell "" [ref=e1900] [cursor=pointer]:
+              - button "" [ref=e1902]:
+                - generic [ref=e1903]: 
+            - cell [ref=e1904]
+          - row "AS4-M04#75PET 离型PET AS4-M04#75PET 0.075 1,030 200 m 卷料 透明 0.05 10.30 原材料 / 离型膜 温州耀阳 " [ref=e1905]:
+            - cell [ref=e1906]:
+              - checkbox [ref=e1908] [cursor=pointer]
+            - cell "AS4-M04#75PET 离型PET" [ref=e1909] [cursor=pointer]
+            - cell "AS4-M04#75PET" [ref=e1910] [cursor=pointer]
+            - cell [ref=e1911] [cursor=pointer]
+            - cell "0.075" [ref=e1912] [cursor=pointer]
+            - cell "1,030" [ref=e1913] [cursor=pointer]
+            - cell "200 m" [ref=e1914] [cursor=pointer]
+            - cell "卷料" [ref=e1915] [cursor=pointer]
+            - cell "透明" [ref=e1916] [cursor=pointer]
+            - cell "0.05" [ref=e1917] [cursor=pointer]
+            - cell "10.30" [ref=e1918] [cursor=pointer]
+            - cell "原材料 / 离型膜" [ref=e1919] [cursor=pointer]
+            - cell [ref=e1920] [cursor=pointer]
+            - cell "温州耀阳" [ref=e1922] [cursor=pointer]
+            - cell "" [ref=e1923] [cursor=pointer]:
+              - button "" [ref=e1925]:
+                - generic [ref=e1926]: 
+            - cell [ref=e1927]
+          - row "AS4-M1C#75PET 离型PET AS4-M1C#75PET 0.075 1,030 200 m 卷料 透明 0.05 10.30 原材料 / 离型膜 温州耀阳 " [ref=e1928]:
+            - cell [ref=e1929]:
+              - checkbox [ref=e1931] [cursor=pointer]
+            - cell "AS4-M1C#75PET 离型PET" [ref=e1932] [cursor=pointer]
+            - cell "AS4-M1C#75PET" [ref=e1933] [cursor=pointer]
+            - cell [ref=e1934] [cursor=pointer]
+            - cell "0.075" [ref=e1935] [cursor=pointer]
+            - cell "1,030" [ref=e1936] [cursor=pointer]
+            - cell "200 m" [ref=e1937] [cursor=pointer]
+            - cell "卷料" [ref=e1938] [cursor=pointer]
+            - cell "透明" [ref=e1939] [cursor=pointer]
+            - cell "0.05" [ref=e1940] [cursor=pointer]
+            - cell "10.30" [ref=e1941] [cursor=pointer]
+            - cell "原材料 / 离型膜" [ref=e1942] [cursor=pointer]
+            - cell [ref=e1943] [cursor=pointer]
+            - cell "温州耀阳" [ref=e1945] [cursor=pointer]
+            - cell "" [ref=e1946] [cursor=pointer]:
+              - button "" [ref=e1948]:
+                - generic [ref=e1949]: 
+            - cell [ref=e1950]
+          - row "ASNDE SANMOLUFY VS560 テープ ASNDE SANMOLUFY VS560 0.050 600 600 m 卷料 黒色 14.37 5,173.20 原材料 / 胶带类 香港藤光 " [ref=e1951]:
+            - cell [ref=e1952]:
+              - checkbox [ref=e1954] [cursor=pointer]
+            - cell "ASNDE SANMOLUFY VS560 テープ" [ref=e1955] [cursor=pointer]
+            - cell "ASNDE SANMOLUFY VS560" [ref=e1956] [cursor=pointer]
+            - cell [ref=e1957] [cursor=pointer]
+            - cell "0.050" [ref=e1958] [cursor=pointer]
+            - cell "600" [ref=e1959] [cursor=pointer]
+            - cell "600 m" [ref=e1960] [cursor=pointer]
+            - cell "卷料" [ref=e1961] [cursor=pointer]
+            - cell "黒色" [ref=e1962] [cursor=pointer]
+            - cell "14.37" [ref=e1963] [cursor=pointer]
+            - cell "5,173.20" [ref=e1964] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1965] [cursor=pointer]
+            - cell [ref=e1966] [cursor=pointer]
+            - cell "香港藤光" [ref=e1968] [cursor=pointer]
+            - cell "" [ref=e1969] [cursor=pointer]:
+              - button "" [ref=e1971]:
+                - generic [ref=e1972]: 
+            - cell [ref=e1973]
+          - row "BOW 708G 両面テープ BOW 708G 0.800 930 33 m 卷料 灰色 145.00 4,450.05 原材料 / 胶带类 瑞恒科技 " [ref=e1974]:
+            - cell [ref=e1975]:
+              - checkbox [ref=e1977] [cursor=pointer]
+            - cell "BOW 708G 両面テープ" [ref=e1978] [cursor=pointer]
+            - cell "BOW 708G" [ref=e1979] [cursor=pointer]
+            - cell [ref=e1980] [cursor=pointer]
+            - cell "0.800" [ref=e1981] [cursor=pointer]
+            - cell "930" [ref=e1982] [cursor=pointer]
+            - cell "33 m" [ref=e1983] [cursor=pointer]
+            - cell "卷料" [ref=e1984] [cursor=pointer]
+            - cell "灰色" [ref=e1985] [cursor=pointer]
+            - cell "145.00" [ref=e1986] [cursor=pointer]
+            - cell "4,450.05" [ref=e1987] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e1988] [cursor=pointer]
+            - cell [ref=e1989] [cursor=pointer]
+            - cell "瑞恒科技" [ref=e1991] [cursor=pointer]
+            - cell "" [ref=e1992] [cursor=pointer]:
+              - button "" [ref=e1994]:
+                - generic [ref=e1995]: 
+            - cell [ref=e1996]
+          - row "BT122W#25白色 片面テープ BT122W#25白色 0.000 970 50 m 卷料 白色 14.98 726.53 原材料 / 胶带类 貝力 " [ref=e1997]:
+            - cell [ref=e1998]:
+              - checkbox [ref=e2000] [cursor=pointer]
+            - cell "BT122W#25白色 片面テープ" [ref=e2001] [cursor=pointer]
+            - cell "BT122W#25白色" [ref=e2002] [cursor=pointer]
+            - cell [ref=e2003] [cursor=pointer]
+            - cell "0.000" [ref=e2004] [cursor=pointer]
+            - cell "970" [ref=e2005] [cursor=pointer]
+            - cell "50 m" [ref=e2006] [cursor=pointer]
+            - cell "卷料" [ref=e2007] [cursor=pointer]
+            - cell "白色" [ref=e2008] [cursor=pointer]
+            - cell "14.98" [ref=e2009] [cursor=pointer]
+            - cell "726.53" [ref=e2010] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e2011] [cursor=pointer]
+            - cell [ref=e2012] [cursor=pointer]
+            - cell "貝力" [ref=e2014] [cursor=pointer]
+            - cell "" [ref=e2015] [cursor=pointer]:
+              - button "" [ref=e2017]:
+                - generic [ref=e2018]: 
+            - cell [ref=e2019]
+          - row "BT3772(TESA4972相当品) 両面テープ BT3772(TESA4972相当品) 0.000 1,240 100 m 卷料 透明 18.19 2,255.56 原材料 / 胶带类 貝力 " [ref=e2020]:
+            - cell [ref=e2021]:
+              - checkbox [ref=e2023] [cursor=pointer]
+            - cell "BT3772(TESA4972相当品) 両面テープ" [ref=e2024] [cursor=pointer]
+            - cell "BT3772(TESA4972相当品)" [ref=e2025] [cursor=pointer]
+            - cell [ref=e2026] [cursor=pointer]
+            - cell "0.000" [ref=e2027] [cursor=pointer]
+            - cell "1,240" [ref=e2028] [cursor=pointer]
+            - cell "100 m" [ref=e2029] [cursor=pointer]
+            - cell "卷料" [ref=e2030] [cursor=pointer]
+            - cell "透明" [ref=e2031] [cursor=pointer]
+            - cell "18.19" [ref=e2032] [cursor=pointer]
+            - cell "2,255.56" [ref=e2033] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e2034] [cursor=pointer]
+            - cell [ref=e2035] [cursor=pointer]
+            - cell "貝力" [ref=e2037] [cursor=pointer]
+            - cell "" [ref=e2038] [cursor=pointer]:
+              - button "" [ref=e2040]:
+                - generic [ref=e2041]: 
+            - cell [ref=e2042]
+          - row "C-4305 スポンジ C-4305 2.000 1,000 1000 mm 片料 黒色 36.34 36.34 原材料 / 泡棉类 新世界 " [ref=e2043]:
+            - cell [ref=e2044]:
+              - checkbox [ref=e2046] [cursor=pointer]
+            - cell "C-4305 スポンジ" [ref=e2047] [cursor=pointer]
+            - cell "C-4305" [ref=e2048] [cursor=pointer]
+            - cell [ref=e2049] [cursor=pointer]
+            - cell "2.000" [ref=e2050] [cursor=pointer]
+            - cell "1,000" [ref=e2051] [cursor=pointer]
+            - cell "1000 mm" [ref=e2052] [cursor=pointer]
+            - cell "片料" [ref=e2053] [cursor=pointer]
+            - cell "黒色" [ref=e2054] [cursor=pointer]
+            - cell "36.34" [ref=e2055] [cursor=pointer]
+            - cell "36.34" [ref=e2056] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2057] [cursor=pointer]
+            - cell [ref=e2058] [cursor=pointer]
+            - cell "新世界" [ref=e2060] [cursor=pointer]
+            - cell "" [ref=e2061] [cursor=pointer]:
+              - button "" [ref=e2063]:
+                - generic [ref=e2064]: 
+            - cell [ref=e2065]
+          - row "CP-100/WH-100 PMMA CP-100/WH-100 1.500 400 550 mm 片料 透明 127.27 28.00 原材料 / 其他辅料 新韓 " [ref=e2066]:
+            - cell [ref=e2067]:
+              - checkbox [ref=e2069] [cursor=pointer]
+            - cell "CP-100/WH-100 PMMA" [ref=e2070] [cursor=pointer]
+            - cell "CP-100/WH-100" [ref=e2071] [cursor=pointer]
+            - cell [ref=e2072] [cursor=pointer]
+            - cell "1.500" [ref=e2073] [cursor=pointer]
+            - cell "400" [ref=e2074] [cursor=pointer]
+            - cell "550 mm" [ref=e2075] [cursor=pointer]
+            - cell "片料" [ref=e2076] [cursor=pointer]
+            - cell "透明" [ref=e2077] [cursor=pointer]
+            - cell "127.27" [ref=e2078] [cursor=pointer]
+            - cell "28.00" [ref=e2079] [cursor=pointer]
+            - cell "原材料 / 其他辅料" [ref=e2080] [cursor=pointer]
+            - cell [ref=e2081] [cursor=pointer]
+            - cell "新韓" [ref=e2083] [cursor=pointer]
+            - cell "" [ref=e2084] [cursor=pointer]:
+              - button "" [ref=e2086]:
+                - generic [ref=e2087]: 
+            - cell [ref=e2088]
+          - row "CPV-2.0-SP 放熱シート CPV-2.0-SP 2.000 2 320 mm 片料 灰色 412,903.23 264.26 原材料 / 石墨散热膜 北川 " [ref=e2089]:
+            - cell [ref=e2090]:
+              - checkbox [ref=e2092] [cursor=pointer]
+            - cell "CPV-2.0-SP 放熱シート" [ref=e2093] [cursor=pointer]
+            - cell "CPV-2.0-SP" [ref=e2094] [cursor=pointer]
+            - cell [ref=e2095] [cursor=pointer]
+            - cell "2.000" [ref=e2096] [cursor=pointer]
+            - cell "2" [ref=e2097] [cursor=pointer]
+            - cell "320 mm" [ref=e2098] [cursor=pointer]
+            - cell "片料" [ref=e2099] [cursor=pointer]
+            - cell "灰色" [ref=e2100] [cursor=pointer]
+            - cell "412,903.23" [ref=e2101] [cursor=pointer]
+            - cell "264.26" [ref=e2102] [cursor=pointer]
+            - cell "原材料 / 石墨散热膜" [ref=e2103] [cursor=pointer]
+            - cell [ref=e2104] [cursor=pointer]
+            - cell "北川" [ref=e2106] [cursor=pointer]
+            - cell "" [ref=e2107] [cursor=pointer]:
+              - button "" [ref=e2109]:
+                - generic [ref=e2110]: 
+            - cell [ref=e2111]
+          - row "CPVS-0.5F 放熱シート CPVS-0.5F 0.500 205 500 mm 片料 灰色 4,564.09 467.82 原材料 / 石墨散热膜 北川 " [ref=e2112]:
+            - cell [ref=e2113]:
+              - checkbox [ref=e2115] [cursor=pointer]
+            - cell "CPVS-0.5F 放熱シート" [ref=e2116] [cursor=pointer]
+            - cell "CPVS-0.5F" [ref=e2117] [cursor=pointer]
+            - cell [ref=e2118] [cursor=pointer]
+            - cell "0.500" [ref=e2119] [cursor=pointer]
+            - cell "205" [ref=e2120] [cursor=pointer]
+            - cell "500 mm" [ref=e2121] [cursor=pointer]
+            - cell "片料" [ref=e2122] [cursor=pointer]
+            - cell "灰色" [ref=e2123] [cursor=pointer]
+            - cell "4,564.09" [ref=e2124] [cursor=pointer]
+            - cell "467.82" [ref=e2125] [cursor=pointer]
+            - cell "原材料 / 石墨散热膜" [ref=e2126] [cursor=pointer]
+            - cell [ref=e2127] [cursor=pointer]
+            - cell "北川" [ref=e2129] [cursor=pointer]
+            - cell "" [ref=e2130] [cursor=pointer]:
+              - button "" [ref=e2132]:
+                - generic [ref=e2133]: 
+            - cell [ref=e2134]
+          - row "CPVS-1.0F 放熱シート CPVS-1.0F 1.000 205 500 mm 片料 灰色 4,833.99 495.48 原材料 / 石墨散热膜 北川 " [ref=e2135]:
+            - cell [ref=e2136]:
+              - checkbox [ref=e2138] [cursor=pointer]
+            - cell "CPVS-1.0F 放熱シート" [ref=e2139] [cursor=pointer]
+            - cell "CPVS-1.0F" [ref=e2140] [cursor=pointer]
+            - cell [ref=e2141] [cursor=pointer]
+            - cell "1.000" [ref=e2142] [cursor=pointer]
+            - cell "205" [ref=e2143] [cursor=pointer]
+            - cell "500 mm" [ref=e2144] [cursor=pointer]
+            - cell "片料" [ref=e2145] [cursor=pointer]
+            - cell "灰色" [ref=e2146] [cursor=pointer]
+            - cell "4,833.99" [ref=e2147] [cursor=pointer]
+            - cell "495.48" [ref=e2148] [cursor=pointer]
+            - cell "原材料 / 石墨散热膜" [ref=e2149] [cursor=pointer]
+            - cell [ref=e2150] [cursor=pointer]
+            - cell "北川" [ref=e2152] [cursor=pointer]
+            - cell "" [ref=e2153] [cursor=pointer]:
+              - button "" [ref=e2155]:
+                - generic [ref=e2156]: 
+            - cell [ref=e2157]
+          - row "CPVS-1.5F 放熱シート CPVS-1.5F 1.500 205 500 mm 片料 灰色 6,525.89 668.90 原材料 / 石墨散热膜 北川 " [ref=e2158]:
+            - cell [ref=e2159]:
+              - checkbox [ref=e2161] [cursor=pointer]
+            - cell "CPVS-1.5F 放熱シート" [ref=e2162] [cursor=pointer]
+            - cell "CPVS-1.5F" [ref=e2163] [cursor=pointer]
+            - cell [ref=e2164] [cursor=pointer]
+            - cell "1.500" [ref=e2165] [cursor=pointer]
+            - cell "205" [ref=e2166] [cursor=pointer]
+            - cell "500 mm" [ref=e2167] [cursor=pointer]
+            - cell "片料" [ref=e2168] [cursor=pointer]
+            - cell "灰色" [ref=e2169] [cursor=pointer]
+            - cell "6,525.89" [ref=e2170] [cursor=pointer]
+            - cell "668.90" [ref=e2171] [cursor=pointer]
+            - cell "原材料 / 石墨散热膜" [ref=e2172] [cursor=pointer]
+            - cell [ref=e2173] [cursor=pointer]
+            - cell "北川" [ref=e2175] [cursor=pointer]
+            - cell "" [ref=e2176] [cursor=pointer]:
+              - button "" [ref=e2178]:
+                - generic [ref=e2179]: 
+            - cell [ref=e2180]
+          - row "CR-40A (双亞光面) ゴム CR-40A (双亞光面) 1.500 152 508 mm 片料 黒色 126.73 9.79 原材料 / 泡棉类 合豊 " [ref=e2181]:
+            - cell [ref=e2182]:
+              - checkbox [ref=e2184] [cursor=pointer]
+            - cell "CR-40A (双亞光面) ゴム" [ref=e2185] [cursor=pointer]
+            - cell "CR-40A (双亞光面)" [ref=e2186] [cursor=pointer]
+            - cell [ref=e2187] [cursor=pointer]
+            - cell "1.500" [ref=e2188] [cursor=pointer]
+            - cell "152" [ref=e2189] [cursor=pointer]
+            - cell "508 mm" [ref=e2190] [cursor=pointer]
+            - cell "片料" [ref=e2191] [cursor=pointer]
+            - cell "黒色" [ref=e2192] [cursor=pointer]
+            - cell "126.73" [ref=e2193] [cursor=pointer]
+            - cell "9.79" [ref=e2194] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2195] [cursor=pointer]
+            - cell [ref=e2196] [cursor=pointer]
+            - cell "合豊" [ref=e2198] [cursor=pointer]
+            - cell "" [ref=e2199] [cursor=pointer]:
+              - button "" [ref=e2201]:
+                - generic [ref=e2202]: 
+            - cell [ref=e2203]
+          - row "CR-50A (双亞光面) ゴム CR-50A (双亞光面) 10.000 152 406 mm 片料 黒色 500.47 30.89 原材料 / 泡棉类 合豊 " [ref=e2204]:
+            - cell [ref=e2205]:
+              - checkbox [ref=e2207] [cursor=pointer]
+            - cell "CR-50A (双亞光面) ゴム" [ref=e2208] [cursor=pointer]
+            - cell "CR-50A (双亞光面)" [ref=e2209] [cursor=pointer]
+            - cell [ref=e2210] [cursor=pointer]
+            - cell "10.000" [ref=e2211] [cursor=pointer]
+            - cell "152" [ref=e2212] [cursor=pointer]
+            - cell "406 mm" [ref=e2213] [cursor=pointer]
+            - cell "片料" [ref=e2214] [cursor=pointer]
+            - cell "黒色" [ref=e2215] [cursor=pointer]
+            - cell "500.47" [ref=e2216] [cursor=pointer]
+            - cell "30.89" [ref=e2217] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2218] [cursor=pointer]
+            - cell [ref=e2219] [cursor=pointer]
+            - cell "合豊" [ref=e2221] [cursor=pointer]
+            - cell "" [ref=e2222] [cursor=pointer]:
+              - button "" [ref=e2224]:
+                - generic [ref=e2225]: 
+            - cell [ref=e2226]
+          - row "CR-60A (双亞光面) ゴム CR-60A (双亞光面) 1.000 152 508 mm 片料 黒色 109.30 8.44 原材料 / 泡棉类 合豊 " [ref=e2227]:
+            - cell [ref=e2228]:
+              - checkbox [ref=e2230] [cursor=pointer]
+            - cell "CR-60A (双亞光面) ゴム" [ref=e2231] [cursor=pointer]
+            - cell "CR-60A (双亞光面)" [ref=e2232] [cursor=pointer]
+            - cell [ref=e2233] [cursor=pointer]
+            - cell "1.000" [ref=e2234] [cursor=pointer]
+            - cell "152" [ref=e2235] [cursor=pointer]
+            - cell "508 mm" [ref=e2236] [cursor=pointer]
+            - cell "片料" [ref=e2237] [cursor=pointer]
+            - cell "黒色" [ref=e2238] [cursor=pointer]
+            - cell "109.30" [ref=e2239] [cursor=pointer]
+            - cell "8.44" [ref=e2240] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2241] [cursor=pointer]
+            - cell [ref=e2242] [cursor=pointer]
+            - cell "合豊" [ref=e2244] [cursor=pointer]
+            - cell "" [ref=e2245] [cursor=pointer]:
+              - button "" [ref=e2247]:
+                - generic [ref=e2248]: 
+            - cell [ref=e2249]
+          - row "CR-60A (双面布紋) ゴム CR-60A (双面布紋) 2.000 152 508 mm 片料 黒色 76.57 5.91 原材料 / 泡棉类 合豊 " [ref=e2250]:
+            - cell [ref=e2251]:
+              - checkbox [ref=e2253] [cursor=pointer]
+            - cell "CR-60A (双面布紋) ゴム" [ref=e2254] [cursor=pointer]
+            - cell "CR-60A (双面布紋)" [ref=e2255] [cursor=pointer]
+            - cell [ref=e2256] [cursor=pointer]
+            - cell "2.000" [ref=e2257] [cursor=pointer]
+            - cell "152" [ref=e2258] [cursor=pointer]
+            - cell "508 mm" [ref=e2259] [cursor=pointer]
+            - cell "片料" [ref=e2260] [cursor=pointer]
+            - cell "黒色" [ref=e2261] [cursor=pointer]
+            - cell "76.57" [ref=e2262] [cursor=pointer]
+            - cell "5.91" [ref=e2263] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2264] [cursor=pointer]
+            - cell [ref=e2265] [cursor=pointer]
+            - cell "合豊" [ref=e2267] [cursor=pointer]
+            - cell "" [ref=e2268] [cursor=pointer]:
+              - button "" [ref=e2270]:
+                - generic [ref=e2271]: 
+            - cell [ref=e2272]
+          - row "CR-65A (双亞光面) ゴム CR-65A (双亞光面) 1.000 152 508 mm 片料 黒色 109.30 8.44 原材料 / 泡棉类 合豊 " [ref=e2273]:
+            - cell [ref=e2274]:
+              - checkbox [ref=e2276] [cursor=pointer]
+            - cell "CR-65A (双亞光面) ゴム" [ref=e2277] [cursor=pointer]
+            - cell "CR-65A (双亞光面)" [ref=e2278] [cursor=pointer]
+            - cell [ref=e2279] [cursor=pointer]
+            - cell "1.000" [ref=e2280] [cursor=pointer]
+            - cell "152" [ref=e2281] [cursor=pointer]
+            - cell "508 mm" [ref=e2282] [cursor=pointer]
+            - cell "片料" [ref=e2283] [cursor=pointer]
+            - cell "黒色" [ref=e2284] [cursor=pointer]
+            - cell "109.30" [ref=e2285] [cursor=pointer]
+            - cell "8.44" [ref=e2286] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2287] [cursor=pointer]
+            - cell [ref=e2288] [cursor=pointer]
+            - cell "合豊" [ref=e2290] [cursor=pointer]
+            - cell "" [ref=e2291] [cursor=pointer]:
+              - button "" [ref=e2293]:
+                - generic [ref=e2294]: 
+            - cell [ref=e2295]
+          - row "CSTK-330-20R 放熱シート CSTK-330-20R 0.900 330 20 m 卷料 黒色 92.27 608.98 原材料 / 石墨散热膜 北川 " [ref=e2296]:
+            - cell [ref=e2297]:
+              - checkbox [ref=e2299] [cursor=pointer]
+            - cell "CSTK-330-20R 放熱シート" [ref=e2300] [cursor=pointer]
+            - cell "CSTK-330-20R" [ref=e2301] [cursor=pointer]
+            - cell [ref=e2302] [cursor=pointer]
+            - cell "0.900" [ref=e2303] [cursor=pointer]
+            - cell "330" [ref=e2304] [cursor=pointer]
+            - cell "20 m" [ref=e2305] [cursor=pointer]
+            - cell "卷料" [ref=e2306] [cursor=pointer]
+            - cell "黒色" [ref=e2307] [cursor=pointer]
+            - cell "92.27" [ref=e2308] [cursor=pointer]
+            - cell "608.98" [ref=e2309] [cursor=pointer]
+            - cell "原材料 / 石墨散热膜" [ref=e2310] [cursor=pointer]
+            - cell [ref=e2311] [cursor=pointer]
+            - cell "北川" [ref=e2313] [cursor=pointer]
+            - cell "" [ref=e2314] [cursor=pointer]:
+              - button "" [ref=e2316]:
+                - generic [ref=e2317]: 
+            - cell [ref=e2318]
+          - row "CTC7504 保护膜 CTC7504 0.100 1,070 200 m 卷料 0.05 10.70 原材料 / 保护膜 LINTEC " [ref=e2319]:
+            - cell [ref=e2320]:
+              - checkbox [ref=e2322] [cursor=pointer]
+            - cell "CTC7504 保护膜" [ref=e2323] [cursor=pointer]
+            - cell "CTC7504" [ref=e2324] [cursor=pointer]
+            - cell [ref=e2325] [cursor=pointer]
+            - cell "0.100" [ref=e2326] [cursor=pointer]
+            - cell "1,070" [ref=e2327] [cursor=pointer]
+            - cell "200 m" [ref=e2328] [cursor=pointer]
+            - cell "卷料" [ref=e2329] [cursor=pointer]
+            - cell [ref=e2330] [cursor=pointer]
+            - cell "0.05" [ref=e2331] [cursor=pointer]
+            - cell "10.70" [ref=e2332] [cursor=pointer]
+            - cell "原材料 / 保护膜" [ref=e2333] [cursor=pointer]
+            - cell [ref=e2334] [cursor=pointer]
+            - cell "LINTEC" [ref=e2336] [cursor=pointer]
+            - cell "" [ref=e2337] [cursor=pointer]:
+              - button "" [ref=e2339]:
+                - generic [ref=e2340]: 
+            - cell [ref=e2341]
+          - row "CTC7508 保护膜 CTC7508 0.100 1,070 200 m 卷料 0.05 10.70 原材料 / 保护膜 LINTEC " [ref=e2342]:
+            - cell [ref=e2343]:
+              - checkbox [ref=e2345] [cursor=pointer]
+            - cell "CTC7508 保护膜" [ref=e2346] [cursor=pointer]
+            - cell "CTC7508" [ref=e2347] [cursor=pointer]
+            - cell [ref=e2348] [cursor=pointer]
+            - cell "0.100" [ref=e2349] [cursor=pointer]
+            - cell "1,070" [ref=e2350] [cursor=pointer]
+            - cell "200 m" [ref=e2351] [cursor=pointer]
+            - cell "卷料" [ref=e2352] [cursor=pointer]
+            - cell [ref=e2353] [cursor=pointer]
+            - cell "0.05" [ref=e2354] [cursor=pointer]
+            - cell "10.70" [ref=e2355] [cursor=pointer]
+            - cell "原材料 / 保护膜" [ref=e2356] [cursor=pointer]
+            - cell [ref=e2357] [cursor=pointer]
+            - cell "LINTEC" [ref=e2359] [cursor=pointer]
+            - cell "" [ref=e2360] [cursor=pointer]:
+              - button "" [ref=e2362]:
+                - generic [ref=e2363]: 
+            - cell [ref=e2364]
+          - row "CU-500ST アルミテープ CU-500ST 0.053 500 50 m 卷料 铜色 144.56 3,614.00 原材料 / 胶带类 竹内 " [ref=e2365]:
+            - cell [ref=e2366]:
+              - checkbox [ref=e2368] [cursor=pointer]
+            - cell "CU-500ST アルミテープ" [ref=e2369] [cursor=pointer]
+            - cell "CU-500ST" [ref=e2370] [cursor=pointer]
+            - cell [ref=e2371] [cursor=pointer]
+            - cell "0.053" [ref=e2372] [cursor=pointer]
+            - cell "500" [ref=e2373] [cursor=pointer]
+            - cell "50 m" [ref=e2374] [cursor=pointer]
+            - cell "卷料" [ref=e2375] [cursor=pointer]
+            - cell "铜色" [ref=e2376] [cursor=pointer]
+            - cell "144.56" [ref=e2377] [cursor=pointer]
+            - cell "3,614.00" [ref=e2378] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e2379] [cursor=pointer]
+            - cell [ref=e2380] [cursor=pointer]
+            - cell "竹内" [ref=e2382] [cursor=pointer]
+            - cell "" [ref=e2383] [cursor=pointer]:
+              - button "" [ref=e2385]:
+                - generic [ref=e2386]: 
+            - cell [ref=e2387]
+          - row "CY29H PET CY29H 0.050 1,000 200 m 卷料 白色 0.01 2.00 原材料 / 其他辅料 长信 " [ref=e2388]:
+            - cell [ref=e2389]:
+              - checkbox [ref=e2391] [cursor=pointer]
+            - cell "CY29H PET" [ref=e2392] [cursor=pointer]
+            - cell "CY29H" [ref=e2393] [cursor=pointer]
+            - cell [ref=e2394] [cursor=pointer]
+            - cell "0.050" [ref=e2395] [cursor=pointer]
+            - cell "1,000" [ref=e2396] [cursor=pointer]
+            - cell "200 m" [ref=e2397] [cursor=pointer]
+            - cell "卷料" [ref=e2398] [cursor=pointer]
+            - cell "白色" [ref=e2399] [cursor=pointer]
+            - cell "0.01" [ref=e2400] [cursor=pointer]
+            - cell "2.00" [ref=e2401] [cursor=pointer]
+            - cell "原材料 / 其他辅料" [ref=e2402] [cursor=pointer]
+            - cell [ref=e2403] [cursor=pointer]
+            - cell "长信" [ref=e2405] [cursor=pointer]
+            - cell "" [ref=e2406] [cursor=pointer]:
+              - button "" [ref=e2408]:
+                - generic [ref=e2409]: 
+            - cell [ref=e2410]
+          - row "DIC HC2120F-BP 防曝膜 DIC HC2120F-BP 0.120 960 100 m 卷料 透明 218.73 20,998.08 原材料 / 保护膜 黒田 " [ref=e2411]:
+            - cell [ref=e2412]:
+              - checkbox [ref=e2414] [cursor=pointer]
+            - cell "DIC HC2120F-BP 防曝膜" [ref=e2415] [cursor=pointer]
+            - cell "DIC HC2120F-BP" [ref=e2416] [cursor=pointer]
+            - cell [ref=e2417] [cursor=pointer]
+            - cell "0.120" [ref=e2418] [cursor=pointer]
+            - cell "960" [ref=e2419] [cursor=pointer]
+            - cell "100 m" [ref=e2420] [cursor=pointer]
+            - cell "卷料" [ref=e2421] [cursor=pointer]
+            - cell "透明" [ref=e2422] [cursor=pointer]
+            - cell "218.73" [ref=e2423] [cursor=pointer]
+            - cell "20,998.08" [ref=e2424] [cursor=pointer]
+            - cell "原材料 / 保护膜" [ref=e2425] [cursor=pointer]
+            - cell [ref=e2426] [cursor=pointer]
+            - cell "黒田" [ref=e2428] [cursor=pointer]
+            - cell "" [ref=e2429] [cursor=pointer]:
+              - button "" [ref=e2431]:
+                - generic [ref=e2432]: 
+            - cell [ref=e2433]
+          - row "DIC-#8650S 両面テープ DIC-#8650S 0.150 1,060 50 m 卷料 透明 33.42 1,771.26 原材料 / 胶带类 SEK " [ref=e2434]:
+            - cell [ref=e2435]:
+              - checkbox [ref=e2437] [cursor=pointer]
+            - cell "DIC-#8650S 両面テープ" [ref=e2438] [cursor=pointer]
+            - cell "DIC-#8650S" [ref=e2439] [cursor=pointer]
+            - cell [ref=e2440] [cursor=pointer]
+            - cell "0.150" [ref=e2441] [cursor=pointer]
+            - cell "1,060" [ref=e2442] [cursor=pointer]
+            - cell "50 m" [ref=e2443] [cursor=pointer]
+            - cell "卷料" [ref=e2444] [cursor=pointer]
+            - cell "透明" [ref=e2445] [cursor=pointer]
+            - cell "33.42" [ref=e2446] [cursor=pointer]
+            - cell "1,771.26" [ref=e2447] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e2448] [cursor=pointer]
+            - cell [ref=e2449] [cursor=pointer]
+            - cell "SEK" [ref=e2451] [cursor=pointer]
+            - cell "" [ref=e2452] [cursor=pointer]:
+              - button "" [ref=e2454]:
+                - generic [ref=e2455]: 
+            - cell [ref=e2456]
+          - row "DIC-#8800CH 両面テープ DIC-#8800CH 0.150 1,000 50 m 卷料 透明 25.85 1,292.50 原材料 / 胶带类 SEK " [ref=e2457]:
+            - cell [ref=e2458]:
+              - checkbox [ref=e2460] [cursor=pointer]
+            - cell "DIC-#8800CH 両面テープ" [ref=e2461] [cursor=pointer]
+            - cell "DIC-#8800CH" [ref=e2462] [cursor=pointer]
+            - cell [ref=e2463] [cursor=pointer]
+            - cell "0.150" [ref=e2464] [cursor=pointer]
+            - cell "1,000" [ref=e2465] [cursor=pointer]
+            - cell "50 m" [ref=e2466] [cursor=pointer]
+            - cell "卷料" [ref=e2467] [cursor=pointer]
+            - cell "透明" [ref=e2468] [cursor=pointer]
+            - cell "25.85" [ref=e2469] [cursor=pointer]
+            - cell "1,292.50" [ref=e2470] [cursor=pointer]
+            - cell "原材料 / 胶带类" [ref=e2471] [cursor=pointer]
+            - cell [ref=e2472] [cursor=pointer]
+            - cell "SEK" [ref=e2474] [cursor=pointer]
+            - cell "" [ref=e2475] [cursor=pointer]:
+              - button "" [ref=e2477]:
+                - generic [ref=e2478]: 
+            - cell [ref=e2479]
+          - row "E13CP70 銅＋PET E13CP70 0.100 500 330 mm 片料 銅色 1,445.02 238.43 原材料 / 金属箔 黒田 " [ref=e2480]:
+            - cell [ref=e2481]:
+              - checkbox [ref=e2483] [cursor=pointer]
+            - cell "E13CP70 銅＋PET" [ref=e2484] [cursor=pointer]
+            - cell "E13CP70" [ref=e2485] [cursor=pointer]
+            - cell [ref=e2486] [cursor=pointer]
+            - cell "0.100" [ref=e2487] [cursor=pointer]
+            - cell "500" [ref=e2488] [cursor=pointer]
+            - cell "330 mm" [ref=e2489] [cursor=pointer]
+            - cell "片料" [ref=e2490] [cursor=pointer]
+            - cell "銅色" [ref=e2491] [cursor=pointer]
+            - cell "1,445.02" [ref=e2492] [cursor=pointer]
+            - cell "238.43" [ref=e2493] [cursor=pointer]
+            - cell "原材料 / 金属箔" [ref=e2494] [cursor=pointer]
+            - cell [ref=e2495] [cursor=pointer]
+            - cell "黒田" [ref=e2497] [cursor=pointer]
+            - cell "" [ref=e2498] [cursor=pointer]:
+              - button "" [ref=e2500]:
+                - generic [ref=e2501]: 
+            - cell [ref=e2502]
+          - row "ECS スポンジ ECS 4.000 1,000 2000 mm 片料 黒色 17.01 34.02 原材料 / 泡棉类 新世界 " [ref=e2503]:
+            - cell [ref=e2504]:
+              - checkbox [ref=e2506] [cursor=pointer]
+            - cell "ECS スポンジ" [ref=e2507] [cursor=pointer]
+            - cell "ECS" [ref=e2508] [cursor=pointer]
+            - cell [ref=e2509] [cursor=pointer]
+            - cell "4.000" [ref=e2510] [cursor=pointer]
+            - cell "1,000" [ref=e2511] [cursor=pointer]
+            - cell "2000 mm" [ref=e2512] [cursor=pointer]
+            - cell "片料" [ref=e2513] [cursor=pointer]
+            - cell "黒色" [ref=e2514] [cursor=pointer]
+            - cell "17.01" [ref=e2515] [cursor=pointer]
+            - cell "34.02" [ref=e2516] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2517] [cursor=pointer]
+            - cell [ref=e2518] [cursor=pointer]
+            - cell "新世界" [ref=e2520] [cursor=pointer]
+            - cell "" [ref=e2521] [cursor=pointer]:
+              - button "" [ref=e2523]:
+                - generic [ref=e2524]: 
+            - cell [ref=e2525]
+          - row "EPDM-40A (双亮光片) ゴム EPDM-40A (双亮光片) 0.700 152 406 mm 片料 黒色 110.80 6.84 原材料 / 泡棉类 合豊 " [ref=e2526]:
+            - cell [ref=e2527]:
+              - checkbox [ref=e2529] [cursor=pointer]
+            - cell "EPDM-40A (双亮光片) ゴム" [ref=e2530] [cursor=pointer]
+            - cell "EPDM-40A (双亮光片)" [ref=e2531] [cursor=pointer]
+            - cell [ref=e2532] [cursor=pointer]
+            - cell "0.700" [ref=e2533] [cursor=pointer]
+            - cell "152" [ref=e2534] [cursor=pointer]
+            - cell "406 mm" [ref=e2535] [cursor=pointer]
+            - cell "片料" [ref=e2536] [cursor=pointer]
+            - cell "黒色" [ref=e2537] [cursor=pointer]
+            - cell "110.80" [ref=e2538] [cursor=pointer]
+            - cell "6.84" [ref=e2539] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2540] [cursor=pointer]
+            - cell [ref=e2541] [cursor=pointer]
+            - cell "合豊" [ref=e2543] [cursor=pointer]
+            - cell "" [ref=e2544] [cursor=pointer]:
+              - button "" [ref=e2546]:
+                - generic [ref=e2547]: 
+            - cell [ref=e2548]
+          - row "EPDM-60A (双面布紋) ゴム EPDM-60A (双面布紋) 0.400 150 150 mm 片料 黒色 154.88 3.48 原材料 / 泡棉类 合豊 " [ref=e2549]:
+            - cell [ref=e2550]:
+              - checkbox [ref=e2552] [cursor=pointer]
+            - cell "EPDM-60A (双面布紋) ゴム" [ref=e2553] [cursor=pointer]
+            - cell "EPDM-60A (双面布紋)" [ref=e2554] [cursor=pointer]
+            - cell [ref=e2555] [cursor=pointer]
+            - cell "0.400" [ref=e2556] [cursor=pointer]
+            - cell "150" [ref=e2557] [cursor=pointer]
+            - cell "150 mm" [ref=e2558] [cursor=pointer]
+            - cell "片料" [ref=e2559] [cursor=pointer]
+            - cell "黒色" [ref=e2560] [cursor=pointer]
+            - cell "154.88" [ref=e2561] [cursor=pointer]
+            - cell "3.48" [ref=e2562] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2563] [cursor=pointer]
+            - cell [ref=e2564] [cursor=pointer]
+            - cell "合豊" [ref=e2566] [cursor=pointer]
+            - cell "" [ref=e2567] [cursor=pointer]:
+              - button "" [ref=e2569]:
+                - generic [ref=e2570]: 
+            - cell [ref=e2571]
+          - row "EVA18° スポンジ EVA18° 3.000 1,000 1000 mm 片料 黄/白/緑 21.00 21.00 原材料 / 泡棉类 宝源 " [ref=e2572]:
+            - cell [ref=e2573]:
+              - checkbox [ref=e2575] [cursor=pointer]
+            - cell "EVA18° スポンジ" [ref=e2576] [cursor=pointer]
+            - cell "EVA18°" [ref=e2577] [cursor=pointer]
+            - cell [ref=e2578] [cursor=pointer]
+            - cell "3.000" [ref=e2579] [cursor=pointer]
+            - cell "1,000" [ref=e2580] [cursor=pointer]
+            - cell "1000 mm" [ref=e2581] [cursor=pointer]
+            - cell "片料" [ref=e2582] [cursor=pointer]
+            - cell "黄/白/緑" [ref=e2583] [cursor=pointer]
+            - cell "21.00" [ref=e2584] [cursor=pointer]
+            - cell "21.00" [ref=e2585] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2586] [cursor=pointer]
+            - cell [ref=e2587] [cursor=pointer]
+            - cell "宝源" [ref=e2589] [cursor=pointer]
+            - cell "" [ref=e2590] [cursor=pointer]:
+              - button "" [ref=e2592]:
+                - generic [ref=e2593]: 
+            - cell [ref=e2594]
+          - row "EVA35° スポンジ EVA35° 2.000 1,000 1000 mm 片料 黄/白/緑 18.00 18.00 原材料 / 泡棉类 宝源 " [ref=e2595]:
+            - cell [ref=e2596]:
+              - checkbox [ref=e2598] [cursor=pointer]
+            - cell "EVA35° スポンジ" [ref=e2599] [cursor=pointer]
+            - cell "EVA35°" [ref=e2600] [cursor=pointer]
+            - cell [ref=e2601] [cursor=pointer]
+            - cell "2.000" [ref=e2602] [cursor=pointer]
+            - cell "1,000" [ref=e2603] [cursor=pointer]
+            - cell "1000 mm" [ref=e2604] [cursor=pointer]
+            - cell "片料" [ref=e2605] [cursor=pointer]
+            - cell "黄/白/緑" [ref=e2606] [cursor=pointer]
+            - cell "18.00" [ref=e2607] [cursor=pointer]
+            - cell "18.00" [ref=e2608] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2609] [cursor=pointer]
+            - cell [ref=e2610] [cursor=pointer]
+            - cell "宝源" [ref=e2612] [cursor=pointer]
+            - cell "" [ref=e2613] [cursor=pointer]:
+              - button "" [ref=e2615]:
+                - generic [ref=e2616]: 
+            - cell [ref=e2617]
+          - row "EVA新海綿35° スポンジ EVA新海綿35° 1.000 850 1850 mm 片料 黄/白/緑 12.90 20.29 原材料 / 泡棉类 宝源 " [ref=e2618]:
+            - cell [ref=e2619]:
+              - checkbox [ref=e2621] [cursor=pointer]
+            - cell "EVA新海綿35° スポンジ" [ref=e2622] [cursor=pointer]
+            - cell "EVA新海綿35°" [ref=e2623] [cursor=pointer]
+            - cell [ref=e2624] [cursor=pointer]
+            - cell "1.000" [ref=e2625] [cursor=pointer]
+            - cell "850" [ref=e2626] [cursor=pointer]
+            - cell "1850 mm" [ref=e2627] [cursor=pointer]
+            - cell "片料" [ref=e2628] [cursor=pointer]
+            - cell "黄/白/緑" [ref=e2629] [cursor=pointer]
+            - cell "12.90" [ref=e2630] [cursor=pointer]
+            - cell "20.29" [ref=e2631] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2632] [cursor=pointer]
+            - cell [ref=e2633] [cursor=pointer]
+            - cell "宝源" [ref=e2635] [cursor=pointer]
+            - cell "" [ref=e2636] [cursor=pointer]:
+              - button "" [ref=e2638]:
+                - generic [ref=e2639]: 
+            - cell [ref=e2640]
+          - row "F-2 スポンジ F-2 3.000 1,000 2000 mm 片料 黒色 13.63 27.26 原材料 / 泡棉类 新世界 " [ref=e2641]:
+            - cell [ref=e2642]:
+              - checkbox [ref=e2644] [cursor=pointer]
+            - cell "F-2 スポンジ" [ref=e2645] [cursor=pointer]
+            - cell "F-2" [ref=e2646] [cursor=pointer]
+            - cell [ref=e2647] [cursor=pointer]
+            - cell "3.000" [ref=e2648] [cursor=pointer]
+            - cell "1,000" [ref=e2649] [cursor=pointer]
+            - cell "2000 mm" [ref=e2650] [cursor=pointer]
+            - cell "片料" [ref=e2651] [cursor=pointer]
+            - cell "黒色" [ref=e2652] [cursor=pointer]
+            - cell "13.63" [ref=e2653] [cursor=pointer]
+            - cell "27.26" [ref=e2654] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2655] [cursor=pointer]
+            - cell [ref=e2656] [cursor=pointer]
+            - cell "新世界" [ref=e2658] [cursor=pointer]
+            - cell "" [ref=e2659] [cursor=pointer]:
+              - button "" [ref=e2661]:
+                - generic [ref=e2662]: 
+            - cell [ref=e2663]
+          - row "F-6 スポンジ F-6 11.000 1,000 2000 mm 片料 黒色 59.95 119.90 原材料 / 泡棉类 新世界 " [ref=e2664]:
+            - cell [ref=e2665]:
+              - checkbox [ref=e2667] [cursor=pointer]
+            - cell "F-6 スポンジ" [ref=e2668] [cursor=pointer]
+            - cell "F-6" [ref=e2669] [cursor=pointer]
+            - cell [ref=e2670] [cursor=pointer]
+            - cell "11.000" [ref=e2671] [cursor=pointer]
+            - cell "1,000" [ref=e2672] [cursor=pointer]
+            - cell "2000 mm" [ref=e2673] [cursor=pointer]
+            - cell "片料" [ref=e2674] [cursor=pointer]
+            - cell "黒色" [ref=e2675] [cursor=pointer]
+            - cell "59.95" [ref=e2676] [cursor=pointer]
+            - cell "119.90" [ref=e2677] [cursor=pointer]
+            - cell "原材料 / 泡棉类" [ref=e2678] [cursor=pointer]
+            - cell [ref=e2679] [cursor=pointer]
+            - cell "新世界" [ref=e2681] [cursor=pointer]
+            - cell "" [ref=e2682] [cursor=pointer]:
+              - button "" [ref=e2684]:
+                - generic [ref=e2685]: 
+            - cell [ref=e2686]
+        - rowgroup [ref=e2687]:
+          - row [ref=e2688]:
+            - cell [ref=e2689]
+            - cell [ref=e2690]
+  - generic:
+    - generic:
+      - menu [ref=e2691]:
+        - 'menuitem "搜索 产品名称/编码 对于: HN603B" [ref=e2692] [cursor=pointer]':
+          - 'link "搜索 产品名称/编码 对于: HN603B" [ref=e2693]':
+            - /url: "#"
+        - 'menuitem "搜索 材质/牌号 对于: HN603B" [ref=e2694] [cursor=pointer]':
+          - 'link "搜索 材质/牌号 对于: HN603B" [ref=e2695]':
+            - /url: "#"
+        - 'menuitem " 搜索 厂商 对于: HN603B" [ref=e2696] [cursor=pointer]':
+          - link "" [ref=e2697]:
+            - /url: "#"
+            - generic [ref=e2698]: 
+          - 'link "搜索 厂商 对于: HN603B" [ref=e2699]':
+            - /url: "#"
+        - menuitem " 搜索 物理特性" [ref=e2700] [cursor=pointer]:
+          - link "" [ref=e2701]:
+            - /url: "#"
+            - generic [ref=e2702]: 
+          - link "搜索 物理特性" [ref=e2703]:
+            - /url: "#"
+        - menuitem "自定义筛选器..." [ref=e2704] [cursor=pointer]:
+          - link "自定义筛选器..." [ref=e2705]:
+            - /url: "#"
+      - dialog [ref=e2710]:
+        - generic [ref=e2711]:
+          - banner [ref=e2712]:
+            - heading "自定义筛选器" [level=4] [ref=e2713]
+            - button "关闭" [ref=e2714] [cursor=pointer]
+          - main [ref=e2715]:
+            - generic [ref=e2718]:
+              - generic [ref=e2719]:
+                - generic [ref=e2720]:
+                  - generic [ref=e2721]: 匹配
+                  - button "任意 " [active] [ref=e2723] [cursor=pointer]:
+                    - strong [ref=e2724]: 任意
+                    - text: 
+                  - generic [ref=e2725]: "以下规则:"
+                - generic [ref=e2726]:
+                  - checkbox "包括已归档" [ref=e2727] [cursor=pointer]
+                  - generic [ref=e2728] [cursor=pointer]: 包括已归档
+              - generic [ref=e2730]:
+                - generic [ref=e2731]:
+                  - generic [ref=e2734] [cursor=pointer]: ID
+                  - combobox [ref=e2736] [cursor=pointer]:
+                    - option "等于" [selected]
+                    - option "不等于"
+                    - option "lower than"
+                    - option "大于"
+                    - option "between"
+                  - textbox [ref=e2738]: "1"
+                - toolbar "域节点" [ref=e2739]:
+                  - button "Add nested rule" [ref=e2740] [cursor=pointer]:
+                    - generic [ref=e2741]: 
+                  - button "删除规则" [ref=e2742] [cursor=pointer]:
+                    - generic [ref=e2743]: 
+              - button "新规则" [ref=e2745] [cursor=pointer]
+          - contentinfo [ref=e2746]:
+            - button "搜索" [ref=e2747] [cursor=pointer]
+            - button "放弃" [ref=e2748] [cursor=pointer]
+    - generic:
+      - paragraph: 按 esc 离开全屏幕

@@ -14,8 +14,8 @@ class DiecutQuote(models.Model):
     contact_id = fields.Many2one('res.partner', string="联系人", domain="[('parent_id', '=', customer_id)]")
 
     product_name = fields.Char(string="品名 :") 
-    project_sn = fields.Char(string="客户料号 :")  
-    internal_sn = fields.Char(string="内部料号 :")
+    project_sn = fields.Char(string="项目号 :")  
+    internal_sn = fields.Char(string="料号 :")
     terminal = fields.Char(string="终端客户 :")
     user_id = fields.Many2one('res.users', string="制单人", default=lambda self: self.env.user)
     specification = fields.Char(string="产品规格(mm) :")
@@ -83,7 +83,7 @@ class DiecutQuote(models.Model):
 
     # Summary
     subtotal_cost = fields.Float(string="不含税成本总和", compute='_compute_final_price', store=True, digits=(16, 4))
-    profit_rate = fields.Float(string="目标利润率（按不含税售价）", default=0.15)
+    profit_rate = fields.Float(string="目标利润率", default=0.15,help="目标利润率(按销售不含税价格计算)，默认15%")
     profit_amount = fields.Float(string="利润", compute='_compute_final_price', store=True, digits=(16, 4))
     quote_price_excluded = fields.Float(string="不含税报价", compute='_compute_final_price', store=True, digits=(16, 4))
     output_vat = fields.Float(string="销项税额", compute='_compute_final_price', store=True, digits=(16, 4))
@@ -319,6 +319,7 @@ class DiecutQuote(models.Model):
                     ("增值税率", record._fmt_percent(record.vat_rate)),
                     ("材料成本不含税", record._fmt_amount(record.total_material_cost_excluded)),
                     ("材料进项税额", record._fmt_amount(record.material_input_vat)),
+                    ("材料成本占比", f"{record._fmt_amount(record.total_material_cost_excluded)} / 不含税报价 {record._fmt_amount(record.quote_price_excluded)} = {record._fmt_percent(record.material_cost_ratio)}"),
                 ],
                 record._fmt_amount(record.total_material_cost_excluded),
             )
@@ -328,6 +329,7 @@ class DiecutQuote(models.Model):
                 [
                     ("工序费用", "工费/H * 人数 / 产能 / 良率"),
                     ("制造成本", record._fmt_amount(record.total_manufacturing_cost)),
+                    ("制造成本占比", f"{record._fmt_amount(record.total_manufacturing_cost)} / 不含税报价 {record._fmt_amount(record.quote_price_excluded)} = {record._fmt_percent(record.manufacturing_cost_ratio)}"),
                 ],
                 record._fmt_amount(record.total_manufacturing_cost),
             )
@@ -762,7 +764,7 @@ class DiecutQuoteWizard(models.TransientModel):
     contact_id = fields.Many2one('res.partner', string="联系人", domain="[('parent_id', '=', customer_id)]")
     
     product_name = fields.Char(string="品名 :")   
-    internal_sn = fields.Char(string="内部料号 :")
+    internal_sn = fields.Char(string="料号 :")
     project_sn = fields.Char(string="项目编号 :")
     terminal = fields.Char(string="终端客户 :")
     user_id = fields.Many2one('res.users', string="制单人")

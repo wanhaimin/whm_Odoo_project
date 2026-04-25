@@ -1,0 +1,66 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - button "" [ref=e5] [cursor=pointer]:
+        - generic [ref=e6]: 
+      - menuitem "讨论" [ref=e7] [cursor=pointer]
+      - menu [ref=e8]:
+        - menuitem "讨论" [ref=e9] [cursor=pointer]
+        - menuitem "频道" [ref=e10] [cursor=pointer]
+        - button "配置" [ref=e11] [cursor=pointer]:
+          - generic [ref=e12]: 配置
+      - menu [ref=e13]:
+        - button "消息 4" [ref=e15] [cursor=pointer]:
+          - img "消息" [ref=e16]: 
+          - generic [ref=e17]: "4"
+        - button "活动" [ref=e18] [cursor=pointer]:
+          - img "活动" [ref=e19]: 
+        - button "" [disabled] [ref=e21]:
+          - generic [ref=e22]: 
+        - generic: 
+        - button "用户 用户上线" [ref=e24] [cursor=pointer]:
+          - generic [ref=e25]:
+            - img "用户" [ref=e26]
+            - img "用户上线" [ref=e29]: 
+          - text: 
+  - generic [ref=e32]:
+    - generic [ref=e35]:
+      - generic [ref=e36]:
+        - generic [ref=e38]:
+          - generic [ref=e39]: 
+          - textbox "Search conversations" [disabled] [ref=e40]
+        - button "New Meeting" [ref=e42] [cursor=pointer]:
+          - img [ref=e43]
+      - button " Starred messages" [ref=e46] [cursor=pointer]:
+        - generic [ref=e48]: 
+        - generic [ref=e49]: Starred messages
+      - button " 频道" [ref=e51] [cursor=pointer]:
+        - generic [ref=e52]: 
+        - generic [ref=e53]: 频道
+      - button "线程图像 Administrators" [ref=e56] [cursor=pointer]:
+        - generic "Administrators" [ref=e57]:
+          - img "线程图像" [ref=e59]
+          - generic [ref=e60]: Administrators
+        - text: 
+      - button " 私聊消息" [ref=e62] [cursor=pointer]:
+        - generic [ref=e63]: 
+        - generic [ref=e64]: 私聊消息
+      - button "线程图像 用户是机器人 OdooBot" [ref=e66] [cursor=pointer]:
+        - generic "OdooBot" [ref=e67]:
+          - generic [ref=e68]:
+            - img "线程图像" [ref=e69]
+            - img "用户是机器人" [ref=e73]: 
+          - generic [ref=e74]: OdooBot
+        - text: 
+      - button "线程图像 用户上线 Administrator" [ref=e76] [cursor=pointer]:
+        - generic "Administrator" [ref=e77]:
+          - generic [ref=e78]:
+            - img "线程图像" [ref=e79]
+            - img "用户上线" [ref=e83]: 
+          - generic [ref=e84]: Administrator
+        - text: 
+    - heading "未选择对话。" [level=4] [ref=e91]:
+      - generic [ref=e92]: 未选择对话。
+  - generic:
+    - generic:
+      - paragraph: 按 esc 离开全屏幕

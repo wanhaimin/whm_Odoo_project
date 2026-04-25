@@ -9,11 +9,11 @@
                 <field name="name" />
                 <field name="customer_id" />
                 <field name="product_name" />
-                <field name="project_sn" />
-                <field name="internal_sn" />
-                <field name="quote_date" />
-                <field name="final_unit_price" digits="[16,4]" decoration-bf="1" />
+                <field name="project_sn" optional="hide" />
+                <field name="internal_sn" optional="show" />
+                <field name="quote_date" optional="hide" />
                 <field name="profit_rate" widget="percentage" digits="[16,0]" decoration-success="is_high_profit" decoration-danger="is_low_profit" />
+                <field name="final_unit_price" digits="[16,4]" decoration-bf="1" />
                 <field name="is_high_profit" column_invisible="True" />
                 <field name="is_low_profit" column_invisible="True" />
                 <field name="is_profitable" column_invisible="True" />
@@ -32,182 +32,260 @@
                 <header>
                     <button name="action_open_wizard" string="快速录入" type="object" class="btn-primary" icon="fa-pencil-square-o" />
                 </header>
-                <sheet>
-                    <div class="oe_title">
+                <sheet class="o_diecut_quote_sheet">
+                    <div class="oe_title o_diecut_quote_title_block">
                         <h1>
                             <field name="name" readonly="1" />
                         </h1>
                     </div>
-                    <group name="group_top" col="3">
-                        <group name="group_left">
-                            <field name="customer_id" string="客户" context="{'res_partner_search_mode': 'customer', 'default_is_company': True, 'default_customer_rank': 1}" />
-                            <field name="contact_id" domain="[('parent_id', '=', customer_id),('customer_rank', '>', 0)]" context="{'default_customer_rank': 1, 'default_is_company': False}" />
-                            <field name="currency_id" options="{'no_create': True, 'no_open': True}" />
-                            <field name="quote_date" />
+                    <div class="o_diecut_quote_header_panel">
+                        <group name="group_top" col="3" class="o_diecut_quote_header_groups">
+                            <group name="group_left" string="客户信息" class="o_diecut_quote_info_group o_diecut_quote_info_group_customer">
+                                <field name="customer_id" string="客户" context="{'res_partner_search_mode': 'customer', 'default_is_company': True, 'default_customer_rank': 1}" />
+                                <field name="contact_id" domain="[('parent_id', '=', customer_id),('customer_rank', '>', 0)]" context="{'default_customer_rank': 1, 'default_is_company': False}" />
+                                <field name="currency_id" options="{'no_create': True, 'no_open': True}" />
+                                <field name="quote_date" />
+                            </group>
+                            <group name="group_middle" string="产品信息" class="o_diecut_quote_info_group o_diecut_quote_info_group_product">
+                                <field name="product_name" />
+                                <field name="internal_sn" string="料号" />
+                                <field name="specification" placeholder="如: 33.35 * 17.05" />
+                                <field name="project_sn" string="终端项目号" />
+                            </group>
+                            <group name="group_right" string="业务信息" class="o_diecut_quote_info_group o_diecut_quote_info_group_business">
+                                <field name="moq" string="最小起订量" />
+                                <field name="lead_time" string="交期" />
+                                <field name="user_id" string="制单人" widget="many2one_avatar_user" />
+                            </group>
                         </group>
-                        <group name="group_middle">
-                            <field name="product_name" />
-                            <field name="internal_sn" string="料号" />
-                            <field name="specification" placeholder="如: 33.35 * 17.05" />
-                            <field name="project_sn" string="终端项目号 ： " />
-                        </group>
-                        <group name="group_right">
-                            <field name="moq" string="最小起订量:" />
-                            <field name="lead_time" string="交期:" />
-                            <field name="user_id" string="制单人" widget="many2one_avatar_user" />
-                        </group>
-                    </group>
+                    </div>
                     <div class="o_diecut_quote_excel_shell">
-                    <div class="o_diecut_quote_spreadsheet_page">
-                        <div class="o_diecut_formula_toolbar">
-                            <a href="#" role="button" class="btn btn-sm btn-outline-secondary o_diecut_formula_open" data-diecut-formula-open="1">
-                                <i class="fa fa-calculator" />
-                                公式说明
-                            </a>
-                        </div>
-                        <separator string="二、材料成本" />
-                        <div name="material_cost" class="mb-3">
-                            <div class="d-flex justify-content-between mb-2">
-                                <div class="d-flex gap-1">
-                                    <button name="action_open_material_filter" string="🔍 筛选材料" type="object" class="btn-sm btn-outline-secondary" icon="fa-search" help="按分类、功能、认证等条件筛选材料" />
-                                    <span class="border-start mx-1" />
-                                    <button name="action_check_all_lines" string="全选" type="object" class="btn-sm btn-outline-secondary" icon="fa-check-square-o" />
-                                    <button name="action_uncheck_all_lines" string="取消" type="object" class="btn-sm btn-outline-secondary" icon="fa-square-o" />
-                                    <button name="action_copy_checked_lines" string="复制选中" type="object" class="btn-sm btn-outline-primary" icon="fa-copy" help="复制已勾选的材料行" />
-                                    <button name="action_delete_checked_lines" string="删除选中" type="object" class="btn-sm btn-outline-danger" icon="fa-trash" help="删除已勾选的材料行" confirm="确定删除已勾选的材料行？" />
-                                </div>
-                                <div class="btn-group" role="group" aria-label="Bulk Sync Actions">
-                                    <button name="action_sync_slitting_width" string="同步分切宽" type="object" class="btn-sm btn-secondary" help="应用首行分切宽到所有行" />
-                                    <button name="action_sync_pitch" string="同步跳距" type="object" class="btn-sm btn-secondary" help="应用首行跳距到所有行" />
-                                    <button name="action_sync_cavity" string="同步穴数" type="object" class="btn-sm btn-secondary" help="应用首行模穴数到所有行" />
-                                    <button name="action_sync_yield_rate" string="同步良率" type="object" class="btn-sm btn-secondary" help="应用首行良率到所有行" />
-                                </div>
+                        <div class="o_diecut_quote_spreadsheet_page">
+                            <div class="o_diecut_formula_toolbar">
+                                <a href="#" role="button" class="btn btn-sm btn-outline-secondary o_diecut_formula_open" data-diecut-formula-open="1">
+                                    <i class="fa fa-calculator" />
+                                    公式说明
+                                </a>
                             </div>
-                            <field name="material_line_ids" mode="list">
-                                <list editable="bottom" multi_edit="1" class="o_diecut_quote_list">
-                                    <field name="is_checked" string=" " widget="boolean" nolabel="1" />
-                                    <field name="material_id" width="160px" options="{'no_open': False}" />
-                                    <field name="raw_width" string="原材宽" optional="show" />
-                                    <field name="raw_length" string="原材长" optional="show" />
-                                    <field name="price_unit_tax_inc" string="含税单价" optional="show" digits="[16,4]" />
-                                    <field name="slitting_rolls" optional="show" />
-                                    <field name="qty_per_roll" optional="show" />
-                                    <field name="slitting_width" string="分切宽" optional="show" />
-                                    <field name="pitch" string="跳距" optional="show" />
-                                    <field name="cavity" string="模穴数" optional="show" />
-                                    <field name="unit_usage" optional="show" digits="[12,6]" />
-                                    <field name="yield_rate" widget="percentage" optional="show" />
-                                    <field name="unit_consumable_cost" sum="Total" decoration-bf="1" optional="show" digits="[16,4]" class="o_diecut_formula_target_material" />
-                                </list>
-                            </field>
-                            <group class="oe_subtotal_footer oe_right">
-                                <field name="material_cost_ratio" widget="percentage" class="o_diecut_formula_target_material" />
-                                <field name="total_material_cost" string="材料成本含税" digits="[16,4]" class="o_diecut_formula_target_material" />
-                                <field name="total_material_cost_excluded" digits="[16,4]" readonly="1" class="o_diecut_formula_target_material" />
-                                <field name="material_input_vat" digits="[16,4]" readonly="1" class="o_diecut_formula_target_material" />
-                            </group>
-                        </div>
-                        <separator string="三、制造成本" />
-                        <div name="manufacturing_cost" class="mb-3">
-                            <field name="manufacturing_line_ids" mode="list">
-                                <list editable="bottom" class="o_diecut_quote_list">
-                                    <field name="step_1" string="工序" width="150px" />
-                                    <field name="step_2" width="200px" optional="hide" />
-                                    <field name="mfg_fee" string="工费/H" digits="[16,4]" />
-                                    <field name="workstation_qty" string="人数" />
-                                    <field name="capacity" />
-                                    <field name="yield_rate" widget="percentage" />
-                                    <field name="cost_per_pcs" decoration-bf="1" digits="[16,4]" class="o_diecut_formula_target_manufacturing" />
-                                </list>
-                            </field>
-                            <group class="oe_subtotal_footer oe_right">
-                                <field name="total_manufacturing_cost" string="制造成本" digits="[16,4]" class="o_diecut_formula_target_manufacturing" />
-                            </group>
-                        </div>
-                        <separator string="四、管销与其它" />
-                        <div name="overhead_cost" class="mb-3">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <group string="管销费率摊销">
-                                        <field name="transport_rate" widget="percentage" />
-                                        <field name="management_rate" widget="percentage" />
-                                        <field name="utility_rate" widget="percentage" />
-                                        <field name="packaging_rate" widget="percentage" />
-                                        <field name="depreciation_rate" widget="percentage" />
-                                        <field name="marketing_cost_ratio" widget="percentage" readonly="1" class="o_diecut_formula_target_marketing" />
-                                        <field name="total_marketing_cost" digits="[16,4]" class="oe_subtotal_footer_separator o_diecut_formula_target_marketing" />
-                                    </group>
+                            <div name="material_cost" class="mb-3 o_diecut_quote_section o_diecut_quote_section_material">
+                                <div class="o_diecut_quote_section_header">
+                                    <div class="o_diecut_quote_section_title">一、材料成本</div>
                                 </div>
-                                <div class="col-md-6">
-                                    <group string="其它费用摊销">
-                                        <field name="sample_cost_input" digits="[16,0]" />
-                                        <label string="分摊数量/总量" for="punch_qty" />
-                                        <div class="o_row">
-                                            <field name="punch_qty" />
-                                            <span>
-                                                件
-                                            </span>
+                                <div class="o_diecut_quote_section_body">
+                                    <div class="o_diecut_quote_toolbar">
+                                        <div class="o_diecut_quote_toolbar_group o_diecut_quote_toolbar_group_primary">
+                                            <button name="action_open_material_filter" string="筛选材料" type="object" class="btn-sm btn-outline-secondary" icon="fa-search" help="按分类、功能、认证等条件筛选材料" />
+                                            <button name="action_check_all_lines" string="全选" type="object" class="btn-sm btn-outline-secondary" icon="fa-check-square-o" />
+                                            <button name="action_uncheck_all_lines" string="取消" type="object" class="btn-sm btn-outline-secondary" icon="fa-square-o" />
+                                            <button name="action_copy_checked_lines" string="复制选中" type="object" class="btn-sm btn-outline-primary" icon="fa-copy" help="复制已勾选的材料行" />
+                                            <button name="action_delete_checked_lines" string="删除选中" type="object" class="btn-sm btn-outline-danger" icon="fa-trash" help="删除已勾选的材料行" confirm="确定删除已勾选的材料行？" />
                                         </div>
-                                        <field name="sample_unit_cost" digits="[16,4]" readonly="1" class="o_diecut_formula_target_other" />
-                                        <field name="mold_fee" digits="[16,0]" />
-                                        <field name="mold_cost" digits="[16,4]" readonly="1" class="o_diecut_formula_target_other" />
-                                        <field name="other_cost_ratio" widget="percentage" readonly="1" class="o_diecut_formula_target_other" />
-                                        <field name="total_other_cost" digits="[16,4]" class="oe_subtotal_footer_separator o_diecut_formula_target_other" />
-                                    </group>
+                                        <div class="o_diecut_quote_toolbar_group o_diecut_quote_toolbar_group_sync" role="group" aria-label="Bulk Sync Actions">
+                                            <button name="action_sync_slitting_width" string="同步分切宽" type="object" class="btn-sm btn-secondary" help="应用首行分切宽到所有行" />
+                                            <button name="action_sync_pitch" string="同步跳距" type="object" class="btn-sm btn-secondary" help="应用首行跳距到所有行" />
+                                            <button name="action_sync_cavity" string="同步穴数" type="object" class="btn-sm btn-secondary" help="应用首行模穴数到所有行" />
+                                            <button name="action_sync_yield_rate" string="同步良率" type="object" class="btn-sm btn-secondary" help="应用首行良率到所有行" />
+                                        </div>
+                                    </div>
+                                    <field name="material_line_ids" mode="list">
+                                        <list editable="bottom" multi_edit="1" class="o_diecut_quote_list">
+                                            <field name="is_checked" string=" " widget="boolean" nolabel="1" />
+                                            <field name="material_id" width="160px" options="{'no_open': False}" />
+                                            <field name="raw_width" string="原材宽" optional="show" />
+                                            <field name="raw_length" string="原材长" optional="show" />
+                                            <field name="price_unit_tax_inc" string="含税单价" optional="show" digits="[16,4]" />
+                                            <field name="slitting_rolls" optional="show" />
+                                            <field name="qty_per_roll" optional="show" />
+                                            <field name="slitting_width" string="分切宽" optional="show" />
+                                            <field name="pitch" string="跳距" optional="show" />
+                                            <field name="cavity" string="模穴数" optional="show" />
+                                            <field name="unit_usage" optional="show" digits="[12,6]" />
+                                            <field name="yield_rate" widget="percentage" optional="show" />
+                                            <field name="unit_consumable_cost" sum="Total" decoration-bf="1" optional="show" digits="[16,4]" class="o_diecut_formula_target_material" />
+                                        </list>
+                                    </field>
+                                    <div class="o_diecut_quote_section_summary o_diecut_quote_section_summary_stack">
+                                        <group class="oe_subtotal_footer oe_right o_diecut_quote_subtotal o_diecut_quote_subtotal_material">
+                                            <field name="total_material_cost" string="材料成本含税" digits="[16,4]" class="o_diecut_formula_target_material" />
+                                            <field name="total_material_cost_excluded" digits="[16,4]" readonly="1" class="o_diecut_formula_target_material" />
+                                            <field name="material_input_vat" digits="[16,4]" readonly="1" class="o_diecut_formula_target_material" />
+                                            <field name="material_cost_ratio" widget="percentage" class="o_diecut_formula_target_material" />
+                                        </group>
+                                    </div>
+                                </div>
+                            </div>
+                            <div name="manufacturing_cost" class="mb-3 o_diecut_quote_section o_diecut_quote_section_manufacturing">
+                                <div class="o_diecut_quote_section_header">
+                                    <div class="o_diecut_quote_section_title">二、制造成本</div>
+                                </div>
+                                <div class="o_diecut_quote_section_body">
+                                    <field name="manufacturing_line_ids" mode="list">
+                                        <list editable="bottom" class="o_diecut_quote_list">
+                                            <field name="step_1" string="工序" width="150px" />
+                                            <field name="step_2" width="200px" optional="hide" />
+                                            <field name="mfg_fee" string="工费/H" digits="[16,4]" />
+                                            <field name="workstation_qty" string="人数" />
+                                            <field name="capacity" />
+                                            <field name="yield_rate" widget="percentage" />
+                                            <field name="cost_per_pcs" decoration-bf="1" digits="[16,4]" class="o_diecut_formula_target_manufacturing" />
+                                        </list>
+                                    </field>
+                                    <div class="o_diecut_quote_section_summary o_diecut_quote_section_summary_inline">
+                                        <group class="oe_subtotal_footer oe_right o_diecut_quote_subtotal o_diecut_quote_subtotal_manufacturing">
+                                            <field name="total_manufacturing_cost" string="制造成本合计" digits="[16,4]" class="o_diecut_formula_target_manufacturing" />
+                                            <field name="manufacturing_cost_ratio" widget="percentage" class="o_diecut_formula_target_manufacturing" />
+                                        </group>
+                                    </div>
+                                </div>
+                            </div>
+                            <div name="overhead_cost" class="mb-3 o_diecut_quote_section o_diecut_quote_section_overhead">
+                                <div class="o_diecut_quote_section_header">
+                                    <div class="o_diecut_quote_section_title">三、管销与其它</div>
+                                </div>
+                                <div class="o_diecut_quote_section_body o_diecut_quote_overhead_body">
+                                    <div class="row g-3 o_diecut_quote_overhead_grid">
+                                        <div class="col-md-6">
+                                            <group string="管销费率摊销" class="o_diecut_quote_cost_group o_diecut_quote_cost_group_editable">
+                                                <field name="transport_rate" widget="percentage" class="o_diecut_quote_editable_field" />
+                                                <field name="management_rate" widget="percentage" class="o_diecut_quote_editable_field" />
+                                                <field name="utility_rate" widget="percentage" class="o_diecut_quote_editable_field" />
+                                                <field name="packaging_rate" widget="percentage" class="o_diecut_quote_editable_field" />
+                                                <field name="depreciation_rate" widget="percentage" class="o_diecut_quote_editable_field" />
+                                                <field name="total_marketing_cost" digits="[16,4]" class="oe_subtotal_footer_separator o_diecut_formula_target_marketing o_diecut_quote_summary_field" />
+                                                <field name="marketing_cost_ratio" widget="percentage" readonly="1" class="o_diecut_formula_target_marketing o_diecut_quote_summary_field" />
+                                            </group>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <group string="其它费用摊销" class="o_diecut_quote_cost_group o_diecut_quote_cost_group_editable">
+                                                <field name="sample_cost_input" digits="[16,0]" class="o_diecut_quote_editable_field" />
+                                                <field name="mold_fee" digits="[16,0]" class="o_diecut_quote_editable_field" />
+                                                <label string="分摊数量/总量" for="punch_qty" />
+                                                <div class="o_row o_diecut_quote_unit_box">
+                                                    <field name="punch_qty" class="o_diecut_quote_editable_field" />
+                                                    <span>件</span>
+                                                </div>
+                                                <field name="sample_unit_cost" digits="[16,4]" readonly="1" class="o_diecut_formula_target_other o_diecut_quote_summary_field" />
+                                                <field name="mold_cost" digits="[16,4]" readonly="1" class="o_diecut_formula_target_other o_diecut_quote_summary_field" />
+                                                <field name="total_other_cost" digits="[16,4]" class="oe_subtotal_footer_separator o_diecut_formula_target_other o_diecut_quote_summary_field" />
+                                                <field name="other_cost_ratio" widget="percentage" readonly="1" class="o_diecut_formula_target_other o_diecut_quote_summary_field" />
+                                            </group>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="o_diecut_quote_section o_diecut_quote_section_quote_summary">
+                                <div class="o_diecut_quote_section_header">
+                                    <div class="o_diecut_quote_section_title">四、报价汇总</div>
+                                </div>
+                                <div class="o_diecut_quote_section_body">
+                                    <div class="o_diecut_quote_final_shell">
+                                        <div class="o_diecut_quote_final_column o_diecut_quote_final_column_breakdown">
+                                            <div class="o_diecut_quote_cost_group o_diecut_quote_cost_group_summary o_diecut_quote_cost_group_summary_breakdown">
+                                                <div class="o_diecut_quote_cost_group_title">报价明细</div>
+                                                <div class="o_diecut_quote_breakdown_rows">
+                                                    <div class="o_diecut_quote_breakdown_row">
+                                                        <div class="o_diecut_quote_breakdown_label">
+                                                            <label for="subtotal_cost" string="不含税成本总和" />
+                                                        </div>
+                                                        <div class="o_diecut_quote_breakdown_value">
+                                                            <field name="subtotal_cost" nolabel="1" digits="[16,4]" class="o_diecut_formula_target_final o_diecut_quote_summary_field" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="o_diecut_quote_breakdown_row">
+                                                        <div class="o_diecut_quote_breakdown_label">
+                                                            <label for="profit_amount" string="利润" />
+                                                        </div>
+                                                        <div class="o_diecut_quote_breakdown_value">
+                                                            <field name="profit_amount" nolabel="1" digits="[16,4]" class="o_diecut_formula_target_final o_diecut_quote_summary_field" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="o_diecut_quote_breakdown_row">
+                                                        <div class="o_diecut_quote_breakdown_label">
+                                                            <label for="quote_price_excluded" string="不含税报价" />
+                                                        </div>
+                                                        <div class="o_diecut_quote_breakdown_value">
+                                                            <field name="quote_price_excluded" nolabel="1" digits="[16,4]" readonly="1" class="o_diecut_formula_target_final o_diecut_quote_summary_field" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="o_diecut_quote_breakdown_row">
+                                                        <div class="o_diecut_quote_breakdown_label">
+                                                            <label for="output_vat" string="销项税额" />
+                                                        </div>
+                                                        <div class="o_diecut_quote_breakdown_value">
+                                                            <field name="output_vat" nolabel="1" digits="[16,4]" readonly="1" class="o_diecut_formula_target_final o_diecut_quote_summary_field" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="o_diecut_quote_breakdown_row">
+                                                        <div class="o_diecut_quote_breakdown_label">
+                                                            <label for="estimated_vat_payable" string="预计应交增值税" />
+                                                        </div>
+                                                        <div class="o_diecut_quote_breakdown_value">
+                                                            <field name="estimated_vat_payable" nolabel="1" digits="[16,4]" readonly="1" class="o_diecut_formula_target_final o_diecut_quote_summary_field" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="o_diecut_quote_final_column o_diecut_quote_final_column_pricing">
+                                            <group string="定价参数" class="o_diecut_quote_cost_group o_diecut_quote_cost_group_summary o_diecut_quote_cost_group_summary_pricing">
+                                                <field name="vat_rate" widget="percentage" digits="[16,0]" class="o_diecut_formula_target_final o_diecut_quote_editable_field" />
+                                                <field name="profit_rate" widget="percentage" digits="[16,0]" class="o_diecut_formula_target_final o_diecut_quote_editable_field" />
+                                            </group>
+                                            <div class="o_diecut_quote_price_spotlight">
+                                                <div class="o_diecut_quote_price_intro">
+                                                    <div class="o_diecut_quote_price_label">
+                                                        <label for="final_unit_price" string="最终单价" />
+                                                    </div>
+                                                    <div class="o_diecut_quote_quote_banner_hint">
+                                                        <span>利润占比</span>
+                                                        <field name="profit_cost_ratio" widget="percentage" readonly="1" class="o_diecut_formula_target_final o_diecut_quote_summary_field" />
+                                                    </div>
+                                                </div>
+                                                <div class="o_diecut_quote_price_value">
+                                                    <field name="final_unit_price" nolabel="1" class="o_diecut_formula_target_final o_diecut_quote_summary_field o_diecut_quote_final_price" digits="[16,4]" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    <group class="oe_subtotal_footer oe_right">
-                        <field name="subtotal_cost" digits="[16,4]" class="o_diecut_formula_target_final" />
-                        <field name="vat_rate" widget="percentage" digits="[16,0]" class="o_diecut_formula_target_final" />
-                        <field name="profit_rate" widget="percentage" digits="[16,0]" class="o_diecut_formula_target_final" />
-                        <field name="profit_amount" digits="[16,4]" class="o_diecut_formula_target_final" />
-                        <field name="quote_price_excluded" digits="[16,4]" readonly="1" class="o_diecut_formula_target_final" />
-                        <field name="output_vat" digits="[16,4]" readonly="1" class="o_diecut_formula_target_final" />
-                        <field name="estimated_vat_payable" digits="[16,4]" readonly="1" class="o_diecut_formula_target_final" />
-                        <field name="profit_cost_ratio" widget="percentage" readonly="1" class="o_diecut_formula_target_final" />
-                        <div class="oe_subtotal_footer_separator oe_inline">
-                            <label for="final_unit_price" />
-                        </div>
-                        <field name="final_unit_price" nolabel="1" class="oe_subtotal_footer_separator o_diecut_formula_target_final" digits="[16,4]" style="font-size: 1.5em;" />
-                    </group>
-                    </div>
-                    <div class="o_diecut_formula_modal" data-diecut-formula-modal="1" aria-hidden="true">
-                        <div class="o_diecut_formula_modal_backdrop" data-diecut-formula-close="1" />
-                        <div class="o_diecut_formula_dialog" role="dialog" aria-modal="true" aria-labelledby="o_diecut_formula_modal_title">
-                            <div class="o_diecut_formula_modal_header">
-                                <div>
-                                    <div class="o_diecut_formula_modal_title" id="o_diecut_formula_modal_title">公式说明</div>
-                                    <div class="o_diecut_formula_modal_hint">当前结果的计算总结和代入明细。</div>
+                        <div class="o_diecut_formula_modal" data-diecut-formula-modal="1" aria-hidden="true">
+                            <div class="o_diecut_formula_modal_backdrop" data-diecut-formula-close="1" />
+                            <div class="o_diecut_formula_dialog" role="dialog" aria-modal="true" aria-labelledby="o_diecut_formula_modal_title">
+                                <div class="o_diecut_formula_modal_header">
+                                    <div>
+                                        <div id="o_diecut_formula_modal_title" class="o_diecut_formula_modal_title">公式说明</div>
+                                        <div class="o_diecut_formula_modal_hint">当前结果的计算总结和代入明细。</div>
+                                    </div>
+                                    <button type="button" class="btn btn-light o_diecut_formula_close" data-diecut-formula-close="1" aria-label="关闭公式说明">
+                                        <i class="fa fa-times" />
+                                    </button>
                                 </div>
-                                <button type="button" class="btn btn-light o_diecut_formula_close" data-diecut-formula-close="1" aria-label="关闭公式说明">
-                                    <i class="fa fa-times" />
-                                </button>
-                            </div>
-                            <div class="o_diecut_formula_modal_content">
-                                <div class="o_diecut_formula_card o_active" data-diecut-formula-card="material">
-                                    <div class="o_diecut_formula_card_title">材料成本</div>
-                                    <field name="material_formula_html" widget="html" nolabel="1" readonly="1" />
-                                </div>
-                                <div class="o_diecut_formula_card" data-diecut-formula-card="manufacturing">
-                                    <div class="o_diecut_formula_card_title">制造成本</div>
-                                    <field name="manufacturing_formula_html" widget="html" nolabel="1" readonly="1" />
-                                </div>
-                                <div class="o_diecut_formula_card" data-diecut-formula-card="marketing">
-                                    <div class="o_diecut_formula_card_title">管销成本</div>
-                                    <field name="marketing_formula_html" widget="html" nolabel="1" readonly="1" />
-                                </div>
-                                <div class="o_diecut_formula_card" data-diecut-formula-card="other">
-                                    <div class="o_diecut_formula_card_title">其它摊销</div>
-                                    <field name="other_formula_html" widget="html" nolabel="1" readonly="1" />
-                                </div>
-                                <div class="o_diecut_formula_card" data-diecut-formula-card="final">
-                                    <div class="o_diecut_formula_card_title">最终报价</div>
-                                    <field name="final_formula_html" widget="html" nolabel="1" readonly="1" />
+                                <div class="o_diecut_formula_modal_content">
+                                    <div class="o_diecut_formula_card o_active" data-diecut-formula-card="material">
+                                        <div class="o_diecut_formula_card_title">材料成本</div>
+                                        <field name="material_formula_html" widget="html" nolabel="1" readonly="1" />
+                                    </div>
+                                    <div class="o_diecut_formula_card" data-diecut-formula-card="manufacturing">
+                                        <div class="o_diecut_formula_card_title">制造成本</div>
+                                        <field name="manufacturing_formula_html" widget="html" nolabel="1" readonly="1" />
+                                    </div>
+                                    <div class="o_diecut_formula_card" data-diecut-formula-card="marketing">
+                                        <div class="o_diecut_formula_card_title">管销成本</div>
+                                        <field name="marketing_formula_html" widget="html" nolabel="1" readonly="1" />
+                                    </div>
+                                    <div class="o_diecut_formula_card" data-diecut-formula-card="other">
+                                        <div class="o_diecut_formula_card_title">其它摊销</div>
+                                        <field name="other_formula_html" widget="html" nolabel="1" readonly="1" />
+                                    </div>
+                                    <div class="o_diecut_formula_card" data-diecut-formula-card="final">
+                                        <div class="o_diecut_formula_card_title">最终报价</div>
+                                        <field name="final_formula_html" widget="html" nolabel="1" readonly="1" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </sheet>
                 <chatter />

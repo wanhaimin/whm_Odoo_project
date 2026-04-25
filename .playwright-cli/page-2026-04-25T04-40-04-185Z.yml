@@ -1,0 +1,120 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - button "" [ref=e5] [cursor=pointer]:
+        - generic [ref=e6]: 
+      - menuitem "模切管理系统" [ref=e105] [cursor=pointer]
+      - menu [ref=e8]:
+        - menuitem "成本计算器" [ref=e106] [cursor=pointer]
+        - button "材料选型大全" [ref=e107] [cursor=pointer]:
+          - generic [ref=e108]: 材料选型大全
+        - button "知识库" [ref=e109] [cursor=pointer]:
+          - generic [ref=e110]: 知识库
+        - menuitem "原材料" [ref=e111] [cursor=pointer]
+        - menuitem "客户管理" [ref=e112] [cursor=pointer]
+        - menuitem "刀模管理" [ref=e113] [cursor=pointer]
+        - menuitem "分切管理" [ref=e114] [cursor=pointer]
+        - button "" [ref=e116] [cursor=pointer]:
+          - generic [ref=e117]: 
+      - menu [ref=e13]:
+        - button "消息 4" [ref=e15] [cursor=pointer]:
+          - img "消息" [ref=e16]: 
+          - generic [ref=e17]: "4"
+        - button "活动" [ref=e18] [cursor=pointer]:
+          - img "活动" [ref=e19]: 
+        - button "" [disabled] [ref=e21]:
+          - generic [ref=e22]: 
+        - generic: 
+        - button "用户 用户上线" [ref=e24] [cursor=pointer]:
+          - generic [ref=e25]:
+            - img "用户" [ref=e26]
+            - img "用户上线" [ref=e29]: 
+          - text: 
+  - generic [ref=e118]:
+    - generic [ref=e120]:
+      - generic [ref=e121]:
+        - button "新建" [ref=e123] [cursor=pointer]
+        - generic [ref=e124]:
+          - generic [ref=e126]: 成本计算器
+          - button "操作菜单" [ref=e130] [cursor=pointer]:
+            - generic [ref=e131]: 
+      - search [ref=e133]:
+        - search [ref=e134]:
+          - button "搜索..." [ref=e135] [cursor=pointer]:
+            - img [ref=e136]: 
+          - searchbox "搜索..." [active] [ref=e138]
+        - button "" [ref=e139] [cursor=pointer]
+      - search [ref=e141]:
+        - navigation "分页" [ref=e142]:
+          - generic [ref=e143]:
+            - generic [ref=e144]: 1-1
+            - text: / 1
+          - generic [ref=e145]:
+            - button "上一页" [disabled]:
+              - generic: 
+            - button "下一页" [disabled]:
+              - generic: 
+    - main [ref=e146]:
+      - table [ref=e148]:
+        - rowgroup [ref=e149]:
+          - 'row "报价单号  客户  品名 :  内部料号 :  目标利润率  含税建议报价 (RMB/PCS)  制单人  " [ref=e150]':
+            - columnheader [ref=e151] [cursor=pointer]:
+              - checkbox [ref=e153]
+            - columnheader "报价单号 " [ref=e154] [cursor=pointer]:
+              - generic [ref=e155]:
+                - generic [ref=e156]: 报价单号
+                - generic [ref=e157]: 
+            - columnheader "客户 " [ref=e159] [cursor=pointer]:
+              - generic [ref=e160]:
+                - generic [ref=e161]: 客户
+                - generic [ref=e162]: 
+            - 'columnheader "品名 : " [ref=e164] [cursor=pointer]':
+              - generic [ref=e165]:
+                - generic [ref=e166]: "品名 :"
+                - generic [ref=e167]: 
+            - 'columnheader "内部料号 : " [ref=e169] [cursor=pointer]':
+              - generic [ref=e170]:
+                - generic [ref=e171]: "内部料号 :"
+                - generic [ref=e172]: 
+            - columnheader "目标利润率 " [ref=e174] [cursor=pointer]:
+              - generic [ref=e175]:
+                - generic [ref=e176]: 目标利润率
+                - generic [ref=e177]: 
+            - columnheader "含税建议报价 (RMB/PCS) " [ref=e179] [cursor=pointer]:
+              - generic [ref=e180]:
+                - generic [ref=e181]: 含税建议报价 (RMB/PCS)
+                - generic [ref=e182]: 
+            - columnheader "制单人 " [ref=e184] [cursor=pointer]:
+              - generic [ref=e185]:
+                - generic [ref=e186]: 制单人
+                - generic [ref=e187]: 
+            - columnheader [ref=e189]
+            - columnheader "" [ref=e190]:
+              - button "" [ref=e192] [cursor=pointer]:
+                - generic [ref=e193]: 
+        - rowgroup [ref=e194]:
+          - row "SZ20260425001 A 15% 0.0005 Administrator " [ref=e195]:
+            - cell [ref=e196]:
+              - checkbox [ref=e198] [cursor=pointer]
+            - cell "SZ20260425001" [ref=e199] [cursor=pointer]
+            - cell "A" [ref=e200] [cursor=pointer]
+            - cell [ref=e201] [cursor=pointer]
+            - cell [ref=e202] [cursor=pointer]
+            - cell "15%" [ref=e203] [cursor=pointer]:
+              - generic [ref=e204]: 15%
+            - cell "0.0005" [ref=e205] [cursor=pointer]
+            - cell "Administrator" [ref=e206] [cursor=pointer]:
+              - generic [ref=e208]:
+                - img [ref=e210]
+                - generic "Administrator" [ref=e212]
+            - cell "" [ref=e213] [cursor=pointer]:
+              - button "" [ref=e215]:
+                - generic [ref=e216]: 
+            - cell [ref=e217]
+        - rowgroup [ref=e218]:
+          - row [ref=e219]:
+            - cell [ref=e220]
+            - cell [ref=e221]
+  - generic:
+    - generic:
+      - paragraph: 按 esc 离开全屏幕

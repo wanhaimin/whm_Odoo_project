@@ -235,16 +235,31 @@ The system extends `product.template` with two mutually exclusive flags:
 
 ## Development Workflow
 
+### Browser-First Mode
+
+For browser-facing Odoo development, use a browser-first workflow by default. In this project, the fastest way to locate issues is usually to open the real Odoo page for the current model/action, observe the behavior, and then trace back to XML views, Python models, domains, actions, and Owl/JS patches.
+
+- Default to opening the relevant Odoo page before editing code for frontend, view, interaction, permission, action/domain, and data-display issues
+- Use Playwright first for reproduction and regression; switch to Chrome DevTools when the issue requires console, network, DOM, CSS, event, or performance inspection
+- Keep browser use lightweight to control token cost: capture only the current model, action/menu, URL hash, key error, and one screenshot summary unless deeper inspection is required
+- Do **not** dump full DOM or large console/network logs into context unless the issue truly requires it
+- After locating the page-level problem, switch back to code search and implement the smallest targeted fix
+- After code changes, return to the same page and repeat the same user path for regression verification
+
+### Standard Loop
+
 1. **Understand Requirements** - Read user requirements carefully, ask if unclear
-2. **Write Code** - Modify Python models (models/), XML views, JS frontend
-3. **Deploy Update**:
+2. **Browser Reproduce First** - Open `http://localhost:8070`, log in, navigate to the model page or action related to the request, and identify the actual failing entry, state, and error signal
+3. **Trace Back to Code** - Map the browser finding to the related model, menu/action, XML view, Python method, or JS patch before editing
+4. **Write Code** - Modify Python models (models/), XML views, JS frontend
+5. **Deploy Update**:
    ```powershell
    docker restart my_odoo_project_devcontainer-web-1
    docker exec my_odoo_project_devcontainer-web-1 odoo -d odoo -u diecut --stop-after-init
    ```
-4. **Browser Verify** - Navigate to http://localhost:8070, test functionality
-5. **Fix Loop** - Repeat until correct
-6. **Report** - Show what was done and verification results
+6. **Browser Verify Again** - Navigate to the same page and replay the same scenario to confirm the fix
+7. **Fix Loop** - Repeat until correct
+8. **Report** - Show what was done and verification results
 
 ---
 

@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
 import json
+import logging
 import os
 import re
+
+_logger = logging.getLogger(__name__)
 
 
 _SKILL_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "data", "tds_skills"))
@@ -34,6 +37,7 @@ def _normalize_skill_names(skill_profile, brand_skill_name=""):
 def _load_skill_file(skill_name):
     path = os.path.join(_SKILL_DIR, f"{skill_name}.json")
     if not os.path.exists(path):
+        _logger.warning("TDS skill file not found: %s", path)
         return {}
     with open(path, "r", encoding="utf-8") as handle:
         return json.load(handle)

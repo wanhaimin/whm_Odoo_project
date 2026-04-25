@@ -1,4 +1,42 @@
 .o_diecut_quote_excel_shell {
+    .o_diecut_quote_header_panel {
+        margin-bottom: 16px;
+        padding: 14px 16px 8px;
+        border: 1px solid #d7dee8;
+        border-radius: 8px;
+        background: #fbfcfe;
+    }
+
+    .o_diecut_quote_header_groups {
+        gap: 12px;
+    }
+
+    .o_diecut_quote_info_group {
+        margin: 0;
+        padding: 12px 12px 4px;
+        border: 1px solid #e3e8ef;
+        border-radius: 8px;
+        background: #ffffff;
+
+        > .o_inner_group {
+            row-gap: 4px;
+        }
+
+        .o_form_label {
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .o_horizontal_separator {
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eef2f7;
+            color: #0f172a;
+            font-size: 13px;
+            font-weight: 700;
+        }
+    }
+
     .o_diecut_quote_spreadsheet_page {
         min-width: 0;
     }
@@ -6,16 +44,75 @@
     .o_diecut_formula_toolbar {
         display: flex;
         justify-content: flex-end;
-        margin: 0 0 10px;
+        margin: 0 0 12px;
     }
 
     .o_diecut_formula_open {
         border-radius: 6px;
     }
 
+    .o_diecut_quote_section {
+        margin: 0 0 20px;
+        padding-top: 4px;
+    }
+
+    .o_diecut_quote_section_header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        margin-bottom: 12px;
+        padding: 0;
+
+        &::after {
+            content: "";
+            flex: 1 1 auto;
+            border-bottom: 1px solid #d8dee7;
+            transform: translateY(1px);
+        }
+    }
+
+    .o_diecut_quote_section_title {
+        color: #0f172a;
+        font-size: 13px;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .o_diecut_quote_section_body {
+        padding: 0;
+    }
+
+    .o_diecut_quote_toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+
+    .o_diecut_quote_toolbar_group {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    .o_diecut_quote_toolbar_group_sync {
+        padding-left: 12px;
+        border-left: 1px solid #d8dee7;
+    }
+
     .o_diecut_quote_list {
-        border: 1px solid #c8d0dc;
+        border: 1px solid #d7dee8;
         background: #ffffff;
+        border-radius: 4px;
+        overflow: hidden;
 
         thead {
             position: sticky;
@@ -25,22 +122,23 @@
 
         thead tr th:not(.o_list_record_selector) {
             padding: 6px 8px !important;
-            border-right: 1px solid #c8d0dc !important;
-            background: #eaf2f8 !important;
-            color: #1f2937 !important;
+            border-right: 1px solid #e2e8f0 !important;
+            background: #f8fafc !important;
+            color: #334155 !important;
             text-align: center !important;
             vertical-align: middle !important;
+            font-weight: 500 !important;
         }
 
         tbody td {
             padding: 5px 8px !important;
-            border-right: 1px solid #e1e6ee;
-            border-bottom: 1px solid #e8edf3;
+            border-right: 1px solid #edf1f5;
+            border-bottom: 1px solid #edf1f5;
             vertical-align: middle;
         }
 
         tbody tr:hover td {
-            background: #f8fbff;
+            background: #fbfdff;
         }
 
         td[name="raw_width"],
@@ -53,7 +151,7 @@
         td[name="workstation_qty"],
         td[name="capacity"],
         td[name="yield_rate"] {
-            background: #fff8cf;
+            background: #fffaf0;
         }
 
         td[name="slitting_rolls"],
@@ -61,7 +159,7 @@
         td[name="unit_usage"],
         td[name="unit_consumable_cost"],
         td[name="cost_per_pcs"] {
-            background: #f3f6fa;
+            background: #f8fafc;
             font-weight: 600;
         }
 
@@ -82,21 +180,280 @@
     }
 
     .oe_subtotal_footer {
+        margin-top: 10px;
+        padding-top: 0;
+        border-top: 0;
+
+        .o_form_label {
+            color: #64748b;
+            font-weight: 600;
+        }
+
         .o_field_widget {
             &.o_diecut_formula_target_material,
             &.o_diecut_formula_target_manufacturing,
             &.o_diecut_formula_target_marketing,
             &.o_diecut_formula_target_other,
             &.o_diecut_formula_target_final {
-                background: #f3f6fa;
-                border: 1px solid #c8d0dc;
-                padding: 3px 8px;
+                background: transparent;
+                border: 0;
+                padding: 0;
                 min-width: 96px;
                 text-align: right;
                 font-weight: 600;
+                border-radius: 0;
             }
         }
     }
+
+    .o_diecut_quote_section_summary {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+    }
+
+    .o_diecut_quote_section_summary_stack .oe_subtotal_footer {
+        min-width: 320px;
+    }
+
+    .o_diecut_quote_section_summary_inline .oe_subtotal_footer {
+        min-width: 240px;
+    }
+
+    .o_diecut_quote_cost_group {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+
+        .o_horizontal_separator {
+            margin-bottom: 8px;
+            padding-bottom: 0;
+            border-bottom: 0;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .o_form_label {
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .o_field_widget {
+            &.o_diecut_formula_target_marketing,
+            &.o_diecut_formula_target_other,
+            &.o_diecut_formula_target_final {
+                background: transparent;
+                border: 0;
+                padding: 0;
+                min-width: 92px;
+            }
+        }
+    }
+
+    .o_diecut_quote_editable_field {
+        width: 156px !important;
+        max-width: 156px;
+
+        &.o_field_widget {
+            width: 156px !important;
+            max-width: 156px;
+        }
+
+        .o_input,
+        input {
+            width: 100% !important;
+            min-height: 28px;
+            padding: 4px 8px;
+            border: 1px solid #cfd8e3 !important;
+            border-radius: 4px;
+            background: #ffffff !important;
+            box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04);
+        }
+
+        .o_input:focus,
+        input:focus {
+            border-color: #9fb6cf !important;
+            box-shadow: 0 0 0 2px rgba(159, 182, 207, 0.16);
+            outline: 0;
+        }
+    }
+
+    .o_diecut_quote_unit_box {
+        align-items: center;
+        gap: 8px;
+
+        span {
+            color: #64748b;
+            white-space: nowrap;
+        }
+    }
+
+    .o_diecut_quote_overhead_body {
+        .row {
+            --bs-gutter-x: 24px;
+            --bs-gutter-y: 8px;
+        }
+    }
+
+    .o_diecut_quote_quote_banner_hint {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #7b7082;
+        font-size: 12px;
+
+        .o_field_widget {
+            color: inherit !important;
+            font-weight: 700;
+        }
+    }
+
+    .o_diecut_quote_final_shell {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+        align-items: start;
+        margin-top: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    .o_diecut_quote_final_column {
+        min-width: 0;
+    }
+
+    .o_diecut_quote_final_column_pricing {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .o_diecut_quote_final_summary {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+    }
+
+    .o_diecut_quote_price_spotlight {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 14px;
+        padding: 12px 14px;
+        border: 1px solid #d7c6d3;
+        border-radius: 6px;
+        background: #FFF2CC;
+    }
+
+    .o_diecut_quote_final_column_pricing .o_diecut_quote_price_spotlight {
+        margin-top: 14px;
+        margin-bottom: 0;
+    }
+
+    .o_diecut_quote_price_intro {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .o_diecut_quote_price_label {
+        .o_form_label {
+            display: inline-flex;
+            margin: 0;
+            color: #6c4d67;
+            font-size: 12px;
+            font-weight: 700;
+        }
+    }
+
+    .o_diecut_quote_price_value {
+        .o_field_widget {
+            width: auto;
+        }
+    }
+
+    .o_diecut_quote_final_price {
+        background: transparent !important;
+        border: 0 !important;
+        color: #6b365d;
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1.15;
+        border-radius: 0 !important;
+        box-shadow: none;
+    }
+
+    .o_diecut_quote_summary_field.o_field_widget {
+        color: #0f172a;
+    }
+
+    .o_diecut_quote_cost_group_summary {
+        padding-top: 4px;
+
+        .o_horizontal_separator {
+            margin-bottom: 10px;
+            color: #475569;
+            font-size: 13px;
+            font-weight: 700;
+        }
+    }
+
+    .o_diecut_quote_cost_group_summary_breakdown {
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+    }
+
+    .o_diecut_quote_cost_group_title {
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e7ebf0;
+        color: #334155;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .o_diecut_quote_breakdown_rows {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .o_diecut_quote_breakdown_row {
+        display: grid;
+        grid-template-columns: minmax(140px, max-content) minmax(88px, max-content);
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+        padding: 4px 0;
+    }
+
+    .o_diecut_quote_breakdown_label {
+        .o_form_label {
+            display: inline-flex;
+            margin: 0;
+            color: #64748b;
+            font-weight: 600;
+        }
+    }
+
+    .o_diecut_quote_breakdown_value {
+        display: flex;
+        justify-content: flex-start;
+
+        .o_field_widget {
+            min-width: 88px;
+            text-align: left;
+        }
+    }
+
     .o_diecut_formula_modal {
         display: none;
         position: fixed;
@@ -248,6 +605,33 @@
 
 @media (max-width: 1199px) {
     .o_diecut_quote_excel_shell {
+        .o_diecut_quote_final_shell {
+            grid-template-columns: 1fr;
+        }
+
+        .o_diecut_quote_price_spotlight {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .o_diecut_quote_breakdown_row {
+            grid-template-columns: 1fr;
+            gap: 4px;
+        }
+
+        .o_diecut_quote_breakdown_value {
+            justify-content: flex-start;
+
+            .o_field_widget {
+                text-align: left;
+            }
+        }
+
+        .o_diecut_quote_toolbar_group_sync {
+            padding-left: 0;
+            border-left: 0;
+        }
+
         .o_diecut_formula_modal {
             padding: 12px;
         }

@@ -15,6 +15,8 @@ RUN apt-get update && \
     xz-utils \
     && rm -rf /var/lib/apt/lists/*
 
+RUN pip3 install --no-cache-dir --break-system-packages pypdfium2
+
 RUN curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz" -o /tmp/node.tar.xz && \
     tar -xJf /tmp/node.tar.xz -C /opt && \
     ln -sf "/opt/node-v${NODE_VERSION}-linux-x64/bin/node" /usr/local/bin/node && \

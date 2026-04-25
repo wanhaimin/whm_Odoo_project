@@ -41,7 +41,7 @@ class ResConfigSettings(models.TransientModel):
     chatter_ai_openclaw_general_agent_id = fields.Char(
         string="General Agent ID",
         config_parameter="chatter_ai_assistant.openclaw_general_agent_id",
-        default="odoo-diecut-dev",
+        default="main",
     )
     chatter_ai_openclaw_tds_agent_id = fields.Char(
         string="TDS Agent ID",

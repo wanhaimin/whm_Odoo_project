@@ -5,7 +5,9 @@ WORKER_LOG_PATH="${CHATTER_AI_WORKER_LOG_PATH:-/tmp/chatter_ai_worker.log}"
 WORKER_SCRIPT="/mnt/extra-addons/chatter_ai_assistant/tools/worker_service.py"
 OPENCLAW_SOURCE_STATE_DIR="${OPENCLAW_SOURCE_STATE_DIR:-/root/.openclaw}"
 OPENCLAW_RUNTIME_STATE_DIR="${OPENCLAW_RUNTIME_STATE_DIR:-/opt/openclaw-state}"
+OPENCLAW_COPY_MAIN_WORKSPACE="${OPENCLAW_COPY_MAIN_WORKSPACE:-0}"
 ARGS=("$@")
+OPENCLAW_RUNTIME_STATE_INITIALIZED=0
 
 load_openclaw_env() {
   local env_file="$OPENCLAW_SOURCE_STATE_DIR/.env"
@@ -23,49 +25,35 @@ init_openclaw_runtime_state() {
   local source_config="$OPENCLAW_SOURCE_STATE_DIR/openclaw.json"
   local runtime_config="$OPENCLAW_RUNTIME_STATE_DIR/openclaw.json"
 
+  if [ "$OPENCLAW_RUNTIME_STATE_INITIALIZED" = "1" ]; then
+    return 0
+  fi
+
   if [ ! -f "$source_config" ]; then
+    OPENCLAW_RUNTIME_STATE_INITIALIZED=1
     return 0
   fi
 
   mkdir -p "$OPENCLAW_RUNTIME_STATE_DIR"
   rm -rf "$OPENCLAW_RUNTIME_STATE_DIR/extensions" "$OPENCLAW_RUNTIME_STATE_DIR/browser"
   mkdir -p \
-    "$OPENCLAW_RUNTIME_STATE_DIR/agents/main" \
-    "$OPENCLAW_RUNTIME_STATE_DIR/agents/odoo-diecut-dev" \
-    "$OPENCLAW_RUNTIME_STATE_DIR/agents/odoo-diecut-tds"
+    "$OPENCLAW_RUNTIME_STATE_DIR/agents/main/sessions" \
+    "$OPENCLAW_RUNTIME_STATE_DIR/agents/odoo-diecut-dev/sessions" \
+    "$OPENCLAW_RUNTIME_STATE_DIR/agents/odoo-diecut-tds/sessions"
 
-  if [ -d "$OPENCLAW_SOURCE_STATE_DIR/identity" ]; then
-    rm -rf "$OPENCLAW_RUNTIME_STATE_DIR/identity"
-    cp -a "$OPENCLAW_SOURCE_STATE_DIR/identity" "$OPENCLAW_RUNTIME_STATE_DIR/identity"
+  sync_openclaw_state_path "identity"
+  sync_openclaw_state_path "memory"
+  if is_truthy "$OPENCLAW_COPY_MAIN_WORKSPACE"; then
+    sync_openclaw_state_path "workspace"
+  else
+    rm -rf "$OPENCLAW_RUNTIME_STATE_DIR/.sync-signatures/workspace.sha256"
+    mkdir -p "$OPENCLAW_RUNTIME_STATE_DIR/workspace"
   fi
-  if [ -d "$OPENCLAW_SOURCE_STATE_DIR/memory" ]; then
-    rm -rf "$OPENCLAW_RUNTIME_STATE_DIR/memory"
-    cp -a "$OPENCLAW_SOURCE_STATE_DIR/memory" "$OPENCLAW_RUNTIME_STATE_DIR/memory"
-  fi
-  if [ -d "$OPENCLAW_SOURCE_STATE_DIR/workspace" ]; then
-    rm -rf "$OPENCLAW_RUNTIME_STATE_DIR/workspace"
-    cp -a "$OPENCLAW_SOURCE_STATE_DIR/workspace" "$OPENCLAW_RUNTIME_STATE_DIR/workspace"
-  fi
-  if [ -d "$OPENCLAW_SOURCE_STATE_DIR/workspace-odoo-diecut-dev" ]; then
-    rm -rf "$OPENCLAW_RUNTIME_STATE_DIR/workspace-odoo-diecut-dev"
-    cp -a "$OPENCLAW_SOURCE_STATE_DIR/workspace-odoo-diecut-dev" "$OPENCLAW_RUNTIME_STATE_DIR/workspace-odoo-diecut-dev"
-  fi
-  if [ -d "$OPENCLAW_SOURCE_STATE_DIR/workspace-odoo-diecut-tds" ]; then
-    rm -rf "$OPENCLAW_RUNTIME_STATE_DIR/workspace-odoo-diecut-tds"
-    cp -a "$OPENCLAW_SOURCE_STATE_DIR/workspace-odoo-diecut-tds" "$OPENCLAW_RUNTIME_STATE_DIR/workspace-odoo-diecut-tds"
-  fi
-  if [ -d "$OPENCLAW_SOURCE_STATE_DIR/agents/main/agent" ]; then
-    rm -rf "$OPENCLAW_RUNTIME_STATE_DIR/agents/main/agent"
-    cp -a "$OPENCLAW_SOURCE_STATE_DIR/agents/main/agent" "$OPENCLAW_RUNTIME_STATE_DIR/agents/main/agent"
-  fi
-  if [ -d "$OPENCLAW_SOURCE_STATE_DIR/agents/odoo-diecut-dev/agent" ]; then
-    rm -rf "$OPENCLAW_RUNTIME_STATE_DIR/agents/odoo-diecut-dev/agent"
-    cp -a "$OPENCLAW_SOURCE_STATE_DIR/agents/odoo-diecut-dev/agent" "$OPENCLAW_RUNTIME_STATE_DIR/agents/odoo-diecut-dev/agent"
-  fi
-  if [ -d "$OPENCLAW_SOURCE_STATE_DIR/agents/odoo-diecut-tds/agent" ]; then
-    rm -rf "$OPENCLAW_RUNTIME_STATE_DIR/agents/odoo-diecut-tds/agent"
-    cp -a "$OPENCLAW_SOURCE_STATE_DIR/agents/odoo-diecut-tds/agent" "$OPENCLAW_RUNTIME_STATE_DIR/agents/odoo-diecut-tds/agent"
-  fi
+  sync_openclaw_state_path "workspace-odoo-diecut-dev"
+  sync_openclaw_state_path "workspace-odoo-diecut-tds"
+  sync_openclaw_state_path "agents/main/agent"
+  sync_openclaw_state_path "agents/odoo-diecut-dev/agent"
+  sync_openclaw_state_path "agents/odoo-diecut-tds/agent"
 
   python3 - "$source_config" "$runtime_config" <<'PY'
 import json
@@ -107,7 +95,7 @@ def is_valid_container_path(value):
     return False
 
 
-blocked_plugins = {"openclaw-weixin", "pdf-parse-local"}
+blocked_plugins = {"openclaw-weixin", "pdf-parse-local", "obsidian-local", "browser"}
 allow = [item for item in (plugins.get("allow") or []) if item not in blocked_plugins]
 entries = {
     key: value for key, value in (plugins.get("entries") or {}).items() if key not in blocked_plugins
@@ -138,17 +126,24 @@ if "load" in plugins and "paths" in plugins["load"]:
         if not plugins["load"]:
             plugins.pop("load", None)
 
-blocked_channels = {"openclaw-weixin"}
+blocked_channels = {"discord", "openclaw-weixin"}
 channels = {key: value for key, value in channels.items() if key not in blocked_channels}
 if channels:
     config["channels"] = channels
 else:
     config.pop("channels", None)
 
-for agent in (config.get("agents") or {}).get("list") or []:
+agents = config.setdefault("agents", {})
+allowed_agent_ids = {"main", "odoo-diecut-dev", "odoo-diecut-tds"}
+sanitized_agents = []
+
+for agent in agents.get("list") or []:
+    agent_id = agent.get("id")
+    if agent_id not in allowed_agent_ids:
+        continue
     tools = agent.get("tools") or {}
     tools.pop("profile", None)
-    also_allow = [item for item in (tools.get("alsoAllow") or []) if item != "pdf-parse-local"]
+    also_allow = [item for item in (tools.get("alsoAllow") or []) if item not in blocked_plugins]
     if also_allow:
         tools["alsoAllow"] = also_allow
     else:
@@ -162,7 +157,6 @@ for agent in (config.get("agents") or {}).get("list") or []:
         if not agent["channels"]:
             agent.pop("channels", None)
             
-    agent_id = agent.get("id")
     if agent_id == "main":
         agent["workspace"] = str(runtime_root / "workspace")
         agent["agentDir"] = str(runtime_root / "agents" / "main" / "agent")
@@ -172,9 +166,13 @@ for agent in (config.get("agents") or {}).get("list") or []:
     elif agent_id == "odoo-diecut-tds":
         agent["workspace"] = str(runtime_root / "workspace-odoo-diecut-tds")
         agent["agentDir"] = str(runtime_root / "agents" / "odoo-diecut-tds" / "agent")
+    sanitized_agents.append(agent)
 
-defaults = (config.get("agents") or {}).get("defaults") or {}
+agents["list"] = sanitized_agents
+
+defaults = agents.get("defaults") or {}
 defaults["workspace"] = str(runtime_root / "workspace")
+agents["defaults"] = defaults
 
 top_tools = config.get("tools") or {}
 top_tools.pop("profile", None)
@@ -194,7 +192,100 @@ if isinstance(openai_provider, dict):
 runtime_path.write_text(json.dumps(config, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 PY
 
-  chmod -R go-w "$OPENCLAW_RUNTIME_STATE_DIR" || true
+  chmod 700 "$OPENCLAW_RUNTIME_STATE_DIR" 2>/dev/null || true
+  chmod 600 "$runtime_config" 2>/dev/null || true
+  chmod go-w \
+    "$OPENCLAW_RUNTIME_STATE_DIR" \
+    "$OPENCLAW_RUNTIME_STATE_DIR/agents" \
+    "$OPENCLAW_RUNTIME_STATE_DIR/agents/main" \
+    "$OPENCLAW_RUNTIME_STATE_DIR/agents/odoo-diecut-dev" \
+    "$OPENCLAW_RUNTIME_STATE_DIR/agents/odoo-diecut-tds" \
+    "$runtime_config" \
+    2>/dev/null || true
+  OPENCLAW_RUNTIME_STATE_INITIALIZED=1
+}
+
+is_truthy() {
+  case "${1:-}" in
+    1|true|TRUE|yes|YES|on|ON)
+      return 0
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
+openclaw_path_signature() {
+  local path="$1"
+  python3 - "$path" <<'PY'
+import hashlib
+import os
+import sys
+from pathlib import Path
+
+path = Path(sys.argv[1])
+digest = hashlib.sha256()
+
+if not path.exists():
+    print("missing")
+    raise SystemExit(0)
+
+def add_entry(rel_path, stat):
+    digest.update(rel_path.encode("utf-8", "surrogateescape"))
+    digest.update(b"\0")
+    digest.update(str(stat.st_mode).encode())
+    digest.update(b"\0")
+    digest.update(str(stat.st_size).encode())
+    digest.update(b"\0")
+    digest.update(str(stat.st_mtime_ns).encode())
+    digest.update(b"\n")
+
+if path.is_file():
+    add_entry(path.name, path.stat())
+else:
+    for root, dirs, files in os.walk(path):
+        dirs.sort()
+        files.sort()
+        root_path = Path(root)
+        for name in dirs:
+            item = root_path / name
+            add_entry(str(item.relative_to(path)), item.stat())
+        for name in files:
+            item = root_path / name
+            add_entry(str(item.relative_to(path)), item.stat())
+
+print(digest.hexdigest())
+PY
+}
+
+sync_openclaw_state_path() {
+  local relative_path="$1"
+  local source_path="$OPENCLAW_SOURCE_STATE_DIR/$relative_path"
+  local runtime_path="$OPENCLAW_RUNTIME_STATE_DIR/$relative_path"
+  local signature_dir="$OPENCLAW_RUNTIME_STATE_DIR/.sync-signatures"
+  local signature_key="${relative_path//\//__}"
+  local signature_file="$signature_dir/$signature_key.sha256"
+  local current_signature
+
+  if [ ! -e "$source_path" ]; then
+    rm -rf "$runtime_path" "$signature_file"
+    return 0
+  fi
+
+  mkdir -p "$signature_dir"
+  current_signature="$(openclaw_path_signature "$source_path")"
+  if [ -e "$runtime_path" ] \
+    && [ -f "$signature_file" ] \
+    && [ "$(cat "$signature_file")" = "$current_signature" ]; then
+    return 0
+  fi
+
+  rm -rf "$runtime_path"
+  mkdir -p "$(dirname "$runtime_path")"
+  cp -a "$source_path" "$runtime_path"
+  printf "%s\n" "$current_signature" > "$signature_file"
+  chmod -R go-w "$runtime_path" || true
 }
 
 has_arg() {
@@ -211,6 +302,7 @@ has_arg() {
 if [ -f "$WORKER_SCRIPT" ]; then
   load_openclaw_env
   init_openclaw_runtime_state
+  export OPENCLAW_SOURCE_STATE_DIR
   export OPENCLAW_STATE_DIR="$OPENCLAW_RUNTIME_STATE_DIR"
   python3 "$WORKER_SCRIPT" \
     --base-url "${CHATTER_AI_WORKER_BASE_URL:-http://127.0.0.1:8069}" \
@@ -231,6 +323,7 @@ fi
 
 load_openclaw_env
 init_openclaw_runtime_state
+export OPENCLAW_SOURCE_STATE_DIR
 export OPENCLAW_STATE_DIR="$OPENCLAW_RUNTIME_STATE_DIR"
 
 exec odoo "${ARGS[@]}"

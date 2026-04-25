@@ -1,11 +1,14 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import base64
 import csv
 import io
+import logging
 import os
 from pathlib import Path
 from urllib.parse import quote
+
+_logger = logging.getLogger(__name__)
 
 from odoo import Command, fields, models
 from odoo.exceptions import UserError
@@ -201,6 +204,15 @@ class CatalogOpsWizard(models.TransientModel):
         rows = list(csv.DictReader(io.StringIO(cls._read_csv_text(path))))
         return deep_repair_mojibake(rows)
 
+    def _load_all_csv_rows(self):
+        return {
+            "main": self._read_csv_rows(self._csv_path("main")),
+            "spec": self._read_csv_rows(self._csv_path("spec")),
+            "param": self._read_csv_rows(self._csv_path("param")),
+            "category_param": self._read_csv_rows(self._csv_path("category_param")),
+            "series": self._read_csv_rows(self._csv_path("series")),
+        }
+
     def _run_csv_encoding_precheck(self, rows_by_target):
         findings = []
         for target, rows in rows_by_target.items():
@@ -257,7 +269,10 @@ class CatalogOpsWizard(models.TransientModel):
         raw = "" if value is None else str(value).strip()
         if not raw:
             return default
-        return float(raw)
+        try:
+            return float(raw)
+        except ValueError:
+            return default
 
     @staticmethod
     def _db_key(brand_id, code):
@@ -300,6 +315,7 @@ class CatalogOpsWizard(models.TransientModel):
             record = self.env.ref(full)
             return record if record and record._name == "product.category" else False
         except Exception:
+            _logger.debug("_resolve_categ: xmlid %r not found", full)
             return False
 
     def _resolve_or_create_series(self, brand, row):
@@ -553,27 +569,28 @@ class CatalogOpsWizard(models.TransientModel):
             f"分类参数配置:{len(category_param_rows)} 系列模板:{len(series_rows)}"
         )
 
-    def _validate_csv_only(self):
+    def _validate_csv_only(self, preloaded_rows=None):
         errors = []
         for target in ("main", "spec", "param", "category_param", "series"):
             if not os.path.exists(self._csv_path(target)):
                 errors.append(f"{target} CSV 文件不存在。")
 
-        main_rows = self._read_csv_rows(self._csv_path("main")) if not errors else []
-        spec_rows = self._read_csv_rows(self._csv_path("spec")) if not errors else []
-        param_rows = self._read_csv_rows(self._csv_path("param")) if not errors else []
-        category_param_rows = self._read_csv_rows(self._csv_path("category_param")) if not errors else []
-        series_rows = self._read_csv_rows(self._csv_path("series")) if not errors else []
-        if not errors:
-            self._run_csv_encoding_precheck(
-                {
-                    "main": main_rows,
-                    "spec": spec_rows,
-                    "param": param_rows,
-                    "category_param": category_param_rows,
-                    "series": series_rows,
-                }
-            )
+        if errors:
+            output = io.StringIO()
+            writer = csv.writer(output)
+            writer.writerow(["message"])
+            for error in errors:
+                writer.writerow([error])
+            self.validation_report_file = base64.b64encode(output.getvalue().encode("utf-8-sig"))
+            self.validation_report_filename = "catalog_validation_report.csv"
+            return "CSV 校验失败（未入库）\n" + "\n".join(errors[:30])
+
+        rows = preloaded_rows or self._load_all_csv_rows()
+        main_rows = rows["main"]
+        param_rows = rows["param"]
+        category_param_rows = rows["category_param"]
+
+        self._run_csv_encoding_precheck(rows)
         for line_no, row in enumerate(main_rows, start=2):
             brand = self._resolve_brand_from_row(row)
             if not brand:
@@ -583,12 +600,10 @@ class CatalogOpsWizard(models.TransientModel):
             if not self._norm(row.get("code")):
                 errors.append(f"[{self._MAIN_CSV_FILENAME} 行{line_no}] code 不能为空。")
 
-        param_rows = self._read_csv_rows(self._csv_path("param")) if not errors else []
         for line_no, row in enumerate(param_rows, start=2):
             if not (self._norm(row.get("param_key")) or self._norm(row.get("name"))):
                 errors.append(f"[{self._PARAM_CSV_FILENAME} 行{line_no}] param_key 与 name 不能同时为空。")
 
-        category_param_rows = self._read_csv_rows(self._csv_path("category_param")) if not errors else []
         for line_no, row in enumerate(category_param_rows, start=2):
             categ_xml = self._norm(row.get("categ_id_xml"))
             # 允许空分类行存在（兼容历史/遗留数据），同步阶段将自动跳过。
@@ -613,15 +628,16 @@ class CatalogOpsWizard(models.TransientModel):
         return "CSV 校验通过（未入库）"
 
     def _sync_csv_to_db(self):
-        message = self._validate_csv_only()
+        rows = self._load_all_csv_rows()
+        message = self._validate_csv_only(preloaded_rows=rows)
         if "失败" in message:
             return message
 
-        main_rows = self._read_csv_rows(self._csv_path("main"))
-        spec_rows = self._read_csv_rows(self._csv_path("spec"))
-        param_rows = self._read_csv_rows(self._csv_path("param"))
-        category_param_rows = self._read_csv_rows(self._csv_path("category_param"))
-        series_rows = self._read_csv_rows(self._csv_path("series"))
+        main_rows = rows["main"]
+        spec_rows = rows["spec"]
+        param_rows = rows["param"]
+        category_param_rows = rows["category_param"]
+        series_rows = rows["series"]
 
         param_model = self.env["diecut.catalog.param"]
         for row in param_rows:
@@ -780,9 +796,12 @@ class CatalogOpsWizard(models.TransientModel):
                 record.write(vals)
             else:
                 item_model.create(vals)
-        for key, record in db_map.items():
-            if key not in resolved_items:
-                record.unlink()
+        deleted_keys = [k for k in db_map if k not in resolved_items]
+        if deleted_keys:
+            deleted_codes = ", ".join(k.split("::", 1)[-1] for k in deleted_keys[:20])
+            _logger.info("sync_csv_to_db: deleting %d item(s) not in CSV: %s", len(deleted_keys), deleted_codes)
+        for key in deleted_keys:
+            db_map[key].unlink()
 
         item_map = {}
         for item in item_model.search(self._record_domain_for_scope()):
@@ -1030,4 +1049,3 @@ class CatalogOpsWizard(models.TransientModel):
             "view_mode": "form",
             "target": "new",
         }
-

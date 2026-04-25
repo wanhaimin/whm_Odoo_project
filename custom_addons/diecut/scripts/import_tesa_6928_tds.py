@@ -4,9 +4,12 @@ import json
 import mimetypes
 from pathlib import Path
 
+from odoo.modules.module import get_module_path as _get_module_path
+
 SOURCE_NAME = "tesa 6928 TDS"
-PDF_PATH = Path("/mnt/extra-addons/diecut/scripts/tesa_tds_pdfs/tesa_6928_tds.pdf")
-DRAFT_PATH = Path("/mnt/extra-addons/diecut/scripts/tds_import_drafts/tesa_6928_tds_draft.json")
+_BASE = Path(_get_module_path("diecut") or "/mnt/extra-addons/diecut") / "scripts"
+PDF_PATH = _BASE / "tesa_tds_pdfs" / "tesa_6928_tds.pdf"
+DRAFT_PATH = _BASE / "tds_import_drafts" / "tesa_6928_tds_draft.json"
 BRAND_NAME = "Tesa"
 CATEGORY_NAME = "PET双面胶带"
 ITEM_CODE = "6928"
@@ -124,4 +127,5 @@ def main():
     print("spec_count=%s" % len(payload.get("spec_values") or []))
 
 
-main()
+if "env" in dir():
+    main()

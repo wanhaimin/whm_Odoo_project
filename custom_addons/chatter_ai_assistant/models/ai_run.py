@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import base64
+import html
 import json
 import logging
 import os
@@ -9,6 +10,7 @@ import tempfile
 import uuid
 from datetime import timedelta
 
+from markupsafe import Markup
 from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 
@@ -149,7 +151,7 @@ class ChatterAiRun(models.Model):
             "general_agent_id": (
                 icp.get_param("chatter_ai_assistant.openclaw_general_agent_id")
                 or icp.get_param("chatter_ai_assistant.openclaw_agent_id")
-                or "odoo-diecut-dev"
+                or "main"
             ).strip(),
             "tds_agent_id": (
                 icp.get_param("chatter_ai_assistant.openclaw_tds_agent_id")
@@ -314,10 +316,12 @@ class ChatterAiRun(models.Model):
             "failed": "失败",
             "cancelled": "已取消",
         }
-        body = "<p><strong>%s</strong>：%s</p>" % (self._config()["bot_name"], labels.get(state, state))
+        bot_name = html.escape(self._config()["bot_name"] or "")
+        label = html.escape(labels.get(state, state) or "")
+        body = "<p><strong>%s</strong>：%s</p>" % (bot_name, label)
         if extra_text:
-            body += "<p>%s</p>" % extra_text
-        return body
+            body += "<p>%s</p>" % html.escape(str(extra_text))
+        return Markup(body)
 
     @api.model
     def create_run_from_message(self, message):
@@ -803,6 +807,20 @@ class ChatterAiRun(models.Model):
     def _format_user_error_message(self, raw_message):
         self.ensure_one()
         message = raw_message or _("OpenClaw execution failed.")
+        lower_message = message.lower()
+        if any(
+            token in lower_message
+            for token in (
+                "token refresh failed",
+                "oauth token refresh failed",
+                "refresh_token_reused",
+                "please try signing in again",
+                "forbidden",
+            )
+        ):
+            return _(
+                "OpenClaw/Codex 登录凭据或模型权限被拒绝，请在宿主机重新登录 OpenClaw/Codex，确认当前账号可使用所选模型后再试。"
+            )
         if "WebAssembly.instantiate(): Out of memory" in message and "undici" in message:
             return _(
                 "OpenClaw CLI failed while initializing its network runtime inside the current process."

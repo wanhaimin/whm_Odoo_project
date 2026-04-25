@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import html
 import json
@@ -880,10 +880,10 @@ class DiecutCatalogSourceDocument(models.Model):
                 {
                     "import_status": "review" if bucket_sizes["unmatched"] else "validated",
                     "result_message": (
-                        "鑽夌鏍￠獙閫氳繃銆俓n"
-                        f"绯诲垪:{bucket_sizes['series']} 鍨嬪彿:{bucket_sizes['items']} 鍙傛暟:{bucket_sizes['params']} "
-                        f"鍒嗙被鍙傛暟:{bucket_sizes['category_params']} 鍙傛暟鍊?{bucket_sizes['spec_values']} "
-                        f"鏈瘑鍒?{bucket_sizes['unmatched']}"
+                        "草稿校验通过。\n"
+                        f"系列:{bucket_sizes['series']} 型号:{bucket_sizes['items']} 参数:{bucket_sizes['params']} "
+                        f"分类参数:{bucket_sizes['category_params']} 参数值:{bucket_sizes['spec_values']} "
+                        f"未识别:{bucket_sizes['unmatched']}"
                     ),
                     "unmatched_payload": json.dumps(payload.get("unmatched") or [], ensure_ascii=False, indent=2),
                     "context_used": json.dumps(record._build_copilot_context(payload), ensure_ascii=False, indent=2),
@@ -974,10 +974,10 @@ class DiecutCatalogSourceDocument(models.Model):
             return False
         return self.env["product.category"].search([("name", "=", str(raw_value).strip())], limit=1) or False
 
-    @api.model
-    def _pick_first_non_empty(self, *candidates):
-        for candidate in candidates:
-            if candidate not in (False, None, ""):
+                        "草稿校验通过。\n"
+                        f"系列:{bucket_sizes['series']} 型号:{bucket_sizes['items']} 参数:{bucket_sizes['params']} "
+                        f"分类参数:{bucket_sizes['category_params']} 参数值:{bucket_sizes['spec_values']} "
+                        f"未识别:{bucket_sizes['unmatched']}"
                 if isinstance(candidate, str):
                     text = candidate.strip()
                     if text and text.lower() not in {"false", "none", "null"}:
