@@ -14,7 +14,7 @@ class ResConfigSettings(models.TransientModel):
     diecut_kb_dify_api_key = fields.Char(
         string="Dify Dataset API Key",
         config_parameter="diecut_knowledge.dify_api_key",
-        help="在 Dify → Knowledge → API Access 中获取（dataset-xxxx）",
+        help="在 Dify -> Knowledge -> API Access 中获取（dataset-xxxx）。",
     )
     diecut_kb_dify_timeout = fields.Integer(
         string="请求超时(秒)",
@@ -40,7 +40,7 @@ class ResConfigSettings(models.TransientModel):
     diecut_kb_dify_products_dataset_id = fields.Char(
         string="产品库 Dify Dataset ID",
         config_parameter="diecut_knowledge.dify_products_dataset_id",
-        help="所有 catalog.item（材料目录型号）会同步到此 Dataset。建议在 Dify 中单独建一个 KB-Products。",
+        help="所有 catalog.item（材料目录型号）会同步到此 Dataset，建议在 Dify 中单独建立 KB-Products。",
     )
     diecut_kb_dify_products_batch_limit = fields.Integer(
         string="产品同步单次上限",
@@ -62,16 +62,30 @@ class ResConfigSettings(models.TransientModel):
     diecut_kb_dify_chat_app_url = fields.Char(
         string="Dify Chat App API 地址",
         config_parameter="diecut_knowledge.dify_chat_app_url",
-        help="（Phase 3 用）AI 抽屉对话应用入口，留空则禁用问答。",
+        help="AI 顾问对话应用入口，留空则禁用问答。",
     )
     diecut_kb_dify_chat_api_key = fields.Char(
         string="Dify Chat App API Key",
         config_parameter="diecut_knowledge.dify_chat_api_key",
-        help="（Phase 3 用）应用级 API Key（app-xxxx）。",
+        help="应用级 API Key（app-xxxx）。",
+    )
+    diecut_kb_compile_batch_limit = fields.Integer(
+        string="AI 编译单次上限",
+        config_parameter="diecut_knowledge.compile_batch_limit",
+        default=5,
+    )
+    diecut_kb_compile_auto_publish = fields.Boolean(
+        string="AI 编译后自动发布",
+        config_parameter="diecut_knowledge.compile_auto_publish",
+        default=True,
+    )
+    diecut_kb_lint_batch_limit = fields.Integer(
+        string="知识治理单次检查上限",
+        config_parameter="diecut_knowledge.lint_batch_limit",
+        default=20,
     )
 
     def action_test_dify_connection(self):
-        """点击「测试连接」时调一次 list_datasets，把结果反馈给用户。"""
         self.ensure_one()
         from ..services.dify_client import DifyClient
 
@@ -104,3 +118,4 @@ class ResConfigSettings(models.TransientModel):
                 "sticky": False,
             },
         }
+

@@ -1,22 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Odoo → Dify 同步服务
-
-负责把 `diecut.kb.article` 的内容推送到对应分类的 Dify Dataset。
-
-调用入口：
-- `DifyKnowledgeSync(env).sync_article(article)`        单篇推送/更新/删除
-- `DifyKnowledgeSync(env).sync_pending(limit=20)`       批量扫 pending/failed
-
-设计原则：
-- **不抛异常**：所有失败都吞掉，写入 sync_log + 更新 sync_status='failed' 后返回
-- **幂等**：同篇文章重复同步会走 update 而非 create（依赖 dify_document_id 是否已绑定）
-- **轻量**：不做 chunk/embedding，全部交给 Dify 处理
-"""
+"""Odoo -> Dify article sync service."""
 
 import json
 import logging
 from datetime import datetime
-from typing import Optional
 
 from .dify_client import DifyClient
 
@@ -24,8 +11,6 @@ _logger = logging.getLogger(__name__)
 
 
 class DifyKnowledgeSync:
-    """文章同步服务（每次调用都新建实例，env 来自调用方）"""
-
     PARAM_BASE_URL = "diecut_knowledge.dify_base_url"
     PARAM_API_KEY = "diecut_knowledge.dify_api_key"
     PARAM_TIMEOUT = "diecut_knowledge.dify_timeout"
@@ -36,18 +21,17 @@ class DifyKnowledgeSync:
 
     def __init__(self, env):
         self.env = env
+        self._client = None
+        self._client_built = False
 
-    # --------------------------- public -------------------------------------
-
-    def sync_article(self, article) -> dict:
-        """同步单篇文章。返回 {ok, action, error}"""
+    def sync_article(self, article):
         article.ensure_one()
 
         if article.state == "archived" and article.dify_document_id:
             return self._do_delete(article)
 
         if article.state != "published":
-            self._mark_skipped(article, "文章状态非 published，跳过同步")
+            self._mark_skipped(article, "文章状态不是 published，跳过同步")
             return {"ok": True, "action": "skip", "error": None}
 
         if article.content_length < self.MIN_CONTENT_LENGTH:
@@ -71,8 +55,7 @@ class DifyKnowledgeSync:
             return self._do_create(article, client, dataset_id)
         return self._do_create(article, client, dataset_id)
 
-    def sync_pending(self, limit: Optional[int] = None) -> dict:
-        """批量扫 pending/failed。返回 {total, ok, failed}"""
+    def sync_pending(self, limit=None):
         if limit is None:
             limit = int(self._get_param(self.PARAM_BATCH_LIMIT, default="20") or 20)
 
@@ -97,9 +80,7 @@ class DifyKnowledgeSync:
                 failed_count += 1
         return {"total": len(targets), "ok": ok_count, "failed": failed_count}
 
-    # --------------------------- actions ------------------------------------
-
-    def _do_create(self, article, client: DifyClient, dataset_id: str) -> dict:
+    def _do_create(self, article, client, dataset_id):
         text, metadata, doc_name = self._build_payload(article)
         ok, payload, error, duration_ms = client.create_document_by_text(
             dataset_id=dataset_id,
@@ -113,7 +94,7 @@ class DifyKnowledgeSync:
 
         document = (payload or {}).get("document") or {}
         document_id = document.get("id") or (payload or {}).get("id")
-        article.sudo().write({
+        article.write({
             "sync_status": "synced",
             "dify_dataset_id": dataset_id,
             "dify_document_id": document_id,
@@ -123,8 +104,8 @@ class DifyKnowledgeSync:
         self._record_success(article, "create", payload, duration_ms, summary=f"已创建 Dify 文档 {document_id}")
         return {"ok": True, "action": "create", "error": None}
 
-    def _do_update(self, article, client: DifyClient, dataset_id: str) -> dict:
-        text, metadata, doc_name = self._build_payload(article)
+    def _do_update(self, article, client, dataset_id):
+        text, _metadata, doc_name = self._build_payload(article)
         ok, payload, error, duration_ms = client.update_document_by_text(
             dataset_id=dataset_id,
             document_id=article.dify_document_id,
@@ -133,12 +114,12 @@ class DifyKnowledgeSync:
         )
         if not ok:
             if "not_found" in (error or "").lower() or "404" in (error or ""):
-                article.sudo().write({"dify_document_id": False, "dify_dataset_id": False})
+                article.write({"dify_document_id": False, "dify_dataset_id": False})
                 return self._do_create(article, client, dataset_id)
             self._record_failure(article, "update", error, request=text[:1000], response=payload, duration_ms=duration_ms)
             return {"ok": False, "action": "update", "error": error}
 
-        article.sudo().write({
+        article.write({
             "sync_status": "synced",
             "last_sync_at": datetime.now(),
             "sync_error": False,
@@ -146,10 +127,10 @@ class DifyKnowledgeSync:
         self._record_success(article, "update", payload, duration_ms, summary="已更新 Dify 文档")
         return {"ok": True, "action": "update", "error": None}
 
-    def _do_delete(self, article, client: Optional[DifyClient] = None, force_dataset_id: Optional[str] = None) -> dict:
+    def _do_delete(self, article, client=None, force_dataset_id=None):
         client = client or self._build_client()
         if not client or not article.dify_document_id:
-            article.sudo().write({"sync_status": "synced"})
+            article.write({"sync_status": "synced"})
             return {"ok": True, "action": "noop", "error": None}
 
         dataset_id = force_dataset_id or article.dify_dataset_id
@@ -161,7 +142,7 @@ class DifyKnowledgeSync:
             self._record_failure(article, "delete", error, response=payload, duration_ms=duration_ms)
             return {"ok": False, "action": "delete", "error": error}
 
-        article.sudo().write({
+        article.write({
             "sync_status": "synced",
             "dify_document_id": False,
             "last_sync_at": datetime.now(),
@@ -170,10 +151,7 @@ class DifyKnowledgeSync:
         self._record_success(article, "delete", payload or {}, duration_ms, summary="已从 Dify 删除")
         return {"ok": True, "action": "delete", "error": None}
 
-    # --------------------------- payload ------------------------------------
-
-    def _build_payload(self, article) -> tuple:
-        """把 article 转成 Dify 用的 (text, metadata, doc_name)。"""
+    def _build_payload(self, article):
         parts = []
         if article.summary:
             parts.append(f"## 摘要\n{article.summary.strip()}\n")
@@ -182,9 +160,12 @@ class DifyKnowledgeSync:
             codes = ", ".join((article.related_item_ids.mapped("code") or []))
             if codes:
                 parts.append(f"\n## 关联型号\n{codes}")
+        if article.related_article_ids:
+            titles = ", ".join(article.related_article_ids.mapped("name"))
+            if titles:
+                parts.append(f"\n## 相关文章\n{titles}")
         if article.keywords:
             parts.append(f"\n## 关键词\n{article.keywords}")
-
         text = "\n\n".join(parts).strip() or article.name
 
         metadata = {
@@ -198,16 +179,15 @@ class DifyKnowledgeSync:
             "brands": ", ".join(article.related_brand_ids.mapped("name")),
             "categories": ", ".join(article.related_categ_ids.mapped("name")),
             "items": ", ".join(article.related_item_ids.mapped("code")),
+            "related_articles": ", ".join(article.related_article_ids.mapped("name")),
+            "compile_source": article.compile_source or "",
+            "compile_source_item_id": article.compile_source_item_id.code if article.compile_source_item_id else "",
         }
-        # Dify metadata 不允许 None / 复杂类型；统一转字符串
         metadata = {k: ("" if v is None else str(v)) for k, v in metadata.items()}
-
         doc_name = f"[{article.category_id.code}] {article.name}"[:200]
         return text, metadata, doc_name
 
-    # --------------------------- logging ------------------------------------
-
-    def _record_success(self, article, action: str, response: dict, duration_ms: int, summary: str):
+    def _record_success(self, article, action, response, duration_ms, summary):
         self.env["diecut.kb.sync.log"].sudo().create({
             "article_id": article.id,
             "direction": "push",
@@ -220,16 +200,8 @@ class DifyKnowledgeSync:
             "duration_ms": duration_ms,
         })
 
-    def _record_failure(
-        self,
-        article,
-        action: str,
-        error: str,
-        request: str = "",
-        response: Optional[dict] = None,
-        duration_ms: int = 0,
-    ):
-        article.sudo().write({
+    def _record_failure(self, article, action, error, request="", response=None, duration_ms=0):
+        article.write({
             "sync_status": "failed",
             "sync_error": (error or "")[:2000],
         })
@@ -247,8 +219,8 @@ class DifyKnowledgeSync:
             "duration_ms": duration_ms,
         })
 
-    def _mark_skipped(self, article, reason: str):
-        article.sudo().write({
+    def _mark_skipped(self, article, reason):
+        article.write({
             "sync_status": "skipped",
             "sync_error": False,
         })
@@ -260,9 +232,10 @@ class DifyKnowledgeSync:
             "summary": f"已跳过：{reason}",
         })
 
-    # --------------------------- config -------------------------------------
-
-    def _build_client(self) -> Optional[DifyClient]:
+    def _build_client(self):
+        if self._client_built:
+            return self._client
+        self._client_built = True
         base_url = self._get_param(self.PARAM_BASE_URL)
         api_key = self._get_param(self.PARAM_API_KEY)
         if not base_url or not api_key:
@@ -275,7 +248,9 @@ class DifyKnowledgeSync:
             retries = int(self._get_param(self.PARAM_RETRIES, default="2") or 2)
         except (TypeError, ValueError):
             retries = 2
-        return DifyClient(base_url=base_url, api_key=api_key, timeout=timeout, retries=retries)
+        self._client = DifyClient(base_url=base_url, api_key=api_key, timeout=timeout, retries=retries)
+        return self._client
 
-    def _get_param(self, key: str, default: Optional[str] = None) -> Optional[str]:
+    def _get_param(self, key, default=None):
         return self.env["ir.config_parameter"].sudo().get_param(key, default=default)
+

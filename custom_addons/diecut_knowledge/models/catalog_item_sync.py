@@ -1,30 +1,52 @@
 # -*- coding: utf-8 -*-
-"""通过 _inherit 给 diecut.catalog.item 加 Dify 同步字段和动作。
-
-设计：
-- 字段命名 dify_* 前缀，避免和 catalog 已有字段冲突
-- 标 pending 用 write 钩子（仅当业务字段变化时）
-- 动作不抛异常：失败仅写 dify_sync_error
-"""
 
 from odoo import api, fields, models
+from odoo.exceptions import UserError
 
-# 写入这些字段时才触发 sync_status -> pending（避免内部状态字段写入引发循环）
 _BUSINESS_FIELDS = {
-    "name", "code", "brand_id", "series_id", "categ_id", "manufacturer_id",
-    "thickness", "thickness_std", "adhesive_thickness",
-    "color_id", "adhesive_type_id", "base_material_id",
-    "is_rohs", "is_reach", "is_halogen_free", "fire_rating",
-    "catalog_status", "active",
-    "product_features", "product_description", "main_applications",
-    "special_applications", "equivalent_type",
+    "name",
+    "code",
+    "brand_id",
+    "series_id",
+    "categ_id",
+    "manufacturer_id",
+    "thickness",
+    "thickness_std",
+    "adhesive_thickness",
+    "color_id",
+    "adhesive_type_id",
+    "base_material_id",
+    "is_rohs",
+    "is_reach",
+    "is_halogen_free",
+    "fire_rating",
+    "catalog_status",
+    "active",
+    "product_features",
+    "product_description",
+    "main_applications",
+    "special_applications",
+    "equivalent_type",
     "spec_line_ids",
-    "function_tag_ids", "application_tag_ids", "feature_tag_ids",
+    "function_tag_ids",
+    "application_tag_ids",
+    "feature_tag_ids",
 }
 
-_INTERNAL_FIELDS = {
-    "dify_sync_status", "dify_dataset_id", "dify_document_id",
-    "dify_last_sync_at", "dify_sync_error",
+_SYNC_INTERNAL_FIELDS = {
+    "dify_sync_status",
+    "dify_dataset_id",
+    "dify_document_id",
+    "dify_last_sync_at",
+    "dify_sync_error",
+}
+
+_COMPILE_INTERNAL_FIELDS = {
+    "compile_status",
+    "compiled_article_id",
+    "last_compiled_at",
+    "compile_hash",
+    "compile_error",
 }
 
 
@@ -48,25 +70,61 @@ class DiecutCatalogItem(models.Model):
     dify_last_sync_at = fields.Datetime(string="最近同步时间", readonly=True, copy=False)
     dify_sync_error = fields.Text(string="同步错误", readonly=True, copy=False)
 
+    compile_status = fields.Selection(
+        [
+            ("pending", "待编译"),
+            ("compiled", "已编译"),
+            ("stale", "待重编译"),
+            ("failed", "编译失败"),
+            ("skipped", "已跳过"),
+        ],
+        string="知识编译状态",
+        default="pending",
+        index=True,
+        copy=False,
+    )
+    compiled_article_id = fields.Many2one(
+        "diecut.kb.article",
+        string="编译文章",
+        readonly=True,
+        copy=False,
+        ondelete="set null",
+    )
+    last_compiled_at = fields.Datetime(string="最近编译时间", readonly=True, copy=False)
+    compile_hash = fields.Char(string="编译哈希", readonly=True, copy=False)
+    compile_error = fields.Text(string="编译错误", readonly=True, copy=False)
+
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
             vals.setdefault("dify_sync_status", "pending")
+            vals.setdefault("compile_status", "pending")
         return super().create(vals_list)
 
     def write(self, vals):
-        triggers_sync = bool(_BUSINESS_FIELDS & set(vals.keys())) and not (
-            set(vals.keys()) <= _INTERNAL_FIELDS
-        )
+        touched = set(vals.keys())
+        triggers_business = bool(_BUSINESS_FIELDS & touched)
         result = super().write(vals)
-        if triggers_sync:
+        if triggers_business and not (touched <= (_SYNC_INTERNAL_FIELDS | _COMPILE_INTERNAL_FIELDS)):
+            pending_sync = self.env["diecut.catalog.item"]
+            pending_compile_stale = self.env["diecut.catalog.item"]
+            pending_compile_fresh = self.env["diecut.catalog.item"]
             for record in self:
                 if record.dify_sync_status == "synced":
-                    super(DiecutCatalogItem, record).write({"dify_sync_status": "pending"})
+                    pending_sync |= record
+                if record.compiled_article_id:
+                    pending_compile_stale |= record
+                else:
+                    pending_compile_fresh |= record
+            if pending_sync:
+                models.Model.write(pending_sync, {"dify_sync_status": "pending", "compile_error": False})
+            if pending_compile_stale:
+                models.Model.write(pending_compile_stale, {"compile_status": "stale", "compile_error": False})
+            if pending_compile_fresh:
+                models.Model.write(pending_compile_fresh, {"compile_status": "pending", "compile_error": False})
         return result
 
     def action_dify_sync_now(self):
-        """立即同步当前选中的产品到 Dify。"""
         from ..services.dify_product_sync import DifyProductSync
 
         sync = DifyProductSync(self.env)
@@ -94,6 +152,72 @@ class DiecutCatalogItem(models.Model):
         self.write({"dify_sync_status": "pending"})
         return True
 
+    def action_compile_knowledge(self):
+        from ..services.kb_compiler import KbCompiler
+
+        compiler = KbCompiler(self.env)
+        ok_count, fail_count = 0, 0
+        errors = []
+        for item in self:
+            result = compiler.compile_from_item(item, force=True)
+            if result.get("ok"):
+                ok_count += 1
+            else:
+                fail_count += 1
+                errors.append("[%s] %s" % (item.code or item.name, result.get("error", "")))
+        msg = f"编译完成：成功 {ok_count} / 失败 {fail_count}"
+        if errors:
+            msg += "\n" + "\n".join(errors[:3])
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": "AI 知识编译",
+                "message": msg,
+                "type": "success" if fail_count == 0 else "warning",
+                "sticky": bool(fail_count),
+            },
+        }
+
+    def action_compile_comparison(self):
+        if len(self) < 2:
+            raise UserError("对比分析至少需要选中 2 个产品。")
+        from ..services.kb_compiler import KbCompiler
+
+        result = KbCompiler(self.env).compile_comparison(self)
+        if result.get("ok"):
+            return {
+                "type": "ir.actions.act_window",
+                "name": "对比分析文章",
+                "res_model": "diecut.kb.article",
+                "view_mode": "form",
+                "res_id": result["article_id"],
+                "target": "current",
+            }
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": "AI 对比编译",
+                "message": result.get("error", "未知错误"),
+                "type": "danger",
+                "sticky": True,
+            },
+        }
+
+    def action_open_compiled_article(self):
+        self.ensure_one()
+        if not self.compiled_article_id:
+            raise UserError("当前产品还没有关联的编译文章。")
+        return {
+            "type": "ir.actions.act_window",
+            "name": "编译文章",
+            "res_model": "diecut.kb.article",
+            "view_mode": "form",
+            "res_id": self.compiled_article_id.id,
+            "target": "current",
+        }
+
     def action_open_ai_advisor(self):
         self.ensure_one()
         return {
@@ -111,3 +235,16 @@ class DiecutCatalogItem(models.Model):
         from ..services.dify_product_sync import DifyProductSync
 
         return DifyProductSync(self.env).sync_pending()
+
+    @api.model
+    def cron_compile_pending_items(self):
+        from ..services.kb_compiler import KbCompiler
+
+        limit = int(
+            self.env["ir.config_parameter"].sudo().get_param(
+                "diecut_knowledge.compile_batch_limit", default="5"
+            )
+            or 5
+        )
+        return KbCompiler(self.env).compile_pending(limit=limit)
+

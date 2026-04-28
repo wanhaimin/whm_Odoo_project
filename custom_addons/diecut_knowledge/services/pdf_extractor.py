@@ -167,15 +167,14 @@ def extract_image_text(file_bytes: bytes, ocr_lang: str = "ch") -> dict:
 # OCR backends
 # ---------------------------------------------------------------------------
 
-_paddle_ocr_singleton = None
+_paddle_ocr_instances: dict[str, object] = {}
 
 
 def _get_paddle_ocr(lang: str):
-    global _paddle_ocr_singleton
-    if _paddle_ocr_singleton is None:
+    if lang not in _paddle_ocr_instances:
         from paddleocr import PaddleOCR  # type: ignore
-        _paddle_ocr_singleton = PaddleOCR(use_angle_cls=True, lang=lang, show_log=False)
-    return _paddle_ocr_singleton
+        _paddle_ocr_instances[lang] = PaddleOCR(use_angle_cls=True, lang=lang, show_log=False)
+    return _paddle_ocr_instances[lang]
 
 
 def _ocr_pdf_with_paddle(file_bytes: bytes, lang: str) -> list[str]:

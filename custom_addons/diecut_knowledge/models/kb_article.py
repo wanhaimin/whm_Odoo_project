@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import re
+from html import escape
 
 from odoo import api, fields, models
 from odoo.exceptions import UserError
@@ -24,7 +25,7 @@ class DiecutKbArticle(models.Model):
         index=True,
         ondelete="set null",
     )
-    child_ids = fields.One2many("diecut.kb.article", "parent_id", string="下级文章")
+    child_ids = fields.One2many("diecut.kb.article", "parent_id", string="子文章")
     parent_path = fields.Char(index=True)
 
     category_id = fields.Many2one(
@@ -64,11 +65,7 @@ class DiecutKbArticle(models.Model):
         store=True,
         help="去除 HTML 标签后的纯文本，用于 Dify 同步与全文检索。",
     )
-    content_length = fields.Integer(
-        string="正文字数",
-        compute="_compute_content_text",
-        store=True,
-    )
+    content_length = fields.Integer(string="正文字数", compute="_compute_content_text", store=True)
 
     keywords = fields.Char(string="关键词", help="逗号分隔，用于 Dify 检索过滤。")
     source_url = fields.Char(string="来源 URL")
@@ -95,6 +92,13 @@ class DiecutKbArticle(models.Model):
         "article_id",
         "item_id",
         string="关联型号",
+    )
+    related_article_ids = fields.Many2many(
+        "diecut.kb.article",
+        "diecut_kb_article_related_rel",
+        "article_id",
+        "related_article_id",
+        string="相关文章",
     )
 
     attachment_ids = fields.One2many(
@@ -130,6 +134,53 @@ class DiecutKbArticle(models.Model):
         string="同步日志",
     )
 
+    compile_source = fields.Selection(
+        [
+            ("manual", "手工编写"),
+            ("catalog_item", "产品编译"),
+            ("comparison", "对比分析"),
+            ("source_document", "资料编译"),
+            ("faq", "FAQ 编译"),
+            ("qa_compile", "问答编译"),
+            ("ai_answer", "AI 对话沉淀"),
+            ("lint_note", "治理补充"),
+        ],
+        string="内容来源",
+        default="manual",
+        index=True,
+    )
+    compile_source_item_id = fields.Many2one(
+        "diecut.catalog.item",
+        string="编译源产品",
+        index=True,
+        ondelete="set null",
+    )
+    compile_source_document_id = fields.Many2one(
+        "diecut.catalog.source.document",
+        string="编译源资料",
+        index=True,
+        ondelete="set null",
+    )
+    compiled_at = fields.Datetime(string="编译时间", readonly=True, copy=False)
+    compiled_hash = fields.Char(string="编译哈希", readonly=True, copy=False)
+    compile_confidence = fields.Float(string="编译置信度", readonly=True, copy=False)
+    compile_risk_level = fields.Selection(
+        [
+            ("low", "低风险"),
+            ("medium", "中风险"),
+            ("high", "高风险"),
+        ],
+        string="编译风险",
+        default="medium",
+        readonly=True,
+        copy=False,
+    )
+    source_page_refs = fields.Char(string="来源页码", readonly=True, copy=False)
+    source_file_name = fields.Char(string="来源文件", readonly=True, copy=False)
+    xref_enriched_at = fields.Datetime(string="交叉引用更新时间", readonly=True, copy=False)
+    last_linted_at = fields.Datetime(string="最近治理检查时间", readonly=True, copy=False)
+    lint_issue_count = fields.Integer(string="治理问题数", readonly=True, copy=False)
+
     @api.depends("attachment_ids")
     def _compute_attachment_count(self):
         for record in self:
@@ -149,7 +200,7 @@ class DiecutKbArticle(models.Model):
         text = re.sub(r"<br\s*/?>", "\n", html_value, flags=re.I)
         text = re.sub(r"</p\s*>", "\n", text, flags=re.I)
         text = re.sub(r"</li\s*>", "\n", text, flags=re.I)
-        text = re.sub(r"<li[^>]*>", "• ", text, flags=re.I)
+        text = re.sub(r"<li[^>]*>", "- ", text, flags=re.I)
         text = re.sub(r"<[^>]+>", " ", text)
         text = re.sub(r"&nbsp;", " ", text, flags=re.I)
         text = re.sub(r"&amp;", "&", text, flags=re.I)
@@ -165,22 +216,38 @@ class DiecutKbArticle(models.Model):
         for vals in vals_list:
             vals.setdefault("last_edited_uid", self.env.user.id)
             vals.setdefault("last_edited_at", fields.Datetime.now())
-        return super().create(vals_list)
+        records = super().create(vals_list)
+        records._auto_enrich_if_needed(vals_list)
+        return records
 
     def write(self, vals):
         meaningful_fields = {
-            "name", "summary", "content_html", "category_id", "state",
-            "keywords", "source_url", "author_name", "publish_date",
-            "related_brand_ids", "related_categ_ids", "related_item_ids",
+            "name",
+            "summary",
+            "content_html",
+            "category_id",
+            "state",
+            "keywords",
+            "source_url",
+            "author_name",
+            "publish_date",
+            "related_brand_ids",
+            "related_categ_ids",
+            "related_item_ids",
+            "related_article_ids",
         }
-        if meaningful_fields & set(vals.keys()):
+        is_meaningful = bool(meaningful_fields & set(vals.keys()))
+        if is_meaningful:
             vals.setdefault("last_edited_uid", self.env.user.id)
             vals.setdefault("last_edited_at", fields.Datetime.now())
-            if vals.get("state") != "archived":
-                for record in self:
-                    if record.sync_status == "synced":
-                        record.sync_status = "pending"
-        return super().write(vals)
+        result = super().write(vals)
+        if is_meaningful and not vals.get("state") == "archived":
+            to_pending = self.filtered(lambda r: r.sync_status == "synced")
+            if to_pending:
+                super(DiecutKbArticle, to_pending).write({"sync_status": "pending"})
+        if not self.env.context.get("skip_auto_enrich"):
+            self._auto_enrich_if_needed([vals] * len(self))
+        return result
 
     def action_submit_review(self):
         for record in self:
@@ -195,6 +262,7 @@ class DiecutKbArticle(models.Model):
                 raise UserError("只有草稿或评审中的文章可以发布。")
             if not record.content_html or record.content_length < 10:
                 raise UserError(f"文章 [{record.name}] 正文为空或过短，无法发布。")
+        self._run_enrichment()
         self.write({
             "state": "published",
             "publish_date": fields.Date.context_today(self),
@@ -215,14 +283,7 @@ class DiecutKbArticle(models.Model):
         return True
 
     def action_fill_content_from_attachments(self):
-        """把附件中已解析的 markdown/纯文本拼接成 HTML 写入 content_html。
-
-        - 优先用 parsed_markdown（带 ## 第 N 页 标题），其次 parsed_text
-        - 多个附件按 sequence 拼接，每个附件加二级标题
-        - 已有 content_html 时追加，不覆盖（避免误操作丢失内容）
-        """
-        from html import escape
-
+        """把附件中已解析的 markdown/纯文本拼接成 HTML 写入 content_html。"""
         for record in self:
             attachments = record.attachment_ids.filtered(lambda a: a.parse_state == "parsed")
             if not attachments:
@@ -239,7 +300,7 @@ class DiecutKbArticle(models.Model):
                 )
 
             if not sections:
-                raise UserError("所选附件均无已提取的文本。")
+                raise UserError("所选附件均无可用的提取文本。")
 
             new_block = "\n\n".join(sections)
             existing = record.content_html or ""
@@ -250,7 +311,7 @@ class DiecutKbArticle(models.Model):
             "tag": "display_notification",
             "params": {
                 "title": "已填充正文",
-                "message": "附件的提取文本已追加到正文末尾，请检查后再发布。",
+                "message": "附件提取文本已追加到正文末尾，请检查后再发布。",
                 "type": "success",
                 "sticky": False,
             },
@@ -258,9 +319,6 @@ class DiecutKbArticle(models.Model):
 
     @staticmethod
     def _markdown_to_simple_html(md_text: str) -> str:
-        """极简 markdown → HTML，只处理标题/段落/列表/换行，避免引入新依赖。"""
-        from html import escape
-
         lines = (md_text or "").splitlines()
         out = []
         in_list = False
@@ -274,23 +332,28 @@ class DiecutKbArticle(models.Model):
                 continue
             if stripped.startswith("### "):
                 if in_list:
-                    out.append("</ul>"); in_list = False
+                    out.append("</ul>")
+                    in_list = False
                 out.append(f"<h3>{escape(stripped[4:].strip())}</h3>")
             elif stripped.startswith("## "):
                 if in_list:
-                    out.append("</ul>"); in_list = False
+                    out.append("</ul>")
+                    in_list = False
                 out.append(f"<h3>{escape(stripped[3:].strip())}</h3>")
             elif stripped.startswith("# "):
                 if in_list:
-                    out.append("</ul>"); in_list = False
+                    out.append("</ul>")
+                    in_list = False
                 out.append(f"<h2>{escape(stripped[2:].strip())}</h2>")
             elif stripped.startswith(("- ", "* ", "• ")):
                 if not in_list:
-                    out.append("<ul>"); in_list = True
+                    out.append("<ul>")
+                    in_list = True
                 out.append(f"<li>{escape(stripped[2:].strip())}</li>")
             else:
                 if in_list:
-                    out.append("</ul>"); in_list = False
+                    out.append("</ul>")
+                    in_list = False
                 out.append(f"<p>{escape(stripped)}</p>")
         if in_list:
             out.append("</ul>")
@@ -308,8 +371,8 @@ class DiecutKbArticle(models.Model):
         }
 
     def action_request_sync(self):
-        """立即同步（推送/更新/删除）。失败不抛异常，结果写入 sync_log。"""
         from ..services.dify_sync import DifyKnowledgeSync
+
         sync_service = DifyKnowledgeSync(self.env)
         ok_count, fail_count = 0, 0
         for record in self:
@@ -331,16 +394,64 @@ class DiecutKbArticle(models.Model):
         }
 
     def action_mark_pending(self):
-        """仅标记为待同步，由定时任务处理。"""
         self.write({"sync_status": "pending"})
         return True
 
+    def action_recompile(self):
+        self.ensure_one()
+        from ..services.kb_compiler import KbCompiler
+
+        if self.compile_source_document_id:
+            result = KbCompiler(self.env).compile_from_source_document(self.compile_source_document_id, force=True)
+        elif self.compile_source_item_id:
+            result = KbCompiler(self.env).compile_from_item(self.compile_source_item_id, force=True)
+        else:
+            raise UserError("当前文章没有关联编译源资料或编译源产品，无法重新编译。")
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": "AI 编译",
+                "message": "重新编译成功" if result.get("ok") else result.get("error", "重新编译失败"),
+                "type": "success" if result.get("ok") else "warning",
+                "sticky": not result.get("ok"),
+            },
+        }
+
+    def action_run_lint(self):
+        from ..services.kb_linter import KbLinter
+
+        total = 0
+        for article in self:
+            total += KbLinter(self.env).lint_article(article).get("total", 0)
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": "知识治理检查",
+                "message": f"已完成检查，发现 {total} 个问题。",
+                "type": "success" if total == 0 else "warning",
+                "sticky": False,
+            },
+        }
+
     @api.model
     def cron_sync_pending_articles(self):
-        """定时任务入口：扫 pending/failed 文章自动重试同步。"""
         from ..services.dify_sync import DifyKnowledgeSync
-        result = DifyKnowledgeSync(self.env).sync_pending()
-        return result
+
+        return DifyKnowledgeSync(self.env).sync_pending()
+
+    @api.model
+    def cron_lint_published_articles(self):
+        from ..services.kb_linter import KbLinter
+
+        limit = int(
+            self.env["ir.config_parameter"].sudo().get_param(
+                "diecut_knowledge.lint_batch_limit", default="20"
+            )
+            or 20
+        )
+        return KbLinter(self.env).lint_pending(limit=limit)
 
     def action_open_ai_advisor(self):
         self.ensure_one()
@@ -364,3 +475,25 @@ class DiecutKbArticle(models.Model):
             "domain": [("article_id", "=", self.id)],
             "context": {"default_article_id": self.id},
         }
+
+    def _auto_enrich_if_needed(self, vals_list):
+        if self.env.context.get("skip_auto_enrich"):
+            return
+        trigger_fields = {
+            "content_html",
+            "summary",
+            "name",
+            "related_brand_ids",
+            "related_categ_ids",
+            "related_item_ids",
+        }
+        should_run = any(trigger_fields & set(vals.keys()) for vals in vals_list)
+        if should_run:
+            self._run_enrichment()
+
+    def _run_enrichment(self):
+        from ..services.kb_enricher import KbEnricher
+
+        enricher = KbEnricher(self.env)
+        for record in self.filtered(lambda rec: rec.state != "archived" and rec.content_html):
+            enricher.enrich_article(record)

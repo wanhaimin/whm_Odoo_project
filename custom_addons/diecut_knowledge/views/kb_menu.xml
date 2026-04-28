@@ -6,6 +6,18 @@
               sequence="80"
               web_icon="diecut_knowledge,static/description/icon.png"/>
 
+    <menuitem id="menu_diecut_kb_compile_workspace"
+              name="Wiki 文章"
+              parent="menu_diecut_knowledge_root"
+              action="action_diecut_kb_compile_workspace"
+              sequence="5"/>
+
+    <menuitem id="menu_diecut_kb_compile_sources"
+              name="编译源资料"
+              parent="menu_diecut_knowledge_root"
+              action="action_diecut_kb_compile_sources"
+              sequence="6"/>
+
     <menuitem id="menu_diecut_kb_articles"
               name="知识文章"
               parent="menu_diecut_knowledge_root"
@@ -41,6 +53,12 @@
               parent="menu_diecut_kb_config"
               action="action_diecut_kb_sync_log"
               sequence="20"/>
+
+    <menuitem id="menu_diecut_kb_lint_logs"
+              name="知识治理日志"
+              parent="menu_diecut_kb_config"
+              action="action_diecut_kb_lint_log"
+              sequence="25"/>
 
     <menuitem id="menu_diecut_kb_settings"
               name="Dify 配置"

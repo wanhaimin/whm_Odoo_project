@@ -6,19 +6,19 @@
         <field name="model">diecut.catalog.item</field>
         <field name="inherit_id" ref="diecut.view_diecut_catalog_item_form"/>
         <field name="arch" type="xml">
-
             <xpath expr="//header" position="inside">
                 <button name="action_dify_sync_now" type="object" string="立即同步到 Dify"
                         class="btn-secondary" icon="fa-cloud-upload"
-                        groups="base.group_user"
-                        help="把本型号推送到 Dify 产品库（KB-Products）。"/>
-                <button name="action_dify_mark_pending" type="object" string="加入同步队列"
+                        groups="base.group_user"/>                <button name="action_dify_mark_pending" type="object" string="加入同步队列"
                         class="btn-secondary" icon="fa-clock-o"
                         groups="base.group_user"/>
+                <button name="action_open_compiled_article" type="object" string="查看编译文章"
+                        class="btn-secondary" icon="fa-file-text-o"
+                        groups="base.group_user"
+                        invisible="not compiled_article_id"/>
                 <button name="action_open_ai_advisor" type="object" string="AI 顾问"
                         class="btn-primary" icon="fa-comments"
-                        groups="base.group_user"
-                        help="打开 AI 顾问抽屉，基于当前型号的参数向 Dify 对话应用提问。"/>
+                        groups="base.group_user"/>
                 <field name="dify_sync_status" widget="statusbar"
                        statusbar_visible="pending,synced"
                        options="{'clickable': '0'}"/>
@@ -38,8 +38,20 @@
                         <field name="dify_sync_error" nolabel="1" readonly="1"/>
                     </group>
                 </group>
+                <group string="知识编译" groups="base.group_user" name="compile_group">
+                    <group>
+                        <field name="compile_status" readonly="1"/>
+                        <field name="last_compiled_at" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="compiled_article_id" readonly="1"/>
+                        <field name="compile_hash" readonly="1"/>
+                    </group>
+                    <group invisible="not compile_error" colspan="2">
+                        <field name="compile_error" nolabel="1" readonly="1"/>
+                    </group>
+                </group>
             </xpath>
-
         </field>
     </record>
 
@@ -48,19 +60,19 @@
         <field name="model">diecut.catalog.item</field>
         <field name="inherit_id" ref="diecut.view_diecut_catalog_item_split_form_standalone"/>
         <field name="arch" type="xml">
-
             <xpath expr="//header" position="inside">
                 <button name="action_dify_sync_now" type="object" string="立即同步到 Dify"
                         class="btn-secondary" icon="fa-cloud-upload"
-                        groups="base.group_user"
-                        help="把本型号推送到 Dify 产品库（KB-Products）。"/>
-                <button name="action_dify_mark_pending" type="object" string="加入同步队列"
+                        groups="base.group_user"/>                <button name="action_dify_mark_pending" type="object" string="加入同步队列"
                         class="btn-secondary" icon="fa-clock-o"
                         groups="base.group_user"/>
+                <button name="action_open_compiled_article" type="object" string="查看编译文章"
+                        class="btn-secondary" icon="fa-file-text-o"
+                        groups="base.group_user"
+                        invisible="not compiled_article_id"/>
                 <button name="action_open_ai_advisor" type="object" string="AI 顾问"
                         class="btn-primary" icon="fa-comments"
-                        groups="base.group_user"
-                        help="打开 AI 顾问抽屉，基于当前型号的参数向 Dify 对话应用提问。"/>
+                        groups="base.group_user"/>
                 <field name="dify_sync_status" widget="statusbar"
                        statusbar_visible="pending,synced"
                        options="{'clickable': '0'}"/>
@@ -80,8 +92,20 @@
                         <field name="dify_sync_error" nolabel="1" readonly="1"/>
                     </group>
                 </group>
+                <group string="知识编译" groups="base.group_user" name="compile_group">
+                    <group>
+                        <field name="compile_status" readonly="1"/>
+                        <field name="last_compiled_at" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="compiled_article_id" readonly="1"/>
+                        <field name="compile_hash" readonly="1"/>
+                    </group>
+                    <group invisible="not compile_error" colspan="2">
+                        <field name="compile_error" nolabel="1" readonly="1"/>
+                    </group>
+                </group>
             </xpath>
-
         </field>
     </record>
 
@@ -96,6 +120,12 @@
                        decoration-success="dify_sync_status == 'synced'"
                        decoration-danger="dify_sync_status == 'failed'"
                        decoration-muted="dify_sync_status == 'skipped'"/>
+                <field name="compile_status" optional="hide" widget="badge"
+                       decoration-info="compile_status == 'pending'"
+                       decoration-warning="compile_status == 'stale'"
+                       decoration-success="compile_status == 'compiled'"
+                       decoration-danger="compile_status == 'failed'"
+                       decoration-muted="compile_status == 'skipped'"/>
             </xpath>
         </field>
     </record>
@@ -113,8 +143,14 @@
                         domain="[('dify_sync_status','=','failed')]"/>
                 <filter string="Dify 已同步" name="dify_synced"
                         domain="[('dify_sync_status','=','synced')]"/>
+                <filter string="编译待处理" name="compile_pending"
+                        domain="[('compile_status','in',('pending','stale','failed'))]"/>
+                <filter string="已编译" name="compile_done"
+                        domain="[('compile_status','=','compiled')]"/>
                 <filter string="按 Dify 同步状态分组" name="dify_group_status"
                         context="{'group_by': 'dify_sync_status'}"/>
+                <filter string="按编译状态分组" name="compile_group_status"
+                        context="{'group_by': 'compile_status'}"/>
             </xpath>
         </field>
     </record>
@@ -123,7 +159,7 @@
         <field name="name">Dify：立即同步</field>
         <field name="model_id" ref="diecut.model_diecut_catalog_item"/>
         <field name="binding_model_id" ref="diecut.model_diecut_catalog_item"/>
-        <field name="binding_view_types">list</field>
+        <field name="binding_view_types">form</field>
         <field name="state">code</field>
         <field name="code">action = records.action_dify_sync_now()</field>
     </record>
@@ -135,6 +171,24 @@
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">records.action_dify_mark_pending()</field>
+    </record>
+
+    <record id="action_catalog_item_compile_knowledge" model="ir.actions.server">
+        <field name="name">AI 编译：生成知识文章</field>
+        <field name="model_id" ref="diecut.model_diecut_catalog_item"/>
+        <field name="binding_model_id" ref="diecut.model_diecut_catalog_item"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_compile_knowledge()</field>
+    </record>
+
+    <record id="action_catalog_item_compile_comparison" model="ir.actions.server">
+        <field name="name">AI 编译：对比分析</field>
+        <field name="model_id" ref="diecut.model_diecut_catalog_item"/>
+        <field name="binding_model_id" ref="diecut.model_diecut_catalog_item"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_compile_comparison()</field>
     </record>
 
 </odoo>

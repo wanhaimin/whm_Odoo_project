@@ -1,34 +1,26 @@
 # -*- coding: utf-8 -*-
-"""AI 顾问 Controller — 代理调用 Dify Chat API，避免 API key 暴露到前端。"""
+"""AI 顾问 Controller：代理调用 Dify Chat API，避免 API key 暴露到前端。"""
 
+import html
 import logging
 import re
 
-from odoo import http
+from odoo import fields, http
 from odoo.http import request
 
 _logger = logging.getLogger(__name__)
 
 
 class DiecutAiAdvisor(http.Controller):
-
     @http.route("/diecut_knowledge/ai/chat", type="json", auth="user")
     def ai_chat(self, query, model, record_id, conversation_id="", inputs=None):
-        base_url = (
-            request.env["ir.config_parameter"]
-            .sudo()
-            .get_param("diecut_knowledge.dify_base_url")
-        )
-        api_key = (
-            request.env["ir.config_parameter"]
-            .sudo()
-            .get_param("diecut_knowledge.dify_chat_api_key")
-        )
+        base_url = request.env["ir.config_parameter"].sudo().get_param("diecut_knowledge.dify_base_url")
+        api_key = request.env["ir.config_parameter"].sudo().get_param("diecut_knowledge.dify_chat_api_key")
 
         if not base_url or not api_key:
             return {
                 "ok": False,
-                "error": "Dify 未配置，请先在系统设置 → 行业知识库 → Dify 配置 中填写 Base URL 和 Chat API Key。",
+                "error": "Dify 未配置，请先在系统设置中填写 Base URL 和 Chat API Key。",
             }
 
         chat_inputs = dict(inputs or {})
@@ -52,18 +44,23 @@ class DiecutAiAdvisor(http.Controller):
 
         if ok:
             answer = _clean_ai_answer((payload or {}).get("answer", ""))
-            new_cid = (payload or {}).get("conversation_id", conversation_id)
             return {
                 "ok": True,
                 "answer": answer,
-                "conversation_id": new_cid,
+                "conversation_id": (payload or {}).get("conversation_id", conversation_id),
                 "duration_ms": duration,
             }
         return {"ok": False, "error": error or "Dify API 调用失败"}
 
+    @http.route("/diecut_knowledge/ai/save_answer", type="json", auth="user")
+    def ai_save_answer(self, question, answer, model=None, record_id=None, record_name=""):
+        article = _save_answer_as_article(question=question, answer=answer, model=model, record_id=record_id, record_name=record_name)
+        if not article:
+            return {"ok": False, "error": "保存失败"}
+        return {"ok": True, "article_id": article.id, "article_name": article.name}
+
 
 def _clean_ai_answer(answer: str) -> str:
-    """Hide reasoning traces leaked by some chat models."""
     text = answer or ""
     text = re.sub(r"<think>.*?</think>", "", text, flags=re.IGNORECASE | re.DOTALL)
     text = re.sub(r"</?think>", "", text, flags=re.IGNORECASE)
@@ -125,3 +122,61 @@ def _build_record_context(record) -> dict:
             )
 
     return ctx
+
+
+def _save_answer_as_article(question, answer, model=None, record_id=None, record_name=""):
+    env = request.env
+    category = None
+    related_brand_ids = []
+    related_categ_ids = []
+    related_item_ids = []
+    source_item_id = False
+
+    source_record = False
+    if model and record_id:
+        source_record = env[model].browse(record_id)
+    if source_record and source_record.exists():
+        if model == "diecut.kb.article":
+            category = source_record.category_id
+            related_brand_ids = source_record.related_brand_ids.ids
+            related_categ_ids = source_record.related_categ_ids.ids
+            related_item_ids = source_record.related_item_ids.ids
+        elif model == "diecut.catalog.item":
+            category = env["diecut.kb.category"].search([("code", "=", "material_selection")], limit=1)
+            related_brand_ids = source_record.brand_id.ids
+            related_categ_ids = source_record.categ_id.ids
+            related_item_ids = [source_record.id]
+            source_item_id = source_record.id
+        elif model == "diecut.kb.qa_ticket":
+            category = source_record.category_id
+            related_brand_ids = source_record.related_brand_ids.ids
+            related_item_ids = source_record.related_item_ids.ids
+            related_categ_ids = source_record.related_item_ids.mapped("categ_id").ids
+
+    if not category:
+        category = env["diecut.kb.category"].search([], limit=1, order="sequence, id")
+    if not category:
+        return False
+
+    title_base = question.strip()[:80] or record_name or "AI 对话沉淀"
+    article = env["diecut.kb.article"].create({
+        "name": f"AI沉淀：{title_base}"[:200],
+        "category_id": category.id,
+        "summary": question.strip()[:200],
+        "content_html": (
+            "<h2>问题</h2><p>%s</p><h2>AI 回答</h2><p>%s</p>" %
+            (html.escape(question or ""), html.escape(answer or "").replace("\n", "<br/>"))
+        ),
+        "state": "review",
+        "sync_status": "pending",
+        "compile_source": "ai_answer",
+        "compile_source_item_id": source_item_id or False,
+        "compiled_at": fields.Datetime.now(),
+        "related_brand_ids": [(6, 0, related_brand_ids)],
+        "related_categ_ids": [(6, 0, related_categ_ids)],
+        "related_item_ids": [(6, 0, related_item_ids)],
+        "keywords": ", ".join(filter(None, [question[:40], record_name])),
+        "author_name": env.user.display_name,
+    })
+    article._run_enrichment()
+    return article

@@ -14,6 +14,7 @@
                 <field name="related_brand_ids"/>
                 <field name="related_categ_ids"/>
                 <field name="related_item_ids"/>
+                <field name="related_article_ids"/>
                 <field name="author_name"/>
                 <separator/>
                 <filter string="收藏" name="favorite" domain="[('is_favorite','=',True)]"/>
@@ -24,10 +25,12 @@
                 <separator/>
                 <filter string="待同步" name="sync_pending" domain="[('sync_status','=','pending')]"/>
                 <filter string="同步失败" name="sync_failed" domain="[('sync_status','=','failed')]"/>
+                <filter string="AI 编译" name="ai_compiled" domain="[('compile_source','!=','manual')]"/>
                 <separator/>
                 <filter string="按分类分组" name="group_category" context="{'group_by':'category_id'}"/>
                 <filter string="按状态分组" name="group_state" context="{'group_by':'state'}"/>
                 <filter string="按同步状态分组" name="group_sync" context="{'group_by':'sync_status'}"/>
+                <filter string="按来源分组" name="group_compile_source" context="{'group_by':'compile_source'}"/>
             </search>
         </field>
     </record>
@@ -40,6 +43,7 @@
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="category_id"/>
+                <field name="compile_source" optional="hide"/>
                 <field name="state" widget="badge"
                        decoration-info="state == 'draft'"
                        decoration-warning="state == 'review'"
@@ -50,6 +54,7 @@
                        decoration-success="sync_status == 'synced'"
                        decoration-danger="sync_status == 'failed'"
                        decoration-muted="sync_status == 'skipped'"/>
+                <field name="lint_issue_count" optional="hide"/>
                 <field name="content_length" string="字数"/>
                 <field name="attachment_count" string="附件"/>
                 <field name="author_name"/>
@@ -119,16 +124,18 @@
                             invisible="state == 'archived'"/>
                     <button name="action_fill_content_from_attachments" type="object" string="从附件填充正文"
                             invisible="state == 'archived'"
-                            help="把已解析的附件文本追加到正文末尾。不会覆盖已有内容。"/>
+                            help="把已解析的附件文本追加到正文末尾，不会覆盖已有内容。"/>
                     <button name="action_request_sync" type="object" string="立即同步到 Dify"
-                            invisible="state != 'published'"
-                            help="立即推送到 Dify（同步执行，可能稍慢）。失败可在「同步日志」查看原因。"/>
+                            invisible="state != 'published'"/>
                     <button name="action_mark_pending" type="object" string="加入同步队列"
-                            invisible="state != 'published'"
-                            help="标记为待同步，由后台定时任务自动处理。"/>
+                            invisible="state != 'published'"/>
+                    <button name="action_recompile" type="object" string="重新编译"
+                            class="btn-secondary" icon="fa-magic"
+                            invisible="not compile_source_item_id"/>
+                    <button name="action_run_lint" type="object" string="治理检查"
+                            class="btn-secondary" icon="fa-stethoscope"/>
                     <button name="action_open_ai_advisor" type="object" string="AI 顾问"
-                            class="btn-primary" icon="fa-comments"
-                            help="打开 AI 顾问抽屉，基于当前文章内容向 Dify 对话应用提问。"/>
+                            class="btn-primary" icon="fa-comments"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,review,published"/>
                 </header>
                 <sheet>
@@ -167,6 +174,7 @@
                                 <field name="related_brand_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
                                 <field name="related_categ_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
                                 <field name="related_item_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                                <field name="related_article_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
                             </group>
                         </page>
                         <page string="附件">
@@ -197,11 +205,23 @@
                                     <field name="sync_status"/>
                                     <field name="last_sync_at"/>
                                     <field name="content_length"/>
+                                    <field name="compile_source"/>
+                                    <field name="compile_source_item_id"/>
                                 </group>
                                 <group>
                                     <field name="dify_dataset_id"/>
                                     <field name="dify_document_id"/>
+                                    <field name="compiled_at"/>
+                                    <field name="compiled_hash"/>
+                                    <field name="xref_enriched_at"/>
                                 </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="last_linted_at"/>
+                                    <field name="lint_issue_count"/>
+                                </group>
+                                <group/>
                             </group>
                             <group string="错误信息" invisible="not sync_error">
                                 <field name="sync_error" nolabel="1"/>
@@ -240,7 +260,21 @@
         <field name="context">{}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiley_face">创建第一篇行业知识文章</p>
-            <p>把材料选型经验、模切工艺、刀模设计、行业标准、客户问题沉淀为可检索的知识资产。</p>
+            <p>把材料选型经验、模切工艺、刀模设计、行业标准、客户问答沉淀为可检索的知识资产。</p>
+        </field>
+    </record>
+
+
+    <record id="action_diecut_kb_compile_workspace" model="ir.actions.act_window">
+        <field name="name">Wiki 文章</field>
+        <field name="res_model">diecut.kb.article</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_diecut_kb_article_search"/>
+        <field name="domain">[('compile_source', '!=', 'manual')]</field>
+        <field name="context">{'search_default_ai_compiled': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiley_face">这里集中查看 LLM 编译后的 Wiki 文章</p>
+            <p>知识管理模块负责把原始资料和结构化产品编译成可审核、可发布、可同步到 Dify 的 Wiki 知识。</p>
         </field>
     </record>
 

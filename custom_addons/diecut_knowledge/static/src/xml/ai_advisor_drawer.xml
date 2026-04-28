@@ -4,7 +4,6 @@
     <t t-name="diecut_knowledge.AiAdvisorDrawer">
         <div class="o_diecut_ai_overlay" t-on-click="onClickBackdrop">
             <div class="o_diecut_ai_drawer">
-                <!-- header -->
                 <div class="o_diecut_ai_header">
                     <span class="o_diecut_ai_title">AI 顾问</span>
                     <button class="btn btn-sm btn-link o_diecut_ai_close" t-on-click="close" title="关闭">
@@ -12,7 +11,6 @@
                     </button>
                 </div>
 
-                <!-- body -->
                 <div class="o_diecut_ai_body" t-ref="chatBody">
                     <div t-if="!hasMessages and ui.loading" class="o_diecut_ai_spinner">
                         <i class="fa fa-spinner fa-spin" /> 思考中...
@@ -34,6 +32,14 @@
                             <div class="o_diecut_ai_msg_content">
                                 <div class="o_diecut_ai_msg_label">AI</div>
                                 <div class="o_diecut_ai_msg_text o_diecut_ai_answer"><t t-esc="msg.content" /></div>
+                                <div class="o_diecut_ai_msg_tools">
+                                    <button class="btn btn-sm btn-secondary"
+                                            t-on-click="saveMessage.bind(this, msg)"
+                                            t-att-disabled="ui.savingIds.includes(msg.id) || !!msg.savedArticleId">
+                                        <t t-if="msg.savedArticleId">已保存</t>
+                                        <t t-else="">保存为知识</t>
+                                    </button>
+                                </div>
                             </div>
                         </t>
                     </div>
@@ -50,7 +56,6 @@
                     </div>
                 </div>
 
-                <!-- input -->
                 <div class="o_diecut_ai_input_area">
                     <textarea
                         class="o_input o_diecut_ai_input"

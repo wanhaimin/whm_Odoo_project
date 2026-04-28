@@ -33,6 +33,9 @@ class DifyProductSync:
 
     def __init__(self, env):
         self.env = env
+        self._client = None
+        self._dataset_id = None
+        self._client_built = False
 
     # --------------------------- public -------------------------------------
 
@@ -103,7 +106,7 @@ class DifyProductSync:
 
         document = (payload or {}).get("document") or {}
         document_id = document.get("id") or (payload or {}).get("id")
-        item.sudo().write({
+        item.write({
             "dify_sync_status": "synced",
             "dify_dataset_id": dataset_id,
             "dify_document_id": document_id,
@@ -122,12 +125,12 @@ class DifyProductSync:
         )
         if not ok:
             if "not_found" in (error or "").lower() or "404" in (error or ""):
-                item.sudo().write({"dify_document_id": False, "dify_dataset_id": False})
+                item.write({"dify_document_id": False, "dify_dataset_id": False})
                 return self._do_create(item, client, dataset_id)
             self._mark(item, "failed", error)
             return {"ok": False, "action": "update", "error": error}
 
-        item.sudo().write({
+        item.write({
             "dify_sync_status": "synced",
             "dify_last_sync_at": datetime.now(),
             "dify_sync_error": False,
@@ -136,13 +139,13 @@ class DifyProductSync:
 
     def _do_delete(self, item, client: Optional[DifyClient], dataset_id: Optional[str]) -> dict:
         if not (client and dataset_id and item.dify_document_id):
-            item.sudo().write({"dify_sync_status": "synced"})
+            item.write({"dify_sync_status": "synced"})
             return {"ok": True, "action": "noop", "error": None}
         ok, payload, error, _dur = client.delete_document(dataset_id, item.dify_document_id)
         if not ok and "not_found" not in (error or "").lower() and "404" not in (error or ""):
             self._mark(item, "failed", error)
             return {"ok": False, "action": "delete", "error": error}
-        item.sudo().write({
+        item.write({
             "dify_sync_status": "synced",
             "dify_document_id": False,
             "dify_last_sync_at": datetime.now(),
@@ -276,14 +279,17 @@ class DifyProductSync:
             vals["dify_sync_error"] = (error or "")[:2000]
         elif status == "skipped":
             vals["dify_sync_error"] = False
-        item.sudo().write(vals)
+        item.write(vals)
 
     def _build_client_and_dataset(self) -> tuple:
+        if self._client_built:
+            return self._client, self._dataset_id
+        self._client_built = True
         base_url = self._get_param(self.PARAM_BASE_URL)
         api_key = self._get_param(self.PARAM_API_KEY)
-        dataset_id = self._get_param(self.PARAM_DATASET)
+        self._dataset_id = self._get_param(self.PARAM_DATASET)
         if not base_url or not api_key:
-            return None, dataset_id
+            return self._client, self._dataset_id
         try:
             timeout = int(self._get_param("diecut_knowledge.dify_timeout", default="30") or 30)
         except (TypeError, ValueError):
@@ -292,7 +298,8 @@ class DifyProductSync:
             retries = int(self._get_param("diecut_knowledge.dify_retries", default="2") or 2)
         except (TypeError, ValueError):
             retries = 2
-        return DifyClient(base_url=base_url, api_key=api_key, timeout=timeout, retries=retries), dataset_id
+        self._client = DifyClient(base_url=base_url, api_key=api_key, timeout=timeout, retries=retries)
+        return self._client, self._dataset_id
 
     def _get_param(self, key: str, default: Optional[str] = None) -> Optional[str]:
         return self.env["ir.config_parameter"].sudo().get_param(key, default=default)

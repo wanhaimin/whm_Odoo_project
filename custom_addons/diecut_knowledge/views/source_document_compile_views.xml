@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_diecut_catalog_source_document_form_kb_compile_inherit" model="ir.ui.view">
+        <field name="name">diecut.catalog.source.document.form.kb.compile.inherit</field>
+        <field name="model">diecut.catalog.source.document</field>
+        <field name="inherit_id" ref="diecut.view_diecut_catalog_source_document_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[group/field[@name='parse_version']]" position="after">
+                <group string="知识管理辅助">
+                    <div class="alert alert-warning" role="alert" colspan="2" invisible="not compile_block_reason">
+                        <field name="compile_block_reason" nolabel="1" readonly="1"/>
+                    </div>
+                    <group>
+                        <field name="compiled_item_count" readonly="1"/>
+                        <field name="compiled_item_ids" widget="many2many_tags" readonly="1" options="{'no_open': False}"/>
+                    </group>
+                    <group>
+                        <field name="compilable_item_count" readonly="1"/>
+                        <field name="compilable_item_ids" widget="many2many_tags" readonly="1" options="{'no_open': False}"/>
+                        <field name="compiled_article_count" readonly="1"/>
+                        <field name="compiled_article_ids" widget="many2many_tags" readonly="1" options="{'no_open': False}"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_source_document_compile_knowledge" model="ir.actions.server">
+        <field name="name">知识编译：生成文章（已迁移到知识管理）</field>
+        <field name="model_id" ref="diecut.model_diecut_catalog_source_document"/>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_compile_knowledge_articles()</field>
+    </record>
+
+    <record id="action_source_document_open_compile_workspace" model="ir.actions.server">
+        <field name="name">知识编译：打开工作台（已迁移到知识管理）</field>
+        <field name="model_id" ref="diecut.model_diecut_catalog_source_document"/>
+        <field name="binding_model_id" eval="False"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">action = records[:1].action_open_compile_workspace()</field>
+    </record>
+
+    <record id="view_diecut_kb_compile_source_list" model="ir.ui.view">
+        <field name="name">diecut.kb.compile.source.list</field>
+        <field name="model">diecut.catalog.source.document</field>
+        <field name="arch" type="xml">
+            <list string="编译源资料">
+                <field name="name"/>
+                <field name="import_status" widget="badge"/>
+                <field name="brand_id"/>
+                <field name="compiled_item_count"/>
+                <field name="compilable_item_count"/>
+                <field name="compiled_article_count"/>
+                <field name="compile_block_reason" optional="show"/>
+                <field name="write_date" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_compile_source_form" model="ir.ui.view">
+        <field name="name">diecut.kb.compile.source.form</field>
+        <field name="model">diecut.catalog.source.document</field>
+        <field name="arch" type="xml">
+            <form string="编译源资料">
+                <header>
+                    <button name="action_compile_knowledge_articles"
+                            type="object"
+                            string="编译为 Wiki"
+                            class="oe_highlight"
+                            icon="fa-magic"
+                            invisible="import_status != 'applied' or not compilable_item_count"/>
+                    <button name="action_open_compiled_articles"
+                            type="object"
+                            string="打开 Wiki文章"
+                            class="btn-secondary"
+                            icon="fa-file-text-o"
+                            invisible="not compiled_article_count"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <div class="alert alert-warning" role="alert" invisible="not compile_block_reason">
+                        <field name="compile_block_reason" nolabel="1" readonly="1"/>
+                    </div>
+                    <group>
+                        <group string="原始资料">
+                            <field name="import_status" readonly="1"/>
+                            <field name="brand_id" readonly="1"/>
+                            <field name="line_count" readonly="1"/>
+                            <field name="parse_version" readonly="1"/>
+                        </group>
+                        <group string="编译状态">
+                            <field name="compiled_item_count" readonly="1"/>
+                            <field name="compilable_item_count" readonly="1"/>
+                            <field name="compiled_article_count" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="关联产品">
+                            <group>
+                                <field name="compiled_item_ids" widget="many2many_tags" readonly="1" options="{'no_open': False}"/>
+                                <field name="compilable_item_ids" widget="many2many_tags" readonly="1" options="{'no_open': False}"/>
+                            </group>
+                        </page>
+                        <page string="Wiki文章">
+                            <field name="compiled_article_ids" mode="list,kanban" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="sync_status" widget="badge"/>
+                                    <field name="compiled_at"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="原始草稿">
+                            <field name="draft_payload" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_diecut_kb_compile_sources" model="ir.actions.act_window">
+        <field name="name">编译源资料</field>
+        <field name="res_model">diecut.catalog.source.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_diecut_kb_compile_source_list"/>
+        <field name="domain">[('import_status', '=', 'applied')]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiley_face">这里集中管理可编译的原始资料</p>
+            <p>AI/TDS 负责识别原始 TDS；知识管理在这里把已入库产品和原始资料编译成 Wiki 文章，再进入 Dify 检索链路。</p>
+        </field>
+    </record>
+
+    <record id="action_diecut_kb_compile_sources_list_view" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_diecut_kb_compile_source_list"/>
+        <field name="act_window_id" ref="action_diecut_kb_compile_sources"/>
+    </record>
+
+    <record id="action_diecut_kb_compile_sources_form_view" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_diecut_kb_compile_source_form"/>
+        <field name="act_window_id" ref="action_diecut_kb_compile_sources"/>
+    </record>
+
+</odoo>

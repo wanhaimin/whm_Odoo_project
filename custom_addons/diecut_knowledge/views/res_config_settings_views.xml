@@ -28,7 +28,7 @@
                             <field name="diecut_kb_attachment_batch_limit"/>
                         </setting>
                     </block>
-                    <block title="产品库（catalog.item） → Dify" name="diecut_kb_dify_products">
+                    <block title="产品库（catalog.item）→ Dify" name="diecut_kb_dify_products">
                         <setting id="diecut_kb_dify_products_dataset_id" string="产品库 Dataset ID">
                             <field name="diecut_kb_dify_products_dataset_id" placeholder="产品库专用 Dataset 的 UUID"/>
                         </setting>
@@ -42,12 +42,26 @@
                             <button name="action_test_dify_connection" type="object" string="测试连接" class="btn-primary"/>
                         </setting>
                     </block>
-                    <block title="Dify Chat App（Phase 3）" name="diecut_kb_dify_chat">
+                    <block title="Dify Chat App" name="diecut_kb_dify_chat">
                         <setting id="diecut_kb_dify_chat_app_url" string="Chat App API 地址">
                             <field name="diecut_kb_dify_chat_app_url" placeholder="http://dify.local:5001"/>
                         </setting>
                         <setting id="diecut_kb_dify_chat_api_key" string="Chat App API Key">
                             <field name="diecut_kb_dify_chat_api_key" password="True" placeholder="app-xxxxxxxx"/>
+                        </setting>
+                    </block>
+                    <block title="AI 编译层" name="diecut_kb_compile">
+                        <setting id="diecut_kb_compile_batch_limit" string="单次编译上限">
+                            <field name="diecut_kb_compile_batch_limit"/>
+                        </setting>
+                        <setting id="diecut_kb_compile_auto_publish" string="编译后自动发布">
+                            <field name="diecut_kb_compile_auto_publish"/>
+                            <div class="text-muted">开启后，编译文章将直接发布并进入现有 Dify 同步链路。</div>
+                        </setting>
+                    </block>
+                    <block title="知识治理" name="diecut_kb_lint">
+                        <setting id="diecut_kb_lint_batch_limit" string="单次治理检查上限">
+                            <field name="diecut_kb_lint_batch_limit"/>
                         </setting>
                     </block>
                 </app>
@@ -56,7 +70,7 @@
     </record>
 
     <record id="action_diecut_kb_settings" model="ir.actions.act_window">
-        <field name="name">行业知识库 设置</field>
+        <field name="name">行业知识库设置</field>
         <field name="res_model">res.config.settings</field>
         <field name="view_mode">form</field>
         <field name="target">current</field>

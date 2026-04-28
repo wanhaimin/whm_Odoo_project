@@ -5,3 +5,6 @@ from . import dify_sync
 from . import dify_product_sync
 from . import qa_ticket_sync
 from . import pdf_extractor
+from . import kb_compiler
+from . import kb_enricher
+from . import kb_linter

@@ -2,7 +2,8 @@
 
 import { registry } from "@web/core/registry";
 import { rpc } from "@web/core/network/rpc";
-import { Component, useState, useRef } from "@odoo/owl";
+import { useService } from "@web/core/utils/hooks";
+import { Component, useRef, useState } from "@odoo/owl";
 
 class AiAdvisorDrawer extends Component {
     static template = "diecut_knowledge.AiAdvisorDrawer";
@@ -13,18 +14,18 @@ class AiAdvisorDrawer extends Component {
         this.recordId = params.record_id || 0;
         this.recordName = params.record_name || "";
         this.conversationId = "";
+        this.notification = useService("notification");
 
         this.ui = useState({
             messages: [],
             loading: false,
             inputText: "",
             error: "",
+            savingIds: [],
         });
         this.chatBodyRef = useRef("chatBody");
         this._addSystemMessage();
     }
-
-    // ---- render helpers ----------------------------------------------------
 
     get hasMessages() {
         return this.ui.messages.length > 0;
@@ -33,8 +34,6 @@ class AiAdvisorDrawer extends Component {
     get canSend() {
         return this.ui.inputText.trim() !== "" && !this.ui.loading;
     }
-
-    // ---- actions -----------------------------------------------------------
 
     onInputKeydown(ev) {
         if (ev.key === "Enter" && !ev.shiftKey) {
@@ -45,7 +44,9 @@ class AiAdvisorDrawer extends Component {
 
     async send() {
         const text = this.ui.inputText.trim();
-        if (!text || this.ui.loading) return;
+        if (!text || this.ui.loading) {
+            return;
+        }
 
         this.ui.inputText = "";
         this.ui.error = "";
@@ -62,7 +63,7 @@ class AiAdvisorDrawer extends Component {
             });
             if (result.ok) {
                 this.conversationId = result.conversation_id || this.conversationId;
-                this._pushMessage("assistant", result.answer || "(空响应)");
+                this._pushMessage("assistant", result.answer || "(空响应)", { question: text });
             } else {
                 this.ui.error = result.error || "调用失败";
             }
@@ -71,6 +72,32 @@ class AiAdvisorDrawer extends Component {
         }
         this.ui.loading = false;
         this._scrollBottom();
+    }
+
+    async saveMessage(message) {
+        if (!message?.content || !message.question || this.ui.savingIds.includes(message.id)) {
+            return;
+        }
+        this.ui.savingIds.push(message.id);
+        try {
+            const result = await rpc("/diecut_knowledge/ai/save_answer", {
+                question: message.question,
+                answer: message.content,
+                model: this.modelName,
+                record_id: this.recordId,
+                record_name: this.recordName,
+            });
+            if (result.ok) {
+                message.savedArticleId = result.article_id;
+                this.notification.add(`已保存为知识文章：${result.article_name}`, { type: "success" });
+            } else {
+                this.notification.add(result.error || "保存失败", { type: "danger" });
+            }
+        } catch (err) {
+            this.notification.add(err.message || "保存失败", { type: "danger" });
+        } finally {
+            this.ui.savingIds = this.ui.savingIds.filter((id) => id !== message.id);
+        }
     }
 
     close() {
@@ -83,17 +110,13 @@ class AiAdvisorDrawer extends Component {
         }
     }
 
-    // ---- internal ----------------------------------------------------------
-
-    _pushMessage(role, content) {
-        this.ui.messages.push({ role, content, id: Date.now() });
+    _pushMessage(role, content, extra = {}) {
+        this.ui.messages.push({ role, content, id: Date.now() + Math.random(), ...extra });
     }
 
     _addSystemMessage() {
-        const ctx = [];
-        if (this.recordName) ctx.push(`当前: ${this.recordName}`);
-        if (ctx.length) {
-            this._pushMessage("system", ctx.join("\n"));
+        if (this.recordName) {
+            this._pushMessage("system", `当前: ${this.recordName}`);
         }
     }
 
@@ -121,3 +144,4 @@ function openAiAdvisorDrawer(env, action) {
 }
 
 registry.category("actions").add("diecut_ai_advisor", openAiAdvisorDrawer);
+
