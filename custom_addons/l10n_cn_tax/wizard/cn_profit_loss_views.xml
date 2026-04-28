@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cn_profit_loss_form" model="ir.ui.view">
+        <field name="name">l10n_cn_tax.profit.loss.form</field>
+        <field name="model">l10n_cn_tax.profit.loss</field>
+        <field name="arch" type="xml">
+            <form string="利润表">
+                <group string="报表参数">
+                    <group>
+                        <field name="company_id"/>
+                        <field name="fiscal_year"/>
+                    </group>
+                    <group>
+                        <field name="quarter"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+
+                <group string="利润表（年初至期末累计）" invisible="not is_computed">
+                    <group>
+                        <field name="operating_revenue"/>
+                        <field name="operating_cost"/>
+                        <field name="business_tax_surcharge"/>
+                        <field name="selling_expenses"/>
+                        <field name="admin_expenses"/>
+                        <field name="financial_expenses"/>
+                        <field name="investment_income"/>
+                        <field name="operating_profit"/>
+                        <field name="non_operating_income"/>
+                        <field name="non_operating_expenses"/>
+                        <field name="total_profit"/>
+                        <field name="income_tax_expense"/>
+                    </group>
+                    <group>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="net_profit" widget="monetary"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button name="action_compute" string="计算" type="object" class="btn-primary"/>
+                    <button name="action_print" string="打印 PDF" type="object"
+                            invisible="not is_computed" class="btn-secondary"/>
+                    <button string="关闭" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cn_profit_loss_wizard" model="ir.actions.act_window">
+        <field name="name">利润表</field>
+        <field name="res_model">l10n_cn_tax.profit.loss</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_cn_profit_loss"
+        name="利润表"
+        parent="l10n_cn_tax.menu_cn_tax_reporting"
+        action="action_cn_profit_loss_wizard"
+        sequence="40"/>
+</odoo>

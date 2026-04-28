@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_diecut_kb_sync_log_list" model="ir.ui.view">
+        <field name="name">diecut.kb.sync.log.list</field>
+        <field name="model">diecut.kb.sync.log</field>
+        <field name="arch" type="xml">
+            <list string="同步日志" sample="1" create="0">
+                <field name="create_date"/>
+                <field name="article_id"/>
+                <field name="direction"/>
+                <field name="action"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'success'"
+                       decoration-danger="state == 'failed'"
+                       decoration-warning="state == 'partial'"/>
+                <field name="summary"/>
+                <field name="duration_ms" string="耗时(ms)"/>
+                <field name="dify_document_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_sync_log_form" model="ir.ui.view">
+        <field name="name">diecut.kb.sync.log.form</field>
+        <field name="model">diecut.kb.sync.log</field>
+        <field name="arch" type="xml">
+            <form string="同步日志" create="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="article_id"/>
+                            <field name="direction"/>
+                            <field name="action"/>
+                            <field name="state"/>
+                        </group>
+                        <group>
+                            <field name="dify_dataset_id"/>
+                            <field name="dify_document_id"/>
+                            <field name="duration_ms"/>
+                            <field name="create_date"/>
+                        </group>
+                    </group>
+                    <group string="摘要">
+                        <field name="summary" nolabel="1"/>
+                    </group>
+                    <notebook>
+                        <page string="请求内容">
+                            <field name="request_payload" nolabel="1"/>
+                        </page>
+                        <page string="响应内容">
+                            <field name="response_payload" nolabel="1"/>
+                        </page>
+                        <page string="错误信息" invisible="not error_message">
+                            <field name="error_message" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_diecut_kb_sync_log" model="ir.actions.act_window">
+        <field name="name">同步日志</field>
+        <field name="res_model">diecut.kb.sync.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

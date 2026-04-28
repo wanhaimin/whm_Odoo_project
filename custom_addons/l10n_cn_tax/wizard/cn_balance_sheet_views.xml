@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cn_balance_sheet_form" model="ir.ui.view">
+        <field name="name">l10n_cn_tax.balance.sheet.form</field>
+        <field name="model">l10n_cn_tax.balance.sheet</field>
+        <field name="arch" type="xml">
+            <form string="资产负债表">
+                <group string="报表参数">
+                    <group>
+                        <field name="company_id"/>
+                        <field name="fiscal_year"/>
+                    </group>
+                    <group>
+                        <field name="quarter"/>
+                        <field name="as_of_date"/>
+                    </group>
+                </group>
+
+                <group string="流动资产" invisible="not is_computed">
+                    <group>
+                        <field name="monetary_funds"/>
+                        <field name="short_term_investment"/>
+                        <field name="notes_receivable"/>
+                        <field name="accounts_receivable"/>
+                        <field name="prepayments"/>
+                        <field name="dividend_receivable"/>
+                        <field name="interest_receivable"/>
+                        <field name="other_receivables"/>
+                        <field name="inventories"/>
+                        <field name="other_current_assets"/>
+                    </group>
+                    <group>
+                        <field name="total_current_assets"/>
+                    </group>
+                </group>
+
+                <group string="非流动资产" invisible="not is_computed">
+                    <group>
+                        <field name="long_term_equity_inv"/>
+                        <field name="fixed_assets_net"/>
+                        <field name="construction_in_progress"/>
+                        <field name="disposal_fixed_assets"/>
+                        <field name="intangible_assets_net"/>
+                        <field name="long_term_deferred_exp"/>
+                        <field name="other_non_current_assets"/>
+                    </group>
+                    <group>
+                        <field name="total_non_current_assets"/>
+                        <field name="total_assets"/>
+                    </group>
+                </group>
+
+                <group string="流动负债" invisible="not is_computed">
+                    <group>
+                        <field name="short_term_loans"/>
+                        <field name="notes_payable"/>
+                        <field name="accounts_payable"/>
+                        <field name="advance_from_customers"/>
+                        <field name="payroll_payable"/>
+                        <field name="tax_payable"/>
+                        <field name="interest_payable"/>
+                        <field name="profit_payable"/>
+                        <field name="other_payables"/>
+                        <field name="other_current_liab"/>
+                    </group>
+                    <group>
+                        <field name="total_current_liab"/>
+                    </group>
+                </group>
+
+                <group string="非流动负债" invisible="not is_computed">
+                    <group>
+                        <field name="long_term_loans"/>
+                        <field name="long_term_payables"/>
+                        <field name="deferred_income"/>
+                        <field name="other_non_current_liab"/>
+                    </group>
+                    <group>
+                        <field name="total_non_current_liab"/>
+                        <field name="total_liabilities"/>
+                    </group>
+                </group>
+
+                <group string="所有者权益" invisible="not is_computed">
+                    <group>
+                        <field name="paid_in_capital"/>
+                        <field name="capital_reserve"/>
+                        <field name="surplus_reserve"/>
+                        <field name="retained_earnings"/>
+                    </group>
+                    <group>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="total_equity"/>
+                        <field name="total_liabilities_equity" widget="monetary"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button name="action_compute" string="计算" type="object" class="btn-primary"/>
+                    <button name="action_print" string="打印 PDF" type="object"
+                            invisible="not is_computed" class="btn-secondary"/>
+                    <button string="关闭" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cn_balance_sheet_wizard" model="ir.actions.act_window">
+        <field name="name">资产负债表</field>
+        <field name="res_model">l10n_cn_tax.balance.sheet</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_cn_balance_sheet"
+        name="资产负债表"
+        parent="l10n_cn_tax.menu_cn_tax_reporting"
+        action="action_cn_balance_sheet_wizard"
+        sequence="30"/>
+</odoo>

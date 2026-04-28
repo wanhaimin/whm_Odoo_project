@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="diecut_knowledge.AiAdvisorDrawer">
+        <div class="o_diecut_ai_overlay" t-on-click="onClickBackdrop">
+            <div class="o_diecut_ai_drawer">
+                <!-- header -->
+                <div class="o_diecut_ai_header">
+                    <span class="o_diecut_ai_title">AI 顾问</span>
+                    <button class="btn btn-sm btn-link o_diecut_ai_close" t-on-click="close" title="关闭">
+                        <i class="fa fa-times" />
+                    </button>
+                </div>
+
+                <!-- body -->
+                <div class="o_diecut_ai_body" t-ref="chatBody">
+                    <div t-if="!hasMessages and ui.loading" class="o_diecut_ai_spinner">
+                        <i class="fa fa-spinner fa-spin" /> 思考中...
+                    </div>
+                    <div t-foreach="ui.messages" t-as="msg" t-key="msg.id"
+                         t-att-class="'o_diecut_ai_msg o_diecut_ai_msg_' + msg.role">
+                        <t t-if="msg.role == 'system'">
+                            <div class="o_diecut_ai_msg_system">
+                                <i class="fa fa-info-circle" /> <t t-esc="msg.content" />
+                            </div>
+                        </t>
+                        <t t-elif="msg.role == 'user'">
+                            <div class="o_diecut_ai_msg_content">
+                                <div class="o_diecut_ai_msg_label">你</div>
+                                <div class="o_diecut_ai_msg_text"><t t-esc="msg.content" /></div>
+                            </div>
+                        </t>
+                        <t t-elif="msg.role == 'assistant'">
+                            <div class="o_diecut_ai_msg_content">
+                                <div class="o_diecut_ai_msg_label">AI</div>
+                                <div class="o_diecut_ai_msg_text o_diecut_ai_answer"><t t-esc="msg.content" /></div>
+                            </div>
+                        </t>
+                    </div>
+                    <div t-if="ui.loading" class="o_diecut_ai_msg o_diecut_ai_msg_assistant">
+                        <div class="o_diecut_ai_msg_content">
+                            <div class="o_diecut_ai_msg_label">AI</div>
+                            <div class="o_diecut_ai_msg_text o_diecut_ai_thinking">
+                                <i class="fa fa-spinner fa-pulse" /> 思考中...
+                            </div>
+                        </div>
+                    </div>
+                    <div t-if="ui.error" class="o_diecut_ai_error alert alert-danger">
+                        <t t-esc="ui.error" />
+                    </div>
+                </div>
+
+                <!-- input -->
+                <div class="o_diecut_ai_input_area">
+                    <textarea
+                        class="o_input o_diecut_ai_input"
+                        t-model="ui.inputText"
+                        placeholder="输入你的问题，Enter 发送..."
+                        t-on-keydown="onInputKeydown"
+                        t-att-disabled="ui.loading"
+                        rows="2"
+                    />
+                    <button class="btn btn-primary o_diecut_ai_send_btn"
+                            t-on-click="send" t-att-disabled="!canSend">
+                        发送
+                    </button>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

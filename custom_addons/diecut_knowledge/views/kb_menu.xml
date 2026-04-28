@@ -1,34 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <menuitem
-        id="menu_diecut_knowledge_root"
-        name="知识库"
-        parent="diecut.menu_diecut_root"
-        sequence="16"
-    />
 
-    <menuitem
-        id="menu_diecut_kb_article"
-        name="知识库工作台"
-        parent="menu_diecut_knowledge_root"
-        action="action_diecut_kb_workspace"
-        sequence="10"
-    />
+    <menuitem id="menu_diecut_knowledge_root"
+              name="行业知识库"
+              sequence="80"
+              web_icon="diecut_knowledge,static/description/icon.png"/>
 
-    <menuitem
-        id="menu_diecut_kb_article_manage"
-        name="页面管理（后台）"
-        parent="menu_diecut_knowledge_root"
-        action="action_diecut_kb_article_manage"
-        sequence="20"
-        groups="base.group_system"
-    />
+    <menuitem id="menu_diecut_kb_articles"
+              name="知识文章"
+              parent="menu_diecut_knowledge_root"
+              action="action_diecut_kb_article"
+              sequence="10"/>
 
-    <menuitem
-        id="menu_diecut_kb_recycle"
-        name="垃圾回收站"
-        parent="menu_diecut_knowledge_root"
-        action="action_diecut_kb_article_recycle"
-        sequence="30"
-    />
+    <menuitem id="menu_diecut_kb_attachments"
+              name="附件管理"
+              parent="menu_diecut_knowledge_root"
+              action="action_diecut_kb_attachment"
+              sequence="20"/>
+
+    <menuitem id="menu_diecut_kb_qa_tickets"
+              name="客户问答工单"
+              parent="menu_diecut_knowledge_root"
+              action="action_diecut_kb_qa_ticket"
+              sequence="30"/>
+
+    <menuitem id="menu_diecut_kb_config"
+              name="配置"
+              parent="menu_diecut_knowledge_root"
+              sequence="90"
+              groups="base.group_system"/>
+
+    <menuitem id="menu_diecut_kb_categories"
+              name="知识分类"
+              parent="menu_diecut_kb_config"
+              action="action_diecut_kb_category"
+              sequence="10"/>
+
+    <menuitem id="menu_diecut_kb_sync_logs"
+              name="同步日志"
+              parent="menu_diecut_kb_config"
+              action="action_diecut_kb_sync_log"
+              sequence="20"/>
+
+    <menuitem id="menu_diecut_kb_settings"
+              name="Dify 配置"
+              parent="menu_diecut_kb_config"
+              action="action_diecut_kb_settings"
+              sequence="30"/>
+
 </odoo>

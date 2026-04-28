@@ -1,4 +1,3 @@
 # -*- coding: utf-8 -*-
-
-from . import test_kb_editor_service
-from . import test_kb_block_ordering
+# Note: e2e tests are run separately via Playwright (see tests/e2e/README.md);
+# Odoo's built-in test runner only loads from tests/test_*.py at the package root.

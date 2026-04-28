@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="kb_category_material_selection" model="diecut.kb.category">
+        <field name="name">材料选型知识</field>
+        <field name="code">material_selection</field>
+        <field name="sequence">10</field>
+        <field name="description">基材、胶系、厚度、颜色、防火等级的选择规则与经验。</field>
+        <field name="icon">fa-cube</field>
+        <field name="color">3</field>
+    </record>
+
+    <record id="kb_category_diecut_process" model="diecut.kb.category">
+        <field name="name">模切工艺</field>
+        <field name="code">diecut_process</field>
+        <field name="sequence">20</field>
+        <field name="description">排刀、走带、压力、温度、湿度等模切加工工艺要点。</field>
+        <field name="icon">fa-cogs</field>
+        <field name="color">4</field>
+    </record>
+
+    <record id="kb_category_tooling_design" model="diecut.kb.category">
+        <field name="name">刀模设计</field>
+        <field name="code">tooling_design</field>
+        <field name="sequence">30</field>
+        <field name="description">五金刀模、激光刀模、圆刀、平刀的选择技巧与设计经验。</field>
+        <field name="icon">fa-wrench</field>
+        <field name="color">5</field>
+    </record>
+
+    <record id="kb_category_industry_standard" model="diecut.kb.category">
+        <field name="name">行业标准</field>
+        <field name="code">industry_standard</field>
+        <field name="sequence">40</field>
+        <field name="description">UL 阻燃、RoHS、REACH、防火等级、卤素 等行业合规标准。</field>
+        <field name="icon">fa-shield</field>
+        <field name="color">6</field>
+    </record>
+
+    <record id="kb_category_customer_qa" model="diecut.kb.category">
+        <field name="name">客户问答库</field>
+        <field name="code">customer_qa</field>
+        <field name="sequence">50</field>
+        <field name="description">历史客户高频问题与已解决方案沉淀。</field>
+        <field name="icon">fa-question-circle</field>
+        <field name="color">2</field>
+    </record>
+
+</odoo>

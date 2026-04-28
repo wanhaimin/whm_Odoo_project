@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cit_prepayment_form" model="ir.ui.view">
+        <field name="name">l10n_cn_tax.cit.prepayment.form</field>
+        <field name="model">l10n_cn_tax.cit.prepayment</field>
+        <field name="arch" type="xml">
+            <form string="企业所得税季度预缴">
+                <group string="申报期间">
+                    <group>
+                        <field name="company_id"/>
+                        <field name="is_small_profit"/>
+                    </group>
+                    <group>
+                        <field name="fiscal_year"/>
+                        <field name="quarter"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+                <group string="利润核算（年初至本季末累计）" invisible="not is_computed">
+                    <group>
+                        <field name="total_income"/>
+                        <field name="total_expense"/>
+                        <field name="cumulative_profit"/>
+                    </group>
+                </group>
+                <group string="前期已缴（请先填写）">
+                    <group>
+                        <field name="paid_tax" help="本年度前几季度已实际缴纳的企业所得税预缴合计"/>
+                    </group>
+                </group>
+                <group string="税额计算" invisible="not is_computed">
+                    <group>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="applied_rate" string="适用税率 (%)"/>
+                        <field name="cumulative_tax"/>
+                        <field name="prepayment_amount" widget="monetary"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_compute" string="计算" type="object" class="btn-primary"/>
+                    <button string="关闭" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cit_prepayment_wizard" model="ir.actions.act_window">
+        <field name="name">企业所得税季度预缴</field>
+        <field name="res_model">l10n_cn_tax.cit.prepayment</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_cit_prepayment"
+        name="企业所得税预缴"
+        parent="l10n_cn_tax.menu_cn_tax_reporting"
+        action="action_cit_prepayment_wizard"
+        sequence="20"/>
+</odoo>

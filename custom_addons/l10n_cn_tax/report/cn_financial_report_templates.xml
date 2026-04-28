@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================
+         资产负债表报告动作
+    ================================================ -->
+    <record id="action_report_balance_sheet" model="ir.actions.report">
+        <field name="name">资产负债表</field>
+        <field name="model">l10n_cn_tax.balance.sheet</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_cn_tax.report_balance_sheet</field>
+        <field name="report_file">l10n_cn_tax.report_balance_sheet</field>
+        <field name="print_report_name">'资产负债表-%s-%s' % (object.company_id.name, object.as_of_date)</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+
+    <!-- 资产负债表 QWeb 模板 -->
+    <template id="report_balance_sheet">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="l10n_cn_tax.report_balance_sheet_document"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_balance_sheet_document">
+        <t t-call="web.external_layout">
+            <div class="page" style="font-size:11px;">
+
+                <h3 class="text-center" style="margin:0 0 4px 0;">资产负债表</h3>
+                <p class="text-center" style="margin:0 0 8px 0; font-size:10px;">
+                    编制单位：<strong><t t-esc="doc.company_id.name"/></strong>
+                    &#160;&#160;&#160;
+                    <t t-esc="str(doc.fiscal_year)"/>年
+                    <t t-esc="'%02d' % doc.as_of_date.month"/>月
+                    <t t-esc="'%02d' % doc.as_of_date.day"/>日
+                    &#160;&#160;&#160;
+                    单位：元
+                </p>
+
+                <table class="table table-bordered table-sm" style="font-size:10px; margin-bottom:0;">
+                    <colgroup>
+                        <col style="width:28%;"/>
+                        <col style="width:22%;"/>
+                        <col style="width:28%;"/>
+                        <col style="width:22%;"/>
+                    </colgroup>
+                    <thead style="background-color:#e8e8e8; font-weight:bold;">
+                        <tr>
+                            <th>资产</th>
+                            <th class="text-right">期末余额</th>
+                            <th>负债及所有者权益</th>
+                            <th class="text-right">期末余额</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Section headers -->
+                        <tr style="background-color:#f5f5f5;">
+                            <td><strong>流动资产：</strong></td><td/>
+                            <td><strong>流动负债：</strong></td><td/>
+                        </tr>
+
+                        <t t-set="fmt" t-value="lambda v: '{:,.2f}'.format(v) if v else '-'"/>
+
+                        <tr>
+                            <td style="padding-left:12px;">货币资金</td>
+                            <td class="text-right"><t t-esc="fmt(doc.monetary_funds)"/></td>
+                            <td style="padding-left:12px;">短期借款</td>
+                            <td class="text-right"><t t-esc="fmt(doc.short_term_loans)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">短期投资</td>
+                            <td class="text-right"><t t-esc="fmt(doc.short_term_investment)"/></td>
+                            <td style="padding-left:12px;">应付票据</td>
+                            <td class="text-right"><t t-esc="fmt(doc.notes_payable)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">应收票据</td>
+                            <td class="text-right"><t t-esc="fmt(doc.notes_receivable)"/></td>
+                            <td style="padding-left:12px;">应付账款</td>
+                            <td class="text-right"><t t-esc="fmt(doc.accounts_payable)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">应收账款</td>
+                            <td class="text-right"><t t-esc="fmt(doc.accounts_receivable)"/></td>
+                            <td style="padding-left:12px;">预收账款</td>
+                            <td class="text-right"><t t-esc="fmt(doc.advance_from_customers)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">预付账款</td>
+                            <td class="text-right"><t t-esc="fmt(doc.prepayments)"/></td>
+                            <td style="padding-left:12px;">应付职工薪酬</td>
+                            <td class="text-right"><t t-esc="fmt(doc.payroll_payable)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">应收股利</td>
+                            <td class="text-right"><t t-esc="fmt(doc.dividend_receivable)"/></td>
+                            <td style="padding-left:12px;">应交税费</td>
+                            <td class="text-right"><t t-esc="fmt(doc.tax_payable)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">应收利息</td>
+                            <td class="text-right"><t t-esc="fmt(doc.interest_receivable)"/></td>
+                            <td style="padding-left:12px;">应付利息</td>
+                            <td class="text-right"><t t-esc="fmt(doc.interest_payable)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">其他应收款</td>
+                            <td class="text-right"><t t-esc="fmt(doc.other_receivables)"/></td>
+                            <td style="padding-left:12px;">应付利润</td>
+                            <td class="text-right"><t t-esc="fmt(doc.profit_payable)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">存货</td>
+                            <td class="text-right"><t t-esc="fmt(doc.inventories)"/></td>
+                            <td style="padding-left:12px;">其他应付款</td>
+                            <td class="text-right"><t t-esc="fmt(doc.other_payables)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">其他流动资产</td>
+                            <td class="text-right"><t t-esc="fmt(doc.other_current_assets)"/></td>
+                            <td style="padding-left:12px;">其他流动负债</td>
+                            <td class="text-right"><t t-esc="fmt(doc.other_current_liab)"/></td>
+                        </tr>
+                        <tr style="font-weight:bold; background-color:#f0f0f0;">
+                            <td>流动资产合计</td>
+                            <td class="text-right"><t t-esc="fmt(doc.total_current_assets)"/></td>
+                            <td>流动负债合计</td>
+                            <td class="text-right"><t t-esc="fmt(doc.total_current_liab)"/></td>
+                        </tr>
+
+                        <!-- Non-current section -->
+                        <tr style="background-color:#f5f5f5;">
+                            <td><strong>非流动资产：</strong></td><td/>
+                            <td><strong>非流动负债：</strong></td><td/>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">长期股权投资</td>
+                            <td class="text-right"><t t-esc="fmt(doc.long_term_equity_inv)"/></td>
+                            <td style="padding-left:12px;">长期借款</td>
+                            <td class="text-right"><t t-esc="fmt(doc.long_term_loans)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">固定资产净值</td>
+                            <td class="text-right"><t t-esc="fmt(doc.fixed_assets_net)"/></td>
+                            <td style="padding-left:12px;">长期应付款</td>
+                            <td class="text-right"><t t-esc="fmt(doc.long_term_payables)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">在建工程</td>
+                            <td class="text-right"><t t-esc="fmt(doc.construction_in_progress)"/></td>
+                            <td style="padding-left:12px;">递延收益</td>
+                            <td class="text-right"><t t-esc="fmt(doc.deferred_income)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">固定资产清理</td>
+                            <td class="text-right"><t t-esc="fmt(doc.disposal_fixed_assets)"/></td>
+                            <td style="padding-left:12px;">其他非流动负债</td>
+                            <td class="text-right"><t t-esc="fmt(doc.other_non_current_liab)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">无形资产净值</td>
+                            <td class="text-right"><t t-esc="fmt(doc.intangible_assets_net)"/></td>
+                            <td style="font-weight:bold;">非流动负债合计</td>
+                            <td class="text-right" style="font-weight:bold;"><t t-esc="fmt(doc.total_non_current_liab)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">长期待摊费用</td>
+                            <td class="text-right"><t t-esc="fmt(doc.long_term_deferred_exp)"/></td>
+                            <td style="font-weight:bold;">负债合计</td>
+                            <td class="text-right" style="font-weight:bold;"><t t-esc="fmt(doc.total_liabilities)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:12px;">其他非流动资产</td>
+                            <td class="text-right"><t t-esc="fmt(doc.other_non_current_assets)"/></td>
+                            <td style="background-color:#f5f5f5;"><strong>所有者权益：</strong></td>
+                            <td style="background-color:#f5f5f5;"/>
+                        </tr>
+                        <tr>
+                            <td style="font-weight:bold;">非流动资产合计</td>
+                            <td class="text-right" style="font-weight:bold;"><t t-esc="fmt(doc.total_non_current_assets)"/></td>
+                            <td style="padding-left:12px;">实收资本</td>
+                            <td class="text-right"><t t-esc="fmt(doc.paid_in_capital)"/></td>
+                        </tr>
+                        <tr>
+                            <td/>
+                            <td/>
+                            <td style="padding-left:12px;">资本公积</td>
+                            <td class="text-right"><t t-esc="fmt(doc.capital_reserve)"/></td>
+                        </tr>
+                        <tr>
+                            <td/>
+                            <td/>
+                            <td style="padding-left:12px;">盈余公积</td>
+                            <td class="text-right"><t t-esc="fmt(doc.surplus_reserve)"/></td>
+                        </tr>
+                        <tr>
+                            <td/>
+                            <td/>
+                            <td style="padding-left:12px;">未分配利润</td>
+                            <td class="text-right"><t t-esc="fmt(doc.retained_earnings)"/></td>
+                        </tr>
+                        <tr>
+                            <td/>
+                            <td/>
+                            <td style="font-weight:bold;">所有者权益合计</td>
+                            <td class="text-right" style="font-weight:bold;"><t t-esc="fmt(doc.total_equity)"/></td>
+                        </tr>
+
+                        <!-- Totals -->
+                        <tr style="font-weight:bold; background-color:#e0e0e0;">
+                            <td>资产总计</td>
+                            <td class="text-right"><t t-esc="fmt(doc.total_assets)"/></td>
+                            <td>负债和所有者权益合计</td>
+                            <td class="text-right"><t t-esc="fmt(doc.total_liabilities_equity)"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="margin-top:8px; font-size:9px; color:#666;">
+                    注：本报表依据《小企业会计准则》编制，科目余额取自 Odoo 账务系统截至
+                    <t t-esc="str(doc.as_of_date)"/> 的已过账凭证。
+                </p>
+            </div>
+        </t>
+    </template>
+
+    <!-- ================================================
+         利润表报告动作
+    ================================================ -->
+    <record id="action_report_profit_loss" model="ir.actions.report">
+        <field name="name">利润表</field>
+        <field name="model">l10n_cn_tax.profit.loss</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">l10n_cn_tax.report_profit_loss</field>
+        <field name="report_file">l10n_cn_tax.report_profit_loss</field>
+        <field name="print_report_name">'利润表-%s-%s' % (object.company_id.name, object.date_to)</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+
+    <!-- 利润表 QWeb 模板 -->
+    <template id="report_profit_loss">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="l10n_cn_tax.report_profit_loss_document"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_profit_loss_document">
+        <t t-call="web.external_layout">
+            <div class="page" style="font-size:11px;">
+
+                <h3 class="text-center" style="margin:0 0 4px 0;">利润表</h3>
+                <p class="text-center" style="margin:0 0 8px 0; font-size:10px;">
+                    编制单位：<strong><t t-esc="doc.company_id.name"/></strong>
+                    &#160;&#160;&#160;
+                    <t t-esc="str(doc.fiscal_year)"/>年
+                    <t t-esc="dict(q1='第一季度',q2='第二季度',q3='第三季度',q4='第四季度').get(doc.quarter,'')"/>
+                    （<t t-esc="str(doc.date_from)"/> 至 <t t-esc="str(doc.date_to)"/>）
+                    &#160;&#160;&#160;
+                    单位：元
+                </p>
+
+                <t t-set="fmt" t-value="lambda v: '{:,.2f}'.format(v) if v else '-'"/>
+                <t t-set="fmtn" t-value="lambda v: ('(%s)' % '{:,.2f}'.format(abs(v))) if v &lt; 0 else ('{:,.2f}'.format(v) if v else '-')"/>
+
+                <table class="table table-bordered table-sm" style="font-size:11px; max-width:480px; margin:0 auto;">
+                    <colgroup>
+                        <col style="width:60%;"/>
+                        <col style="width:40%;"/>
+                    </colgroup>
+                    <thead style="background-color:#e8e8e8; font-weight:bold;">
+                        <tr>
+                            <th>项目</th>
+                            <th class="text-right">本年累计金额</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="font-weight:bold;">
+                            <td>一、营业收入</td>
+                            <td class="text-right"><t t-esc="fmt(doc.operating_revenue)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:16px;">减：营业成本</td>
+                            <td class="text-right"><t t-esc="fmt(doc.operating_cost)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:32px;">营业税金及附加</td>
+                            <td class="text-right"><t t-esc="fmt(doc.business_tax_surcharge)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:32px;">销售费用</td>
+                            <td class="text-right"><t t-esc="fmt(doc.selling_expenses)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:32px;">管理费用</td>
+                            <td class="text-right"><t t-esc="fmt(doc.admin_expenses)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:32px;">财务费用</td>
+                            <td class="text-right"><t t-esc="fmtn(doc.financial_expenses)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:16px;">加：投资收益</td>
+                            <td class="text-right"><t t-esc="fmtn(doc.investment_income)"/></td>
+                        </tr>
+                        <tr style="font-weight:bold; background-color:#f0f0f0;">
+                            <td>二、营业利润</td>
+                            <td class="text-right"><t t-esc="fmtn(doc.operating_profit)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:16px;">加：营业外收入</td>
+                            <td class="text-right"><t t-esc="fmt(doc.non_operating_income)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:16px;">减：营业外支出</td>
+                            <td class="text-right"><t t-esc="fmt(doc.non_operating_expenses)"/></td>
+                        </tr>
+                        <tr style="font-weight:bold; background-color:#f0f0f0;">
+                            <td>三、利润总额</td>
+                            <td class="text-right"><t t-esc="fmtn(doc.total_profit)"/></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left:16px;">减：所得税费用</td>
+                            <td class="text-right"><t t-esc="fmt(doc.income_tax_expense)"/></td>
+                        </tr>
+                        <tr style="font-weight:bold; background-color:#e0e0e0; font-size:12px;">
+                            <td>四、净利润</td>
+                            <td class="text-right"><t t-esc="fmtn(doc.net_profit)"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="margin-top:12px; font-size:9px; color:#666; text-align:center;">
+                    注：本报表依据《小企业会计准则》编制，数据来源为 Odoo 已过账凭证。
+                    括号表示负数。
+                </p>
+            </div>
+        </t>
+    </template>
+
+</odoo>

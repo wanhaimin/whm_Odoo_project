@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_diecut_kb_category_list" model="ir.ui.view">
+        <field name="name">diecut.kb.category.list</field>
+        <field name="model">diecut.kb.category</field>
+        <field name="arch" type="xml">
+            <list string="知识分类" sample="1">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="article_count"/>
+                <field name="dify_dataset_id"/>
+                <field name="dify_dataset_name"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_category_form" model="ir.ui.view">
+        <field name="name">diecut.kb.category.form</field>
+        <field name="model">diecut.kb.category</field>
+        <field name="arch" type="xml">
+            <form string="知识分类">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_articles" type="object" class="oe_stat_button" icon="fa-file-text-o">
+                            <field name="article_count" widget="statinfo" string="文章数"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="例如：材料选型知识"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="sequence"/>
+                            <field name="icon"/>
+                            <field name="color" widget="color_picker"/>
+                        </group>
+                        <group string="Dify 同步配置">
+                            <field name="dify_dataset_id" placeholder="Dify Dataset 的 UUID"/>
+                            <field name="dify_dataset_name"/>
+                        </group>
+                    </group>
+                    <group string="说明">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_diecut_kb_category" model="ir.actions.act_window">
+        <field name="name">知识分类</field>
+        <field name="res_model">diecut.kb.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

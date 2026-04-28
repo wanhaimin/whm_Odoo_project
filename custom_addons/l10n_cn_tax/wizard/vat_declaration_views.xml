@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_vat_declaration_form" model="ir.ui.view">
+        <field name="name">l10n_cn_tax.vat.declaration.form</field>
+        <field name="model">l10n_cn_tax.vat.declaration</field>
+        <field name="arch" type="xml">
+            <form string="增值税申报汇总">
+                <group string="申报期间">
+                    <group>
+                        <field name="company_id"/>
+                        <field name="taxpayer_type"/>
+                    </group>
+                    <group>
+                        <field name="fiscal_year"/>
+                        <field name="quarter"/>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                </group>
+                <group string="增值税" invisible="not is_computed">
+                    <group>
+                        <field name="taxable_amount"/>
+                        <field name="vat_amount" string="销项增值税"/>
+                        <field name="input_vat_amount" invisible="taxpayer_type != 'general'"/>
+                        <field name="net_vat_amount"/>
+                    </group>
+                </group>
+                <group string="附加税" invisible="not is_computed">
+                    <group>
+                        <field name="city_tax_amount"/>
+                        <field name="education_surcharge"/>
+                        <field name="local_education_surcharge"/>
+                        <field name="total_surcharge"/>
+                    </group>
+                </group>
+                <group string="合计" invisible="not is_computed">
+                    <group>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="total_payable" widget="monetary"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_compute" string="计算" type="object" class="btn-primary"/>
+                    <button string="关闭" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vat_declaration_wizard" model="ir.actions.act_window">
+        <field name="name">增值税申报汇总</field>
+        <field name="res_model">l10n_cn_tax.vat.declaration</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="menu_cn_tax_reporting"
+        name="中国税务申报"
+        parent="account.menu_finance_reports"
+        sequence="90"/>
+
+    <menuitem
+        id="menu_vat_declaration"
+        name="增值税申报汇总"
+        parent="menu_cn_tax_reporting"
+        action="action_vat_declaration_wizard"
+        sequence="10"/>
+</odoo>

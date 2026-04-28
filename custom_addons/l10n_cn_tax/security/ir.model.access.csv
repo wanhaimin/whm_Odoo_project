@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vat_declaration_user,VAT Declaration User,model_l10n_cn_tax_vat_declaration,account.group_account_user,1,1,1,1
+access_vat_declaration_manager,VAT Declaration Manager,model_l10n_cn_tax_vat_declaration,account.group_account_manager,1,1,1,1
+access_cit_prepayment_user,CIT Prepayment User,model_l10n_cn_tax_cit_prepayment,account.group_account_user,1,1,1,1
+access_cit_prepayment_manager,CIT Prepayment Manager,model_l10n_cn_tax_cit_prepayment,account.group_account_manager,1,1,1,1
+access_balance_sheet_user,Balance Sheet User,model_l10n_cn_tax_balance_sheet,account.group_account_user,1,1,1,1
+access_balance_sheet_manager,Balance Sheet Manager,model_l10n_cn_tax_balance_sheet,account.group_account_manager,1,1,1,1
+access_profit_loss_user,Profit Loss User,model_l10n_cn_tax_profit_loss,account.group_account_user,1,1,1,1
+access_profit_loss_manager,Profit Loss Manager,model_l10n_cn_tax_profit_loss,account.group_account_manager,1,1,1,1

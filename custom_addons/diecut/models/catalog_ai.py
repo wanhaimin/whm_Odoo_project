@@ -974,10 +974,10 @@ class DiecutCatalogSourceDocument(models.Model):
             return False
         return self.env["product.category"].search([("name", "=", str(raw_value).strip())], limit=1) or False
 
-                        "草稿校验通过。\n"
-                        f"系列:{bucket_sizes['series']} 型号:{bucket_sizes['items']} 参数:{bucket_sizes['params']} "
-                        f"分类参数:{bucket_sizes['category_params']} 参数值:{bucket_sizes['spec_values']} "
-                        f"未识别:{bucket_sizes['unmatched']}"
+    @api.model
+    def _pick_first_non_empty(self, *candidates):
+        for candidate in candidates:
+            if candidate not in (False, None, ""):
                 if isinstance(candidate, str):
                     text = candidate.strip()
                     if text and text.lower() not in {"false", "none", "null"}:
@@ -1591,4 +1591,3 @@ class DiecutCatalogSourceDocument(models.Model):
         if lines:
             parts.append("<ul>%s</ul>" % "".join(f"<li>{html.escape(line)}</li>" for line in lines[:8]))
         return "".join(parts)
-

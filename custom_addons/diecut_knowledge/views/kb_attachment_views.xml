@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_diecut_kb_attachment_list" model="ir.ui.view">
+        <field name="name">diecut.kb.attachment.list</field>
+        <field name="model">diecut.kb.attachment</field>
+        <field name="arch" type="xml">
+            <list string="知识库附件" sample="1">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="article_id"/>
+                <field name="attachment_kind"/>
+                <field name="file_size" optional="hide"/>
+                <field name="page_count" optional="hide"/>
+                <field name="parse_method" optional="hide"/>
+                <field name="needs_ocr"/>
+                <field name="parse_state" widget="badge"
+                       decoration-info="parse_state == 'pending'"
+                       decoration-warning="parse_state == 'parsing'"
+                       decoration-success="parse_state == 'parsed'"
+                       decoration-danger="parse_state == 'failed'"
+                       decoration-muted="parse_state == 'skipped'"/>
+                <field name="parsed_at" optional="hide"/>
+                <button name="action_extract_text" type="object" string="解析" icon="fa-cogs"
+                        invisible="parse_state == 'parsing'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_attachment_form" model="ir.ui.view">
+        <field name="name">diecut.kb.attachment.form</field>
+        <field name="model">diecut.kb.attachment</field>
+        <field name="arch" type="xml">
+            <form string="知识库附件">
+                <header>
+                    <button name="action_extract_text" type="object" string="立即解析"
+                            class="oe_highlight" invisible="parse_state == 'parsing'"/>
+                    <button name="action_request_parse" type="object" string="加入解析队列"
+                            invisible="parse_state in ('pending','parsing')"/>
+                    <button name="action_mark_skipped" type="object" string="跳过"
+                            invisible="parse_state == 'skipped'"/>
+                    <field name="parse_state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="article_id" options="{'no_create': True}"/>
+                            <field name="attachment_kind"/>
+                            <field name="parse_method" readonly="1"/>
+                            <field name="page_count" readonly="1"/>
+                            <field name="parsed_at" readonly="1"/>
+                            <field name="needs_ocr"/>
+                        </group>
+                        <group>
+                            <field name="file_data" filename="file_name" widget="binary"/>
+                            <field name="file_name" invisible="1"/>
+                            <field name="mimetype" readonly="1"/>
+                            <field name="file_size" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="说明">
+                            <field name="description" nolabel="1"/>
+                        </page>
+                        <page string="提取文本">
+                            <field name="parsed_text" nolabel="1" readonly="1"/>
+                        </page>
+                        <page string="提取 Markdown" invisible="not parsed_markdown">
+                            <field name="parsed_markdown" nolabel="1" readonly="1"/>
+                        </page>
+                        <page string="错误信息" invisible="not parse_error">
+                            <field name="parse_error" nolabel="1" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kb_attachment_batch_extract" model="ir.actions.server">
+        <field name="name">立即解析（PDF/图片 → 文本）</field>
+        <field name="model_id" ref="model_diecut_kb_attachment"/>
+        <field name="binding_model_id" ref="model_diecut_kb_attachment"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_extract_text()</field>
+    </record>
+
+    <record id="action_diecut_kb_attachment" model="ir.actions.act_window">
+        <field name="name">知识库附件</field>
+        <field name="res_model">diecut.kb.attachment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

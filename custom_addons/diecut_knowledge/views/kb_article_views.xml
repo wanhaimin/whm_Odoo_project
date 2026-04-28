@@ -1,36 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <record id="view_diecut_kb_article_search" model="ir.ui.view">
+        <field name="name">diecut.kb.article.search</field>
+        <field name="model">diecut.kb.article</field>
+        <field name="arch" type="xml">
+            <search string="搜索知识文章">
+                <field name="name" string="标题"/>
+                <field name="summary"/>
+                <field name="content_text" string="正文"/>
+                <field name="keywords"/>
+                <field name="category_id"/>
+                <field name="related_brand_ids"/>
+                <field name="related_categ_ids"/>
+                <field name="related_item_ids"/>
+                <field name="author_name"/>
+                <separator/>
+                <filter string="收藏" name="favorite" domain="[('is_favorite','=',True)]"/>
+                <filter string="草稿" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="评审中" name="review" domain="[('state','=','review')]"/>
+                <filter string="已发布" name="published" domain="[('state','=','published')]"/>
+                <filter string="已归档" name="archived" domain="[('state','=','archived')]"/>
+                <separator/>
+                <filter string="待同步" name="sync_pending" domain="[('sync_status','=','pending')]"/>
+                <filter string="同步失败" name="sync_failed" domain="[('sync_status','=','failed')]"/>
+                <separator/>
+                <filter string="按分类分组" name="group_category" context="{'group_by':'category_id'}"/>
+                <filter string="按状态分组" name="group_state" context="{'group_by':'state'}"/>
+                <filter string="按同步状态分组" name="group_sync" context="{'group_by':'sync_status'}"/>
+            </search>
+        </field>
+    </record>
+
     <record id="view_diecut_kb_article_list" model="ir.ui.view">
         <field name="name">diecut.kb.article.list</field>
         <field name="model">diecut.kb.article</field>
         <field name="arch" type="xml">
-            <list string="知识库文章" default_order="parent_path, sequence, id desc">
-                <field name="sequence" optional="hide"/>
-                <field name="name" string="标题"/>
-                <field name="parent_id" string="上级页面" optional="show"/>
-                <field name="state" string="状态" optional="show"/>
-                <field name="catalog_item_id" string="关联型号" optional="show"/>
-                <field name="brand_id" string="品牌" optional="show"/>
-                <field name="categ_id" string="材料分类" optional="show"/>
-                <field name="publish_date" string="发布时间" optional="show"/>
-                <field name="write_date" string="更新时间" optional="show"/>
-                <field name="active" string="启用" widget="boolean_toggle" optional="show"/>
+            <list string="知识文章" sample="1" multi_edit="1">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'review'"
+                       decoration-success="state == 'published'"
+                       decoration-muted="state == 'archived'"/>
+                <field name="sync_status" widget="badge"
+                       decoration-info="sync_status == 'pending'"
+                       decoration-success="sync_status == 'synced'"
+                       decoration-danger="sync_status == 'failed'"
+                       decoration-muted="sync_status == 'skipped'"/>
+                <field name="content_length" string="字数"/>
+                <field name="attachment_count" string="附件"/>
+                <field name="author_name"/>
+                <field name="publish_date"/>
+                <field name="last_edited_at"/>
+                <field name="last_edited_uid" optional="hide"/>
+                <field name="is_favorite" widget="boolean_favorite"/>
             </list>
         </field>
     </record>
 
-    <record id="view_diecut_kb_article_recycle_list" model="ir.ui.view">
-        <field name="name">diecut.kb.article.recycle.list</field>
+    <record id="view_diecut_kb_article_kanban" model="ir.ui.view">
+        <field name="name">diecut.kb.article.kanban</field>
         <field name="model">diecut.kb.article</field>
         <field name="arch" type="xml">
-            <list string="知识库垃圾回收站" create="false" delete="false" edit="false">
-                <field name="name" string="页面标题"/>
-                <field name="parent_id" string="上级页面"/>
-                <field name="state" string="状态"/>
-                <field name="write_date" string="删除时间"/>
-                <button name="action_restore_from_recycle" type="object" string="恢复" class="btn-link"/>
-                <button name="action_permanent_delete" type="object" string="永久删除" class="btn-link text-danger" confirm="确认永久删除该页面？此操作不可恢复。"/>
-            </list>
+            <kanban default_group_by="category_id" sample="1">
+                <field name="category_id"/>
+                <field name="state"/>
+                <field name="sync_status"/>
+                <field name="is_favorite"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title"><field name="name"/></strong>
+                                </div>
+                                <field name="is_favorite" widget="boolean_favorite"/>
+                            </div>
+                            <div class="o_kanban_tags_section">
+                                <field name="state" widget="label_selection"
+                                       options="{'classes': {'draft':'default','review':'warning','published':'success','archived':'muted'}}"/>
+                                <field name="sync_status" widget="label_selection"
+                                       options="{'classes': {'pending':'info','synced':'success','failed':'danger','skipped':'muted'}}"/>
+                            </div>
+                            <div t-if="record.summary.raw_value" class="text-muted small mt-2">
+                                <field name="summary"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <field name="author_name"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="publish_date"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 
@@ -38,108 +107,141 @@
         <field name="name">diecut.kb.article.form</field>
         <field name="model">diecut.kb.article</field>
         <field name="arch" type="xml">
-            <form string="知识库文章" class="o_diecut_kb_form">
+            <form string="知识文章">
                 <header>
-                    <button name="action_open_full_editor" type="object" string="全屏编辑" class="btn-primary"/>
+                    <button name="action_submit_review" type="object" string="提交评审"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_publish" type="object" string="发布"
+                            class="oe_highlight" invisible="state not in ('draft','review')"/>
+                    <button name="action_back_to_draft" type="object" string="退回草稿"
+                            invisible="state == 'draft'"/>
+                    <button name="action_archive_article" type="object" string="归档"
+                            invisible="state == 'archived'"/>
+                    <button name="action_fill_content_from_attachments" type="object" string="从附件填充正文"
+                            invisible="state == 'archived'"
+                            help="把已解析的附件文本追加到正文末尾。不会覆盖已有内容。"/>
+                    <button name="action_request_sync" type="object" string="立即同步到 Dify"
+                            invisible="state != 'published'"
+                            help="立即推送到 Dify（同步执行，可能稍慢）。失败可在「同步日志」查看原因。"/>
+                    <button name="action_mark_pending" type="object" string="加入同步队列"
+                            invisible="state != 'published'"
+                            help="标记为待同步，由后台定时任务自动处理。"/>
+                    <button name="action_open_ai_advisor" type="object" string="AI 顾问"
+                            class="btn-primary" icon="fa-comments"
+                            help="打开 AI 顾问抽屉，基于当前文章内容向 Dify 对话应用提问。"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,review,published"/>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_attachments" type="object" class="oe_stat_button" icon="fa-paperclip">
+                            <field name="attachment_count" widget="statinfo" string="附件"/>
+                        </button>
+                        <button name="action_view_sync_logs" type="object" class="oe_stat_button" icon="fa-history">
+                            <span class="o_stat_text">同步日志</span>
+                        </button>
+                        <field name="is_favorite" widget="boolean_favorite" nolabel="1"/>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="例如：3M VHB 选型指南（电子产品）"/></h1>
+                        <field name="summary" placeholder="一句话概括这篇文章的核心内容..."/>
+                    </div>
                     <group>
                         <group>
-                            <field name="name" string="标题"/>
-                            <field name="parent_id" string="上级页面"/>
-                            <field name="state" string="状态"/>
-                            <field name="publish_date" string="发布时间"/>
-                            <field name="active" string="启用"/>
+                            <field name="category_id" options="{'no_create': True}"/>
+                            <field name="parent_id" options="{'no_create': True}"/>
+                            <field name="keywords" placeholder="逗号分隔，如：VHB,选型,泡棉"/>
                         </group>
                         <group>
-                            <field name="catalog_item_id" string="关联型号"/>
-                            <field name="brand_id" string="品牌" readonly="1"/>
-                            <field name="categ_id" string="材料分类" readonly="1"/>
-                            <field name="sequence" string="排序"/>
+                            <field name="author_name"/>
+                            <field name="source_url" widget="url"/>
+                            <field name="publish_date"/>
                         </group>
                     </group>
-                    <separator string="摘要"/>
-                    <field name="summary" nolabel="1" placeholder="简要说明该型号关键知识点"/>
-                    <separator string="正文"/>
-                    <field name="content_html" nolabel="1" widget="html" placeholder="输入详细知识内容"/>
+                    <notebook>
+                        <page string="正文" name="content">
+                            <field name="content_html" placeholder="正文内容，支持富文本..."/>
+                        </page>
+                        <page string="关联">
+                            <group>
+                                <field name="related_brand_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                                <field name="related_categ_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                                <field name="related_item_ids" widget="many2many_tags" options="{'no_create_edit': True}"/>
+                            </group>
+                        </page>
+                        <page string="附件">
+                            <field name="attachment_ids" mode="list">
+                                <list editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="file_data" filename="file_name" widget="binary"/>
+                                    <field name="file_name" optional="hide"/>
+                                    <field name="attachment_kind"/>
+                                    <field name="needs_ocr"/>
+                                    <field name="parse_state" widget="badge"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="子文章">
+                            <field name="child_ids" mode="list">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="state" widget="badge"/>
+                                    <field name="last_edited_at"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="同步信息" groups="base.group_system">
+                            <group>
+                                <group>
+                                    <field name="sync_status"/>
+                                    <field name="last_sync_at"/>
+                                    <field name="content_length"/>
+                                </group>
+                                <group>
+                                    <field name="dify_dataset_id"/>
+                                    <field name="dify_document_id"/>
+                                </group>
+                            </group>
+                            <group string="错误信息" invisible="not sync_error">
+                                <field name="sync_error" nolabel="1"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
+                <chatter/>
             </form>
         </field>
     </record>
 
-    <record id="view_diecut_kb_article_workspace_form" model="ir.ui.view">
-        <field name="name">diecut.kb.article.workspace.form</field>
-        <field name="model">diecut.kb.article</field>
-        <field name="arch" type="xml">
-            <form string="知识库页面" class="o_diecut_kb_workspace_form">
-                <sheet>
-                    <group col="2">
-                        <group>
-                            <field name="name" string="页面标题"/>
-                            <field name="parent_id" string="上级页面"/>
-                        </group>
-                        <group>
-                            <field name="state" string="状态"/>
-                            <field name="publish_date" string="发布时间"/>
-                        </group>
-                    </group>
-                    <separator string="正文"/>
-                    <field name="content_html" widget="html" nolabel="1" placeholder="输入知识内容..."/>
-                </sheet>
-            </form>
-        </field>
+    <record id="action_kb_article_batch_sync" model="ir.actions.server">
+        <field name="name">立即同步到 Dify</field>
+        <field name="model_id" ref="model_diecut_kb_article"/>
+        <field name="binding_model_id" ref="model_diecut_kb_article"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_request_sync()</field>
     </record>
 
-    <record id="view_diecut_kb_article_search" model="ir.ui.view">
-        <field name="name">diecut.kb.article.search</field>
-        <field name="model">diecut.kb.article</field>
-        <field name="arch" type="xml">
-            <search string="知识库搜索">
-                <field name="name" string="标题"/>
-                <field name="catalog_item_id" string="关联型号"/>
-                <field name="brand_id" string="品牌"/>
-                <field name="categ_id" string="材料分类"/>
-                <field name="parent_id" string="上级页面"/>
-                <field name="state" string="状态"/>
-                <separator/>
-                <filter name="kb_published" string="已发布" domain="[('state', '=', 'published')]"/>
-                <filter name="kb_review" string="评审中" domain="[('state', '=', 'review')]"/>
-                <filter name="kb_draft" string="草稿" domain="[('state', '=', 'draft')]"/>
-                <filter name="kb_archived" string="已归档" domain="[('state', '=', 'archived')]"/>
-                <separator/>
-                <filter name="kb_root_pages" string="顶级页面" domain="[('parent_id', '=', False)]"/>
-                <filter name="group_brand" string="按品牌分组" context="{'group_by': 'brand_id'}"/>
-                <filter name="group_categ" string="按分类分组" context="{'group_by': 'categ_id'}"/>
-                <filter name="group_state" string="按状态分组" context="{'group_by': 'state'}"/>
-                <filter name="group_parent" string="按上级页面分组" context="{'group_by': 'parent_id'}"/>
-            </search>
-        </field>
+    <record id="action_kb_article_batch_mark_pending" model="ir.actions.server">
+        <field name="name">加入同步队列</field>
+        <field name="model_id" ref="model_diecut_kb_article"/>
+        <field name="binding_model_id" ref="model_diecut_kb_article"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.action_mark_pending()</field>
     </record>
 
-    <record id="action_diecut_kb_article_manage" model="ir.actions.act_window">
-        <field name="name">知识库页面管理</field>
+    <record id="action_diecut_kb_article" model="ir.actions.act_window">
+        <field name="name">知识文章</field>
         <field name="res_model">diecut.kb.article</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="search_view_id" ref="view_diecut_kb_article_search"/>
-        <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'list', 'view_id': ref('view_diecut_kb_article_list')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('view_diecut_kb_article_form')})]"/>
+        <field name="context">{}</field>
         <field name="help" type="html">
-            <p>维护知识库页面基础信息与元数据。</p>
+            <p class="o_view_nocontent_smiley_face">创建第一篇行业知识文章</p>
+            <p>把材料选型经验、模切工艺、刀模设计、行业标准、客户问题沉淀为可检索的知识资产。</p>
         </field>
     </record>
 
-    <record id="action_diecut_kb_article_recycle" model="ir.actions.act_window">
-        <field name="name">垃圾回收站</field>
-        <field name="res_model">diecut.kb.article</field>
-        <field name="view_mode">list,form</field>
-        <field name="domain">[("active", "=", False)]</field>
-        <field name="context">{"active_test": False}</field>
-        <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'list', 'view_id': ref('view_diecut_kb_article_recycle_list')}),
-            (0, 0, {'view_mode': 'form', 'view_id': ref('view_diecut_kb_article_form')})]"/>
-        <field name="help" type="html">
-            <p>查看已软删除页面，可恢复或永久删除。</p>
-        </field>
-    </record>
 </odoo>

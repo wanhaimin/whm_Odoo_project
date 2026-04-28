@@ -1,5 +1,11 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_diecut_kb_category_user,diecut.kb.category.user,model_diecut_kb_category,base.group_user,1,0,0,0
+access_diecut_kb_category_admin,diecut.kb.category.admin,model_diecut_kb_category,base.group_system,1,1,1,1
 access_diecut_kb_article_user,diecut.kb.article.user,model_diecut_kb_article,base.group_user,1,1,1,0
 access_diecut_kb_article_admin,diecut.kb.article.admin,model_diecut_kb_article,base.group_system,1,1,1,1
-access_diecut_kb_block_user,diecut.kb.block.user,model_diecut_kb_block,base.group_user,1,1,1,0
-access_diecut_kb_block_admin,diecut.kb.block.admin,model_diecut_kb_block,base.group_system,1,1,1,1
+access_diecut_kb_attachment_user,diecut.kb.attachment.user,model_diecut_kb_attachment,base.group_user,1,1,1,1
+access_diecut_kb_attachment_admin,diecut.kb.attachment.admin,model_diecut_kb_attachment,base.group_system,1,1,1,1
+access_diecut_kb_sync_log_user,diecut.kb.sync.log.user,model_diecut_kb_sync_log,base.group_user,1,0,0,0
+access_diecut_kb_sync_log_admin,diecut.kb.sync.log.admin,model_diecut_kb_sync_log,base.group_system,1,1,1,1
+access_diecut_kb_qa_ticket_user,diecut.kb.qa_ticket.user,model_diecut_kb_qa_ticket,base.group_user,1,1,1,0
+access_diecut_kb_qa_ticket_admin,diecut.kb.qa_ticket.admin,model_diecut_kb_qa_ticket,base.group_system,1,1,1,1

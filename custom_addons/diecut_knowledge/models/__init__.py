@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from . import kb_category
 from . import kb_article
-from . import kb_block
-from . import kb_editor_service
+from . import kb_attachment
+from . import kb_sync_log
+from . import kb_qa_ticket
+from . import catalog_item_sync
+from . import res_config_settings

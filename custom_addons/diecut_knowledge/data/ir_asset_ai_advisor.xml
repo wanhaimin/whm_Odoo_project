@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="asset_ai_advisor_js" model="ir.asset">
+        <field name="name">diecut_knowledge/static/src/js/ai_advisor_drawer.js</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="directive">append</field>
+        <field name="path">diecut_knowledge/static/src/js/ai_advisor_drawer.js</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="asset_ai_advisor_scss" model="ir.asset">
+        <field name="name">diecut_knowledge/static/src/scss/ai_advisor_drawer.scss</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="directive">append</field>
+        <field name="path">diecut_knowledge/static/src/scss/ai_advisor_drawer.scss</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="asset_ai_advisor_xml" model="ir.asset">
+        <field name="name">diecut_knowledge/static/src/xml/ai_advisor_drawer.xml</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="directive">append</field>
+        <field name="path">diecut_knowledge/static/src/xml/ai_advisor_drawer.xml</field>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_diecut_kb_qa_ticket_search" model="ir.ui.view">
+        <field name="name">diecut.kb.qa_ticket.search</field>
+        <field name="model">diecut.kb.qa_ticket</field>
+        <field name="arch" type="xml">
+            <search string="搜索客户问答">
+                <field name="name" string="问题摘要"/>
+                <field name="question"/>
+                <field name="answer"/>
+                <field name="keywords"/>
+                <field name="customer_name"/>
+                <field name="source_ref"/>
+                <field name="related_brand_ids"/>
+                <field name="related_item_ids"/>
+                <separator/>
+                <filter string="草稿" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="评审中" name="review" domain="[('state','=','review')]"/>
+                <filter string="已发布" name="published" domain="[('state','=','published')]"/>
+                <filter string="已归档" name="archived" domain="[('state','=','archived')]"/>
+                <separator/>
+                <filter string="待同步" name="sync_pending" domain="[('sync_status','=','pending')]"/>
+                <filter string="同步失败" name="sync_failed" domain="[('sync_status','=','failed')]"/>
+                <separator/>
+                <filter string="按来源分组" name="group_source" context="{'group_by':'source'}"/>
+                <filter string="按状态分组" name="group_state" context="{'group_by':'state'}"/>
+                <filter string="按同步状态分组" name="group_sync" context="{'group_by':'sync_status'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_qa_ticket_list" model="ir.ui.view">
+        <field name="name">diecut.kb.qa_ticket.list</field>
+        <field name="model">diecut.kb.qa_ticket</field>
+        <field name="arch" type="xml">
+            <list string="客户问答" multi_edit="1">
+                <field name="name"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-warning="state == 'review'"
+                       decoration-success="state == 'published'"
+                       decoration-muted="state == 'archived'"/>
+                <field name="sync_status" widget="badge"
+                       decoration-info="sync_status == 'pending'"
+                       decoration-success="sync_status == 'synced'"
+                       decoration-danger="sync_status == 'failed'"
+                       decoration-muted="sync_status == 'skipped'"/>
+                <field name="customer_name"/>
+                <field name="source"/>
+                <field name="resolved_date"/>
+                <field name="write_date" string="最后更新"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_qa_ticket_kanban" model="ir.ui.view">
+        <field name="name">diecut.kb.qa_ticket.kanban</field>
+        <field name="model">diecut.kb.qa_ticket</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" sample="1">
+                <field name="state"/>
+                <field name="sync_status"/>
+                <templates>
+                    <t t-name="card">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title"><field name="name"/></strong>
+                                </div>
+                            </div>
+                            <div class="o_kanban_tags_section">
+                                <field name="state" widget="label_selection"
+                                       options="{'classes': {'draft':'default','review':'warning','published':'success','archived':'muted'}}"/>
+                                <field name="sync_status" widget="label_selection"
+                                       options="{'classes': {'pending':'info','synced':'success','failed':'danger','skipped':'muted'}}"/>
+                            </div>
+                            <div t-if="record.customer_name.raw_value" class="text-muted small mt-2">
+                                客户: <field name="customer_name"/>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <field name="source"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="resolved_date"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_qa_ticket_form" model="ir.ui.view">
+        <field name="name">diecut.kb.qa_ticket.form</field>
+        <field name="model">diecut.kb.qa_ticket</field>
+        <field name="arch" type="xml">
+            <form string="客户问答工单">
+                <header>
+                    <button name="action_submit_review" type="object" string="提交评审"
+                            class="oe_highlight" invisible="state != 'draft'"/>
+                    <button name="action_publish" type="object" string="发布"
+                            class="oe_highlight" invisible="state not in ('draft','review')"/>
+                    <button name="action_back_to_draft" type="object" string="退回草稿"
+                            invisible="state == 'draft'"/>
+                    <button name="action_archive" type="object" string="归档"
+                            invisible="state == 'archived'"/>
+                    <button name="action_request_sync" type="object" string="立即同步到 Dify"
+                            invisible="state != 'published'"
+                            help="立即推送到 Dify 客户问答库。"/>
+                    <button name="action_mark_pending" type="object" string="加入同步队列"
+                            invisible="state != 'published'"
+                            help="标记为待同步，由后台定时任务处理。"/>
+                    <button name="action_open_ai_advisor" type="object" string="AI 顾问"
+                            class="btn-primary" icon="fa-comments"
+                            help="打开 AI 顾问抽屉，基于当前工单向 Dify 对话应用提问。"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,review,published"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="例如：客户问 VHB 泡棉在高温环境下的粘性衰减"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="category_id" options="{'no_create': True}"/>
+                            <field name="customer_name"/>
+                            <field name="contact_info"/>
+                        </group>
+                        <group>
+                            <field name="source"/>
+                            <field name="source_ref"/>
+                            <field name="resolved_date"/>
+                            <field name="resolved_by_uid"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="related_brand_ids" widget="many2many_tags"/>
+                            <field name="related_item_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="keywords" placeholder="逗号分隔，如：VHB,高温,衰减"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="客户问题">
+                            <field name="question" placeholder="客户的原始问题描述..." nolabel="1"/>
+                        </page>
+                        <page string="答复内容">
+                            <field name="answer" placeholder="客服/技术给出的答复..." nolabel="1"/>
+                        </page>
+                        <page string="同步信息" groups="base.group_system">
+                            <group>
+                                <group>
+                                    <field name="sync_status"/>
+                                    <field name="last_sync_at"/>
+                                </group>
+                                <group>
+                                    <field name="dify_dataset_id"/>
+                                    <field name="dify_document_id"/>
+                                </group>
+                            </group>
+                            <group string="错误信息" invisible="not sync_error">
+                                <field name="sync_error" nolabel="1"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_kb_qa_ticket_batch_sync" model="ir.actions.server">
+        <field name="name">立即同步到 Dify</field>
+        <field name="model_id" ref="model_diecut_kb_qa_ticket"/>
+        <field name="binding_model_id" ref="model_diecut_kb_qa_ticket"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_request_sync()</field>
+    </record>
+
+    <record id="action_kb_qa_ticket_batch_mark_pending" model="ir.actions.server">
+        <field name="name">加入同步队列</field>
+        <field name="model_id" ref="model_diecut_kb_qa_ticket"/>
+        <field name="binding_model_id" ref="model_diecut_kb_qa_ticket"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.action_mark_pending()</field>
+    </record>
+
+    <record id="action_diecut_kb_qa_ticket" model="ir.actions.act_window">
+        <field name="name">客户问答工单</field>
+        <field name="res_model">diecut.kb.qa_ticket</field>
+        <field name="view_mode">list,kanban,form</field>
+        <field name="search_view_id" ref="view_diecut_kb_qa_ticket_search"/>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiley_face">录入第一条客户问答</p>
+            <p>把客户高频问题与已解决方案沉淀为可检索的知识资产，同步到 Dify 客户问答库。</p>
+        </field>
+    </record>
+
+</odoo>

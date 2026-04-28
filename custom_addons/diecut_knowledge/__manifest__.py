@@ -1,27 +1,42 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "模切知识库",
-    "version": "1.0",
+    "name": "模切行业知识库",
+    "version": "2.0.0",
     "category": "Manufacturing",
-    "summary": "材料选型知识库（后台）",
+    "summary": "材料选型 / 模切工艺 / 刀模设计 / 行业标准 / 客户问答 知识库，支持同步到 Dify 做 AI 检索",
+    "description": """
+模切行业知识库
+================
+
+将公司沉淀的行业知识（材料选型、模切工艺、刀模设计、行业标准、客户问答）
+作为结构化数据管理在 Odoo 中，并自动同步到 Dify 知识库，
+为销售/技术/客服提供统一的 AI 智能问答入口。
+
+主要模型：
+- diecut.kb.category   知识分类
+- diecut.kb.article    知识文章（主表）
+- diecut.kb.attachment 关联附件 + 解析状态
+- diecut.kb.sync.log   同步日志
+""",
     "author": "Diecut Team",
     "license": "LGPL-3",
     "depends": ["base", "web", "mail", "diecut"],
     "data": [
         "security/ir.model.access.csv",
+        "data/kb_category_data.xml",
+        "data/ir_cron.xml",
+        "data/ir_asset_ai_advisor.xml",
+        "views/kb_category_views.xml",
         "views/kb_article_views.xml",
-        "views/kb_editor_action.xml",
+        "views/kb_attachment_views.xml",
+        "views/kb_qa_ticket_views.xml",
+        "views/kb_sync_log_views.xml",
+        "views/catalog_item_views.xml",
+        "views/res_config_settings_views.xml",
         "views/kb_menu.xml",
     ],
-    "assets": {
-        "web.assets_backend": [
-            "diecut_knowledge/static/src/scss/kb_article.scss",
-            "diecut_knowledge/static/src/scss/kb_workspace.scss",
-            "diecut_knowledge/static/src/js/components/page_tree.js",
-            "diecut_knowledge/static/src/js/kb_workspace.js",
-            "diecut_knowledge/static/src/xml/components/page_tree.xml",
-            "diecut_knowledge/static/src/xml/kb_workspace.xml",
-        ],
+    "external_dependencies": {
+        "python": ["requests", "pdfplumber"],
     },
     "installable": True,
     "application": False,

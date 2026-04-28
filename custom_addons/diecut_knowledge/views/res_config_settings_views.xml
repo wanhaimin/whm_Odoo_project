@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_res_config_settings_diecut_kb" model="ir.ui.view">
+        <field name="name">res.config.settings.diecut_knowledge</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="行业知识库" string="行业知识库" name="diecut_knowledge" groups="base.group_system">
+                    <block title="Dify 知识库 API" name="diecut_kb_dify">
+                        <setting id="diecut_kb_dify_base_url" string="Dify API 地址">
+                            <field name="diecut_kb_dify_base_url" placeholder="http://dify.local:5001"/>
+                        </setting>
+                        <setting id="diecut_kb_dify_api_key" string="Dataset API Key">
+                            <field name="diecut_kb_dify_api_key" password="True" placeholder="dataset-xxxxxxxx"/>
+                        </setting>
+                        <setting id="diecut_kb_dify_timeout" string="请求超时(秒)">
+                            <field name="diecut_kb_dify_timeout"/>
+                        </setting>
+                        <setting id="diecut_kb_dify_retries" string="重试次数">
+                            <field name="diecut_kb_dify_retries"/>
+                        </setting>
+                        <setting id="diecut_kb_dify_batch_limit" string="单次定时同步上限">
+                            <field name="diecut_kb_dify_batch_limit"/>
+                        </setting>
+                        <setting id="diecut_kb_attachment_batch_limit" string="附件解析单次上限">
+                            <field name="diecut_kb_attachment_batch_limit"/>
+                        </setting>
+                    </block>
+                    <block title="产品库（catalog.item） → Dify" name="diecut_kb_dify_products">
+                        <setting id="diecut_kb_dify_products_dataset_id" string="产品库 Dataset ID">
+                            <field name="diecut_kb_dify_products_dataset_id" placeholder="产品库专用 Dataset 的 UUID"/>
+                        </setting>
+                        <setting id="diecut_kb_dify_products_min_status" string="同步阈值">
+                            <field name="diecut_kb_dify_products_min_status"/>
+                        </setting>
+                        <setting id="diecut_kb_dify_products_batch_limit" string="单次定时同步上限">
+                            <field name="diecut_kb_dify_products_batch_limit"/>
+                        </setting>
+                        <setting id="diecut_kb_dify_test_connection" string="测试连接">
+                            <button name="action_test_dify_connection" type="object" string="测试连接" class="btn-primary"/>
+                        </setting>
+                    </block>
+                    <block title="Dify Chat App（Phase 3）" name="diecut_kb_dify_chat">
+                        <setting id="diecut_kb_dify_chat_app_url" string="Chat App API 地址">
+                            <field name="diecut_kb_dify_chat_app_url" placeholder="http://dify.local:5001"/>
+                        </setting>
+                        <setting id="diecut_kb_dify_chat_api_key" string="Chat App API Key">
+                            <field name="diecut_kb_dify_chat_api_key" password="True" placeholder="app-xxxxxxxx"/>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_diecut_kb_settings" model="ir.actions.act_window">
+        <field name="name">行业知识库 设置</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'module': 'diecut_knowledge'}</field>
+    </record>
+
+</odoo>
