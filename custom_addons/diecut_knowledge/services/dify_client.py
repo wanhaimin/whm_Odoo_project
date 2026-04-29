@@ -177,12 +177,16 @@ class DifyClient:
         text: str,
         *,
         process_rule: Optional[dict] = None,
+        metadata: Optional[dict] = None,
     ):
         body = {
             "name": name,
             "text": text,
             "process_rule": process_rule or self._default_process_rule(),
         }
+        if metadata:
+            body["doc_metadata"] = metadata
+            body["doc_form"] = "text_model"
         return self._request(
             "POST",
             f"/datasets/{dataset_id}/documents/{document_id}/update-by-text",
@@ -265,6 +269,104 @@ class DifyClient:
                 "files": files or [],
             },
         )
+
+    def chat_messages_stream(
+        self,
+        query: str,
+        *,
+        user: str,
+        conversation_id: str = "",
+        inputs: Optional[dict] = None,
+        files: Optional[list] = None,
+    ):
+        """SSE 流式调用 Dify Chat API，yield (event_type, data_dict, error) 三元组。"""
+        url = f"{self.base_url}/v1/chat-messages"
+        body = {
+            "query": query,
+            "user": user,
+            "conversation_id": conversation_id,
+            "inputs": inputs or {},
+            "response_mode": "streaming",
+            "files": files or [],
+        }
+        try:
+            response = requests.post(
+                url,
+                headers={"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"},
+                json=body,
+                stream=True,
+                timeout=self.timeout,
+            )
+        except (requests.ConnectionError, requests.Timeout) as exc:
+            yield ("error", {}, f"Connection failed: {exc}")
+            return
+
+        if response.status_code != 200:
+            try:
+                payload = response.json()
+                error_msg = payload.get("message") or payload.get("error") or response.text[:300]
+            except ValueError:
+                error_msg = response.text[:300]
+            yield ("error", {}, f"HTTP {response.status_code}: {error_msg}")
+            return
+
+        conversation_id = ""
+        full_answer = ""
+        try:
+            for line in response.iter_lines(decode_unicode=True):
+                if not line or not line.startswith("data: "):
+                    continue
+                raw = line[6:].strip()
+                if not raw:
+                    continue
+                try:
+                    event = json.loads(raw)
+                except json.JSONDecodeError:
+                    continue
+
+                event_type = event.get("event", "")
+                if event_type in ("message", "agent_message", "message_replace"):
+                    token = event.get("answer", "")
+                    full_answer += token
+                    conversation_id = event.get("conversation_id", "") or conversation_id
+                    yield ("token", {"token": token, "full_answer": full_answer, "conversation_id": conversation_id}, None)
+                elif event_type == "message_end":
+                    conversation_id = event.get("conversation_id", "") or conversation_id
+                    citations = []
+                    metadata = event.get("metadata", {}) or {}
+                    retriever_resources = metadata.get("retriever_resources") or []
+                    for res in retriever_resources:
+                        citations.append({
+                            "title": res.get("name") or res.get("title", ""),
+                            "content": res.get("content", "")[:300],
+                            "score": res.get("score", 0),
+                        })
+                    yield ("done", {
+                        "conversation_id": conversation_id,
+                        "full_answer": full_answer,
+                        "citations": citations,
+                    }, None)
+                    return
+                elif event_type == "workflow_finished":
+                    outputs = event.get("data", {}).get("outputs", {}) or {}
+                    if outputs:
+                        workflow_answer = outputs.get("text") or outputs.get("answer") or ""
+                        if workflow_answer:
+                            yield ("token", {"token": workflow_answer, "full_answer": workflow_answer, "conversation_id": conversation_id}, None)
+                    yield ("done", {
+                        "conversation_id": conversation_id,
+                        "full_answer": full_answer or workflow_answer or "",
+                        "citations": [],
+                    }, None)
+                    return
+                elif event_type == "error":
+                    error_msg = event.get("message", "Unknown streaming error")
+                    yield ("error", {}, error_msg)
+                    return
+                elif event_type in ("ping", "workflow_started", "node_started", "node_finished", "tts_message_end", "tts_message"):
+                    continue
+        except Exception as exc:
+            yield ("error", {}, f"Stream read error: {exc}")
 
     # --------------------------- helpers ------------------------------------
 

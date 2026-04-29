@@ -2,13 +2,18 @@
 """AI 顾问 Controller：代理调用 Dify Chat API，避免 API key 暴露到前端。"""
 
 import html
+import json
 import logging
 import re
+
+from werkzeug.wrappers import Response
 
 from odoo import fields, http
 from odoo.http import request
 
 _logger = logging.getLogger(__name__)
+
+ALLOWED_MODELS = {"diecut.catalog.item", "diecut.kb.article", "diecut.kb.qa_ticket"}
 
 
 class DiecutAiAdvisor(http.Controller):
@@ -24,7 +29,7 @@ class DiecutAiAdvisor(http.Controller):
             }
 
         chat_inputs = dict(inputs or {})
-        if model and record_id:
+        if model and record_id and model in ALLOWED_MODELS:
             try:
                 record = request.env[model].browse(record_id)
                 if record.exists():
@@ -49,8 +54,77 @@ class DiecutAiAdvisor(http.Controller):
                 "answer": answer,
                 "conversation_id": (payload or {}).get("conversation_id", conversation_id),
                 "duration_ms": duration,
+                "citations": (payload or {}).get("retriever_resources", []),
             }
         return {"ok": False, "error": error or "Dify API 调用失败"}
+
+    @http.route("/diecut_knowledge/ai/chat_stream", type="http", auth="user", csrf=False)
+    def ai_chat_stream(self, **kw):
+        """SSE 流式聊天端点。前端的 fetch() 直接消费此接口。"""
+        base_url = request.env["ir.config_parameter"].sudo().get_param("diecut_knowledge.dify_base_url")
+        api_key = request.env["ir.config_parameter"].sudo().get_param("diecut_knowledge.dify_chat_api_key")
+        if not base_url or not api_key:
+            return Response("data: %s\n\n" % json.dumps({"error": "Dify 未配置"}), mimetype="text/event-stream")
+
+        query = kw.get("query", "")
+        model = kw.get("model") or ""
+        record_id = kw.get("record_id")
+        conversation_id = kw.get("conversation_id", "")
+        try:
+            inputs = json.loads(kw.get("inputs", "{}")) if kw.get("inputs") else {}
+        except (json.JSONDecodeError, TypeError):
+            inputs = {}
+
+        chat_inputs = dict(inputs or {})
+        if model and record_id and model in ALLOWED_MODELS:
+            try:
+                record = request.env[model].browse(int(record_id))
+                if record.exists():
+                    chat_inputs.update(_build_record_context(record))
+            except Exception as exc:
+                _logger.warning("Failed to build AI advisor context: %s", exc)
+
+        from ..services.dify_client import DifyClient
+
+        client = DifyClient(base_url=base_url, api_key=api_key)
+        user_name = request.env.user.display_name or "Odoo User"
+
+        def generate():
+            try:
+                for event_type, data, error in client.chat_messages_stream(
+                    query=query,
+                    user=user_name,
+                    conversation_id=conversation_id,
+                    inputs=chat_inputs,
+                ):
+                    if event_type == "token":
+                        payload = {"token": data.get("token", ""), "done": False}
+                        yield "data: %s\n\n" % json.dumps(payload, ensure_ascii=False)
+                    elif event_type == "done":
+                        payload = {
+                            "done": True,
+                            "conversation_id": data.get("conversation_id", ""),
+                            "full_answer": data.get("full_answer", ""),
+                            "citations": data.get("citations", []),
+                        }
+                        yield "data: %s\n\n" % json.dumps(payload, ensure_ascii=False)
+                    elif event_type == "error":
+                        yield "data: %s\n\n" % json.dumps({"error": error or "流式调用失败"})
+                        return
+            except Exception as exc:
+                _logger.exception("SSE stream error")
+                yield "data: %s\n\n" % json.dumps({"error": str(exc)[:200]})
+
+        return Response(
+            generate(),
+            mimetype="text/event-stream",
+            headers={
+                "Cache-Control": "no-cache",
+                "Connection": "keep-alive",
+                "X-Accel-Buffering": "no",
+            },
+            direct_passthrough=True,
+        )
 
     @http.route("/diecut_knowledge/ai/save_answer", type="json", auth="user")
     def ai_save_answer(self, question, answer, model=None, record_id=None, record_name=""):
@@ -133,7 +207,7 @@ def _save_answer_as_article(question, answer, model=None, record_id=None, record
     source_item_id = False
 
     source_record = False
-    if model and record_id:
+    if model and record_id and model in ALLOWED_MODELS:
         source_record = env[model].browse(record_id)
     if source_record and source_record.exists():
         if model == "diecut.kb.article":

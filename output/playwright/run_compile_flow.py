@@ -75,6 +75,14 @@ def open_source_document(page) -> None:
 
 
 def run_compile(page) -> None:
+    parse_button = page.locator("button:has-text('解析原始资料')").first
+    if parse_button.count() and parse_button.is_visible():
+        print("[step] click 解析原始资料")
+        parse_button.click()
+        page.wait_for_timeout(2000)
+        page.reload(wait_until="domcontentloaded")
+        wait_action(page, ".o_form_view", timeout=30000)
+
     print("[step] click 编译为 Wiki")
     button = page.locator("button:has-text('编译为 Wiki')").first
     expect(button).to_be_visible(timeout=15000)

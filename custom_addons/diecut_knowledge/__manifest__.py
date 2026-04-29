@@ -35,6 +35,8 @@
         "views/catalog_item_views.xml",
         "views/source_document_compile_views.xml",
         "views/res_config_settings_views.xml",
+        "views/kb_dashboard_views.xml",
+        "views/kb_compile_job_views.xml",
         "views/kb_menu.xml",
     ],
     "external_dependencies": {

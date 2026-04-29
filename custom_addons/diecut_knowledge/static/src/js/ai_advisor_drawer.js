@@ -22,8 +22,10 @@ class AiAdvisorDrawer extends Component {
             inputText: "",
             error: "",
             savingIds: [],
+            streamAborted: false,
         });
         this.chatBodyRef = useRef("chatBody");
+        this.abortController = null;
         this._addSystemMessage();
     }
 
@@ -50,10 +52,99 @@ class AiAdvisorDrawer extends Component {
 
         this.ui.inputText = "";
         this.ui.error = "";
+        this.ui.streamAborted = false;
         this._pushMessage("user", text);
+
+        const assistantMsg = { role: "assistant", content: "", id: Date.now() + Math.random(), question: text };
+        this.ui.messages.push(assistantMsg);
         this.ui.loading = true;
         this._scrollBottom();
 
+        // 优先尝试 SSE 流式，失败时自动回退到 blocking RPC
+        const streamOk = await this._tryStream(assistantMsg, text);
+        if (!streamOk) {
+            await this._tryBlocking(assistantMsg, text);
+        }
+        this.ui.loading = false;
+        this._scrollBottom();
+    }
+
+    async _tryStream(msg, text) {
+        try {
+            const params = new URLSearchParams();
+            params.append("query", text);
+            params.append("model", this.modelName);
+            params.append("record_id", this.recordId);
+            params.append("conversation_id", this.conversationId);
+
+            this.abortController = new AbortController();
+            const response = await fetch("/diecut_knowledge/ai/chat_stream", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: params,
+                signal: this.abortController.signal,
+            });
+            if (!response.ok) return false;
+            if (!response.body) return false;
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder();
+            let buffer = "";
+            let streamDone = false;
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+
+                buffer += decoder.decode(value, { stream: true });
+                const lines = buffer.split("\n");
+                buffer = lines.pop() || "";
+
+                for (const line of lines) {
+                    if (!line.startsWith("data: ")) continue;
+                    const raw = line.slice(6).trim();
+                    if (!raw) continue;
+
+                    try {
+                        const event = JSON.parse(raw);
+                        if (event.error) {
+                            this.ui.error = event.error;
+                            streamDone = true;
+                            break;
+                        }
+                        if (event.done) {
+                            this.conversationId = event.conversation_id || this.conversationId;
+                            if (event.citations) {
+                                msg.citations = event.citations.map(function(c) {
+                                    return {
+                                        title: c.title || "",
+                                        score: c.score ? Math.round(c.score * 100) + "%" : "",
+                                    };
+                                });
+                            }
+                            streamDone = true;
+                            break;
+                        }
+                        if (event.token !== undefined) {
+                            msg.content += event.token;
+                            this._scrollBottom();
+                        }
+                    } catch (e) {
+                        // skip malformed JSON
+                    }
+                }
+                if (streamDone) break;
+            }
+            return true;
+        } catch (err) {
+            if (err.name !== "AbortError") {
+                console.warn("SSE stream failed, falling back to blocking mode:", err.message);
+            }
+            return false;
+        }
+    }
+
+    async _tryBlocking(msg, text) {
         try {
             const result = await rpc("/diecut_knowledge/ai/chat", {
                 query: text,
@@ -63,15 +154,27 @@ class AiAdvisorDrawer extends Component {
             });
             if (result.ok) {
                 this.conversationId = result.conversation_id || this.conversationId;
-                this._pushMessage("assistant", result.answer || "(空响应)", { question: text });
+                msg.content = result.answer || "(空响应)";
+                if (result.citations) {
+                    msg.citations = result.citations.map(function(c) {
+                        return {
+                            title: c.name || c.title || "",
+                            score: c.score ? Math.round(c.score * 100) + "%" : "",
+                        };
+                    });
+                }
             } else {
                 this.ui.error = result.error || "调用失败";
+                if (!msg.content) {
+                    this.ui.messages = this.ui.messages.filter(m => m.id !== msg.id || m.content);
+                }
             }
         } catch (err) {
             this.ui.error = err.message || "网络错误";
+            if (!msg.content) {
+                this.ui.messages = this.ui.messages.filter(m => m.id !== msg.id || m.content);
+            }
         }
-        this.ui.loading = false;
-        this._scrollBottom();
     }
 
     async saveMessage(message) {
@@ -101,6 +204,9 @@ class AiAdvisorDrawer extends Component {
     }
 
     close() {
+        if (this.abortController) {
+            this.abortController.abort();
+        }
         this.props.close();
     }
 
@@ -144,4 +250,3 @@ function openAiAdvisorDrawer(env, action) {
 }
 
 registry.category("actions").add("diecut_ai_advisor", openAiAdvisorDrawer);
-

@@ -15,6 +15,7 @@
                 <field name="related_categ_ids"/>
                 <field name="related_item_ids"/>
                 <field name="related_article_ids"/>
+                <field name="compile_source_document_id"/>
                 <field name="author_name"/>
                 <separator/>
                 <filter string="收藏" name="favorite" domain="[('is_favorite','=',True)]"/>
@@ -44,6 +45,11 @@
                 <field name="name"/>
                 <field name="category_id"/>
                 <field name="compile_source" optional="hide"/>
+                <field name="compile_risk_level" widget="badge" optional="show"
+                       decoration-success="compile_risk_level == 'low'"
+                       decoration-warning="compile_risk_level == 'medium'"
+                       decoration-danger="compile_risk_level == 'high'"/>
+                <field name="compile_confidence" optional="hide"/>
                 <field name="state" widget="badge"
                        decoration-info="state == 'draft'"
                        decoration-warning="state == 'review'"
@@ -131,7 +137,7 @@
                             invisible="state != 'published'"/>
                     <button name="action_recompile" type="object" string="重新编译"
                             class="btn-secondary" icon="fa-magic"
-                            invisible="not compile_source_item_id"/>
+                            invisible="not compile_source_item_id and not compile_source_document_id"/>
                     <button name="action_run_lint" type="object" string="治理检查"
                             class="btn-secondary" icon="fa-stethoscope"/>
                     <button name="action_open_ai_advisor" type="object" string="AI 顾问"
@@ -206,13 +212,18 @@
                                     <field name="last_sync_at"/>
                                     <field name="content_length"/>
                                     <field name="compile_source"/>
+                                    <field name="compile_source_document_id"/>
                                     <field name="compile_source_item_id"/>
+                                    <field name="compile_confidence"/>
+                                    <field name="compile_risk_level"/>
                                 </group>
                                 <group>
                                     <field name="dify_dataset_id"/>
                                     <field name="dify_document_id"/>
                                     <field name="compiled_at"/>
                                     <field name="compiled_hash"/>
+                                    <field name="source_file_name"/>
+                                    <field name="source_page_refs"/>
                                     <field name="xref_enriched_at"/>
                                 </group>
                             </group>

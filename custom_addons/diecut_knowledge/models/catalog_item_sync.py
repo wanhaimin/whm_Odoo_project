@@ -153,29 +153,22 @@ class DiecutCatalogItem(models.Model):
         return True
 
     def action_compile_knowledge(self):
-        from ..services.kb_compiler import KbCompiler
-
-        compiler = KbCompiler(self.env)
-        ok_count, fail_count = 0, 0
-        errors = []
+        Job = self.env["diecut.kb.compile.job"]
+        count = 0
         for item in self:
-            result = compiler.compile_from_item(item, force=True)
-            if result.get("ok"):
-                ok_count += 1
-            else:
-                fail_count += 1
-                errors.append("[%s] %s" % (item.code or item.name, result.get("error", "")))
-        msg = f"编译完成：成功 {ok_count} / 失败 {fail_count}"
-        if errors:
-            msg += "\n" + "\n".join(errors[:3])
+            Job.create({
+                "item_id": item.id,
+                "job_type": "catalog_item",
+            })
+            count += 1
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
                 "title": "AI 知识编译",
-                "message": msg,
-                "type": "success" if fail_count == 0 else "warning",
-                "sticky": bool(fail_count),
+                "message": f"已加入编译队列（{count} 个），队列处理完成后请查看相关文章。",
+                "type": "success",
+                "sticky": False,
             },
         }
 

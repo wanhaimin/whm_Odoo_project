@@ -51,7 +51,10 @@
             <list string="编译源资料">
                 <field name="name"/>
                 <field name="import_status" widget="badge"/>
+                <field name="knowledge_parse_state" widget="badge"/>
                 <field name="brand_id"/>
+                <field name="primary_attachment_name"/>
+                <field name="knowledge_page_count"/>
                 <field name="compiled_item_count"/>
                 <field name="compilable_item_count"/>
                 <field name="compiled_article_count"/>
@@ -67,17 +70,29 @@
         <field name="arch" type="xml">
             <form string="编译源资料">
                 <header>
-                    <button name="action_compile_knowledge_articles"
+                    <button name="action_parse_for_knowledge"
+                            type="object"
+                            string="解析原始资料"
+                            class="btn-secondary"
+                            icon="fa-file-text-o"
+                            invisible="not primary_attachment_id"/>
+                    <button name="action_one_click_ingest"
+                            type="object"
+                            string="一键入库"
+                            class="oe_highlight"
+                            icon="fa-rocket"
+                            invisible="not primary_attachment_id"/>
+                    <button name="action_compile_wiki"
                             type="object"
                             string="编译为 Wiki"
-                            class="oe_highlight"
+                            class="btn-secondary"
                             icon="fa-magic"
-                            invisible="import_status != 'applied' or not compilable_item_count"/>
+                            invisible="not knowledge_parsed_text and not raw_text"/>
                     <button name="action_open_compiled_articles"
                             type="object"
                             string="打开 Wiki文章"
                             class="btn-secondary"
-                            icon="fa-file-text-o"
+                            icon="fa-book"
                             invisible="not compiled_article_count"/>
                 </header>
                 <sheet>
@@ -91,11 +106,17 @@
                     <group>
                         <group string="原始资料">
                             <field name="import_status" readonly="1"/>
+                            <field name="source_type" readonly="1"/>
                             <field name="brand_id" readonly="1"/>
+                            <field name="primary_attachment_id" readonly="1"/>
+                            <field name="primary_attachment_name" readonly="1"/>
                             <field name="line_count" readonly="1"/>
                             <field name="parse_version" readonly="1"/>
                         </group>
                         <group string="编译状态">
+                            <field name="knowledge_parse_state" readonly="1" widget="badge"/>
+                            <field name="knowledge_parse_method" readonly="1"/>
+                            <field name="knowledge_page_count" readonly="1"/>
                             <field name="compiled_item_count" readonly="1"/>
                             <field name="compilable_item_count" readonly="1"/>
                             <field name="compiled_article_count" readonly="1"/>
@@ -114,9 +135,18 @@
                                     <field name="name"/>
                                     <field name="state" widget="badge"/>
                                     <field name="sync_status" widget="badge"/>
+                                    <field name="compile_confidence"/>
+                                    <field name="compile_risk_level" widget="badge"/>
                                     <field name="compiled_at"/>
                                 </list>
                             </field>
+                        </page>
+                        <page string="解析内容">
+                            <group>
+                                <field name="knowledge_parse_error" readonly="1" invisible="not knowledge_parse_error"/>
+                                <field name="knowledge_parsed_at" readonly="1"/>
+                            </group>
+                            <field name="knowledge_parsed_markdown" readonly="1" nolabel="1"/>
                         </page>
                         <page string="原始草稿">
                             <field name="draft_payload" readonly="1"/>

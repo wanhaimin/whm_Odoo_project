@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================== 文章统计 Pivot ================== -->
+
+    <record id="view_diecut_kb_article_pivot" model="ir.ui.view">
+        <field name="name">diecut.kb.article.pivot</field>
+        <field name="model">diecut.kb.article</field>
+        <field name="arch" type="xml">
+            <pivot string="文章统计">
+                <field name="id" type="value"/>
+                <field name="state" type="row"/>
+                <field name="compile_source" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- ================== 文章按分类分布 Graph ================== -->
+
+    <record id="view_diecut_kb_article_graph_category" model="ir.ui.view">
+        <field name="name">diecut.kb.article.graph.category</field>
+        <field name="model">diecut.kb.article</field>
+        <field name="arch" type="xml">
+            <graph string="文章按分类分布" type="pie">
+                <field name="category_id"/>
+                <field name="id" type="value"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ================== 文章按状态 Graph ================== -->
+
+    <record id="view_diecut_kb_article_graph_state" model="ir.ui.view">
+        <field name="name">diecut.kb.article.graph.state</field>
+        <field name="model">diecut.kb.article</field>
+        <field name="arch" type="xml">
+            <graph string="文章状态分布" type="bar">
+                <field name="state"/>
+                <field name="id" type="value"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ================== 同步状态 Graph ================== -->
+
+    <record id="view_diecut_kb_article_graph_sync" model="ir.ui.view">
+        <field name="name">diecut.kb.article.graph.sync</field>
+        <field name="model">diecut.kb.article</field>
+        <field name="arch" type="xml">
+            <graph string="Dify 同步状态" type="bar">
+                <field name="sync_status"/>
+                <field name="id" type="value"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ================== 文章按编译来源 Graph ================== -->
+
+    <record id="view_diecut_kb_article_graph_source" model="ir.ui.view">
+        <field name="name">diecut.kb.article.graph.source</field>
+        <field name="model">diecut.kb.article</field>
+        <field name="arch" type="xml">
+            <graph string="内容来源分布" type="bar">
+                <field name="compile_source"/>
+                <field name="id" type="value"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ================== Lint 问题统计 Graph ================== -->
+
+    <record id="view_diecut_kb_lint_log_graph_severity" model="ir.ui.view">
+        <field name="name">diecut.kb.lint.log.graph.severity</field>
+        <field name="model">diecut.kb.lint.log</field>
+        <field name="arch" type="xml">
+            <graph string="治理问题按严重程度" type="bar">
+                <field name="severity"/>
+                <field name="id" type="value"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ================== Dashboard Action ================== -->
+
+    <record id="action_diecut_kb_dashboard_article" model="ir.actions.act_window">
+        <field name="name">文章统计</field>
+        <field name="res_model">diecut.kb.article</field>
+        <field name="view_mode">pivot,graph</field>
+        <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {'view_mode': 'pivot', 'view_id': ref('view_diecut_kb_article_pivot'), 'sequence': 1}),
+            (0, 0, {'view_mode': 'graph', 'view_id': ref('view_diecut_kb_article_graph_category'), 'sequence': 10}),
+        ]"/>
+    </record>
+
+    <record id="action_diecut_kb_dashboard_lint" model="ir.actions.act_window">
+        <field name="name">治理问题</field>
+        <field name="res_model">diecut.kb.lint.log</field>
+        <field name="view_mode">graph</field>
+        <field name="view_ids" eval="[
+            (5, 0, 0),
+            (0, 0, {'view_mode': 'graph', 'view_id': ref('view_diecut_kb_lint_log_graph_severity'), 'sequence': 10}),
+        ]"/>
+    </record>
+
+</odoo>

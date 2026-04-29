@@ -31,7 +31,20 @@
                         <t t-elif="msg.role == 'assistant'">
                             <div class="o_diecut_ai_msg_content">
                                 <div class="o_diecut_ai_msg_label">AI</div>
-                                <div class="o_diecut_ai_msg_text o_diecut_ai_answer"><t t-esc="msg.content" /></div>
+                                <div class="o_diecut_ai_msg_text o_diecut_ai_answer"><t t-out="msg.content" /></div>
+                                <t t-if="msg.citations and msg.citations.length">
+                                    <div class="o_diecut_ai_citations">
+                                        <div class="o_diecut_ai_citations_title">来源</div>
+                                        <t t-foreach="msg.citations" t-as="cite" t-key="cite_index">
+                                            <div class="o_diecut_ai_citation_item">
+                                                <span class="o_diecut_ai_citation_name"><t t-esc="cite.title" /></span>
+                                                <span class="o_diecut_ai_citation_score" t-if="cite.score">
+                                                    <t t-esc="cite.score" />
+                                                </span>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </t>
                                 <div class="o_diecut_ai_msg_tools">
                                     <button class="btn btn-sm btn-secondary"
                                             t-on-click="saveMessage.bind(this, msg)"

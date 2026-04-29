@@ -105,12 +105,13 @@ class DifyKnowledgeSync:
         return {"ok": True, "action": "create", "error": None}
 
     def _do_update(self, article, client, dataset_id):
-        text, _metadata, doc_name = self._build_payload(article)
+        text, metadata, doc_name = self._build_payload(article)
         ok, payload, error, duration_ms = client.update_document_by_text(
             dataset_id=dataset_id,
             document_id=article.dify_document_id,
             name=doc_name,
             text=text,
+            metadata=metadata,
         )
         if not ok:
             if "not_found" in (error or "").lower() or "404" in (error or ""):
@@ -166,6 +167,14 @@ class DifyKnowledgeSync:
                 parts.append(f"\n## 相关文章\n{titles}")
         if article.keywords:
             parts.append(f"\n## 关键词\n{article.keywords}")
+        if article.compile_source_document_id:
+            source_bits = [
+                article.source_file_name or article.compile_source_document_id.primary_attachment_name or "",
+                article.source_page_refs or "",
+            ]
+            source_text = "；".join(bit for bit in source_bits if bit)
+            if source_text:
+                parts.append(f"\n## 来源\n{source_text}")
         text = "\n\n".join(parts).strip() or article.name
 
         metadata = {
@@ -182,6 +191,11 @@ class DifyKnowledgeSync:
             "related_articles": ", ".join(article.related_article_ids.mapped("name")),
             "compile_source": article.compile_source or "",
             "compile_source_item_id": article.compile_source_item_id.code if article.compile_source_item_id else "",
+            "compile_source_document_id": article.compile_source_document_id.id if article.compile_source_document_id else "",
+            "compile_confidence": article.compile_confidence or "",
+            "compile_risk_level": article.compile_risk_level or "",
+            "source_file_name": article.source_file_name or "",
+            "source_page_refs": article.source_page_refs or "",
         }
         metadata = {k: ("" if v is None else str(v)) for k, v in metadata.items()}
         doc_name = f"[{article.category_id.code}] {article.name}"[:200]
@@ -253,4 +267,3 @@ class DifyKnowledgeSync:
 
     def _get_param(self, key, default=None):
         return self.env["ir.config_parameter"].sudo().get_param(key, default=default)
-

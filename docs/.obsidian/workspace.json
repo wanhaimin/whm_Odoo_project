@@ -6,22 +6,62 @@
       {
         "id": "7cc56bc7e779c118",
         "type": "tabs",
+        "dimension": 54.378172588832484,
         "children": [
           {
             "id": "92b7fc1a5e8c1139",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "1，openclaw.canvas",
-                "viewState": {
-                  "x": 361,
-                  "y": 4470,
-                  "zoom": -3.4226730686271796
+                "file": "Clippings/你只發揮了 Claude 30% 的潛力！Anthropic 內部技巧全公開，揭露專業提示詞的 6 大核心元素.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "你只發揮了 Claude 30% 的潛力！Anthropic 內部技巧全公開，揭露專業提示詞的 6 大核心元素"
+            }
+          }
+        ]
+      },
+      {
+        "id": "d821436b00783604",
+        "type": "tabs",
+        "dimension": 45.621827411167516,
+        "children": [
+          {
+            "id": "54e4dba9ceaad375",
+            "type": "leaf",
+            "state": {
+              "type": "mx-url",
+              "state": {
+                "mx": {
+                  "json": {
+                    "media": {
+                      "type": "url:hosted",
+                      "vid": {
+                        "host": "youtube",
+                        "vid": "F-neNyYAXA8",
+                        "t": null,
+                        "start": null,
+                        "end": null
+                      },
+                      "url": "https://www.youtube.com/watch?v=F-neNyYAXA8"
+                    },
+                    "hash": {}
+                  },
+                  "meta": {
+                    "values": {
+                      "media.url": [
+                        "URL"
+                      ]
+                    },
+                    "v": 1
+                  }
                 }
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "1，openclaw"
+              "icon": "youtube",
+              "title": "你只發揮了 Claude 30% 的潛力！Anthropic 內部技巧全公開，揭露專業提示詞的 6 大核心元素"
             }
           }
         ]
@@ -177,18 +217,24 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "remotely-save:Remotely Save": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
-      "bases:新建数据库": false
+      "bases:新建数据库": false,
+      "remotely-save:Remotely Save": false,
+      "media-extended:Open media library": false,
+      "media-extended:Open media quick switcher": false
     }
   },
-  "active": "92b7fc1a5e8c1139",
+  "active": "54e4dba9ceaad375",
   "lastOpenFiles": [
+    "Clippings/你只發揮了 Claude 30% 的潛力！Anthropic 內部技巧全公開，揭露專業提示詞的 6 大核心元素.md",
+    "Projects/Diecut Management System/模切管理系统开发指南.md",
+    "1，openclaw.canvas",
+    "image copy.png",
     "1,1目录.base",
     "个体户、小规模纳税人、一般纳税人的区别？.md",
     "Claude_Code_CLI_使用指南.md",
@@ -210,10 +256,8 @@
     "Attachments/images/Pasted image 20260328165554.png",
     "Attachments/images/Pasted image 20260328165532.png",
     "Attachments/images/Pasted image 20260208140041.png",
-    "Attachments/images/Pasted image 20260208135615.png",
     "未命名.base",
     "Projects/_Projects MOC.md",
-    "1，openclaw.canvas",
     "Clippings/越痛越赚钱——让AI死死掐住你行业的痛点.md",
     "Clippings/買升降桌的知識、避坑，這支影片足夠了｜電動升降桌推薦｜FUNTE 台中旗艦店開箱 1.md",
     "Clippings/買升降桌的知識、避坑，這支影片足夠了｜電動升降桌推薦｜FUNTE 台中旗艦店開箱.md",
@@ -231,7 +275,6 @@
     "Resources/Odoo/Views and ORM/04_视图继承优先级.md",
     "Projects/未命名 1.base",
     "Archive/Completed Notes/材料管理平台-创建完成.md",
-    "Resources/Diecut/Industry/DIECUT_INDUSTRY_BLUEPRINT.md",
     "Archive/Inbox Processed/2026-04-18",
     "Archive/Inbox Processed",
     "Attachments/images",

@@ -47,7 +47,14 @@
       "Bash(.venv/Scripts/python.exe output/test_final.py)",
       "Bash(.venv/Scripts/python.exe output/test_final2.py)",
       "Bash(.venv/Scripts/python.exe output/debug_asset.py)",
-      "Bash(.venv/Scripts/python.exe output/final_test.py)"
+      "Bash(.venv/Scripts/python.exe output/final_test.py)",
+      "Bash(python -c \"import odoo; print\\(odoo.release.version_info\\)\")",
+      "Bash(pip show *)",
+      "Bash(python -c \"import odoo; print\\(odoo.__version__\\)\")",
+      "Bash(python -c \"import odoo; print\\(odoo.version\\)\")",
+      "Bash(python -c \"from odoo.release import version_info; print\\(version_info\\)\")",
+      "Bash(python -c \"import odoo; print\\(odoo.__file__\\)\")",
+      "Bash(python3 -c \"import odoo; print\\(odoo.__file__\\)\")"
     ]
   }
 }

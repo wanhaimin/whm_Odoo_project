@@ -58,7 +58,7 @@ class DiecutKbArticle(models.Model):
     )
 
     summary = fields.Text(string="摘要", help="一句话概括文章核心要点，会同步到 Dify 作为元数据。")
-    content_html = fields.Html(string="正文", sanitize=True, sanitize_attributes=False)
+    content_html = fields.Html(string="正文", sanitize=True)
     content_text = fields.Text(
         string="正文纯文本",
         compute="_compute_content_text",
@@ -144,6 +144,7 @@ class DiecutKbArticle(models.Model):
             ("qa_compile", "问答编译"),
             ("ai_answer", "AI 对话沉淀"),
             ("lint_note", "治理补充"),
+            ("brand_overview", "品牌综述"),
         ],
         string="内容来源",
         default="manual",
@@ -158,6 +159,12 @@ class DiecutKbArticle(models.Model):
     compile_source_document_id = fields.Many2one(
         "diecut.catalog.source.document",
         string="编译源资料",
+        index=True,
+        ondelete="set null",
+    )
+    compile_source_brand_id = fields.Many2one(
+        "diecut.brand",
+        string="编译源品牌",
         index=True,
         ondelete="set null",
     )
@@ -235,6 +242,7 @@ class DiecutKbArticle(models.Model):
             "related_categ_ids",
             "related_item_ids",
             "related_article_ids",
+            "compile_source_brand_id",
         }
         is_meaningful = bool(meaningful_fields & set(vals.keys()))
         if is_meaningful:

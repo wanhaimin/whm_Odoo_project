@@ -133,3 +133,40 @@
 .o_diecut_ai_send_btn {
     white-space: nowrap;
 }
+
+.o_diecut_ai_citations {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px solid #e9ecef;
+}
+
+.o_diecut_ai_citations_title {
+    font-size: 11px;
+    color: #6c757d;
+    margin-bottom: 4px;
+}
+
+.o_diecut_ai_citation_item {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin: 2px 4px 2px 0;
+    font-size: 12px;
+}
+
+.o_diecut_ai_citation_name {
+    color: #0d6efd;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.o_diecut_ai_citation_score {
+    color: #6c757d;
+    font-size: 10px;
+}

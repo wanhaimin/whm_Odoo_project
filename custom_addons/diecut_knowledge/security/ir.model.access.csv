@@ -11,3 +11,5 @@ access_diecut_kb_sync_log_user,diecut.kb.sync.log.user,model_diecut_kb_sync_log,
 access_diecut_kb_sync_log_admin,diecut.kb.sync.log.admin,model_diecut_kb_sync_log,base.group_system,1,1,1,1
 access_diecut_kb_qa_ticket_user,diecut.kb.qa_ticket.user,model_diecut_kb_qa_ticket,base.group_user,1,1,1,0
 access_diecut_kb_qa_ticket_admin,diecut.kb.qa_ticket.admin,model_diecut_kb_qa_ticket,base.group_system,1,1,1,1
+access_diecut_kb_compile_job_user,diecut.kb.compile.job.user,model_diecut_kb_compile_job,base.group_user,1,1,1,0
+access_diecut_kb_compile_job_admin,diecut.kb.compile.job.admin,model_diecut_kb_compile_job,base.group_system,1,1,1,1

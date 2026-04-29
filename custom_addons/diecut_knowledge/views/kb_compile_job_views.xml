@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_diecut_kb_compile_job_tree" model="ir.ui.view">
+        <field name="name">diecut.kb.compile.job.tree</field>
+        <field name="model">diecut.kb.compile.job</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="create_date" string="创建时间"/>
+                <field name="display_name" string="描述"/>
+                <field name="job_type"/>
+                <field name="state" decoration-success="state == 'done'"
+                       decoration-warning="state == 'pending'"
+                       decoration-info="state == 'processing'"
+                       decoration-danger="state == 'failed'"/>
+                <field name="error_message"/>
+                <field name="result_article_id"/>
+                <field name="create_uid"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_compile_job_form" model="ir.ui.view">
+        <field name="name">diecut.kb.compile.job.form</field>
+        <field name="model">diecut.kb.compile.job</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_run_now" type="object"
+                            string="立即执行"
+                            invisible="state != 'pending'"
+                            class="btn-primary"/>
+                    <button name="action_retry" type="object"
+                            string="重试"
+                            invisible="state != 'failed'"/>
+                    <button name="action_cancel" type="object"
+                            string="取消"
+                            invisible="state != 'pending'"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="state" widget="statusbar"/>
+                            <field name="job_type"/>
+                            <field name="item_id" invisible="job_type != 'catalog_item'"/>
+                            <field name="source_document_id" invisible="job_type != 'source_document'"/>
+                            <field name="comparison_item_ids" widget="many2many_tags"
+                                   invisible="job_type != 'comparison'"/>
+                        </group>
+                        <group>
+                            <field name="priority"/>
+                            <field name="create_uid"/>
+                            <field name="create_date"/>
+                            <field name="result_article_id" invisible="state != 'done'"/>
+                        </group>
+                    </group>
+                    <field name="error_message" nolabel="1"
+                           invisible="state != 'failed'"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_compile_job_search" model="ir.ui.view">
+        <field name="name">diecut.kb.compile.job.search</field>
+        <field name="model">diecut.kb.compile.job</field>
+        <field name="arch" type="xml">
+            <search string="搜索编译队列">
+                <field name="display_name"/>
+                <field name="item_id"/>
+                <field name="job_type"/>
+                <field name="state"/>
+                <filter string="排队中" name="pending" domain="[('state','=','pending')]"/>
+                <filter string="已失败" name="failed" domain="[('state','=','failed')]"/>
+                <filter string="产品编译" name="catalog_item" domain="[('job_type','=','catalog_item')]"/>
+                <filter string="资料编译" name="source_document" domain="[('job_type','=','source_document')]"/>
+                <filter string="按状态分组" name="group_state" context="{'group_by':'state'}"/>
+                <filter string="按类型分组" name="group_type" context="{'group_by':'job_type'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_kb_compile_job" model="ir.actions.act_window">
+        <field name="name">编译队列</field>
+        <field name="res_model">diecut.kb.compile.job</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_kb_compile_job_search"/>
+    </record>
+
+</odoo>
