@@ -23,4 +23,37 @@
         <field name="path">diecut_knowledge/static/src/xml/ai_advisor_drawer.xml</field>
         <field name="active" eval="True"/>
     </record>
+
+    <record id="asset_wiki_graph_d3_force" model="ir.asset">
+        <field name="name">diecut_knowledge/static/lib/d3-force.min.js</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="directive">append</field>
+        <field name="path">diecut_knowledge/static/lib/d3-force.min.js</field>
+        <field name="sequence">10</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="asset_wiki_graph_js" model="ir.asset">
+        <field name="name">diecut_knowledge/static/src/js/wiki_graph.js</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="directive">append</field>
+        <field name="path">diecut_knowledge/static/src/js/wiki_graph.js</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="asset_wiki_graph_scss" model="ir.asset">
+        <field name="name">diecut_knowledge/static/src/scss/wiki_graph.scss</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="directive">append</field>
+        <field name="path">diecut_knowledge/static/src/scss/wiki_graph.scss</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="asset_wiki_graph_xml" model="ir.asset">
+        <field name="name">diecut_knowledge/static/src/xml/wiki_graph.xml</field>
+        <field name="bundle">web.assets_backend</field>
+        <field name="directive">append</field>
+        <field name="path">diecut_knowledge/static/src/xml/wiki_graph.xml</field>
+        <field name="active" eval="True"/>
+    </record>
 </odoo>

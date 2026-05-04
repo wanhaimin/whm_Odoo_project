@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="diecut_knowledge.KbWikiGraph">
+        <div class="o_diecut_wiki_graph">
+            <div class="o_diecut_wiki_graph_header">
+                <div>
+                    <h2>Wiki 图谱</h2>
+                    <p>Obsidian 风格力导向图谱：搜索高亮、视角聚类、孤立/弱连/中心度分析。</p>
+                </div>
+                <div class="o_diecut_wiki_graph_view_modes" role="tablist">
+                    <button t-att-class="'btn ' + (state.viewMode === 'overview' ? 'btn-primary' : 'btn-outline-primary')"
+                            t-on-click="() => this.setViewMode('overview')">全览</button>
+                    <button t-att-class="'btn ' + (state.viewMode === 'sales' ? 'btn-primary' : 'btn-outline-primary')"
+                            t-on-click="() => this.setViewMode('sales')">销售视角</button>
+                    <button t-att-class="'btn ' + (state.viewMode === 'engineering' ? 'btn-primary' : 'btn-outline-primary')"
+                            t-on-click="() => this.setViewMode('engineering')">工程视角</button>
+                    <button class="btn btn-secondary" t-on-click="refresh">
+                        <i class="fa fa-refresh me-1"/>刷新
+                    </button>
+                </div>
+            </div>
+            <div class="o_diecut_wiki_graph_toolbar">
+                <div class="o_diecut_wiki_graph_search">
+                    <i class="fa fa-search"/>
+                    <input type="search"
+                           class="form-control"
+                           placeholder="搜索标题、摘要、slug、品牌、分类"
+                           t-att-value="state.query"
+                           t-on-input="onSearch"/>
+                </div>
+                <select class="form-select" t-att-value="state.nodeType" t-on-change="onNodeTypeChange">
+                    <option value="all">全部节点</option>
+                    <t t-foreach="state.nodeTypes" t-as="nodeType" t-key="nodeType">
+                        <option t-att-value="nodeType" t-esc="nodeType"/>
+                    </t>
+                </select>
+                <select class="form-select" t-att-value="state.linkType" t-on-change="onLinkTypeChange">
+                    <option value="all">全部关系</option>
+                    <t t-foreach="state.linkTypes" t-as="linkType" t-key="linkType">
+                        <option t-att-value="linkType" t-esc="linkType"/>
+                    </t>
+                </select>
+                <select class="form-select" t-att-value="state.brandFilter" t-on-change="onBrandChange">
+                    <option value="all">全部品牌</option>
+                    <t t-foreach="state.brands" t-as="brand" t-key="brand.id">
+                        <option t-att-value="brand.id" t-esc="brand.name"/>
+                    </t>
+                </select>
+                <select class="form-select" t-att-value="state.categoryFilter" t-on-change="onCategoryChange">
+                    <option value="all">全部分类</option>
+                    <t t-foreach="state.categories" t-as="cat" t-key="cat.id">
+                        <option t-att-value="cat.id" t-esc="cat.name"/>
+                    </t>
+                </select>
+                <div class="o_diecut_wiki_graph_toolbar_actions">
+                    <label class="o_orphan_toggle">
+                        <input type="checkbox" t-att-checked="state.showOrphans" t-on-change="toggleOrphans"/>
+                        <span>显示孤立</span>
+                    </label>
+                    <button class="btn btn-light btn-sm" t-on-click="resetView">
+                        <i class="fa fa-crosshairs me-1"/>复位
+                    </button>
+                </div>
+            </div>
+            <div t-if="state.loading" class="o_diecut_wiki_graph_empty">正在加载 Wiki 图谱...</div>
+            <div t-elif="!state.nodes.length" class="o_diecut_wiki_graph_empty">
+                还没有可展示的 Wiki 节点。请先从资料收件箱编译 Wiki。
+            </div>
+            <div t-else="" class="o_diecut_wiki_graph_body">
+                <svg class="o_diecut_wiki_graph_canvas"
+                     t-ref="canvas"
+                     t-att-viewBox="'0 0 ' + state.width + ' ' + state.height"
+                     preserveAspectRatio="xMidYMid meet"
+                     role="img"
+                     aria-label="Wiki graph"
+                     t-on-wheel.prevent="onWheel"
+                     t-on-mousedown="onPanStart">
+                    <!-- read tickCount so OWL subscribes to simulation ticks -->
+                    <desc t-esc="'tick:' + state.tickCount"/>
+                    <g class="o_zoom_root" t-att-transform="zoomTransform">
+                        <g class="o_diecut_wiki_graph_links">
+                            <t t-foreach="state.links" t-as="link" t-key="link.id">
+                                <line t-att-x1="link.source.x"
+                                      t-att-y1="link.source.y"
+                                      t-att-x2="link.target.x"
+                                      t-att-y2="link.target.y"
+                                      t-att-class="this.linkClass(link)">
+                                    <title><t t-esc="link.type"/> · <t t-esc="link.reason || ''"/></title>
+                                </line>
+                            </t>
+                        </g>
+                        <g class="o_diecut_wiki_graph_nodes">
+                            <t t-foreach="state.nodes" t-as="node" t-key="node.id">
+                                <g t-att-class="this.nodeClass(node)"
+                                   t-att-transform="this.nodeTransform(node)"
+                                   t-on-mousedown="(ev) => this.onNodeMouseDown(ev, node)"
+                                   t-on-mouseenter="() => this.onNodeMouseEnter(node)"
+                                   t-on-mouseleave="onNodeMouseLeave"
+                                   t-on-dblclick="() => this.onNodeDoubleClick(node)">
+                                    <circle cx="0"
+                                            cy="0"
+                                            t-att-r="node.r"
+                                            t-att-fill="node.color">
+                                        <title><t t-esc="node.label"/></title>
+                                    </circle>
+                                    <text t-if="this.showLabel(node)"
+                                          x="0"
+                                          t-att-y="node.r + 14"
+                                          text-anchor="middle"
+                                          dominant-baseline="alphabetic">
+                                        <t t-esc="node.label"/>
+                                    </text>
+                                </g>
+                            </t>
+                        </g>
+                    </g>
+                </svg>
+                <aside class="o_diecut_wiki_graph_detail">
+                    <section class="o_detail_section">
+                        <t t-if="state.selectedNode">
+                            <div class="o_detail_type" t-esc="state.selectedNode.type"/>
+                            <h3 t-esc="state.selectedNode.label"/>
+                            <p class="o_detail_summary" t-esc="state.selectedNode.summary || '暂无摘要'"/>
+                            <dl>
+                                <dt>状态</dt>
+                                <dd t-esc="state.selectedNode.state || '-'"/>
+                                <dt>品牌</dt>
+                                <dd t-esc="state.selectedNode.brand_label || '-'"/>
+                                <dt>分类</dt>
+                                <dd t-esc="state.selectedNode.category_label || '-'"/>
+                                <dt>入链 / 出链</dt>
+                                <dd><t t-esc="state.selectedNode.inbound || 0"/> / <t t-esc="state.selectedNode.outbound || 0"/></dd>
+                                <dt>引用 / 关联型号</dt>
+                                <dd><t t-esc="state.selectedNode.citation_count || 0"/> / <t t-esc="state.selectedNode.item_count || 0"/></dd>
+                                <dt>风险</dt>
+                                <dd t-esc="state.selectedNode.risk_level || '-'"/>
+                                <dt>置信度</dt>
+                                <dd t-esc="this.formatPercent(state.selectedNode.confidence)"/>
+                                <dt>最近编译</dt>
+                                <dd t-esc="state.selectedNode.compiled_at || '-'"/>
+                            </dl>
+                            <div class="o_detail_actions">
+                                <button class="btn btn-primary" t-on-click="() => this.openNode(state.selectedNode)">打开记录</button>
+                                <button class="btn btn-light" t-on-click="clearSelection">取消选择</button>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="o_detail_type">提示</div>
+                            <h3>选择一个节点</h3>
+                            <p class="o_detail_summary">单击聚焦邻居，双击打开记录；按 Shift 拖拽可钉住节点。</p>
+                        </t>
+                    </section>
+
+                    <section class="o_detail_panel">
+                        <header>
+                            <h4>高中心度</h4>
+                            <span t-esc="hubNodes.length"/>
+                        </header>
+                        <ul>
+                            <t t-foreach="hubNodes" t-as="hub" t-key="hub.id">
+                                <li t-on-click="() => this.selectNode(hub)">
+                                    <span class="o_dot" t-attf-style="background: {{hub.color}}"/>
+                                    <span class="o_label" t-esc="hub.label"/>
+                                    <span class="o_meta" t-esc="hub.degree"/>
+                                </li>
+                            </t>
+                            <li t-if="!hubNodes.length" class="o_empty">暂无中心节点</li>
+                        </ul>
+                    </section>
+
+                    <section class="o_detail_panel">
+                        <header>
+                            <h4>弱连接</h4>
+                            <span t-esc="weakNodes.length"/>
+                        </header>
+                        <ul>
+                            <t t-foreach="weakNodes" t-as="weak" t-key="weak.id">
+                                <li t-on-click="() => this.selectNode(weak)">
+                                    <span class="o_dot" t-attf-style="background: {{weak.color}}"/>
+                                    <span class="o_label" t-esc="weak.label"/>
+                                    <span class="o_meta" t-esc="weak.degree"/>
+                                </li>
+                            </t>
+                            <li t-if="!weakNodes.length" class="o_empty">无弱连接节点</li>
+                        </ul>
+                    </section>
+
+                    <section class="o_detail_panel">
+                        <header>
+                            <h4>孤立节点</h4>
+                            <span t-esc="orphanNodes.length"/>
+                        </header>
+                        <ul>
+                            <t t-foreach="orphanNodes" t-as="orphan" t-key="orphan.id">
+                                <li t-on-click="() => this.selectNode(orphan)">
+                                    <span class="o_dot" t-attf-style="background: {{orphan.color}}"/>
+                                    <span class="o_label" t-esc="orphan.label"/>
+                                    <span class="o_meta" t-esc="this.formatPercent(orphan.orphan_score)"/>
+                                </li>
+                            </t>
+                            <li t-if="!orphanNodes.length" class="o_empty">暂无孤立节点 🎉</li>
+                        </ul>
+                    </section>
+                </aside>
+            </div>
+        </div>
+    </t>
+</templates>
