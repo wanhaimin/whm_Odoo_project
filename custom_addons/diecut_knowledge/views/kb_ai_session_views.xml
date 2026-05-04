@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_diecut_kb_ai_session_search" model="ir.ui.view">
+        <field name="name">diecut.kb.ai.session.search</field>
+        <field name="model">diecut.kb.ai.session</field>
+        <field name="arch" type="xml">
+            <search string="AI 顾问会话">
+                <field name="name"/>
+                <field name="record_name"/>
+                <field name="res_model"/>
+                <filter name="active" string="启用" domain="[('active', '=', True)]"/>
+                <filter name="group_mode" string="按模式" context="{'group_by': 'mode'}"/>
+                <filter name="group_model" string="按业务模型" context="{'group_by': 'res_model'}"/>
+                <filter name="group_user" string="按创建人" context="{'group_by': 'create_uid'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_ai_session_list" model="ir.ui.view">
+        <field name="name">diecut.kb.ai.session.list</field>
+        <field name="model">diecut.kb.ai.session</field>
+        <field name="arch" type="xml">
+            <list string="AI 顾问会话">
+                <field name="name"/>
+                <field name="mode"/>
+                <field name="record_name"/>
+                <field name="res_model"/>
+                <field name="res_id"/>
+                <field name="message_count"/>
+                <field name="last_message_at"/>
+                <field name="create_uid"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_ai_session_form" model="ir.ui.view">
+        <field name="name">diecut.kb.ai.session.form</field>
+        <field name="model">diecut.kb.ai.session</field>
+        <field name="arch" type="xml">
+            <form string="AI 顾问会话">
+                <header>
+                    <button name="clear_messages" type="object" string="清空消息" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="mode"/>
+                            <field name="active"/>
+                            <field name="create_uid" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="record_name"/>
+                            <field name="model_profile_id"/>
+                            <field name="res_model"/>
+                            <field name="res_id"/>
+                            <field name="dify_conversation_id"/>
+                            <field name="last_message_at"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="消息">
+                            <field name="message_ids" readonly="1">
+                                <list>
+                                    <field name="create_date"/>
+                                    <field name="role"/>
+                                    <field name="content"/>
+                                    <field name="source_layer"/>
+                                    <field name="model_profile_id"/>
+                                    <field name="async_state"/>
+                                    <field name="openclaw_run_id"/>
+                                    <field name="compile_job_id"/>
+                                    <field name="saved_article_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_diecut_kb_ai_session" model="ir.actions.act_window">
+        <field name="name">AI 顾问会话</field>
+        <field name="res_model">diecut.kb.ai.session</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_kb_ai_session_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+    </record>
+</odoo>

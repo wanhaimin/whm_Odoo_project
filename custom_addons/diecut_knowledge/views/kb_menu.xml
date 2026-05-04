@@ -26,23 +26,42 @@
               action="action_diecut_kb_compile_workspace"
               sequence="5"/>
 
+    <menuitem id="menu_diecut_kb_wiki_graph"
+              name="Wiki 图谱"
+              parent="menu_diecut_knowledge_root"
+              action="action_diecut_kb_wiki_graph"
+              sequence="6"/>
+
+    <menuitem id="menu_diecut_kb_compile_rules_main"
+              name="编译规则"
+              parent="menu_diecut_knowledge_root"
+              action="action_diecut_kb_compile_rule"
+              sequence="6"
+              groups="base.group_system"/>
+
     <menuitem id="menu_diecut_kb_compile_sources"
-              name="编译源资料"
+              name="资料收件箱"
               parent="menu_diecut_knowledge_root"
               action="action_diecut_kb_compile_sources"
-              sequence="6"/>
+              sequence="7"/>
 
     <menuitem id="menu_diecut_kb_articles"
               name="知识文章"
               parent="menu_diecut_knowledge_root"
               action="action_diecut_kb_article"
               sequence="10"/>
+    <record id="menu_diecut_kb_articles" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
 
     <menuitem id="menu_diecut_kb_attachments"
               name="附件管理"
               parent="menu_diecut_knowledge_root"
               action="action_diecut_kb_attachment"
               sequence="20"/>
+    <record id="menu_diecut_kb_attachments" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
 
     <menuitem id="menu_diecut_kb_qa_tickets"
               name="客户问答工单"
@@ -67,6 +86,32 @@
               parent="menu_diecut_kb_config"
               action="action_diecut_kb_compile_job"
               sequence="15"/>
+    <menuitem id="menu_diecut_llm_model_profiles"
+              name="大模型档案"
+              parent="menu_diecut_kb_config"
+              action="action_diecut_llm_model_profile"
+              sequence="16"
+              groups="base.group_system"/>
+    <menuitem id="menu_diecut_kb_ai_sessions"
+              name="AI 顾问会话"
+              parent="menu_diecut_kb_config"
+              action="action_diecut_kb_ai_session"
+              sequence="16"/>
+    <menuitem id="menu_diecut_kb_wiki_links"
+              name="Wiki 图谱关联"
+              parent="menu_diecut_kb_config"
+              action="action_diecut_kb_wiki_links"
+              sequence="17"/>
+    <menuitem id="menu_diecut_kb_citations"
+              name="来源引用"
+              parent="menu_diecut_kb_config"
+              action="action_diecut_kb_citations"
+              sequence="18"/>
+    <menuitem id="menu_diecut_kb_wiki_logs"
+              name="知识日志"
+              parent="menu_diecut_kb_config"
+              action="action_diecut_kb_wiki_logs"
+              sequence="19"/>
 
     <menuitem id="menu_diecut_kb_sync_logs"
               name="同步日志"
@@ -81,7 +126,7 @@
               sequence="25"/>
 
     <menuitem id="menu_diecut_kb_settings"
-              name="Dify 配置"
+              name="AI 配置"
               parent="menu_diecut_kb_config"
               action="action_diecut_kb_settings"
               sequence="30"/>

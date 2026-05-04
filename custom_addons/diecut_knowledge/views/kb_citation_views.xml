@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_diecut_kb_citation_search" model="ir.ui.view">
+        <field name="name">diecut.kb.citation.search</field>
+        <field name="model">diecut.kb.citation</field>
+        <field name="arch" type="xml">
+            <search string="搜索来源引用">
+                <field name="article_id"/>
+                <field name="source_document_id"/>
+                <field name="claim_text"/>
+                <field name="page_ref"/>
+                <filter string="待复核" name="review" domain="[('state','=','review')]"/>
+                <filter string="冲突" name="conflict" domain="[('state','=','conflict')]"/>
+                <separator/>
+                <filter string="按文章分组" name="group_article" context="{'group_by':'article_id'}"/>
+                <filter string="按来源资料分组" name="group_source" context="{'group_by':'source_document_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_citation_list" model="ir.ui.view">
+        <field name="name">diecut.kb.citation.list</field>
+        <field name="model">diecut.kb.citation</field>
+        <field name="arch" type="xml">
+            <list string="来源引用" multi_edit="1">
+                <field name="article_id"/>
+                <field name="claim_text"/>
+                <field name="source_document_id"/>
+                <field name="page_ref"/>
+                <field name="confidence"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'valid'"
+                       decoration-warning="state == 'review'"
+                       decoration-danger="state == 'conflict'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_citation_form" model="ir.ui.view">
+        <field name="name">diecut.kb.citation.form</field>
+        <field name="model">diecut.kb.citation</field>
+        <field name="arch" type="xml">
+            <form string="来源引用">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="article_id"/>
+                            <field name="source_document_id"/>
+                            <field name="source_attachment_id"/>
+                            <field name="page_ref"/>
+                        </group>
+                        <group>
+                            <field name="confidence"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <group string="知识断言">
+                        <field name="claim_text" nolabel="1"/>
+                    </group>
+                    <group string="来源片段">
+                        <field name="excerpt" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_diecut_kb_citations" model="ir.actions.act_window">
+        <field name="name">来源引用</field>
+        <field name="res_model">diecut.kb.citation</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_kb_citation_search"/>
+    </record>
+
+</odoo>

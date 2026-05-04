@@ -1,0 +1,46 @@
+# .understandignore - patterns for files/dirs to exclude from analysis
+# Syntax: same as .gitignore (globs, # comments, ! negation, trailing / for dirs)
+# Lines below are suggestions - uncomment to activate.
+# Use ! prefix to force-include something excluded by defaults.
+#
+# Built-in defaults (always excluded unless negated):
+#   node_modules/, .git/, dist/, build/, obj/, *.lock, *.min.js, etc.
+#
+# --- Project-local exclusions ---
+
+odoo/
+.venv/
+.agent/
+.claude/
+.idea/
+.playwright-cli/
+.playwright-mcp/
+.vscode/
+output/
+tmp/
+_review_tmp/
+*.png
+*.xls
+*.xlsx
+1688_auth_state.json
+
+# --- From .gitignore (uncomment to exclude) ---
+
+# *.pyc
+# .env
+# custom_addons/diecut/scripts/.tds_worker_cache/
+# custom_addons/diecut/scripts/tds_import_drafts/
+# custom_addons/diecut/scripts/tds_batch_reports/
+# custom_addons/diecut/scripts/tesa_tds_pdfs/rendered_*/
+# knowledge_vault/
+# custom_addons/.diecut_knowledge_vault/
+
+# --- Detected directories (uncomment to exclude) ---
+
+# docs/
+
+# --- Test file patterns (uncomment to exclude) ---
+
+# *.test.*
+# *.spec.*
+# *.snap

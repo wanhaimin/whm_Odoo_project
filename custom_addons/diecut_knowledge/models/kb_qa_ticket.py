@@ -191,6 +191,7 @@ class DiecutKbQaTicket(models.Model):
             "type": "ir.actions.client",
             "tag": "diecut_ai_advisor",
             "params": {
+                "mode": "qa",
                 "model": self._name,
                 "record_id": self.id,
                 "record_name": self.name or "",

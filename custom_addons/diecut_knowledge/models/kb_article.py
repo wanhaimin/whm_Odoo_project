@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import re
+import unicodedata
 from html import escape
 
 from odoo import api, fields, models
@@ -100,6 +101,42 @@ class DiecutKbArticle(models.Model):
         "related_article_id",
         string="相关文章",
     )
+    wiki_slug = fields.Char(string="Wiki 标识", index=True, copy=False)
+    wiki_page_type = fields.Selection(
+        [
+            ("source_summary", "原始资料摘要页"),
+            ("brand", "品牌页"),
+            ("material", "型号页"),
+            ("material_category", "材料类别页"),
+            ("application", "应用场景页"),
+            ("process", "工艺经验页"),
+            ("faq", "FAQ 页"),
+            ("comparison", "对比分析页"),
+            ("concept", "概念页"),
+            ("query_answer", "查询沉淀页"),
+        ],
+        string="Wiki 页面类型",
+        default="source_summary",
+        index=True,
+    )
+    content_md = fields.Text(string="Wiki Markdown", help="LLM 维护的原生 Markdown 正文。")
+    outbound_link_ids = fields.One2many(
+        "diecut.kb.wiki.link",
+        "source_article_id",
+        string="出链",
+    )
+    inbound_link_ids = fields.One2many(
+        "diecut.kb.wiki.link",
+        "target_article_id",
+        string="入链",
+    )
+    citation_ids = fields.One2many("diecut.kb.citation", "article_id", string="来源引用")
+    outbound_link_count = fields.Integer(string="出链数", compute="_compute_wiki_graph_metrics", store=True)
+    inbound_link_count = fields.Integer(string="入链数", compute="_compute_wiki_graph_metrics", store=True)
+    graph_degree = fields.Integer(string="图谱连接数", compute="_compute_wiki_graph_metrics", store=True)
+    orphan_score = fields.Float(string="孤立度", compute="_compute_wiki_graph_metrics", store=True)
+    citation_count = fields.Integer(string="引用数", compute="_compute_wiki_graph_metrics", store=True)
+    last_graph_checked_at = fields.Datetime(string="最近图谱检查时间", readonly=True, copy=False)
 
     attachment_ids = fields.One2many(
         "diecut.kb.attachment",
@@ -136,6 +173,7 @@ class DiecutKbArticle(models.Model):
 
     compile_source = fields.Selection(
         [
+            ("wiki_index", "知识库目录"),
             ("manual", "手工编写"),
             ("catalog_item", "产品编译"),
             ("comparison", "对比分析"),
@@ -188,10 +226,93 @@ class DiecutKbArticle(models.Model):
     last_linted_at = fields.Datetime(string="最近治理检查时间", readonly=True, copy=False)
     lint_issue_count = fields.Integer(string="治理问题数", readonly=True, copy=False)
 
+    vault_wiki_path = fields.Char(string="Vault Wiki 路径", readonly=True, copy=False, index=True)
+    vault_wiki_hash = fields.Char(string="Vault Wiki Hash", readonly=True, copy=False)
+    vault_sync_state = fields.Selection(
+        [
+            ("none", "未同步"),
+            ("exported", "已导出"),
+            ("imported", "已导入"),
+            ("conflict", "冲突"),
+            ("failed", "失败"),
+        ],
+        string="Vault 同步状态",
+        default="none",
+        readonly=True,
+        copy=False,
+        index=True,
+    )
+    vault_last_exported_at = fields.Datetime(string="Vault 最近导出时间", readonly=True, copy=False)
+    vault_last_imported_at = fields.Datetime(string="Vault 最近导入时间", readonly=True, copy=False)
+    vault_error = fields.Text(string="Vault 同步错误", readonly=True, copy=False)
+
     @api.depends("attachment_ids")
     def _compute_attachment_count(self):
         for record in self:
             record.attachment_count = len(record.attachment_ids)
+
+    @api.model
+    def cron_export_wiki_vault(self):
+        from ..services.kb_vault_mirror import KbVaultMirror
+
+        return KbVaultMirror(self.env).export_wiki()
+
+    @api.model
+    def cron_import_wiki_vault(self):
+        from ..services.kb_vault_mirror import KbVaultMirror
+
+        return KbVaultMirror(self.env).import_wiki_changes()
+
+    @api.depends("outbound_link_ids.active", "inbound_link_ids.active", "citation_ids.state")
+    def _compute_wiki_graph_metrics(self):
+        link_model = self.env["diecut.kb.wiki.link"].sudo()
+        citation_model = self.env["diecut.kb.citation"].sudo()
+
+        article_ids = self.ids
+        if not article_ids:
+            for record in self:
+                record.inbound_link_count = 0
+                record.outbound_link_count = 0
+                record.graph_degree = 0
+                record.citation_count = 0
+                record.orphan_score = 1.0
+            return
+
+        inbound_data = dict(
+            (row["target_article_id"][0], row["target_article_id__count"])
+            for row in link_model.read_group(
+                [("target_article_id", "in", article_ids), ("active", "=", True)],
+                ["target_article_id"],
+                ["target_article_id"],
+            )
+        )
+        outbound_data = dict(
+            (row["source_article_id"][0], row["source_article_id__count"])
+            for row in link_model.read_group(
+                [("source_article_id", "in", article_ids), ("active", "=", True)],
+                ["source_article_id"],
+                ["source_article_id"],
+            )
+        )
+        citation_data = dict(
+            (row["article_id"][0], row["article_id__count"])
+            for row in citation_model.read_group(
+                [("article_id", "in", article_ids)],
+                ["article_id"],
+                ["article_id"],
+            )
+        )
+
+        for record in self:
+            inbound = inbound_data.get(record.id, 0)
+            outbound = outbound_data.get(record.id, 0)
+            citations = citation_data.get(record.id, 0)
+            degree = inbound + outbound
+            record.inbound_link_count = inbound
+            record.outbound_link_count = outbound
+            record.graph_degree = degree
+            record.citation_count = citations
+            record.orphan_score = 1.0 if degree == 0 else 1.0 / (degree + 1)
 
     @api.depends("content_html")
     def _compute_content_text(self):
@@ -223,11 +344,13 @@ class DiecutKbArticle(models.Model):
         for vals in vals_list:
             vals.setdefault("last_edited_uid", self.env.user.id)
             vals.setdefault("last_edited_at", fields.Datetime.now())
+            self._prepare_wiki_defaults(vals)
         records = super().create(vals_list)
         records._auto_enrich_if_needed(vals_list)
         return records
 
     def write(self, vals):
+        self._prepare_wiki_defaults(vals)
         meaningful_fields = {
             "name",
             "summary",
@@ -256,6 +379,21 @@ class DiecutKbArticle(models.Model):
         if not self.env.context.get("skip_auto_enrich"):
             self._auto_enrich_if_needed([vals] * len(self))
         return result
+
+    @api.model
+    def _prepare_wiki_defaults(self, vals):
+        if not vals.get("wiki_slug") and vals.get("name"):
+            vals["wiki_slug"] = self._make_wiki_slug(vals["name"])
+        if vals.get("content_md") and not vals.get("content_html"):
+            vals["content_html"] = self._markdown_to_simple_html(vals["content_md"])
+
+    @staticmethod
+    def _make_wiki_slug(value):
+        text = unicodedata.normalize("NFKC", value or "").strip().lower()
+        text = re.sub(r"^\[wiki\]\s*", "", text, flags=re.I)
+        text = re.sub(r"[^\w\u4e00-\u9fff]+", "-", text)
+        text = re.sub(r"-{2,}", "-", text).strip("-")
+        return (text or "wiki-page")[:120]
 
     def action_submit_review(self):
         for record in self:
@@ -443,6 +581,30 @@ class DiecutKbArticle(models.Model):
             },
         }
 
+    def action_rebuild_wiki_graph(self):
+        from ..services.kb_compiler import KbCompiler
+
+        compiler = KbCompiler(self.env)
+        total = 0
+        for article in self.filtered(lambda rec: rec.state != "archived"):
+            result = compiler._connect_article_to_wiki_graph(
+                article,
+                article.compile_source_document_id,
+                article.related_item_ids,
+                article.content_text or article.summary or article.name,
+            )
+            total += result.get("links", 0)
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": "Wiki 图谱",
+                "message": f"图谱重建完成，新增或刷新 {total} 条关联。",
+                "type": "success",
+                "sticky": False,
+            },
+        }
+
     @api.model
     def cron_sync_pending_articles(self):
         from ..services.dify_sync import DifyKnowledgeSync
@@ -461,12 +623,20 @@ class DiecutKbArticle(models.Model):
         )
         return KbLinter(self.env).lint_pending(limit=limit)
 
+    @api.model
+    def cron_refresh_wiki_index(self):
+        from ..services.kb_index_builder import KbIndexBuilder
+
+        article = KbIndexBuilder(self.env).rebuild()
+        return {"ok": bool(article), "article_id": article.id if article else False}
+
     def action_open_ai_advisor(self):
         self.ensure_one()
         return {
             "type": "ir.actions.client",
             "tag": "diecut_ai_advisor",
             "params": {
+                "mode": "wiki",
                 "model": self._name,
                 "record_id": self.id,
                 "record_name": self.name or "",
@@ -479,6 +649,28 @@ class DiecutKbArticle(models.Model):
             "type": "ir.actions.act_window",
             "name": "同步日志",
             "res_model": "diecut.kb.sync.log",
+            "view_mode": "list,form",
+            "domain": [("article_id", "=", self.id)],
+            "context": {"default_article_id": self.id},
+        }
+
+    def action_view_wiki_links(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "Wiki 图谱关联",
+            "res_model": "diecut.kb.wiki.link",
+            "view_mode": "list,form",
+            "domain": ["|", ("source_article_id", "=", self.id), ("target_article_id", "=", self.id)],
+            "context": {"default_source_article_id": self.id},
+        }
+
+    def action_view_citations(self):
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": "来源引用",
+            "res_model": "diecut.kb.citation",
             "view_mode": "list,form",
             "domain": [("article_id", "=", self.id)],
             "context": {"default_article_id": self.id},

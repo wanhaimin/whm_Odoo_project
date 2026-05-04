@@ -743,7 +743,7 @@ class ChatterAiRun(models.Model):
             trigger_target = self.env[self.trigger_message_id.model].sudo().browse(self.trigger_message_id.res_id).exists()
             if trigger_target:
                 target = trigger_target
-        if not target:
+        if not target or not hasattr(target, "message_post"):
             return False
         bot_partner = self._odoobot_partner()
         values = {

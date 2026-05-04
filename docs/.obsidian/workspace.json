@@ -4,67 +4,39 @@
     "type": "split",
     "children": [
       {
-        "id": "7cc56bc7e779c118",
+        "id": "d279e0da32795a9f",
         "type": "tabs",
-        "dimension": 54.378172588832484,
         "children": [
           {
-            "id": "92b7fc1a5e8c1139",
+            "id": "1123c9fde046eb82",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Clippings/你只發揮了 Claude 30% 的潛力！Anthropic 內部技巧全公開，揭露專業提示詞的 6 大核心元素.md",
-                "mode": "preview",
+                "file": "Clippings/Karpathy 的 LLM Wiki 火了，我改造了一下，比原版好用十倍.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "你只發揮了 Claude 30% 的潛力！Anthropic 內部技巧全公開，揭露專業提示詞的 6 大核心元素"
+              "title": "Karpathy 的 LLM Wiki 火了，我改造了一下，比原版好用十倍"
             }
-          }
-        ]
-      },
-      {
-        "id": "d821436b00783604",
-        "type": "tabs",
-        "dimension": 45.621827411167516,
-        "children": [
+          },
           {
-            "id": "54e4dba9ceaad375",
+            "id": "dfe3aa611f30c933",
             "type": "leaf",
             "state": {
-              "type": "mx-url",
+              "type": "webviewer",
               "state": {
-                "mx": {
-                  "json": {
-                    "media": {
-                      "type": "url:hosted",
-                      "vid": {
-                        "host": "youtube",
-                        "vid": "F-neNyYAXA8",
-                        "t": null,
-                        "start": null,
-                        "end": null
-                      },
-                      "url": "https://www.youtube.com/watch?v=F-neNyYAXA8"
-                    },
-                    "hash": {}
-                  },
-                  "meta": {
-                    "values": {
-                      "media.url": [
-                        "URL"
-                      ]
-                    },
-                    "v": 1
-                  }
-                }
+                "url": "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f",
+                "title": "llm-wiki · GitHub",
+                "mode": "webview"
               },
-              "icon": "youtube",
-              "title": "你只發揮了 Claude 30% 的潛力！Anthropic 內部技巧全公開，揭露專業提示詞的 6 大核心元素"
+              "icon": "globe-2",
+              "title": "llm-wiki · GitHub"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -137,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "odoo_dot_notation_guide.md",
+                "file": "未命名 1.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "odoo_dot_notation_guide 的反向链接列表"
+              "title": "未命名 1 的反向链接列表"
             }
           },
           {
@@ -156,12 +128,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "odoo_dot_notation_guide.md",
+                "file": "未命名 1.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "odoo_dot_notation_guide 的出链列表"
+              "title": "未命名 1 的出链列表"
             }
           },
           {
@@ -199,13 +171,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "odoo_dot_notation_guide.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "odoo_dot_notation_guide 的大纲"
+              "title": "大纲"
             }
           }
         ]
@@ -229,57 +200,58 @@
       "media-extended:Open media quick switcher": false
     }
   },
-  "active": "54e4dba9ceaad375",
+  "active": "dfe3aa611f30c933",
   "lastOpenFiles": [
+    "Clippings/Karpathy 的 LLM Wiki 火了，我改造了一下，比原版好用十倍.md",
+    "Clippings/Karpathy's LLM Wiki - Full Beginner Setup Guide.md",
+    "Resources/Odoo/Learning/Odoo学习教程-第二阶段-中级进阶.md",
+    "Projects/Diecut Management System/diecut_cost_management_manual.md",
+    "Inbox/供应商 - 栗成科技.md",
+    "Projects/Material Database Platform/材料管理平台-使用说明.md",
+    "Resources/Odoo/Views and ORM/03_Domain高级过滤.md",
+    "Resources/Odoo/Inventory and Product/odoo_asset_procurement_guide.md",
+    "Clippings/warp的保姆级入门教程+使用技巧，还可以白嫖！.md",
+    "Inbox/tesa官网资料.md",
     "Clippings/你只發揮了 Claude 30% 的潛力！Anthropic 內部技巧全公開，揭露專業提示詞的 6 大核心元素.md",
+    "未命名 1.md",
+    "Projects/_Projects MOC.md",
+    "Projects/Diecut Management System/模切管理模块说明.md",
+    "Projects/Material Database Platform/tds-训练数据集设计模板.md",
+    "Projects/Diecut Management System/模切管理模块-问题解决.md",
+    "Clippings/RAG vs GraphRAG vs LLM Wiki 一次讲透：Karpathy引爆的LLM Wiki，是知识工程的下一次革命，还是又一个被高估的自我进化_哔哩哔哩_bilibili.md",
+    "Clippings/越痛越赚钱——让AI死死掐住你行业的痛点.md",
+    "Clippings/買升降桌的知識、避坑，這支影片足夠了｜電動升降桌推薦｜FUNTE 台中旗艦店開箱 1.md",
+    "Clippings/別再修龍蝦了！最聰明 Hermes Agent 全平台安裝全攻略，自我學習進化＋長期記憶一次搞定！（免費Api Key 設定、龍蝦轉移技巧、Telegram設定踩坑解決）.md",
+    "Claude_Code_CLI_使用指南.md",
+    "未命名 2.canvas",
+    "未命名 1.canvas",
+    "未命名.md",
+    "未命名.canvas",
+    "Projects/Material Database Platform/tds-检索专用模型训练路线图.md",
     "Projects/Diecut Management System/模切管理系统开发指南.md",
+    "Inbox/泡棉材料技术资料汇总.md",
+    "未命名 3.canvas",
+    "Resources/Odoo/Learning/Odoo学习教程-第一阶段-初级入门.md",
+    "media-lib/index.base",
+    "Pasted image 20260429162429.png",
+    "mx-img-w73buedo8qokcsvnce8oa14z-pt2m23_53s-j4l3t2.jpg",
+    "mx-cover-youtube_CwPUOVUdApE.jpg",
+    "mx-img-f07gxsqhkxai7i4mmx5usitf-pt8m39_74s.jpg",
+    "media-lib",
     "1，openclaw.canvas",
     "image copy.png",
     "1,1目录.base",
-    "个体户、小规模纳税人、一般纳税人的区别？.md",
-    "Claude_Code_CLI_使用指南.md",
-    "中国企业财税管理指南.md",
-    "未命名.md",
-    "未命名.canvas",
-    "Projects/Material Database Platform/tds-训练数据集设计模板.md",
-    "Inbox/单点突破学习法.md",
-    "Archive/Inbox Processed/2026-04-18/微流控热驱动阀结构示意图解读.md",
-    "Archive/Inbox Processed/2026-04-18/微流控单向阀.md",
-    "Archive/Inbox Processed/2026-04-18/_Inbox Review.md",
-    "未命名 2.canvas",
     "Pasted image 20260426214940.png",
     "Pasted image 20260426215848.png",
     "Pasted image 20260426220426.png",
     "image.png",
     "Attachments/WeChat/microfluidic-valve-20260330-020540.jpg",
-    "Attachments/images/Pasted image 20260328165625.png",
-    "Attachments/images/Pasted image 20260328165554.png",
-    "Attachments/images/Pasted image 20260328165532.png",
-    "Attachments/images/Pasted image 20260208140041.png",
     "未命名.base",
-    "Projects/_Projects MOC.md",
-    "Clippings/越痛越赚钱——让AI死死掐住你行业的痛点.md",
-    "Clippings/買升降桌的知識、避坑，這支影片足夠了｜電動升降桌推薦｜FUNTE 台中旗艦店開箱 1.md",
-    "Clippings/買升降桌的知識、避坑，這支影片足夠了｜電動升降桌推薦｜FUNTE 台中旗艦店開箱.md",
-    "Projects/Diecut Management System/diecut_cost_management_manual.md",
-    "Projects/Diecut Management System/plm_integration_and_mobile_scan_plan模切系统扩展规划：PLM 集成 & 移动端扫码.md",
     "Clippings",
-    "Resources/Diecut/Industry/2026-03-30-外贸结构变化解读.md",
-    "Projects/Diecut Management System/模切管理模块说明.md",
     "中国企业财税管理指南.md.tmp.58648.1777128599473",
-    "Inbox/泡棉材料技术资料汇总.md",
-    "Inbox/泡棉供应商 - 扫地机器人专用.md",
-    "Projects/Diecut Management System/模切管理模块-问题解决.md",
-    "Projects/Material Database Platform/模切材料数据库平台-项目规划.md",
-    "Projects/Material Database Platform/材料管理平台-使用说明.md",
-    "Resources/Odoo/Views and ORM/04_视图继承优先级.md",
     "Projects/未命名 1.base",
-    "Archive/Completed Notes/材料管理平台-创建完成.md",
     "Archive/Inbox Processed/2026-04-18",
     "Archive/Inbox Processed",
-    "Attachments/images",
-    "Archive/Completed Notes",
-    "Projects/Odoo ERP Architecture",
-    "未命名 1.canvas"
+    "Attachments/images"
   ]
 }

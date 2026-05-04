@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <function model="ir.model.data" name="write">
+        <value model="ir.model.data"
+               search="[('module','=','diecut_knowledge'), ('name','in',[
+                   'rule_ingest_plan_default',
+                   'rule_wiki_compile_default',
+                   'rule_wiki_graph_default',
+                   'rule_catalog_item_compile_default',
+                   'rule_advisor_default',
+                   'rule_lint_default'
+               ])]"/>
+        <value eval="{'noupdate': False}"/>
+    </function>
+
+    <record id="rule_ingest_plan_default" model="diecut.kb.compile.rule">
+        <field name="name">默认 Ingest Plan 规则</field>
+        <field name="rule_type">ingest_plan</field>
+        <field name="priority">100</field>
+        <field name="sequence">90</field>
+        <field name="version">legacy</field>
+        <field name="active">False</field>
+        <field name="content"><![CDATA[
+历史默认规则，已由 Schema v1 - Ingest Plan 替代。保留此记录仅用于回滚和审计。
+]]></field>
+        <field name="schema_json"></field>
+        <field name="notes">历史规则，已停用。</field>
+    </record>
+
+    <record id="rule_wiki_compile_default" model="diecut.kb.compile.rule">
+        <field name="name">默认 Wiki 编译规则</field>
+        <field name="rule_type">wiki_compile</field>
+        <field name="priority">100</field>
+        <field name="sequence">90</field>
+        <field name="version">legacy</field>
+        <field name="active">False</field>
+        <field name="content"><![CDATA[
+历史默认规则，已由 Schema v1 - Wiki Patch 替代。保留此记录仅用于回滚和审计。
+]]></field>
+        <field name="schema_json"></field>
+        <field name="notes">历史规则，已停用。</field>
+    </record>
+
+    <record id="rule_wiki_graph_default" model="diecut.kb.compile.rule">
+        <field name="name">默认 Wiki 图谱 Agent 规则</field>
+        <field name="rule_type">wiki_graph</field>
+        <field name="priority">100</field>
+        <field name="sequence">90</field>
+        <field name="version">legacy</field>
+        <field name="active">False</field>
+        <field name="content"><![CDATA[
+历史默认规则，已由 Schema v1 - Wiki Graph Patch 替代。保留此记录仅用于回滚和审计。
+]]></field>
+        <field name="schema_json"></field>
+        <field name="notes">历史规则，已停用。</field>
+    </record>
+
+    <record id="rule_catalog_item_compile_default" model="diecut.kb.compile.rule">
+        <field name="name">默认材料条目编译规则</field>
+        <field name="rule_type">catalog_item</field>
+        <field name="priority">100</field>
+        <field name="sequence">90</field>
+        <field name="version">legacy</field>
+        <field name="active">False</field>
+        <field name="content"><![CDATA[
+历史默认规则，已由 Schema v1 - Catalog Item Wiki 替代。保留此记录仅用于回滚和审计。
+]]></field>
+        <field name="schema_json"></field>
+        <field name="notes">历史规则，已停用。</field>
+    </record>
+
+    <record id="rule_advisor_default" model="diecut.kb.compile.rule">
+        <field name="name">默认 AI 顾问问答规则</field>
+        <field name="rule_type">advisor</field>
+        <field name="priority">100</field>
+        <field name="sequence">90</field>
+        <field name="version">legacy</field>
+        <field name="active">False</field>
+        <field name="content"><![CDATA[
+历史默认规则，已由 Schema v1 - AI Advisor QA 替代。保留此记录仅用于回滚和审计。
+]]></field>
+        <field name="schema_json"></field>
+        <field name="notes">历史规则，已停用。</field>
+    </record>
+
+    <record id="rule_lint_default" model="diecut.kb.compile.rule">
+        <field name="name">默认知识治理规则</field>
+        <field name="rule_type">lint</field>
+        <field name="priority">100</field>
+        <field name="sequence">90</field>
+        <field name="version">legacy</field>
+        <field name="active">False</field>
+        <field name="content"><![CDATA[
+历史默认规则，已由 Schema v1 - Wiki Lint 替代。保留此记录仅用于回滚和审计。
+]]></field>
+        <field name="schema_json"></field>
+        <field name="notes">历史规则，已停用。</field>
+    </record>
+</odoo>

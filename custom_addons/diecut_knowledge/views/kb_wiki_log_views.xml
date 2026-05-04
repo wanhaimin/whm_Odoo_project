@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_diecut_kb_wiki_log_search" model="ir.ui.view">
+        <field name="name">diecut.kb.wiki.log.search</field>
+        <field name="model">diecut.kb.wiki.log</field>
+        <field name="arch" type="xml">
+            <search string="搜索 Wiki 日志">
+                <field name="name"/>
+                <field name="summary"/>
+                <field name="article_id"/>
+                <field name="source_document_id"/>
+                <field name="event_type"/>
+                <filter string="编译" name="compile" domain="[('event_type','=','compile')]"/>
+                <filter string="图谱关联" name="link" domain="[('event_type','=','link')]"/>
+                <filter string="治理检查" name="lint" domain="[('event_type','=','lint')]"/>
+                <separator/>
+                <filter string="按事件分组" name="group_event" context="{'group_by':'event_type'}"/>
+                <filter string="按日期分组" name="group_date" context="{'group_by':'create_date:day'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_wiki_log_list" model="ir.ui.view">
+        <field name="name">diecut.kb.wiki.log.list</field>
+        <field name="model">diecut.kb.wiki.log</field>
+        <field name="arch" type="xml">
+            <list string="Wiki 日志" create="0" edit="0" delete="0">
+                <field name="create_date"/>
+                <field name="event_type" widget="badge"/>
+                <field name="name"/>
+                <field name="article_id"/>
+                <field name="source_document_id"/>
+                <field name="summary"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_wiki_log_form" model="ir.ui.view">
+        <field name="name">diecut.kb.wiki.log.form</field>
+        <field name="model">diecut.kb.wiki.log</field>
+        <field name="arch" type="xml">
+            <form string="Wiki 日志" create="0" edit="0" delete="0">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="event_type"/>
+                            <field name="name"/>
+                            <field name="article_id"/>
+                            <field name="source_document_id"/>
+                            <field name="link_id"/>
+                        </group>
+                    </group>
+                    <group string="摘要">
+                        <field name="summary" nolabel="1"/>
+                    </group>
+                    <group string="详情">
+                        <field name="details" nolabel="1"/>
+                    </group>
+                    <group string="JSON">
+                        <field name="payload_json" nolabel="1" widget="text"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_diecut_kb_wiki_logs" model="ir.actions.act_window">
+        <field name="name">知识日志</field>
+        <field name="res_model">diecut.kb.wiki.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_kb_wiki_log_search"/>
+    </record>
+
+</odoo>

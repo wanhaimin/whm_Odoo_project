@@ -1,5 +1,8 @@
 {
   "__VERSION__": 2,
   "release.previous-version": "4.2.0",
-  "link.hosted-prefer": "browser"
+  "playback.speed-step": 0.09,
+  "playback.track.default-languages": [],
+  "link.hosted-prefer": "browser",
+  "host.bilibili.disable-danmaku": true
 }

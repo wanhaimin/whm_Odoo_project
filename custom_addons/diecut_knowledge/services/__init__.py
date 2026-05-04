@@ -8,3 +8,10 @@ from . import pdf_extractor
 from . import kb_compiler
 from . import kb_enricher
 from . import kb_linter
+from . import kb_searcher
+from . import prompt_loader
+from . import kb_index_builder
+from . import kb_vault_mirror
+from . import kb_graph_exporter
+from . import claude_client
+from . import openclaw_worker_client

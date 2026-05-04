@@ -1,0 +1,5 @@
+[      95ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/react-dom_client.js?v=4043868d:20102
+[     177ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5173/diff-overlay.json?token=249efa93ee46084dd27e52a99e3f423e:0
+[     177ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5173/domain-graph.json?token=249efa93ee46084dd27e52a99e3f423e:0
+[     207ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5173/diff-overlay.json?token=249efa93ee46084dd27e52a99e3f423e:0
+[     214ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:5173/domain-graph.json?token=249efa93ee46084dd27e52a99e3f423e:0

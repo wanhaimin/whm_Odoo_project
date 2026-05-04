@@ -5,6 +5,12 @@ access_diecut_kb_article_user,diecut.kb.article.user,model_diecut_kb_article,bas
 access_diecut_kb_article_admin,diecut.kb.article.admin,model_diecut_kb_article,base.group_system,1,1,1,1
 access_diecut_kb_attachment_user,diecut.kb.attachment.user,model_diecut_kb_attachment,base.group_user,1,1,1,1
 access_diecut_kb_attachment_admin,diecut.kb.attachment.admin,model_diecut_kb_attachment,base.group_system,1,1,1,1
+access_diecut_kb_wiki_link_user,diecut.kb.wiki.link.user,model_diecut_kb_wiki_link,base.group_user,1,1,1,0
+access_diecut_kb_wiki_link_admin,diecut.kb.wiki.link.admin,model_diecut_kb_wiki_link,base.group_system,1,1,1,1
+access_diecut_kb_wiki_log_user,diecut.kb.wiki.log.user,model_diecut_kb_wiki_log,base.group_user,1,0,0,0
+access_diecut_kb_wiki_log_admin,diecut.kb.wiki.log.admin,model_diecut_kb_wiki_log,base.group_system,1,1,1,1
+access_diecut_kb_citation_user,diecut.kb.citation.user,model_diecut_kb_citation,base.group_user,1,1,1,0
+access_diecut_kb_citation_admin,diecut.kb.citation.admin,model_diecut_kb_citation,base.group_system,1,1,1,1
 access_diecut_kb_lint_log_user,diecut.kb.lint.log.user,model_diecut_kb_lint_log,base.group_user,1,0,0,0
 access_diecut_kb_lint_log_admin,diecut.kb.lint.log.admin,model_diecut_kb_lint_log,base.group_system,1,1,1,1
 access_diecut_kb_sync_log_user,diecut.kb.sync.log.user,model_diecut_kb_sync_log,base.group_user,1,0,0,0
@@ -13,3 +19,11 @@ access_diecut_kb_qa_ticket_user,diecut.kb.qa_ticket.user,model_diecut_kb_qa_tick
 access_diecut_kb_qa_ticket_admin,diecut.kb.qa_ticket.admin,model_diecut_kb_qa_ticket,base.group_system,1,1,1,1
 access_diecut_kb_compile_job_user,diecut.kb.compile.job.user,model_diecut_kb_compile_job,base.group_user,1,1,1,0
 access_diecut_kb_compile_job_admin,diecut.kb.compile.job.admin,model_diecut_kb_compile_job,base.group_system,1,1,1,1
+access_diecut_kb_compile_rule_user,diecut.kb.compile.rule.user,model_diecut_kb_compile_rule,base.group_user,1,0,0,0
+access_diecut_kb_compile_rule_admin,diecut.kb.compile.rule.admin,model_diecut_kb_compile_rule,base.group_system,1,1,1,1
+access_diecut_llm_model_profile_user,diecut.llm.model.profile.user,model_diecut_llm_model_profile,base.group_user,1,0,0,0
+access_diecut_llm_model_profile_admin,diecut.llm.model.profile.admin,model_diecut_llm_model_profile,base.group_system,1,1,1,1
+access_diecut_kb_ai_session_user,diecut.kb.ai.session.user,model_diecut_kb_ai_session,base.group_user,1,1,1,0
+access_diecut_kb_ai_session_admin,diecut.kb.ai.session.admin,model_diecut_kb_ai_session,base.group_system,1,1,1,1
+access_diecut_kb_ai_message_user,diecut.kb.ai.message.user,model_diecut_kb_ai_message,base.group_user,1,1,1,0
+access_diecut_kb_ai_message_admin,diecut.kb.ai.message.admin,model_diecut_kb_ai_message,base.group_system,1,1,1,1

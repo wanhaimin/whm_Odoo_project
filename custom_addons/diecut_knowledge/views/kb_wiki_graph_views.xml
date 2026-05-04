@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_diecut_kb_wiki_graph" model="ir.actions.client">
+        <field name="name">Wiki 图谱</field>
+        <field name="tag">diecut_kb_wiki_graph</field>
+    </record>
+</odoo>

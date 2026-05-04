@@ -79,11 +79,169 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="diecut_knowledge.compile_auto_publish",
         default=True,
     )
+    diecut_kb_incremental_wiki_batch_limit = fields.Integer(
+        string="增量 Wiki 资料上限",
+        config_parameter="diecut_knowledge.incremental_wiki_batch_limit",
+        default=20,
+    )
+    diecut_kb_incremental_wiki_group_limit = fields.Integer(
+        string="增量 Wiki 主题上限",
+        config_parameter="diecut_knowledge.incremental_wiki_group_limit",
+        default=5,
+    )
+    diecut_kb_incremental_wiki_context_article_limit = fields.Integer(
+        string="增量 Wiki 候选页上限",
+        config_parameter="diecut_knowledge.incremental_wiki_context_article_limit",
+        default=12,
+    )
     diecut_kb_lint_batch_limit = fields.Integer(
         string="知识治理单次检查上限",
         config_parameter="diecut_knowledge.lint_batch_limit",
         default=20,
     )
+
+    # --- Claude API ---
+    diecut_kb_ai_backend = fields.Selection(
+        [("dify", "Dify"), ("claude", "Claude")],
+        string="AI 后端",
+        config_parameter="diecut_knowledge.ai_backend",
+        default="dify",
+        help="选择 AI 编译和问答使用的后端。切换后立即生效。",
+    )
+    diecut_kb_claude_api_key = fields.Char(
+        string="Claude API Key",
+        config_parameter="diecut_knowledge.claude_api_key",
+        help="Anthropic API Key（sk-ant-xxxx）。",
+    )
+    diecut_kb_claude_model = fields.Selection(
+        [
+            ("claude-opus-4-7", "Claude Opus 4.7"),
+            ("claude-sonnet-4-6", "Claude Sonnet 4.6"),
+            ("claude-haiku-4-5", "Claude Haiku 4.5"),
+        ],
+        string="Claude 模型",
+        config_parameter="diecut_knowledge.claude_model",
+        default="claude-opus-4-7",
+    )
+    diecut_kb_claude_max_tokens = fields.Integer(
+        string="最大输出 Token",
+        config_parameter="diecut_knowledge.claude_max_tokens",
+        default=4096,
+    )
+    diecut_kb_claude_base_url = fields.Char(
+        string="Claude API 代理地址",
+        config_parameter="diecut_knowledge.claude_base_url",
+        help="可选，通过代理访问 Claude API 时填写。留空使用官方端点。",
+    )
+
+    diecut_kb_vault_root_path = fields.Char(
+        string="Knowledge Vault 根目录",
+        config_parameter="diecut_knowledge.vault_root_path",
+        help="本地 raw/wiki 文件夹镜像根目录。建议使用项目外部目录，或使用已加入 .gitignore 的目录。",
+    )
+    diecut_kb_vault_raw_batch_limit = fields.Integer(
+        string="Raw Inbox 扫描上限",
+        config_parameter="diecut_knowledge.vault_raw_batch_limit",
+        default=20,
+    )
+    diecut_kb_vault_scan_scope = fields.Selection(
+        [
+            ("all_raw", "全部 raw 资料"),
+            ("inbox", "仅 raw/inbox"),
+        ],
+        string="Vault 扫描范围",
+        config_parameter="diecut_knowledge.vault_scan_scope",
+        default="all_raw",
+    )
+    diecut_kb_vault_raw_cron_active = fields.Boolean(
+        string="Raw Inbox 定时扫描已启用",
+        compute="_compute_diecut_kb_vault_raw_cron_active",
+    )
+
+    def _compute_diecut_kb_vault_raw_cron_active(self):
+        cron = self.env.ref("diecut_knowledge.cron_scan_raw_inbox", raise_if_not_found=False)
+        for record in self:
+            record.diecut_kb_vault_raw_cron_active = bool(cron and cron.active)
+
+    def action_init_knowledge_vault(self):
+        self.ensure_one()
+        from ..services.kb_vault_mirror import KbVaultMirror
+
+        try:
+            self._sync_vault_settings_to_config()
+            root = KbVaultMirror(self.env).ensure_structure()
+        except Exception as exc:
+            return self._notify("danger", "Vault 初始化失败：%s" % exc)
+        return self._notify("success", "Vault 已初始化：%s" % root)
+
+    def action_scan_raw_inbox(self):
+        self.ensure_one()
+
+        try:
+            self._sync_vault_settings_to_config()
+        except Exception as exc:
+            return self._notify("danger", "Vault 配置保存失败：%s" % exc)
+        return self.env["diecut.catalog.source.document"].action_scan_raw_inbox()
+
+    def action_enable_raw_inbox_cron(self):
+        self.ensure_one()
+        try:
+            self._sync_vault_settings_to_config()
+            cron = self.env.ref("diecut_knowledge.cron_scan_raw_inbox")
+            cron.write({"active": True})
+        except Exception as exc:
+            return self._notify("danger", "启用 Raw Inbox 定时扫描失败：%s" % exc)
+        return self._notify("success", "Raw Inbox 定时扫描已启用。")
+
+    def action_disable_raw_inbox_cron(self):
+        self.ensure_one()
+        try:
+            cron = self.env.ref("diecut_knowledge.cron_scan_raw_inbox")
+            cron.write({"active": False})
+        except Exception as exc:
+            return self._notify("danger", "停用 Raw Inbox 定时扫描失败：%s" % exc)
+        return self._notify("success", "Raw Inbox 定时扫描已停用。")
+
+    def action_export_wiki_vault(self):
+        self.ensure_one()
+        from ..services.kb_vault_mirror import KbVaultMirror
+
+        try:
+            self._sync_vault_settings_to_config()
+            result = KbVaultMirror(self.env).export_wiki()
+        except Exception as exc:
+            return self._notify("danger", "Wiki 导出失败：%s" % exc)
+        return self._notify("success", "已导出 %s 篇 Wiki。" % result.get("exported", 0))
+
+    def action_import_wiki_vault(self):
+        self.ensure_one()
+        from ..services.kb_vault_mirror import KbVaultMirror
+
+        try:
+            self._sync_vault_settings_to_config()
+            result = KbVaultMirror(self.env).import_wiki_changes()
+        except Exception as exc:
+            return self._notify("danger", "Wiki 导入失败：%s" % exc)
+        return self._notify(
+            "success" if not result.get("errors") else "warning",
+            "导入 %s，跳过 %s，错误 %s。"
+            % (result.get("imported", 0), result.get("skipped", 0), len(result.get("errors") or [])),
+        )
+
+    def action_export_knowledge_graph(self):
+        self.ensure_one()
+        from ..services.kb_graph_exporter import KbGraphExporter
+
+        try:
+            self._sync_vault_settings_to_config()
+            result = KbGraphExporter(self.env).export()
+        except Exception as exc:
+            return self._notify("danger", "Knowledge Graph 导出失败：%s" % exc)
+        return self._notify(
+            "success",
+            "Knowledge Graph 已导出：%s 个节点，%s 条边，%s 个警告。路径：%s"
+            % (result.get("nodes", 0), result.get("edges", 0), result.get("warnings", 0), result.get("path", "")),
+        )
 
     def action_test_dify_connection(self):
         self.ensure_one()
@@ -107,15 +265,23 @@ class ResConfigSettings(models.TransientModel):
         total = (payload or {}).get("total") or len((payload or {}).get("data") or [])
         return self._notify("success", f"连接成功。当前可见 Dataset 数量：{total}")
 
+    def _sync_vault_settings_to_config(self):
+        config = self.env["ir.config_parameter"].sudo()
+        if self.diecut_kb_vault_root_path:
+            config.set_param("diecut_knowledge.vault_root_path", self.diecut_kb_vault_root_path)
+        if self.diecut_kb_vault_raw_batch_limit:
+            config.set_param("diecut_knowledge.vault_raw_batch_limit", self.diecut_kb_vault_raw_batch_limit)
+        if self.diecut_kb_vault_scan_scope:
+            config.set_param("diecut_knowledge.vault_scan_scope", self.diecut_kb_vault_scan_scope)
+
     def _notify(self, kind: str, message: str):
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
-                "title": "Dify 连接测试",
+                "title": "知识库设置",
                 "message": message,
                 "type": kind,
                 "sticky": False,
             },
         }
-

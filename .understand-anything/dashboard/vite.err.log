@@ -1,0 +1,11 @@
+[2m08:01:50[22m [31m[1m[vite][22m[39m Pre-transform error: Failed to load url /src/main.tsx (resolved id: C:/Users/Lenovo/.codex/understand-anything/understand-anything-plugin/packages/dashboard/src/main.tsx). Does the file exist?
+[2m08:01:50[22m [31m[1m[vite][22m[39m Pre-transform error: Failed to load url /src/main.tsx (resolved id: C:/Users/Lenovo/.codex/understand-anything/understand-anything-plugin/packages/dashboard/src/main.tsx). Does the file exist?
+file:///C:/Users/Lenovo/.codex/understand-anything/understand-anything-plugin/node_modules/.pnpm/vite@6.4.1_@types+node@25.5_12536f74ca537be2b1ba2fe85a6a44da/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:15012
+            metadata.hash + depsInfo[id].file + JSON.stringify(output.imports)
+                                                                      ^
+
+TypeError: Cannot read properties of undefined (reading 'imports')
+    at file:///C:/Users/Lenovo/.codex/understand-anything/understand-anything-plugin/node_modules/.pnpm/vite@6.4.1_@types+node@25.5_12536f74ca537be2b1ba2fe85a6a44da/node_modules/vite/dist/node/chunks/dep-D4NMHUTW.js:15012:71
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+
+Node.js v25.2.1

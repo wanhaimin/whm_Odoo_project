@@ -149,3 +149,7 @@
 **23:48** · 所以正如我們提到的 we have these check boxes where it goes through step by step of this scenario that transpired for the 我們有這些核取方塊，它會逐步檢查這個事故發生的情境 accident and in many ways there you can actually try to help Claude in building this into the system 在許多方面，你可以嘗試幫助 Claude 將這個建構到系統 prompt itself there's not only more token efficient but it's a good way of understanding how 提示本身，這不僅更節省 Token，也是了解 these intelligent models that don't have our intuition actually go about the data that we provide 這些缺乏我們直覺的智慧模型實際上如何處理我們提供的資料的好方法 them and because of that it's quite key in actually trying to break down how your system prompt 正因如此，這在試圖拆解你的系統提示如何 can get a lot better and with that said I think I'd like to thank all you coming today we'll be 變得更好方面非常關鍵。
 
 **24:17** · 說到這裡，我想感謝各位今天來參加，我們會 around as well so if you have any questions on prompting please go ahead I know there's a prompt 留在現場，所以如果你們對提示有任何問題，請儘管提出，我知道有一個提示 you want to learn more about prompting in an hour we have prompting for agents and right now we have 如果你想在一小時內了解更多關於提示的內容，我們有「代理提示」工作坊，而現在我們有 an amazing demo of Claudeplace Pokemon so don't go anywhere for that and as Kristen said we'll be 一個精彩的 Claude 玩寶可夢示範，所以請不要離開，正如 Kristen 所說，我們會 around all day so I know we don't have time for Q&amp;A in the session but please come find us if you 整天都在這裡，我知道會議中沒有時間進行問答，但如果你們想聊天 want to chat and thank you guys for coming thank you so much 請來找我們，謝謝各位的參與，非常感謝
+
+
+
+- [08:15](https://www.youtube.com/watch?v=F-neNyYAXA8&t=496#t=08:15.53)

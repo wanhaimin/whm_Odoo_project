@@ -50,6 +50,26 @@
                             <field name="diecut_kb_dify_chat_api_key" password="True" placeholder="app-xxxxxxxx"/>
                         </setting>
                     </block>
+                    <block title="AI 后端选择" name="diecut_kb_ai_backend_block">
+                        <setting id="diecut_kb_ai_backend" string="AI 后端">
+                            <field name="diecut_kb_ai_backend"/>
+                        </setting>
+                    </block>
+                    <block title="Claude API" name="diecut_kb_claude">
+                        <setting id="diecut_kb_claude_api_key" string="API Key">
+                            <field name="diecut_kb_claude_api_key" password="True" placeholder="sk-ant-xxxxxxxx"/>
+                        </setting>
+                        <setting id="diecut_kb_claude_model" string="模型">
+                            <field name="diecut_kb_claude_model"/>
+                        </setting>
+                        <setting id="diecut_kb_claude_max_tokens" string="最大输出 Token">
+                            <field name="diecut_kb_claude_max_tokens"/>
+                        </setting>
+                        <setting id="diecut_kb_claude_base_url" string="代理地址">
+                            <field name="diecut_kb_claude_base_url" placeholder="https://api.example.com"/>
+                            <div class="text-muted">可选，通过代理访问时填写。留空则直连 api.anthropic.com。</div>
+                        </setting>
+                    </block>
                     <block title="AI 编译层" name="diecut_kb_compile">
                         <setting id="diecut_kb_compile_batch_limit" string="单次编译上限">
                             <field name="diecut_kb_compile_batch_limit"/>
@@ -62,6 +82,37 @@
                     <block title="知识治理" name="diecut_kb_lint">
                         <setting id="diecut_kb_lint_batch_limit" string="单次治理检查上限">
                             <field name="diecut_kb_lint_batch_limit"/>
+                        </setting>
+                    </block>
+                    <block title="Knowledge Vault 文件夹镜像" name="diecut_kb_vault">
+                        <setting id="diecut_kb_vault_root_path" string="Vault 根目录">
+                            <field name="diecut_kb_vault_root_path" placeholder="/mnt/extra-addons/.diecut_knowledge_vault"/>
+                            <div class="text-muted">用于 raw/inbox 与 wiki Markdown 镜像。Odoo 在 Docker 中运行时请填写容器路径，例如 /mnt/extra-addons/.diecut_knowledge_vault；不要直接填写 Windows 的 E:\ 路径。</div>
+                        </setting>
+                        <setting id="diecut_kb_vault_raw_batch_limit" string="Raw Inbox 扫描上限">
+                            <field name="diecut_kb_vault_raw_batch_limit"/>
+                        </setting>
+                        <setting id="diecut_kb_vault_scan_scope" string="Vault 扫描范围">
+                            <field name="diecut_kb_vault_scan_scope"/>
+                            <div class="text-muted">默认扫描 raw/inbox、raw/processed 和 raw 下的 Obsidian 原始资料目录。</div>
+                        </setting>
+                        <setting id="diecut_kb_vault_raw_cron" string="Raw Inbox 定时扫描">
+                            <field name="diecut_kb_vault_raw_cron_active" readonly="1"/>
+                            <div class="text-muted">定时任务每 30 分钟扫描一次 raw/inbox。建议流程稳定后再启用。</div>
+                            <button name="action_enable_raw_inbox_cron"
+                                    type="object"
+                                    string="启用定时扫描"
+                                    class="btn-primary me-2"
+                                    invisible="diecut_kb_vault_raw_cron_active"/>
+                            <button name="action_disable_raw_inbox_cron"
+                                    type="object"
+                                    string="停用定时扫描"
+                                    class="btn-secondary"
+                                    invisible="not diecut_kb_vault_raw_cron_active"/>
+                        </setting>
+                        <setting id="diecut_kb_vault_actions" string="Vault 操作">
+                            <button name="action_init_knowledge_vault" type="object" string="初始化目录" class="btn-secondary me-2"/>
+                            <button name="action_export_knowledge_graph" type="object" string="导出 Knowledge Graph" class="btn-secondary"/>
                         </setting>
                     </block>
                 </app>

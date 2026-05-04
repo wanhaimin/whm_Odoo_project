@@ -10,3 +10,7 @@ custom_addons/diecut/scripts/.tds_worker_cache/
 custom_addons/diecut/scripts/tds_import_drafts/
 custom_addons/diecut/scripts/tds_batch_reports/
 custom_addons/diecut/scripts/tesa_tds_pdfs/rendered_*/
+
+# Knowledge vault mirrors can contain large PDFs and generated Markdown
+knowledge_vault/
+custom_addons/.diecut_knowledge_vault/

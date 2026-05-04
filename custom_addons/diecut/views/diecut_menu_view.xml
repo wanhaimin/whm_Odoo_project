@@ -10,7 +10,10 @@
     <menuitem id="menu_material_catalog_spec_def" name="分类参数配置" parent="menu_material_catalog" action="action_product_category_catalog_param" sequence="24"/>
     <menuitem id="menu_material_catalog_ops" name="数据运维" parent="menu_material_catalog" action="action_catalog_ops_wizard" sequence="25"/>
     <menuitem id="menu_material_catalog_ops_log" name="运维日志" parent="menu_material_catalog" action="action_catalog_ops_log" sequence="26"/>
-    <menuitem id="menu_material_catalog_source_document" name="AI/TDS 草稿" parent="menu_material_catalog" action="action_diecut_catalog_source_document" sequence="27"/>
+    <menuitem id="menu_material_catalog_source_document" name="AI/TDS 辅助" parent="menu_material_catalog" action="action_diecut_catalog_source_document" sequence="27"/>
+    <record id="menu_material_catalog_source_document" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
     <menuitem id="menu_material_catalog_dictionary" name="字典管理" parent="menu_material_catalog" sequence="90"/>
     <menuitem id="menu_material_catalog_brand" name="品牌字典" parent="menu_material_catalog_dictionary" action="action_diecut_brand" sequence="10"/>
     <menuitem id="menu_material_catalog_color" name="颜色字典" parent="menu_material_catalog_dictionary" action="action_diecut_color" sequence="11"/>

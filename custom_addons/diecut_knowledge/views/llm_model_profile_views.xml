@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_diecut_llm_model_profile_list" model="ir.ui.view">
+        <field name="name">diecut.llm.model.profile.list</field>
+        <field name="model">diecut.llm.model.profile</field>
+        <field name="arch" type="xml">
+            <list string="大模型档案">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="provider"/>
+                <field name="protocol"/>
+                <field name="model_name"/>
+                <field name="base_url"/>
+                <field name="use_ai_advisor"/>
+                <field name="use_wiki_compile"/>
+                <field name="is_default_advisor"/>
+                <field name="is_default_wiki_compile"/>
+                <field name="last_test_state" widget="badge"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_llm_model_profile_form" model="ir.ui.view">
+        <field name="name">diecut.llm.model.profile.form</field>
+        <field name="model">diecut.llm.model.profile</field>
+        <field name="arch" type="xml">
+            <form string="大模型档案">
+                <header>
+                    <button name="action_test_profile" type="object" string="测试连接" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                            <field name="provider"/>
+                            <field name="protocol"/>
+                            <field name="model_name"/>
+                        </group>
+                        <group>
+                            <field name="base_url"/>
+                            <field name="api_key" password="True" groups="base.group_system"/>
+                            <field name="max_tokens"/>
+                            <field name="temperature"/>
+                            <field name="support_stream"/>
+                        </group>
+                    </group>
+                    <group string="用途">
+                        <field name="use_ai_advisor"/>
+                        <field name="use_wiki_compile"/>
+                        <field name="use_source_parse"/>
+                        <field name="use_graph_fix"/>
+                        <field name="is_default_advisor"/>
+                        <field name="is_default_wiki_compile"/>
+                    </group>
+                    <group string="测试结果">
+                        <field name="last_test_at" readonly="1"/>
+                        <field name="last_test_state" readonly="1" widget="badge"/>
+                        <field name="last_test_message" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_diecut_llm_model_profile_search" model="ir.ui.view">
+        <field name="name">diecut.llm.model.profile.search</field>
+        <field name="model">diecut.llm.model.profile</field>
+        <field name="arch" type="xml">
+            <search string="大模型档案">
+                <field name="name"/>
+                <field name="provider"/>
+                <field name="model_name"/>
+                <filter string="启用" name="active" domain="[('active', '=', True)]"/>
+                <filter string="AI 顾问" name="use_ai_advisor" domain="[('use_ai_advisor', '=', True)]"/>
+                <filter string="Wiki 编译" name="use_wiki_compile" domain="[('use_wiki_compile', '=', True)]"/>
+                <filter string="按供应商" name="group_provider" context="{'group_by': 'provider'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_diecut_llm_model_profile" model="ir.actions.act_window">
+        <field name="name">大模型档案</field>
+        <field name="res_model">diecut.llm.model.profile</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_llm_model_profile_search"/>
+        <field name="context">{'search_default_active': 1}</field>
+    </record>
+</odoo>

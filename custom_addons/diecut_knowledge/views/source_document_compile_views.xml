@@ -44,23 +44,110 @@
         <field name="code">action = records[:1].action_open_compile_workspace()</field>
     </record>
 
+    <record id="action_source_document_scan_raw_inbox" model="ir.actions.server">
+        <field name="name">同步 Vault 资料</field>
+        <field name="model_id" ref="diecut.model_diecut_catalog_source_document"/>
+        <field name="binding_model_id" ref="diecut.model_diecut_catalog_source_document"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = model.action_scan_raw_inbox()</field>
+    </record>
+
+    <record id="action_source_document_sync_vault_and_queue" model="ir.actions.server">
+        <field name="name">同步并加入编译队列</field>
+        <field name="model_id" ref="diecut.model_diecut_catalog_source_document"/>
+        <field name="binding_model_id" ref="diecut.model_diecut_catalog_source_document"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = model.action_sync_vault_sources_and_queue()</field>
+    </record>
+
+    <record id="action_source_document_enqueue_incremental_wiki_compile" model="ir.actions.server">
+        <field name="name">加入增量编译队列</field>
+        <field name="model_id" ref="diecut.model_diecut_catalog_source_document"/>
+        <field name="binding_model_id" ref="diecut.model_diecut_catalog_source_document"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = model.action_enqueue_incremental_wiki_compile()</field>
+    </record>
+
     <record id="view_diecut_kb_compile_source_list" model="ir.ui.view">
         <field name="name">diecut.kb.compile.source.list</field>
         <field name="model">diecut.catalog.source.document</field>
         <field name="arch" type="xml">
-            <list string="编译源资料">
+            <list string="资料收件箱">
+                <header>
+                    <button name="%(action_source_document_scan_raw_inbox)d"
+                            type="action"
+                            string="同步 Vault 资料"
+                            class="btn-primary"
+                            icon="fa-refresh"
+                            display="always"/>
+                    <button name="%(action_source_document_sync_vault_and_queue)d"
+                            type="action"
+                            string="同步并加入编译队列"
+                            class="btn-secondary"
+                            icon="fa-tasks"
+                            display="always"/>
+                    <button name="%(action_source_document_enqueue_incremental_wiki_compile)d"
+                            type="action"
+                            string="加入增量编译队列"
+                            class="btn-secondary"
+                            icon="fa-magic"
+                            display="always"/>
+                </header>
                 <field name="name"/>
+                <field name="source_filename" optional="show"/>
+                <field name="knowledge_source_kind" widget="badge"/>
+                <field name="route_plan_state" widget="badge"/>
                 <field name="import_status" widget="badge"/>
                 <field name="knowledge_parse_state" widget="badge"/>
+                <field name="vault_sync_state" widget="badge" optional="show"/>
+                <field name="vault_last_synced_at" optional="show"/>
                 <field name="brand_id"/>
                 <field name="primary_attachment_name"/>
                 <field name="knowledge_page_count"/>
                 <field name="compiled_item_count"/>
                 <field name="compilable_item_count"/>
                 <field name="compiled_article_count"/>
+                <field name="wiki_compile_state" widget="badge" optional="show"/>
+                <field name="wiki_compiled_at" optional="show"/>
+                <field name="wiki_compile_hash" optional="hide"/>
+                <field name="vault_raw_path" optional="show"/>
+                <field name="vault_file_hash" optional="hide"/>
+                <field name="vault_error" optional="hide"/>
                 <field name="compile_block_reason" optional="show"/>
                 <field name="write_date" optional="hide"/>
             </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_compile_source_search" model="ir.ui.view">
+        <field name="name">diecut.kb.compile.source.search</field>
+        <field name="model">diecut.catalog.source.document</field>
+        <field name="arch" type="xml">
+            <search string="资料收件箱">
+                <field name="name"/>
+                <field name="source_filename"/>
+                <field name="primary_attachment_name"/>
+                <field name="brand_id"/>
+                <filter string="Vault 导入" name="vault_imported" domain="[('vault_file_hash', '!=', False)]"/>
+                <filter string="Vault 已处理" name="vault_processed" domain="[('vault_sync_state', '=', 'processed')]"/>
+                <filter string="Vault 失败" name="vault_failed" domain="[('vault_sync_state', '=', 'failed')]"/>
+                <filter string="待解析" name="knowledge_parse_pending" domain="[('knowledge_parse_state', '=', 'pending')]"/>
+                <filter string="新发现" name="vault_discovered" domain="[('vault_sync_state', '=', 'discovered')]"/>
+                <filter string="文件缺失" name="vault_missing" domain="[('vault_sync_state', '=', 'missing')]"/>
+                <filter string="待编译" name="compile_ready" domain="['|', ('knowledge_parse_state', '=', 'parsed'), ('raw_text', '!=', False)]"/>
+                <filter string="已生成 Wiki" name="has_compiled_article" domain="[('compiled_article_count', '>', 0)]"/>
+                <filter string="待增量编译" name="wiki_compile_pending" domain="[('wiki_compile_state', 'in', ['pending', 'queued'])]"/>
+                <filter string="已增量编译" name="wiki_compile_done" domain="[('wiki_compile_state', '=', 'compiled')]"/>
+                <filter string="Hash 已变化" name="wiki_compile_hash_changed" domain="[('vault_file_hash', '!=', False), ('wiki_compile_hash', '!=', False), ('wiki_compile_state', '!=', 'compiled')]"/>
+                <filter string="编译失败" name="wiki_compile_failed" domain="[('wiki_compile_state', '=', 'failed')]"/>
+                <separator/>
+                <filter string="按导入状态" name="group_import_status" context="{'group_by': 'import_status'}"/>
+                <filter string="按资料类型" name="group_source_kind" context="{'group_by': 'knowledge_source_kind'}"/>
+                <filter string="按 Vault 状态" name="group_vault_state" context="{'group_by': 'vault_sync_state'}"/>
+            </search>
         </field>
     </record>
 
@@ -68,17 +155,52 @@
         <field name="name">diecut.kb.compile.source.form</field>
         <field name="model">diecut.catalog.source.document</field>
         <field name="arch" type="xml">
-            <form string="编译源资料">
+            <form string="资料收件箱">
                 <header>
+                    <button name="action_generate_route_plan"
+                            type="object"
+                            string="生成处理方案"
+                            class="oe_highlight"
+                            icon="fa-sitemap"
+                            invisible="route_plan_state in ['ready', 'running']"/>
+                    <button name="action_open_ai_advisor"
+                            type="object"
+                            string="AI 资料助手"
+                            class="btn-secondary"
+                            icon="fa-comments"/>
+                    <button name="action_confirm_route_plan_execute"
+                            type="object"
+                            string="确认方案并执行"
+                            class="oe_highlight"
+                            icon="fa-check-circle"
+                            invisible="route_plan_state not in ['ready']"/>
+                    <button name="action_reset_route_plan"
+                            type="object"
+                            string="重新生成方案"
+                            class="btn-secondary"
+                            icon="fa-refresh"
+                            invisible="route_plan_state == 'draft'"/>
                     <button name="action_parse_for_knowledge"
                             type="object"
                             string="解析原始资料"
                             class="btn-secondary"
                             icon="fa-file-text-o"
                             invisible="not primary_attachment_id"/>
+                    <button name="action_extract_source"
+                            type="object"
+                            string="提取原文"
+                            class="btn-secondary"
+                            icon="fa-file-o"
+                            invisible="import_status in ['applied', 'validated']"/>
+                    <button name="action_extract_material_draft"
+                            type="object"
+                            string="抽取材料参数"
+                            class="btn-secondary"
+                            icon="fa-list-alt"
+                            invisible="knowledge_source_kind != 'tds' or import_status == 'applied'"/>
                     <button name="action_one_click_ingest"
                             type="object"
-                            string="一键入库"
+                            string="解析并编译 Wiki"
                             class="oe_highlight"
                             icon="fa-rocket"
                             invisible="not primary_attachment_id"/>
@@ -88,6 +210,38 @@
                             class="btn-secondary"
                             icon="fa-magic"
                             invisible="not knowledge_parsed_text and not raw_text"/>
+                    <button name="action_rebuild_wiki_graph_agent"
+                            type="object"
+                            string="AI 修正图谱"
+                            class="btn-secondary"
+                            icon="fa-share-alt"
+                            invisible="not compiled_article_count"/>
+                    <button name="action_generate_draft"
+                            type="object"
+                            string="生成材料草稿"
+                            class="btn-secondary"
+                            icon="fa-list"
+                            invisible="knowledge_source_kind != 'tds' or import_status == 'applied'"/>
+                    <button name="action_refresh_draft_editor"
+                            type="object"
+                            string="刷新草稿编辑器"
+                            class="btn-secondary"
+                            invisible="not draft_payload"/>
+                    <button name="action_save_draft_editor"
+                            type="object"
+                            string="保存草稿编辑"
+                            class="btn-secondary"
+                            invisible="not draft_payload"/>
+                    <button name="action_validate_draft"
+                            type="object"
+                            string="校验草稿"
+                            class="btn-secondary"
+                            invisible="import_status == 'applied'"/>
+                    <button name="action_apply_draft"
+                            type="object"
+                            string="入库草稿"
+                            class="btn-primary"
+                            invisible="import_status == 'applied'"/>
                     <button name="action_open_compiled_articles"
                             type="object"
                             string="打开 Wiki文章"
@@ -98,31 +252,55 @@
                 <sheet>
                     <div class="oe_title">
                         <label for="name"/>
-                        <h1><field name="name" readonly="1"/></h1>
+                        <h1><field name="name"/></h1>
                     </div>
                     <div class="alert alert-warning" role="alert" invisible="not compile_block_reason">
                         <field name="compile_block_reason" nolabel="1" readonly="1"/>
                     </div>
                     <group>
                         <group string="原始资料">
-                            <field name="import_status" readonly="1"/>
-                            <field name="source_type" readonly="1"/>
-                            <field name="brand_id" readonly="1"/>
-                            <field name="primary_attachment_id" readonly="1"/>
+                            <field name="source_type"/>
+                            <field name="source_url" invisible="source_type != 'url'"/>
+                            <field name="source_file" filename="source_filename" invisible="source_type == 'url'"/>
+                            <field name="source_filename" invisible="1"/>
+                            <field name="brand_id"/>
+                            <field name="categ_id"/>
+                            <field name="skill_profile"/>
+                            <field name="brand_skill_name"/>
+                            <field name="primary_attachment_id"/>
+                            <field name="attachment_count" readonly="1"/>
                             <field name="primary_attachment_name" readonly="1"/>
-                            <field name="line_count" readonly="1"/>
-                            <field name="parse_version" readonly="1"/>
+                            <field name="primary_attachment_mimetype" readonly="1"/>
+                            <field name="import_status" readonly="1"/>
+                            <field name="knowledge_source_kind" readonly="1"/>
+                            <field name="vault_sync_state" readonly="1" widget="badge"/>
+                            <field name="vault_last_synced_at" readonly="1"/>
+                            <field name="vault_raw_path" readonly="1"/>
+                            <field name="vault_file_hash" readonly="1"/>
+                            <field name="vault_error" readonly="1" invisible="not vault_error"/>
                         </group>
                         <group string="编译状态">
+                            <field name="route_plan_state" readonly="1" widget="badge"/>
+                            <field name="route_plan_generated_at" readonly="1"/>
+                            <field name="route_plan_confirmed_at" readonly="1"/>
                             <field name="knowledge_parse_state" readonly="1" widget="badge"/>
                             <field name="knowledge_parse_method" readonly="1"/>
                             <field name="knowledge_page_count" readonly="1"/>
+                            <field name="parse_version"/>
+                            <field name="line_count" readonly="1"/>
                             <field name="compiled_item_count" readonly="1"/>
                             <field name="compilable_item_count" readonly="1"/>
                             <field name="compiled_article_count" readonly="1"/>
                         </group>
                     </group>
                     <notebook>
+                        <page string="处理方案">
+                            <group>
+                                <field name="route_plan_error" readonly="1" invisible="not route_plan_error"/>
+                                <field name="route_plan_summary" readonly="1" nolabel="1" placeholder="点击“生成处理方案”，AI 会先给出分发方案，确认后才执行。"/>
+                            </group>
+                            <field name="route_plan_json" readonly="1" nolabel="1" widget="text"/>
+                        </page>
                         <page string="关联产品">
                             <group>
                                 <field name="compiled_item_ids" widget="many2many_tags" readonly="1" options="{'no_open': False}"/>
@@ -147,26 +325,115 @@
                                 <field name="knowledge_parsed_at" readonly="1"/>
                             </group>
                             <field name="knowledge_parsed_markdown" readonly="1" nolabel="1"/>
+                            <field name="raw_text" nolabel="1" placeholder="也可以直接粘贴文字资料，作为编译素材。"/>
                         </page>
-                        <page string="原始草稿">
-                            <field name="draft_payload" readonly="1"/>
+                        <page string="TDS草稿编辑">
+                            <group col="1">
+                                <field name="draft_editor_note" nolabel="1" readonly="1"/>
+                            </group>
+                            <group string="基础属性" col="2">
+                                <group>
+                                    <field name="brand_id"/>
+                                    <field name="categ_id"/>
+                                    <field name="draft_item_name"/>
+                                    <field name="draft_item_code"/>
+                                    <field name="draft_series_name"/>
+                                    <field name="draft_catalog_status"/>
+                                    <field name="draft_manufacturer_id"/>
+                                    <field name="draft_manufacturer_name" invisible="1"/>
+                                </group>
+                                <group>
+                                    <field name="draft_thickness"/>
+                                    <field name="draft_thickness_std"/>
+                                    <field name="draft_adhesive_thickness"/>
+                                    <field name="draft_color_id"/>
+                                    <field name="draft_color_name" invisible="1"/>
+                                    <field name="draft_adhesive_type_id"/>
+                                    <field name="draft_adhesive_type_name" invisible="1"/>
+                                    <field name="draft_base_material_id"/>
+                                    <field name="draft_base_material_name" invisible="1"/>
+                                    <field name="draft_ref_price"/>
+                                    <field name="draft_is_rohs"/>
+                                    <field name="draft_is_reach"/>
+                                    <field name="draft_is_halogen_free"/>
+                                    <field name="draft_fire_rating"/>
+                                </group>
+                            </group>
+                            <group string="选型信息" col="2">
+                                <group string="系列标签">
+                                    <field name="draft_series_function_tags" readonly="1"/>
+                                    <field name="draft_series_application_tags" readonly="1"/>
+                                    <field name="draft_series_feature_tags" readonly="1"/>
+                                </group>
+                                <group string="系列参考">
+                                    <field name="draft_product_features"/>
+                                    <field name="draft_product_description"/>
+                                    <field name="draft_main_applications" widget="html"/>
+                                </group>
+                                <group string="型号追加信息">
+                                    <field name="draft_equivalent_type"/>
+                                </group>
+                                <group string="型号补充说明">
+                                    <field name="draft_special_applications" widget="html"/>
+                                </group>
+                            </group>
+                            <group string="技术参数" col="1">
+                                <field name="draft_line_ids" nolabel="1">
+                                    <list editable="bottom" default_order="sequence, id">
+                                        <field name="sequence" optional="hide"/>
+                                        <field name="item_code" string="型号" optional="show"/>
+                                        <field name="param_id" string="参数字典"/>
+                                        <field name="param_name" string="参数名称" optional="show"/>
+                                        <field name="param_key" string="参数键" optional="show"/>
+                                        <field name="dictionary_status" string="参数状态"/>
+                                        <field name="value_display" string="值"/>
+                                        <field name="unit" string="单位"/>
+                                        <field name="test_method" string="测试方法"/>
+                                        <field name="test_condition" string="测试条件"/>
+                                        <field name="remark" string="备注"/>
+                                        <field name="spec_category_name" string="参数分类" optional="show"/>
+                                        <field name="route_label" string="写入位置" optional="show" readonly="1"/>
+                                        <field name="source_label" string="来源" optional="show" readonly="1"/>
+                                        <field name="preferred_unit" optional="hide"/>
+                                        <field name="source_key" optional="hide"/>
+                                        <field name="candidate_new" optional="hide"/>
+                                        <field name="is_main_field" optional="hide"/>
+                                        <field name="main_field_name" optional="hide"/>
+                                        <field name="value_type" optional="hide"/>
+                                    </list>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="原始 JSON">
+                            <field name="draft_payload" nolabel="1" widget="text" placeholder='{"series": [], "items": [], "params": [], "category_params": [], "spec_values": [], "unmatched": []}'/>
+                        </page>
+                        <page string="处理结果">
+                            <group>
+                                <field name="result_message" nolabel="1" readonly="1"/>
+                                <field name="unmatched_payload" nolabel="1" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Copilot 上下文">
+                            <field name="context_used" nolabel="1" widget="text" readonly="1"/>
                         </page>
                     </notebook>
                 </sheet>
+                <chatter/>
             </form>
         </field>
     </record>
 
     <record id="action_diecut_kb_compile_sources" model="ir.actions.act_window">
-        <field name="name">编译源资料</field>
+        <field name="name">资料收件箱</field>
         <field name="res_model">diecut.catalog.source.document</field>
         <field name="view_mode">list,form</field>
         <field name="view_id" ref="view_diecut_kb_compile_source_list"/>
-        <field name="domain">[('import_status', '=', 'applied')]</field>
-        <field name="context">{}</field>
+        <field name="search_view_id" ref="view_diecut_kb_compile_source_search"/>
+        <field name="domain">[]</field>
+        <field name="context">{'default_source_type': 'pdf'}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiley_face">这里集中管理可编译的原始资料</p>
-            <p>AI/TDS 负责识别原始 TDS；知识管理在这里把已入库产品和原始资料编译成 Wiki 文章，再进入 Dify 检索链路。</p>
+            <p>所有 PDF、TDS、选型指南、加工经验和问答资料先进入这里；知识管理负责编译 Wiki，TDS 可额外抽取结构化草稿进入材料选型库。</p>
         </field>
     </record>
 

@@ -67,12 +67,34 @@
         <field name="user_id" ref="base.user_root"/>
     </record>
 
+    <record id="cron_enqueue_incremental_wiki_compile" model="ir.cron">
+        <field name="name">知识编译：全库感知增量 Wiki 入队</field>
+        <field name="model_id" ref="diecut.model_diecut_catalog_source_document"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_enqueue_incremental_wiki_compile()</field>
+        <field name="interval_number">30</field>
+        <field name="interval_type">minutes</field>
+        <field name="active" eval="True"/>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+
     <record id="cron_process_compile_queue" model="ir.cron">
         <field name="name">知识编译队列：处理排队中的编译任务</field>
         <field name="model_id" ref="model_diecut_kb_compile_job"/>
         <field name="state">code</field>
         <field name="code">model.cron_process_compile_queue()</field>
         <field name="interval_number">2</field>
+        <field name="interval_type">minutes</field>
+        <field name="active" eval="True"/>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+
+    <record id="cron_process_openclaw_compile_results" model="ir.cron">
+        <field name="name">知识编译队列：读取 OpenClaw 完成结果</field>
+        <field name="model_id" ref="model_diecut_kb_compile_job"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_process_openclaw_results()</field>
+        <field name="interval_number">1</field>
         <field name="interval_type">minutes</field>
         <field name="active" eval="True"/>
         <field name="user_id" ref="base.user_root"/>
@@ -85,6 +107,50 @@
         <field name="code">model.cron_lint_published_articles()</field>
         <field name="interval_number">7</field>
         <field name="interval_type">days</field>
+        <field name="active" eval="False"/>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+
+    <record id="cron_refresh_wiki_index" model="ir.cron">
+        <field name="name">知识库：刷新 Wiki 总目录</field>
+        <field name="model_id" ref="model_diecut_kb_article"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_refresh_wiki_index()</field>
+        <field name="interval_number">6</field>
+        <field name="interval_type">hours</field>
+        <field name="active" eval="True"/>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+
+    <record id="cron_scan_raw_inbox" model="ir.cron">
+        <field name="name">知识库 Vault：扫描 Raw Inbox</field>
+        <field name="model_id" ref="diecut.model_diecut_catalog_source_document"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_scan_raw_inbox()</field>
+        <field name="interval_number">30</field>
+        <field name="interval_type">minutes</field>
+        <field name="active" eval="False"/>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+
+    <record id="cron_export_wiki_vault" model="ir.cron">
+        <field name="name">知识库 Vault：导出 Wiki Markdown</field>
+        <field name="model_id" ref="model_diecut_kb_article"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_export_wiki_vault()</field>
+        <field name="interval_number">6</field>
+        <field name="interval_type">hours</field>
+        <field name="active" eval="False"/>
+        <field name="user_id" ref="base.user_root"/>
+    </record>
+
+    <record id="cron_import_wiki_vault" model="ir.cron">
+        <field name="name">知识库 Vault：导入 Wiki 修改</field>
+        <field name="model_id" ref="model_diecut_kb_article"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_import_wiki_vault()</field>
+        <field name="interval_number">6</field>
+        <field name="interval_type">hours</field>
         <field name="active" eval="False"/>
         <field name="user_id" ref="base.user_root"/>
     </record>

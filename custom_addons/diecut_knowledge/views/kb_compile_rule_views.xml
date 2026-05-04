@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_diecut_kb_compile_rule_search" model="ir.ui.view">
+        <field name="name">diecut.kb.compile.rule.search</field>
+        <field name="model">diecut.kb.compile.rule</field>
+        <field name="arch" type="xml">
+            <search string="搜索编译规则">
+                <field name="name"/>
+                <field name="rule_type"/>
+                <filter string="启用" name="active_rules" domain="[('active','=',True)]"/>
+                <filter string="已停用" name="inactive_rules" domain="[('active','=',False)]"/>
+                <filter string="按类型分组" name="group_type" context="{'group_by':'rule_type'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_compile_rule_list" model="ir.ui.view">
+        <field name="name">diecut.kb.compile.rule.list</field>
+        <field name="model">diecut.kb.compile.rule</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="not active">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="rule_type"/>
+                <field name="priority"/>
+                <field name="version"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_diecut_kb_compile_rule_form" model="ir.ui.view">
+        <field name="name">diecut.kb.compile.rule.form</field>
+        <field name="model">diecut.kb.compile.rule</field>
+        <field name="arch" type="xml">
+            <form string="编译规则">
+                <header>
+                    <button name="action_enable" type="object" string="启用"
+                            invisible="active" class="btn-primary"/>
+                    <button name="action_disable" type="object" string="停用"
+                            invisible="not active"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="rule_type"/>
+                            <field name="version"/>
+                        </group>
+                        <group>
+                            <field name="active"/>
+                            <field name="priority"/>
+                            <field name="sequence"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="行为规则">
+                            <field name="content" nolabel="1"
+                                   placeholder="写清楚 LLM 在该环节必须遵守的判断规则、引用规则、图谱规则和人工审核条件。"/>
+                        </page>
+                        <page string="Schema JSON">
+                            <field name="schema_json" nolabel="1"
+                                   placeholder="机器可读的 JSON 输出契约。LLM 输出必须能被该 schema 归一化和校验。"/>
+                        </page>
+                        <page string="备注">
+                            <field name="notes" nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_diecut_kb_compile_rule" model="ir.actions.act_window">
+        <field name="name">编译规则</field>
+        <field name="res_model">diecut.kb.compile.rule</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_diecut_kb_compile_rule_search"/>
+        <field name="context">{'search_default_active_rules': 1}</field>
+    </record>
+</odoo>

@@ -7,14 +7,19 @@
         <field name="arch" type="xml">
             <list>
                 <field name="create_date" string="创建时间"/>
-                <field name="display_name" string="描述"/>
+                <field name="display_name" string="任务"/>
                 <field name="job_type"/>
-                <field name="state" decoration-success="state == 'done'"
+                <field name="compile_group_key" optional="show"/>
+                <field name="source_layer"/>
+                <field name="risk_level" widget="badge"/>
+                <field name="status_label" string="状态" decoration-success="state == 'done'"
                        decoration-warning="state == 'pending'"
-                       decoration-info="state == 'processing'"
+                       decoration-info="state in ('processing', 'waiting_llm')"
                        decoration-danger="state == 'failed'"/>
-                <field name="error_message"/>
+                <field name="state" optional="hide"/>
+                <field name="openclaw_run_id" optional="hide"/>
                 <field name="result_article_id"/>
+                <field name="error_message"/>
                 <field name="create_uid"/>
             </list>
         </field>
@@ -35,7 +40,7 @@
                             invisible="state != 'failed'"/>
                     <button name="action_cancel" type="object"
                             string="取消"
-                            invisible="state != 'pending'"/>
+                            invisible="state not in ('pending', 'waiting_llm')"/>
                 </header>
                 <sheet>
                     <group>
@@ -44,18 +49,39 @@
                             <field name="job_type"/>
                             <field name="item_id" invisible="job_type != 'catalog_item'"/>
                             <field name="source_document_id" invisible="job_type != 'source_document'"/>
+                            <field name="incremental_source_document_ids" widget="many2many_tags"
+                                   invisible="job_type != 'wiki_incremental'"/>
                             <field name="comparison_item_ids" widget="many2many_tags"
                                    invisible="job_type != 'comparison'"/>
                         </group>
                         <group>
                             <field name="priority"/>
+                            <field name="model_profile_id"/>
+                            <field name="source_layer"/>
+                            <field name="risk_level"/>
                             <field name="create_uid"/>
                             <field name="create_date"/>
                             <field name="result_article_id" invisible="state != 'done'"/>
+                            <field name="result_article_ids" widget="many2many_tags" invisible="state != 'done'"/>
+                            <field name="target_article_ids" widget="many2many_tags" invisible="job_type != 'wiki_incremental'"/>
+                            <field name="compile_group_key" invisible="job_type != 'wiki_incremental'"/>
+                            <field name="openclaw_run_id" invisible="not openclaw_run_id"/>
                         </group>
                     </group>
-                    <field name="error_message" nolabel="1"
-                           invisible="state != 'failed'"/>
+                    <notebook>
+                        <page string="触发上下文">
+                            <field name="trigger_question" placeholder="由 AI 顾问或人工触发的问题"/>
+                            <field name="source_reason" placeholder="命中的 source/catalog/wiki 依据说明"/>
+                            <field name="input_summary" placeholder="进入 LLM 的资料摘要或任务上下文"/>
+                        </page>
+                        <page string="Schema 输出">
+                            <field name="validation_message"/>
+                            <field name="llm_payload_json" nolabel="1" placeholder="LLM 输出并经 Odoo 归一化后的 JSON"/>
+                        </page>
+                        <page string="错误">
+                            <field name="error_message" nolabel="1"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -65,13 +91,15 @@
         <field name="name">diecut.kb.compile.job.search</field>
         <field name="model">diecut.kb.compile.job</field>
         <field name="arch" type="xml">
-            <search string="搜索编译队列">
+            <search string="搜索编译任务">
                 <field name="display_name"/>
                 <field name="item_id"/>
+                <field name="source_document_id"/>
                 <field name="job_type"/>
                 <field name="state"/>
                 <filter string="排队中" name="pending" domain="[('state','=','pending')]"/>
-                <filter string="已失败" name="failed" domain="[('state','=','failed')]"/>
+                <filter string="等待 OpenClaw" name="waiting_llm" domain="[('state','=','waiting_llm')]"/>
+                <filter string="失败" name="failed" domain="[('state','=','failed')]"/>
                 <filter string="产品编译" name="catalog_item" domain="[('job_type','=','catalog_item')]"/>
                 <filter string="资料编译" name="source_document" domain="[('job_type','=','source_document')]"/>
                 <filter string="按状态分组" name="group_state" context="{'group_by':'state'}"/>
@@ -81,7 +109,7 @@
     </record>
 
     <record id="action_diecut_kb_compile_job" model="ir.actions.act_window">
-        <field name="name">编译队列</field>
+        <field name="name">编译任务</field>
         <field name="res_model">diecut.kb.compile.job</field>
         <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="view_diecut_kb_compile_job_search"/>

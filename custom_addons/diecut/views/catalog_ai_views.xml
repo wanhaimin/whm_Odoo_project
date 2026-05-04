@@ -63,7 +63,7 @@
         <field name="name">diecut.catalog.source.document.tree</field>
         <field name="model">diecut.catalog.source.document</field>
         <field name="arch" type="xml">
-            <list string="AI/TDS 草稿" default_order="create_date desc, id desc">
+            <list string="AI/TDS 辅助草稿" default_order="create_date desc, id desc">
                 <field name="name"/>
                 <field name="source_type"/>
                 <field name="brand_id"/>
@@ -81,7 +81,7 @@
         <field name="name">diecut.catalog.source.document.form</field>
         <field name="model">diecut.catalog.source.document</field>
         <field name="arch" type="xml">
-            <form string="AI/TDS 草稿">
+            <form string="AI/TDS 辅助草稿">
                 <header>
                     <button name="action_extract_source" string="提取原文" type="object" class="btn btn-secondary" invisible="import_status in ('applied', 'validated')"/>
                     <button name="action_generate_draft" string="AI生成草稿" type="object" class="oe_highlight" invisible="import_status == 'applied'"/>
@@ -119,9 +119,9 @@
                     <notebook>
                         <page string="操作指南">
                             <group col="1">
-                                <div class="o_form_label">1. 上传 PDF、图片或网页来源，并确认主解析附件。</div>
+                                <div class="o_form_label">1. 原始资料主入口在“行业知识库 / 编译源资料”。这里仅作为 TDS 参数识别辅助。</div>
                                 <div class="o_form_label">2. 点击“提取原文”，走 OpenClaw agent/cli 链路提取正文和图片附件。</div>
-                                <div class="o_form_label">3. 点击“AI生成草稿”，由 OpenClaw 直接生成结构化草稿。</div>
+                                <div class="o_form_label">3. 点击“AI生成草稿”，由 OpenClaw 生成可人工复核的结构化材料草稿。</div>
                                 <div class="o_form_label">4. 在“草稿编辑”页核对主表字段、系列信息和技术参数，必要时手动修订。</div>
                                 <div class="o_form_label">5. 点击“校验草稿”，确认无误后再人工执行“入库草稿”。</div>
                             </group>
@@ -241,7 +241,7 @@
         <field name="name">diecut.catalog.source.document.search</field>
         <field name="model">diecut.catalog.source.document</field>
         <field name="arch" type="xml">
-            <search string="AI/TDS 草稿搜索">
+            <search string="AI/TDS 辅助草稿搜索">
                 <field name="name"/>
                 <field name="brand_id"/>
                 <field name="categ_id"/>
@@ -257,7 +257,7 @@
     </record>
 
     <record id="action_diecut_catalog_source_document" model="ir.actions.act_window">
-        <field name="name">AI/TDS 草稿</field>
+        <field name="name">AI/TDS 辅助草稿</field>
         <field name="res_model">diecut.catalog.source.document</field>
         <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="view_diecut_catalog_source_document_search"/>

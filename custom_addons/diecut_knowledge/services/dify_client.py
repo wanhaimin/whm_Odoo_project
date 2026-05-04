@@ -349,9 +349,11 @@ class DifyClient:
                     return
                 elif event_type == "workflow_finished":
                     outputs = event.get("data", {}).get("outputs", {}) or {}
+                    workflow_answer = ""
                     if outputs:
                         workflow_answer = outputs.get("text") or outputs.get("answer") or ""
                         if workflow_answer:
+                            full_answer += workflow_answer
                             yield ("token", {"token": workflow_answer, "full_answer": workflow_answer, "conversation_id": conversation_id}, None)
                     yield ("done", {
                         "conversation_id": conversation_id,

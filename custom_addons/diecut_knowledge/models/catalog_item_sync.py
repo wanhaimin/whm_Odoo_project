@@ -217,6 +217,7 @@ class DiecutCatalogItem(models.Model):
             "type": "ir.actions.client",
             "tag": "diecut_ai_advisor",
             "params": {
+                "mode": "ai",
                 "model": self._name,
                 "record_id": self.id,
                 "record_name": f"[{self.brand_id.name or ''}] {self.code or ''} {self.name or ''}".strip(),
@@ -240,4 +241,3 @@ class DiecutCatalogItem(models.Model):
             or 5
         )
         return KbCompiler(self.env).compile_pending(limit=limit)
-

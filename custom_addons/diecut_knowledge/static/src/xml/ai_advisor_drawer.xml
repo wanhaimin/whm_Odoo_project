@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-
     <t t-name="diecut_knowledge.AiAdvisorDrawer">
         <div class="o_diecut_ai_overlay" t-on-click="onClickBackdrop">
             <div class="o_diecut_ai_drawer">
                 <div class="o_diecut_ai_header">
                     <span class="o_diecut_ai_title">AI 顾问</span>
+                    <select class="form-select form-select-sm o_diecut_ai_model_select"
+                            t-if="ui.modelProfiles.length"
+                            t-att-disabled="ui.loading"
+                            t-on-change="onModelProfileChange">
+                        <t t-foreach="ui.modelProfiles" t-as="profile" t-key="profile.id">
+                            <option t-att-value="profile.id"
+                                    t-att-selected="profile.id === ui.selectedModelProfileId">
+                                <t t-esc="profile.name"/>
+                            </option>
+                        </t>
+                    </select>
+                    <label class="o_diecut_ai_wiki_toggle btn btn-sm"
+                           t-att-class="ui.wikiMode ? 'btn-info' : 'btn-outline-secondary'">
+                        <input type="checkbox"
+                               t-att-checked="ui.wikiMode"
+                               t-on-change="switchWikiMode"
+                               class="o_diecut_ai_wiki_checkbox" />
+                        Wiki
+                    </label>
+                    <button class="btn btn-sm btn-outline-secondary o_diecut_ai_clear"
+                            t-on-click="clearSession"
+                            t-att-disabled="ui.loading || !sessionId"
+                            title="清空当前上下文的 AI 顾问会话">
+                        清空
+                    </button>
                     <button class="btn btn-sm btn-link o_diecut_ai_close" t-on-click="close" title="关闭">
                         <i class="fa fa-times" />
                     </button>
@@ -15,6 +39,7 @@
                     <div t-if="!hasMessages and ui.loading" class="o_diecut_ai_spinner">
                         <i class="fa fa-spinner fa-spin" /> 思考中...
                     </div>
+
                     <div t-foreach="ui.messages" t-as="msg" t-key="msg.id"
                          t-att-class="'o_diecut_ai_msg o_diecut_ai_msg_' + msg.role">
                         <t t-if="msg.role == 'system'">
@@ -22,16 +47,44 @@
                                 <i class="fa fa-info-circle" /> <t t-esc="msg.content" />
                             </div>
                         </t>
+
                         <t t-elif="msg.role == 'user'">
                             <div class="o_diecut_ai_msg_content">
                                 <div class="o_diecut_ai_msg_label">你</div>
                                 <div class="o_diecut_ai_msg_text"><t t-esc="msg.content" /></div>
                             </div>
                         </t>
+
                         <t t-elif="msg.role == 'assistant'">
                             <div class="o_diecut_ai_msg_content">
                                 <div class="o_diecut_ai_msg_label">AI</div>
                                 <div class="o_diecut_ai_msg_text o_diecut_ai_answer"><t t-out="msg.content" /></div>
+
+                                <t t-if="msg.sourceLayer">
+                                    <div class="o_diecut_ai_citations">
+                                        <div class="o_diecut_ai_citations_title">
+                                            <t t-if="msg.sourceLayer == 'wiki'">已使用 Wiki</t>
+                                            <t t-elif="msg.sourceLayer == 'raw_source'">原始资料临时回答</t>
+                                            <t t-elif="msg.sourceLayer == 'catalog'">材料目录临时回答</t>
+                                            <t t-elif="msg.sourceLayer == 'mixed'">混合来源临时回答</t>
+                                            <t t-else="">未命中资料</t>
+                                            <t t-if="msg.compileJobId"> · 已生成待编译任务 #<t t-esc="msg.compileJobId" /></t>
+                                        </div>
+                                        <t t-if="msg.sourceRefs and msg.sourceRefs.length">
+                                            <t t-foreach="msg.sourceRefs" t-as="ref" t-key="ref.layer + '-' + ref.id">
+                                                <div class="o_diecut_ai_citation_item">
+                                                    <span class="o_diecut_ai_citation_name">
+                                                        <t t-esc="ref.name" />
+                                                        <t t-if="ref.type">
+                                                            <span class="o_diecut_ai_article_type">[<t t-esc="ref.type" />]</span>
+                                                        </t>
+                                                    </span>
+                                                </div>
+                                            </t>
+                                        </t>
+                                    </div>
+                                </t>
+
                                 <t t-if="msg.citations and msg.citations.length">
                                     <div class="o_diecut_ai_citations">
                                         <div class="o_diecut_ai_citations_title">来源</div>
@@ -45,10 +98,34 @@
                                         </t>
                                     </div>
                                 </t>
+
+                                <t t-if="msg.articles and msg.articles.length">
+                                    <div class="o_diecut_ai_citations">
+                                        <div class="o_diecut_ai_citations_title">参考 Wiki 文章</div>
+                                        <t t-foreach="msg.articles" t-as="art" t-key="art.id">
+                                            <div class="o_diecut_ai_citation_item">
+                                                <span class="o_diecut_ai_citation_name">
+                                                    <t t-esc="art.name" />
+                                                    <t t-if="art.wiki_page_type">
+                                                        <span class="o_diecut_ai_article_type">[<t t-esc="art.wiki_page_type" />]</span>
+                                                    </t>
+                                                </span>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </t>
+
                                 <div class="o_diecut_ai_msg_tools">
+                                    <button class="btn btn-sm o_diecut_ai_like_btn"
+                                            t-att-class="ui.likedIds.includes(msg.id) ? 'btn-warning' : 'btn-outline-secondary'"
+                                            t-on-click="likeMessage.bind(this, msg)"
+                                            t-att-disabled="!msg.content || !msg.question || ui.likedIds.includes(msg.id) || ui.likingIds.includes(msg.id)"
+                                            title="点赞收藏此回答">
+                                        <i t-att-class="ui.likingIds.includes(msg.id) ? 'fa fa-spinner fa-spin' : 'fa fa-thumbs-up'" />
+                                    </button>
                                     <button class="btn btn-sm btn-secondary"
                                             t-on-click="saveMessage.bind(this, msg)"
-                                            t-att-disabled="ui.savingIds.includes(msg.id) || !!msg.savedArticleId">
+                                            t-att-disabled="!msg.canSave || ui.savingIds.includes(msg.id) || !!msg.savedArticleId">
                                         <t t-if="msg.savedArticleId">已保存</t>
                                         <t t-else="">保存为知识</t>
                                     </button>
@@ -56,6 +133,7 @@
                             </div>
                         </t>
                     </div>
+
                     <div t-if="ui.loading" class="o_diecut_ai_msg o_diecut_ai_msg_assistant">
                         <div class="o_diecut_ai_msg_content">
                             <div class="o_diecut_ai_msg_label">AI</div>
@@ -64,27 +142,26 @@
                             </div>
                         </div>
                     </div>
+
                     <div t-if="ui.error" class="o_diecut_ai_error alert alert-danger">
                         <t t-esc="ui.error" />
                     </div>
                 </div>
 
                 <div class="o_diecut_ai_input_area">
-                    <textarea
-                        class="o_input o_diecut_ai_input"
-                        t-model="ui.inputText"
-                        placeholder="输入你的问题，Enter 发送..."
-                        t-on-keydown="onInputKeydown"
-                        t-att-disabled="ui.loading"
-                        rows="2"
-                    />
+                    <textarea class="o_input o_diecut_ai_input"
+                              t-model="ui.inputText"
+                              placeholder="输入你的问题，Enter 发送..."
+                              t-on-keydown="onInputKeydown"
+                              t-att-disabled="ui.loading"
+                              rows="2" />
                     <button class="btn btn-primary o_diecut_ai_send_btn"
-                            t-on-click="send" t-att-disabled="!canSend">
+                            t-on-click="send"
+                            t-att-disabled="!canSend">
                         发送
                     </button>
                 </div>
             </div>
         </div>
     </t>
-
 </templates>

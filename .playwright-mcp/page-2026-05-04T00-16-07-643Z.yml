@@ -1,0 +1,50 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - heading "Understand Anything" [level=1] [ref=e6]
+      - generic [ref=e8]:
+        - button "Overview" [ref=e9]
+        - button "Learn" [ref=e10]
+        - button "Deep Dive" [ref=e11]
+    - generic [ref=e13]:
+      - button "Diff OFF" [disabled] [ref=e15]
+      - generic [ref=e16]:
+        - button "Code" [ref=e17]: Code
+        - button "Config" [ref=e19]: Config
+        - button "Docs" [ref=e21]: Docs
+        - button "Infra" [ref=e23]: Infra
+        - button "Data" [ref=e25]: Data
+        - button "Domain" [ref=e27]: Domain
+        - button "Knowledge" [ref=e29]: Knowledge
+    - generic [ref=e31]:
+      - button "Filter" [ref=e33]:
+        - img [ref=e34]
+        - text: Filter
+      - button "Export" [ref=e37]:
+        - img [ref=e38]
+        - text: Export
+      - button "Path" [ref=e40]:
+        - img [ref=e41]
+        - text: Path
+      - button "Theme" [ref=e44]:
+        - img [ref=e45]
+        - generic [ref=e51]: Theme
+      - button "Keyboard shortcuts (Shift + ?)" [ref=e52]:
+        - img [ref=e53]
+  - generic [ref=e56]:
+    - img [ref=e57]
+    - textbox "Search nodes by name, summary, or tags..." [ref=e59]
+    - generic [ref=e60]:
+      - button "Fuzzy" [ref=e61]
+      - button "Semantic" [ref=e62]
+  - generic [ref=e63]:
+    - generic [ref=e64]:
+      - paragraph [ref=e66]: No knowledge graph loaded
+      - generic:
+        - text: Press
+        - generic: "?"
+        - text: for keyboard shortcuts
+    - complementary [ref=e67]:
+      - generic [ref=e69]:
+        - button "Info" [ref=e70]
+        - button "Files" [ref=e71]

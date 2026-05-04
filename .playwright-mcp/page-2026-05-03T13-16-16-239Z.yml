@@ -1,0 +1,111 @@
+- generic [ref=e2]:
+  - link "跳至内容" [ref=e3] [cursor=pointer]:
+    - /url: "#wrap"
+  - banner [ref=e4]:
+    - navigation "Main" [ref=e5]:
+      - generic [ref=e6]:
+        - link "Logo of My Website" [ref=e7] [cursor=pointer]:
+          - /url: /zh_CN
+          - img "Logo of My Website" [ref=e8]:
+            - img "My Website" [ref=e9]
+        - menu [ref=e10]:
+          - menuitem "首页" [ref=e11] [cursor=pointer]
+          - menuitem "商店" [ref=e12] [cursor=pointer]
+          - menuitem "联系我们" [ref=e13] [cursor=pointer]
+        - list [ref=e14]:
+          - listitem [ref=e15]:
+            - link "购物车" [ref=e16] [cursor=pointer]:
+              - /url: /zh_CN/shop/cart
+              - generic [ref=e18]: 
+          - listitem [ref=e19]:
+            - button "" [ref=e20] [cursor=pointer]:
+              - generic [ref=e21]: 
+          - listitem [ref=e22]:
+            - link " +1 555-555-5556" [ref=e24] [cursor=pointer]:
+              - /url: tel:+1 555-555-5556
+              - generic [ref=e25]: 
+              - generic [ref=e26]: +1 555-555-5556
+          - listitem [ref=e27]:
+            - button "简体中文" [expanded] [ref=e29] [cursor=pointer]
+          - listitem [ref=e30]:
+            - link "登录" [ref=e31] [cursor=pointer]:
+              - /url: /web/login
+          - listitem [ref=e32]:
+            - link "联系我们" [ref=e36] [cursor=pointer]:
+              - /url: /zh_CN/contactus
+    - text: 
+  - main [ref=e37]:
+    - generic:  
+    - generic: 
+  - contentinfo [ref=e38]:
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - heading "友情链接" [level=5] [ref=e44]
+        - list [ref=e45]:
+          - listitem [ref=e46]:
+            - link "首页" [ref=e47] [cursor=pointer]:
+              - /url: /zh_CN
+          - listitem [ref=e48]:
+            - link "关于我们" [ref=e49] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e50]:
+            - link "产品" [ref=e51] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e52]:
+            - link "服务" [ref=e53] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e54]:
+            - link "法律" [ref=e55] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e56]:
+            - link "联系我们" [ref=e57] [cursor=pointer]:
+              - /url: /zh_CN/contactus
+      - generic [ref=e58]:
+        - heading "关于我们" [level=5] [ref=e59]
+        - paragraph [ref=e60]:
+          - text: 我们是一支充满激情的团队，我们的愿景是通过构建一个具有颠覆意义的软件系统 ，来提升每一家中小企业的产品品质，并解决您在商业活动中遇到的诸多经营问题。
+          - text: 我们的产品旨在帮助希望优化绩效的中小型公司。
+      - generic [ref=e61]:
+        - heading "与我们联系" [level=5] [ref=e62]
+        - list [ref=e63]:
+          - listitem [ref=e64]:
+            - generic [ref=e65]: 
+            - link "联系我们" [ref=e66] [cursor=pointer]:
+              - /url: /zh_CN/contactus
+          - listitem [ref=e67]:
+            - generic [ref=e68]: 
+            - link "info@yourcompany.example.com" [ref=e69] [cursor=pointer]:
+              - /url: mailto:info@yourcompany.example.com
+          - listitem [ref=e70]:
+            - generic [ref=e71]: 
+            - link "+1 555-555-5556" [ref=e72] [cursor=pointer]:
+              - /url: tel:+1 555-555-5556
+        - generic [ref=e73]:
+          - link "脸书" [ref=e74] [cursor=pointer]:
+            - /url: /zh_CN/website/social/facebook
+            - generic [ref=e75]: 
+          - link "X" [ref=e76] [cursor=pointer]:
+            - /url: /zh_CN/website/social/twitter
+            - generic [ref=e77]: 
+          - link "领英" [ref=e78] [cursor=pointer]:
+            - /url: /zh_CN/website/social/linkedin
+            - generic [ref=e79]: 
+          - link "附加页面" [ref=e80] [cursor=pointer]:
+            - /url: /zh_CN
+            - generic [ref=e81]: 
+    - generic [ref=e84]:
+      - generic [ref=e85]:
+        - generic [ref=e86]: Copyright © Company name
+        - menu [ref=e88]:
+          - menuitem "简体中文" [ref=e89] [cursor=pointer]
+          - generic [ref=e90]: "|"
+          - menuitem "English (US)" [ref=e91] [cursor=pointer]
+      - generic [ref=e93]:
+        - text: 由
+        - link "Odoo" [ref=e94] [cursor=pointer]:
+          - /url: http://www.odoo.com?utm_source=db&utm_medium=website
+          - img "Odoo" [ref=e95]
+        - text: "- #1"
+        - link "开源电商" [ref=e96] [cursor=pointer]:
+          - /url: http://www.odoo.com/app/ecommerce?utm_source=db&utm_medium=website
+        - text: 提供支持

@@ -35,6 +35,14 @@
 .o_diecut_ai_title {
     font-size: 16px;
     font-weight: 600;
+    margin-right: auto;
+}
+
+.o_diecut_ai_model_select {
+    width: 150px;
+    min-width: 120px;
+    margin: 0 8px;
+    font-size: 12px;
 }
 
 .o_diecut_ai_close {
@@ -99,7 +107,14 @@
 .o_diecut_ai_msg_tools {
     margin-top: 6px;
     display: flex;
+    gap: 6px;
     justify-content: flex-start;
+}
+
+.o_diecut_ai_like_btn.btn-warning {
+    color: #5c3b00;
+    border-color: #f0b429;
+    background-color: #ffd666;
 }
 
 .o_diecut_ai_thinking {
@@ -169,4 +184,28 @@
 .o_diecut_ai_citation_score {
     color: #6c757d;
     font-size: 10px;
+}
+
+.o_diecut_ai_wiki_toggle {
+    font-size: 12px;
+    cursor: pointer;
+    margin: 0 6px 0 0;
+    padding: 2px 10px;
+    gap: 4px;
+}
+
+.o_diecut_ai_clear {
+    font-size: 12px;
+    padding: 2px 8px;
+    margin-right: 4px;
+}
+
+.o_diecut_ai_wiki_checkbox {
+    display: none;
+}
+
+.o_diecut_ai_article_type {
+    color: #6c757d;
+    font-size: 10px;
+    margin-left: 2px;
 }

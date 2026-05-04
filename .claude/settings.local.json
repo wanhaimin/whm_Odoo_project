@@ -54,7 +54,18 @@
       "Bash(python -c \"import odoo; print\\(odoo.version\\)\")",
       "Bash(python -c \"from odoo.release import version_info; print\\(version_info\\)\")",
       "Bash(python -c \"import odoo; print\\(odoo.__file__\\)\")",
-      "Bash(python3 -c \"import odoo; print\\(odoo.__file__\\)\")"
+      "Bash(python3 -c \"import odoo; print\\(odoo.__file__\\)\")",
+      "Bash(docker port my_odoo_project_devcontainer-web-1 *)",
+      "PowerShell(E:\\\\workspace\\\\my_odoo_project\\\\.venv\\\\Scripts\\\\python.exe E:\\\\workspace\\\\my_odoo_project\\\\custom_addons\\\\diecut_knowledge\\\\scripts\\\\test_claude_ui.py)",
+      "PowerShell(E:\\\\workspace\\\\my_odoo_project\\\\.venv\\\\Scripts\\\\python.exe E:\\\\workspace\\\\my_odoo_project\\\\odoo\\\\odoo-bin -c E:\\\\workspace\\\\my_odoo_project\\\\odoo.conf -d odoo -u diecut_knowledge --stop-after-init 2>&1)",
+      "PowerShell(docker restart my_odoo_project_devcontainer-web-1 *)",
+      "PowerShell(Start-Sleep -Seconds 8; E:\\\\workspace\\\\my_odoo_project\\\\.venv\\\\Scripts\\\\python.exe E:\\\\workspace\\\\my_odoo_project\\\\custom_addons\\\\diecut_knowledge\\\\scripts\\\\test_claude_ui.py)",
+      "PowerShell($env:PGPASSWORD = 'odoo'; & E:\\\\workspace\\\\my_odoo_project\\\\.venv\\\\Scripts\\\\python.exe -c \"import psycopg2; conn = psycopg2.connect\\(host='localhost', port=5434, dbname='odoo', user='odoo', password='odoo'\\); cur = conn.cursor\\(\\); cur.execute\\('SELECT key, substring\\(value,1,40\\) FROM ir_config_parameter WHERE key LIKE %s', \\('%diecut_knowledge.claude%',\\)\\); rows = cur.fetchall\\(\\); [print\\(r\\) for r in rows]; cur.execute\\('SELECT key, substring\\(value,1,40\\) FROM ir_config_parameter WHERE key LIKE %s', \\('%ai_backend%',\\)\\); rows = cur.fetchall\\(\\); [print\\(r\\) for r in rows]; conn.close\\(\\)\")",
+      "PowerShell(curl *)",
+      "PowerShell(\\(Invoke-WebRequest -Uri \"http://localhost:8070/web/login\" -UseBasicParsing -TimeoutSec 10\\).StatusCode)",
+      "PowerShell(E:\\\\workspace\\\\my_odoo_project\\\\.venv\\\\Scripts\\\\python.exe E:\\\\workspace\\\\my_odoo_project\\\\custom_addons\\\\diecut_knowledge\\\\scripts\\\\test_claude_rpc.py)",
+      "PowerShell(docker exec my_odoo_project_devcontainer-web-1 *)",
+      "Bash(.venv/Scripts/python.exe odoo/odoo-bin -c odoo.conf -d my_odoo -u diecut_knowledge --stop-after-init)"
     ]
   }
 }
